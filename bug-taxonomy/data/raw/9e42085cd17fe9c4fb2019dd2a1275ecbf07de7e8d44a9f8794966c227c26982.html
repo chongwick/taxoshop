@@ -1,0 +1,3592 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<base href="https://sqlite.org/bugs/info">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self' 'nonce-f9895a21e434b1f93664975ce09511339b861043191c8754'; style-src 'self' 'unsafe-inline'; img-src * data:">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQLite Bug Forum: Bug107-88: spellfix editDist3Install OOM-Triggered Use-After-Free</title>
+<link rel="alternate" type="application/rss+xml" title="RSS Feed"  href="/bugs/timeline.rss">
+<link rel="stylesheet" href="/bugs/style.css/forum?id=d19cdb7f" type="text/css">
+</head>
+<body class="forum rpage-info cpage-info">
+<header>
+  <div class="title"><h1>SQLite Bug Forum</h1>Bug107-88: spellfix editDist3Install OOM-Triggered Use-After-Free</div>
+  <div class="status">
+    <a href='/bugs/login'>Login</a>
+
+  </div>
+</header>
+<nav class="mainmenu" title="Main Menu">
+  <a id='hbbtn' href='/bugs/sitemap' aria-label='Site Map'>&#9776;</a><a href='/bugs/about' class='desktoponly'>About</a>
+<a href='/bugs/forum' class=''>Threads</a>
+<a href='/bugs/forumnew' class=''>Post</a>
+<a href='/bugs/register' class='desktoponly'>Subscribe</a>
+<a href='https://sqlite.org/' class=''>SQLite</a>
+<a href='https://sqlite.org/forum' class=''>Forum</a>
+
+</nav>
+<nav id="hbdrop" class='hbdrop' title="sitemap"></nav>
+<form id='f01' method='GET' action='/bugs/info'>
+<input type='hidden' name='udc' value='1'>
+<div class="submenu">
+<a class="label sml-chronological"  href="/bugs/info/9e42085cd17fe9c4fb2019dd2a1275ecbf07de7e8d44a9f8794966c227c26982?t=c">Chronological</a>
+<label class='submenuctrl submenuckbox smc-unf'><input type='checkbox' name='unf' id='submenuctrl-0' >Unformatted</label>
+<label class='submenuctrl submenuckbox smc-hist'><input type='checkbox' name='hist' id='submenuctrl-1' >History</label>
+</div>
+<input type="hidden" name="name" value="9e42085cd17fe9c4fb2019dd2a1275ecbf07de7e8d44a9f8794966c227c26982">
+</form>
+<div class="content"><span id="debugMsg"></span>
+<div id='forum768' class='forumpost forumTime' data-fedithead="c6b457a8c892de07d0378e819301a2f5b2d6bf357ba2ec6914c944f6841f38a8" data-fpid="c6ac702fff93cd0af18f4c9fe21d4464617960a2545b0b712f0fac56d99f9671"><h1>Bug107-88: spellfix editDist3Install OOM-Triggered Use-After-Free</h1>
+<h3 class='forumPostHdr'>(1.1)
+By ylwang (yuelinwang</a>) on <span class="nobr"><button class="copy-button" id="copy-content-id-1" data-copytarget="content-id-1" data-copylength="0" data-content="2026-07-26T07:55:13Z"><span></span></button><span id="content-id-1">2026-07-26 07:55:13</span></span>&#32;edited from 1.0</a>
+[link]</a>
+[source]</a>
+</h3>
+<div class='forumPostBody'>
+<div class="markdown">
+
+<h3 id="summary">Summary</h3>
+<p>In <code>ext/misc/spellfix.c</code>, <code>editDist3Install()</code> (line 1210) registers the <code>editdist3</code> SQL function three times under different argument counts, all three sharing one heap-allocated <code>EditDist3Config *pConfig</code> as the <code>pApp</code> context pointer:</p>
+<pre><code class="language-c">static int editDist3Install(sqlite3 *db){
+  int rc;
+  EditDist3Config *pConfig = sqlite3_malloc64( sizeof(*pConfig) );
+  if( pConfig==0 ) return SQLITE_NOMEM;
+  memset(pConfig, 0, sizeof(*pConfig));
+  rc = sqlite3_create_function_v2(db, &quot;editdist3&quot;,
+              2, SQLITE_UTF8|SQLITE_DETERMINISTIC, pConfig,
+              editDist3SqlFunc, 0, 0, 0);                          /* line 1215, xDestroy = 0 */
+  if( rc==SQLITE_OK ){
+    rc = sqlite3_create_function_v2(db, &quot;editdist3&quot;,
+                3, SQLITE_UTF8|SQLITE_DETERMINISTIC, pConfig,
+                editDist3SqlFunc, 0, 0, 0);                         /* line 1219, xDestroy = 0 */
+  }
+  if( rc==SQLITE_OK ){
+    rc = sqlite3_create_function_v2(db, &quot;editdist3&quot;,
+                1, SQLITE_UTF8|SQLITE_DETERMINISTIC, pConfig,
+                editDist3SqlFunc, 0, 0, editDist3ConfigDelete);     /* line 1224, only this one frees pConfig */
+  }else{
+    sqlite3_free(pConfig);                                         /* line 1228 */
+  }
+  return rc;
+}
+</code></pre>
+<p>Only the third (<code>nArg=1</code>) registration is given <code>editDist3ConfigDelete</code> as its <code>xDestroy</code> — deliberately, since attaching the same destructor to all three registrations would free <code>pConfig</code> three times when the connection closes. But the <code>else</code> at line 1228 fires whenever <code>rc!=SQLITE_OK</code> at that point in the function, which covers <strong>three</strong> distinct predecessor states, not just "nothing registered yet":</p>
+
+<ol>
+<li>The <code>nArg=2</code> call itself failed — nothing registered, safe to free.</li>
+<li>The <code>nArg=2</code> call <strong>succeeded</strong> but the <code>nArg=3</code> call failed — <code>editdist3/2</code> is now live in the schema with <code>pApp=pConfig</code>, <code>xDestroy=0</code>, and the <code>else</code> branch frees <code>pConfig</code> out from under it.</li>
+<li>Both <code>nArg=2</code> and <code>nArg=3</code> succeeded but <code>nArg=1</code> failed — same problem, now with two dangling live registrations.</li>
+</ol>
+
+<p>In cases 2 and 3, any subsequent call to <code>editdist3(...)</code> reaches <code>editDist3SqlFunc()</code> (line ~1170), which does <code>EditDist3Config *pConfig = (EditDist3Config*)sqlite3_user_data(context);</code> and dereferences it directly (<code>editDist3FindLang(pConfig, iLang)</code>, <code>editDist3ConfigLoad(pConfig, db, zTable)</code>), producing a heap-use-after-free.</p>
+
+<p>Reaching case 2/3 requires <code>sqlite3_create_function_v2()</code> to fail immediately after an identical call with the same shared <code>pApp</code> just succeeded — realistically only via a memory allocation failure injected into SQLite's internal function-registration path (the same class of OOM-injection PoC already used in this report for Vuln55/Vuln56). This bug is present unmodified in SQLite's public GitHub trunk as of commit <code>701092f4a5e8320460219dab733f31dc7a723629</code> (2026-07-25) — confirmed by fetching and diffing against that commit directly; the local audit checkout (<code>e087d0f</code>, 2026-05-18) has byte-identical code at this location.</p>
+
+<h3 id="reproduce">Reproduce</h3>
+<p>A custom <code>SQLITE_CONFIG_MALLOC</code> mock allocator (<code>oom_mock_static.c</code>) is used to fail exactly one allocation of a chosen size, following the same technique as Vuln55/Vuln56. Default per-connection lookaside must be disabled globally (<code>sqlite3_config(SQLITE_CONFIG_LOOKASIDE, 0, 0)</code>) <em>before</em> <code>sqlite3_open()</code>, otherwise SQLite intercepts small allocations (including the internal <code>FuncDef</code> struct for <code>"editdist3"</code>, 88 bytes here) via lookaside before they ever reach the configured allocator. The mock is armed to let the first 88-byte allocation succeed (the <code>nArg=2</code> registration) and fail the second (the <code>nArg=3</code> registration).</p>
+
+<p>Build against SQLite trunk commit <code>701092f4a5e8320460219dab733f31dc7a723629</code>:</p>
+<pre><code class="language-bash">gcc -g -O0 -fsanitize=address -DSQLITE_CORE -DSQLITE_ENABLE_LOAD_EXTENSION \
+    -DSQLITE_EXTRA_INIT=oom_extra_init -I. \
+    -o sqlite3_static_shell shell.c sqlite3.c ext/misc/spellfix.c oom_mock_static.c \
+    -ldl -lpthread -lm
+</code></pre>
+<p><code>oom_mock_static.c</code> installs the mock allocator via a <code>SQLITE_CONFIG_MALLOC</code> hook and registers two helper SQL functions through <code>SQLITE_EXTRA_INIT</code>: <code>oom_arm(minSize, maxSize, skipCount)</code> arms the fail-window, and <code>spellfix_install()</code> calls <code>sqlite3_spellfix_init()</code> on the current connection so the OOM window can be armed from inside a running shell session.</p>
+
+<p>SQL script (<code>poc2_static.sql</code>):</p>
+<pre><code class="language-sql">SELECT oom_arm(88, 88, 1);       -- let the 1st 88-byte alloc through, fail the 2nd
+SELECT spellfix_install();       -- triggers editDist3Install(): nArg=2 succeeds, nArg=3 OOMs, pConfig freed
+SELECT oom_arm(999999999, 0, 0); -- disarm, so the query below allocates normally
+SELECT editdist3(&#39;kitten&#39;,&#39;sitting&#39;);   -- editdist3/2 still registered, pApp now dangling
+</code></pre>
+<p>Run:</p>
+<pre><code class="language-bash">ASAN_OPTIONS=detect_leaks=0 ./sqlite3_static_shell :memory: &lt; poc2_static.sql
+</code></pre>
+<p>Trigger output:</p>
+<pre><code>1
+[mock_oom] skip malloc(88)
+[mock_oom] FAIL malloc(88)
+Error near line 2: out of memory
+1
+=================================================================
+==2402225==ERROR: AddressSanitizer: heap-use-after-free on address 0x503000000438 at pc 0x5cfca049d3e3 bp 0x7ffc8ec49ad0 sp 0x7ffc8ec49ac0
+READ of size 4 at 0x503000000438 thread T0
+    #0 editDist3FindLang ext/misc/spellfix.c:1161
+    #1 editDist3SqlFunc  ext/misc/spellfix.c:1194
+    #2 sqlite3VdbeExec   sqlite3.c:104876
+    #3 sqlite3Step       sqlite3.c:93850
+    #4 sqlite3_step      sqlite3.c:93911
+    ...
+
+0x503000000438 is located 8 bytes inside of 24-byte region [0x503000000430,0x503000000448)
+freed by thread T0 here:
+    #0 free
+    #1 sqlite3MemFree     sqlite3.c:28309
+    #2 oF                 oom_mock_static.c:26
+    #3 sqlite3_free       sqlite3.c:32093
+    #4 editDist3Install   ext/misc/spellfix.c:1236   &lt;- sqlite3_free(pConfig) in the else branch
+    #5 spellfix1Register  ext/misc/spellfix.c:3055
+    #6 sqlite3_spellfix_init ext/misc/spellfix.c:3081
+    #7 spellfixInstallFunc oom_mock_static.c:49
+
+previously allocated by thread T0 here:
+    #6 editDist3Install   ext/misc/spellfix.c:1222   &lt;- sqlite3_malloc64(sizeof(*pConfig))
+    #7 spellfix1Register  ext/misc/spellfix.c:3055
+</code></pre>
+<p>The <code>nArg=2</code> registration (line 1215) succeeded, <code>nArg=3</code> (line 1219) failed under the injected OOM, <code>pConfig</code> was freed in the <code>else</code> branch (line 1228, reported here as line 1236 in the exact trunk build's line numbering), and the still-live <code>editdist3/2</code> function's <code>pApp</code> was left pointing at the freed 24-byte region. <code>SELECT editdist3('kitten','sitting')</code> then dereferenced it via <code>sqlite3_user_data()</code>.</p>
+
+<h3 id="fix">Fix</h3>
+<p>Free <code>pConfig</code> only when nothing has been registered with it yet, and explicitly tear down any partial registrations otherwise, so no live function is left pointing at freed memory:</p>
+<pre><code class="language-c">static int editDist3Install(sqlite3 *db){
+  int rc;
+  EditDist3Config *pConfig = sqlite3_malloc64( sizeof(*pConfig) );
+  if( pConfig==0 ) return SQLITE_NOMEM;
+  memset(pConfig, 0, sizeof(*pConfig));
+  rc = sqlite3_create_function_v2(db, &quot;editdist3&quot;,
+              2, SQLITE_UTF8|SQLITE_DETERMINISTIC, pConfig,
+              editDist3SqlFunc, 0, 0, 0);
+  if( rc==SQLITE_OK ){
+    rc = sqlite3_create_function_v2(db, &quot;editdist3&quot;,
+                3, SQLITE_UTF8|SQLITE_DETERMINISTIC, pConfig,
+                editDist3SqlFunc, 0, 0, 0);
+  }
+  if( rc==SQLITE_OK ){
+    rc = sqlite3_create_function_v2(db, &quot;editdist3&quot;,
+                1, SQLITE_UTF8|SQLITE_DETERMINISTIC, pConfig,
+                editDist3SqlFunc, 0, 0, editDist3ConfigDelete);
+  }else{
+    /* Undo whichever of the earlier registrations already succeeded, so no
+    ** live &quot;editdist3&quot; entry is left pointing pApp at pConfig, then free it
+    ** exactly once. */
+    sqlite3_create_function_v2(db, &quot;editdist3&quot;, 2, SQLITE_UTF8, 0, 0,0,0,0);
+    sqlite3_create_function_v2(db, &quot;editdist3&quot;, 3, SQLITE_UTF8, 0, 0,0,0,0);
+    sqlite3_free(pConfig);
+  }
+  return rc;
+}
+</code></pre>
+</div>
+
+</div>
+<div class="forumpost-single-controls"><form action="/bugs/forumedit" method="POST">
+<input type="hidden" name="fpid" value="c6ac702fff93cd0af18f4c9fe21d4464617960a2545b0b712f0fac56d99f9671">
+<input type="submit" name="reply" value="Reply">
+<input type="hidden" name="csrf" value="X4NxUm8fHjwVYdN">
+</form>
+</div>
+</div>
+<div id='forum771' class='forumpost forumTime forumSel' style='margin-left:4ex;' data-firt="c6ac702fff93cd0af18f4c9fe21d4464617960a2545b0b712f0fac56d99f9671" data-fedithead="9e42085cd17fe9c4fb2019dd2a1275ecbf07de7e8d44a9f8794966c227c26982" data-fpid="a379e641be0d138e7468c4b7979574b9d4b58d32d10e5df2427a5d0913b41840"><h3 class='forumPostHdr'>(2.1)
+By drh</a> on <span class="nobr"><button class="copy-button" id="copy-content-id-2" data-copytarget="content-id-2" data-copylength="0" data-content="2026-07-26T19:08:41Z"><span></span></button><span id="content-id-2">2026-07-26 19:08:41</span></span>&#32;edited from 2.0</a>
+in reply to 1.1</a>
+[source]</a>
+</h3>
+<div class='forumPostBody'>
+<div class="markdown">
+
+<p>Should be fixed by <a href="https://sqlite.org/src/info/37364eaecc148133">check-in 37364eaecc148133</a>.</p>
+
+<p>This problem is sufficiently obscure, and the spellfix extension is so seldom deployed, that
+it does not seem necessary to backport this change to branch-3.53.  The fix will not appear
+in any subsequent 3.53.x patch release.  The first official release of this fix will
+be in SQLite 3.54.0.</p>
+
+</div>
+
+</div>
+<div class="forumpost-single-controls"><form action="/bugs/forumedit" method="POST">
+<input type="hidden" name="fpid" value="a379e641be0d138e7468c4b7979574b9d4b58d32d10e5df2427a5d0913b41840">
+<input type="submit" name="reply" value="Reply">
+<input type="hidden" name="csrf" value="X4NxUm8fHjwVYdN">
+</form>
+</div>
+</div>
+<script nonce='f9895a21e434b1f93664975ce09511339b861043191c8754'>/* builtin.c:637 */
+(function(){
+if(window.NodeList && !NodeList.prototype.forEach){NodeList.prototype.forEach = Array.prototype.forEach;}
+if(!window.fossil) window.fossil={};
+window.fossil.version = "2.29 [d04ad10377] 2026-08-28 11:49:43 UTC";
+window.fossil.rootPath = "/bugs"+'/';
+window.fossil.config = {projectName: "SQLite Bug Forum",
+shortProjectName: "sqlite-forum",
+projectCode: "4e1d224e05c456d64d653f22634970814fd25898",
+/* Length of UUID hashes for display purposes. */hashDigits: 10, hashDigitsUrl: 16,
+diffContextLines: 5,
+editStateMarkers: {/*Symbolic markers to denote certain edit states.*/isNew:'[+]', isModified:'[*]', isDeleted:'[-]'},
+confirmerButtonTicks: 3 /*default fossil.confirmer tick count.*/,
+attachmentSizeLimit: 0,
+skin:{isDark: false/*true if the current skin has the 'white-foreground' detail*/}
+};
+window.fossil.config.forumStatuses = [{label:"Open", value:"open"},{label:"Resolved", value:"resolved"},{label:"Not Planned", value:"not-planned"}];
+window.fossil.user = {name: "guest",isAdmin: false,mayAttachForum: false,enableDebug: false,isIndividual: false};
+for(const x of ["forum", "rpage-info","cpage-info"]) {if(x) document.body.classList.add(x);};
+if(fossil.config.skin.isDark) document.body.classList.add('fossil-dark-style');
+window.fossil.page = {name:"info"};
+})();
+</script>
+</div>
+<footer>
+This page was generated in about
+0.006s by
+Fossil 2.29 [d04ad10377] 2026-08-28 11:49:43
+</footer>
+<script nonce="f9895a21e434b1f93664975ce09511339b861043191c8754">/* style.c:944 */
+function debugMsg(msg){
+var n = document.getElementById("debugMsg");
+if(n){n.textContent=msg;}
+}
+</script>
+<script nonce='f9895a21e434b1f93664975ce09511339b861043191c8754'>
+/* hbmenu.js *************************************************************/
+(function() {
+var hbButton = document.getElementById("hbbtn");
+if (!hbButton) return;
+if (!document.addEventListener) return;
+var panel = document.getElementById("hbdrop");
+if (!panel) return;
+if (!panel.style) return;
+var panelBorder = panel.style.border;
+var panelInitialized = false;
+var panelResetBorderTimerID = 0;
+var animate = panel.style.transition !== null && (typeof(panel.style.transition) == "string");
+var animMS = panel.getAttribute("data-anim-ms");
+if (animMS) {
+animMS = parseInt(animMS);
+if (isNaN(animMS) || animMS == 0)
+animate = false;
+else if (animMS < 0)
+animMS = 400;
+}
+else
+animMS = 400;
+var panelHeight;
+function calculatePanelHeight() {
+panel.style.maxHeight = '';
+var es   = window.getComputedStyle(panel),
+edis = es.display,
+epos = es.position,
+evis = es.visibility;
+panel.style.visibility = 'hidden';
+panel.style.position   = 'absolute';
+panel.style.display    = 'block';
+panelHeight = panel.offsetHeight + 'px';
+panel.style.display    = edis;
+panel.style.position   = epos;
+panel.style.visibility = evis;
+}
+function showPanel() {
+if (panelResetBorderTimerID) {
+clearTimeout(panelResetBorderTimerID);
+panelResetBorderTimerID = 0;
+}
+if (animate) {
+if (!panelInitialized) {
+panelInitialized = true;
+calculatePanelHeight();
+panel.style.transition = 'max-height ' + animMS +
+'ms ease-in-out';
+panel.style.overflowY  = 'hidden';
+panel.style.maxHeight  = '0';
+}
+setTimeout(function() {
+panel.style.maxHeight = panelHeight;
+panel.style.border    = panelBorder;
+}, 40);
+}
+panel.style.display = 'block';
+document.addEventListener('keydown',panelKeydown,true);
+document.addEventListener('click',panelClick,false);
+}
+var panelKeydown = function(event) {
+var key = event.which || event.keyCode;
+if (key == 27) {
+event.stopPropagation();
+panelToggle(true);
+}
+};
+var panelClick = function(event) {
+if (!panel.contains(event.target)) {
+panelToggle(true);
+}
+};
+function panelShowing() {
+if (animate) {
+return panel.style.maxHeight == panelHeight;
+}
+else {
+return panel.style.display == 'block';
+}
+}
+function hasChildren(element) {
+var childElement = element.firstChild;
+while (childElement) {
+if (childElement.nodeType == 1)
+return true;
+childElement = childElement.nextSibling;
+}
+return false;
+}
+window.addEventListener('resize',function(event) {
+panelInitialized = false;
+},false);
+hbButton.addEventListener('click',function(event) {
+event.stopPropagation();
+event.preventDefault();
+panelToggle(false);
+},false);
+function panelToggle(suppressAnimation) {
+if (panelShowing()) {
+document.removeEventListener('keydown',panelKeydown,true);
+document.removeEventListener('click',panelClick,false);
+if (animate) {
+if (suppressAnimation) {
+var transition = panel.style.transition;
+panel.style.transition = '';
+panel.style.maxHeight = '0';
+panel.style.border = 'none';
+setTimeout(function() {
+panel.style.transition = transition;
+}, 40);
+}
+else {
+panel.style.maxHeight = '0';
+panelResetBorderTimerID = setTimeout(function() {
+panel.style.border = 'none';
+panelResetBorderTimerID = 0;
+}, animMS);
+}
+}
+else {
+panel.style.display = 'none';
+}
+}
+else {
+if (!hasChildren(panel)) {
+var xhr = new XMLHttpRequest();
+xhr.onload = function() {
+var doc = xhr.responseXML;
+if (doc) {
+var sm = doc.querySelector("ul#sitemap");
+if (sm && xhr.status == 200) {
+panel.innerHTML = sm.outerHTML;
+showPanel();
+}
+}
+}
+var url = hbButton.href + (hbButton.href.includes("?")?"&popup":"?popup")
+xhr.open("GET", url);
+xhr.responseType = "document";
+xhr.send();
+}
+else {
+showPanel();
+}
+}
+}
+})();
+/* copybtn.js *************************************************************/
+function makeCopyButton(idTarget,bFlipped,cchLength){
+var elButton = document.createElement("button");
+elButton.className = "copy-button";
+if( bFlipped ) elButton.className += " copy-button-flipped";
+elButton.id = "copy-" + idTarget;
+initCopyButton(elButton,idTarget,cchLength);
+return elButton;
+}
+function initCopyButtonById(idButton,idTarget,cchLength){
+idButton = idButton || "copy-" + idTarget;
+var elButton = document.getElementById(idButton);
+if( elButton ) initCopyButton(elButton,idTarget,cchLength);
+return elButton;
+}
+function initCopyButton(elButton,idTarget,cchLength){
+if( idTarget ) elButton.setAttribute("data-copytarget",idTarget);
+if( cchLength ) elButton.setAttribute("data-copylength",cchLength);
+elButton.onclick = clickCopyButton;
+if( elButton.childElementCount!=1 || elButton.firstChild.tagName!="SPAN" ){
+while( elButton.firstChild ) elButton.removeChild(elButton.lastChild);
+elButton.appendChild(document.createElement("span"));
+}
+return elButton;
+}
+setTimeout(function(){
+var elButtons = document.getElementsByClassName("copy-button");
+for ( var i=0; i<elButtons.length; i++ ){
+initCopyButton(elButtons[i],0,0);
+}
+},1);
+function clickCopyButton(e){
+e.preventDefault();
+e.stopPropagation();
+if( this.disabled ) return;
+var idTarget = this.getAttribute("data-copytarget");
+var elTarget = document.getElementById(idTarget);
+if( elTarget ){
+var text = this.getAttribute("data-content");
+if( !text ){
+text = elTarget.innerText.replace(/^\s+|\s+$/g,"");
+var cchLength = parseInt(this.getAttribute("data-copylength"));
+if( !isNaN(cchLength) && cchLength>0 ){
+text = text.slice(0,cchLength);
+}
+}
+copyTextToClipboard(text);
+}
+}
+function copyTextToClipboard(text){
+if( window.clipboardData && window.clipboardData.setData ){
+window.clipboardData.setData("Text",text);
+}else{
+var elTextarea = document.createElement("textarea");
+elTextarea.style.position = "fixed";
+elTextarea.value = text;
+document.body.appendChild(elTextarea);
+elTextarea.select();
+try{
+document.execCommand("copy");
+}catch(err){
+}finally{
+document.body.removeChild(elTextarea);
+}
+}
+}
+/* forum.js *************************************************************/
+(function(){
+function absoluteY(obj){
+var top = 0;
+if( obj.offsetParent ){
+do{
+top += obj.offsetTop;
+}while( obj = obj.offsetParent );
+}
+return top;
+}
+var x = document.getElementsByClassName('forumSel');
+if(x[0]){
+var w = window.innerHeight;
+var h = x[0].scrollHeight;
+var y = absoluteY(x[0]);
+if( w>h ) y = y + (h-w)/2;
+if( y>0 ) window.scrollTo(0, y);
+}
+})();
+/* fossil.bootstrap.js *************************************************************/
+"use strict";
+(function () {
+if(typeof window.CustomEvent === "function") return false;
+window.CustomEvent = function(event, params) {
+if(!params) params = {bubbles: false, cancelable: false, detail: null};
+const evt = document.createEvent('CustomEvent');
+evt.initCustomEvent( event, !!params.bubbles, !!params.cancelable, params.detail );
+return evt;
+};
+})();
+(function(global){
+const F = global.fossil;
+F.nu = (...obj)=>Object.assign(Object.create(null),...obj);
+const timestring = function f(){
+if(!f.rx1){
+f.rx1 = /\.\d+Z$/;
+}
+const d = new Date();
+return d.toISOString().replace(f.rx1,'').split('T').join(' ');
+};
+const localTimeString = function ff(d){
+if(!ff.pad){
+ff.pad = (x)=>(''+x).length>1 ? x : '0'+x;
+}
+d || (d = new Date());
+return [
+d.getFullYear(),'-',ff.pad(d.getMonth()+1),
+'-',ff.pad(d.getDate()),
+' ',ff.pad(d.getHours()),':',ff.pad(d.getMinutes()),
+':',ff.pad(d.getSeconds())
+].join('');
+};
+F.message = function f(){
+const args = Array.prototype.slice.call(arguments,0);
+const tgt = f.targetElement;
+if(args.length) args.unshift(
+localTimeString()+':'
+);
+if(tgt){
+tgt.classList.remove('error');
+tgt.innerText = args.join(' ');
+}
+else{
+if(args.length){
+args.unshift('Fossil status:');
+console.debug.apply(console,args);
+}
+}
+return this;
+};
+F.message.targetElement =
+document.querySelector('#fossil-status-bar');
+if(F.message.targetElement){
+F.message.targetElement.addEventListener(
+'dblclick', ()=>F.message(), false
+);
+}
+F.error = function f(){
+const args = Array.prototype.slice.call(arguments,0);
+const tgt = F.message.targetElement;
+args.unshift(timestring(),'UTC:');
+if(tgt){
+tgt.classList.add('error');
+tgt.innerText = args.join(' ');
+}else{
+args.unshift('Fossil error:');
+console.error.apply(console,args);
+}
+return this;
+};
+F.encodeUrlArgs = function(obj,tgtArray,fakeEncode){
+if(!obj) return '';
+const a = (tgtArray instanceof Array) ? tgtArray : [],
+enc = fakeEncode ? (x)=>x : encodeURIComponent;
+let k, i = 0;
+for( k in obj ){
+if(i++) a.push('&');
+a.push(enc(k),'=',enc(obj[k]));
+}
+return a===tgtArray ? a : a.join('');
+};
+F.repoUrl = function(path,urlParams){
+if(!urlParams) return this.rootPath+path;
+const url=[this.rootPath,path];
+url.push('?');
+if('string'===typeof urlParams) url.push(urlParams);
+else if(urlParams && 'object'===typeof urlParams){
+this.encodeUrlArgs(urlParams, url);
+}
+return url.join('');
+};
+F.isObject = function(v){
+return v &&
+(v instanceof Object) &&
+('[object Object]' === Object.prototype.toString.apply(v) );
+};
+F.mergeLastWins = function(){
+var k, o, i;
+const n = arguments.length, rc={};
+for(i = 0; i < n; ++i){
+if(!F.isObject(o = arguments[i])) continue;
+for( k in o ){
+if(o.hasOwnProperty(k)) rc[k] = o[k];
+}
+}
+return rc;
+};
+F.hashDigits = function(hash,forUrl){
+const n = ('number'===typeof forUrl)
+? forUrl : F.config[forUrl ? 'hashDigitsUrl' : 'hashDigits'];
+return ('string'==typeof hash ? hash.substr(
+0, n
+) : hash);
+};
+F.onPageLoad = function(callback){
+window.addEventListener('load', callback, false);
+return this;
+};
+F.onDOMContentLoaded = function(callback){
+window.addEventListener('DOMContentLoaded', callback, false);
+return this;
+};
+F.shortenFilename = function(name){
+const a = name.split('/');
+if(a.length<=2) return name;
+while(a.length>2) a.shift();
+return '.../'+a.join('/');
+};
+F.page.addEventListener = function f(eventName, callback){
+if(!f.proxy){
+f.proxy = document.createElement('span');
+}
+f.proxy.addEventListener(eventName, callback, false);
+return this;
+};
+F.page.dispatchEvent = function(eventName, eventDetail){
+if(this.addEventListener.proxy){
+try{
+this.addEventListener.proxy.dispatchEvent(
+new CustomEvent(eventName,{detail: eventDetail})
+);
+}catch(e){
+console.error(eventName,"event listener threw:",e);
+}
+}
+return this;
+};
+F.page.setPageTitle = function f(title){
+const t = document.querySelector('title');
+if(t) t.innerText = title || f.$orig;
+return this;
+};
+F.onPageLoad(()=>F.page.setPageTitle.$orig
+= document.querySelector('title').innerText);
+F.debounce = function f(func, waitMs, immediate) {
+var timeoutId;
+if(!waitMs) waitMs = f.$defaultDelay;
+return function() {
+const context = this, args = Array.prototype.slice.call(arguments);
+const later = function() {
+timeoutId = undefined;
+if(!immediate) func.apply(context, args);
+};
+const callNow = immediate && !timeoutId;
+clearTimeout(timeoutId);
+timeoutId = setTimeout(later, waitMs);
+if(callNow) func.apply(context, args);
+};
+};
+F.debounce.$defaultDelay = 500;
+})(window);
+/* fossil.dom.js *************************************************************/
+"use strict";
+(function(F){
+const argsToArray = (a)=>Array.prototype.slice.call(a,0);
+const isArray = (v)=>v instanceof Array;
+const dom = {
+create: function(elemType){
+return document.createElement(elemType);
+},
+createElemFactory: function(eType){
+return function(){
+return document.createElement(eType);
+};
+},
+remove: function(e){
+if(e?.forEach){
+e.forEach(
+(x)=>x?.parentNode?.removeChild(x)
+);
+}else{
+e?.parentNode?.removeChild(e);
+}
+return e;
+},
+clearElement: function f(e){
+if(!f.each){
+f.each = function(e){
+if(e.forEach){
+e.forEach((x)=>f(x));
+return e;
+}
+while(e.firstChild) e.removeChild(e.firstChild);
+};
+}
+argsToArray(arguments).forEach(f.each);
+return arguments[0];
+},
+};
+dom.splitClassList = function f(str){
+if(!f.rx){
+f.rx = /(\s+|\s*,\s*)/;
+}
+return str ? str.split(f.rx) : [str];
+};
+dom.div = dom.createElemFactory('div');
+dom.p = dom.createElemFactory('p');
+dom.code = dom.createElemFactory('code');
+dom.pre = dom.createElemFactory('pre');
+dom.header = dom.createElemFactory('header');
+dom.footer = dom.createElemFactory('footer');
+dom.section = dom.createElemFactory('section');
+dom.span = dom.createElemFactory('span');
+dom.strong = dom.createElemFactory('strong');
+dom.em = dom.createElemFactory('em');
+dom.ins = dom.createElemFactory('ins');
+dom.del = dom.createElemFactory('del');
+dom.label = function(forElem, text){
+const rc = document.createElement('label');
+if(forElem){
+if(forElem instanceof HTMLElement){
+forElem = this.attr(forElem, 'id');
+}
+if(forElem){
+dom.attr(rc, 'for', forElem);
+}
+}
+if(text) this.append(rc, text);
+return rc;
+};
+dom.img = function(src){
+const e = this.create('img');
+if(src) e.setAttribute('src',src);
+return e;
+};
+dom.a = function(href,label){
+const e = this.create('a');
+if(href) e.setAttribute('href',href);
+if(label) e.appendChild(dom.text(true===label ? href : label));
+return e;
+};
+dom.hr = dom.createElemFactory('hr');
+dom.br = dom.createElemFactory('br');
+dom.text = function(){
+return document.createTextNode(argsToArray(arguments).join(''));
+};
+dom.button = function(label,callback){
+const b = this.create('button');
+if(label) b.appendChild(this.text(label));
+if('function' === typeof callback){
+b.addEventListener('click', callback, false);
+}
+return b;
+};
+dom.textarea = function(){
+const rc = this.create('textarea');
+let rows, cols, readonly;
+if(1===arguments.length){
+if('boolean'===typeof arguments[0]){
+readonly = !!arguments[0];
+}else{
+rows = arguments[0];
+}
+}else if(arguments.length){
+rows = arguments[0];
+cols = arguments[1];
+readonly = arguments[2];
+}
+if(rows) rc.setAttribute('rows',rows);
+if(cols) rc.setAttribute('cols', cols);
+if(readonly) rc.setAttribute('readonly', true);
+return rc;
+};
+dom.select = dom.createElemFactory('select');
+dom.option = function(value,label){
+const a = arguments;
+var sel;
+if(1==a.length){
+if(a[0] instanceof HTMLElement){
+sel = a[0];
+}else{
+value = a[0];
+}
+}else if(2==a.length){
+if(a[0] instanceof HTMLElement){
+sel = a[0];
+value = a[1];
+}else{
+value = a[0];
+label = a[1];
+}
+}
+else if(3===a.length){
+sel = a[0];
+value = a[1];
+label = a[2];
+}
+const o = this.create('option');
+if(undefined !== value){
+o.value = value;
+this.append(o, this.text(label || value));
+}else if(undefined !== label){
+this.append(o, label);
+}
+if(sel) this.append(sel, o);
+return o;
+};
+dom.h = function(level){
+return this.create('h'+level);
+};
+dom.ul = dom.createElemFactory('ul');
+dom.li = function(parent){
+const li = this.create('li');
+if(parent) parent.appendChild(li);
+return li;
+};
+dom.createElemFactoryWithOptionalParent = function(childType){
+return function(parent){
+const e = this.create(childType);
+if(parent) parent.appendChild(e);
+return e;
+};
+};
+dom.table = dom.createElemFactory('table');
+dom.thead = dom.createElemFactoryWithOptionalParent('thead');
+dom.tbody = dom.createElemFactoryWithOptionalParent('tbody');
+dom.tfoot = dom.createElemFactoryWithOptionalParent('tfoot');
+dom.tr = dom.createElemFactoryWithOptionalParent('tr');
+dom.td = dom.createElemFactoryWithOptionalParent('td');
+dom.th = dom.createElemFactoryWithOptionalParent('th');
+dom.fieldset = function(legendText){
+const fs = this.create('fieldset');
+if(legendText){
+this.append(
+fs,
+(legendText instanceof HTMLElement)
+? legendText
+: this.append(this.legend(legendText))
+);
+}
+return fs;
+};
+dom.legend = function(legendText){
+const rc = this.create('legend');
+if(legendText) this.append(rc, legendText);
+return rc;
+};
+dom.append = function f(parent){
+const a = argsToArray(arguments);
+a.shift();
+for(let i in a) {
+var e = a[i];
+if(isArray(e) || e.forEach){
+e.forEach((x)=>f.call(this, parent,x));
+continue;
+}
+if('string'===typeof e
+|| 'number'===typeof e
+|| 'boolean'===typeof e
+|| e instanceof Error) e = this.text(e);
+parent.appendChild(e);
+}
+return parent;
+};
+dom.input = function(type){
+return this.attr(this.create('input'), 'type', type);
+};
+dom.checkbox = function(value, checked){
+const rc = this.input('checkbox');
+if(1===arguments.length && 'boolean'===typeof value){
+checked = !!value;
+value = undefined;
+}
+if(undefined !== value) rc.value = value;
+if(!!checked) rc.checked = true;
+return rc;
+};
+dom.radio = function(){
+const rc = this.input('radio');
+let name, value, checked;
+if(1===arguments.length && 'boolean'===typeof name){
+checked = arguments[0];
+name = value = undefined;
+}else if(2===arguments.length){
+name = arguments[0];
+if('boolean'===typeof arguments[1]){
+checked = arguments[1];
+}else{
+value = arguments[1];
+checked = undefined;
+}
+}else if(arguments.length){
+name = arguments[0];
+value = arguments[1];
+checked = arguments[2];
+}
+if(name) this.attr(rc, 'name', name);
+if(undefined!==value) rc.value = value;
+if(!!checked) rc.checked = true;
+return rc;
+};
+const domAddRemoveClass = function f(action,e){
+if(!f.rxSPlus){
+f.rxSPlus = /\s+/;
+f.applyAction = function(e,a,v){
+if(!e || !v
+) return;
+else if(e.forEach){
+e.forEach((E)=>E.classList[a](v));
+}else{
+e.classList[a](v);
+}
+};
+}
+var i = 2, n = arguments.length;
+for( ; i < n; ++i ){
+let c = arguments[i];
+if(!c) continue;
+else if(isArray(c) ||
+('string'===typeof c
+&& c.indexOf(' ')>=0
+&& (c = c.split(f.rxSPlus)))
+|| c.forEach
+){
+c.forEach((k)=>k ? f.applyAction(e, action, k) : false);
+}else if(c){
+f.applyAction(e, action, c);
+}
+}
+return e;
+};
+dom.addClass = function(e,c){
+const a = argsToArray(arguments);
+a.unshift('add');
+return domAddRemoveClass.apply(this, a);
+};
+dom.removeClass = function(e,c){
+const a = argsToArray(arguments);
+a.unshift('remove');
+return domAddRemoveClass.apply(this, a);
+};
+dom.toggleClass = function f(e,c){
+if(e.forEach){
+e.forEach((x)=>x.classList.toggle(c));
+}else{
+e.classList.toggle(c);
+}
+return e;
+};
+dom.hasClass = function(e,c){
+return (e && e.classList) ? e.classList.contains(c) : false;
+};
+dom.moveTo = function(dest,e){
+const n = arguments.length;
+var i = 1;
+const self = this;
+for( ; i < n; ++i ){
+e = arguments[i];
+this.append(dest, e);
+}
+return dest;
+};
+dom.moveChildrenTo = function f(dest,e){
+if(!f.mv){
+f.mv = function(d,v){
+if(d instanceof Array){
+d.push(v);
+if(v.parentNode) v.parentNode.removeChild(v);
+}
+else d.appendChild(v);
+};
+}
+const n = arguments.length;
+var i = 1;
+for( ; i < n; ++i ){
+e = arguments[i];
+if(!e){
+console.warn("Achtung: dom.moveChildrenTo() passed a falsy value at argument",i,"of",
+arguments,arguments[i]);
+continue;
+}
+if(e.forEach){
+e.forEach((x)=>f.mv(dest, x));
+}else{
+while(e.firstChild){
+f.mv(dest, e.firstChild);
+}
+}
+}
+return dest;
+};
+dom.replaceNode = function f(old,nu){
+var i = 1, n = arguments.length;
+++f.counter;
+try {
+for( ; i < n; ++i ){
+const e = arguments[i];
+if(e.forEach){
+e.forEach((x)=>f.call(this,old,e));
+continue;
+}
+old.parentNode.insertBefore(e, old);
+}
+}
+finally{
+--f.counter;
+}
+if(!f.counter){
+old.parentNode.removeChild(old);
+}
+};
+dom.replaceNode.counter = 0;
+dom.attr = function f(e){
+if(2===arguments.length) return e.getAttribute(arguments[1]);
+const a = argsToArray(arguments);
+if(e.forEach){
+e.forEach(function(x){
+a[0] = x;
+f.apply(f,a);
+});
+return e;
+}
+a.shift();
+while(a.length){
+const key = a.shift(), val = a.shift();
+if(null===val || undefined===val){
+e.removeAttribute(key);
+}else{
+e.setAttribute(key,val);
+}
+}
+return e;
+};
+const enableDisable = function f(enable){
+var i = 1, n = arguments.length;
+for( ; i < n; ++i ){
+let e = arguments[i];
+if(e.forEach){
+e.forEach((x)=>f(enable,x));
+}else{
+e.disabled = !enable;
+}
+}
+return arguments[1];
+};
+dom.enable = function(e){
+const args = argsToArray(arguments);
+args.unshift(true);
+return enableDisable.apply(this,args);
+};
+dom.disable = function(e){
+const args = argsToArray(arguments);
+args.unshift(false);
+return enableDisable.apply(this,args);
+};
+dom.selectOne = function(x,origin){
+var src = origin || document,
+e = src.querySelector(x);
+if(!e){
+e = new Error("Cannot find DOM element: "+x);
+console.error(e, src);
+throw e;
+}
+return e;
+};
+dom.flashOnce = function f(e,howLongMs,afterFlashCallback){
+if(e.dataset.isBlinking){
+return;
+}
+if(2===arguments.length && 'function' ===typeof howLongMs){
+afterFlashCallback = howLongMs;
+howLongMs = f.defaultTimeMs;
+}
+if(!howLongMs || 'number'!==typeof howLongMs){
+howLongMs = f.defaultTimeMs;
+}
+e.dataset.isBlinking = true;
+const transition = e.style.transition;
+e.style.transition = "opacity "+howLongMs+"ms ease-in-out";
+const opacity = e.style.opacity;
+e.style.opacity = 0;
+setTimeout(function(){
+e.style.transition = transition;
+e.style.opacity = opacity;
+delete e.dataset.isBlinking;
+if(afterFlashCallback) afterFlashCallback();
+}, howLongMs);
+return e;
+};
+dom.flashOnce.defaultTimeMs = 400;
+dom.flashOnce.eventHandler = (event)=>dom.flashOnce(event.target)
+dom.flashNTimes = function(e,n,howLongMs,afterFlashCallback){
+const args = argsToArray(arguments);
+args.splice(1,1);
+if(arguments.length===3 && 'function'===typeof howLongMs){
+afterFlashCallback = howLongMs;
+howLongMs = args[1] = this.flashOnce.defaultTimeMs;
+}else if(arguments.length<3){
+args[1] = this.flashOnce.defaultTimeMs;
+}
+n = +n;
+const self = this;
+const cb = args[2] = function f(){
+if(--n){
+setTimeout(()=>self.flashOnce(e, howLongMs, f),
+howLongMs+(howLongMs*0.1));
+}else if(afterFlashCallback){
+afterFlashCallback();
+}
+};
+this.flashOnce.apply(this, args);
+return this;
+};
+dom.addClassBriefly = function f(e, className, howLongMs, afterCallback){
+if(arguments.length<4 && 'function'===typeof howLongMs){
+afterCallback = howLongMs;
+howLongMs = f.defaultTimeMs;
+}else if(arguments.length<3 || !+howLongMs){
+howLongMs = f.defaultTimeMs;
+}
+this.addClass(e, className);
+setTimeout(function(){
+dom.removeClass(e, className);
+if(afterCallback) afterCallback();
+}, howLongMs);
+return this;
+};
+dom.addClassBriefly.defaultTimeMs = 1000;
+dom.copyTextToClipboard = function(text){
+if( window.clipboardData && window.clipboardData.setData ){
+window.clipboardData.setData('Text',text);
+return true;
+}else{
+const x = document.createElement("textarea");
+x.style.position = 'fixed';
+x.value = text;
+document.body.appendChild(x);
+x.select();
+var rc;
+try{
+document.execCommand('copy');
+rc = true;
+}catch(err){
+rc = false;
+}finally{
+document.body.removeChild(x);
+}
+return rc;
+}
+};
+dom.copyStyle = function f(e, style){
+if(e.forEach){
+e.forEach((x)=>f(x, style));
+return e;
+}
+if(style){
+let k;
+for(k in style){
+if(style.hasOwnProperty(k)) e.style[k] = style[k];
+}
+}
+return e;
+};
+dom.effectiveHeight = function f(e){
+if(!e) return 0;
+if(!f.measure){
+f.measure = function callee(e, depth){
+if(!e) return;
+const m = e.getBoundingClientRect();
+if(0===depth){
+callee.top = m.top;
+callee.bottom = m.bottom;
+}else{
+callee.top = m.top ? Math.min(callee.top, m.top) : callee.top;
+callee.bottom = Math.max(callee.bottom, m.bottom);
+}
+Array.prototype.forEach.call(e.children,(e)=>callee(e,depth+1));
+if(0===depth){
+f.extra += callee.bottom - callee.top;
+}
+return f.extra;
+};
+}
+f.extra = 0;
+f.measure(e,0);
+return f.extra;
+};
+dom.parseHtml = function(){
+let childs, string, tgt;
+if(1===arguments.length){
+string = arguments[0];
+}else if(2==arguments.length){
+tgt = arguments[0];
+string  = arguments[1];
+}
+if(string){
+const newNode = new DOMParser().parseFromString(string, 'text/html');
+childs = newNode.documentElement.querySelector('body');
+childs = childs ? Array.prototype.slice.call(childs.childNodes, 0) : [];
+}else{
+childs = [];
+}
+return tgt ? this.moveTo(tgt, childs) : childs;
+};
+F.connectPagePreviewers = function f(selector,methodNamespace){
+if('string'===typeof selector){
+selector = document.querySelectorAll(selector);
+}else if(!selector.forEach){
+selector = [selector];
+}
+if(!methodNamespace){
+methodNamespace = F.page;
+}
+selector.forEach(function(e){
+e.addEventListener(
+'click', function(r){
+const eTo = '#'===e.dataset.fPreviewTo[0]
+? document.querySelector(e.dataset.fPreviewTo)
+: methodNamespace[e.dataset.fPreviewTo],
+eFrom = '#'===e.dataset.fPreviewFrom[0]
+? document.querySelector(e.dataset.fPreviewFrom)
+: methodNamespace[e.dataset.fPreviewFrom],
+asText = +(e.dataset.fPreviewAsText || 0);
+eTo.textContent = "Fetching preview...";
+methodNamespace[e.dataset.fPreviewVia](
+(eFrom instanceof Function ? eFrom.call(methodNamespace) : eFrom.value),
+function(r){
+if(eTo instanceof Function) eTo.call(methodNamespace, r||'');
+else if(!r){
+dom.clearElement(eTo);
+}else if(asText){
+eTo.textContent = r;
+}else{
+dom.parseHtml(dom.clearElement(eTo), r);
+}
+}
+);
+}, false
+);
+});
+return this;
+};
+return F.dom = dom;
+})(window.fossil);
+/* fossil.copybutton.js *************************************************************/
+(function(F){
+const D = F.dom;
+F.copyButton = function f(e, opt){
+if('string'===typeof e){
+e = document.querySelector(e);
+}
+opt = F.mergeLastWins(f.defaultOptions, opt);
+if(opt.cssClass){
+D.addClass(e, opt.cssClass);
+}
+var srcId, srcElem;
+if(opt.copyFromElement){
+srcElem = opt.copyFromElement;
+}else if((srcId = opt.copyFromId || e.dataset.copyFromId)){
+srcElem = document.querySelector('#'+srcId);
+}
+const extract = opt.extractText || (
+undefined===srcElem.value ? ()=>srcElem.innerText : ()=>srcElem.value
+);
+D.copyStyle(e, opt.style);
+e.addEventListener(
+'click',
+function(ev){
+ev.preventDefault();
+ev.stopPropagation();
+if(e.disabled) return;
+const txt = extract.call(opt);
+if(txt && D.copyTextToClipboard(txt)){
+e.dispatchEvent(new CustomEvent('text-copied',{
+detail: {text: txt}
+}));
+}
+},
+false
+);
+if('function' === typeof opt.oncopy){
+e.addEventListener('text-copied', opt.oncopy, false);
+}
+if(e.childElementCount!=1 || e.firstChild.tagName!='SPAN'){
+D.append(D.clearElement(e), D.span());
+}
+return e;
+};
+F.copyButton.defaultOptions = {
+cssClass: 'copy-button',
+oncopy: undefined,
+style: {}
+};
+})(window.fossil);
+/* fossil.pikchr.js *************************************************************/
+(function(F){
+"use strict";
+const D = F.dom, P = F.pikchr = {};
+P.addSrcView = function f(svg){
+if(!f.hasOwnProperty('parentClick')){
+f.parentClick = function(ev){
+if(ev.altKey || ev.metaKey || ev.ctrlKey
+|| this.classList.contains('toggle')){
+this.classList.toggle('source');
+ev.stopPropagation();
+ev.preventDefault();
+}
+};
+f.clickPikchrShow = function(ev){
+const pId = this.dataset['pikchrid'];
+if(!pId) return;
+const ePikchr = this.parentNode.parentNode.querySelector('#'+pId);
+if(!ePikchr) return;
+ev.stopPropagation();
+window.sessionStorage.setItem('pikchr-xfer', ePikchr.innerText);
+};
+};
+if(!svg) svg = 'svg.pikchr';
+if('string' === typeof svg){
+document.querySelectorAll(svg).forEach((e)=>f.call(this, e));
+return this;
+}else if(svg.forEach){
+svg.forEach((e)=>f.call(this, e));
+return this;
+}
+if(svg.dataset.pikchrProcessed){
+return this;
+}
+svg.dataset.pikchrProcessed = 1;
+const parent = svg.parentNode.parentNode;
+const srcView = parent ? svg.parentNode.nextElementSibling : undefined;
+if(srcView && srcView.classList.contains('pikchr-src')){
+parent.addEventListener('click', f.parentClick, false);
+const eSpan = window.sessionStorage
+? srcView.querySelector('span')
+: undefined;
+if(eSpan){
+const openLink = eSpan.querySelector('a');
+if(openLink){
+openLink.addEventListener('click', f.clickPikchrShow, false);
+eSpan.classList.remove('hidden');
+}
+}
+}
+return this;
+};
+})(window.fossil);
+/* fossil.confirmer.js *************************************************************/
+"use strict";
+(function(F){
+F.confirmer = function f(elem,opt){
+const dbg = opt.debug
+? function(){console.debug.apply(console,arguments)}
+: function(){};
+dbg("confirmer opt =",opt);
+if(!f.Holder){
+f.isInput = (e)=>/^(input|textarea)$/i.test(e.nodeName);
+f.Holder = function(target,opt){
+const self = this;
+this.target = target;
+this.opt = opt;
+this.timerID = undefined;
+this.state = this.states.initial;
+const isInput = f.isInput(target);
+const updateText = function(msg){
+if(isInput) target.value = msg;
+else{
+const newNode = new DOMParser().parseFromString(msg, 'text/html');
+let childs = newNode.documentElement.querySelector('body');
+childs = childs ? Array.prototype.slice.call(childs.childNodes, 0) : [];
+target.innerText = '';
+childs.forEach((e)=>target.appendChild(e));
+}
+}
+const formatCountdown = (txt, number) => txt + " ["+number+"]";
+if(opt.pinSize && opt.confirmText){
+const digits = (''+(opt.timeout/1000 || opt.ticks)).length;
+const lblLong = formatCountdown(opt.confirmText, "00000000".substr(0,digits+1));
+const w1 = parseInt(target.getBoundingClientRect().width);
+updateText(lblLong);
+const w2 = parseInt(target.getBoundingClientRect().width);
+if(w1 || w2){
+target.style.minWidth = target.style.maxWidth = (w1>w2 ? w1 : w2)+"px";
+}
+}
+updateText(this.opt.initialText);
+if(this.opt.ticks && !this.opt.ontick){
+this.opt.ontick = function(tick){
+updateText(formatCountdown(self.opt.confirmText,tick));
+};
+}
+this.setClasses(false);
+this.doTimeout = function() {
+if(this.timerID){
+clearTimeout( this.timerID );
+delete this.timerID;
+}
+if( this.state != this.states.waiting ) {
+return;
+}
+this.setClasses( false );
+this.state = this.states.initial;
+dbg("Timeout triggered.");
+if( this.opt.ontick ){
+try{this.opt.ontick.call(this.target, 0)}
+catch(e){dbg("ontick EXCEPTION:",e)}
+}
+if( this.opt.ontimeout ) {
+try{this.opt.ontimeout.call(this.target)}
+catch(e){dbg("ontimeout EXCEPTION:",e)}
+}
+updateText(this.opt.initialText);
+};
+target.addEventListener(
+'click', function(){
+switch( self.state ) {
+case( self.states.waiting ):
+if( undefined !== self.timerID ){
+clearTimeout( self.timerID );
+delete self.timerID;
+}
+self.state = self.states.initial;
+self.setClasses( false );
+dbg("Confirmed");
+if( self.opt.ontick ){
+try{self.opt.ontick.call(self.target,0)}
+catch(e){dbg("ontick EXCEPTION:",e)}
+}
+if( self.opt.onconfirm ){
+try{self.opt.onconfirm.call(self.target)}
+catch(e){dbg("onconfirm EXCEPTION:",e)}
+}
+updateText(self.opt.initialText);
+break;
+case( self.states.initial ):
+if(self.opt.ticks) self.opt.currentTick = self.opt.ticks;
+self.setClasses( true );
+self.state = self.states.waiting;
+updateText( self.opt.confirmText );
+if( self.opt.onactivate ) self.opt.onactivate.call( self.target );
+if( self.opt.ontick ) self.opt.ontick.call(self.target, self.opt.currentTick);
+if(self.opt.timeout){
+dbg("Waiting "+self.opt.timeout+"ms on confirmation...");
+self.timerID =
+setTimeout(()=>self.doTimeout(),self.opt.timeout );
+}else if(self.opt.ticks){
+dbg("Waiting on confirmation for "+self.opt.ticks
++" ticks of "+self.opt.ticktime+"ms each...");
+self.timerID =
+setInterval(function(){
+if(0===--self.opt.currentTick) self.doTimeout();
+else{
+try{self.opt.ontick.call(self.target,
+self.opt.currentTick)}
+catch(e){dbg("ontick EXCEPTION:",e)}
+}
+},self.opt.ticktime);
+}
+break;
+default:
+break;
+}
+}, false
+);
+};
+f.Holder.prototype = {
+states:{initial: 0, waiting: 1},
+setClasses: function(activated) {
+if(activated) {
+if( this.opt.classWaiting ) {
+this.target.classList.add( this.opt.classWaiting );
+}
+if( this.opt.classInitial ) {
+this.target.classList.remove( this.opt.classInitial );
+}
+}else{
+if( this.opt.classInitial ) {
+this.target.classList.add( this.opt.classInitial );
+}
+if( this.opt.classWaiting ) {
+this.target.classList.remove( this.opt.classWaiting );
+}
+}
+}
+};
+}
+opt = F.mergeLastWins(f.defaultOpts,{
+initialText: (
+f.isInput(elem) ? elem.value : elem.innerHTML
+) || "PLEASE SET .initialText"
+},opt);
+if(!opt.confirmText){
+opt.confirmText = "Confirm: "+opt.initialText;
+}
+if(opt.ticks){
+delete opt.timeout;
+opt.ticks = 0 | opt.ticks;
+if(opt.ticks<=0){
+throw new Error("ticks must be >0");
+}
+if(opt.ticktime <= 0) opt.ticktime = 1000;
+}else{
+delete opt.ontick;
+delete opt.ticks;
+}
+new f.Holder(elem,opt);
+return this;
+};
+F.confirmer.defaultOpts = {
+timeout:undefined,
+ticks: 3,
+ticktime: 998,
+onconfirm: undefined,
+ontimeout: undefined,
+onactivate: undefined,
+classInitial: '',
+classWaiting: '',
+debug: false
+};
+})(window.fossil);
+/* fossil.attach.js *************************************************************/
+"use strict";
+(function(namespace){
+"use strict";
+const F = namespace, D = F.dom;
+let idCounter = 0;
+class Attacher {
+#opt;
+#rows = [];
+#e = Object.create(null);
+#events = new EventTarget();
+constructor(opt){
+this.#opt = opt = F.nu({
+addButtonLabel: false,
+startWith: 0,
+limit: 0,
+dryRun: undefined,
+description: true,
+reverse: false
+}, opt);
+this.#e.body = D.addClass(D.div(), 'Attacher');
+if( opt.reverse ) this.#e.body.classList.add('reverse');
+const eBtnAdd = this.#e.btnAdd = D.addClass(
+D.button(this.#opt.addButtonLabel || 'Add attachment',
+()=>this.#addRow()),
+'attach-add-button'
+);
+eBtnAdd.type = 'button';
+opt.ownsAddButton = true;
+this.#e.err = D.addClass(D.div(), 'error', 'hidden');
+this.#e.body.append(this.#e.err);
+this.#e.err.addEventListener('dblclick',()=>this.reportError());
+const eControls = this.#e.controls =
+D.addClass(D.div(), 'attach-controls');
+eControls.append(eBtnAdd);
+if( opt.container ){
+opt.container.appendChild(this.#e.body);
+}
+this.#e.body.appendChild(eControls);
+if( opt.listener ){
+const doCb = (eventType, key)=>{
+const f = (opt.listener instanceof Function)
+? opt.listener
+: (opt.listener[key] || opt.listener.all);
+if( f instanceof Function ){
+this.addEventListener(eventType, f);
+}
+};
+doCb('entry-added', 'add');
+doCb('entry-removed', 'remove');
+doCb('entry-populated', 'populate');
+}
+if( opt.dryRun ){
+const eLbl = D.label(false, "Dry-run?");
+const eCb = D.checkbox(true);
+eLbl.append(eCb);
+eControls.append(eLbl);
+eCb.checked = opt.dryRun = true;
+eCb.addEventListener('change',()=>opt.dryRun=eCb.checked);
+}
+if( Array.isArray(opt.controls) ){
+eControls.append(...opt.controls);
+}
+if( opt.startWith > 0 ){
+for(let i = 0; i < opt.startWith; ++i ){
+this.#addRow();
+}
+}else{
+this.#updateControls();
+}
+}
+get widget(){
+return this.#e.body;
+}
+addEventListener(...args){
+return this.#events.addEventListener(...args);
+}
+removeEventListener(...args){
+return this.#events.removeEventListener(...args);
+}
+get isPopulated(){
+for(let r of this.#rows){
+if( r.file ) return true;
+}
+return false;
+}
+get isDryRun(){
+return !!this.#opt.dryRun;
+}
+get controlsElement(){
+return this.#e.controls;
+}
+reportError(...msg){
+const e = this.#e.err;
+D.clearElement(e);
+if( msg.length ){
+e.classList.remove('hidden');
+e.append(...msg);
+}else{
+e.classList.add('hidden');
+}
+}
+#removeRow(rowObj){
+const er = rowObj.e.row;
+if( er.parentNode ){
+this.#rows = this.#rows.filter(v=>v!==rowObj);
+this.#updateControls();
+er.classList.add('animate-exit');
+er.addEventListener('animationend', ()=>er.remove(), {once: true});
+this.#events.dispatchEvent(
+new CustomEvent('entry-removed',{
+detail: F.nu({
+type: 'entry-removed',
+row: rowObj,
+attacher: this
+})
+})
+);
+}
+}
+clear(){
+for(const r of [...this.#rows]){
+this.#removeRow(r);
+}
+this.reportError();
+}
+#updateControls(){
+const b = this.#e.btnAdd;
+if( this.#opt.limit>0 && this.#rows.length >= this.#opt.limit ){
+b.classList.add('hidden');
+D.disable(b);
+}else{
+b.classList.remove('hidden');
+D.enable(b);
+if( this.#opt.ownsAddButton ){
+this.#e.body.append(this.#e.controls);
+}
+}
+}
+takeAddButton(){
+if( this.#opt.ownsAddButton ){
+this.#opt.ownsAddButton;
+}
+return this.#e.btnAdd;
+}
+#rowError(rowObj,...msg){
+let e = rowObj.e.err;
+if( e ){
+D.clearElement(e);
+}else{
+if( !msg.length ) return;
+e = rowObj.e.err = D.addClass(D.span(), 'error');
+rowObj.e.info.append(e);
+}
+if( msg.length ){
+e.append(...msg);
+e.classList.remove('hidden');
+}else{
+e.classList.add('hidden');
+}
+}
+#addRow(){
+const id = ++idCounter;
+const rowObj = F.nu({
+id, file: null, mimeType: ''
+});
+const eRow = D.addClass(D.div(), 'attach-row');
+const eDropzone = D.addClass(D.div(), 'attach-dropzone');
+const eFile = D.addClass(
+D.input('file'), 'attach-file-input', 'hidden'
+);
+const eInfo = D.addClass(D.span(), 'attach-row-info');
+const eFilename = D.append(
+D.addClass(D.span(), 'attach-filename'),
+"Select/drop file or click the outer border and tap your "+
+"platform's conventional <paste> keyboard shortcut."
+);
+const eSize = D.addClass(D.span(), 'attach-size');
+eInfo.append(eFilename, eSize);
+const eDesc = this.#opt.description
+? D.addClass(
+D.attr(D.textarea(), 'placeholder',
+'Optional description...'),
+'attach-desc'
+)
+: undefined;
+const eRemove = D.addClass(
+D.button('X', (ev)=>{
+ev.stopPropagation();
+this.#removeRow(rowObj);
+}),
+'attach-row-remove'
+);
+eRemove.setAttribute('title', 'Remove this attachment.');
+eRemove.type = 'button';
+D.append(eDropzone, eInfo, eFile, eRemove);
+eDropzone.addEventListener('click', ()=>eFile.click());
+eFile.addEventListener('change', (ev)=>{
+if( ev.target.files.length ){
+this.#injestBlob(rowObj, ev.target.files[0]);
+}
+});
+eDropzone.addEventListener('dragover', (ev)=>{
+ev.preventDefault();
+eDropzone.classList.add('dragover');
+});
+eDropzone.addEventListener('dragleave', (ev)=>{
+eDropzone.classList.remove('dragover');
+});
+const handleDrop = (ev, theRealRowObj)=>{
+ev.preventDefault();
+eDropzone.classList.remove('dragover');
+if( ev.dataTransfer.files.length ){
+const r = theRealRowObj || rowObj;
+this.#injestBlob(r, ev.dataTransfer.files[0]);
+}
+};
+eDropzone.addEventListener('drop', handleDrop);
+const pasteImage = (event, item)=>{
+if( item.type.indexOf('image') === 0 ) {
+event.preventDefault();
+const blob = item.getAsFile();
+if( blob.name === 'image.png' ){
+rowObj.overrideName = `pasted-image-${Date.now()}.png`;
+}
+this.#injestBlob(rowObj, blob);
+return true;
+}
+return false;
+};
+const pasteThing = (event, thing)=>{
+if( pasteImage(event, thing) ) return true;
+if( 'file' === thing.kind ){
+event.preventDefault();
+const blob = thing.getAsFile();
+if( blob ){
+this.#injestBlob(rowObj, blob);
+return true;
+}
+}
+return false;
+};
+eDesc?.addEventListener?.('paste', (e) => {
+e.stopPropagation();
+const items = (e.clipboardData || e.originalEvent.clipboardData)?.items;
+if( !items ) return;
+for( let i = 0; i < items.length; ++i ){
+const item = items[i];
+if( pasteThing(e, item) ){
+break;
+}
+}
+});
+eRow.addEventListener('paste', (e) => {
+const items = (e.clipboardData || e.originalEvent.clipboardData)?.items;
+if( !items ) return;
+for( let i = 0; i < items.length; ++i ){
+const item = items[i];
+if( item.type === 'text/plain' ){
+e.preventDefault();
+item.getAsString((text) => {
+rowObj.overrideName = `pasted-text-${Date.now()}.txt`;
+const blob = new File([text], rowObj.overrideName,
+{type: 'text/plain'});
+this.#injestBlob(rowObj, blob);
+});
+break;
+}else if( pasteThing(e, item) ){
+break;
+}
+}
+});
+eRow.append(eDropzone);
+if( eDesc ) eRow.append(eDesc);
+rowObj.e = F.nu({
+dropzone: eDropzone,
+info: eInfo,
+filename: eFilename,
+size: eSize,
+desc: eDesc,
+row: eRow,
+remove: eRemove
+});
+this.#e.body.append(eRow);
+eRow.classList.add('animate-entrance');
+requestAnimationFrame(() => {
+eRow.scrollIntoView({
+behavior: 'smooth',
+block: 'nearest',
+inline: 'nearest'
+});
+});
+this.#rows.push( rowObj );
+this.#updateControls();
+this.#events.dispatchEvent(
+new CustomEvent('entry-added',{
+detail: F.nu({
+type: 'entry-added',
+row: rowObj,
+attacher: this
+})
+})
+);
+if( 0 ){
+D.attr(eRow, 'tabindex', '-1');
+eRow.focus();
+}
+}
+#rowMatchingName(name){
+for(let r of this.#rows){
+if( r.file?.name===name ) return r;
+}
+}
+#injestBlob(rowObj, file){
+if( !file ) return;
+const old = this.#rowMatchingName(file.name);
+if( rowObj.overrideName ){
+if( rowObj.overrideName !== file.name ){
+file = new File([file], rowObj.overrideName, {type: file.type});
+}
+rowObj.overrideName = undefined;
+}
+if( old && rowObj !== old ){
+this.#rowError(old);
+this.#removeRow(rowObj);
+rowObj = old;
+}
+let szLbl;
+if( file.size < 500000 ){
+szLbl = file.size + ' bytes';
+}else if( file.size < 1000000 ){
+szLbl = (file.size / 1024).toFixed(2)+' KB';
+}else{
+szLbl = (file.size / (1024 * 1024)).toFixed(2)+' MB';
+}
+this.#rowError(rowObj);
+rowObj.file = file;
+rowObj.mimeType = file.type || 'application/octet-stream';
+D.clearElement(rowObj.e.filename).append(file.name || 'Pasted Content');
+D.clearElement(rowObj.e.size).append(szLbl, ' ', rowObj.mimeType || '');
+rowObj.e.dropzone.classList.add('populated');
+if( rowObj.e.desc ){
+rowObj.e.desc.classList.remove('hidden');
+}
+if( rowObj.e.thumbnail ){
+rowObj.e.thumbnail.remove();
+rowObj.e.thumbnail = undefined;
+}
+if( file.type?.startsWith?.('image/') || file.type==='BITMAP' ){
+const img = rowObj.e.thumbnail = D.img();
+rowObj.e.dropzone.insertBefore(img, rowObj.e.remove);
+img.classList.add('thumbnail');
+const reader = new FileReader();
+reader.onload = (e)=>img.setAttribute('src', e.target.result);
+reader.readAsDataURL(file);
+}
+if( F.config.attachmentSizeLimit>0
+&& file.size>F.config.attachmentSizeLimit ){
+const eLink = D.a(F.repoUrl('help/attachment-size-limit'),'limit');
+eLink.addEventListener('click', ev=>ev.stopPropagation());
+this.#rowError(rowObj, "Too large: ", eLink,
+" is ",F.config.attachmentSizeLimit," bytes");
+rowObj.ok = false;
+}else if( !file.size ){
+this.#rowError(rowObj, "Cannot attach zero-byte files.");
+rowObj.ok = false;
+}else{
+rowObj.ok = true;
+}
+this.#events.dispatchEvent(
+new CustomEvent('entry-populated',{
+detail: F.nu({
+type: 'entry-populated',
+row: rowObj,
+attacher: this
+})
+})
+);
+}
+collectState(){
+const rv = [];
+for(let r of this.#rows){
+if( !r.e.dropzone?.classList?.contains?.('populated') ){
+continue;
+}
+rv.push(F.nu({
+name: r.name || r.file.name,
+content: r.file,
+description: r.e.desc?.value ?? '',
+mimeType: r.mimeType
+}));
+}
+return rv;
+}
+populateFormData(fd, namePrefix='file'){
+const st = this.collectState();
+let i = 0;
+for( ; i < st.length; ++i){
+const s = st[i];
+const suffix = i+1;
+fd.append(`${namePrefix}${suffix}`, s.content, s.name);
+const d = s.description?.trim?.();
+if( d ){
+fd.append(`${namePrefix}${suffix}_desc`, d);
+}
+}
+return i;
+}
+};
+F.Attacher = Attacher;
+F.onPageLoad(function(){
+const eAttachWrapper = document.querySelector('#attachadd-form-wrapper');
+if( eAttachWrapper ){
+document.body.querySelectorAll('#attachadd-legacy-form').forEach(e=>e.remove());
+eAttachWrapper.classList.remove('hidden');
+const urlArgs = new URLSearchParams(window.location.search);
+let zTarget = urlArgs.get('target');
+let zTo = urlArgs.get('to') || urlArgs.get('from');
+const eBtnSubmit = D.button("Submit");
+eBtnSubmit.type = 'button';
+const updateBtnSubmit = (attacher)=>{
+if( attacher.isPopulated ){
+eBtnSubmit.removeAttribute('disabled');
+}else{
+eBtnSubmit.setAttribute('disabled', '');
+}
+};
+const cbAttacherChange = (ev)=>{
+const a = ev.detail.attacher;
+updateBtnSubmit(a);
+};
+const att = new Attacher({
+container: eAttachWrapper,
+startWith: 1,
+listener: cbAttacherChange,
+controls: [eBtnSubmit],
+description: true
+});
+eBtnSubmit.addEventListener('click', async (ev)=>{
+att.reportError();
+const li = att.collectState();
+if( !li.length ) return;
+if( eBtnSubmit.dataset.submitted ) return;
+eBtnSubmit.dataset.submitted = 1;
+D.disable(eBtnSubmit);
+const fd = new FormData();
+att.populateFormData(fd);
+for( const eIn of eAttachWrapper.querySelectorAll(
+'input[type="hidden"]'
+) ){
+if( eIn.name==='target' ){
+zTarget = eIn.value;
+}else if( eIn.name==='to' || (eIn.name==='from' && !zTo) ){
+zTo = eIn.value;
+}
+fd.append(eIn.name, eIn.value)
+}
+if( att.isDryRun ){
+fd.append('dryrun', '1');
+}
+let err;
+const resp = await window.fetch(F.repoUrl('attachadd_ajax_post'), {
+method: 'POST',
+body: fd
+}).catch((e)=>{
+err = e;
+});
+D.enable(eBtnSubmit);
+delete eBtnSubmit.dataset.submitted;
+const jr = err ? undefined : await resp.json().catch(()=>{});
+if( err || jr?.error || !resp.ok ){
+const msg = err ? err.message : (jr?.error || resp.statusText);
+att.reportError("Attaching failed: ", msg);
+}else{
+att.clear();
+let to = zTo || jr?.redirect;
+if( to ){
+if( '/'!==to[0] ){
+to = F.repoUrl(to);
+}
+window.location = to;
+}else if( zTarget ){
+window.location = '?target='+zTarget+'&'+Date.now();
+}
+}
+});
+updateBtnSubmit(att);
+F.page.attacher = att;
+}
+});
+})(window.fossil);
+/* fossil.tabs.js *************************************************************/
+"use strict";
+(function(F){
+const E = (s)=>document.querySelector(s),
+EA = (s)=>document.querySelectorAll(s),
+D = F.dom;
+const TabManager = function(domElem, options){
+this.e = {};
+this.options = F.mergeLastWins(TabManager.defaultOptions , options);
+if(domElem) this.init(domElem);
+};
+TabManager.defaultOptions = {
+tabAccessKeys: true
+};
+const tabArg = function(arg,tabMgr){
+if('string'===typeof arg) arg = E(arg);
+else if(tabMgr && 'number'===typeof arg && arg>=0){
+arg = tabMgr.e.tabs.childNodes[arg];
+}
+return arg;
+};
+const setVisible = function(e,yes){
+D[yes ? 'removeClass' : 'addClass'](e, 'hidden');
+};
+TabManager.prototype = {
+init: function(container){
+container = tabArg(container);
+const cID = container.getAttribute('id');
+if(!cID){
+throw new Error("Tab container element is missing 'id' attribute.");
+}
+const c = this.e.container = container;
+this.e.tabBar = D.addClass(D.div(),'tab-bar');
+this.e.tabs = D.addClass(D.div(),'tabs');
+D.append(c, this.e.tabBar, this.e.tabs);
+let selectIndex = 0;
+EA('[data-tab-parent='+cID+']').forEach((c,n)=>{
+if(+c.dataset.tabSelect) selectIndex=n;
+this.addTab(c);
+});
+return this.switchToTab(selectIndex);
+},
+getButtonForTab: function(tab){
+tab = tabArg(tab,this);
+var i = -1;
+this.e.tabs.childNodes.forEach(function(e,n){
+if(e===tab) i = n;
+});
+return i>=0 ? this.e.tabBar.childNodes[i] : undefined;
+},
+addTab: function f(tab){
+if(!f.click){
+f.click = function(e){
+e.target.$manager.switchToTab(e.target.$tab);
+};
+}
+tab = tabArg(tab);
+tab.remove();
+tab.classList.add('hidden');
+D.append(this.e.tabs, D.addClass(tab,'tab-panel'));
+const tabCount = this.e.tabBar.childNodes.length+1;
+const lbl = tab.dataset.tabLabel || 'Tab #'+tabCount;
+const btn = D.addClass(D.append(D.span(), lbl), 'tab-button');
+D.append(this.e.tabBar,btn);
+btn.$manager = this;
+btn.$tab = tab;
+if(this.options.tabAccessKeys){
+D.attr(btn, 'accesskey', tabCount);
+}
+btn.addEventListener('click', f.click, false);
+return this;
+},
+_dispatchEvent: function(name, detail){
+try{
+this.e.container.dispatchEvent(
+new CustomEvent(name, {detail: detail})
+);
+}catch(e){
+}
+return this;
+},
+addEventListener: function(eventName, callback){
+this.e.container.addEventListener(eventName, callback, false);
+return this;
+},
+addCustomWidget: function(e){
+this.e.container.insertBefore(e, this.e.tabs);
+return this;
+},
+switchToTab: function(tab){
+tab = tabArg(tab,this);
+const self = this;
+if(tab===this._currentTab) return this;
+else if(this._currentTab){
+this._dispatchEvent('before-switch-from', this._currentTab);
+}
+delete this._currentTab;
+this.e.tabs.childNodes.forEach((e,ndx)=>{
+const btn = this.e.tabBar.childNodes[ndx];
+if(e===tab){
+if(D.hasClass(e,'selected')){
+return;
+}
+self._dispatchEvent('before-switch-to',tab);
+setVisible(e, true);
+this._currentTab = e;
+D.addClass(btn,'selected');
+self._dispatchEvent('after-switch-to',tab);
+}else{
+if(D.hasClass(e,'selected')){
+return;
+}
+setVisible(e, false);
+D.removeClass(btn,'selected');
+}
+});
+return this;
+}
+};
+F.TabManager = TabManager;
+})(window.fossil);
+/* fossil.storage.js *************************************************************/
+(function(F){
+const tryStorage = function f(obj){
+if(!f.key) f.key = 'fossil.access.check';
+try{
+obj.setItem(f.key, 'f');
+const x = obj.getItem(f.key);
+obj.removeItem(f.key);
+if(x!=='f') throw new Error(f.key+" failed")
+return obj;
+}catch(e){
+return undefined;
+}
+};
+const $storage =
+tryStorage(window.localStorage)
+|| tryStorage(window.sessionStorage)
+|| tryStorage({
+$$$:{},
+setItem: function(k,v){this.$$$[k]=v},
+getItem: function(k){
+return this.$$$.hasOwnProperty(k) ? this.$$$[k] : undefined;
+},
+removeItem: function(k){delete this.$$$[k]},
+clear: function(){this.$$$={}}
+});
+const $storageHolder = $storage.hasOwnProperty('$$$') ? $storage.$$$ : $storage;
+const storageKeyPrefix = (
+$storageHolder===$storage
+? (
+F.config.projectCode || F.config.projectName
+|| F.config.shortProjectName || window.location.pathname
+)+'::' : (
+''
+)
+);
+let events;
+F.storage = {
+storageKeyPrefix: storageKeyPrefix,
+addEventListener(...args){
+events ??= new EventTarget()
+return events.addEventListener(...args);
+},
+removeEventListener(...args){
+events ??= new EventTarget()
+return events.removeEventListener(...args);
+},
+set: (k,v)=>{
+$storage.setItem(storageKeyPrefix+k,v);
+if( events ){
+events.dispatchEvent(
+new CustomEvent('set',{
+detail: F.nu({
+key: k, value: v
+})
+})
+);
+}
+},
+setJSON: function(k,v){
+return this.set(k,JSON.stringify(v));
+},
+get: (k,dflt)=>$storageHolder.hasOwnProperty(
+storageKeyPrefix+k
+) ? $storage.getItem(storageKeyPrefix+k) : dflt,
+getBool: function(k,dflt){
+return 'true'===this.get(k,''+(!!dflt));
+},
+getJSON: function f(k,dflt){
+try {
+const x = this.get(k,f);
+return x===f ? dflt : JSON.parse(x);
+}
+catch(e){return dflt}
+},
+contains: (k)=>$storageHolder.hasOwnProperty(storageKeyPrefix+k),
+remove: function(k){
+const kk = storageKeyPrefix+k;
+if( events ){
+const had = $storageHolder.hasOwnProperty(kk)
+$storage.removeItem(kk);
+if( had ){
+events.dispatchEvent(
+new CustomEvent('remove',{
+detail: F.nu({key: k})
+})
+);
+}
+}else{
+$storage.removeItem(kk);
+}
+return this;
+},
+clear: function(){
+this.keys().forEach((k)=>$storage.removeItem(k));
+return this;
+},
+keys: function(full=true){
+const li = Object.keys($storageHolder).filter((v)=>(v||'').startsWith(storageKeyPrefix));
+if( full ) return li;
+const n = this.storageKeyPrefix.length;
+return li.map(v=>v.substring(n));
+},
+isTransient: ()=>$storageHolder!==$storage,
+storageImplName: function(){
+if($storage===window.localStorage) return 'localStorage';
+else if($storage===window.sessionStorage) return 'sessionStorage';
+else return 'transient';
+},
+storageHelpDescription: function(){
+return {
+localStorage: "Browser-local persistent storage with an "+
+"unspecified long-term lifetime (survives closing the browser, "+
+"but maybe not a browser upgrade).",
+sessionStorage: "Storage local to this browser tab, "+
+"lost if this tab is closed.",
+"transient": "Transient storage local to this invocation of this page."
+}[this.storageImplName()];
+}
+};
+})(window.fossil);
+/* fossil.popupwidget.js *************************************************************/
+(function(F){
+const D = F.dom;
+F.PopupWidget = function f(opt){
+opt = F.mergeLastWins(f.defaultOptions,opt);
+this.options = opt;
+const e = this.e = D.addClass(D.div(), opt.cssClass,
+"fossil-PopupWidget");
+this.show(false);
+if(opt.style){
+let k;
+for(k in opt.style){
+if(opt.style.hasOwnProperty(k)) e.style[k] = opt.style[k];
+}
+}
+D.append(document.body, e);
+D.copyStyle(e, opt.style);
+if(opt.init){
+opt.init.call(this);
+delete opt.init;
+}
+};
+F.PopupWidget.defaultOptions = {
+cssClass: 'fossil-tooltip',
+style: undefined,
+adjustX: (x)=>x,
+adjustY: (y)=>y,
+refresh: function(){},
+init: undefined
+};
+F.PopupWidget.prototype = {
+isShown: function(){return !this.e.classList.contains('hidden')},
+refresh: function(){
+if(this.options.refresh){
+this.options.refresh.call(this);
+}
+return this;
+},
+show: function(){
+let x = undefined, y = undefined, showIt,
+wasShown = !this.e.classList.contains('hidden');
+if(2===arguments.length){
+x = arguments[0];
+y = arguments[1];
+showIt = true;
+}else if(1===arguments.length){
+if(arguments[0] instanceof HTMLElement){
+const p = arguments[0];
+const r = p.getBoundingClientRect();
+x = r.x + r.x/5;
+y = r.y - r.height/2;
+showIt = true;
+}else{
+showIt = !!arguments[0];
+}
+}
+if(showIt){
+if(!wasShown) this.refresh();
+x = this.options.adjustX.call(this,x);
+y = this.options.adjustY.call(this,y);
+x += window.pageXOffset;
+y += window.pageYOffset;
+}
+if(showIt){
+if('number'===typeof x && 'number'===typeof y){
+this.e.style.left = x+"px";
+this.e.style.top = y+"px";
+}
+D.removeClass(this.e, 'hidden');
+}else{
+D.addClass(this.e, 'hidden');
+this.e.style.removeProperty('left');
+this.e.style.removeProperty('top');
+}
+return this;
+},
+hide: function(){return this.show(false)},
+installHideHandlers: function f(onClickSelf, onClickOther, onEsc){
+if(!arguments.length) onClickSelf = onClickOther = onEsc = true;
+else if(1===arguments.length) onClickOther = onEsc = true;
+else if(2===arguments.length) onEsc = true;
+if(onClickSelf) this.e.addEventListener('click', ()=>this.hide(), false);
+if(onClickOther) document.body.addEventListener('click', ()=>this.hide(), true);
+if(onEsc){
+const self = this;
+document.body.addEventListener('keydown', function(ev){
+if(self.isShown() && 27===ev.which) self.hide();
+}, true);
+}
+return this;
+}
+};
+const toastImpl = function f(cssClass, durationMult, argsObject){
+if(!f.toaster){
+f.toaster = new F.PopupWidget({
+cssClass: 'fossil-toast-message'
+});
+D.attr(f.toaster.e, 'role', 'alert');
+}
+const T = f.toaster;
+if(f._timer) clearTimeout(f._timer);
+D.clearElement(T.e);
+if(f._prevCssClass) T.e.classList.remove(f._prevCssClass);
+if(cssClass) T.e.classList.add(cssClass);
+f._prevCssClass = cssClass;
+D.append(T.e, Array.prototype.slice.call(argsObject,0));
+T.show(F.toast.config.position.x, F.toast.config.position.y);
+f._timer = setTimeout(
+()=>T.hide(),
+F.toast.config.displayTimeMs * durationMult
+);
+return F.toast;
+};
+F.toast = {
+config: {
+position: { x: 5, y: 5 },
+displayTimeMs: 5000
+},
+message: function(){
+return toastImpl(false,1, arguments);
+},
+warning: function(){
+return toastImpl('warning',1.5,arguments);
+},
+error: function(){
+return toastImpl('error',2,arguments);
+}
+};
+F.helpButtonlets = {
+setup: function f(){
+if(!f.hasOwnProperty('clickHandler')){
+f.clickHandler = function fch(ev){
+ev.preventDefault();
+ev.stopPropagation();
+if(!fch.popup){
+fch.popup = new F.PopupWidget({
+cssClass: ['fossil-tooltip', 'help-buttonlet-content'],
+refresh: function(){
+}
+});
+fch.popup.e.style.maxWidth = '80%';
+fch.popup.installHideHandlers();
+}
+D.append(D.clearElement(fch.popup.e), ev.target.$helpContent);
+let popupRect, rectElem = ev.target;
+while(rectElem){
+popupRect = rectElem.getClientRects()[0];
+if(popupRect) break;
+rectElem = rectElem.parentNode;
+}
+if(!popupRect) popupRect = {x:0, y:0, left:0, right:0};
+let x = popupRect.left, y = popupRect.top;
+if(x<0) x = 0;
+if(y<0) y = 0;
+if(rectElem){
+const rz = window.getComputedStyle(rectElem).zIndex;
+let myZ;
+if(rz && !isNaN(+rz)){
+myZ = +rz + 1;
+}else{
+myZ = 10000;
+}
+fch.popup.e.style.zIndex = myZ;
+}
+fch.popup.show(x, y);
+x = popupRect.left, y = popupRect.top;
+popupRect = fch.popup.e.getBoundingClientRect();
+const rectBody = document.body.getClientRects()[0];
+if(popupRect.right > rectBody.right){
+x -= (popupRect.right - rectBody.right);
+}
+if(x + popupRect.width > rectBody.right){
+x = rectBody.x + (rectBody.width*0.1);
+fch.popup.e.style.minWidth = '70%';
+}else{
+fch.popup.e.style.removeProperty('min-width');
+x -= popupRect.width/2;
+}
+if(x<0) x = 0;
+fch.popup.show(x, y);
+return false;
+};
+f.foreachElement = function(e){
+if(e.classList.contains('processed')) return;
+e.classList.add('processed', 'help-buttonlet');
+e.$helpContent = [];
+e.childNodes.forEach((ch)=>e.$helpContent.push(ch));
+e.$helpContent.forEach((ch)=>ch.remove());
+e.addEventListener('click', f.clickHandler, false);
+};
+}
+let elems;
+if(!arguments.length){
+arguments[0] = '.help-buttonlet:not(.processed)';
+arguments.length = 1;
+}
+if(arguments.length){
+if('string'===typeof arguments[0]){
+elems = document.querySelectorAll(arguments[0]);
+}else if(arguments[0] instanceof HTMLElement){
+elems = [arguments[0]];
+}else if(arguments[0].forEach){
+elems = arguments[0];
+}
+}
+if(elems) elems.forEach(f.foreachElement);
+},
+create: function(elem){
+D.addClass(elem, 'help-buttonlet');
+if(arguments.length>1){
+const args = Array.prototype.slice.call(arguments,1);
+D.append(elem, args);
+}
+this.setup(elem);
+return elem;
+}
+};
+F.onDOMContentLoaded( ()=>F.helpButtonlets.setup() );
+})(window.fossil);
+/* fossil.page.forumpost.js *************************************************************/
+(function(F){
+"use strict";
+const P = F.page, D = F.dom;
+let idCounter = 0;
+const dummyPadding = D.div();
+dummyPadding.style.height = '75em';
+dummyPadding.refs = new Set();
+F.dummyPadding = dummyPadding;
+class ForumPostEditor {
+#opt;
+#e;
+#att;
+#isWaiting = false;
+#tabs;
+#toDisable = [];
+#activeTab;
+#extraFields;
+#draft;
+constructor(opt){
+opt = this.#opt = F.nu({
+draftKey: undefined,
+hideStash: false
+}, opt);
+opt.isNewThread = !opt.inReplyTo && !opt.edit;
+if( opt.draftKey ){
+this.#draft = F.nu(F.storage.getJSON(opt.draftKey, {}));
+}
+const e = this.#e = F.nu({
+mimetype: F.nu(),
+button: F.nu()
+});
+const wrapper = e.widget = D.addClass(D.div(), 'ForumPostEditor');
+D.clearElement(wrapper);
+if( !opt.inReplyTo ){
+e.titleBar = D.addClass(D.div(),'titlebar');
+e.title = D.attr(
+D.addClass(D.input('text'), 'title'),
+'placeholder',
+'Thread title (required)'
+);
+e.title.setAttribute('maxlength', 125);
+e.titleBar.append(
+D.append(D.span(), "Title:"),
+e.title
+);
+if( this.#draft ){
+e.title.addEventListener('blur', ()=>{
+this.#draft.title = e.title.value;
+this.#storeDraft();
+});
+e.title.value = this.#draft.title || opt.edit?.H || '';
+}else if( opt.edit?.H ){
+e.title.value = opt.edit.H;
+}
+wrapper.append(e.titleBar);
+}
+{
+e.mimetype.wrapper = D.addClass(D.div(), 'mimetype-wrapper');
+const sel = e.mimetype.select = D.addClass(D.select(), 'mimetype-select');
+sel.setAttribute('title', 'Markup format for this post.');
+this.#toDisable.push(sel);
+let i = 0;
+D.option(sel, '', '- Markup format -').disabled = true;
+for(const [k,v] of Object.entries({
+'text/x-markdown': 'Markdown',
+'text/x-fossil-wiki': 'Fossil Wiki',
+'text/plain': 'Plain text'
+})) {
+D.option(sel, k, v);
+}
+sel.value = opt.mimetype
+|| this.#draft?.mimetype
+|| F.storage.get('forum-mimetype', sel.options[1].value);
+sel.addEventListener('change',ev=>{
+if( this.#draft && this.#draft.mimetype!==ev.target.value ){
+this.#draft.mimetype = ev.target.value;
+this.#storeDraft();
+}
+F.storage.set('forum-mimetype', ev.target.value);
+});
+e.mimetype.wrapper.append(sel);
+}
+e.buttons = D.addClass(D.div(), 'buttons');
+{
+e.button.preview = D.attr(
+D.button("Preview", e=>this.#preview()),
+'title',
+'Preview your edits.'
+);
+e.button.submit = D.attr(
+D.button("Post as "+F.user.name),
+'title',
+'Save any edits to the server. Not permitted until Preview has been used.'
+);
+if( this.#draft && !opt.hideStash ){
+e.button.stash = D.attr(
+D.button(
+"Stash", e=>this.close()
+),
+'title', "Close this editor and stash any edits locally."
+);
+}
+if( opt.ondiscard instanceof Function ){
+e.button.discard = D.attr(
+D.button('Discard'),
+'title',
+'Close the editor and discard all local edits.'
+);
+}
+if( 1 ){
+F.confirmer(e.button.submit, {
+confirmText: "Confirm submit...",
+onconfirm: ()=>this.#submit()
+});
+if( e.button.discard ){
+F.confirmer(e.button.discard, {
+confirmText: "Really discard?",
+onconfirm: ()=>this.discard()
+});
+}
+}else{
+e.button.submit.addEventListener('click', ()=>this.#submit());
+if( e.button.discard ){
+e.button.submit.addEventListener('click', ()=>this.discard());
+}
+}
+e.button.submit.setAttribute('disabled', '');
+wrapper.append(e.buttons);
+e.error = D.addClass(D.div(), 'error', 'hidden');
+wrapper.append(e.error);
+e.error.addEventListener('dblclick',()=>this.reportError());
+}
+const idPrefix = 'FormPostEditor'+(++idCounter);
+{
+e.tabs = D.attr(
+D.addClass(D.div(), 'tab-container'),
+'id', idPrefix+'-tabs'
+);
+this.#tabs = new F.TabManager(e.tabs);
+this.#tabs.addEventListener('before-switch-to', (ev)=>{
+switch( (this.#activeTab = ev.detail) ){
+case e.preview:
+this.#e.button.preview.click();
+break;
+case e.help:
+if( e.help.$needsInit ){
+delete e.help.$needsInit;
+this.#initHelpTab();
+}
+break;
+case e.tabAttach:
+if( !this.#att ) this.#initAttacherTab();
+break;
+}
+});
+wrapper.append( e.tabs );
+e.tabEdit = D.div();
+e.tabEdit.classList.add('editor-wrapper');
+e.editor = D.attr(
+D.addClass(D.textarea(), 'editor'),
+'placeholder',
+'Your message to other forum-goers...'
+);
+if( opt.inReplyTo && !F.user.isIndividual ){
+const w = D.addClass(D.div(), 'warning');
+w.append(
+"You are not ",
+D.a(F.repoUrl(
+'login'
+), 'logged in'), ' so will be posting anonymously. ',
+"If you log in then return here, your draft edit will ",
+"still be here."
+);
+e.tabEdit.append(w);
+}
+e.tabEdit.append(e.editor);
+e.tabEdit.dataset.tabLabel = (opt.edit || !opt.inReplyTo)
+? 'Edit' : 'Reply';
+this.#tabs.addTab( e.tabEdit );
+this.#tabs.switchToTab( e.tabEdit );
+if( this.#draft ){
+this.editorContent = this.#draft.content || opt.edit?.W || '';
+e.editor.addEventListener(
+'blur', ()=>{
+this.#draft.content = this.editorContent;
+this.#storeDraft();
+}
+);
+}else if( opt.edit?.W ){
+this.editorContent = opt.artifact.W;
+}
+e.preview = D.addClass(D.div(), 'preview');
+e.preview.dataset.tabLabel = 'Preview';
+this.#toDisable.push(e.button.preview);
+this.#tabs.addTab( e.preview );
+}
+if( F.user.enableDebug ){
+e.debug = D.addClass(D.div(), 'debug');
+e.debug.dataset.tabLabel = 'Debug';
+e.debug.setAttribute('id', idPrefix+'-debug');
+for(const [k,v] of Object.entries({
+dryrun: 'Dry run',
+domod: 'Require moderation approval',
+fpsilent: 'Do not send notification emails'
+})){
+const lbl = D.label(false, v);
+lbl.prepend(D.checkbox(k));
+e.debug.append(lbl);
+}
+this.#tabs.addTab(e.debug);
+}
+e.buttons.append(e.mimetype.wrapper);
+if( opt.edit
+&& !opt.inReplyTo
+&& F.config.forumStatuses?.length>0 ){
+const sel = e.status = D.select();
+sel.setAttribute('title', 'The status tag value for this post.');
+D.option(sel, "", "- Status -").disabled = true;
+for( const status of F.config.forumStatuses ){
+D.option(sel, status.value, status.label);
+}
+e.buttons.append(sel);
+if( opt.status ){
+sel.value = opt.status;
+}else if( this.#draft ){
+if( this.#draft.status ){
+sel.value = this.#draft.status;
+}else{
+this.#draft.status = sel.value = F.config.forumStatuses[0].value;
+}
+sel.addEventListener('change',ev=>{
+const v = sel.value;
+if( this.#draft.status !== v ){
+this.#draft.status = v;
+this.#storeDraft();
+}
+});
+}
+}
+if( F.user.mayAttachForum ){
+e.tabAttach = D.div();
+e.tabAttach.setAttribute('id', idPrefix+'-attach');
+e.tabAttach.dataset.tabLabel = 'Attachments';
+this.#tabs.addTab(e.tabAttach);
+}
+e.buttons.append(e.button.preview, e.button.submit);
+if( e.button.stash ){
+e.buttons.append(e.button.stash);
+this.#toDisable.push(e.button.stash);
+}
+if( e.button.discard ){
+e.buttons.append(e.button.discard);
+this.#toDisable.push(e.button.discard);
+}
+e.help = D.attr(D.div(), 'id', idPrefix+'-help');
+e.help.$needsInit = true;
+e.help.dataset.tabLabel = 'Help';
+this.#tabs.addTab(e.help);
+if( opt.hiddenFields ){
+this.addHiddenFields( opt.hiddenFields );
+delete opt.hiddenFields;
+}
+{
+const eCb = D.checkbox(1);
+const eLbl = D.label();
+const eHelp = D.append(
+D.span(), [
+'When checked, shift-enter will toggle between preview ',
+'and edit modes, which is generally useful but some ',
+'software keyboards misinteract with it. If the preview ',
+'starts when tapping Enter, turn this setting off.'
+].join('')
+);
+eCb.checked = F.storage.getBool(
+'edit-shift-enter-preview',
+true
+);
+eCb.addEventListener('change', (ev)=>{
+F.storage.set('edit-shift-enter-preview', eCb.checked);
+});
+F.helpButtonlets.setup(eHelp);
+eLbl.append("Shift-enter toggles preview?", eCb, eHelp);
+e.tabEdit.append(eLbl);
+const isShiftEnter = (ev)=>eCb.checked && ev.shiftKey && 13===ev.keyCode;
+e.editor.addEventListener('keydown',(ev)=>{
+if(!isShiftEnter(ev)) return;
+ev.preventDefault();
+ev.stopPropagation();
+e.editor.blur();
+this.#tabs.switchToTab(e.preview);
+}, false);
+document.body.addEventListener('keydown',(ev)=>{
+if(!isShiftEnter(ev)) return;
+if(this.#activeTab !== e.tabEdit){
+ev.preventDefault();
+ev.stopPropagation();
+this.#tabs.switchToTab(e.tabEdit);
+e.editor.focus();
+return false;
+}
+}, true);
+}
+if(0){
+const elemsToToggle = document.body.querySelectorAll(
+':scope > header, :scope > nav'
+);
+e.button.toggleHeader =
+D.button('Toggle header', e=>{
+for(const et of elemsToToggle){
+et.classList.toggle('hidden');
+}
+});
+e.buttons.append(e.button.toggleHeader);
+}
+if(0){
+const eLbl = D.label(false, "Posting as "+F.user.name)
+eLbl.classList.add('logged-in-as');
+e.buttons.append(eLbl);
+}
+}
+close(){
+const e = this.#e.widget;
+if( e?.parentNode ){
+if( this.#opt.onclose instanceof Function ){
+try{this.#opt.onclose();}
+catch(e){
+console.error("ForumPostEditor.onclose() threw:",e);
+}
+}
+e.classList.add('animate-exit');
+e.addEventListener('animationend', ()=>e.remove(), {once: true});
+dummyPadding.refs.delete(this);
+if( 0===dummyPadding.refs.size ){
+dummyPadding.remove();
+}
+}
+}
+discard(){
+if( this.#opt.ondiscard instanceof Function ){
+try{this.#opt.ondiscard(this);}
+catch(e){
+console.error("ForumPostEditor.ondiscard() threw:",e);
+}
+}
+this.#clearDraft();
+this.close();
+}
+get widget(){
+if( !dummyPadding.parentElement ){
+document.body.append(dummyPadding);
+}
+dummyPadding.refs.add(this);
+return this.#e.widget;
+}
+get editorContent(){
+return this.#e.editor.value;
+}
+set editorContent(v){
+this.#e.editor.value = v;
+}
+reportError(...msg){
+const e = this.#e.error;
+D.clearElement(e);
+if( msg.length ){
+console.error('ForumPostEditor:',...msg);
+e.classList.remove('hidden');
+e.append(
+...msg, D.br(),
+D.button("Clear", ()=>this.reportError())
+);
+}else{
+e.classList.add('hidden');
+}
+}
+addHiddenFields(list){
+this.#extraFields ??= [];
+for( const f of list ){
+if( !f ) continue;
+if( 'title'===f.name && this.#e.title ){
+if( f.value && this.#opt.isNewThread && !this.#e.title.value ){
+this.#e.title.value = f.value;
+}
+}else{
+this.#extraFields.push(f);
+}
+}
+}
+get mimetype(){
+return this.#e.mimetype.select.value;
+}
+get title(){
+return this.#e.title?.value || this.#opt.edit?.H;
+}
+#initHelpTab(){
+const eh = this.#e.help;
+const list = D.ul();
+D.append(
+D.li(list),
+D.attr(D.a(F.repoUrl('md_rules'), 'Markdown markup rules'),
+'target', '_new')
+);
+D.append(
+D.li(list),
+D.attr(D.a(F.repoUrl('wiki_rules'), 'Fossil wiki markup rules'),
+'target', '_new')
+);
+D.append(
+D.li(list),
+"WARNING: draft edits are keyed on the ID of the message they ",
+"are editing or responding to. Attempting to edit or reply to ",
+"the same post from multiple tabs will cause the most-recently-edited ",
+"one to overwrite the draft slot for that post. In browsers which support ",
+"Web Locks, a second attempt to edit or reply to a post will be blocked ",
+"and an error will be shown explaining the problem."
+);
+if( this.#e.status ){
+D.append(
+D.li(list),
+"Tip: changing just the status in the editor will change only that, ",
+"not a whole new (but unedited) copy of the post."
+);
+}
+eh.append(list);
+}
+#initAttacherTab(){
+this.#att = new F.Attacher({
+reverse: true
+});
+if( this.#opt.edit ){
+const eNote = D.append(
+D.div(),
+"Tip: attachments can be added to posts without editing them ",
+"by visiting ",
+D.attr(
+D.a(F.repoUrl('attachadd?target='+this.#opt.edit.uuid), '/attachadd'),
+'target',
+'_new'
+),
+".",
+);
+this.#e.tabAttach.append(eNote);
+}
+this.#e.tabAttach.append(this.#att.widget);
+}
+#newFormData(addThisContent){
+const fd = new FormData;
+for(const f of this.#extraFields){
+fd.append(f.name, f.value);
+}
+let v;
+if( this.#opt.inReplyTo ){
+fd.append( 'firt', this.#opt.inReplyTo );
+}else if( (v = (this.#e.title?.value?.trim?.() || this.#opt.edit?.H)) ){
+fd.append('title', v);
+}
+fd.append('mimetype', this.mimetype);
+fd.append('content', addThisContent || this.editorContent.trim());
+return fd;
+}
+async #fetchPreview(content){
+const e = this.#e;
+const fd =
+new FormData;
+let ext;
+switch(this.mimetype){
+case 'text/x-markdown':    ext = 'md';   break;
+case 'text/x-fossil-wiki': ext = 'wiki'; break;
+default:                   ext = 'txt';  break;
+}
+fd.append('filename', 'x.'+ext);
+fd.append('content', this.editorContent.trim());
+return window
+.fetch(F.repoUrl('ajax/preview-text'),{
+method: 'POST',
+body: fd
+})
+.then(r=>r.text())
+.then(t=>{
+if( /^\{.*}$/.test(t) ){
+const o = JSON.parse(t);
+throw new Error(o.error);
+}
+return t;
+});
+}
+#setPreviewContent(rawHtml){
+const preview = this.#e.preview;
+const childs = [...preview.childNodes];
+D.parseHtml(preview, rawHtml);
+D.remove(childs);
+if(F.pikchr && 'text/x-markdown'===this.mimetype){
+F.pikchr.addSrcView(
+preview.querySelectorAll('svg.pikchr')
+);
+}
+}
+async #preview(){
+if( this.#isWaiting ) return;
+const e = this.#e;
+if( e.preview !== this.#activeTab ){
+this.#tabs.switchToTab(e.preview);
+return;
+}
+const content = this.editorContent.trim();
+if( !content ){
+return;
+}
+if( 0
+&& !e.preview.firstElementChild ){
+if( 0 ){
+const c = window.getComputedStyle(e.editor);
+e.preview.style.height = c.height;
+}else{
+e.preview.style.height = '20em';
+}
+}
+this.#isWaiting = true;
+D.disable(this.#toDisable, e.button.submit);
+this.#fetchPreview(content)
+.then((c)=>{
+this.#setPreviewContent(c);
+D.enable(e.button.submit);
+})
+.catch(err=>{
+e.preview.textContent = "Error fetching preview: "+err.message;
+console.error("Error fetching preview:",err);
+this.reportError(err.message);
+})
+.finally(()=>{
+this.#isWaiting = false;
+D.enable(this.#toDisable);
+});
+}
+#validate(tgt){
+if( this.#e.title ){
+const v = this.#e.title.value.trim();
+if( !v ){
+this.reportError("A non-empty title is required.");
+return;
+}
+}
+return true;
+}
+#submit(){
+if( this.#isWaiting ) return;
+if( !this.#validate() ) return;
+this.#isWaiting = true;
+const e = this.#e;
+D.disable(e.button.submit);
+const fd = this.#newFormData();
+if( this.#e.status ){
+const v = this.#e.status.value;
+if( this.#e.status.dataset.originalValue !== v ){
+fd.append("status", v);
+}
+}
+if( e.debug ){
+e.debug.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+if( cb.checked ){
+fd.append(cb.value, 1);
+}
+});
+}
+if( this.#att ){
+this.#att.populateFormData(fd);
+}
+if( 0 ){
+this.#isWaiting = false;
+return;
+}
+const resp = window.fetch(F.repoUrl('forumajax_save'), {
+method: 'POST',
+body: fd
+}).then(r=>r.json())
+.then(j=>{
+j = F.nu(j);
+console.debug("forum post editor response:",j);
+if( j.error ){
+throw new Error(j.error);
+}else if( j.message ){
+this.reportError(j.message);
+return;
+}
+if( 1 ){
+this.#clearDraft();
+if( this.#opt.onsubmit instanceof Function ){
+try{this.#opt.onsubmit(this, j);}
+catch(e){
+console.error("ForumPostEditor.onsubmit() threw: ", e);
+}
+}
+else if( 0 ){
+if( this.#opt.edit.uuid === j.uuid
+&& !j.statusModified && 0===j.attachedCount ){
+this.reportError("No changes made.");
+}else{
+window.location = F.repoUrl('forumpost/'+j.uuid);
+setTimeout(()=>this.close(), 500);
+}
+}
+}else{
+this.reportError(
+"Saving worked but we're ignoring it and staying here."
+);
+}
+})
+.catch((e)=>this.reportError(e.message))
+.finally(()=>this.#isWaiting = false);
+}
+#storeDraft(){
+if( this.#draft ){
+this.#draft.mtime = Date.now();
+F.storage.setJSON(this.#opt.draftKey, this.#draft);
+}
+}
+#clearDraft(){
+if( this.#draft ){
+F.storage.remove(this.#opt.draftKey);
+this.#draft = F.nu();
+}
+}
+static purgeOldDrafts(key, days=10){
+const age = (3600 * 24 * days) * 1000;
+const now = Date.now();
+const check = (k)=>{
+const o = F.storage.getJSON(k);
+if( o && o.mtime && (!days || (o.mtime+age <= now)) ){
+F.storage.remove(k);
+}
+};
+if( key instanceof RegExp ){
+for(const k of F.storage.keys(false).filter(v=>key.test(v))){
+check(k);
+}
+}else{
+check(key);
+}
+}
+async #fetchPost(){
+}
+};
+F.ForumPostEditor = ForumPostEditor;
+F.onPageLoad(function(){
+const scrollbarIsVisible = (e)=>e.scrollHeight > e.clientHeight;
+const getWidgetHandler = function(widget, contentElem){
+return function(ev){
+if(ev) ev.preventDefault();
+const wasExpanded = widget.classList.contains('expanded');
+widget.classList.toggle('expanded');
+contentElem.classList.toggle('expanded');
+if(wasExpanded){
+contentElem.classList.add('shrunken');
+contentElem.parentElement.scrollIntoView({
+ behavior: 'smooth'
+});
+}else{
+contentElem.classList.remove('shrunken');
+}
+return false;
+};
+};
+document.querySelectorAll(
+'div.forumTime, div.forumEdit'
+).forEach(function f(forumPostWrapper){
+const content = forumPostWrapper.querySelector('div.forumPostBody');
+if(!content || !scrollbarIsVisible(content)) return;
+const parent = content.parentElement,
+widget =  D.addClass(
+D.div(),
+'forum-post-collapser','bottom'
+),
+rightTapZone = D.addClass(
+D.div(),
+'forum-post-collapser','right'
+);
+const refillTapZone = function f(){
+if(!f.baseTapIndicatorHeight){
+const h1 = document.querySelector('h1, h2');
+f.baseTapIndicatorHeight = h1.getBoundingClientRect().height;
+}
+D.clearElement(rightTapZone);
+var rtzHeight = parseInt(window.getComputedStyle(rightTapZone).height);
+do {
+D.append(rightTapZone, D.span());
+rtzHeight -= f.baseTapIndicatorHeight * 8;
+}while(rtzHeight>0);
+};
+const handlerStep1 = getWidgetHandler(widget, content);
+const widgetEventHandler = ()=>{ handlerStep1(); refillTapZone(); };
+content.classList.add('with-expander');
+widget.addEventListener('click', widgetEventHandler, false);
+var i = 0;
+for( ; i < 3; ++i ) D.append(widget, D.span());
+if(content.nextSibling){
+forumPostWrapper.insertBefore(widget, content.nextSibling);
+}else{
+forumPostWrapper.appendChild(widget);
+}
+content.appendChild(rightTapZone);
+rightTapZone.addEventListener('click', widgetEventHandler, false);
+refillTapZone();
+});
+if(F.pikchr){
+F.pikchr.addSrcView();
+}
+const eStatus = document.querySelector(
+'form div.submenu select.submenuctrl[name="status"]'
+);
+if( eStatus ){
+const pForm = eStatus.parentElement?.parentElement;
+if( pForm ){
+eStatus.addEventListener('change', ()=>{
+pForm.querySelector('input[type="hidden"][name="x"]')?.remove?.();
+}, true);
+}
+}else{
+const formSubmitted = function(event){
+const form = event.target;
+if( form.dataset.submitted ){
+event.preventDefault();
+return;
+}
+form.dataset.submitted = '1';
+setTimeout(()=>{delete form.dataset.submitted}, 7000);
+return;
+};
+const deactivateButtonInFlight = (elem, form)=>{
+if( elem.disabled ) return;
+elem.disabled = true;
+setTimeout(
+()=>elem.disabled = false, 10000
+);
+form.submit();
+};
+document.querySelectorAll("form").forEach(function(form){
+form.addEventListener('submit', formSubmitted);
+form
+.querySelectorAll("input.action-close, input.action-reopen")
+.forEach(function(e){
+e.classList.remove('hidden');
+F.confirmer(e, {
+confirmText: (e.classList.contains('action-reopen')
+? "Confirm re-open"
+: "Confirm close"),
+onconfirm: ()=>deactivateButtonInFlight(e, form)
+});
+});
+form
+.querySelectorAll("input.action-approve, input.action-reject")
+.forEach(function(e){
+e.type = 'button';
+const isApprove = e.classList.contains('action-approve');
+F.confirmer(e, {
+confirmText: (isApprove
+? "Confirm approval"
+: "Confirm rejection"),
+onconfirm: ()=>{
+form.append(
+D.attr(
+D.input('hidden'),
+'name', isApprove ? 'approve' : 'reject',
+'value', 'ignored'
+)
+);
+deactivateButtonInFlight(e, form);
+}
+});
+});
+form
+.querySelectorAll("input[type='button'].action-status")
+.forEach(function(btn){
+const sel = btn.previousElementSibling;
+const updateButton = ()=>{
+if( sel.dataset.initialValue ){
+if( sel.dataset.initialValue===sel.value ){
+btn.setAttribute('disabled','');
+}else{
+btn.removeAttribute('disabled');
+}
+}else{
+if(sel.selectedIndex===0){
+btn.setAttribute('disabled','');
+}else{
+btn.removeAttribute('disabled');
+}
+}
+};
+sel.addEventListener('change', updateButton, true);
+updateButton();
+F.confirmer(btn, {
+confirmText: "Confirm status change",
+onconfirm: ()=>deactivateButtonInFlight(btn, form)
+});
+});
+});
+}
+const initFPEWidget = (fpe, ePost)=>{
+ePost.eUnhideThenWhenDone = [
+];
+for( const ee of ePost.querySelectorAll(
+'.forumpost-single-controls, fieldset.forum-status-selection'
+) ){
+ee.hidden = true;
+ePost.eUnhideThenWhenDone.push(ee);
+}
+const w = fpe.widget;
+w.classList.add('animate-entrance');
+ePost.append(w);
+requestAnimationFrame(() => {
+w.scrollIntoView({
+behavior: 'smooth',
+block: 'nearest',
+inline: 'nearest'
+});
+});
+};
+const plugInEditor =
+(new URL(window.location).searchParams).get('nojs')===null;
+const eForumNew = (
+plugInEditor
+&& (
+document.body.classList.contains('cpage-forumnew')
+|| document.body.classList.contains('cpage-forume1')
+))
+? document.body.querySelector('#forumnew-placeholder')
+: null;
+if( plugInEditor && eForumNew ){
+const fpe = new F.ForumPostEditor({
+draftKey: 'draft-forumnew',
+hiddenFields: eForumNew.querySelectorAll('input[type=hidden]'),
+hideStash: true,
+ondiscard: ()=>{
+window.location = F.repoUrl('forum');
+},
+onsubmit: (fpe, response)=>{
+window.location = F.repoUrl('forumpost/'+response.uuid);
+}
+});
+eForumNew.parentElement.insertBefore(fpe.widget, eForumNew);
+eForumNew.remove();
+fossil.page.fpe = fpe;
+}
+else if( plugInEditor
+&& (document.body.classList.contains('cpage-forumpost')
+|| document.body.classList.contains('cpage-forumthread')) ){
+const fetchPost = async (fpid)=>{
+return window.fetch(F.repoUrl('ajax/artifact.json?uuid='+fpid))
+.then(r=>r.json())
+.then(j=>{
+j = F.nu(j);
+if( j.error ) throw new Error(j.error);
+return j;
+});
+};
+const makeDraftKey = (prefix,uuid)=>{
+return prefix+'-'+uuid.substr(0,12);
+};
+const setupEditReplyElement = (ePost, eButton)=>{
+ePost.dataset.originalMarginLeft = ePost.style.marginLeft;
+ePost.style.marginLeft = 'initial';
+eButton.dataset.originalLabel = eButton.innerText;
+};
+const restoreEditReplyElement = (ePost, eButton)=>{
+if( ePost.dataset.originalMarginLeft ){
+ePost.style.marginLeft = ePost.dataset.originalMarginLeft;
+delete ePost.dataset.originalMarginLeft;
+}
+if( eButton.dataset.originalLabel ){
+eButton.innerText = eButton.dataset.originalLabel;
+delete eButton.dataset.originalLabel;
+}
+for(const ee of (ePost.eUnhideThenWhenDone || [])){
+ee.removeAttribute('hidden');
+}
+ePost.eUnhideThenWhenDone = undefined;
+};
+const reportFPEError = (ePost,...msg)=>{
+const e = D.addClass(D.p(), 'error');
+e.append(
+...msg,
+D.br(),
+D.button("Clear error", ()=>e.remove())
+);
+ePost.append(e);
+};
+const replyClicked = async (form, ePost, eBtnReply)=>{
+const fpid = ePost.dataset.fpid;
+const fEditHead = ePost.dataset.fedithead;
+const draftKey = makeDraftKey(
+'draft-reply', fEditHead
+|| fpid
+);
+let releaseLock;
+if( window.navigator.locks ){
+let forceReleaseLockOnClose = null;
+const handlePageHide = ()=>{
+if( forceReleaseLockOnClose ){
+forceReleaseLockOnClose();
+}
+};
+window.addEventListener('pagehide', handlePageHide);
+releaseLock = await new Promise((resolve)=>{
+window.navigator.locks.request(
+'fossil-'+draftKey,
+{ifAvailable: true},
+async (lock)=>{
+if( !lock ){
+resolve(null);
+return;
+}
+let release;
+const lockReleased = new Promise(res=>release=res);
+forceReleaseLockOnClose = release;
+const wrappedRelease = ()=>{
+window.removeEventListener('pagehide', handlePageHide);
+if( release ) release();
+};
+resolve(wrappedRelease);
+await lockReleased;
+});
+});
+if( !releaseLock ){
+window.removeEventListener('pagehide', handlePageHide);
+reportFPEError(
+ePost,
+"This post is actively being replied to ",
+"in another tab. To avoid losing edits, ",
+"it cannot be opened here until the locking ",
+"tab is closed."
+);
+return;
+}
+}
+setupEditReplyElement(ePost, eBtnReply);
+eBtnReply.innerText = "Replying...";
+const ondone = (fpe, response)=>{
+restoreEditReplyElement(ePost, eBtnReply);
+if( response ){
+window.location = F.repoUrl('forumpost/'+response.uuid);
+setTimeout(()=>fpe.close(), 500);
+}else{
+}
+};
+const fpe = new F.ForumPostEditor(F.nu({
+hiddenFields: form.querySelectorAll(
+'input[type=hidden][name=csrf]'
+),
+ondiscard: ()=>{},
+onsubmit: ondone,
+onclose: ()=>{
+if( releaseLock ){
+releaseLock();
+releaseLock = null;
+}
+ondone();
+},
+inReplyTo: fpid,
+draftKey
+}));
+initFPEWidget(fpe, ePost);
+};
+const editClicked = async (form, ePost, eBtnEdit)=>{
+const fpid = ePost.dataset.fpid;
+const firt = ePost.dataset.firt;
+const fEditHead = ePost.dataset.fedithead;
+const draftKey = makeDraftKey('draft-forumedit', fEditHead || fpid);
+let releaseLock;
+if( navigator.locks ){
+releaseLock = await new Promise((resolve) => {
+navigator.locks.request(
+'fossil-'+draftKey,
+{ifAvailable: true},
+async (lock)=>{
+if( !lock ){
+resolve(null);
+return;
+}
+let release;
+const lockReleased = new Promise(res=>release=res);
+resolve(release);
+await lockReleased;
+});
+});
+if( !releaseLock ){
+reportFPEError(
+ePost,
+"This post is actively being edited ",
+"in another tab. To avoid losing edits, ",
+"it cannot be opened here until the locking ",
+"tab is closed."
+);
+return;
+}
+}
+setupEditReplyElement(ePost, eBtnEdit);
+eBtnEdit.innerText = "Editing...";
+fetchPost(fpid)
+.then(artifact=>{
+const ondone = (fpe, response)=>{
+if( response ){
+if( fpid === response.uuid
+&& !response.statusModified
+&& 0===response.attachedCount ){
+fpe.reportError("No changes made.");
+}else{
+restoreEditReplyElement(ePost, eBtnEdit);
+window.location = F.repoUrl('forumpost/'+response.uuid);
+setTimeout(()=>fpe.close(), 500);
+}
+}else{
+restoreEditReplyElement(ePost, eBtnEdit);
+}
+};
+const eStatusSelect = ePost.querySelector(
+':scope > fieldset.forum-status-selection select[name=status]'
+);
+const fpe = new F.ForumPostEditor(F.nu({
+hiddenFields: form.querySelectorAll('input[type=hidden]'),
+ondiscard: ()=>{},
+onsubmit: ondone,
+onclose: ()=>{
+if(releaseLock){
+releaseLock();
+releaseLock = null;
+}
+ondone();
+},
+draftKey,
+edit: artifact,
+status: eStatusSelect?.value,
+inReplyTo: firt
+}));
+initFPEWidget(fpe, ePost);
+})
+.catch(err=>{
+if( releaseLock ){
+releaseLock();
+releaseLock = null;
+}
+restoreEditReplyElement(ePost, eBtnEdit);
+console.error("Error fetching post:", err);
+reportFPEError(ePost, "Error fetching post: ", err.message);
+});
+};
+document.body.querySelectorAll(
+'.forumpost-single-controls > form'
+).forEach(form=>{
+const eThePost = form.parentElement.parentElement;
+if( !eThePost?.dataset?.fpid ){
+console.warn("Unexpected missing fpid", eThePost);
+return;
+}
+const checkButtonForDraft = (draftKeyPrefix, eBtn)=>{
+const fpid = eThePost.dataset.fpid;
+const fEditHead = eThePost.dataset.fedithead;
+const draftKey = makeDraftKey(draftKeyPrefix, fEditHead || fpid);
+if( F.storage.contains(draftKey) ){
+eBtn.classList.add('draft');
+}
+F.storage.addEventListener('set', ({detail})=>{
+if( draftKey === detail.key ){
+eBtn.classList.add('draft');
+}
+});
+F.storage.addEventListener('remove', ({detail})=>{
+if( draftKey === detail.key ){
+eBtn.classList.remove('draft');
+}
+});
+};
+const btnReply = form.querySelector('input[type=submit][name=reply]');
+if( btnReply ){
+const b = D.button("Reply", ()=>replyClicked(form, eThePost, b));
+b.type = 'button';
+checkButtonForDraft('draft-reply',b);
+btnReply.parentElement.insertBefore(b, btnReply);
+btnReply.remove();
+}
+const btnEdit = form.querySelector('input[type=submit][name=edit]');
+if( btnEdit ){
+const b = D.button("Edit", ()=>editClicked(form, eThePost, b));
+b.type = 'button';
+checkButtonForDraft('draft-forumedit',b);
+btnEdit.parentElement.insertBefore(b, btnEdit);
+btnEdit.remove();
+}
+});
+}
+document.body.querySelectorAll('.remove-on-load').forEach(e=>e.remove());
+document.body.querySelectorAll('.initially-hidden').forEach(e=>{
+e.classList.remove('initially-hidden');
+});
+if( plugInEditor ){
+document.body.querySelectorAll('.remove-if-replaced').forEach(
+ e=>e.remove()
+);
+const now = Date.now();
+const lastPurge = +F.storage.get('forum-drafts-last-purge', 0);
+if( now - lastPurge > (24 * 60 * 60 * 1000) ){
+F.storage.set('forum-drafts-last-purge', now);
+setTimeout(()=>{
+F.ForumPostEditor.purgeOldDrafts(
+/^draft-(reply|forumedit)-.*/
+);
+}, 50);
+}
+}
+});
+})(window.fossil);
+/* menu.js *************************************************************/
+function toggle_annotation_log(){
+var w = document.getElementById("annotation_log");
+var x = document.forms["f01"].elements["log"].checked
+w.style.display = x ? "block" : "none";
+}
+function submenu_onchange_submit(){
+var w = document.getElementById("f01");
+w.submit();
+}
+(function (){
+for(var i=0; 1; i++){
+var x = document.getElementById("submenuctrl-"+i);
+if(!x) break;
+if( !x.hasAttribute('data-ctrl') ){
+x.onchange = submenu_onchange_submit;
+}else{
+var cx = x.getAttribute('data-ctrl');
+if( cx=="toggle_annotation_log" ){
+x.onchange = toggle_annotation_log;
+}
+}
+}
+})();
+</script>
+</body>
+</html>

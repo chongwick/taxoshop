@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<base href="https://sqlite.org/bugs/info">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self' 'nonce-c54b2caab25febadd1e50467d1c9c6e88233a7cd311821e6'; style-src 'self' 'unsafe-inline'; img-src * data:">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQLite Bug Forum: Attachment Details</title>
+<link rel="alternate" type="application/rss+xml" title="RSS Feed"  href="/bugs/timeline.rss">
+<link rel="stylesheet" href="/bugs/style.css?id=d19cdb7f" type="text/css">
+</head>
+<body class="attach rpage-info cpage-info">
+<header>
+  <div class="title"><h1>SQLite Bug Forum</h1>Attachment Details</div>
+  <div class="status">
+    <a href='/bugs/login'>Login</a>
+
+  </div>
+</header>
+<nav class="mainmenu" title="Main Menu">
+  <a id='hbbtn' href='/bugs/sitemap' aria-label='Site Map'>&#9776;</a><a href='/bugs/about' class='desktoponly'>About</a>
+<a href='/bugs/forum' class=''>Threads</a>
+<a href='/bugs/forumnew' class=''>Post</a>
+<a href='/bugs/register' class='desktoponly'>Subscribe</a>
+<a href='https://sqlite.org/' class=''>SQLite</a>
+<a href='https://sqlite.org/forum' class=''>Forum</a>
+
+</nav>
+<nav id="hbdrop" class='hbdrop' title="sitemap"></nav>
+<div class="submenu">
+<a class="label sml-raw"  href="/bugs/artifact/77312dab0873c1438d67c14865babeb07a2e9df8da80cd5adccf231682a34221">Raw</a>
+</div>
+<div class="content"><span id="debugMsg"></span>
+<div class="section">Overview</div>
+<p><table class="label-value">
+<tr><th>Artifact&nbsp;ID:</th>
+<td>77312dab0873c1438d67c14865babeb07a2e9df8da80cd5adccf231682a34221</a>
+<tr><th>Forum&nbsp;Post:</th>
+<td>86ae24f7a19271c3d1afbc734f5cd5bf847ddc357b4755fb929a947b3e76b5c4</a></td></tr>
+<tr><th>Date:</th><td>
+2026-06-25 11:49:54</td></tr>
+<tr><th>User:</th><td>
+bruno-tob
+<tr><th>Artifact&nbsp;Attached:</th>
+<td>0636fd50e45398689de7e053dad7276f84b11f169fef0a17be4565672a2f804a</a>
+<tr><th>Filename:</th><td>fix.patch</td></tr>
+<tr><th valign="top">Description:</th><td valign="top"></td></tr>
+</table>
+<div class="section">Content:</div>
+<blockquote>
+<i>(file is 1536 bytes of binary data)</i>
+</blockquote>
+</div>
+<footer>
+This page was generated in about
+0.004s by
+Fossil 2.29 [d04ad10377] 2026-08-28 11:49:43
+</footer>
+<script nonce="c54b2caab25febadd1e50467d1c9c6e88233a7cd311821e6">/* style.c:944 */
+function debugMsg(msg){
+var n = document.getElementById("debugMsg");
+if(n){n.textContent=msg;}
+}
+</script>
+<script nonce='c54b2caab25febadd1e50467d1c9c6e88233a7cd311821e6'>
+/* hbmenu.js *************************************************************/
+(function() {
+var hbButton = document.getElementById("hbbtn");
+if (!hbButton) return;
+if (!document.addEventListener) return;
+var panel = document.getElementById("hbdrop");
+if (!panel) return;
+if (!panel.style) return;
+var panelBorder = panel.style.border;
+var panelInitialized = false;
+var panelResetBorderTimerID = 0;
+var animate = panel.style.transition !== null && (typeof(panel.style.transition) == "string");
+var animMS = panel.getAttribute("data-anim-ms");
+if (animMS) {
+animMS = parseInt(animMS);
+if (isNaN(animMS) || animMS == 0)
+animate = false;
+else if (animMS < 0)
+animMS = 400;
+}
+else
+animMS = 400;
+var panelHeight;
+function calculatePanelHeight() {
+panel.style.maxHeight = '';
+var es   = window.getComputedStyle(panel),
+edis = es.display,
+epos = es.position,
+evis = es.visibility;
+panel.style.visibility = 'hidden';
+panel.style.position   = 'absolute';
+panel.style.display    = 'block';
+panelHeight = panel.offsetHeight + 'px';
+panel.style.display    = edis;
+panel.style.position   = epos;
+panel.style.visibility = evis;
+}
+function showPanel() {
+if (panelResetBorderTimerID) {
+clearTimeout(panelResetBorderTimerID);
+panelResetBorderTimerID = 0;
+}
+if (animate) {
+if (!panelInitialized) {
+panelInitialized = true;
+calculatePanelHeight();
+panel.style.transition = 'max-height ' + animMS +
+'ms ease-in-out';
+panel.style.overflowY  = 'hidden';
+panel.style.maxHeight  = '0';
+}
+setTimeout(function() {
+panel.style.maxHeight = panelHeight;
+panel.style.border    = panelBorder;
+}, 40);
+}
+panel.style.display = 'block';
+document.addEventListener('keydown',panelKeydown,true);
+document.addEventListener('click',panelClick,false);
+}
+var panelKeydown = function(event) {
+var key = event.which || event.keyCode;
+if (key == 27) {
+event.stopPropagation();
+panelToggle(true);
+}
+};
+var panelClick = function(event) {
+if (!panel.contains(event.target)) {
+panelToggle(true);
+}
+};
+function panelShowing() {
+if (animate) {
+return panel.style.maxHeight == panelHeight;
+}
+else {
+return panel.style.display == 'block';
+}
+}
+function hasChildren(element) {
+var childElement = element.firstChild;
+while (childElement) {
+if (childElement.nodeType == 1)
+return true;
+childElement = childElement.nextSibling;
+}
+return false;
+}
+window.addEventListener('resize',function(event) {
+panelInitialized = false;
+},false);
+hbButton.addEventListener('click',function(event) {
+event.stopPropagation();
+event.preventDefault();
+panelToggle(false);
+},false);
+function panelToggle(suppressAnimation) {
+if (panelShowing()) {
+document.removeEventListener('keydown',panelKeydown,true);
+document.removeEventListener('click',panelClick,false);
+if (animate) {
+if (suppressAnimation) {
+var transition = panel.style.transition;
+panel.style.transition = '';
+panel.style.maxHeight = '0';
+panel.style.border = 'none';
+setTimeout(function() {
+panel.style.transition = transition;
+}, 40);
+}
+else {
+panel.style.maxHeight = '0';
+panelResetBorderTimerID = setTimeout(function() {
+panel.style.border = 'none';
+panelResetBorderTimerID = 0;
+}, animMS);
+}
+}
+else {
+panel.style.display = 'none';
+}
+}
+else {
+if (!hasChildren(panel)) {
+var xhr = new XMLHttpRequest();
+xhr.onload = function() {
+var doc = xhr.responseXML;
+if (doc) {
+var sm = doc.querySelector("ul#sitemap");
+if (sm && xhr.status == 200) {
+panel.innerHTML = sm.outerHTML;
+showPanel();
+}
+}
+}
+var url = hbButton.href + (hbButton.href.includes("?")?"&popup":"?popup")
+xhr.open("GET", url);
+xhr.responseType = "document";
+xhr.send();
+}
+else {
+showPanel();
+}
+}
+}
+})();
+</script>
+</body>
+</html>
