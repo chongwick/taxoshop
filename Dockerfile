@@ -1,46 +1,57 @@
-# Build SQLite with AddressSanitizer + UndefinedBehaviorSanitizer.
-#
-# Usage:
-#   docker build -t sqlite-asan .
-#   docker run --rm -it sqlite-asan            # drops you in the shell built with ASan/UBSan
-#   docker run --rm sqlite-asan sqlite3 :memory: "select sqlite_version();"
-#
 FROM ubuntu:24.04
 
-# tcl is needed by SQLite's build/test tooling; the rest is a normal C toolchain.
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+ARG DEBIAN_FRONTEND=noninteractive
+ARG CPYTHON_REF=f5394c257ce
+ARG CPYTHON_HISTORY_DEPTH=5000
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
         build-essential \
-        clang \
-        llvm \
-        libclang-rt-18-dev \
-        tcl-dev \
-        tclsh \
-        zlib1g-dev \
         ca-certificates \
+        clang \
+        git \
+        libbz2-dev \
+        libffi-dev \
+        libgdbm-compat-dev \
+        libgdbm-dev \
+        liblzma-dev \
+        libncurses5-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        llvm \
+        tk-dev \
+        uuid-dev \
+        xz-utils \
+        zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /src
-COPY sqlite/ /src/
-
-# Configure with a clean toolchain (sanitizer flags here break configure's tiny
-# probe programs), then inject the sanitizers at build time via $(CFLAGS.core).
-# That variable is appended only to the SQLite compile *and* link steps, and is
-# NOT passed to the build-time code generators (lemon, mkkeywordhash, jimsh) --
-# unlike $(OPTS), which is also forwarded to lemon as CLI args and breaks it.
-#
-# Sanitizer flags:
-#  - address: heap/stack/global overflow + use-after-free
-#  - undefined: signed overflow, misaligned access, bad shifts, etc.
-#  - fno-sanitize-recover=all: turn every finding into a hard abort (good for CI)
-ENV CC=clang
-ENV SAN="-g -O1 -fno-omit-frame-pointer -fsanitize=address,undefined -fno-sanitize-recover=all"
-
-RUN ./configure --enable-all && \
-    make sqlite3 CFLAGS.core="$SAN" && \
-    cp sqlite3 /usr/local/bin/sqlite3
-
-# Halt on the first UBSan diagnostic and print readable ASan reports.
-ENV ASAN_OPTIONS=abort_on_error=1:halt_on_error=1:detect_leaks=1
+ENV ASAN_OPTIONS=detect_leaks=0:abort_on_error=1:symbolize=1
 ENV UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1
+ENV ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
+ENV LLVM_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
+ENV PYTHONMALLOC=malloc
 
-CMD ["sqlite3"]
+WORKDIR /src
+
+RUN git init cpython \
+    && cd cpython \
+    && git remote add origin https://github.com/python/cpython.git \
+    && git fetch --depth "${CPYTHON_HISTORY_DEPTH}" origin main \
+    && git checkout --detach "${CPYTHON_REF}"
+
+WORKDIR /src/cpython
+
+RUN CC=gcc CXX=g++ ./configure \
+        --prefix=/opt/python-asan-ubsan \
+        --with-address-sanitizer \
+        --with-undefined-behavior-sanitizer \
+        --without-ensurepip \
+        --without-pymalloc \
+    && make -j"$(nproc)"
+
+COPY repro/issue_143545.py /src/cpython/repro/issue_143545.py
+
+WORKDIR /src/cpython
+
+CMD ["./python", "./repro/issue_143545.py"]
