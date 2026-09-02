@@ -20,6 +20,28 @@ to the original C frame, which continues accessing the freed context.
 5. `clearEntries()` frees `currentProfilerContext`.
 6. `initContext()` or `Stop()` resumes and accesses the freed context.
 
+## Reproducer
+
+```python
+import cProfile
+
+class Timer:
+    def __call__(self):
+        return self
+
+    def __index__(self):
+        prof.clear()
+        return 0
+
+prof = cProfile.Profile(timer=Timer())
+
+def victim():
+    pass
+
+prof._pystart_callback(victim.__code__, 0)
+```
+
+
 ## Relevant State
 - Owner: `ProfilerObject`
 - Invalidated state: `ProfilerContext`
