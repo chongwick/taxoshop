@@ -1,5 +1,20 @@
 # Finding 01 — Use-after-free in `_json` C encoder (`encoder_listencode_obj`)
 
+> **✅ DEDUP RESULT: NOT a duplicate (determined by sanitizer crash location / stack trace).**
+> Dedup is decided by the crashing stack frame, not by issue title/component. This finding's faulting
+> frames are:
+> - list/sequence variant: `#0 _Py_TYPE Include/object.h:277` (generic `%T`) → `_PyErr_FormatNote
+>   Python/errors.c:1259` → **`encoder_listencode_obj Modules/_json.c:1663`** (the distinguishing app frame).
+> - dict variant: **`encoder_encode_key_value Modules/_json.c:1741`** → `_encoder_iterate_dict_lock_held
+>   Modules/_json.c:1801`.
+>
+> A corpus-wide search for any `Modules/_json.c:` stack frame returns **zero** matches — no known
+> issue records a stack trace reaching these frames. The json-adjacent corpus entries are not
+> crash-location matches: `gh_143544` (decoder UAF) records **no** symbolized stack; `gh_142831`
+> and `gh_140750`/`gh_143196` are a **different bug class** (heap-buffer-**overflow** at address
+> `0x5020000051a0`, the indentation-cache `__mul__` path), not this use-after-free. The earlier
+> title-based "gh_142831 overlap" caveat is withdrawn: under stack-trace dedup there is no match.
+
 - **Component:** `Modules/_json.c` (C accelerator for the `json` module, encoder path)
 - **Bug class:** heap-use-after-free (read)
 - **Detection:** AddressSanitizer, on CPython `f5394c257ce` (3.15.0a1), default GIL build

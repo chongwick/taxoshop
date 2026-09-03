@@ -1,0 +1,134 @@
+=================================================================
+==898==ERROR: AddressSanitizer: heap-use-after-free on address 0x50e000012038 at pc 0xaaaad225bb2c bp 0xffffc566d200 sp 0xffffc566d1f0
+READ of size 8 at 0x50e000012038 thread T0
+    #0 0xaaaad225bb28 in _odict_get_index_raw Objects/odictobject.c:550
+    #1 0xaaaad225bb28 in _odict_get_index Objects/odictobject.c:615
+    #2 0xaaaad225f69c in _odict_find_node Objects/odictobject.c:646
+    #3 0xaaaad225f69c in OrderedDict_move_to_end_impl Objects/odictobject.c:1336
+    #4 0xaaaad225f69c in OrderedDict_move_to_end Objects/clinic/odictobject.c.h:448
+    #5 0xaaaad20c6ae0 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:169
+    #6 0xaaaad20c6ae0 in PyObject_Vectorcall Objects/call.c:327
+    #7 0xaaaad1e7a2a4 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1620
+    #8 0xaaaad271c374 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:121
+    #9 0xaaaad271c374 in _PyEval_Vector Python/ceval.c:2005
+    #10 0xaaaad271c374 in PyEval_EvalCode Python/ceval.c:888
+    #11 0xaaaad2907950 in run_mod Python/pythonrun.c:1459
+    #12 0xaaaad290f4dc in pyrun_file Python/pythonrun.c:1293
+    #13 0xaaaad290f4dc in _PyRun_SimpleFileObject Python/pythonrun.c:521
+    #14 0xaaaad29106cc in _PyRun_AnyFileObject Python/pythonrun.c:81
+    #15 0xaaaad29c5f80 in pymain_run_file_obj Modules/main.c:410
+    #16 0xaaaad29c5f80 in pymain_run_file Modules/main.c:429
+    #17 0xaaaad29c5f80 in pymain_run_python Modules/main.c:691
+    #18 0xaaaad29c88c4 in Py_RunMain Modules/main.c:772
+    #19 0xaaaad29c88c4 in pymain_main Modules/main.c:802
+    #20 0xaaaad29c88c4 in Py_BytesMain Modules/main.c:826
+    #21 0xffff9cd484c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 54ae5337044aaabab70d65e0c3444f7e4735e059)
+    #22 0xffff9cd48594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 54ae5337044aaabab70d65e0c3444f7e4735e059)
+    #23 0xaaaad1ed1f6c in _start (/src/cpython/python+0x17b1f6c) (BuildId: 216debe12685ad746efca079e92d1e029dcb7128)
+
+0x50e000012038 is located 24 bytes inside of 160-byte region [0x50e000012020,0x50e0000120c0)
+freed by thread T0 here:
+    #0 0xffff9d6e61b4 in free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:52
+    #1 0xaaaad225a920 in OrderedDict_clear_impl Objects/odictobject.c:1226
+    #2 0xaaaad225a920 in OrderedDict_clear Objects/clinic/odictobject.c.h:353
+    #3 0xaaaad20c6ae0 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:169
+    #4 0xaaaad20c6ae0 in PyObject_Vectorcall Objects/call.c:327
+    #5 0xaaaad1e7a2a4 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1620
+    #6 0xaaaad271d1f8 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:121
+    #7 0xaaaad271d1f8 in _PyEval_Vector Python/ceval.c:2005
+    #8 0xaaaad23eedd4 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:169
+    #9 0xaaaad23eedd4 in vectorcall_unbound Objects/typeobject.c:3034
+    #10 0xaaaad23eedd4 in maybe_call_special_one_arg Objects/typeobject.c:3176
+    #11 0xaaaad23eedd4 in _PyObject_MaybeCallSpecialOneArg Objects/typeobject.c:3191
+    #12 0xaaaad23eedd4 in slot_tp_richcompare Objects/typeobject.c:10736
+    #13 0xaaaad22af714 in do_richcompare Objects/object.c:1059
+    #14 0xaaaad22af714 in PyObject_RichCompare Objects/object.c:1108
+    #15 0xaaaad22b5184 in PyObject_RichCompareBool Objects/object.c:1130
+    #16 0xaaaad2235808 in compare_generic Objects/dictobject.c:1110
+    #17 0xaaaad2235808 in do_lookup Objects/dictobject.c:1010
+    #18 0xaaaad2235808 in dictkeys_generic_lookup Objects/dictobject.c:1129
+    #19 0xaaaad2235808 in _Py_dict_lookup Objects/dictobject.c:1295
+    #20 0xaaaad225b610 in _odict_get_index_raw Objects/odictobject.c:547
+    #21 0xaaaad225b610 in _odict_get_index Objects/odictobject.c:615
+    #22 0xaaaad225f69c in _odict_find_node Objects/odictobject.c:646
+    #23 0xaaaad225f69c in OrderedDict_move_to_end_impl Objects/odictobject.c:1336
+    #24 0xaaaad225f69c in OrderedDict_move_to_end Objects/clinic/odictobject.c.h:448
+    #25 0xaaaad20c6ae0 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:169
+    #26 0xaaaad20c6ae0 in PyObject_Vectorcall Objects/call.c:327
+    #27 0xaaaad1e7a2a4 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1620
+    #28 0xaaaad271c374 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:121
+    #29 0xaaaad271c374 in _PyEval_Vector Python/ceval.c:2005
+    #30 0xaaaad271c374 in PyEval_EvalCode Python/ceval.c:888
+    #31 0xaaaad2907950 in run_mod Python/pythonrun.c:1459
+    #32 0xaaaad290f4dc in pyrun_file Python/pythonrun.c:1293
+    #33 0xaaaad290f4dc in _PyRun_SimpleFileObject Python/pythonrun.c:521
+    #34 0xaaaad29106cc in _PyRun_AnyFileObject Python/pythonrun.c:81
+    #35 0xaaaad29c5f80 in pymain_run_file_obj Modules/main.c:410
+    #36 0xaaaad29c5f80 in pymain_run_file Modules/main.c:429
+    #37 0xaaaad29c5f80 in pymain_run_python Modules/main.c:691
+    #38 0xaaaad29c88c4 in Py_RunMain Modules/main.c:772
+    #39 0xaaaad29c88c4 in pymain_main Modules/main.c:802
+    #40 0xaaaad29c88c4 in Py_BytesMain Modules/main.c:826
+    #41 0xffff9cd484c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 54ae5337044aaabab70d65e0c3444f7e4735e059)
+    #42 0xffff9cd48594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 54ae5337044aaabab70d65e0c3444f7e4735e059)
+    #43 0xaaaad1ed1f6c in _start (/src/cpython/python+0x17b1f6c) (BuildId: 216debe12685ad746efca079e92d1e029dcb7128)
+
+previously allocated by thread T0 here:
+    #0 0xffff9d6e76d0 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0xaaaad22140d4 in new_keys_object Objects/dictobject.c:784
+    #2 0xaaaad221f638 in insert_to_emptydict Objects/dictobject.c:1948
+    #3 0xaaaad225cf14 in _PyODict_SetItem_KnownHash_LockHeld Objects/odictobject.c:1626
+    #4 0xaaaad225cf14 in PyODict_SetItem_LockHeld Objects/odictobject.c:1648
+    #5 0xaaaad225cf14 in PyODict_SetItem Objects/odictobject.c:1656
+    #6 0xaaaad225cf14 in odict_mp_ass_sub Objects/odictobject.c:879
+    #7 0xaaaad1e7d7ec in _PyEval_EvalFrameDefault Python/generated_cases.c.h:11245
+    #8 0xaaaad271c374 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:121
+    #9 0xaaaad271c374 in _PyEval_Vector Python/ceval.c:2005
+    #10 0xaaaad271c374 in PyEval_EvalCode Python/ceval.c:888
+    #11 0xaaaad2907950 in run_mod Python/pythonrun.c:1459
+    #12 0xaaaad290f4dc in pyrun_file Python/pythonrun.c:1293
+    #13 0xaaaad290f4dc in _PyRun_SimpleFileObject Python/pythonrun.c:521
+    #14 0xaaaad29106cc in _PyRun_AnyFileObject Python/pythonrun.c:81
+    #15 0xaaaad29c5f80 in pymain_run_file_obj Modules/main.c:410
+    #16 0xaaaad29c5f80 in pymain_run_file Modules/main.c:429
+    #17 0xaaaad29c5f80 in pymain_run_python Modules/main.c:691
+    #18 0xaaaad29c88c4 in Py_RunMain Modules/main.c:772
+    #19 0xaaaad29c88c4 in pymain_main Modules/main.c:802
+    #20 0xaaaad29c88c4 in Py_BytesMain Modules/main.c:826
+    #21 0xffff9cd484c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 54ae5337044aaabab70d65e0c3444f7e4735e059)
+    #22 0xffff9cd48594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 54ae5337044aaabab70d65e0c3444f7e4735e059)
+    #23 0xaaaad1ed1f6c in _start (/src/cpython/python+0x17b1f6c) (BuildId: 216debe12685ad746efca079e92d1e029dcb7128)
+
+SUMMARY: AddressSanitizer: heap-use-after-free Objects/odictobject.c:550 in _odict_get_index_raw
+Shadow bytes around the buggy address:
+  0x50e000011d80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x50e000011e00: 00 00 00 00 fa fa fa fa fa fa fa fa 00 00 00 00
+  0x50e000011e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x50e000011f00: fa fa fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x50e000011f80: 00 00 00 00 00 00 00 00 00 00 00 00 fa fa fa fa
+=>0x50e000012000: fa fa fa fa fd fd fd[fd]fd fd fd fd fd fd fd fd
+  0x50e000012080: fd fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa
+  0x50e000012100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x50e000012180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x50e000012200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x50e000012280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==898==ABORTING
