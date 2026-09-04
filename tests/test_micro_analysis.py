@@ -23,16 +23,14 @@ class FakeGitHubClient:
         return self.issues[reference.number]
 
 
-class FakeDrafter:
-    def __init__(self):
-        self.prompts = []
+class RecordingFingerprintGenerator:
+    def __init__(self, micro_taxo_path):
+        self.micro_taxo_path = micro_taxo_path
+        self.micro_taxo_existed_on_generate = False
 
-    def draft(self, issue, template):
-        self.prompts.append((issue, template))
-        return template.replace(
-            "GH-XXXXX — <Short Bug Title>",
-            f"GH-{issue.number} — {issue.title}",
-        ).replace("issues/XXXXX", f"issues/{issue.number}")
+    def generate(self, micro_taxo, template):
+        self.micro_taxo_existed_on_generate = self.micro_taxo_path.is_file()
+        return template
 
 
 class MicroAnalysisTests(unittest.TestCase):
@@ -90,6 +88,8 @@ class MicroAnalysisTests(unittest.TestCase):
         self.assertIn(commit_url, rendered)
         self.assertIn(json.dumps(issue_payload, indent=2, sort_keys=True), rendered)
         self.assertIn("unknown_github_field", rendered)
+        self.assertIn(json.dumps(comment_payloads, indent=2, sort_keys=True), rendered)
+        self.assertIn("unknown_comment_field", rendered)
 
     def test_parse_issue_urls_ignores_comments_and_deduplicates(self):
         input_text = """\
@@ -104,16 +104,17 @@ https://github.com/python/cpython/issues/101180#comment
 
         self.assertEqual([reference.number for reference in references], [100086, 101180])
 
-    def test_run_writes_a_draft_for_each_issue_and_only_open_issues_report(self):
+    def test_run_writes_fingerprint_after_matching_micro_taxo(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             input_path = root / "issues.txt"
             template_path = root / "template.md"
             output_dir = root / "micro_taxos"
             open_issues_path = root / "open_github_issues.txt"
+            fingerprint_template_path = REPOSITORY_ROOT / "templates/fingerprint-template.md"
+            fingerprint_dir = root / "fingerprints"
             input_path.write_text(
-                "https://github.com/python/cpython/issues/100086\n"
-                "https://github.com/python/cpython/issues/101180\n",
+                "https://github.com/python/cpython/issues/100086\n",
                 encoding="utf-8",
             )
             template = (REPOSITORY_ROOT / "templates/micro-taxo-template.md").read_text(
@@ -124,43 +125,32 @@ https://github.com/python/cpython/issues/101180#comment
                 100086: micro_analysis.GitHubIssue(
                     number=100086,
                     url="https://github.com/python/cpython/issues/100086",
-                    title="Open bug",
-                    state="open",
-                    body="An open bug report.",
+                    title="Source record then fingerprint",
+                    state="closed",
+                    body="Issue evidence.",
                     labels=("bug",),
                     comments=(),
                 ),
-                101180: micro_analysis.GitHubIssue(
-                    number=101180,
-                    url="https://github.com/python/cpython/issues/101180",
-                    title="Closed bug",
-                    state="closed",
-                    body="A closed bug report.",
-                    labels=(),
-                    comments=(),
-                ),
             }
-            drafter = FakeDrafter()
+            micro_taxo_path = output_dir / "gh_100086.md"
+            generator = RecordingFingerprintGenerator(micro_taxo_path)
 
             summary = micro_analysis.run_analysis(
                 input_path=input_path,
                 template_path=template_path,
                 output_dir=output_dir,
                 open_issues_path=open_issues_path,
+                fingerprint_template_path=fingerprint_template_path,
+                fingerprint_dir=fingerprint_dir,
                 github_client=FakeGitHubClient(issues),
-                drafter=drafter,
+                fingerprint_generator=generator,
             )
 
-            self.assertEqual(summary.processed, 2)
-            self.assertEqual(summary.open_issues, 1)
+            self.assertTrue(generator.micro_taxo_existed_on_generate)
+            self.assertTrue((fingerprint_dir / "gh_100086.md").is_file())
+            self.assertEqual(summary.processed, 1)
+            self.assertEqual(summary.open_issues, 0)
             self.assertEqual(summary.failures, ())
-            self.assertEqual(len(drafter.prompts), 2)
-            self.assertTrue((output_dir / "gh_100086.md").is_file())
-            self.assertTrue((output_dir / "gh_101180.md").is_file())
-            self.assertIn("GH-100086 — Open bug", (output_dir / "gh_100086.md").read_text())
-            report = open_issues_path.read_text(encoding="utf-8")
-            self.assertIn("#100086: Open bug", report)
-            self.assertNotIn("#101180", report)
 
 
 if __name__ == "__main__":

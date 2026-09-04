@@ -10,6 +10,12 @@
 
 ## Fix Information / {{FIX_INFORMATION}}
 
-## Raw GitHub Issue API Record / {{RAW_ISSUE_JSON}}
+## Raw GitHub Issue API Record
+```json
+{{RAW_ISSUE_JSON}}
+```
 
-## Raw GitHub Comment API Records / {{RAW_COMMENT_JSON}}
+## Raw GitHub Comment API Records
+```json
+{{RAW_COMMENT_JSON}}
+```
