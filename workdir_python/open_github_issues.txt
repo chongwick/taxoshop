@@ -1,0 +1,3 @@
+# Open GitHub Issues
+
+* [#100773: `Py_Initialize()` still leaks in libpython3.11](https://github.com/python/cpython/issues/100773)

@@ -1,5 +1,4 @@
 import importlib.util
-import json
 import sys
 import tempfile
 import unittest
@@ -50,6 +49,34 @@ class FailingFingerprintGenerator:
 
 
 class MicroAnalysisTests(unittest.TestCase):
+    def test_extract_evidence_blocks_keeps_code_and_sanitizer_output_verbatim(self):
+        source_label = "issue body"
+        source_url = "https://example.test/issues/42"
+        sanitizer_output = (
+            "==1==ERROR: AddressSanitizer: heap-use-after-free on address 0x0\n"
+            "READ of size 8 at 0x0 thread T0\n"
+            "    #0 0xdeadbeef in trigger poc.py:3"
+        )
+        text = f"""```python
+trigger()
+```
+```text
+{sanitizer_output}
+```"""
+
+        evidence = micro_analysis.extract_evidence_blocks(
+            text, source_label, source_url
+        )
+
+        code_block = evidence.code_blocks[0]
+        sanitizer_block = evidence.sanitizer_blocks[0]
+        self.assertEqual(code_block.content, "trigger()")
+        self.assertEqual(code_block.source_label, source_label)
+        self.assertEqual(code_block.source_url, source_url)
+        self.assertEqual(sanitizer_block.content, sanitizer_output)
+        self.assertEqual(sanitizer_block.source_label, source_label)
+        self.assertEqual(sanitizer_block.source_url, source_url)
+
     def test_fetch_issue_collects_all_comment_pages(self):
         issue_url = "https://github.com/python/cpython/issues/42"
         issue_endpoint = "https://api.github.com/repos/python/cpython/issues/42"
@@ -103,64 +130,6 @@ class MicroAnalysisTests(unittest.TestCase):
             [issue_endpoint, comments_endpoint, next_comments_endpoint],
         )
 
-    def test_render_source_record_preserves_issue_comment_fix_and_raw_payload_evidence(self):
-        issue_url = "https://github.com/python/cpython/issues/100086"
-        pull_request_url = "https://github.com/python/cpython/pull/123456"
-        commit_url = "https://github.com/python/cpython/commit/abcdef123456"
-        issue_payload = {
-            "number": 100086,
-            "html_url": issue_url,
-            "title": "Preserve source evidence",
-            "state": "closed",
-            "body": f"Fixed by {pull_request_url}.\n```untrusted markdown```",
-            "unknown_github_field": "preserve me exactly",
-        }
-        comment_payloads = (
-            {
-                "html_url": f"{issue_url}#issuecomment-1",
-                "body": f"Landed in {commit_url}.",
-                "user": {"login": "maintainer"},
-                "created_at": "2026-09-04T12:00:00Z",
-                "unknown_comment_field": "also preserve me",
-            },
-        )
-        issue = micro_analysis.GitHubIssue(
-            number=100086,
-            url=issue_url,
-            title="Preserve source evidence",
-            state="closed",
-            body=issue_payload["body"],
-            labels=("bug",),
-            comments=(
-                micro_analysis.IssueComment(
-                    author="maintainer",
-                    body=comment_payloads[0]["body"],
-                    url=comment_payloads[0]["html_url"],
-                    created_at=comment_payloads[0]["created_at"],
-                ),
-            ),
-            issue_payload=issue_payload,
-            comment_payloads=comment_payloads,
-        )
-
-        rendered = micro_analysis.render_source_record(
-            issue,
-            (REPOSITORY_ROOT / "templates/micro-taxo-template.md").read_text(
-                encoding="utf-8"
-            ),
-            retrieved_at="2026-09-04T12:34:56Z",
-        )
-
-        self.assertIn(issue_payload["body"], rendered)
-        self.assertIn("````text\nFixed by", rendered)
-        self.assertIn(comment_payloads[0]["body"], rendered)
-        self.assertIn(pull_request_url, rendered)
-        self.assertIn(commit_url, rendered)
-        self.assertIn(json.dumps(issue_payload, indent=2, sort_keys=True), rendered)
-        self.assertIn("unknown_github_field", rendered)
-        self.assertIn(json.dumps(comment_payloads, indent=2, sort_keys=True), rendered)
-        self.assertIn("unknown_comment_field", rendered)
-
     def test_parse_issue_urls_ignores_comments_and_deduplicates(self):
         input_text = """\
 # CPython bugs
@@ -174,7 +143,7 @@ https://github.com/python/cpython/issues/101180#comment
 
         self.assertEqual([reference.number for reference in references], [100086, 101180])
 
-    def test_run_writes_source_record_without_a_drafter(self):
+    def test_run_writes_the_compact_report_template_before_fingerprinting(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             input_path = root / "issues.txt"
@@ -216,16 +185,15 @@ https://github.com/python/cpython/issues/101180#comment
                 ),
             )
 
-            self.assertIn(
-                "Exact source body.",
-                (output_dir / "gh_100086.md").read_text(encoding="utf-8"),
-            )
+            report = (output_dir / "gh_100086.md").read_text(encoding="utf-8")
+            self.assertIn("## Bug Report", report)
+            self.assertIn("## Full Sanitizer / Crash Output", report)
             self.assertIn("#100086", open_issues_path.read_text(encoding="utf-8"))
             self.assertEqual(summary.processed, 1)
             self.assertEqual(summary.open_issues, 1)
             self.assertEqual(summary.failures, ())
 
-    def test_run_keeps_micro_taxo_when_fingerprint_generation_fails(self):
+    def test_run_keeps_compact_report_when_fingerprint_generation_fails(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             input_path = root / "issues.txt"
@@ -264,10 +232,7 @@ https://github.com/python/cpython/issues/101180#comment
                 fingerprint_generator=FailingFingerprintGenerator(),
             )
 
-            self.assertIn(
-                "Source evidence is retained.",
-                (output_dir / "gh_100086.md").read_text(encoding="utf-8"),
-            )
+            self.assertTrue((output_dir / "gh_100086.md").is_file())
             self.assertFalse((fingerprint_dir / "gh_100086.md").exists())
             self.assertIn("#100086", open_issues_path.read_text(encoding="utf-8"))
             self.assertEqual(summary.processed, 0)
