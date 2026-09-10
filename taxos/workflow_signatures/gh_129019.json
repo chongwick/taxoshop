@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 129019,
+  "cluster_id": "workflow-0076",
+  "workflow": [
+    "A source-tree build generates a configuration header for the current build.",
+    "The compiler searches a system-wide configuration header from an older installation before finding the build-generated header.",
+    "Compilation combines stale configuration definitions with current source declarations, creating conflicting macros and types.",
+    "The compiler rejects the build instead of using the current configuration or reporting the header-selection problem clearly."
+  ],
+  "summary": "Stale system configuration header overrides current build header",
+  "decision_reason": "This is a header-search and stale-configuration collision during compilation; none of the existing clusters describes that underlying failure workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:29:58.705459+00:00"
+}

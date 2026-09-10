@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 89359,
+  "cluster_id": "workflow-0020",
+  "workflow": [
+    "A stress test intentionally drives a computation to request an extremely large memory allocation to verify graceful allocation failure.",
+    "A runtime configured with memory-error instrumentation treats the impossible allocation as fatal and terminates the process instead of returning an allocation-failure result.",
+    "The test expects the operation to continue and report a recoverable memory error.",
+    "The process exits before the expected error can be checked, causing the test suite to fail."
+  ],
+  "summary": "Instrumented allocation failure aborts instead of returning a recoverable error",
+  "decision_reason": "Distinct from the existing clusters: the failure is an intentional oversized-allocation test interacting with instrumented allocator behavior, not a memory-safety violation, arithmetic overflow, or invalid state reuse.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:59:02.629905+00:00"
+}

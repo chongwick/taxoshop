@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 133473,
+  "cluster_id": "workflow-0077",
+  "workflow": [
+    "Multiple worker threads concurrently update and inspect shared garbage-collection accounting state.",
+    "Some accesses use atomic coordination while other reads or writes access the same counters and thresholds without compatible synchronization.",
+    "The unsynchronized accesses race while allocation activity and collection decisions are being recorded.",
+    "The race can produce inconsistent collection-trigger decisions, and race-detection instrumentation reports the failure instead of allowing the workload to complete normally."
+  ],
+  "summary": "Concurrent unsynchronized access to shared collection-accounting state",
+  "decision_reason": "The underlying failure is materially the same as concurrent isolated contexts racing on shared process-wide state: multiple threads access shared runtime metadata without sufficient synchronization, producing sanitizer-reported races. The specific state and consequences differ, but the causal race,통",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:34:41.756148+00:00"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 141372,
+  "cluster_id": "workflow-0094",
+  "workflow": [
+    "A component initializes against a process-wide sentinel supplied by a replaceable global provider.",
+    "A caller substitutes the provider with a user-created object whose sentinel is ordinary heap-owned state rather than the expected permanent singleton.",
+    "Initialization retains associated state under the assumption that the standard singleton lifetime rules apply.",
+    "Normal teardown omits releasing that state, leaving the allocation reachable only to leak detection.",
+    "Leak detection reports memory growth after an otherwise successful initialization and shutdown."
+  ],
+  "summary": "Substituted global sentinel leaves retained initialization state unreleased",
+  "decision_reason": "The failure is materially an ownership omission: successful initialization creates temporary owned auxiliary state, but teardown does not release it under an alternate provider configuration. The existing cluster captures this cleanup-leak workflow better than clusters focused on repeated shutdown,s",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:00:52.011747+00:00"
+}

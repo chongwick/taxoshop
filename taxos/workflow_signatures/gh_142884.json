@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142884,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "An operation caches the size of a mutable container before invoking user-controlled output callbacks.",
+    "A callback re-enters the container and clears or replaces its backing storage.",
+    "The outer operation continues iterating using the cached size without revalidating the container state.",
+    "It dereferences the invalidated backing pointer, causing a null-pointer or use-after-free crash."
+  ],
+  "summary": "Reentrant mutation invalidates active container storage",
+  "decision_reason": "The failure workflow materially matches reentrant mutation of the same container invalidating storage while the original operation continues using stale state.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:14:05.569716+00:00"
+}

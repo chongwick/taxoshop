@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 130555,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A container clears entries whose value storage is embedded in an owning object.",
+    "Releasing one value invokes user cleanup code that re-enters and mutates the same container.",
+    "The re-entrant mutation changes or releases the embedded storage while the original clearing operation still holds its address.",
+    "The clearing operation continues through the invalidated storage, causing a use-after-free and process-terminating memory failure."
+  ],
+  "summary": "Re-entrant cleanup invalidates embedded container storage during clearing",
+  "decision_reason": "No existing cluster captures the defining combination of re-entrant value cleanup invalidating container-owned embedded storage while the original clear operation continues; the retained-pointer cluster involves an independently surviving pointer after owner destruction, which is materially narrower",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:32:02.732713+00:00"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 143638,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "A stateful serialization operation begins and retains internal buffers or bookkeeping for its active work.",
+    "During user-controlled callback execution, the callback re-enters the same stateful object through another operation.",
+    "The re-entrant operation clears, replaces, or reinitializes shared internal state while the outer operation still depends on it.",
+    "The outer operation resumes with stale assumptions and accesses invalidated state, causing use-after-free, corruption, or process termination instead of rejecting the re-entrant or",
+    "concurrent use."
+  ],
+  "summary": "Reentrant use invalidates active state during serialization",
+  "decision_reason": "The causal mechanism materially matches reentrant callback activity invalidating a backing resource or shared state before the outer operation reuses it; the serialization-specific objects and APIs are incidental.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:24:41.521220+00:00"
+}

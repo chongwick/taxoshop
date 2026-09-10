@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143005,
+  "cluster_id": "workflow-0136",
+  "workflow": [
+    "A runtime allows an object with fixed-size contiguous storage to replace its type metadata without verifying that the new type has a compatible length, element representation, and",
+    "The object retains its original backing allocation while later operations interpret it using the replacement type’s layout.",
+    "A subsequent indexed assignment or bulk write computes offsets from the incompatible layout and writes beyond the allocated storage.",
+    "Memory-safety instrumentation detects the heap overflow and terminates the process instead of rejecting the incompatible type change."
+  ],
+  "summary": "Unchecked type replacement causes later layout-based heap overflow",
+  "decision_reason": "The existing clusters do not materially match this workflow: the failure is caused by accepting an incompatible runtime type/layout replacement and then writing using the new layout, rather than by stale optimization state, malformed metadata interpretation, or a generic unchecked buffer size.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:15:41.653599+00:00"
+}

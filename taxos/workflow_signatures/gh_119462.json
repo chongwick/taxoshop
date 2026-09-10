@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 119462,
+  "cluster_id": "workflow-0060",
+  "workflow": [
+    "A hierarchy of related objects uses version markers to validate cached inherited values.",
+    "Repeated updates to a base object invalidate and reassign those markers while derived-object lookups repopulate the cache.",
+    "Marker assignment updates the derived object before successfully assigning a marker to its base, allowing the derived marker to remain set while the base marker is invalid.",
+    "A later base update sees the invalid base marker and skips invalidating the derived cache entry.",
+    "The derived lookup reuses stale cached data whose referenced value may already have been released, causing ownership corruption and process termination."
+  ],
+  "summary": "Invalid version-marker ordering leaves stale inherited cache entries",
+  "decision_reason": "This is a distinct cache-invalidation invariant failure involving hierarchical version-marker ordering and stale cached ownership; no existing cluster has the same underlying workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:19:27.407096+00:00"
+}

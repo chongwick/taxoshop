@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 153908,
+  "cluster_id": "workflow-0081",
+  "workflow": [
+    "Multiple threads access a shared mutable counter, with one thread updating it while another reads it to produce a display value.",
+    "The update uses synchronized access, but the display path performs an ordinary unsynchronized read of the same state.",
+    "The conflicting accesses form a data race, so instrumentation reports failure instead of allowing concurrent operation to complete normally."
+  ],
+  "summary": "Concurrent unsynchronized read of shared mutable counter",
+  "decision_reason": "The underlying failure is materially the same as workflow-0081: concurrent read/write access to shared mutable storage without matching synchronization. The differing counter semantics and display operation do not change the core race workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:43:11.162365+00:00"
+}

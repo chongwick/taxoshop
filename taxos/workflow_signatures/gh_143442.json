@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143442,
+  "cluster_id": "workflow-0042",
+  "workflow": [
+    "A test launches a subprocess and waits for it to signal readiness within a fixed short timeout.",
+    "Execution instrumentation and parallel system load slow startup and readiness signaling beyond that deadline.",
+    "The wait expires before the subprocess becomes ready, producing a timeout or readiness error.",
+    "The test reports failure even though the subprocess may complete correctly given a longer environment-adjusted timeout."
+  ],
+  "summary": "Load-sensitive fixed-timeout readiness failure",
+  "decision_reason": "The failure workflow is materially identical: instrumentation and concurrent load delay otherwise valid work beyond a fixed timeout, causing a test expectation failure rather than an underlying operation failure.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:21:56.425513+00:00"
+}

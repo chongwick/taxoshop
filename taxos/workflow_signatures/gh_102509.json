@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 102509,
+  "cluster_id": "workflow-0037",
+  "workflow": [
+    "A low-level numeric object is created with zero magnitude, leaving its first storage unit uninitialized because it is considered unused.",
+    "A value-conversion helper reads that storage unit without first checking whether the magnitude is zero.",
+    "The indeterminate value is used in arithmetic that is expected to neutralize it, such as multiplication by zero.",
+    "Memory-safety instrumentation reports the uninitialized read and terminates the operation instead of allowing the conversion to complete."
+  ],
+  "summary": "Uninitialized unused numeric storage is read before neutralizing arithmetic",
+  "decision_reason": "No existing cluster materially matches an indeterminate read from unused numeric storage followed by arithmetic that is expected to make the value harmless; the closest clusters concern different mechanisms such as invalid representations, overflow, or out-of-bounds access.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:07:13.144363+00:00"
+}

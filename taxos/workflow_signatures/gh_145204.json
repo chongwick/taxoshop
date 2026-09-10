@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 145204,
+  "cluster_id": "workflow-0094",
+  "workflow": [
+    "A helper creates owned configuration state and obtains a dynamically allocated list, even though the list is empty.",
+    "The helper completes successfully without releasing the list buffer or the configuration state that owns related data.",
+    "Repeated or instrumented execution retains those allocations after return.",
+    "Leak detection reports direct and associated indirect leaks instead of clean reclamation."
+  ],
+  "summary": "Successful helper return omits cleanup of owned configuration state",
+  "decision_reason": "The failure workflow materially matches successful-operation cleanup omission: owned temporary state is allocated, normal completion skips release, and leak detection reports persistent allocations.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:33:41.035689+00:00"
+}

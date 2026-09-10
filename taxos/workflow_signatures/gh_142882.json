@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142882,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A container update invokes user-defined value-conversion code while preparing an element assignment.",
+    "The conversion callback re-enters the container and clears or shrinks its backing storage.",
+    "The original update resumes with a stale index and storage pointer without revalidating the container’s current bounds or allocation.",
+    "It writes through the invalidated storage, causing a null dereference or use-after-free instead of returning a recoverable bounds error."
+  ],
+  "summary": "Reentrant mutation invalidates container storage during an ongoing update",
+  "decision_reason": "The failure workflow materially matches reentrant cleanup or callback code mutating a container while the original operation still holds and uses its storage address; the differing conversion and assignment details do not change the core invalidation sequence.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:13:22.433554+00:00"
+}

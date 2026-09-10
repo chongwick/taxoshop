@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 128137,
+  "cluster_id": "workflow-0049",
+  "workflow": [
+    "Multiple threads access a shared deduplicated value while reading or updating status metadata that controls its ownership and cleanup.",
+    "One thread changes the value’s retention or interned state while another thread reads the same metadata concurrently.",
+    "The metadata accesses are non-atomic, creating a data race and allowing inconsistent or stale state to be observed.",
+    "Subsequent ownership or cleanup logic acts on the corrupted state, causing memory-safety failure or process termination instead of safe concurrent operation."
+  ],
+  "summary": "Concurrent shared-value status mutation races with ownership handling",
+  "decision_reason": "The bug materially matches the existing cluster’s workflow: concurrent access to shared deduplicated values races on non-atomic ownership or retention metadata and can corrupt later memory-management behavior.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:28:56.084053+00:00"
+}

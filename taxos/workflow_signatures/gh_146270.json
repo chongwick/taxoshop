@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 146270,
+  "cluster_id": "workflow-0152",
+  "workflow": [
+    "A shared object contains a nullable reference-valued field that can be deleted concurrently.",
+    "Two threads check that the field is present before clearing it, but the check is not coordinated with the atomic replacement.",
+    "Both threads observe the field as present and then clear it, so both report successful deletion even though only one deletion should succeed.",
+    "The operation violates sequential consistency and fails to report the second deletion as an absent-field error."
+  ],
+  "summary": "Concurrent deletion races with shared field validation",
+  "decision_reason": "The bug materially matches unsynchronized concurrent reading and replacement of shared object state: a presence check races with concurrent clearing, producing inconsistent observations and results.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:35:06.666634+00:00"
+}

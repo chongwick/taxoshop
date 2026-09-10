@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139988,
+  "cluster_id": "workflow-0091",
+  "workflow": [
+    "A composite-object construction allocates temporary internal storage while accumulating components.",
+    "An input component is invalid, so validation fails before the final object is created.",
+    "The failure path returns without finalizing or releasing the partially built storage.",
+    "The unreclaimed allocations remain reachable to leak detection, which reports a memory leak instead of a clean recoverable failure."
+  ],
+  "summary": "Exceptional construction failure omits cleanup and leaks intermediate state.",
+  "decision_reason": "The causal mechanism materially matches: intermediate state is allocated, validation fails, exceptional cleanup omits releasing it, and leak detection reports the unreclaimed allocation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:40:32.386349+00:00"
+}

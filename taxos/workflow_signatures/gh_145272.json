@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 145272,
+  "cluster_id": "workflow-0152",
+  "workflow": [
+    "Multiple threads access a shared object field that points to executable or descriptive state.",
+    "One thread replaces the pointed-to value while another thread reads it concurrently.",
+    "The read and replacement use ordinary unsynchronized memory access, so the pointer and its ownership transition are observed inconsistently.",
+    "Race-detection instrumentation reports a data race instead of allowing concurrent access to complete safely."
+  ],
+  "summary": "Unsynchronized concurrent replacement and reading of shared object state",
+  "decision_reason": "No existing cluster captures this specific shared-pointer read/write race without adding materially different mechanisms such as resource closure, lazy publication, or broad cross-context state races.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:34:00.750050+00:00"
+}

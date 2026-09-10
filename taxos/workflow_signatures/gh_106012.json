@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 106012,
+  "cluster_id": "workflow-0039",
+  "workflow": [
+    "A runtime-wide monitoring configuration changes, incrementing the active monitoring version while some immutable code objects retain instrumentation metadata from the previous、st覆盖",
+    "Execution later reaches an event in one of those stale code objects before its instrumentation metadata is refreshed for the current runtime version.",
+    "The event dispatcher asserts that the code object's version matches the runtime-wide version instead of first synchronizing or validating the object's monitoring state.",
+    "The failed consistency assertion aborts the process during otherwise ordinary monitored execution."
+  ],
+  "summary": "Stale per-code instrumentation metadata triggers a pre-refresh version assertion",
+  "decision_reason": "No existing cluster captures a stale per-object metadata/version mismatch being asserted before required synchronization; the listed clusters involve different memory, concurrency, parsing, build, or lifecycle failure mechanisms.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:08:21.901320+00:00"
+}

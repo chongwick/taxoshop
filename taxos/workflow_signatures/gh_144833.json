@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144833,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "An operation creates a wrapper object while attempting to initialize an underlying native resource.",
+    "The native initialization fails and enters an error-reporting path.",
+    "The error path releases the wrapper while still retaining its pointer, and also supplies an incompatible object pointer when retrieving reporting context.",
+    "Error reporting dereferences the released or misinterpreted pointer, causing use-after-free and type-confusion failure instead of returning a recoverable initialization error."
+  ],
+  "summary": "Error reporting uses a released and misinterpreted wrapper after resource initialization failure",
+  "decision_reason": "The primary failure workflow is materially the same as retained-pointer use-after-free: ownership is released before a later dereference of the still-held pointer. The incompatible pointer type is an additional manifestation in the same post-release error path.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:32:21.322499+00:00"
+}

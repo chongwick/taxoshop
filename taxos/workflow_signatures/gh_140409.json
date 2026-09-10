@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140409,
+  "cluster_id": "workflow-0099",
+  "workflow": [
+    "A caller supplies a callback that accesses an element far beyond the bounds of a small allocated buffer.",
+    "The callback interface accepts the derived pointer and index without validating that the requested position belongs to the buffer.",
+    "The callback reads the out-of-range element and converts it into a managed value.",
+    "The conversion reads past the heap allocation, causing a heap-buffer-overflow and process termination instead of a recoverable bounds error."
+  ],
+  "summary": "Unchecked callback indexing causes heap-buffer-overflow",
+  "decision_reason": "No existing cluster captures unchecked out-of-bounds indexing through a callback followed by managed-value conversion; the failure mechanism is distinct from the listed invalid-pointer, parser, and buffer-lifetime workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:45:58.768597+00:00"
+}

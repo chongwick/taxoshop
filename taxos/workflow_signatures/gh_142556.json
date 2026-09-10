@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142556,
+  "cluster_id": "workflow-0128",
+  "workflow": [
+    "A managed object begins destruction and invokes user-defined finalization logic before teardown is complete.",
+    "The finalizer re-registers or otherwise retains the object in a shared registry, changing its lifetime during destruction.",
+    "The original teardown continues under the assumption that finalization could not make the object reachable again and releases or invalidates the object’s state.",
+    "Later registry use follows the retained entry to storage that teardown has already invalidated, causing a use-after-free or process-terminating failure."
+  ],
+  "summary": "Reentrant finalization re-registers an object during destruction",
+  "decision_reason": "The failure involves reentrant lifetime changes during object destruction, but none of the existing clusters captures the same combination of finalizer-triggered re-registration followed by continued destruction and later use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:04:23.917923+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 89363,
+  "cluster_id": "workflow-0021",
+  "workflow": [
+    "A multithreaded process is duplicated while another thread holds an internal mutex in a runtime instrumentation layer.",
+    "The child inherits the locked mutex, but the thread that could release it does not exist in the child.",
+    "The child starts a worker, and thread initialization tries to acquire the inherited mutex while preparing worker metadata.",
+    "The mutex acquisition cannot complete, so worker creation blocks indefinitely and the dependent operation hangs."
+  ],
+  "summary": "Forked child deadlocks on an inherited runtime mutex during worker creation",
+  "decision_reason": "Distinct from the existing process-duplication cluster: the failure is an inherited locked mutex held by a vanished thread, not stale thread-local state reused after an identifier collision.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:59:22.712835+00:00"
+}

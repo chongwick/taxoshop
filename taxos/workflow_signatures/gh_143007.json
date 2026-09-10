@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143007,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "An operation validates that its backing resource is attached and begins converting a caller-supplied position-like value.",
+    "The conversion invokes user-defined code that detaches or releases the backing resource, clearing the handle while the outer operation continues.",
+    "The outer operation fails to revalidate the resource after conversion returns.",
+    "It calls through the cleared handle, causing a null dereference and process termination instead of a recoverable detached-resource error."
+  ],
+  "summary": "Reentrant argument conversion invalidates a backing resource before later use",
+  "decision_reason": "No existing cluster materially matches the combination of user-code reentrancy during argument conversion, resource detachment, and missing post-conversion validity checking.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:16:25.913118+00:00"
+}

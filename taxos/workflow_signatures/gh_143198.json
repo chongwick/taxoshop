@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143198,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "An operation validates that its backing resource is available and begins consuming caller-provided parameters through user-controlled iteration or conversion.",
+    "A callback triggered during that processing closes or releases the backing resource, invalidating its internal state.",
+    "The outer operation fails to revalidate the resource after the callback and continues using the invalidated state.",
+    "A later native access follows the cleared state and crashes instead of returning a recoverable closed-resource error."
+  ],
+  "summary": "Reentrant callback invalidates a backing resource before later use",
+  "decision_reason": "The failure workflow is materially the same as workflow-0137: user-controlled conversion or iteration mutates the backing resource during an operation, and missing post-callback validation leads to invalid resource use. The parameter-iteration details and crash manifestation differ, but the causal机制",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:18:06.938223+00:00"
+}

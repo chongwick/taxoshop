@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143008,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "A stream operation begins by flushing its associated buffering layer before completing the requested operation.",
+    "Flushing invokes user-controlled callback code on the underlying layer.",
+    "The callback re-enters the stream and detaches or releases its backing resource, clearing the association while the original operation remains active.",
+    "The original operation fails to revalidate the backing resource and dereferences the cleared handle, causing a null-pointer crash instead of reporting a reentrant-operation error."
+  ],
+  "summary": "Reentrant callback invalidates a backing resource before continued use",
+  "decision_reason": "The failure workflow materially matches the existing cluster: an operation invokes user-controlled code, that code detaches or releases the backing resource, and the outer operation continues without revalidation before using the invalidated handle.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:16:43.552611+00:00"
+}

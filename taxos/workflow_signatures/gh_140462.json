@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140462,
+  "cluster_id": "workflow-0061",
+  "workflow": [
+    "A caller supplies an extremely large coordinate or dimension to an interface that accepts region geometry.",
+    "The interface forwards the value without checking it against the downstream component’s supported geometry range.",
+    "The downstream component uses the value in internal layout or address arithmetic, producing invalid state or a corrupted pointer.",
+    "Region construction dereferences the invalid address and terminates the process instead of returning a bounds error."
+  ],
+  "summary": "Unchecked oversized geometry causes downstream arithmetic corruption and crash",
+  "decision_reason": "The failure workflow materially matches the existing cluster: an oversized geometry value is accepted, downstream arithmetic or representation handling corrupts state, and a later operation dereferences invalid memory instead of reporting a range error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:46:54.725421+00:00"
+}

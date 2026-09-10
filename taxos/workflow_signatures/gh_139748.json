@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139748,
+  "cluster_id": "workflow-0089",
+  "workflow": [
+    "An interface converts a caller-supplied path-like value into an owned temporary representation.",
+    "Conversion of a later argument fails, sending control to a shared error exit before normal operation completes.",
+    "Error cleanup omits releasing the temporary representation created by the earlier successful conversion.",
+    "Repeated failures retain those temporary allocations, causing memory growth or leak reports instead of clean error handling."
+  ],
+  "summary": "Exceptional argument-conversion path omits release of an owned temporary",
+  "decision_reason": "The failure workflow materially matches the existing cluster: an owned reference is created, a recoverable later failure takes an exceptional path, and that path omits ownership release, causing repeated leaks.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:38:34.415578+00:00"
+}

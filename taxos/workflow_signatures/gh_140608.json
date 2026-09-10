@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140608,
+  "cluster_id": "workflow-0107",
+  "workflow": [
+    "Two worker threads initiate overlapping secure handshakes through shared native connection state.",
+    "One handshake encounters a cleanup path that releases an internal allocation while the other handshake still references or owns it.",
+    "The second handshake later performs its own cleanup on the same allocation without coordinated ownership or lifetime protection.",
+    "The allocation is released twice, and memory-safety instrumentation aborts the process instead of allowing both handshakes to finish safely."
+  ],
+  "summary": "Concurrent handshake cleanup double-frees shared native state",
+  "decision_reason": "No existing cluster captures the specific failure workflow of overlapping handshakes independently releasing the same shared native allocation; the closest concurrency and resource-lifetime clusters involve races, handle mutation, or use-after-free rather than duplicate cleanup of one allocation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:51:41.095142+00:00"
+}

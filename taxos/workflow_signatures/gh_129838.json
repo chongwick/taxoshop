@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 129838,
+  "cluster_id": "workflow-0078",
+  "workflow": [
+    "A build supports two alternative spellings for a compiler annotation that disables a selected class of diagnostics.",
+    "Capability detection on a newer compiler recognizes the modern spelling and defines one shared configuration symbol for it.",
+    "A separate version-based compiler check independently defines the same configuration symbol using the legacy spelling.",
+    "The compiler reports a duplicate definition instead of completing the build; guarding the fallback definition against an existing symbol resolves the conflict."
+  ],
+  "summary": "Independent feature and version checks redefine one compiler configuration symbol",
+  "decision_reason": "No existing cluster describes a duplicate preprocessor/configuration definition caused by overlapping capability and version detection; the failure mechanism is materially distinct from unsupported flags, stale headers, or other build-configuration failures.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:31:00.889139+00:00"
+}

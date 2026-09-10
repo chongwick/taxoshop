@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141390,
+  "cluster_id": "workflow-0102",
+  "workflow": [
+    "A caller constructs an executable object by modifying its captured-variable metadata and initialization instructions independently.",
+    "The modified metadata declares more captured variables than the initialization instruction supplies.",
+    "Execution begins and assumes the declaration and initialization count agree.",
+    "An internal consistency assertion detects the mismatch and terminates the process instead of rejecting the malformed executable object earlier."
+  ],
+  "summary": "Inconsistent executable metadata triggers runtime assertion",
+  "decision_reason": "The failure is materially the same as workflow-0102: externally constructed executable metadata violates internal layout/count invariants and reaches an internal validation assertion rather than producing a recoverable validation error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:01:06.304153+00:00"
+}

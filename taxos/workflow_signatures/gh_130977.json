@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 130977,
+  "cluster_id": "workflow-0081",
+  "workflow": [
+    "Multiple threads obtain independent views of the same mutable byte buffer and begin repeated reads and writes concurrently.",
+    "One thread writes an element while another reads the same element without synchronization or atomic coordination.",
+    "The conflicting accesses form a data race, so observed values and execution behavior are undefined.",
+    "Race-detection instrumentation reports the unsynchronized access instead of allowing the workload to complete normally."
+  ],
+  "summary": "Concurrent unsynchronized access to shared byte storage",
+  "decision_reason": "No existing cluster materially matches a race between concurrent reads and writes of shared buffer contents; the resource-handle mutation and shared-state clusters describe different failure mechanisms.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:32:43.609411+00:00"
+}

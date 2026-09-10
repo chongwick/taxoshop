@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 101975,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "An execution record tracks temporary values using cached boundary metadata.",
+    "A value is released during stack or control-flow movement, but the boundary metadata is not updated.",
+    "A later memory-collection pass traverses the record using the stale boundary and treats the released value as still present.",
+    "The collector dereferences the freed value, causing an intermittent use-after-free and possible process termination."
+  ],
+  "summary": "Stale execution metadata exposes a freed value during memory collection",
+  "decision_reason": "The underlying failure is materially the same as retained-pointer use-after-free: stale reachable metadata preserves access to storage after its owner releases it, and a later traversal dereferences that freed object.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:06:57.634415+00:00"
+}

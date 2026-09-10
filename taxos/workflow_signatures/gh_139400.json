@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139400,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A derived parsing context is created that internally relies on state owned by a parent context.",
+    "The derived context retains only a non-owning reference to the parent’s native state.",
+    "The parent wrapper becomes unreachable and releases that native state while the derived context remains alive.",
+    "A later operation on the derived context accesses the released parent state, causing a use-after-free and process-terminating memory failure."
+  ],
+  "summary": "Derived context outlives released parent state",
+  "decision_reason": "This is materially the same retained-reference workflow: a dependent object keeps a pointer into owner-managed storage after the owner releases it, and later use dereferences freed memory.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:37:50.339784+00:00"
+}

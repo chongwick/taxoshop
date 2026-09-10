@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 101180,
+  "cluster_id": "workflow-0036",
+  "workflow": [
+    "A text encoder receives a valid character sequence whose representation may require examining a following character.",
+    "The encoder probes each candidate representation using a pointer to only the current character while a candidate path assumes a second character is available.",
+    "That path reads beyond the supplied input boundary while handling the multi-character representation.",
+    "The out-of-bounds read is detected by memory-safety instrumentation or causes a process-terminating failure instead of reporting an encoding result."
+  ],
+  "summary": "Insufficient lookahead causes out-of-bounds read during character-sequence encoding",
+  "decision_reason": "The failure is an encoder lookahead past the provided input boundary. Existing clusters cover truncated metadata decoding, iterator/resource races, and other memory-safety mechanisms, but none materially match this ordered cause.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:06:40.044044+00:00"
+}

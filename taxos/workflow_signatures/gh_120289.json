@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 120289,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A monitored operation obtains a pointer to execution context storage and invokes a user-controlled callback while the operation is still active.",
+    "The callback reenters the monitoring object and disables or clears it, releasing the context storage while the outer operation still retains the pointer.",
+    "The outer operation resumes and accesses the retained context pointer as though its storage were still valid.",
+    "The access dereferences freed memory and can terminate the process."
+  ],
+  "summary": "Reentrant callback releases active context before outer operation resumes",
+  "decision_reason": "The failure is materially the same as retained-pointer use-after-free: an active operation retains a pointer into storage, reentrant code releases the owning storage, and the outer operation later dereferences the stale pointer.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:19:46.274772+00:00"
+}

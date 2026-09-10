@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142782,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A cache lookup traverses entries and invokes user-controlled equality logic for each candidate.",
+    "The equality callback re-enters cache management and removes the entry currently being examined.",
+    "The original lookup resumes with its previously retained pointer, assuming the entry remains valid.",
+    "Subsequent cache reordering or value retrieval dereferences the released entry, causing a use-after-free and process termination."
+  ],
+  "summary": "Reentrant cache mutation invalidates an entry during lookup",
+  "decision_reason": "The failure workflow is materially the same as re-entrant cleanup invalidating container state while the original operation continues using an address captured before the re-entrant mutation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:10:51.750524+00:00"
+}

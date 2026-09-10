@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 136872,
+  "cluster_id": "workflow-0087",
+  "workflow": [
+    "A build configuration enables memory-error instrumentation and explicitly selects a custom memory allocator.",
+    "Configuration logic applies the instrumentation mode's default allocator setting without checking whether the user supplied an explicit allocator choice.",
+    "The default setting overrides the explicit selection, so the requested allocator is silently disabled.",
+    "The build proceeds with unintended allocator behavior instead of honoring the valid combined configuration."
+  ],
+  "summary": "Default configuration overrides an explicit allocator selection",
+  "decision_reason": "The failure is an option-precedence defect in build configuration, materially distinct from the existing clusters involving unsupported flags, generated build commands, or configuration-symbol conflicts.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:36:39.226286+00:00"
+}

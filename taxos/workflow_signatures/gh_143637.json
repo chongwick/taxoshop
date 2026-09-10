@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143637,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "An operation parses structured records from a caller-provided sequence while retaining only borrowed references to the current record.",
+    "Converting a record field invokes user-controlled code that re-enters and clears or mutates the sequence, releasing the current record.",
+    "Parsing continues through the stale reference without retaining the record or revalidating the sequence.",
+    "A later field access reads released storage, causing a heap memory-safety failure instead of a recoverable argument error."
+  ],
+  "summary": "Reentrant input mutation invalidates a borrowed record during parsing",
+  "decision_reason": "The failure workflow materially matches reentrant argument conversion invalidating state before later use: user-controlled conversion mutates or releases an object relied upon by the outer operation, which then continues without retaining or revalidating it and accesses invalid state.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:24:18.002013+00:00"
+}

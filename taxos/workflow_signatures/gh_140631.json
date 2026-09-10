@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140631,
+  "cluster_id": "workflow-0108",
+  "workflow": [
+    "A component dynamically creates a managed type and its supporting metadata when an object is instantiated.",
+    "The test then encounters an unrelated exception before the newly created object is released.",
+    "Failure reporting retains the exception context and its local object, keeping the object’s dynamically created type graph reachable.",
+    "Leak detection follows those retained references and reports the type, descriptors, and auxiliary metadata as indirect leaks instead of cleanly reclaiming them."
+  ],
+  "summary": "Exception-retained dynamic type graph appears as indirect leaks",
+  "decision_reason": "The failure depends on an exception retaining a newly instantiated object and its dynamically created type graph. No existing cluster captures this specific exception-context retention mechanism closely enough; the leak clusters describe explicit omitted cleanup, repeated shutdown retention, or long",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:52:54.828830+00:00"
+}

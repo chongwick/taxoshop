@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140404,
+  "cluster_id": "workflow-0034",
+  "workflow": [
+    "A loadable component uses a legacy initialization model that stores context-owned objects in process-global state.",
+    "The component is initialized inside an isolated execution context and creates objects and metadata associated with that context.",
+    "The context is torn down, but the global state has no per-context cleanup path and retains references to those objects.",
+    "Leak detection at process exit reports the retained object graph as unreclaimed memory instead of clean teardown."
+  ],
+  "summary": "Legacy global component state survives isolated-context teardown",
+  "decision_reason": "The failure mechanism materially matches the existing cluster: legacy shared component state outlives the lifecycle of an isolated execution context, preventing cleanup and producing leaks.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:45:15.185575+00:00"
+}

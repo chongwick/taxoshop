@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139269,
+  "cluster_id": "workflow-0007",
+  "workflow": [
+    "A low-level code-generation routine receives a byte location that is not guaranteed to satisfy multi-byte alignment requirements.",
+    "The routine reinterprets that location as a pointer to a stricter-aligned integer object and performs direct reads or writes.",
+    "The misaligned access violates alignment requirements, causing undefined behavior and possible sanitizer diagnostics or process termination.",
+    "The operation should use alignment-independent byte copying for the fixed-width value instead of direct typed-pointer access."
+  ],
+  "summary": "Misaligned typed access to byte-oriented code storage",
+  "decision_reason": "The underlying failure is materially the same as using under-aligned storage for stricter-aligned objects; only the storage source and code-generation context differ.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:37:36.169580+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 132886,
+  "cluster_id": "workflow-0056",
+  "workflow": [
+    "A shared resource object stores a mutable native handle used by concurrent operations.",
+    "One thread reads the handle while another closes or replaces the resource and updates the handle.",
+    "The accesses lack synchronization or atomic coordination, forming a data race.",
+    "Race detection reports the unsynchronized access and concurrent use may become invalid or terminate the process."
+  ],
+  "summary": "Unsynchronized resource-handle mutation during concurrent use",
+  "decision_reason": "The failure workflow materially matches the existing cluster: concurrent use of a shared resource handle races with close or mutation without synchronization.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:33:52.331684+00:00"
+}

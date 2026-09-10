@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 100795,
+  "cluster_id": "workflow-0035",
+  "workflow": [
+    "A wrapper invokes a native lookup routine with an output pointer initialized to null.",
+    "The lookup routine reports failure but may leave the output pointer non-null or invalid, despite not transferring ownership of a successful result.",
+    "Error handling enters shared cleanup that treats the non-null pointer as a valid owned result and releases it.",
+    "The release duplicates cleanup already performed internally or frees invalid storage, corrupting memory-management state.",
+    "A later lookup or memory access encounters the corruption and terminates the process instead of returning a recoverable lookup error."
+  ],
+  "summary": "Failed native lookup leaves ambiguous output for erroneous cleanup",
+  "decision_reason": "No existing cluster captures cleanup of an output pointer after a failed native call causing double release and later memory corruption; the retained-pointer and shared-state clusters describe materially different ownership and concurrency mechanisms.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:06:24.032515+00:00"
+}

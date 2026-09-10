@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 150467,
+  "cluster_id": "workflow-0160",
+  "workflow": [
+    "A build enables optional memory instrumentation through custom compiler and linker settings.",
+    "The build configuration combines instrumented libraries with an incompatible runtime-linkage arrangement.",
+    "The instrumented and support libraries reference standard runtime symbols that the selected linkage does not provide.",
+    "The linker reports unresolved symbols and aborts the target build instead of producing the executable."
+  ],
+  "summary": "Instrumentation and runtime linkage mismatch causes unresolved-symbol link failure",
+  "decision_reason": "No existing cluster is materially equivalent: the failure is a direct link-time incompatibility between instrumentation libraries and runtime linkage, not a configuration probe failure, unsupported option diagnosis, or generated-code issue.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:39:26.869817+00:00"
+}

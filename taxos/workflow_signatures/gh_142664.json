@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142664,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A view-like operation retains access to an owner’s buffer and invokes user-defined hashing or callback logic on that owner.",
+    "The callback reentrantly releases the view or clears the owner, deallocating or invalidating the buffer while the outer operation is still active.",
+    "The outer operation continues using its previously retained buffer state without rechecking its lifetime.",
+    "The access reaches released storage and causes a use-after-free failure instead of returning a recoverable error."
+  ],
+  "summary": "Reentrant callback invalidates backing storage during active operation",
+  "decision_reason": "The underlying failure is materially the same as a retained pointer or reference being used after its owning buffer is released; the reentrant callback is the mechanism that triggers the owner’s release during the outer operation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:07:22.904831+00:00"
+}

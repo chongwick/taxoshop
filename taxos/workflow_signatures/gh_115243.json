@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 115243,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A traversal obtains a non-owning reference to the current element of a mutable container.",
+    "The traversal invokes user-defined comparison or callback logic that mutates the same container and removes the current element.",
+    "The removed element is released and deallocated while the traversal or comparison machinery still relies on the retained reference.",
+    "A later access uses the freed element, causing a use-after-free and possible process termination instead of a recoverable mutation error."
+  ],
+  "summary": "Reentrant container mutation frees the element being examined",
+  "decision_reason": "The underlying failure is materially the same as a retained pointer outliving the storage owner: container mutation releases the referenced element before later use. The reentrant callback and container-specific context differ, but the causal mechanism is retained-reference use after owner release.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:15:00.172995+00:00"
+}

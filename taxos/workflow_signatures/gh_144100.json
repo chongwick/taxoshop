@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144100,
+  "cluster_id": "workflow-0145",
+  "workflow": [
+    "A foreign-function interface accepts a pointer descriptor whose target type metadata is unresolved.",
+    "Argument conversion uses that metadata to determine whether the supplied value matches the expected pointed-to type.",
+    "The missing metadata reaches an internal invariant assertion instead of being validated as an invalid argument.",
+    "The assertion aborts the process rather than returning a recoverable type or argument error."
+  ],
+  "summary": "Unresolved pointer metadata triggers fatal assertion during argument conversion",
+  "decision_reason": "The failure is an unchecked unresolved type descriptor reaching an internal assertion during conversion. No existing cluster captures this specific malformed-metadata-to-assertion workflow closely enough.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:27:54.948477+00:00"
+}

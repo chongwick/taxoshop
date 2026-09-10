@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 77756,
+  "cluster_id": "workflow-0010",
+  "workflow": [
+    "A caller supplies a floating-point value for conversion into a narrower numeric representation.",
+    "Rounding, scaling, or splitting produces an integral result outside the destination type’s representable range.",
+    "The implementation converts that out-of-range result before checking whether it fits.",
+    "The conversion invokes undefined behavior, so later validation cannot reliably report a range error and execution may produce diagnostics or platform-dependent behavior."
+  ],
+  "summary": "Out-of-range floating-point conversion precedes validation",
+  "decision_reason": "The failure workflow is materially identical: an out-of-range floating-point result is converted to an integer before range validation, making the conversion undefined and invalidating subsequent checks.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:54:51.527786+00:00"
+}

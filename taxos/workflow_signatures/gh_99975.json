@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 99975,
+  "cluster_id": "workflow-0032",
+  "workflow": [
+    "An object contains truncated variable-length metadata that appears to contain an encoded record.",
+    "A metadata iterator reads the expected fields without verifying that enough bytes remain in the metadata buffer.",
+    "A zero-length decoded range causes iteration to continue past the valid terminator and consume adjacent memory as if it were metadata.",
+    "The decoded bytes expose unrelated heap data instead of producing a recoverable malformed-input error."
+  ],
+  "summary": "Unchecked truncated metadata decoding leaks adjacent memory",
+  "decision_reason": "The bug materially matches the existing cluster: truncated variable-length metadata is decoded without bounds checks, causing reads beyond the buffer and disclosure of adjacent heap data.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:05:18.139854+00:00"
+}

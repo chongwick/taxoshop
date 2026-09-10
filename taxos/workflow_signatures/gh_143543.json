@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143543,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "An outer iterator operation retains non-owning references to current comparison values.",
+    "User-defined comparison logic re-enters the iterator and advances it, replacing and releasing those values.",
+    "The outer comparison resumes using the invalidated references.",
+    "The access reaches freed memory and terminates the process instead of completing the comparison safely."
+  ],
+  "summary": "Reentrant callback invalidates borrowed comparison state",
+  "decision_reason": "The failure is materially the same reentrant-invalidation workflow: user code mutates the active container or iterator during an outer operation, invalidating state whose address remains in use, leading to use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:22:12.315009+00:00"
+}

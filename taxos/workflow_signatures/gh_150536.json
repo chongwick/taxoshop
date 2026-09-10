@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 150536,
+  "cluster_id": "workflow-0161",
+  "workflow": [
+    "Module initialization performs a compatibility probe that creates temporary records with separately allocated text fields.",
+    "Cleanup removes the probe records through a platform-dependent bulk cleanup routine.",
+    "On one implementation, that routine releases the records but leaves some embedded text allocations unreclaimed.",
+    "Leak detection at process exit reports the retained allocations as a memory leak instead of clean initialization."
+  ],
+  "summary": "Platform-dependent cleanup leaks nested probe allocations",
+  "decision_reason": "No existing cluster is materially identical: the failure depends on an external cleanup routine releasing container records without reclaiming their separately allocated nested fields, rather than caller-owned cleanup being omitted, ownership being reversed, or teardown ordering retaining state.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:39:42.103208+00:00"
+}

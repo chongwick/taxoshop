@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 120298,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A sequence comparison obtains borrowed references to operand elements for a later comparison.",
+    "A user-defined comparison callback runs reentrantly and mutates one operand, releasing or removing those elements.",
+    "The comparison resumes and uses the previously borrowed references without keeping the referenced objects alive.",
+    "The access reaches freed element storage, causing a use-after-free crash instead of returning a comparison result or recoverable error."
+  ],
+  "summary": "Reentrant operand mutation invalidates borrowed comparison elements",
+  "decision_reason": "The failure is materially the same as retained pointers being used after their owning storage releases the referenced data; the distinguishing detail is that reentrant comparison mutates the operand between pointer acquisition and use.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:19:59.528764+00:00"
+}

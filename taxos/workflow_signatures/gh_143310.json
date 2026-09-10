@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143310,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "A sequence conversion records the input length and begins converting its elements one by one.",
+    "Converting an element invokes user-controlled code that mutates and clears the same sequence.",
+    "The conversion continues using the original length and accesses an element slot that the mutation removed.",
+    "The invalid element access dereferences a null or stale pointer, terminating the process instead of handling the mutation safely."
+  ],
+  "summary": "Reentrant sequence mutation causes invalid later element access",
+  "decision_reason": "The failure workflow is materially the same as reentrant conversion invalidating a backing resource before the outer operation’s later use: user-controlled conversion mutates the object being processed, the outer operation fails to revalidate or stabilize its state, and a subsequent access crashes.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:19:33.578746+00:00"
+}

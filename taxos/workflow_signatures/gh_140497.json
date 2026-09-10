@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140497,
+  "cluster_id": "workflow-0013",
+  "workflow": [
+    "An executable object accepts an empty instruction sequence without enforcing a minimum instruction size.",
+    "Execution begins and assumes the sequence contains a fixed-width instruction.",
+    "Instruction decoding reads past the end of the empty backing buffer because no effective boundary check is performed.",
+    "The out-of-bounds read terminates the process instead of rejecting the malformed executable object."
+  ],
+  "summary": "Empty instruction sequence causes boundary-overrun during execution",
+  "decision_reason": "The failure mechanism materially matches the existing boundary-overrun workflow: a bounded instruction sequence reaches its end, but instruction processing advances or reads beyond the valid data because an effective end-of-sequence check is missing. The execution context and malformed input differ,",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:48:34.700626+00:00"
+}

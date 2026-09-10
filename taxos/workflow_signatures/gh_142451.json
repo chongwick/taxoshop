@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142451,
+  "cluster_id": "workflow-0127",
+  "workflow": [
+    "A stateful object is copied into a new object while operational state is duplicated but required identifying metadata is omitted, leaving a default invalid value.",
+    "A later property lookup uses the invalid metadata to query an external registry for descriptive information.",
+    "The registry may return no result without recording an error, while the caller assumes failure always includes an error indicator.",
+    "The strict failure check aborts the process, or the lookup surfaces an error instead of returning the copied object's expected property."
+  ],
+  "summary": "Copied object omits required metadata and later lookup aborts",
+  "decision_reason": "No existing cluster has the same underlying workflow: this is an incomplete-copy metadata bug followed by a failed external lookup, not a memory-safety, concurrency, validation-order, or cleanup failure.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:02:59.446172+00:00"
+}

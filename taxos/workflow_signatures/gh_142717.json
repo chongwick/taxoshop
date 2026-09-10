@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142717,
+  "cluster_id": "workflow-0081",
+  "workflow": [
+    "Multiple worker threads concurrently mutate and inspect the same mutable sequence without synchronization.",
+    "One thread changes the sequence structure while another performs a compound update or reads an element using assumptions about that structure.",
+    "The unsynchronized operations expose an inconsistent internal representation to the reader.",
+    "The reader follows invalid element or type metadata and accesses an unmapped address, terminating the process instead of completing safely."
+  ],
+  "summary": "Concurrent unsynchronized access corrupts shared mutable sequence state",
+  "decision_reason": "The underlying failure is materially the same as unsynchronized concurrent access to shared mutable storage causing a race and invalid observation; the sequence’s structural mutations and resulting invalid metadata access are implementation-specific details.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:08:05.059951+00:00"
+}

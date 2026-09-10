@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 121847,
+  "cluster_id": "workflow-0067",
+  "workflow": [
+    "A build-time helper initializes runtime configuration and allocates nested strings, lists, and registration metadata.",
+    "The helper exits through cleanup that releases the outer configuration object but omits allocations owned by its nested fields.",
+    "Leak-detection instrumentation scans the remaining allocations at process exit and classifies them as leaks.",
+    "The helper exits unsuccessfully, causing the build to fail even though the generation operation itself completed."
+  ],
+  "summary": "Incomplete configuration cleanup triggers sanitizer-reported leaks during build-time execution",
+  "decision_reason": "This is distinct from the existing clusters: the failure is a one-shot build helper leaving nested configuration allocations unreclaimed under leak detection, rather than repeated teardown leakage, environment-dependent suppression, or a runtime memory-safety fault.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:22:52.122493+00:00"
+}

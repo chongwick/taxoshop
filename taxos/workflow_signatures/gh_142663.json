@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142663,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A comparison obtains a pointer into a mutable buffer and begins iterating over its contents.",
+    "Element decoding invokes user-controlled code that releases or resizes the underlying buffer during the comparison.",
+    "The comparison continues using the previously obtained pointer after its backing storage has been invalidated.",
+    "A later access reaches freed memory, causing a use-after-free failure instead of a recoverable mutation error."
+  ],
+  "summary": "Reentrant buffer mutation invalidates an active comparison pointer",
+  "decision_reason": "The bug materially matches the existing reentrant cleanup workflow: user-controlled reentry mutates or releases storage while an outer operation still holds and later uses its address, producing use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:07:02.414250+00:00"
+}

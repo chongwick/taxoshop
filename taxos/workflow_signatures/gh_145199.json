@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 145199,
+  "cluster_id": "workflow-0151",
+  "workflow": [
+    "A build configuration enables memory-safety instrumentation and runs a generated probe executable to test a capability.",
+    "The instrumented probe enters runtime initialization before its application code begins.",
+    "Initialization enters an incompatible startup path and spins indefinitely instead of completing.",
+    "The configuration process waits for the probe to finish, so it hangs rather than reporting a probe failure or continuing."
+  ],
+  "summary": "Instrumented configuration probe hangs during pre-application runtime initialization",
+  "decision_reason": "No existing cluster captures an instrumented build probe that hangs during pre-application initialization; the nearby clusters describe crashes, leaks, deadlocks in diagnostic paths, or incorrect probe results rather than an initialization spin that blocks configuration.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:33:27.058996+00:00"
+}

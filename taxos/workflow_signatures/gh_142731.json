@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 142731,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "An attribute update or removal begins using an object’s current mutable attribute container.",
+    "Computing the attribute key invokes user code reentrantly.",
+    "The user code replaces the object’s attribute container and releases the previous container.",
+    "The original operation continues using its stale container reference after the reentrant callback returns.",
+    "The stale access reaches freed storage and causes a use-after-free failure instead of completing safely."
+  ],
+  "summary": "Reentrant callback invalidates an attribute container during access",
+  "decision_reason": "The underlying failure workflow materially matches re-entrant cleanup invalidating container storage while the original operation continues using it, although the callback is triggered during key processing rather than value cleanup.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:08:54.359547+00:00"
+}

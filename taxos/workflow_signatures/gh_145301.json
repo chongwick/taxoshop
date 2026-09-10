@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 145301,
+  "cluster_id": "workflow-0153",
+  "workflow": [
+    "Initialization allocates a record and successfully registers it under an initial key in a managed table.",
+    "Registration under a second key fails after the record is already owned by the table.",
+    "Failure cleanup independently releases the record before destroying the table.",
+    "Table destruction releases the same record again, causing a double-free and process termination instead of recoverable initialization failure."
+  ],
+  "summary": "Failed secondary registration causes double cleanup of an already-owned record",
+  "decision_reason": "The failure is a distinct ownership mistake during partial table initialization: cleanup frees an entry that has already been adopted by the table, unlike the existing clusters’ lookup, concurrency, or resource-lifetime workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:34:14.606708+00:00"
+}

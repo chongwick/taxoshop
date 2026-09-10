@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 128050,
+  "cluster_id": "workflow-0056",
+  "workflow": [
+    "A shared callable object exposes mutable dispatch state used by concurrent invocations.",
+    "One worker lazily changes that dispatch state when selecting a fallback execution path.",
+    "Another worker reads the same state to dispatch a call without synchronization or atomic coordination.",
+    "The concurrent read and write form a data race, which diagnostic instrumentation reports and causes the instrumented run to fail."
+  ],
+  "summary": "Unsynchronized dispatch-state mutation during concurrent calls",
+  "decision_reason": "The bug is materially the same as concurrent unsynchronized mutation of shared native state during use: one thread changes a shared handle-like dispatch value while another reads it.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:27:35.641388+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140594,
+  "cluster_id": "workflow-0105",
+  "workflow": [
+    "A line-reading routine receives input beginning with an embedded terminator byte, so its string-length calculation reports zero despite additional bytes having been read.",
+    "The routine uses the zero length to inspect the preceding buffer element while deciding whether to continue reading.",
+    "That index refers before the valid buffer range, causing an out-of-bounds read and undefined behavior.",
+    "Without detection, the loop may continue with an unchanged offset, overwrite previously read input on the next read, and process the wrong data instead of safely stopping at the8?"
+  ],
+  "summary": "Zero-length input offset causes boundary-underflow read",
+  "decision_reason": "No existing cluster has the same underlying workflow: a terminator-hidden read leaves a zero offset that is used to inspect the preceding element, causing an out-of-bounds read and possible input overwrite. The closest boundary-read clusters involve different causes and stages, so this bug is kept12",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:51:00.589718+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140939,
+  "cluster_id": "workflow-0091",
+  "workflow": [
+    "A formatting operation allocates temporary state while preparing output for a caller-supplied size.",
+    "The requested size is too large, so output growth fails with a recoverable memory-allocation error.",
+    "Error handling exits through a cleanup path that omits releasing the temporary state.",
+    "Repeated failures leave each temporary allocation retained, and leak detection reports persistent memory growth instead of clean recovery."
+  ],
+  "summary": "Exceptional allocation failure omits temporary-state cleanup",
+  "decision_reason": "The bug materially matches the existing pattern of an exceptional operation failure that skips cleanup for an intermediate allocation, causing leaks across repeated failures.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:58:07.176112+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143640,
+  "cluster_id": "workflow-0140",
+  "workflow": [
+    "A build configuration probes whether a platform-dependent interface is available using target settings that differ from the eventual compilation settings.",
+    "The probe reports the interface as available and enables code paths that depend on it.",
+    "Compilation runs under a target environment whose headers do not declare that interface.",
+    "Strict compiler diagnostics reject the undeclared use, so the build fails instead of selecting a compatible fallback or reporting the target mismatch clearly."
+  ],
+  "summary": "Mismatched capability probe enables unavailable interface",
+  "decision_reason": "The failure is a configuration-versus-compilation target mismatch causing a false capability result. No existing cluster captures this specific probe inconsistency and downstream undeclared-interface build failure.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:25:30.758317+00:00"
+}

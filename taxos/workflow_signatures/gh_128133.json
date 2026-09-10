@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 128133,
+  "cluster_id": "workflow-0074",
+  "workflow": [
+    "Multiple threads request a cached value for the same shared object while the cache is marked absent.",
+    "Each thread independently computes the value and writes it to the shared cache without synchronization.",
+    "Concurrent reads and writes to the cache create a data race during publication of the lazily initialized value.",
+    "Instrumentation detects the race, causing the operation or test to fail instead of safely reusing the cached value."
+  ],
+  "summary": "Concurrent lazy-cache initialization races during shared value publication",
+  "decision_reason": "The failure mechanism materially matches the existing cluster: unsynchronized concurrent initialization and publication of a previously absent cached representation. The specific cached item is different, but the causal workflow is the same.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:28:34.208513+00:00"
+}

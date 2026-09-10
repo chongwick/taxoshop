@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141542,
+  "cluster_id": "workflow-0094",
+  "workflow": [
+    "A runtime enables execution tracing for a worker and allocates auxiliary tracing storage.",
+    "The worker finishes or the runtime begins shutdown without releasing that storage.",
+    "The allocation remains reachable only to leak detection after the tracing operation has completed.",
+    "Leak detection reports the unreclaimed storage as a memory leak instead of clean teardown."
+  ],
+  "summary": "Tracing initialization leaks auxiliary storage across worker completion or shutdown",
+  "decision_reason": "The underlying failure is materially the same as a successful operation omitting cleanup of temporary owned state: tracing setup allocates auxiliary heap storage, but the normal completion or shutdown path fails to reclaim it. The worker/thread and tracing details are symptoms and implementation, so",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:01:22.168203+00:00"
+}

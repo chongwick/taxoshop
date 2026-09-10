@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 116550,
+  "cluster_id": "workflow-0054",
+  "workflow": [
+    "A text decoder parses a numeric field using a native integer conversion routine and prepares fallback checks for range or trailing-input errors.",
+    "The conversion path leaves an error-status value or related result metadata marked as uninitialized under memory instrumentation.",
+    "The decoder reads that value while deciding whether to accept the parsed number or use an alternate conversion path.",
+    "The instrumentation reports an uninitialized read during otherwise valid decoding, causing the instrumented operation to fail instead of completing normally."
+  ],
+  "summary": "Uninitialized conversion-status read during numeric decoding",
+  "decision_reason": "This is distinct from the existing uninitialized-storage cluster: the reported mechanism involves conversion-result or error-status metadata observed as uninitialized, not reading an unused numeric storage unit from a zero-valued object.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:16:29.255778+00:00"
+}

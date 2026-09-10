@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142557,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A formatting operation obtains a pointer and length for a mutable byte buffer.",
+    "While formatting an argument, user-defined conversion code or another concurrent activity mutates the buffer, releasing or relocating its backing storage.",
+    "Formatting continues using the previously retained pointer as though the original storage were still valid.",
+    "The access reaches freed memory, causing a use-after-free failure instead of a recoverable mutation or concurrency error."
+  ],
+  "summary": "Mutable buffer mutation invalidates retained formatting pointer",
+  "decision_reason": "The failure mechanism materially matches the existing cluster: an operation retains a pointer into owner-managed storage, the owner releases or relocates that storage during execution, and a later access dereferences the stale pointer.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:04:37.132882+00:00"
+}

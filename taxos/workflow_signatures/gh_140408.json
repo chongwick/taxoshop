@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140408,
+  "cluster_id": "workflow-0098",
+  "workflow": [
+    "A foreign-function call supplies a null pointer for an argument that requires valid character storage.",
+    "The native routine assumes the argument is non-null and attempts to determine the referenced string's length.",
+    "The length operation dereferences the null address.",
+    "The invalid memory access terminates the process instead of producing a recoverable argument error."
+  ],
+  "summary": "Null pointer passed to a native routine requiring valid string storage",
+  "decision_reason": "Distinct from existing clusters: the failure is caused by an unchecked null argument crossing a foreign-function boundary into a native routine, not by invalid identifiers, stale state, ownership errors, or an internal runtime workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:45:40.921375+00:00"
+}

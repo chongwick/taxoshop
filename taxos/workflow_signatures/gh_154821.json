@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 154821,
+  "cluster_id": "workflow-0152",
+  "workflow": [
+    "Multiple threads concurrently read and replace mutable metadata fields of the same shared callable object.",
+    "A writer updates field pointers and related ownership state without synchronization, sometimes clearing a related field during replacement.",
+    "A reader observes or uses the metadata while the replacement and release are in progress, seeing inconsistent state or invalid object lifetime.",
+    "Race detection reports the conflicting access, and concurrent execution may fail instead of completing safely."
+  ],
+  "summary": "Concurrent unsynchronized replacement and reading of shared callable metadata",
+  "decision_reason": "The bug is materially the same as concurrent replacement and reading of shared object state: writers replace shared pointer-valued fields while readers access them without sufficient synchronization. The callable-specific attributes and execution metadata are implementation details that do not alter",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:46:17.832933+00:00"
+}

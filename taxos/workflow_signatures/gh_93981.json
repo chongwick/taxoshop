@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 93981,
+  "cluster_id": "workflow-0026",
+  "workflow": [
+    "A recovery test intentionally terminates a worker during task decoding or execution to verify that the supervising pool reports worker failure without hanging.",
+    "A sanitizer-instrumented runtime intercepts the deliberate invalid-memory signal and handles it as a sanitizer-detected fatal error.",
+    "The worker therefore emits a sanitizer crash report and aborts through instrumentation rather than following the test’s expected controlled worker-failure path.",
+    "The recovery test is reported as failed even though ordinary non-instrumented execution can observe the worker termination as expected."
+  ],
+  "summary": "Sanitizer handling of deliberate worker crash breaks failure-recovery testing",
+  "decision_reason": "No existing cluster has the same mechanism: this is a deliberate worker termination whose sanitizer interception changes the observed failure path, not an accidental memory bug, deadlock, overflow, or recoverable allocation failure mishandling.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:01:34.949790+00:00"
+}

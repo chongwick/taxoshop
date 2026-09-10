@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "issue": 140431,
+  "cluster_id": "workflow-0101",
+  "workflow": [
+    "A newly created managed execution object is registered for collection before all fields needed by the collector’s traversal logic are initialized.",
+    "A later setup operation can trigger collection while the object remains partially initialized.",
+    "The collector traverses the object and reads an uninitialized field as though it contained valid state.",
+    "The invalid state is dereferenced during traversal, causing a segmentation fault instead of safe collection.],",
+    "summary機",
+    "selected_cluster_id",
+    "decision_reason",
+    "workflow"
+  ],
+  "summary": "Garbage-collector traversal dereferences partially initialized object state",
+  "decision_reason": "No existing cluster is materially the same: the bug is specifically a collector traversing a newly tracked object before required fields are initialized, rather than an overrun of special static records, a generic uninitialized read, or corrupted object metadata.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:46:26.415814+00:00"
+}

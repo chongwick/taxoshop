@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139540,
+  "cluster_id": "workflow-0089",
+  "workflow": [
+    "An execution object is created with an owned reference, while garbage-collector registration is deferred until after compilation succeeds.",
+    "Compilation or later optimized execution can fail through a recoverable exception path rather than the normal fatal or null-return path.",
+    "Cleanup releases the object only on the handled paths, leaving the owned reference unreleased on that exception path.",
+    "Repeated failures retain each abandoned object, causing memory usage to grow and leak detection to report unreclaimed allocations."
+  ],
+  "summary": "Exceptional execution path omits ownership release and leaks generated objects",
+  "decision_reason": "No existing cluster captures a missing reference release specifically on a recoverable exceptional path combined with delayed garbage-collector registration; the available leak clusters concern different ownership layouts, teardown omissions, or persistent shared state.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:38:13.830108+00:00"
+}

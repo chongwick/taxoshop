@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144282,
+  "cluster_id": "workflow-0148",
+  "workflow": [
+    "A caller manually rewrites an executable instruction stream and inserts a reserved placeholder intended only for embedded metadata at the beginning.",
+    "The rewrite shifts the original instructions without updating the stream’s execution boundaries or metadata layout.",
+    "The runtime dispatches from the beginning while assuming the stream contains only executable instructions.",
+    "Dispatch encounters the reserved placeholder as an instruction, violates an internal execution invariant, and terminates instead of rejecting the malformed stream."
+  ],
+  "summary": "Malformed executable stream begins with a non-executable placeholder",
+  "decision_reason": "No existing cluster captures the materially distinct failure mechanism of manually malformed instruction-stream layout causing execution of a reserved placeholder; the closest malformed-input and assertion clusters concern different parser or metadata-decoding workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:30:38.469661+00:00"
+}

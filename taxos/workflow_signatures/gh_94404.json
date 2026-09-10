@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 94404,
+  "cluster_id": "workflow-0028",
+  "workflow": [
+    "A build helper generates configuration edits and compilation rules using assumptions about a particular text-processing tool dialect and an incomplete or incorrectly ordered set of",
+    "The target environment uses a different tool dialect, so the generated multi-line edit command is rejected during configuration.",
+    "For shared-library object files, the generated rules omit required build flags and place module-specific include flags after broader include paths.",
+    "The build either aborts during configuration or compiles against the wrong headers and without required instrumentation, producing a failed or incorrect build."
+  ],
+  "summary": "Nonportable build-script commands and incorrect generated compiler flags",
+  "decision_reason": "Distinct from the existing clusters: this is a cross-environment build-generation failure involving tool-dialect assumptions and compiler-flag composition, not a matching runtime memory, concurrency, parsing, or configuration-validation workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:02:34.411123+00:00"
+}

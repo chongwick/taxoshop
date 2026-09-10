@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 145036,
+  "cluster_id": "workflow-0150",
+  "workflow": [
+    "A shared dynamically sized container is mutated concurrently by one group of workers.",
+    "Another group inspects the container’s memory footprint by reading its capacity or backing-storage metadata.",
+    "Resizing or removal updates that metadata while the inspection reads it without synchronization.",
+    "The conflicting accesses form a data race, producing inconsistent size results or sanitizer-reported failure instead of safe concurrent operation."
+  ],
+  "summary": "Concurrent container mutation races with size inspection",
+  "decision_reason": "Distinct from the existing clusters because the failure specifically involves unsynchronized mutation and capacity-metadata inspection of a shared dynamic container, rather than byte-element access, resource-handle mutation, or process-wide state shared by isolated contexts.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:33:16.165527+00:00"
+}

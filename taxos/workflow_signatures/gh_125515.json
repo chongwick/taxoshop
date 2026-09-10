@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 125515,
+  "cluster_id": "workflow-0072",
+  "workflow": [
+    "A code generator emits generic cleanup, error-handling, and loop logic for low-level operation handlers without fully tracking reachability or compile-time-disabled branches.",
+    "Some generated handlers terminate with a return or jump, while other conditions are known to be impossible in a supported configuration.",
+    "The generator still emits statements after those termination points and retains branches or loops whose bodies cannot execute.",
+    "The compiler diagnoses the generated constructs as unreachable or unused code, producing build warnings or failures instead of clean generated output."
+  ],
+  "summary": "Reachability-unaware code generation produces compiler diagnostics",
+  "decision_reason": "No existing cluster captures the underlying workflow of a code generator emitting unreachable or compile-time-dead constructs that trigger build diagnostics; the issue is materially distinct from runtime memory, parser, optimizer, or configuration failures.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:26:03.683466+00:00"
+}

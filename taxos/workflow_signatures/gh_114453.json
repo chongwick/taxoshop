@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 114453,
+  "cluster_id": "workflow-0052",
+  "workflow": [
+    "A build enables an optional profiling or instrumentation mode, adding its compiler and linker flag to generated commands.",
+    "On an affected toolchain and runtime combination, executables built with that flag fail immediately because a required process-environment symbol cannot be resolved.",
+    "Configuration probes run those executables, interpret the failures as negative capability results, and generate incorrect feature settings.",
+    "The main build then omits a conditional type definition while embedding that type by value in a larger record.",
+    "Compilation fails with an incomplete-type error instead of reporting the underlying toolchain or runtime incompatibility."
+  ],
+  "summary": "Profiling instrumentation breaks configuration probes and causes a misleading incomplete-type build failure",
+  "decision_reason": "This is distinct from the existing clusters: the core workflow is runtime failure of instrumented probe executables corrupting generated configuration, followed by a misleading compile-time type error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:14:40.886789+00:00"
+}

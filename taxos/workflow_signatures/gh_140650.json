@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 140650,
+  "cluster_id": "workflow-0044",
+  "workflow": [
+    "A wrapper checks a dependent resource’s status by converting an externally supplied value to a boolean.",
+    "The conversion fails and records an exception, returning an error indicator.",
+    "The wrapper treats that indicator as a true status instead of stopping on the conversion failure.",
+    "It performs normal closed-resource handling and replaces or conflicts with the pending exception, producing an internal system error instead of propagating the original conversion/",
+    "argument error."
+  ],
+  "summary": "Unchecked status-conversion failure causes downstream error corruption",
+  "decision_reason": "The failure workflow is materially the same as workflow-0044: a conversion helper reports failure with an exception pending, but the caller treats the failed result as usable and continues into downstream handling, causing an internal crash/error instead of propagating the recoverable conversion/л",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:53:30.108222+00:00"
+}

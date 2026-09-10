@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 113190,
+  "cluster_id": "workflow-0046",
+  "workflow": [
+    "A runtime creates shared deduplicated string objects and marks them as permanently retained, bypassing ordinary ownership cleanup.",
+    "Runtime shutdown clears other allocated objects but skips reclaiming those shared strings in the affected configuration.",
+    "Initialization and shutdown are repeated within the same process, leaving the skipped strings and their references allocated after each cycle.",
+    "Leak detection observes persistent memory growth and reports failures instead of clean shutdown."
+  ],
+  "summary": "Shared retained values survive repeated runtime shutdown",
+  "decision_reason": "This is distinct from workflow-0034: the leak is caused by shutdown skipping cleanup for shared immortalized values, not by legacy extension state surviving across context lifecycles.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:11:24.879426+00:00"
+}

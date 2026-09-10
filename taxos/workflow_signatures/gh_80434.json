@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 80434,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A buffer-owning object allocates storage containing data, and another handle retains a pointer or reference into that storage.",
+    "The owner is released or destroyed, deallocating the storage while the derived pointer remains reachable.",
+    "A later read uses the retained pointer as though its backing storage were still valid.",
+    "The dereference accesses freed memory, triggering a use-after-free failure or unsafe behavior."
+  ],
+  "summary": "Retained pointer dereferences storage after its owner releases the buffer",
+  "decision_reason": "The failure mechanism is materially identical: a derived pointer outlives the buffer owner and is later dereferenced after the underlying storage has been released.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:55:43.915605+00:00"
+}

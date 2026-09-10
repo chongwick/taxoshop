@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 144984,
+  "cluster_id": "workflow-0149",
+  "workflow": [
+    "An operation allocates a child object and associates it with a parent before all child fields are initialized.",
+    "A later allocation fails, so error handling releases the partially initialized child.",
+    "The child’s destructor assumes an optional handler table exists and dereferences its null pointer during cleanup.",
+    "The destructor also releases the parent association, while the error path releases the parent again as though ownership had not already been transferred.",
+    "The allocation failure therefore becomes a null dereference and double ownership decrement instead of a recoverable error."
+  ],
+  "summary": "Partial-object cleanup dereferences missing state and releases parent ownership twice",
+  "decision_reason": "No existing cluster captures both failure modes and their ordering: cleanup of a partially initialized child dereferences absent internal state while also duplicating parent ownership release. The closest cleanup/ownership clusters differ materially in their native lookup or resource-lifetime setup.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:33:00.345033+00:00"
+}

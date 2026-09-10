@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 151593,
+  "cluster_id": "workflow-0088",
+  "workflow": [
+    "Multiple worker threads mutate shared metadata while coordinating through two locks.",
+    "One worker holds the first lock and then waits for the second lock.",
+    "Another worker holds the second lock and requests a global pause, waiting for all workers to reach a safe point.",
+    "Additional workers block on the first lock and cannot reach the safe point, so the pause cannot complete.",
+    "The lock dependencies form a cycle, preventing progress and causing the operation to hang."
+  ],
+  "summary": "Lock-held global pause creates circular wait",
+  "decision_reason": "The bug is materially the same as the existing cluster: one worker requests a global pause while holding a lock, another holds the required lock while waiting for all workers to reach a safe point, and blocked workers prevent that pause from completing.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:41:04.452105+00:00"
+}

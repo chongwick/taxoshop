@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 149816,
+  "cluster_id": "workflow-0157",
+  "workflow": [
+    "Multiple threads concurrently use one shared stateful object, with one thread reinitializing its internal state while another reads from it.",
+    "The reader checks an index or boundary condition before the reinitialization changes the related state.",
+    "The reader then uses the stale validation result with the newly changed state and accesses beyond the valid state storage.",
+    "The invalid read can expose adjacent memory or terminate the process instead of being prevented by synchronized access."
+  ],
+  "summary": "Concurrent reinitialization invalidates a reader's prior bounds check",
+  "decision_reason": "No existing cluster is materially identical: the closest concurrency clusters concern shared handle mutation, pointer replacement, or generic byte-storage races, while this bug specifically involves a check-then-use race where concurrent reinitialization changes an index invariant and causes an outก",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:38:03.358032+00:00"
+}

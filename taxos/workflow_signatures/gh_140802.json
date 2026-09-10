@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 140802,
+  "cluster_id": "workflow-0114",
+  "workflow": [
+    "A tracing or debugging callback moves a resumable function’s execution position to its first source position, which should be rejected as an invalid boundary.",
+    "Validation rejects positions before the first source position but mistakenly accepts the exact first position.",
+    "Execution resumes from the invalid boundary and derives an execution-record layout as though the position were a normal instruction location.",
+    "Initialization writes the expected execution state into a heap object allocated for a smaller layout.",
+    "The write exceeds the object’s allocation, causing a heap-buffer-overflow instead of returning a recoverable invalid-position error."
+  ],
+  "summary": "Accepted boundary execution position causes heap overwrite during state initialization",
+  "decision_reason": "This is distinct from the existing clusters: the failure arises from incomplete validation of a user-controlled execution-position boundary followed by an undersized state initialization write, not from optimizer boundary scanning, invalid metadata construction, or a generic retained-pointer/use-equ",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:56:31.649634+00:00"
+}

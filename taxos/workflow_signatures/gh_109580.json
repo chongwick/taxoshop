@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 109580,
+  "cluster_id": "workflow-0041",
+  "workflow": [
+    "A test exercises low-level execution profiling across process duplication in an instrumented runtime.",
+    "The duplicated child inherits profiling and instrumentation state established before duplication.",
+    "The child continues through the profiling path using that inherited state, which is not reliably safe after duplication.",
+    "An intermittent memory-safety failure terminates the child, causing the test to fail instead of completing normally."
+  ],
+  "summary": "Inherited profiling state crashes after process duplication under instrumentation",
+  "decision_reason": "No existing cluster materially matches an intermittent crash caused by inherited profiling state in a duplicated child under sanitizer instrumentation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:09:30.363433+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 94064,
+  "cluster_id": "workflow-0027",
+  "workflow": [
+    "A process duplicates itself while process-wide bookkeeping allocations remain live.",
+    "The child inherits those allocations but its ordinary shutdown path does not reclaim all of them.",
+    "Leak-detection instrumentation runs as the child exits and classifies the residual allocations as a fatal failure.",
+    "The child returns a failure status instead of the expected successful status, causing the supervising workflow to report an error."
+  ],
+  "summary": "Forked child exits with inherited unreclaimed state under leak detection",
+  "decision_reason": "The failure is an instrumented leak during duplicated-process shutdown, which is materially different from the existing clusters’ mutex deadlock, deliberate crash handling, allocation failure, or ownership/use-after-free workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:02:01.587129+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 150284,
+  "cluster_id": "workflow-0077",
+  "workflow": [
+    "A diagnostic worker enumerates live execution contexts while the main execution concurrently creates and registers another context.",
+    "The enumeration reads shared process-wide context metadata while registration modifies the same metadata without synchronization.",
+    "The reader observes the shared structure during mutation, producing a data race.",
+    "Under the same instrumented run, blocked worker activity prevents orderly completion and shutdown reports residual worker threads as leaks."
+  ],
+  "summary": "Concurrent context registration races with diagnostic enumeration",
+  "decision_reason": "The underlying failure is materially the same as concurrent isolated contexts accessing shared process-wide metadata without sufficient synchronization; the race detector reports the conflicting access, with thread-leak and timeout symptoms arising during the stressed run.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:39:05.968106+00:00"
+}

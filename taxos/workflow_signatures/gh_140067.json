@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140067,
+  "cluster_id": "workflow-0093",
+  "workflow": [
+    "An aligned object is allocated from a larger raw memory block, and the original allocation address is saved inside the object for later cleanup.",
+    "Object initialization clears or overwrites that internal bookkeeping field while preparing the object for use.",
+    "Teardown relies on the overwritten field to recover the raw allocation address, so the original block is no longer released.",
+    "Repeated object creation leaves each raw allocation unreachable, and leak detection reports persistent memory growth."
+  ],
+  "summary": "Overwritten allocation metadata causes repeated teardown leaks",
+  "decision_reason": "No existing cluster describes allocation bookkeeping being overwritten during initialization and thereby losing the base pointer needed for cleanup; the mechanism is distinct from the listed ownership, exceptional-path, and repeated-shutdown leak workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:40:58.960457+00:00"
+}

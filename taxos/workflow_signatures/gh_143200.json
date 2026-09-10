@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143200,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "A container operation begins converting a user-supplied index, slice bound, or replacement sequence while relying on internal element storage.",
+    "The conversion invokes user code that re-entrantly clears or mutates the same container, releasing or resetting that storage.",
+    "The outer operation resumes without revalidating the storage and continues calculating bounds or applying the update through the old state.",
+    "The stale or null storage is dereferenced, causing a use-after-free or null-pointer crash instead of a recoverable operation error."
+  ],
+  "summary": "Reentrant mutation invalidates backing storage before continued container access",
+  "decision_reason": "The underlying failure workflow is materially the same: an operation starts with a valid backing resource, user-controlled conversion re-entrantly releases or invalidates it, and the outer operation continues without revalidation before dereferencing the stale handle.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:18:24.689456+00:00"
+}

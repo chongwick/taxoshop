@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 135618,
+  "cluster_id": "workflow-0083",
+  "workflow": [
+    "An interactive runtime starts under memory-leak instrumentation and eagerly initializes built-in components.",
+    "Startup allocates object metadata and supporting strings for those components.",
+    "Immediate termination follows a cleanup path that does not reclaim all startup allocations.",
+    "Leak detection runs at process exit and classifies the residual allocations as leaks, causing an unsuccessful exit instead of clean termination."
+  ],
+  "summary": "Immediate interactive exit leaves startup allocations unreclaimed",
+  "decision_reason": "No existing cluster captures a one-shot interactive-exit path that bypasses or incompletely performs startup-allocation cleanup; the leak-detection clusters involve different recurring lifecycle or build-helper workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:35:23.206194+00:00"
+}

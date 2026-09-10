@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 71757,
+  "cluster_id": "workflow-0005",
+  "workflow": [
+    "A container or buffer is empty, so its data pointer may be null.",
+    "An operation computes a transfer length of zero.",
+    "The implementation still invokes a low-level memory-transfer operation with the null pointer.",
+    "Pointer preconditions are violated despite the zero length, producing undefined-behavior diagnostics and potentially unsafe optimization assumptions."
+  ],
+  "summary": "Zero-length memory transfer with a null pointer",
+  "decision_reason": "The bug mechanism is materially identical: empty storage yields a null data pointer, a zero-length operation still passes it to a memory-transfer routine, and the call violates pointer validity requirements.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:53:31.803270+00:00"
+}

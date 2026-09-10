@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 153809,
+  "cluster_id": "workflow-0162",
+  "workflow": [
+    "A managed object reaches destruction with no remaining owners but remains registered with a concurrent cycle-detection collector.",
+    "Destruction performs registry removal that can pause other threads before the object is fully torn down.",
+    "During that pause, another thread runs collection and reaches the partially deallocated object because it is still registered.",
+    "Collection or subsequent cleanup uses the invalid intermediate state, causing a hang or process-terminating memory failure instead of safe destruction."
+  ],
+  "summary": "Concurrent collection reaches an object during partially completed destruction",
+  "decision_reason": "No existing cluster captures the specific ordering in which destruction remains collector-visible across a potentially stop-the-world registry update, allowing concurrent collection to inspect semi-deallocated state. The nearby teardown and concurrency clusters involve different mechanisms.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:42:32.274013+00:00"
+}

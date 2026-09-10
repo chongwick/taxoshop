@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 146196,
+  "cluster_id": "workflow-0005",
+  "workflow": [
+    "A text-building operation receives an empty input whose data pointer is null.",
+    "The operation computes a transfer length of zero but continues through the normal append path.",
+    "It invokes a low-level memory-copy routine with the null pointer despite the zero length.",
+    "The pointer precondition is violated, producing undefined-behavior diagnostics instead of returning successfully for the empty input."
+  ],
+  "summary": "Zero-length text append passes null storage to memory copy",
+  "decision_reason": "The failure mechanism is materially the same: an empty buffer yields a possibly null data pointer, and a zero-length low-level memory transfer is still invoked without guarding the null pointer.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:34:50.359823+00:00"
+}

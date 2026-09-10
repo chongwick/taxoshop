@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140306,
+  "cluster_id": "workflow-0065",
+  "workflow": [
+    "A cross-context transfer allocates owned records and temporary diagnostic text while moving values or recording failures.",
+    "Cleanup combines ownership flags incorrectly, causing the release path to omit deallocation of the owned records.",
+    "An error path also fails to consistently initialize or release temporary diagnostic storage when conversion fails.",
+    "Repeated transfers and failures retain these allocations, so leak detection reports persistent memory growth instead of clean teardown."
+  ],
+  "summary": "Incorrect ownership cleanup leaves transfer and diagnostic allocations leaked",
+  "decision_reason": "The underlying failure is materially the same as reversed cleanup ownership: cleanup receives incorrect ownership/deallocation information and leaves allocated state unreleased. The cross-context records and diagnostic text are implementation-specific manifestations.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:44:05.777469+00:00"
+}

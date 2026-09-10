@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 129824,
+  "cluster_id": "workflow-0077",
+  "workflow": [
+    "Multiple isolated execution contexts run concurrently and access shared process-wide metadata, configuration, or resources.",
+    "One context initializes, updates, or tears down shared state while another reads or uses it.",
+    "The shared accesses lack sufficient atomic coordination or locking, producing data races and, for resources such as descriptors, concurrent close/use.",
+    "Race-detection instrumentation reports the unsynchronized access, causing the affected concurrent tests to fail or be skipped instead of completing normally."
+  ],
+  "summary": "Concurrent isolated contexts race on shared process-wide state",
+  "decision_reason": "The bug is a collection of unsynchronized concurrent accesses to shared global state and resources. No existing cluster captures this broad initialization, mutation, teardown, and resource-use race workflow without materially narrowing it to a different mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:30:47.628969+00:00"
+}

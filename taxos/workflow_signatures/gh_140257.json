@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140257,
+  "cluster_id": "workflow-0077",
+  "workflow": [
+    "A process begins shutting down and clears shared execution-control state after assuming all worker threads have stopped.",
+    "A background worker remains active and concurrently enters its synchronization path, atomically modifying the same shared state.",
+    "Shutdown and worker updates use incompatible synchronization access, so the shared state is modified concurrently without a common ordering guarantee.",
+    "Race-detection instrumentation reports the data race, causing shutdown testing to fail instead of completing safely."
+  ],
+  "summary": "Concurrent shutdown races with a still-running worker on shared state",
+  "decision_reason": "The failure workflow materially matches a concurrent isolated-context race on shared process-wide state: shutdown updates shared state while another execution context remains active and accesses it without sufficient synchronization.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:42:23.037063+00:00"
+}

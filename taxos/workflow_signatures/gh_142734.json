@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142734,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A container-copy operation iterates internal entries while invoking user-defined callbacks to retrieve or store each item.",
+    "A callback re-enters and mutates the source container, removing or replacing entries and invalidating traversal storage.",
+    "The copy operation continues using a cached entry or key without retaining stable ownership or detecting the mutation first.",
+    "It dereferences the invalidated entry, causing a use-after-free crash instead of reporting that the container changed during copying."
+  ],
+  "summary": "Reentrant container mutation invalidates copy traversal state",
+  "decision_reason": "The failure workflow materially matches reentrant mutation invalidating storage held by an ongoing container operation, which then continues through the invalidated state.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:09:46.311648+00:00"
+}

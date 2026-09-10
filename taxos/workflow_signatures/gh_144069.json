@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144069,
+  "cluster_id": "workflow-0144",
+  "workflow": [
+    "A wrapper allocates managed state before attempting to create an external resource.",
+    "The resource-creation operation fails after allocating internal resources but returns no usable handle.",
+    "Failure cleanup releases the wrapper, while the partially allocated external resources have no reachable cleanup path.",
+    "Repeated failed creation attempts leave those resources allocated, causing memory usage to grow and leak detection to report unreclaimed memory."
+  ],
+  "summary": "Failed resource creation leaks unreachable partial allocations",
+  "decision_reason": "No existing cluster materially matches a failed external-resource creation that returns no handle while abandoning partially allocated internal resources; the leak mechanism is distinct from the listed cleanup, teardown, and ownership workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:27:38.380273+00:00"
+}

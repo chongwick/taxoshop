@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 111178,
+  "cluster_id": "workflow-0043",
+  "workflow": [
+    "A runtime registers object callbacks whose parameter types are narrower than the generic callback interfaces require.",
+    "The callbacks are forced into those interfaces through incompatible function-pointer casts.",
+    "Normal dispatch invokes the callbacks through the generic signatures, despite their concrete definitions having different types.",
+    "Undefined behavior instrumentation detects the mismatched indirect call and terminates or reports the operation instead of completing normally."
+  ],
+  "summary": "Incompatible callback signature hidden by function-pointer cast",
+  "decision_reason": "No existing cluster describes indirect calls through incompatible function-pointer types; the listed clusters concern different memory, concurrency, arithmetic, parsing, or build workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:09:59.921411+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 100773,
+  "cluster_id": "workflow-0034",
+  "workflow": [
+    "An embeddable runtime initializes and loads a built-in extension that stores interpreter-owned objects in legacy process-global module state.",
+    "Initialization and shutdown are repeated, but the extension state is not associated with each interpreter’s lifecycle.",
+    "Shutdown cannot fully clear and reclaim references retained by the shared extension state.",
+    "Each initialization cycle leaves additional allocations or references reachable, so leak detection reports persistent memory growth after otherwise successful shutdown."
+  ],
+  "summary": "Legacy shared extension state survives repeated runtime shutdown",
+  "decision_reason": "Distinct from the existing clusters: the failure is a lifecycle leak caused by shared module state not being reclaimed across repeated initialization cycles, rather than a crash, invalid access, overflow, or inherited-state collision.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:05:59.884853+00:00"
+}

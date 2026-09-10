@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 140936,
+  "cluster_id": "workflow-0117",
+  "workflow": [
+    "A runtime specializes a frequently executed backward control-flow operation into an optimized form.",
+    "Process finalization begins while a suspended computation still retains that specialized operation.",
+    "Finalization disables the optimization subsystem without invalidating all already-specialized operations.",
+    "Cleanup resumes the suspended computation, which executes the stale optimized operation and invokes optimization logic.",
+    "The optimization logic asserts that the subsystem is enabled, detects it is disabled, and aborts instead of safely skipping optimization."
+  ],
+  "summary": "Stale optimized execution during runtime finalization triggers an invalid state assertion",
+  "decision_reason": "No existing cluster captures stale specialized execution surviving subsystem shutdown and later triggering an internal assertion; the closest optimizer-related clusters concern control-flow cleanup or validation ordering, which is materially different.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:57:52.884813+00:00"
+}

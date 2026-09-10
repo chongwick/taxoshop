@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 144199,
+  "cluster_id": "workflow-0146",
+  "workflow": [
+    "A build enables execution profiling together with leak-detection instrumentation.",
+    "The build runs a small helper executable to generate source artifacts, and profiling initializes coverage bookkeeping during that execution.",
+    "The profiling bookkeeping remains allocated when the helper exits because its exit-time cleanup does not satisfy the leak detector.",
+    "Leak detection reports the residual profiling allocations as fatal leaks and gives the helper a failure status.",
+    "The failed helper prevents artifact generation and causes the overall build to abort."
+  ],
+  "summary": "Profiling-instrumented build helper fails on residual exit-time allocations",
+  "decision_reason": "This is distinct from the existing leak clusters: the residual allocations originate from profiling instrumentation in a build-time helper, rather than incomplete application cleanup, process-environment configuration, or ordinary runtime startup teardown.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:29:37.198234+00:00"
+}

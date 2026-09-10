@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140410,
+  "cluster_id": "workflow-0100",
+  "workflow": [
+    "A text-construction operation receives a negative length indicating that no characters should be created, together with a maximum-character value just outside the permitted range.",
+    "The implementation validates the maximum-character value before handling the negative-length case.",
+    "The invalid maximum-character value triggers an internal system error even though the requested result is empty and the value would not affect any created character.",
+    "The operation fails instead of returning the empty result expected for the zero-output case."
+  ],
+  "summary": "Premature validation rejects an irrelevant character bound",
+  "decision_reason": "No existing cluster captures validation of an irrelevant parameter before a sentinel length is handled; the failure workflow is distinct from the listed memory, concurrency, parsing, and numeric-overflow clusters.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:46:13.029042+00:00"
+}

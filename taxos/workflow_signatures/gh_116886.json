@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 116886,
+  "cluster_id": "workflow-0055",
+  "workflow": [
+    "A file-processing utility allocates a metadata record without initializing every field.",
+    "A platform-dependent metadata helper fills only part of that record, leaving some fields indeterminate.",
+    "The utility reads the untouched fields while determining the input data size or layout.",
+    "Memory instrumentation detects the uninitialized read and aborts the utility, causing the instrumented build to fail instead of generating the expected output."
+  ],
+  "summary": "Partially initialized file metadata is consumed under memory instrumentation",
+  "decision_reason": "The failure is an uninitialized metadata-record read caused by incomplete helper initialization. Existing clusters cover different mechanisms, such as uninitialized numeric storage or conversion-status data, and are not materially the same workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:16:51.475401+00:00"
+}

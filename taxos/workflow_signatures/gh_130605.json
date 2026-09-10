@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 130605,
+  "cluster_id": "workflow-0077",
+  "workflow": [
+    "A concurrent workload updates a process-wide scheduling interval while another execution context reads it to determine how long to wait.",
+    "The update and read occur without atomic coordination or locking.",
+    "The unsynchronized accesses form a data race, which instrumentation reports during otherwise valid concurrent execution.",
+    "The instrumented test run fails or must disable the workload until the shared state is synchronized."
+  ],
+  "summary": "Concurrent access races on shared scheduling configuration",
+  "decision_reason": "The failure is materially the same as this cluster: concurrent execution contexts access shared process-wide configuration without sufficient synchronization, and race-detection instrumentation reports the failure. The specific value and workload differ, but the underlying workflow matches.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:32:20.449529+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 140751,
+  "cluster_id": "workflow-0111",
+  "workflow": [
+    "A module-like component is created using a managed state layout that is incompatible with legacy global registration.",
+    "A caller invokes the legacy registration operation on that component.",
+    "The operation detects the incompatible layout and raises an internal system error instead of registering it."
+  ],
+  "summary": "Incompatible module state layout rejected by legacy registration",
+  "decision_reason": "No existing cluster captures the same failure workflow: this is an intentional compatibility validation failure, not a memory-safety issue, race, leak, malformed-input parser failure, or unchecked downstream error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:55:17.354661+00:00"
+}

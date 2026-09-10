@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142637,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A container operation searches for an entry and invokes user-defined equality logic during the search.",
+    "The equality callback re-enters the same container and clears or reshapes its internal storage.",
+    "The original operation resumes with pointers or references captured before the re-entrant mutation.",
+    "It accesses the invalidated storage while completing the lookup or update, causing a use-after-free and process-terminating memory failure."
+  ],
+  "summary": "Reentrant container mutation invalidates in-progress lookup state",
+  "decision_reason": "The bug materially matches the existing re-entrant mutation workflow: user code mutates the same container during an ongoing operation, invalidating storage still used by the original operation. The callback occurs during equality-based lookup rather than value cleanup, but the causal failure is the",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:06:34.176263+00:00"
+}

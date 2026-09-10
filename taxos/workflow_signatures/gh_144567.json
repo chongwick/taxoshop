@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144567,
+  "cluster_id": "workflow-0056",
+  "workflow": [
+    "Multiple threads concurrently read and update shared process-wide locale state without synchronization.",
+    "One thread obtains a pointer to dynamically allocated locale text while another thread replaces the locale and releases the old text.",
+    "The first thread continues decoding or measuring the text through the stale pointer after its backing storage has been freed.",
+    "The concurrent use-after-free is detected and the process terminates instead of safely serializing the updates."
+  ],
+  "summary": "Concurrent shared locale-state replacement causes use-after-free",
+  "decision_reason": "The failure is materially the same as unsynchronized mutation of shared native state during concurrent use: one thread invalidates shared backing storage while another thread still uses it. The locale-specific details are incidental.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:31:50.734389+00:00"
+}

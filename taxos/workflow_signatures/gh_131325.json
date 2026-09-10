@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 131325,
+  "cluster_id": "workflow-0081",
+  "workflow": [
+    "A streaming fallback reuses one mutable buffer for successive chunks while output transmission may still reference an earlier chunk.",
+    "Flow control is awaited before enqueueing the current chunk, so the prior transmission is not completed before the buffer is reused.",
+    "A worker overwrites the buffer for the next read while another execution context reads it to transmit the previous chunk.",
+    "The unsynchronized accesses form a data race, which instrumentation reports as a process failure instead of completing the transfer."
+  ],
+  "summary": "Reused streaming buffer is concurrently read and overwritten",
+  "decision_reason": "The underlying failure is materially the same as concurrent unsynchronized access to shared byte storage: one execution context writes a reused mutable buffer while another reads it without coordination. The transport and buffering details differ, but the causal race mechanism matches.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:33:02.735303+00:00"
+}

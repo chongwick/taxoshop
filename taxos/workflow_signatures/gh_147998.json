@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 147998,
+  "cluster_id": "workflow-0091",
+  "workflow": [
+    "An operation allocates temporary shared state to transfer preserved data across an execution boundary.",
+    "Populating that state fails during a recoverable error path.",
+    "A same-named inner variable hides the outer cleanup-tracking variable, so the error handler sees no allocation to release.",
+    "The temporary state remains allocated after each failure, causing memory growth and leak reports."
+  ],
+  "summary": "Exceptional failure path leaks temporary shared state",
+  "decision_reason": "The bug materially matches the existing pattern of an exceptional processing path allocating intermediate state and omitting its cleanup. The specific cause here is variable shadowing that prevents the failure handler from seeing and releasing the allocation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:35:43.388574+00:00"
+}

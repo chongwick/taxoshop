@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 99974,
+  "cluster_id": "workflow-0032",
+  "workflow": [
+    "An attacker constructs an object containing malformed, truncated location metadata with a continuation marker indicating additional encoded fields.",
+    "A lazy metadata iterator decodes the variable-length fields without checking that each read remains within the metadata buffer.",
+    "The iterator consumes the buffer’s terminator and then reads adjacent heap bytes as if they were part of the encoded record.",
+    "The decoded values expose portions of unrelated heap data instead of producing a recoverable malformed-metadata error."
+  ],
+  "summary": "Unchecked decoding of truncated metadata leaks adjacent heap data",
+  "decision_reason": "No existing cluster has the same underlying workflow: this is an unchecked variable-length metadata read past a buffer boundary that discloses adjacent memory, rather than a matching ownership, arithmetic, synchronization, or generic boundary-optimization failure.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:05:06.731059+00:00"
+}

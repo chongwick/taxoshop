@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 142732,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A stateful iterator reads a child object and invokes user-controlled iteration while retaining only a borrowed reference to that child.",
+    "The child re-enters the same outer iterator before the original retrieval finishes.",
+    "The re-entrant call exhausts or removes the child and releases its storage.",
+    "The original retrieval resumes and dereferences the retained pointer as though the child were still alive.",
+    "The access reaches freed memory and terminates the process instead of rejecting re-entrant execution."
+  ],
+  "summary": "Reentrant iteration releases a child object still used by the outer retrieval",
+  "decision_reason": "The failure workflow materially matches reentrant mutation of shared iterator state: user code runs during an in-progress operation, re-enters the same container-like object, releases state held by the outer operation, and the outer operation then uses invalidated storage.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:09:21.192521+00:00"
+}

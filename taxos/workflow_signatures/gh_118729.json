@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 118729,
+  "cluster_id": "workflow-0058",
+  "workflow": [
+    "A concurrency test launches a worker process from a multithreaded parent under diagnostic instrumentation.",
+    "An intermittent worker-side failure causes the child process to crash during the test operation.",
+    "The supervisor enters its crash-reporting or failure-handling path, which does not complete after the child crash.",
+    "The parent test waits indefinitely, so the broader test job hangs until cancelled instead of reporting a recoverable worker failure."
+  ],
+  "summary": "Worker crash wedges diagnostic failure handling",
+  "decision_reason": "Distinct from the existing clusters: the defining workflow is an intermittent child crash followed by a supervisor-side diagnostic or failure-handling hang, not an identified mutex deadlock, deliberate sanitizer-triggered crash, or ordinary worker recovery mismatch.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:18:20.578302+00:00"
+}

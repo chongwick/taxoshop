@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140815,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A diagnostic worker traverses another thread’s execution records while that thread continues running.",
+    "The executing thread releases an execution record or its associated metadata while the diagnostic traversal still retains a reference to it.",
+    "The diagnostic worker later reads fields from the released record while formatting a traceback.",
+    "The read accesses freed memory and terminates the process instead of safely handling the invalid record."
+  ],
+  "summary": "Concurrent diagnostic traversal dereferences released execution state",
+  "decision_reason": "The underlying failure is materially the same as retained-pointer use-after-free: a diagnostic path retains a reference to execution storage after its owner releases it, then dereferences that storage. The concurrency and traceback symptoms differ, but the core lifetime violation matches.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:56:54.796513+00:00"
+}

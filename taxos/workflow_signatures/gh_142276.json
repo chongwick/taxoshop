@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142276,
+  "cluster_id": "workflow-0125",
+  "workflow": [
+    "An optimizer promotes a mutable attribute lookup to a constant and specializes later execution based on the constant's type.",
+    "The underlying attribute is changed while the optimized code remains active, but the promotion was not registered for invalidation when that attribute changes.",
+    "Execution continues using the stale constant under the old type assumption.",
+    "A specialized operation asserts the assumed type and terminates instead of deoptimizing or reloading the updated attribute."
+  ],
+  "summary": "Untracked mutable-attribute promotion leaves stale specialized code",
+  "decision_reason": "The failure is distinct from the existing stale-optimization cluster because the specialized code is never invalidated: dependency tracking is missing when the mutable attribute is promoted, rather than an invalidation event failing to remove or disable already-obsolete specialized paths.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:02:15.443367+00:00"
+}

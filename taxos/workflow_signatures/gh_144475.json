@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144475,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A representation operation iterates through data borrowed from a mutable container.",
+    "Rendering one element invokes user code that replaces the container and releases the original storage.",
+    "The outer operation continues using its stale borrowed reference and original iteration bounds.",
+    "A later access reads beyond the released storage, causing a heap-buffer-overflow instead of completing safely."
+  ],
+  "summary": "Reentrant mutation invalidates borrowed container storage during iteration.",
+  "decision_reason": "The failure is materially the same as retained-pointer use after owner release: the operation keeps a borrowed reference to storage, reentrant user code replaces and releases that storage, and subsequent access uses the stale reference.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:31:37.052172+00:00"
+}

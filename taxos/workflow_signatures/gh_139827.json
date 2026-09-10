@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139827,
+  "cluster_id": "workflow-0090",
+  "workflow": [
+    "A user supplies an unusually large valid input that exercises an optimized execution path.",
+    "The optimizer allocates a generated execution object while preparing that operation.",
+    "The generated object is not released after the optimized execution completes.",
+    "Leak detection reports the unreclaimed allocation instead of clean termination."
+  ],
+  "summary": "Optimized execution leaks generated state",
+  "decision_reason": "The bug materially matches the existing cluster: an optimization path allocates generated execution state and fails to release it, with leak detection exposing the omission. The large input and specific operation are triggering details rather than a distinct failure workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:39:33.982837+00:00"
+}

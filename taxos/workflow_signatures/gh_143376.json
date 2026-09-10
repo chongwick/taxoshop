@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143376,
+  "cluster_id": "workflow-0129",
+  "workflow": [
+    "A data-transfer interface reads an identifying attribute from a user-defined wrapper and expects a specific internal record type.",
+    "The wrapper returns an arbitrary smaller object, but the conversion path does not validate its type.",
+    "The implementation reinterprets the object as the expected record and reads fields beyond its allocation.",
+    "The out-of-bounds read causes a heap-buffer-overflow and process termination instead of a recoverable type error."
+  ],
+  "summary": "Unchecked object type causes metadata reinterpretation and heap over-read",
+  "decision_reason": "The failure materially matches unchecked result reinterpretation as structured type metadata, where an incompatible smaller object causes out-of-bounds field access and termination.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:20:01.413369+00:00"
+}

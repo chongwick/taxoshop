@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 96569,
+  "cluster_id": "workflow-0029",
+  "workflow": [
+    "A context switch restores an execution context whose frame storage has not yet been allocated, leaving its base pointer null.",
+    "A refactored frame-allocation path computes an offset from that base pointer before checking whether storage exists.",
+    "The null-pointer arithmetic invokes undefined behavior, allowing runtime diagnostics or compiler optimization to invalidate the later capacity check.",
+    "Ordinary frame execution then terminates the process instead of allocating backing storage and continuing."
+  ],
+  "summary": "Null frame-storage pointer used before allocation check",
+  "decision_reason": "This is distinct from the existing clusters: the failure is caused by null-pointer arithmetic occurring before a missing-storage guard, not by overflow, use-after-free, concurrency, or another listed mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:03:24.391281+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 124001,
+  "cluster_id": "workflow-0070",
+  "workflow": [
+    "A fault-reporting subsystem allocates an alternate signal-handling stack using a fixed size heuristic.",
+    "The target environment requires more signal-handler stack space than the heuristic reserves.",
+    "A fault or diagnostic signal runs on the undersized alternate stack and writes beyond its heap buffer.",
+    "Later shutdown frees the corrupted buffer, and memory instrumentation detects the out-of-bounds access and terminates the process."
+  ],
+  "summary": "Undersized alternate signal stack overruns heap storage",
+  "decision_reason": "No existing cluster captures an alternate signal-handling stack being sized below the platform requirement and subsequently overrun; the nearest clusters concern different causes such as boundary lookahead, parser writes, or allocator misuse.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:24:40.125663+00:00"
+}

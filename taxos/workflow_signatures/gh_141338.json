@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141338,
+  "cluster_id": "workflow-0122",
+  "workflow": [
+    "A caller supplies an output buffer that is empty or smaller than the native operation’s required result.",
+    "The interface forwards the buffer without validating that its capacity is sufficient.",
+    "The native operation writes the fixed-size result into the undersized buffer.",
+    "The write exceeds the buffer and produces a fatal system error instead of a recoverable argument-size error."
+  ],
+  "summary": "Undersized output buffer causes native write overflow",
+  "decision_reason": "No existing cluster materially matches an unchecked undersized caller buffer causing a native output write overflow; nearby clusters concern over-reads, invalid destinations, or unrelated fixed-width writes.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:00:14.460237+00:00"
+}

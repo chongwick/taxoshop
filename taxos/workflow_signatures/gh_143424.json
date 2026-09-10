@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143424,
+  "cluster_id": "workflow-0139",
+  "workflow": [
+    "Multiple workers contend for a shared lock, and a waiting worker is granted ownership through a handoff.",
+    "The lock semantics allow another worker to release the lock concurrently, potentially clearing its locked state before the handoff recipient finishes returning.",
+    "The acquisition routine assumes a successful handoff means the lock must still appear locked and asserts that invariant.",
+    "The valid concurrent state triggers an assertion and process termination instead of returning successful acquisition."
+  ],
+  "summary": "Permitted concurrent release invalidates lock-handoff assertion",
+  "decision_reason": "This is distinct from the existing race and resource-mutation clusters: the state is accessed atomically and the concurrent release is permitted by the lock semantics; the failure is an overly strong post-handoff invariant assertion, not an unsynchronized access or use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:21:35.868837+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142830,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A native operation invokes a user callback through a registered context pointer without retaining ownership of that context.",
+    "The callback reentrantly removes or replaces its registration, causing cleanup to release the context while the outer invocation is still active.",
+    "Callback machinery resumes and accesses or cleans up the released context through the stale pointer.",
+    "The stale dereference causes a use-after-free failure and process termination instead of a recoverable callback error."
+  ],
+  "summary": "Reentrant callback deregistration releases active callback context",
+  "decision_reason": "The underlying failure is materially the same as retained-pointer use-after-free: an active operation keeps a pointer reachable while reentrant mutation releases the pointer's owning storage. The callback-registration and reentrancy details are implementation-specific variants of that workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:12:37.714118+00:00"
+}

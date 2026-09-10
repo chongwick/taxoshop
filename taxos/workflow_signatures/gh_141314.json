@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141314,
+  "cluster_id": "workflow-0120",
+  "workflow": [
+    "A text-reading operation consumes input ending with a standalone carriage-return line boundary and leaves an empty buffered snapshot.",
+    "A position-reporting optimization assumes buffered input is nonempty and selects a backward skip of at least one byte.",
+    "The implementation validates that skip against the empty snapshot, violating its own boundary assumption.",
+    "An internal assertion aborts the operation instead of returning the valid current position."
+  ],
+  "summary": "Empty buffered snapshot violates position-calculation boundary assumption",
+  "decision_reason": "No existing cluster has the same underlying workflow: a valid line-boundary input creates empty buffered state, after which an optimization performs an invalid nonempty-buffer assumption and aborts through an assertion. The issue is distinct from the listed out-of-bounds reads, parser failures, and,",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:59:39.320969+00:00"
+}

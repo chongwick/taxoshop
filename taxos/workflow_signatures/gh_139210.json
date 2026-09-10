@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139210,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A parser obtains a borrowed pointer to an event name stored in a sequence it owns.",
+    "An unsupported event enters an error path that releases the sequence before formatting the diagnostic.",
+    "Releasing the sequence deallocates the event-name storage while the borrowed pointer remains reachable.",
+    "Diagnostic construction reads the released storage, causing a use-after-free instead of returning a recoverable invalid-event error."
+  ],
+  "summary": "Borrowed diagnostic data outlives its owning sequence",
+  "decision_reason": "The failure is materially the same as retained pointer dereferencing after its owner releases storage: an error path releases the owner before later using a borrowed pointer into the released data.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:37:23.034691+00:00"
+}

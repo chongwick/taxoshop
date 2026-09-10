@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 66234,
+  "cluster_id": "workflow-0004",
+  "workflow": [
+    "A persistent file-backed data store keeps its contents directly mapped in memory.",
+    "An external actor truncates the backing file while the store remains open.",
+    "A later update accesses mapped data assuming the original file layout still exists.",
+    "The access reaches invalid backing storage and terminates the process instead of producing a recoverable storage error."
+  ],
+  "summary": "Truncated mapped backing store causes fatal later access",
+  "decision_reason": "The failure workflow is materially the same as workflow-0004: an open memory-mapped store is externally truncated, then a later operation dereferences invalid mapped storage and crashes rather than reporting a recoverable error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:53:21.108341+00:00"
+}

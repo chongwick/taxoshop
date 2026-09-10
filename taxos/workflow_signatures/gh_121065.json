@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 121065,
+  "cluster_id": "workflow-0063",
+  "workflow": [
+    "A stress workload repeatedly changes a process-wide event handler while another execution context rapidly emits asynchronous notifications.",
+    "A notification arrives while the handler is still executing, and the runtime permits the same handler to be entered reentrantly.",
+    "Repeated nested notifications invoke the handler again before earlier invocations return.",
+    "Nesting grows until the runtime’s recursion limit is exceeded, producing a recursion failure instead of completing the handler-update workload."
+  ],
+  "summary": "Reentrant asynchronous handler invocation exhausts recursion depth",
+  "decision_reason": "No existing cluster describes reentrant asynchronous callback nesting that exhausts recursion depth; the nearby concurrency and load-sensitive test clusters have materially different failure workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:21:07.612054+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140120,
+  "cluster_id": "workflow-0094",
+  "workflow": [
+    "A data-processing operation allocates temporary auxiliary state with owned heap components.",
+    "The operation successfully produces its result but returns without releasing those temporary components.",
+    "Repeated operations leave each allocation retained after completion.",
+    "Leak detection reports persistent memory growth instead of clean reclamation."
+  ],
+  "summary": "Successful operation omits cleanup of temporary owned state",
+  "decision_reason": "The bug is a normal-success-path cleanup omission causing repeated leaks; no existing cluster captures that workflow closely enough.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:41:16.196600+00:00"
+}

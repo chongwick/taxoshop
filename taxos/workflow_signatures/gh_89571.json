@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 89571,
+  "cluster_id": "workflow-0023",
+  "workflow": [
+    "A parser receives malformed text combining a continuation marker, line breaks, and an unclosed delimiter.",
+    "Initial tokenization records a lexical error while parsing also fails.",
+    "Error recovery resets state and performs a second parsing pass that replaces the earlier lexical error with a structural delimiter error.",
+    "The structural error reporter assumes source-line data is available, but recovery has left that data absent.",
+    "Diagnostic construction dereferences the missing data and terminates the process instead of returning a recoverable syntax error."
+  ],
+  "summary": "Error recovery dereferences missing diagnostic source data",
+  "decision_reason": "This is distinct from the existing clusters: the failure is caused by a second-pass parser error overriding an earlier tokenizer error, followed by diagnostic handling of unavailable source-line data.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:59:57.683005+00:00"
+}

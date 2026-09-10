@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143006,
+  "cluster_id": "workflow-0119",
+  "workflow": [
+    "A numeric comparison receives an operand whose customizable negation operation returns a value of an incompatible type.",
+    "The comparison path assumes the negation result remains an integer and proceeds with integer-specific manipulation.",
+    "Low-level comparison logic interprets the incompatible value under the expected numeric representation.",
+    "An internal assertion or crash occurs instead of returning a recoverable type error."
+  ],
+  "summary": "Unchecked numeric-operation result reaches integer-only comparison logic",
+  "decision_reason": "The failure mechanism materially matches an unchecked non-integer value reaching logic that assumes an integer representation, leading to an assertion instead of a recoverable type error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:16:02.229223+00:00"
+}

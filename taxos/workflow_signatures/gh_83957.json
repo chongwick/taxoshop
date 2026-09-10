@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 83957,
+  "cluster_id": "workflow-0016",
+  "workflow": [
+    "Multiple threads create execution-state records while a shared numeric identifier is allocated without synchronization.",
+    "Concurrent allocation assigns the same identifier to different live thread states.",
+    "A cache assumes the identifier is unique and reuses one thread's context for another thread.",
+    "The affected thread performs a later context lookup or update using the wrong cached state.",
+    "The mismatch can produce incorrect results or dereference state after its owner releases it, causing a crash."
+  ],
+  "summary": "Unsynchronized identifier collision corrupts thread-state caching",
+  "decision_reason": "The failure is caused by a race in supposedly unique identifier allocation followed by cache aliasing across live threads. Although it can end in use-after-free, it is materially different from the existing clusters’ resource-closing, ownership-release, iterator, fork-inheritance, and generic memory",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:56:48.929283+00:00"
+}

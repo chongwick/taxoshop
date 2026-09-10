@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 104472,
+  "cluster_id": "workflow-0038",
+  "workflow": [
+    "A subprocess is launched with an intentionally empty environment, removing configuration that suppresses known runtime leaks.",
+    "The subprocess initializes runtime components that retain allocations until shutdown.",
+    "Leak-detection instrumentation runs without the suppressing configuration and classifies those expected residual allocations as failures.",
+    "The subprocess exits unsuccessfully, so the environment-isolation check reports a sanitizer failure instead of completing normally."
+  ],
+  "summary": "Empty environment exposes expected leaks to sanitizer",
+  "decision_reason": "This is distinct from the existing forked-child leak cluster because the failure results from losing sanitizer configuration in a freshly launched subprocess, not from inherited unreclaimed state after process duplication.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:07:50.762963+00:00"
+}

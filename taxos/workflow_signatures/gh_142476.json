@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142476,
+  "cluster_id": "workflow-0094",
+  "workflow": [
+    "An optimization operation allocates a temporary execution object and inserts it into a long-lived owner.",
+    "A conditional handoff does not transfer the operation’s original ownership in one valid path.",
+    "The operation returns without releasing that remaining ownership.",
+    "Repeated execution leaves each temporary object retained, so leak detection reports persistent memory growth during shutdown."
+  ],
+  "summary": "Successful operation omits cleanup of temporary owned state",
+  "decision_reason": "The underlying failure is materially the same: a successful operation creates temporary owned state, fails to release an ownership reference on a valid path, and accumulates leaks until shutdown. Implementation-specific execution and runtime terminology has been generalized.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:03:19.436507+00:00"
+}

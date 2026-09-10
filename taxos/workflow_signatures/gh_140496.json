@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140496,
+  "cluster_id": "workflow-0060",
+  "workflow": [
+    "A runtime caches a lookup result for a member of a type-like object.",
+    "The underlying member mapping is mutated through a path that bypasses cache invalidation, replacing the old value and releasing it.",
+    "A later lookup reuses the stale cache entry, whose pointer still refers to the released value.",
+    "The lookup reads metadata from the freed value, causing a use-after-free crash instead of returning the replacement."
+  ],
+  "summary": "Stale lookup cache retains a released replaced value",
+  "decision_reason": "The failure is materially the same as stale cache invalidation: a version or invalidation update is bypassed, a cached entry remains usable after its referenced value is released, and a later lookup dereferences the stale value. The object kind and mutation path differ, but the underlying workflow—失",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:48:18.788914+00:00"
+}

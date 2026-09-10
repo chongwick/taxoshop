@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 89657,
+  "cluster_id": "workflow-0023",
+  "workflow": [
+    "A parser receives malformed text containing a continuation marker, line breaks, and an unclosed delimiter.",
+    "Initial tokenization records a lexical error while parsing also fails, and recovery replaces the lexical error with a structural delimiter error.",
+    "Recovery leaves the source-location data needed for diagnostic construction absent or invalid.",
+    "The diagnostic path dereferences the missing source data and terminates instead of returning a recoverable syntax error."
+  ],
+  "summary": "Error recovery dereferences missing diagnostic source data",
+  "decision_reason": "The failure workflow is materially identical: malformed continuation and delimiter input triggers layered parser errors, recovery loses diagnostic source data, and error reporting crashes while handling the original syntax error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:00:15.738030+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144067,
+  "cluster_id": "workflow-0093",
+  "workflow": [
+    "An initialization operation allocates resource state and stores it in a single current-state slot.",
+    "A later initialization replaces the slot with new state without releasing the previously stored allocation.",
+    "The previous allocation loses its only cleanup reference and remains unreachable.",
+    "Leak detection reports unreclaimed memory instead of clean reclamation."
+  ],
+  "summary": "Overwritten current-state ownership leaks the previous allocation",
+  "decision_reason": "The failure is materially the same as losing the sole cleanup address through overwritten ownership bookkeeping, leaving an allocation unreachable. The resource and initialization details differ, but the causal mechanism is equivalent.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:27:00.618679+00:00"
+}

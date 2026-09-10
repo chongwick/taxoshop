@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142559,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "An operation captures a pointer into mutable buffer storage before invoking user-controlled conversion logic.",
+    "The conversion callback re-enters the owner and clears or resizes the buffer, releasing or relocating the captured storage.",
+    "The original operation resumes with the stale pointer without revalidating or reacquiring the buffer storage.",
+    "A subsequent search reads through the invalid pointer, causing a use-after-free and process-terminating memory failure."
+  ],
+  "summary": "Reentrant mutation invalidates captured buffer storage",
+  "decision_reason": "The mechanism materially matches reentrant mutation invalidating storage while the original clearing or processing operation still holds its address; the later stale-pointer read is a direct instance of that failure workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:05:07.280403+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 132869,
+  "cluster_id": "workflow-0081",
+  "workflow": [
+    "Multiple threads concurrently read and update a shared hash-indexed table without sufficient synchronization or publication ordering.",
+    "An updater marks a table slot as occupied before fully initializing the record referenced by that slot.",
+    "A lookup observes the occupied slot while the record contents are still absent or incomplete.",
+    "The lookup dereferences the incomplete record state, causing a crash instead of safely observing a consistent table entry."
+  ],
+  "summary": "Concurrent table publication exposes partially initialized record",
+  "decision_reason": "The failure is materially the same as unsynchronized concurrent reads and writes to shared mutable storage; the table-specific publication-ordering defect is a more specialized manifestation of that race.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:33:37.069525+00:00"
+}

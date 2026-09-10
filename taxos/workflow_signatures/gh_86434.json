@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 86434,
+  "cluster_id": "workflow-0018",
+  "workflow": [
+    "A user enables an optional build feature that requires compiler-specific instrumentation support.",
+    "The configuration process unconditionally adds the feature’s flags to compiler and linker settings without first verifying compiler compatibility.",
+    "A subsequent capability or dependency compile check runs with those incompatible flags and fails.",
+    "The build configuration aborts on the downstream check instead of reporting that the selected compiler lacks the requested feature."
+  ],
+  "summary": "Unsupported compiler option causes misleading downstream configuration failure",
+  "decision_reason": "No existing cluster captures a compiler-specific build option being applied before capability validation and causing an unrelated later configuration check to fail.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:58:15.665022+00:00"
+}

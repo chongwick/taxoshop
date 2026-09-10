@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 122026,
+  "cluster_id": "workflow-0068",
+  "workflow": [
+    "A tokenizer parses nested interpolation expressions containing mismatched delimiters.",
+    "When a closing delimiter is encountered, it decrements the current nesting depth without first verifying that a matching opener exists.",
+    "The nesting depth becomes negative for the malformed input.",
+    "An internal consistency assertion fires instead of returning a recoverable syntax error identifying the unmatched delimiter."
+  ],
+  "summary": "Mismatched nested delimiters underflow parser nesting state",
+  "decision_reason": "The failure is a distinct parser-state underflow caused by missing validation of mismatched delimiters; none of the existing clusters has the same underlying workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:23:08.599371+00:00"
+}

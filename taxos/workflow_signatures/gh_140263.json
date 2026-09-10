@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140263,
+  "cluster_id": "workflow-0095",
+  "workflow": [
+    "A worker updates shared synchronization-state bits atomically while coordinating with another thread.",
+    "A coordinator uses timing-based progress checks and then inspects those shared bits without an atomic or synchronized read.",
+    "The inspection can overlap with the worker’s update, creating a data race on the shared state.",
+    "Race detection reports the conflicting access and the concurrency test fails instead of completing normally."
+  ],
+  "summary": "Unsynchronized inspection of concurrently updated synchronization state",
+  "decision_reason": "No existing cluster captures the materially distinct mechanism of an atomic writer racing with a non-atomic reader of shared synchronization metadata; broader shared-state race clusters are not sufficiently specific.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:42:55.371960+00:00"
+}

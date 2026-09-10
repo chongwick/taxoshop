@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 109128,
+  "cluster_id": "workflow-0040",
+  "workflow": [
+    "A test or support routine changes process-wide environment state.",
+    "The routine finishes without restoring the original environment.",
+    "The test harness compares environment state before and after execution.",
+    "The residual change is detected and the overall test run is marked failed."
+  ],
+  "summary": "Unrestored environment mutation causes test-suite failure",
+  "decision_reason": "The failure is an environment-state leak detected by the test harness, materially different from the existing sanitizer, leak-detection, and runtime-state workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:09:11.521454+00:00"
+}

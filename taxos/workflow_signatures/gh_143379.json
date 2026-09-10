@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143379,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A data-processing operation iterates over an object’s internal format or storage while invoking user-controlled conversion logic for an input value.",
+    "The callback re-enters the same object and rebuilds its internal representation, releasing the storage used by the outer iteration.",
+    "The outer operation continues using its previously obtained pointer without revalidating the representation or reacquiring storage.",
+    "A later iteration dereferences the stale pointer, causing a use-after-free and process-terminating memory-safety failure instead of a recoverable mutation error."
+  ],
+  "summary": "Reentrant mutation invalidates storage during iteration",
+  "decision_reason": "The failure workflow materially matches re-entrant mutation invalidating storage while an outer clearing or processing operation still uses the original address, followed by a use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:20:54.675994+00:00"
+}

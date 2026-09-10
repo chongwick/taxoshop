@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 89737,
+  "cluster_id": "workflow-0024",
+  "workflow": [
+    "A class-generation mechanism inherits fields whose type annotations remain deferred textual references from their defining module.",
+    "A derived class in another module generates a new initializer but associates those references with the derived class’s namespace.",
+    "A later annotation-resolution operation evaluates the references where the original types are absent or shadowed.",
+    "Annotation resolution fails or produces incorrect results instead of reconstructing the inherited types."
+  ],
+  "summary": "Cross-module inherited annotations resolved in the wrong namespace",
+  "decision_reason": "No existing cluster describes namespace misbinding during generated metadata resolution; the failure workflow is materially distinct from the listed memory, arithmetic, parsing, and concurrency patterns.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:00:36.224751+00:00"
+}

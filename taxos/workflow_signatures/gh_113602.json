@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 113602,
+  "cluster_id": "workflow-0047",
+  "workflow": [
+    "A malformed structured input causes parsing to fail and records an initial diagnostic state.",
+    "A later recovery or reporting path continues processing instead of stopping when that diagnostic state is already present.",
+    "The path attempts to construct or replace a second diagnostic while the first error remains pending.",
+    "The diagnostic-construction operation assumes normal error-free execution and triggers an internal consistency assertion, terminating the process instead of returning the original,",
+    "recoverable parse error."
+  ],
+  "summary": "Pending parse error is overwritten during diagnostic recovery",
+  "decision_reason": "No existing cluster captures the same underlying workflow: a parser records an error, then an error-reporting path attempts to overwrite it and crashes because the error state is already pending. The closest diagnostic-recovery clusters involve missing source data rather than conflicting pending and",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:12:28.615502+00:00"
+}

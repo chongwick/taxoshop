@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 138756,
+  "cluster_id": "workflow-0067",
+  "workflow": [
+    "A configuration object allocates heap-backed strings and lists for its nested settings.",
+    "Cleanup releases the outer configuration object but does not traverse and free those nested allocations.",
+    "Repeated configuration creation and cleanup leaves the nested storage reachable as leaks.",
+    "Leak detection reports persistent memory growth instead of clean reclamation."
+  ],
+  "summary": "Incomplete nested configuration cleanup leaks allocated settings",
+  "decision_reason": "The failure workflow materially matches incomplete cleanup of nested configuration-owned allocations; only the surrounding API context differs.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:36:53.705675+00:00"
+}

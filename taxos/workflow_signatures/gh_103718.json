@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 103718,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A parser begins processing an unterminated interpolated string and continues accumulating input across nested parsing modes.",
+    "The input buffer is replaced or reallocated, releasing the old storage while active parsing state still retains direct pointers into it.",
+    "The buffer replacement updates only some state records, leaving pointers from other active modes stale.",
+    "Later parsing dereferences a retained pointer into the released buffer, causing a use-after-free and process termination."
+  ],
+  "summary": "Retained parser-state pointer survives input-buffer replacement",
+  "decision_reason": "The failure mechanism materially matches retained derived pointers outliving the buffer owner: active parsing state keeps pointers into storage that is released during reallocation, then later dereferences them.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:07:30.664949+00:00"
+}

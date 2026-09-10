@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 113956,
+  "cluster_id": "workflow-0049",
+  "workflow": [
+    "Multiple threads access a shared pool of deduplicated values while independently updating ownership and reference-count state.",
+    "One thread attempts to permanently retain an existing value that is still owned by another thread.",
+    "The retention transition writes the value’s ownership and reference-count metadata non-atomically while the owning thread performs concurrent reference-count operations.",
+    "The race corrupts or inconsistently observes the metadata, causing a memory-safety failure or process termination instead of safely retaining the value."
+  ],
+  "summary": "Concurrent permanent-retention transition races with owner reference counting",
+  "decision_reason": "This is distinct from the existing clusters: the failure is a cross-thread race between permanent-retention metadata writes and the owning thread’s reference-count updates, not identifier collision, stale thread state, or resource lifetime misuse.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:12:58.168125+00:00"
+}

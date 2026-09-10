@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140652,
+  "cluster_id": "workflow-0109",
+  "workflow": [
+    "A resource registry retains an entry after the associated resource is closed, destroyed, or released, clearing the entry’s backing-resource pointer.",
+    "An enumeration operation allocates output storage using the count of currently active resources but traverses every retained registry entry.",
+    "The enumeration assumes each entry still has a backing resource and reads its fields without checking for an inactive entry.",
+    "The null dereference, and potentially the mismatch between retained entries and allocated capacity, causes a process-terminating memory-safety failure instead of returning the list"
+  ],
+  "summary": "Unchecked enumeration of retained inactive resource entries",
+  "decision_reason": "This is a lifecycle-tombstone handling failure during registry enumeration. Existing clusters cover different mechanisms such as generic null native arguments, stale cached pointers, or invalid metadata, but none materially matches an enumeration that retains inactive entries and dereferences their.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:54:31.556919+00:00"
+}

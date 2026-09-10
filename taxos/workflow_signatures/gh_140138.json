@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140138,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "An isolated execution context is torn down while daemon worker threads are still running and retain pointers to its shared state.",
+    "Teardown releases the shared state without accounting for those active thread references.",
+    "A worker later accesses the retained pointer during ordinary execution.",
+    "The access reaches freed memory, causing a race-detection failure or use-after-free termination."
+  ],
+  "summary": "Premature teardown of shared state leaves running workers with dangling pointers",
+  "decision_reason": "The failure is materially the same as retained-pointer use-after-free: a worker keeps a pointer to owner-managed storage after the owner releases it, then later dereferences the invalid storage.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:41:35.592258+00:00"
+}

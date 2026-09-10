@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142595,
+  "cluster_id": "workflow-0129",
+  "workflow": [
+    "Initialization invokes an overridable factory expected to return a type descriptor without validating the result.",
+    "The override returns an ordinary object with an incompatible, smaller layout.",
+    "The initializer reinterprets that object as a type descriptor and accesses its metadata fields.",
+    "The metadata access exceeds the object's allocation, causing a heap-buffer-overflow and process termination instead of a recoverable initialization error."
+  ],
+  "summary": "Unchecked factory result is reinterpreted as type metadata",
+  "decision_reason": "No existing cluster has the same core workflow of accepting an overridable factory result, treating an incompatible object as a type descriptor, and then accessing beyond its allocation; the closest unchecked-type clusters involve different downstream state or mapping assumptions.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:05:58.801869+00:00"
+}

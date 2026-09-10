@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 77808,
+  "cluster_id": "workflow-0011",
+  "workflow": [
+    "A comparison workload repeatedly compares values drawn from several numeric representations.",
+    "On some 32-bit environments, one mixed comparison intermittently reaches an invalid memory location.",
+    "The invalid access terminates the process, while repeating the same workload may succeed."
+  ],
+  "summary": "Intermittent invalid memory access during heterogeneous numeric comparison",
+  "decision_reason": "The underlying failure workflow materially matches the existing cluster: heterogeneous numeric comparisons intermittently trigger an invalid memory access and process termination, independent of project-specific tests or implementation names.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:55:06.997062+00:00"
+}

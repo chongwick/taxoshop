@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 77813,
+  "cluster_id": "workflow-0012",
+  "workflow": [
+    "A caller supplies a very large nonnegative timeout to a blocking operation.",
+    "The implementation converts the relative timeout into an absolute deadline by adding it to the current monotonic time.",
+    "The signed deadline calculation exceeds the representable range before overflow handling occurs.",
+    "Undefined signed overflow is triggered during wait setup, causing diagnostics or a crash instead of safe timeout handling."
+  ],
+  "summary": "Oversized timeout overflows absolute-deadline calculation",
+  "decision_reason": "The failure workflow is materially identical: an oversized timeout is added to the current monotonic time to form an absolute deadline, and the signed addition overflows before saturation or validation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:55:21.228021+00:00"
+}

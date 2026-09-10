@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 96572,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A diagnostic bookkeeping mechanism retains links to every live object.",
+    "A performance optimization releases an object without removing its links from the bookkeeping structure.",
+    "The object is deallocated while the stale links remain reachable.",
+    "Later bookkeeping cleanup follows the retained links and reads freed storage, causing a use-after-free crash."
+  ],
+  "summary": "Stale bookkeeping link survives object deallocation",
+  "decision_reason": "The failure is materially the same retained-reference-after-owner-release workflow: bookkeeping retains a pointer into object storage, the owner releases that storage without invalidating the pointer, and later cleanup dereferences freed memory.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:03:47.715906+00:00"
+}

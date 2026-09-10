@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 118113,
+  "cluster_id": "workflow-0057",
+  "workflow": [
+    "A runtime stores special immutable records in static storage that lacks the full layout expected for ordinary collectible objects.",
+    "The record type is marked for garbage-collection traversal without excluding those special records.",
+    "Collection invokes the type’s traversal logic on a special record and reads fields beyond its valid bounds.",
+    "Memory-safety instrumentation detects the out-of-bounds read and terminates the process during cleanup instead of skipping the noncollectible record."
+  ],
+  "summary": "Garbage-collector traversal overruns undersized static records",
+  "decision_reason": "The failure mechanism is materially identical: special statically allocated records are treated as ordinary garbage-collectible objects, so traversal reads beyond their valid storage and crashes during collection.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:17:47.216382+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140798,
+  "cluster_id": "workflow-0113",
+  "workflow": [
+    "A worker exits while its per-thread local state is being torn down.",
+    "Destroying a value in that state runs user finalization code that accesses the same thread-local container and recreates auxiliary per-thread state.",
+    "Teardown continues using its original cleanup sequence and does not reclaim the state recreated during finalization.",
+    "The recreated bookkeeping objects remain allocated after the worker finishes, so leak detection reports a memory leak instead of clean shutdown."
+  ],
+  "summary": "Reentrant finalization recreates state during teardown and leaks it",
+  "decision_reason": "No existing cluster has the same underlying workflow: user finalization re-enters a thread-local container during per-thread teardown, recreates cleanup state, and leaves that newly created state unreclaimed. Existing leak clusters describe missing cleanup on ordinary or exceptional paths, repeated-",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:56:07.715054+00:00"
+}

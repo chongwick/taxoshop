@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 151277,
+  "cluster_id": "workflow-0081",
+  "workflow": [
+    "Multiple worker threads use one shared mutable byte sequence during concurrent connection setup.",
+    "One thread replaces or updates the sequence while another thread reads it for comparison.",
+    "The accesses are unsynchronized, so the reader observes storage being modified concurrently.",
+    "Race-detection instrumentation reports the data race and terminates the operation instead of allowing concurrent setup to complete."
+  ],
+  "summary": "Concurrent unsynchronized read and update of shared byte storage",
+  "decision_reason": "The failure mechanism is materially the same as concurrent unsynchronized reads and writes of shared mutable byte storage; the connection and comparison context are implementation-specific symptoms.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:40:31.553729+00:00"
+}

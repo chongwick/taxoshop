@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143375,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "An operation confirms that a shared resource is attached before converting a caller-supplied position value.",
+    "The conversion invokes user-controlled behavior that closes or detaches the resource while the operation is paused.",
+    "The operation resumes without rechecking the resource state and uses the cleared handle.",
+    "The invalid handle is dereferenced, terminating the process instead of returning a recoverable closed-resource error."
+  ],
+  "summary": "Reentrant conversion invalidates a resource before later use",
+  "decision_reason": "The failure workflow materially matches the existing cluster: resource validation precedes user-controlled argument conversion, that conversion invalidates the resource, and the caller later uses the stale handle without revalidation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:19:43.904215+00:00"
+}

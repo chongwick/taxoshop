@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 122431,
+  "cluster_id": "workflow-0053",
+  "workflow": [
+    "A caller supplies a negative count where the operation requires a nonnegative value.",
+    "The interface forwards the unchecked value to a lower-level routine.",
+    "The routine uses the invalid count in range or pointer calculations and accesses records outside valid storage.",
+    "The process crashes instead of returning a recoverable argument-range error."
+  ],
+  "summary": "Unchecked negative count causes downstream out-of-bounds access",
+  "decision_reason": "The bug shares the core workflow of an invalid numeric argument being forwarded without validation to a lower-level routine that treats it as valid and dereferences invalid memory, although the specific argument and native operation differ.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:24:05.501769+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 65128,
+  "cluster_id": "workflow-0003",
+  "workflow": [
+    "A low-level runtime encodes signed state values into a packed representation.",
+    "Some valid state values are negative.",
+    "The encoding left-shifts the value before converting it to an unsigned representation.",
+    "The signed negative shift invokes undefined behavior, causing runtime diagnostics during ordinary execution."
+  ],
+  "summary": "Negative signed value is shifted before packed-state encoding",
+  "decision_reason": "The failure workflow materially matches the existing cluster: valid negative state is left-shifted while still signed, triggering undefined behavior during encoding.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:53:04.303430+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139751,
+  "cluster_id": "workflow-0091",
+  "workflow": [
+    "A source-processing operation allocates an intermediate value while decoding input text.",
+    "Later validation rejects an invalid argument and raises a recoverable error.",
+    "The exceptional cleanup path fails to release the intermediate allocation.",
+    "Leak detection reports the unreclaimed allocation after the operation exits."
+  ],
+  "summary": "Exceptional parse failure omits cleanup and leaks an intermediate allocation",
+  "decision_reason": "The failure is an input-rejection cleanup leak, which is not materially the same as the existing clusters’ more specific execution-object, configuration, shutdown, or nested-cleanup workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:39:20.201722+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 128144,
+  "cluster_id": "workflow-0056",
+  "workflow": [
+    "Multiple threads concurrently read and update a shared pointer-valued field.",
+    "Updates use atomic or synchronized access, but reads use ordinary unsynchronized access.",
+    "A read overlaps a write, creating a data race and allowing an inconsistent value to be observed.",
+    "Race detection reports the conflict, and execution may use incorrect or invalid shared state."
+  ],
+  "summary": "Unsynchronized shared pointer read races with concurrent update",
+  "decision_reason": "The underlying failure is materially the same as concurrent mutation of a shared native resource value: one thread updates a shared handle-like value while another accesses it without synchronization, producing a data race and potentially invalid state use.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:29:22.752442+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 95635,
+  "cluster_id": "workflow-0003",
+  "workflow": [
+    "A low-level runtime builds a packed bit representation by left-shifting a value stored in a signed integer.",
+    "A valid runtime value and shift distance produce a result outside the signed integer type's representable range.",
+    "The signed left shift invokes undefined behavior before any safe conversion or validation occurs.",
+    "Undefined-behavior instrumentation reports a runtime error during ordinary program startup, although execution may continue."
+  ],
+  "summary": "Signed bit-packing shift overflows before safe encoding",
+  "decision_reason": "The failure mechanism is materially the same as the existing cluster: a signed integer is left-shifted during packed-state encoding, and the shift exceeds its representable range before safe handling. The observed operand is positive rather than negative, but the underlying undefined signed-shift/UB",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:02:53.642132+00:00"
+}

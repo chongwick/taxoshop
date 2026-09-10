@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 128013,
+  "cluster_id": "workflow-0074",
+  "workflow": [
+    "Multiple threads request a lazily generated encoded representation of the same shared value while its cached representation is absent.",
+    "Each thread observes the missing cache and independently generates and publishes the representation without synchronization.",
+    "The representation pointer and its associated length are updated concurrently, allowing unsynchronized reads and writes or inconsistent publication.",
+    "A caller observes the concurrently modified cache, producing a data race instead of safely reusing one fully initialized representation."
+  ],
+  "summary": "Concurrent lazy-cache initialization races during shared representation publication",
+  "decision_reason": "No existing cluster captures an unsynchronized lazy initialization of shared cached representation data; the nearby concurrency clusters involve different mechanisms such as resource-handle mutation, identifier collisions, or ownership-retention transitions.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:27:07.207943+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 122136,
+  "cluster_id": "workflow-0069",
+  "workflow": [
+    "A test estimates usable external buffer capacity from a reported size.",
+    "It assumes the report accurately bounds how much data the system can accept and writes only that amount.",
+    "The system accepts more data than reported, so the intended backpressure state is not reached.",
+    "The test asserts that backpressure must already be observable and fails even though the I/O operation remains valid."
+  ],
+  "summary": "Underestimated external capacity defeats a backpressure test expectation",
+  "decision_reason": "This is distinct from the existing timeout and scheduling clusters: the failure comes from an inaccurate capacity report causing an observable-state assertion to be premature, not from delayed execution or an expired deadline.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:23:26.105042+00:00"
+}

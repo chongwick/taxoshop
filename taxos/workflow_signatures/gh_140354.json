@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140354,
+  "cluster_id": "workflow-0097",
+  "workflow": [
+    "A user enables an optional code-generation feature for a target environment that the feature does not support.",
+    "Configuration accepts the feature without validating that the target is among the generator's recognized targets.",
+    "The build invokes the generator with the unsupported target description, which rejects it and does not produce the generated header.",
+    "Compilation then fails because source files require the missing generated header instead of reporting the unsupported feature during configuration."
+  ],
+  "summary": "Unsupported target accepted until generated-artifact build failure",
+  "decision_reason": "No existing cluster captures this specific sequence of accepting an unsupported target for an optional code-generation feature, then failing because the required generated artifact is absent; the similarly themed configuration clusters concern incompatible compiler flags or probe results.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:44:34.998902+00:00"
+}

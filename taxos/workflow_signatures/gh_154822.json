@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 154822,
+  "cluster_id": "workflow-0077",
+  "workflow": [
+    "A process begins finalization while worker threads can still create or remove entries from shared process-wide thread state.",
+    "The finalization path reads that shared state in an assertion before establishing the global synchronization barrier that would stop concurrent updates.",
+    "A worker updates the same state under its lock while the finalizer performs the unlocked read.",
+    "The conflicting accesses form a data race, which instrumentation reports and may expose inconsistent state instead of completing finalization safely."
+  ],
+  "summary": "Finalization reads shared thread state before synchronization",
+  "decision_reason": "The underlying failure is a concurrent isolated execution context racing with finalization over shared process-wide metadata without sufficient synchronization. The specific thread registry and assertion differ, but the causal workflow materially matches the cluster’s shared-state race pattern.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:46:32.162359+00:00"
+}

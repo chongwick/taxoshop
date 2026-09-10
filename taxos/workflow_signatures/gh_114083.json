@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 114083,
+  "cluster_id": "workflow-0051",
+  "workflow": [
+    "A control-flow optimizer processes constant-dependent conditional branches and redirected jumps in the same optimization phase.",
+    "It tries to redirect an incoming jump before the target block’s constant condition has been simplified into an unconditional jump.",
+    "The later simplification changes the target control flow, leaving the earlier jump redundant.",
+    "The cleanup phase does not fully converge before its invariant check, so the remaining redundant jump violates the optimizer’s internal consistency assertion and terminates the run"
+  ],
+  "summary": "Optimization-pass ordering leaves redundant control-flow edge",
+  "decision_reason": "The failure is a distinct compiler-optimizer pass-ordering and incomplete-cleanup workflow; none of the existing clusters describes an invariant assertion caused by a control-flow transformation becoming visible only after an earlier optimization pass.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:13:26.047677+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144356,
+  "cluster_id": "workflow-0081",
+  "workflow": [
+    "Multiple worker threads use a shared iterator while other threads mutate its underlying collection and advance or exhaust the iterator.",
+    "Iterator position, exhaustion, and collection-size state are read and updated concurrently without sufficient synchronization or atomic coordination.",
+    "One operation observes iterator or collection state while another changes it, producing inconsistent shared state and a data race.",
+    "The race can yield invalid iteration behavior or sanitizer-detected process termination instead of stable length reporting and exhaustion handling."
+  ],
+  "summary": "Concurrent unsynchronized access to shared iterator and collection state",
+  "decision_reason": "The underlying failure is materially the same as concurrent unsynchronized reads and writes to shared mutable storage causing a data race and instrumentation failure; iterator and collection semantics are implementation-specific details.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:31:00.457276+00:00"
+}

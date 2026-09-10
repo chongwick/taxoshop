@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 130019,
+  "cluster_id": "workflow-0079",
+  "workflow": [
+    "An object allocator reserves storage while another thread may inspect its ownership and reference metadata.",
+    "The allocator clears the entire allocation with a non-atomic bulk write before initializing the object header.",
+    "The concurrent inspection reads those header fields during the clearing operation, observing partially updated or transiently valid metadata.",
+    "The race can misidentify ownership or reference state, producing inconsistent behavior or sanitizer-reported failure instead of safe concurrent allocation."
+  ],
+  "summary": "Concurrent initialization races with ownership-metadata inspection",
+  "decision_reason": "Distinct from the existing clusters: the failure is a race between bulk initialization and concurrent header inspection, not a cache collision, resource-handle mutation, retention transition, or shared-context teardown workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:31:15.963183+00:00"
+}

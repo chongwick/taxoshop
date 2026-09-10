@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 121112,
+  "cluster_id": "workflow-0032",
+  "workflow": [
+    "A loader accepts a serialized executable object containing truncated or incompatible variable-length location metadata.",
+    "A lazy metadata reader decodes continuation fields without verifying that each read remains within the metadata buffer.",
+    "The reader advances past the buffer and interprets adjacent memory as additional location data.",
+    "Downstream processing uses the invalid decoded values, corrupting memory and eventually crashing instead of rejecting the malformed object."
+  ],
+  "summary": "Unchecked variable-length metadata decoding causes adjacent-memory access and later corruption",
+  "decision_reason": "The underlying failure workflow materially matches the existing cluster: malformed truncated metadata is decoded without bounds checks, causing reads beyond the metadata buffer and downstream memory-safety failure. The affected metadata and observed crash differ, but the causal mechanism is the same",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:21:41.114198+00:00"
+}

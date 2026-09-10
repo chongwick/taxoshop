@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 88350,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "An object-deallocation routine retains a pointer to its type metadata while invoking cleanup that can release the type's last ownership reference.",
+    "The cleanup frees the type metadata before the deallocation routine returns.",
+    "The routine then reads the retained metadata pointer to decide whether to adjust ownership.",
+    "The read accesses freed memory, causing use-after-free behavior and potentially terminating the process."
+  ],
+  "summary": "Post-cleanup access through freed type metadata",
+  "decision_reason": "The failure is materially the same as retained-pointer use-after-free: cleanup releases the owner of storage, but the caller later dereferences a pointer into that freed storage.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:58:49.328942+00:00"
+}

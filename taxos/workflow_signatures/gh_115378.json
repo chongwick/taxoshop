@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 115378,
+  "cluster_id": "workflow-0053",
+  "workflow": [
+    "A caller supplies an invalid numeric identifier to an interface that accepts thread identifiers.",
+    "The interface forwards the value after conversion to a native thread-handle representation without validating that it denotes a live thread.",
+    "The native lookup routine treats the converted value as a valid internal pointer and dereferences it while retrieving per-thread information.",
+    "The invalid dereference accesses unmapped memory and terminates the process instead of returning a recoverable invalid-identifier error."
+  ],
+  "summary": "Unvalidated thread identifier causes native lookup crash",
+  "decision_reason": "Distinct from the existing clusters: the failure is caused by forwarding an invalid externally supplied identifier into a native lookup that dereferences it, with no materially equivalent validation or ownership workflow among the listed clusters.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:15:11.624211+00:00"
+}

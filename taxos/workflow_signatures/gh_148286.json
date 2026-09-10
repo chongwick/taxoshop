@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 148286,
+  "cluster_id": "workflow-0155",
+  "workflow": [
+    "A low-level operation receives an extreme, empty, malformed, or otherwise boundary-case input that leaves storage absent, positions out of range, or numeric values outside safe enc",
+    "The implementation accepts that state without first validating or normalizing the relevant pointer, range, or representation invariant.",
+    "It performs pointer arithmetic, signed shifting, overflow-prone arithmetic, or direct representation access before those preconditions hold; some operations appear to return the-"
+  ],
+  "summary": "Unchecked boundary state reaches undefined low-level arithmetic or representation access",
+  "decision_reason": "The analysis groups several independent undefined-behavior defects with different mechanisms, including invalid pointer formation, signed shifts and overflow, null-state access, and noncanonical values. No existing cluster captures the materially common workflow without collapsing distinct causal me",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:36:19.045775+00:00"
+}

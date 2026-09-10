@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 72111,
+  "cluster_id": "workflow-0006",
+  "workflow": [
+    "A system-managed installation is externally removed, deleting metadata and files required by a bundled recovery component.",
+    "The recovery component attempts to reconstruct the missing installation and receives no record set.",
+    "A downstream packaging step assumes the record set is iterable without checking for absence.",
+    "The operation raises a type error instead of reporting the missing or externally removed installation."
+  ],
+  "summary": "Externally removed installation causes unchecked missing metadata to crash recovery",
+  "decision_reason": "The failure workflow is materially identical: external removal of a system-managed installation leaves bootstrap metadata absent, and a downstream packaging operation iterates the unchecked absent result.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:53:41.731035+00:00"
+}

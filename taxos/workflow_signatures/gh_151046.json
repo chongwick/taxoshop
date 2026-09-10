@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 151046,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A data-reading operation exposes a temporary non-owning view of an internal buffer to a user-supplied callback.",
+    "The callback retains the view beyond the operation that provided it.",
+    "The data-reading operation returns and releases or reallocates the backing buffer while the retained view remains reachable.",
+    "A later read or write through the retained view accesses freed storage, causing a use-after-free failure instead of a safe invalid-view error."
+  ],
+  "summary": "Retained temporary view outlives backing buffer",
+  "decision_reason": "The failure workflow is materially the same as retained pointer or reference use after the owning buffer is released; only the view and callback context differ.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:40:17.264727+00:00"
+}

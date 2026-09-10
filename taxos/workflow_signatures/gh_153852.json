@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 153852,
+  "cluster_id": "workflow-0077",
+  "workflow": [
+    "Multiple threads concurrently access shared mutable state or a shared resource.",
+    "At least one access updates, replaces, or tears down that state without the lock or atomic coordination assumed by concurrent readers or writers.",
+    "Another thread observes or uses the state during the unsynchronized transition, producing a data race and potentially inconsistent ownership, lifetime, or representation.",
+    "Instrumentation or a later dependent operation exposes the race as an assertion failure, invalid memory access, leak, or process-terminating failure instead of safe concurrent orから"
+  ],
+  "summary": "Concurrent unsynchronized access to shared mutable state",
+  "decision_reason": "The umbrella contains several distinct race sites, but their common causal workflow is concurrent contexts accessing shared mutable state without sufficient synchronization, matching the broad failure pattern of workflow-0077.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:42:56.120052+00:00"
+}

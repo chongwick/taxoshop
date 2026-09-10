@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 153928,
+  "cluster_id": "workflow-0008",
+  "workflow": [
+    "Multiple worker threads consume a shared iterator without synchronized cursor and lifetime coordination.",
+    "One thread reaches exhaustion and releases the iterator’s reference to the underlying sequence while another thread has already observed that sequence as available.",
+    "The second thread continues reading the sequence, while unsynchronized cursor updates can also race between workers.",
+    "The released sequence may be reclaimed or its ownership state corrupted, causing invalid memory access or process termination instead of clean exhaustion."
+  ],
+  "summary": "Concurrent iterator exhaustion releases shared sequence during another retrieval",
+  "decision_reason": "The underlying failure workflow materially matches the existing cluster: concurrent consumers share an iterator, one exhausts it and closes/releases its backing resource, and another proceeds using the resource after the lifetime check has become stale.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:43:30.232121+00:00"
+}

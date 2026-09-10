@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140492,
+  "cluster_id": "workflow-0050",
+  "workflow": [
+    "A caller supplies a non-text value where a diagnostic path expects a text object.",
+    "Validation detects the invalid value and enters error-reporting logic.",
+    "The diagnostic formatter interprets the non-text object using the text-object layout instead of rejecting the type safely.",
+    "Formatting reads beyond the object's allocation, causing a heap-buffer-overflow and process termination instead of returning the intended type error."
+  ],
+  "summary": "Invalid diagnostic argument type causes out-of-bounds formatting read",
+  "decision_reason": "The failure workflow is materially the same as the existing cluster: an error-reporting formatter receives an argument of the wrong representation and performs an invalid text read, crashing while constructing the diagnostic.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:47:44.924555+00:00"
+}

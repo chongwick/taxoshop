@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 110097,
+  "cluster_id": "workflow-0042",
+  "workflow": [
+    "A concurrency test submits a mix of immediately completable and deliberately delayed work, then waits for early results under a fixed short deadline.",
+    "Heavy system load or execution instrumentation delays worker startup and scheduling beyond that deadline.",
+    "The wait expires before the immediately completable work has run, leaving no or only partial results.",
+    "The test assumes the early results must always be present and reports a failure even though the timeout behavior is otherwise valid."
+  ],
+  "summary": "Load-sensitive fixed-timeout expectation failure",
+  "decision_reason": "This is distinct from the existing clusters: the failure is caused by a timing-sensitive test assumption under delayed worker startup, not by memory corruption, synchronization-state misuse, or an incorrect runtime result.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:09:46.140135+00:00"
+}

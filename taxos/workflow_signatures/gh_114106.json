@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 114106,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A mutable mapping stores an entry and a derived cached value for faster later lookup.",
+    "Code removes or replaces the entry through a mutation path that does not invalidate the derived cache.",
+    "Cleanup releases the old value while the cache still retains its pointer.",
+    "A later lookup reuses the stale cached pointer as if the value were still alive.",
+    "The lookup accesses freed storage, causing memory corruption or process termination."
+  ],
+  "summary": "Stale cached value reused after invalidation bypass",
+  "decision_reason": "The underlying failure is materially the same as a retained pointer outliving its owner: a cached pointer remains reachable after the referenced value is released, then a later operation dereferences freed storage.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:13:43.077816+00:00"
+}

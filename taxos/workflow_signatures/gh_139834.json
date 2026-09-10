@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 139834,
+  "cluster_id": "workflow-0007",
+  "workflow": [
+    "A code-generation component patches values into raw byte storage at locations that are not guaranteed to meet the values’ alignment requirements.",
+    "The implementation reinterprets those locations as pointers to wider typed values and performs direct reads or writes through them.",
+    "The misaligned typed access violates alignment and representation rules, so sanitizer instrumentation reports undefined behavior and the operation can terminate with a memory fault"
+  ],
+  "summary": "Misaligned typed access during raw code-buffer patching",
+  "decision_reason": "The underlying failure is materially the same as the existing under-aligned-storage cluster: storage does not guarantee the stricter alignment required by a typed object, and direct access triggers undefined behavior. The implementation context differs, but the causal mechanism is alignment-violated",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:39:53.648836+00:00"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 140590,
+  "cluster_id": "workflow-0104",
+  "workflow": [
+    "A state-restoration interface receives a structured record containing several fields, including an optional mapping field.",
+    "Validation checks some fields but omits validating the optional mapping field.",
+    "A caller supplies a value of the wrong type in that field, so the record is accepted as internal state.",
+    "Later execution treats the field as a mapping and performs a lookup through it.",
+    "The invalid representation reaches low-level memory access and crashes the process instead of producing a recoverable type error."
+  ],
+  "summary": "Unchecked state-field type causes later invalid mapping access",
+  "decision_reason": "The failure is materially distinct from the existing clusters: a missing type check admits malformed restoration state, which later causes an invalid mapping lookup and crash.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:50:19.481190+00:00"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 153201,
+  "cluster_id": "workflow-0074",
+  "workflow": [
+    "Multiple threads request the same lazily initialized shared descriptor while its cache slot is empty.",
+    "Each thread independently obtains a reference-counted descriptor and publishes it to the cache through an atomic replacement operation.",
+    "Concurrent publications overwrite earlier values, leaving losing references without a coordinated release.",
+    "The losing callers also receive inconsistent ownership because reference acquisition is conditional on winning publication.",
+    "The resulting reference-count imbalance causes leaks or can later lead to over-release and use-after-free during cleanup."
+  ],
+  "summary": "Concurrent lazy-cache publication corrupts reference ownership",
+  "decision_reason": "The failure workflow is materially the same as concurrent lazy initialization and unsynchronized publication of a shared cached representation, with this instance additionally corrupting reference-count ownership when competing publications overwrite one another.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:42:18.617267+00:00"
+}

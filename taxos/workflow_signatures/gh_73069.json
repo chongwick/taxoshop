@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 73069,
+  "cluster_id": "workflow-0008",
+  "workflow": [
+    "Multiple worker threads consume one shared stateful iterator backed by a native resource.",
+    "One thread reaches the end and closes the shared resource while another thread is retrieving the next item.",
+    "The second thread checked that the resource was available before the concurrent close, then continues using the released resource.",
+    "The retrieval becomes a use-after-free and can terminate the process."
+  ],
+  "summary": "Concurrent iterator exhaustion closes a shared resource during another retrieval",
+  "decision_reason": "The primary crash workflow is materially identical to workflow-0008: concurrent iterator exhaustion closes shared native state during another thread's retrieval, producing a use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:54:12.442762+00:00"
+}

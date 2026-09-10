@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 113576,
+  "cluster_id": "workflow-0034",
+  "workflow": [
+    "An embedded runtime initializes an extension that stores interpreter-owned objects in process-global state.",
+    "The runtime shuts down and releases those objects, but the extension's shared state is not cleared or tied to that interpreter's lifetime.",
+    "A later initialization reuses the stale references while constructing or manipulating new objects.",
+    "The extension reads or releases storage owned by the earlier interpreter, causing use-after-free or invalid-free failure."
+  ],
+  "summary": "Stale shared extension state reused after repeated runtime teardown",
+  "decision_reason": "The underlying workflow matches the existing cluster: interpreter-scoped objects remain reachable through legacy process-global extension state across repeated initialization and shutdown. This instance manifests as stale-object access and invalid release rather than only leak growth, but the causal",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:11:51.645386+00:00"
+}

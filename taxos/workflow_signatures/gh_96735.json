@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 96735,
+  "cluster_id": "workflow-0003",
+  "workflow": [
+    "A binary decoder reconstructs a signed integer from raw bytes by accumulating successive byte values.",
+    "A valid input represents a negative value, causing an intermediate signed accumulator to become negative before all bytes are processed.",
+    "The decoder left-shifts that negative signed accumulator while assembling the result.",
+    "The signed left shift invokes undefined behavior, producing runtime diagnostics or potentially unsafe optimized behavior instead of returning the decoded value."
+  ],
+  "summary": "Negative signed accumulator is shifted during binary decoding",
+  "decision_reason": "The failure mechanism is materially the same as workflow-0003: valid negative signed data is left-shifted during packed-state reconstruction, triggering undefined behavior before normal validation or result delivery.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:04:37.240604+00:00"
+}

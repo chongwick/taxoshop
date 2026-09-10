@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142560,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A search-like operation saves a pointer into a mutable byte buffer before fully converting its arguments.",
+    "Argument conversion invokes user-controlled code that clears or resizes the same buffer, releasing or relocating its storage.",
+    "The operation continues using the previously saved pointer without preserving the buffer’s lifetime.",
+    "The stale pointer is dereferenced, causing a use-after-free and process-terminating memory failure instead of a recoverable mutation error."
+  ],
+  "summary": "Reentrant buffer mutation invalidates a retained operation pointer",
+  "decision_reason": "The failure mechanism is materially the same as retained-pointer use-after-free: an operation keeps a pointer into owner-managed storage, the owner releases or invalidates that storage during reentrant execution, and the operation later dereferences the stale pointer.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:05:22.516961+00:00"
+}

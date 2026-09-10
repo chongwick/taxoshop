@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143756,
+  "cluster_id": "workflow-0056",
+  "workflow": [
+    "Multiple threads perform operations through a shared connection or security context whose auxiliary state is mutable.",
+    "One operation releases or updates shared state while another operation has already obtained a non-owning reference or is using the same state.",
+    "The accesses occur without holding a lifetime or synchronization guard covering the entire operation.",
+    "The second operation observes invalid or concurrently modified state, producing a data race or use-after-free instead of a recoverable operation error."
+  ],
+  "summary": "Concurrent unsynchronized use of shared connection state",
+  "decision_reason": "The bug is materially the same as concurrent unsynchronized mutation of a shared resource’s native state: one operation can release or modify state while another uses it. The specific connection and security-context details are implementation-specific.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:26:40.263985+00:00"
+}

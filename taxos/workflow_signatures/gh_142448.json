@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 142448,
+  "cluster_id": "workflow-0126",
+  "workflow": [
+    "An execution optimizer begins recording a specialized trace for ordinary control flow.",
+    "Execution reaches an instrumented operation or exceptional path that invokes monitoring logic.",
+    "The optimizer fails to abandon or invalidate the trace before that transfer, allowing tracing to continue across the boundary.",
+    "The resulting trace uses stack-state assumptions that no longer match the actual execution path.",
+    "Frame cleanup detects the inconsistent residual stack state and aborts instead of safely deoptimizing or completing execution."
+  ],
+  "summary": "Tracing crosses instrumentation or exception boundaries with stale stack assumptions",
+  "decision_reason": "No existing cluster describes stale optimized tracing across instrumentation and exceptional callback boundaries leading to an execution-stack invariant failure; the related optimization and instrumentation clusters involve different mechanisms.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:02:33.434401+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 153981,
+  "cluster_id": "workflow-0152",
+  "workflow": [
+    "Multiple threads concurrently advance and format a shared stateful sequence object.",
+    "In large-value mode, advancing replaces or releases heap objects holding the current value or increment state.",
+    "Formatting reads those fields without first acquiring ownership or synchronizing with the update.",
+    "The formatter dereferences a field after concurrent release, causing a use-after-free and process-terminating memory failure."
+  ],
+  "summary": "Concurrent state replacement invalidates formatting reads",
+  "decision_reason": "The bug is materially the same as unsynchronized concurrent replacement and reading of shared object state, with the ownership transition leaving the reader holding a stale pointer.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:43:49.362270+00:00"
+}

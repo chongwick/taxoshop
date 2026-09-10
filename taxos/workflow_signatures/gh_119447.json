@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 119447,
+  "cluster_id": "workflow-0059",
+  "workflow": [
+    "A build configuration selects a platform and feature combination that omits the full definition of an optional runtime state type.",
+    "A refactor moves a reference to that state into shared declarations without preserving the configuration guard.",
+    "The affected compilation path encounters an unconditional reference to a type that was never defined for that configuration.",
+    "Compilation fails with a missing-type error instead of using a neutral placeholder definition or conditionally omitting the reference."
+  ],
+  "summary": "Configuration-guard mismatch exposes an undefined optional state type",
+  "decision_reason": "The failure is a conditional-compilation mismatch causing a missing type definition. Although one existing cluster involves an incomplete-type build failure, that cluster depends on failed instrumentation probes and generated feature settings, which is materially different from this direct guard/ref",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:18:35.773775+00:00"
+}

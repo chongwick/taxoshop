@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141336,
+  "cluster_id": "workflow-0121",
+  "workflow": [
+    "A streaming text decoder encounters malformed input and invokes a user-defined recovery handler.",
+    "The handler supplies replacement text and rewinds the input position, increasing the amount of input that remains to be processed.",
+    "Buffer-capacity accounting underestimates the required space by failing to include the full replacement length together with the newly remaining input.",
+    "Decoding reaches an internal capacity invariant with insufficient space and aborts instead of handling the malformed input safely."
+  ],
+  "summary": "Recovery rewind underestimates decoder output capacity",
+  "decision_reason": "No existing cluster has the same underlying workflow: this is a stateful decoder recovery path where rewinding input and undercounting replacement output leaves a buffer-capacity invariant violated; the available assertion, bounds, and validation clusters describe materially different failure causes",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:59:53.704829+00:00"
+}

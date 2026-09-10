@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140776,
+  "cluster_id": "workflow-0104",
+  "workflow": [
+    "A caller replaces a compiled executable object's constant metadata with values of an incompatible type.",
+    "The replacement is accepted without validating that the metadata matches the executable representation's invariants.",
+    "Execution later treats the malformed entries as valid managed objects while constructing a runtime object.",
+    "The invalid representation is dereferenced, causing a segmentation fault instead of a recoverable metadata error."
+  ],
+  "summary": "Unchecked executable metadata type causes later invalid dereference",
+  "decision_reason": "The bug materially matches the existing pattern of accepting an unchecked state field of the wrong type and later treating it as a valid internal representation, leading to a low-level crash.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:55:30.485979+00:00"
+}

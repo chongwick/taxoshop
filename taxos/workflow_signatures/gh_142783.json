@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142783,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A component retrieves a cache-like object through an overridable accessor that may create a fresh object.",
+    "The accessor returns an owned reference, but the helper mistakenly treats it as borrowed and releases it before returning the pointer.",
+    "The newly created object is deallocated while the caller still holds the pointer.",
+    "The caller accesses the cache through the dangling pointer, causing a use-after-free and process termination."
+  ],
+  "summary": "Premature release leaves returned cache pointer dangling",
+  "decision_reason": "The failure is materially the same as retaining a pointer after its owner releases the backing object: incorrect ownership handling frees the object before a later dereference through the still-reachable pointer.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:11:20.988526+00:00"
+}

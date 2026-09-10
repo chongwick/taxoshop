@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 150191,
+  "cluster_id": "workflow-0158",
+  "workflow": [
+    "A concurrency check starts multiple workers performing handshakes through one shared connection configuration.",
+    "The connection library maintains mutable configuration state that is not safe for simultaneous handshakes.",
+    "Concurrent handshake workers access that shared state without sufficient synchronization.",
+    "Race-detection instrumentation reports a data race, causing the check to fail even though the intended configuration-update race is separate."
+  ],
+  "summary": "Concurrent handshakes race on shared connection state",
+  "decision_reason": "No existing cluster is materially equivalent: the closest shared-state race clusters involve isolated contexts, direct state replacement, or false positives from missing instrumentation, while this bug is caused by multiple handshake operations concurrently accessing unsynchronized state inside a11y",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:38:25.301665+00:00"
+}

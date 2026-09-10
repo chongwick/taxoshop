@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142781,
+  "cluster_id": "workflow-0129",
+  "workflow": [
+    "An object-initialization path retrieves a value from an overridable cache or provider that is expected to contain objects of a specific type.",
+    "A custom implementation returns an unrelated value of an incompatible type.",
+    "The initialization path uses the returned value as the expected object without validating its type.",
+    "Field access through the mistaken interpretation reaches invalid object layout and terminates the process instead of returning a recoverable type error."
+  ],
+  "summary": "Unchecked provider result is reinterpreted as expected object type",
+  "decision_reason": "The failure workflow materially matches unchecked factory-result reinterpretation: an overridable provider returns an incompatible object, the caller omits type validation, then accesses it as structured metadata and crashes. The cache-specific details are incidental.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:10:37.689646+00:00"
+}

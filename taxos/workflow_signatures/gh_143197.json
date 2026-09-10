@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143197,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A stateful object stores a borrowed pointer to a mutable value without acquiring ownership.",
+    "A user-controlled operation re-enters the update routine and replaces that value, releasing the previously referenced object.",
+    "The outer update resumes with the stale borrowed pointer and uses it for further computation.",
+    "The access reaches freed memory, causing a use-after-free instead of completing the state update safely."
+  ],
+  "summary": "Reentrant replacement invalidates a borrowed state pointer",
+  "decision_reason": "The failure is materially the same as a retained pointer being used after its backing object is released; the re-entrant callback is the trigger, while the core mechanism is stale-pointer dereference after owner replacement.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:17:47.153495+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140593,
+  "cluster_id": "workflow-0091",
+  "workflow": [
+    "A structured-input parser allocates temporary model data while processing a declaration and invokes user-configurable callbacks.",
+    "An earlier callback returns an invalid result, leaving a recoverable exception pending when the declaration callback runs.",
+    "The declaration callback exits early because the error is already pending, but skips releasing the allocated model data.",
+    "Repeated inputs retain each allocation, causing memory growth instead of clean error propagation and cleanup."
+  ],
+  "summary": "Exceptional parse failure omits cleanup and leaks temporary model data",
+  "decision_reason": "The bug materially matches the existing cluster: an input-processing operation allocates intermediate state, encounters a recoverable error, and exits through an exceptional path that omits releasing that state, causing repeated leaks.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:50:40.236078+00:00"
+}

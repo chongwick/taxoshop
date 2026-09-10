@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142661,
+  "cluster_id": "workflow-0131",
+  "workflow": [
+    "A caller constructs a low-level instruction record with an operation that does not accept an argument.",
+    "The caller supplies a nonzero argument value despite the operation’s operand contract.",
+    "The instruction builder validates the record against that contract and triggers an internal assertion.",
+    "The process terminates instead of rejecting the malformed instruction through a recoverable argument error."
+  ],
+  "summary": "Malformed instruction operand triggers internal assertion",
+  "decision_reason": "No existing cluster captures malformed low-level instruction construction with an invalid operand for a non-argument operation; the closest validation clusters concern different metadata or state invariants.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:06:45.861157+00:00"
+}

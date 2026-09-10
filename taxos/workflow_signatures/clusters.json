@@ -1,0 +1,2192 @@
+{
+  "schema_version": 1,
+  "clusters": {
+    "workflow-0005": {
+      "summary": "Zero-length memory transfer is invoked with a null data pointer",
+      "workflow": [
+        "A container or buffer is empty, so its data pointer may be null.",
+        "An operation such as copying, concatenating, or self-assignment computes a transfer length of zero.",
+        "The implementation still calls a low-level memory-transfer routine with the null pointer.",
+        "The routine’s pointer preconditions are violated despite the zero length, producing undefined-behavior diagnostics and permitting unsafe optimization assumptions."
+      ],
+      "issues": [
+        71757,
+        81319,
+        127563,
+        146196
+      ]
+    },
+    "workflow-0010": {
+      "summary": "Out-of-range floating-point-to-integer conversion occurs before validation",
+      "workflow": [
+        "A caller supplies a floating-point value for conversion into a narrower numeric representation.",
+        "Rounding, splitting, or scaling produces a floating-point result whose integral part lies outside the destination integer type's representable range.",
+        "The implementation converts that out-of-range floating-point value to the integer type before checking whether it fit.",
+        "That conversion has undefined behavior, so the subsequent back-conversion-based overflow check cannot reliably report a range error."
+      ],
+      "issues": [
+        75554,
+        77756
+      ]
+    },
+    "workflow-0001": {
+      "summary": "Inherited thread-local state reused after process duplication and identifier collision",
+      "workflow": [
+        "A multithreaded process stores per-thread execution state in thread-local storage.",
+        "The process is duplicated while other threads exist, leaving inherited state for threads absent in the child.",
+        "The child creates a worker whose thread identifier collides with a vanished parent thread.",
+        "Thread-local initialization retains the inherited entry instead of replacing it with the worker's state.",
+        "A later state lookup returns the stale entry, validation detects the mismatch, and the child terminates."
+      ],
+      "issues": [
+        54726
+      ]
+    },
+    "workflow-0002": {
+      "summary": "Unescaped substitution marker breaks display rendering",
+      "workflow": [
+        "A user-supplied display string is accepted by an interface that supports template substitution.",
+        "The string contains a literal character reserved for substitution syntax without escaping it.",
+        "When the interface renders the display text, it interprets the character as a substitution directive and rejects the invalid directive instead of displaying the text."
+      ],
+      "issues": [
+        57894
+      ]
+    },
+    "workflow-0003": {
+      "summary": "Negative signed value is shifted before packed-state encoding",
+      "workflow": [
+        "A low-level runtime encodes signed state values into a packed representation.",
+        "Some valid state values are negative.",
+        "The encoding left-shifts the value before converting it to an unsigned representation.",
+        "The signed negative shift invokes undefined behavior, causing runtime diagnostics during ordinary execution."
+      ],
+      "issues": [
+        65128,
+        95635,
+        96735
+      ]
+    },
+    "workflow-0004": {
+      "summary": "Truncated mapped backing store causes fatal later access",
+      "workflow": [
+        "A persistent file-backed data store keeps its contents directly mapped in memory.",
+        "An external actor truncates the backing file while the store remains open.",
+        "A later update accesses mapped data assuming the original file layout still exists.",
+        "The access reaches invalid backing storage and terminates the process instead of producing a recoverable storage error."
+      ],
+      "issues": [
+        66234
+      ]
+    },
+    "workflow-0006": {
+      "summary": "Externally removed installation causes unchecked missing metadata to crash recovery",
+      "workflow": [
+        "A system-managed installation is externally removed, deleting metadata and files required by a bundled recovery component.",
+        "The recovery component attempts to reconstruct the missing installation and receives no record set.",
+        "A downstream packaging step assumes the record set is iterable without checking for absence.",
+        "The operation raises a type error instead of reporting the missing or externally removed installation."
+      ],
+      "issues": [
+        72111
+      ]
+    },
+    "workflow-0007": {
+      "summary": "Under-aligned allocator storage is used for stricter-aligned objects",
+      "workflow": [
+        "A custom allocator returns storage aligned only to a smaller boundary.",
+        "Code places or accesses an object whose required alignment is stricter than the allocator guarantees.",
+        "The resulting misaligned object violates language and platform alignment requirements.",
+        "Runtime diagnostics or compiler assumptions expose undefined behavior during ordinary execution."
+      ],
+      "issues": [
+        72174,
+        139269,
+        139834
+      ]
+    },
+    "workflow-0008": {
+      "summary": "Concurrent iterator exhaustion closes a shared resource during another retrieval",
+      "workflow": [
+        "Multiple worker threads consume one shared stateful iterator backed by a native resource.",
+        "One thread reaches the end and closes the shared resource while another thread is retrieving the next item.",
+        "The second thread checked that the resource was available before the concurrent close, then continues using the released resource.",
+        "The retrieval becomes a use-after-free and can terminate the process."
+      ],
+      "issues": [
+        73069,
+        153928,
+        154043
+      ]
+    },
+    "workflow-0009": {
+      "summary": "Post-overflow validation of signed output-size arithmetic is defeated by optimization",
+      "workflow": [
+        "A text-building operation computes an output size by multiplying or adding signed integer quantities.",
+        "A large valid input makes the intermediate arithmetic exceed the signed integer range before validation.",
+        "The implementation checks for overflow afterward using the wrapped result, such as reversing the arithmetic or comparing it with the prior size.",
+        "Undefined signed overflow lets an optimizing compiler remove or invalidate the check.",
+        "The corrupted size reaches allocation or copying logic, causing a crash instead of a size-limit error."
+      ],
+      "issues": [
+        73331
+      ]
+    },
+    "workflow-0011": {
+      "summary": "Intermittent invalid memory access during heterogeneous numeric comparison",
+      "workflow": [
+        "A comparison workload repeatedly compares values drawn from several numeric representations.",
+        "On some 32-bit environments, one mixed comparison intermittently reaches an invalid memory location.",
+        "The invalid access terminates the process, while repeating the same workload may succeed."
+      ],
+      "issues": [
+        77808
+      ]
+    },
+    "workflow-0012": {
+      "summary": "Oversized timeout overflows absolute-deadline calculation",
+      "workflow": [
+        "A caller supplies a very large nonnegative timeout to a blocking operation.",
+        "The implementation converts the relative timeout into an absolute deadline by adding it to the current monotonic time.",
+        "The signed deadline calculation exceeds the representable range before overflow handling occurs.",
+        "Undefined signed overflow is triggered during wait setup, causing diagnostics or a crash instead of safe timeout handling."
+      ],
+      "issues": [
+        77813
+      ]
+    },
+    "workflow-0013": {
+      "summary": "Boundary overrun during unreachable-code optimization",
+      "workflow": [
+        "An optimizer scans a bounded instruction sequence to remove unreachable trailing content after a terminating operation.",
+        "The terminating operation is at the sequence boundary, leaving no following element to inspect.",
+        "A helper advances past the boundary because it lacks an effective end-of-sequence check.",
+        "The optimizer reads beyond the valid instruction data, causing a memory-safety failure or process termination."
+      ],
+      "issues": [
+        79374,
+        140497
+      ]
+    },
+    "workflow-0014": {
+      "summary": "Retained pointer dereferences storage after its owner releases the buffer",
+      "workflow": [
+        "A buffer-owning object allocates storage containing data, and another handle retains a pointer or reference into that storage.",
+        "The owner is released or destroyed, deallocating the storage while the derived pointer remains reachable.",
+        "A later read uses the retained pointer as though its backing storage were still valid.",
+        "The dereference accesses freed memory, triggering a use-after-free failure or unsafe behavior."
+      ],
+      "issues": [
+        80434,
+        88350,
+        96572,
+        101975,
+        103718,
+        108253,
+        113591,
+        114106,
+        115243,
+        116510,
+        120289,
+        120298,
+        124878,
+        135636,
+        139210,
+        139400,
+        140138,
+        140651,
+        140815,
+        142557,
+        142558,
+        142560,
+        142664,
+        142665,
+        142783,
+        142830,
+        143004,
+        143197,
+        143309,
+        143547,
+        144172,
+        144281,
+        144475,
+        144833,
+        146011,
+        148382,
+        151046,
+        151403
+      ]
+    },
+    "workflow-0015": {
+      "summary": "Noncanonical raw bytes reinterpreted as a logical value",
+      "workflow": [
+        "A byte-oriented conversion accepts arbitrary raw input for a logical value.",
+        "The conversion copies the bytes directly into a native logical object without normalizing nonzero values to canonical encodings.",
+        "The input contains a noncanonical bit pattern that is invalid for the native logical type.",
+        "A later read interprets the invalid representation, causing undefined behavior and potentially a wrong value or runtime diagnostic."
+      ],
+      "issues": [
+        83870
+      ]
+    },
+    "workflow-0016": {
+      "summary": "Unsynchronized identifier collision corrupts thread-state caching",
+      "workflow": [
+        "Multiple threads create execution-state records while a shared numeric identifier is allocated without synchronization.",
+        "Concurrent allocation assigns the same identifier to different live thread states.",
+        "A cache assumes the identifier is unique and reuses one thread's context for another thread.",
+        "The affected thread performs a later context lookup or update using the wrong cached state.",
+        "The mismatch can produce incorrect results or dereference state after its owner releases it, causing a crash."
+      ],
+      "issues": [
+        83957
+      ]
+    },
+    "workflow-0017": {
+      "summary": "Heterogeneous sequence element misinterpreted as a different record type",
+      "workflow": [
+        "A parser refactor changes recursive argument collection to an iterative sequence-building helper.",
+        "The helper receives a heterogeneous sequence containing wrapper records and assumes its elements are expression records.",
+        "It interprets the final wrapper as an expression and reads fields at offsets that do not belong to that object.",
+        "The invalid field access becomes a heap buffer overflow, causing sanitizer-detected process termination instead of successful parsing."
+      ],
+      "issues": [
+        85863,
+        125318,
+        140471
+      ]
+    },
+    "workflow-0018": {
+      "summary": "Unsupported compiler option causes misleading downstream configuration failure",
+      "workflow": [
+        "A user enables an optional build feature that requires compiler-specific instrumentation support.",
+        "The configuration process unconditionally adds the feature’s flags to compiler and linker settings without first verifying compiler compatibility.",
+        "A subsequent capability or dependency compile check runs with those incompatible flags and fails.",
+        "The build configuration aborts on the downstream check instead of reporting that the selected compiler lacks the requested feature."
+      ],
+      "issues": [
+        86434
+      ]
+    },
+    "workflow-0019": {
+      "summary": "Repeated ownership-count corruption causes invalid release of shared singleton",
+      "workflow": [
+        "A compatibility conditional is inverted, so a code path intended for older host versions runs on newer hosts.",
+        "A conversion involving a subclassed value in a special ambiguous-time case obtains a borrowed reference to a globally shared singleton.",
+        "Cleanup treats the borrowed reference as owned and decrements the singleton’s reference count on every conversion.",
+        "Repeated conversions corrupt the singleton’s ownership count without an immediate failure.",
+        "Later global cleanup attempts to release the still-static singleton as heap storage, causing an invalid free and process termination."
+      ],
+      "issues": [
+        86863,
+        140634
+      ]
+    },
+    "workflow-0020": {
+      "summary": "Instrumented allocation failure aborts instead of returning a recoverable error",
+      "workflow": [
+        "A stress test intentionally drives a computation to request an extremely large memory allocation to verify graceful allocation failure.",
+        "A runtime configured with memory-error instrumentation treats the impossible allocation as fatal and terminates the process instead of returning an allocation-failure result.",
+        "The test expects the operation to continue and report a recoverable memory error.",
+        "The process exits before the expected error can be checked, causing the test suite to fail."
+      ],
+      "issues": [
+        89359,
+        114331
+      ]
+    },
+    "workflow-0021": {
+      "summary": "Forked child deadlocks on an inherited runtime mutex during worker creation",
+      "workflow": [
+        "A multithreaded process is duplicated while another thread holds an internal mutex in a runtime instrumentation layer.",
+        "The child inherits the locked mutex, but the thread that could release it does not exist in the child.",
+        "The child starts a worker, and thread initialization tries to acquire the inherited mutex while preparing worker metadata.",
+        "The mutex acquisition cannot complete, so worker creation blocks indefinitely and the dependent operation hangs."
+      ],
+      "issues": [
+        89363
+      ]
+    },
+    "workflow-0022": {
+      "summary": "Native-width parsing overruns narrower fixed-width storage",
+      "workflow": [
+        "A low-level argument parser is given a format specification for a native integer type and a destination variable using a fixed-width integer type.",
+        "On a platform where the native type is wider than the destination variable, the parser writes the parsed value using the native width.",
+        "The write exceeds the destination variable and overwrites adjacent stack memory.",
+        "Sanitizer detection or later execution exposes the stack corruption as a process-terminating memory-safety failure."
+      ],
+      "issues": [
+        89391
+      ]
+    },
+    "workflow-0023": {
+      "summary": "Error recovery dereferences missing diagnostic source data",
+      "workflow": [
+        "A parser receives malformed text combining a continuation marker, line breaks, and an unclosed delimiter.",
+        "Initial tokenization records a lexical error while parsing also fails.",
+        "Error recovery resets state and performs a second parsing pass that replaces the earlier lexical error with a structural delimiter error.",
+        "The structural error reporter assumes source-line data is available, but recovery has left that data absent.",
+        "Diagnostic construction dereferences the missing data and terminates the process instead of returning a recoverable syntax error."
+      ],
+      "issues": [
+        89571,
+        89657
+      ]
+    },
+    "workflow-0024": {
+      "summary": "Cross-module inherited annotations resolved in the wrong namespace",
+      "workflow": [
+        "A class-generation mechanism inherits fields whose type annotations remain deferred textual references from their defining module.",
+        "A derived class in another module generates a new initializer but associates those references with the derived class’s namespace.",
+        "A later annotation-resolution operation evaluates the references where the original types are absent or shadowed.",
+        "Annotation resolution fails or produces incorrect results instead of reconstructing the inherited types."
+      ],
+      "issues": [
+        89737
+      ]
+    },
+    "workflow-0025": {
+      "summary": "Link-time optimization produces an out-of-range branch",
+      "workflow": [
+        "A large software build enables whole-program link-time optimization on a target architecture with limited branch reach.",
+        "The optimization and code-generation pipeline combines code into a layout where a branch target falls outside the instruction encoding's permitted range.",
+        "The assembler or linker rejects the generated machine code instead of producing the executable.",
+        "The build aborts during an intermediate executable's creation, while disabling link-time optimization allows the build to complete."
+      ],
+      "issues": [
+        93619
+      ]
+    },
+    "workflow-0026": {
+      "summary": "Sanitizer handling of deliberate worker crash breaks failure-recovery testing",
+      "workflow": [
+        "A recovery test intentionally terminates a worker during task decoding or execution to verify that the supervising pool reports worker failure without hanging.",
+        "A sanitizer-instrumented runtime intercepts the deliberate invalid-memory signal and handles it as a sanitizer-detected fatal error.",
+        "The worker therefore emits a sanitizer crash report and aborts through instrumentation rather than following the test’s expected controlled worker-failure path.",
+        "The recovery test is reported as failed even though ordinary non-instrumented execution can observe the worker termination as expected."
+      ],
+      "issues": [
+        93981
+      ]
+    },
+    "workflow-0027": {
+      "summary": "Forked child exits with inherited unreclaimed state under leak detection",
+      "workflow": [
+        "A process duplicates itself while process-wide bookkeeping allocations remain live.",
+        "The child inherits those allocations but its ordinary shutdown path does not reclaim all of them.",
+        "Leak-detection instrumentation runs as the child exits and classifies the residual allocations as a fatal failure.",
+        "The child returns a failure status instead of the expected successful status, causing the supervising workflow to report an error."
+      ],
+      "issues": [
+        94064,
+        140493
+      ]
+    },
+    "workflow-0028": {
+      "summary": "Nonportable build-script commands and incorrect generated compiler flags",
+      "workflow": [
+        "A build helper generates configuration edits and compilation rules using assumptions about a particular text-processing tool dialect and an incomplete or incorrectly ordered set of",
+        "The target environment uses a different tool dialect, so the generated multi-line edit command is rejected during configuration.",
+        "For shared-library object files, the generated rules omit required build flags and place module-specific include flags after broader include paths.",
+        "The build either aborts during configuration or compiles against the wrong headers and without required instrumentation, producing a failed or incorrect build."
+      ],
+      "issues": [
+        94404,
+        116259
+      ]
+    },
+    "workflow-0029": {
+      "summary": "Null frame-storage pointer used before allocation check",
+      "workflow": [
+        "A context switch restores an execution context whose frame storage has not yet been allocated, leaving its base pointer null.",
+        "A refactored frame-allocation path computes an offset from that base pointer before checking whether storage exists.",
+        "The null-pointer arithmetic invokes undefined behavior, allowing runtime diagnostics or compiler optimization to invalidate the later capacity check.",
+        "Ordinary frame execution then terminates the process instead of allocating backing storage and continuing."
+      ],
+      "issues": [
+        96569,
+        96678,
+        144759
+      ]
+    },
+    "workflow-0030": {
+      "summary": "Instrumented custom-allocator metadata access aborts initialization",
+      "workflow": [
+        "A build enables memory-error instrumentation across a runtime that also uses a custom allocator for small objects.",
+        "An instrumented helper starts and initializes internal mapping state.",
+        "Initialization resizes a mapping and releases its previous storage.",
+        "The custom allocator classifies the released pointer using metadata that is incompatible with the instrumented allocation environment.",
+        "That classification reads outside valid heap storage, so instrumentation aborts the helper and the build reports a downstream command failure."
+      ],
+      "issues": [
+        96714
+      ]
+    },
+    "workflow-0031": {
+      "summary": "Unverified interpreter selection breaks cross-compilation build generation",
+      "workflow": [
+        "A cross-compilation configuration probes for a host-side interpreter but selects an unversioned command without verifying that the command is available.",
+        "The generated build rules embed that command for host-side code generation during the target build.",
+        "The build reaches the generation step and the shell cannot locate the selected executable.",
+        "The generation step fails, so the overall build terminates instead of using an available versioned interpreter or reporting the configuration mismatch clearly."
+      ],
+      "issues": [
+        98249
+      ]
+    },
+    "workflow-0032": {
+      "summary": "Unchecked decoding of truncated metadata leaks adjacent heap data",
+      "workflow": [
+        "An attacker constructs an object containing malformed, truncated location metadata with a continuation marker indicating additional encoded fields.",
+        "A lazy metadata iterator decodes the variable-length fields without checking that each read remains within the metadata buffer.",
+        "The iterator consumes the buffer’s terminator and then reads adjacent heap bytes as if they were part of the encoded record.",
+        "The decoded values expose portions of unrelated heap data instead of producing a recoverable malformed-metadata error."
+      ],
+      "issues": [
+        99974,
+        99975,
+        121112
+      ]
+    },
+    "workflow-0033": {
+      "summary": "Extended diagnostic text exceeds fixed display capacity",
+      "workflow": [
+        "A diagnostic string has fixed-size storage and already contains variable-length version and toolchain metadata.",
+        "A change appends additional build-configuration details without accounting for the complete output length.",
+        "The combined text exceeds the available display capacity and is truncated.",
+        "Users receive incomplete or misleading diagnostic information instead of the full build description."
+      ],
+      "issues": [
+        100086
+      ]
+    },
+    "workflow-0034": {
+      "summary": "Legacy shared extension state survives repeated runtime shutdown",
+      "workflow": [
+        "An embeddable runtime initializes and loads a built-in extension that stores interpreter-owned objects in legacy process-global module state.",
+        "Initialization and shutdown are repeated, but the extension state is not associated with each interpreter’s lifecycle.",
+        "Shutdown cannot fully clear and reclaim references retained by the shared extension state.",
+        "Each initialization cycle leaves additional allocations or references reachable, so leak detection reports persistent memory growth after otherwise successful shutdown."
+      ],
+      "issues": [
+        100773,
+        104791,
+        111339,
+        113576,
+        140404
+      ]
+    },
+    "workflow-0035": {
+      "summary": "Failed native lookup leaves ambiguous output for erroneous cleanup",
+      "workflow": [
+        "A wrapper invokes a native lookup routine with an output pointer initialized to null.",
+        "The lookup routine reports failure but may leave the output pointer non-null or invalid, despite not transferring ownership of a successful result.",
+        "Error handling enters shared cleanup that treats the non-null pointer as a valid owned result and releases it.",
+        "The release duplicates cleanup already performed internally or frees invalid storage, corrupting memory-management state.",
+        "A later lookup or memory access encounters the corruption and terminates the process instead of returning a recoverable lookup error."
+      ],
+      "issues": [
+        100795
+      ]
+    },
+    "workflow-0036": {
+      "summary": "Insufficient lookahead causes out-of-bounds read during character-sequence encoding",
+      "workflow": [
+        "A text encoder receives a valid character sequence whose representation may require examining a following character.",
+        "The encoder probes each candidate representation using a pointer to only the current character while a candidate path assumes a second character is available.",
+        "That path reads beyond the supplied input boundary while handling the multi-character representation.",
+        "The out-of-bounds read is detected by memory-safety instrumentation or causes a process-terminating failure instead of reporting an encoding result."
+      ],
+      "issues": [
+        101180,
+        127971
+      ]
+    },
+    "workflow-0037": {
+      "summary": "Uninitialized unused numeric storage is read before neutralizing arithmetic",
+      "workflow": [
+        "A low-level numeric object is created with zero magnitude, leaving its first storage unit uninitialized because it is considered unused.",
+        "A value-conversion helper reads that storage unit without first checking whether the magnitude is zero.",
+        "The indeterminate value is used in arithmetic that is expected to neutralize it, such as multiplication by zero.",
+        "Memory-safety instrumentation reports the uninitialized read and terminates the operation instead of allowing the conversion to complete."
+      ],
+      "issues": [
+        102509,
+        106914
+      ]
+    },
+    "workflow-0038": {
+      "summary": "Empty environment exposes expected leaks to sanitizer",
+      "workflow": [
+        "A subprocess is launched with an intentionally empty environment, removing configuration that suppresses known runtime leaks.",
+        "The subprocess initializes runtime components that retain allocations until shutdown.",
+        "Leak-detection instrumentation runs without the suppressing configuration and classifies those expected residual allocations as failures.",
+        "The subprocess exits unsuccessfully, so the environment-isolation check reports a sanitizer failure instead of completing normally."
+      ],
+      "issues": [
+        104472
+      ]
+    },
+    "workflow-0039": {
+      "summary": "Stale per-code instrumentation metadata triggers a pre-refresh version assertion",
+      "workflow": [
+        "A runtime-wide monitoring configuration changes, incrementing the active monitoring version while some immutable code objects retain instrumentation metadata from the previous、st覆盖",
+        "Execution later reaches an event in one of those stale code objects before its instrumentation metadata is refreshed for the current runtime version.",
+        "The event dispatcher asserts that the code object's version matches the runtime-wide version instead of first synchronizing or validating the object's monitoring state.",
+        "The failed consistency assertion aborts the process during otherwise ordinary monitored execution."
+      ],
+      "issues": [
+        106012
+      ]
+    },
+    "workflow-0040": {
+      "summary": "Unrestored environment mutation causes test-suite failure",
+      "workflow": [
+        "A test or support routine changes process-wide environment state.",
+        "The routine finishes without restoring the original environment.",
+        "The test harness compares environment state before and after execution.",
+        "The residual change is detected and the overall test run is marked failed."
+      ],
+      "issues": [
+        109128
+      ]
+    },
+    "workflow-0041": {
+      "summary": "Inherited profiling state crashes after process duplication under instrumentation",
+      "workflow": [
+        "A test exercises low-level execution profiling across process duplication in an instrumented runtime.",
+        "The duplicated child inherits profiling and instrumentation state established before duplication.",
+        "The child continues through the profiling path using that inherited state, which is not reliably safe after duplication.",
+        "An intermittent memory-safety failure terminates the child, causing the test to fail instead of completing normally."
+      ],
+      "issues": [
+        109580
+      ]
+    },
+    "workflow-0042": {
+      "summary": "Load-sensitive fixed-timeout expectation failure",
+      "workflow": [
+        "A concurrency test submits a mix of immediately completable and deliberately delayed work, then waits for early results under a fixed short deadline.",
+        "Heavy system load or execution instrumentation delays worker startup and scheduling beyond that deadline.",
+        "The wait expires before the immediately completable work has run, leaving no or only partial results.",
+        "The test assumes the early results must always be present and reports a failure even though the timeout behavior is otherwise valid."
+      ],
+      "issues": [
+        110097,
+        143442,
+        150966
+      ]
+    },
+    "workflow-0043": {
+      "summary": "Incompatible callback signature hidden by function-pointer cast",
+      "workflow": [
+        "A runtime registers object callbacks whose parameter types are narrower than the generic callback interfaces require.",
+        "The callbacks are forced into those interfaces through incompatible function-pointer casts.",
+        "Normal dispatch invokes the callbacks through the generic signatures, despite their concrete definitions having different types.",
+        "Undefined behavior instrumentation detects the mismatched indirect call and terminates or reports the operation instead of completing normally."
+      ],
+      "issues": [
+        111178,
+        132097,
+        134457,
+        156762
+      ]
+    },
+    "workflow-0044": {
+      "summary": "Unchecked argument-conversion failure causes downstream crash",
+      "workflow": [
+        "A reconfiguration operation receives an argument of an unsupported type or a value whose conversion raises an exception.",
+        "The implementation invokes a conversion helper that reports failure but does not immediately check its result.",
+        "It continues by using the missing intermediate value or performing another conversion while the earlier exception remains pending.",
+        "Downstream processing encounters the invalid state and crashes instead of propagating a recoverable argument error."
+      ],
+      "issues": [
+        111942,
+        140650,
+        141307
+      ]
+    },
+    "workflow-0045": {
+      "summary": "Per-context allocator storage leaks across repeated teardown cycles",
+      "workflow": [
+        "An embedded application repeatedly creates and destroys isolated execution contexts that use private allocator arenas and auxiliary lookup metadata.",
+        "Context teardown releases ordinary execution state but fails to reclaim the allocator arenas and associated metadata.",
+        "Each initialization and shutdown cycle leaves additional allocator storage allocated.",
+        "After repeated cycles, leak detection reports persistent memory growth instead of clean shutdown."
+      ],
+      "issues": [
+        113055,
+        140301
+      ]
+    },
+    "workflow-0046": {
+      "summary": "Shared retained values survive repeated runtime shutdown",
+      "workflow": [
+        "A runtime creates shared deduplicated string objects and marks them as permanently retained, bypassing ordinary ownership cleanup.",
+        "Runtime shutdown clears other allocated objects but skips reclaiming those shared strings in the affected configuration.",
+        "Initialization and shutdown are repeated within the same process, leaving the skipped strings and their references allocated after each cycle.",
+        "Leak detection observes persistent memory growth and reports failures instead of clean shutdown."
+      ],
+      "issues": [
+        113190
+      ]
+    },
+    "workflow-0047": {
+      "summary": "Pending parse error is overwritten during diagnostic recovery",
+      "workflow": [
+        "A malformed structured input causes parsing to fail and records an initial diagnostic state.",
+        "A later recovery or reporting path continues processing instead of stopping when that diagnostic state is already present.",
+        "The path attempts to construct or replace a second diagnostic while the first error remains pending.",
+        "The diagnostic-construction operation assumes normal error-free execution and triggers an internal consistency assertion, terminating the process instead of returning the original,",
+        "recoverable parse error."
+      ],
+      "issues": [
+        113602
+      ]
+    },
+    "workflow-0048": {
+      "summary": "Tokenizer pointer-index overflow during continued multiline input",
+      "workflow": [
+        "Interactive input combines an opening delimiter, a line-continuation marker, a newline, and a following expression.",
+        "The tokenizer carries the continued construct across the newline and computes a character position using an invalid or overflowing offset.",
+        "The resulting pointer-index arithmetic exceeds the representable address range, triggering undefined-behavior diagnostics during otherwise valid input processing.",
+        "The runtime reports the diagnostic but continues instead of crashing; the affected path is encountered only once per session."
+      ],
+      "issues": [
+        113720
+      ]
+    },
+    "workflow-0049": {
+      "summary": "Concurrent permanent-retention transition races with owner reference counting",
+      "workflow": [
+        "Multiple threads access a shared pool of deduplicated values while independently updating ownership and reference-count state.",
+        "One thread attempts to permanently retain an existing value that is still owned by another thread.",
+        "The retention transition writes the value’s ownership and reference-count metadata non-atomically while the owning thread performs concurrent reference-count operations.",
+        "The race corrupts or inconsistently observes the metadata, causing a memory-safety failure or process termination instead of safely retaining the value."
+      ],
+      "issues": [
+        113956,
+        128137,
+        129701
+      ]
+    },
+    "workflow-0050": {
+      "summary": "Mismatched diagnostic placeholder causes invalid memory read during error reporting",
+      "workflow": [
+        "An operation receives too many arguments and enters its error-reporting path.",
+        "The diagnostic format contains a text placeholder that has no matching text argument, while a numeric count is supplied instead.",
+        "The formatter interprets the numeric count as a pointer to text and reads from that invalid address.",
+        "Diagnostic construction crashes instead of returning the intended argument-count error."
+      ],
+      "issues": [
+        114050,
+        140492,
+        144169
+      ]
+    },
+    "workflow-0051": {
+      "summary": "Optimization-pass ordering leaves redundant control-flow edge",
+      "workflow": [
+        "A control-flow optimizer processes constant-dependent conditional branches and redirected jumps in the same optimization phase.",
+        "It tries to redirect an incoming jump before the target block’s constant condition has been simplified into an unconditional jump.",
+        "The later simplification changes the target control flow, leaving the earlier jump redundant.",
+        "The cleanup phase does not fully converge before its invariant check, so the remaining redundant jump violates the optimizer’s internal consistency assertion and terminates the run"
+      ],
+      "issues": [
+        114083
+      ]
+    },
+    "workflow-0052": {
+      "summary": "Profiling instrumentation breaks configuration probes and causes a misleading incomplete-type build failure",
+      "workflow": [
+        "A build enables an optional profiling or instrumentation mode, adding its compiler and linker flag to generated commands.",
+        "On an affected toolchain and runtime combination, executables built with that flag fail immediately because a required process-environment symbol cannot be resolved.",
+        "Configuration probes run those executables, interpret the failures as negative capability results, and generate incorrect feature settings.",
+        "The main build then omits a conditional type definition while embedding that type by value in a larger record.",
+        "Compilation fails with an incomplete-type error instead of reporting the underlying toolchain or runtime incompatibility."
+      ],
+      "issues": [
+        114453,
+        116891
+      ]
+    },
+    "workflow-0053": {
+      "summary": "Unvalidated thread identifier causes native lookup crash",
+      "workflow": [
+        "A caller supplies an invalid numeric identifier to an interface that accepts thread identifiers.",
+        "The interface forwards the value after conversion to a native thread-handle representation without validating that it denotes a live thread.",
+        "The native lookup routine treats the converted value as a valid internal pointer and dereferences it while retrieving per-thread information.",
+        "The invalid dereference accesses unmapped memory and terminates the process instead of returning a recoverable invalid-identifier error."
+      ],
+      "issues": [
+        115378,
+        122431
+      ]
+    },
+    "workflow-0054": {
+      "summary": "Uninitialized conversion-status read during numeric decoding",
+      "workflow": [
+        "A text decoder parses a numeric field using a native integer conversion routine and prepares fallback checks for range or trailing-input errors.",
+        "The conversion path leaves an error-status value or related result metadata marked as uninitialized under memory instrumentation.",
+        "The decoder reads that value while deciding whether to accept the parsed number or use an alternate conversion path.",
+        "The instrumentation reports an uninitialized read during otherwise valid decoding, causing the instrumented operation to fail instead of completing normally."
+      ],
+      "issues": [
+        116550
+      ]
+    },
+    "workflow-0055": {
+      "summary": "Partially initialized file metadata is consumed under memory instrumentation",
+      "workflow": [
+        "A file-processing utility allocates a metadata record without initializing every field.",
+        "A platform-dependent metadata helper fills only part of that record, leaving some fields indeterminate.",
+        "The utility reads the untouched fields while determining the input data size or layout.",
+        "Memory instrumentation detects the uninitialized read and aborts the utility, causing the instrumented build to fail instead of generating the expected output."
+      ],
+      "issues": [
+        116886
+      ]
+    },
+    "workflow-0056": {
+      "summary": "Unsynchronized resource-handle mutation during concurrent use",
+      "workflow": [
+        "A shared resource object stores a mutable native handle used by concurrent operations.",
+        "One thread closes or detaches the resource and changes the handle while another thread is using it.",
+        "The reader and writer access the handle without synchronization or atomic coordination.",
+        "The concurrent accesses form a data race, producing sanitizer failure and potentially invalid resource use instead of safe operation handling."
+      ],
+      "issues": [
+        116912,
+        128050,
+        128100,
+        128144,
+        132886,
+        143756,
+        144567,
+        145933,
+        154524
+      ]
+    },
+    "workflow-0057": {
+      "summary": "Garbage-collector traversal overruns special static records",
+      "workflow": [
+        "A runtime stores special immutable records in a static array that does not provide the full storage expected for ordinary collectible objects.",
+        "The object type is marked as eligible for garbage-collection traversal without distinguishing those special records.",
+        "The collector invokes the type’s traversal logic on a special record and reads fields beyond that record’s valid bounds.",
+        "The out-of-bounds access is detected as a global memory-safety failure and terminates the process instead of skipping the noncollectible record."
+      ],
+      "issues": [
+        118074,
+        118113
+      ]
+    },
+    "workflow-0058": {
+      "summary": "Worker crash wedges diagnostic failure handling",
+      "workflow": [
+        "A concurrency test launches a worker process from a multithreaded parent under diagnostic instrumentation.",
+        "An intermittent worker-side failure causes the child process to crash during the test operation.",
+        "The supervisor enters its crash-reporting or failure-handling path, which does not complete after the child crash.",
+        "The parent test waits indefinitely, so the broader test job hangs until cancelled instead of reporting a recoverable worker failure."
+      ],
+      "issues": [
+        118729
+      ]
+    },
+    "workflow-0059": {
+      "summary": "Configuration-guard mismatch exposes an undefined optional state type",
+      "workflow": [
+        "A build configuration selects a platform and feature combination that omits the full definition of an optional runtime state type.",
+        "A refactor moves a reference to that state into shared declarations without preserving the configuration guard.",
+        "The affected compilation path encounters an unconditional reference to a type that was never defined for that configuration.",
+        "Compilation fails with a missing-type error instead of using a neutral placeholder definition or conditionally omitting the reference."
+      ],
+      "issues": [
+        119447,
+        140159
+      ]
+    },
+    "workflow-0060": {
+      "summary": "Invalid version-marker ordering leaves stale inherited cache entries",
+      "workflow": [
+        "A hierarchy of related objects uses version markers to validate cached inherited values.",
+        "Repeated updates to a base object invalidate and reassign those markers while derived-object lookups repopulate the cache.",
+        "Marker assignment updates the derived object before successfully assigning a marker to its base, allowing the derived marker to remain set while the base marker is invalid.",
+        "A later base update sees the invalid base marker and skips invalidating the derived cache entry.",
+        "The derived lookup reuses stale cached data whose referenced value may already have been released, causing ownership corruption and process termination."
+      ],
+      "issues": [
+        119462,
+        140496
+      ]
+    },
+    "workflow-0061": {
+      "summary": "Unchecked oversized dimensions cause downstream integer overflow and refresh crash",
+      "workflow": [
+        "A caller supplies a size value larger than the downstream component’s supported signed range.",
+        "The interface accepts the oversized value without validating it against that narrower range.",
+        "The downstream component performs internal arithmetic or conversion with the invalid size, causing integer overflow and corrupting its screen state.",
+        "A later refresh uses the corrupted state and dereferences invalid memory, terminating the process instead of returning a range error."
+      ],
+      "issues": [
+        120378,
+        140462
+      ]
+    },
+    "workflow-0062": {
+      "summary": "Instrumented fatal-error reporting deadlocks and hangs the process",
+      "workflow": [
+        "A diagnostic test intentionally triggers a fatal runtime error in an instrumented multithreaded process.",
+        "The fatal-error path invokes crash-reporting logic while the instrumentation and runtime are in an incompatible locking or signal-handling state.",
+        "Crash reporting cannot complete under that combination, so the process hangs instead of terminating and returning the expected failure."
+      ],
+      "issues": [
+        120696
+      ]
+    },
+    "workflow-0063": {
+      "summary": "Reentrant asynchronous handler invocation exhausts recursion depth",
+      "workflow": [
+        "A stress workload repeatedly changes a process-wide event handler while another execution context rapidly emits asynchronous notifications.",
+        "A notification arrives while the handler is still executing, and the runtime permits the same handler to be entered reentrantly.",
+        "Repeated nested notifications invoke the handler again before earlier invocations return.",
+        "Nesting grows until the runtime’s recursion limit is exceeded, producing a recursion failure instead of completing the handler-update workload."
+      ],
+      "issues": [
+        121065
+      ]
+    },
+    "workflow-0064": {
+      "summary": "Unsupported protocol-family result causes server binding failure",
+      "workflow": [
+        "A build or environment disables an optional network protocol family.",
+        "A server setup performs endpoint discovery without restricting results to supported protocol families.",
+        "Discovery returns an endpoint using the disabled family.",
+        "The setup attempts to bind using that unsupported family and fails with a low-level family error instead of selecting a supported family."
+      ],
+      "issues": [
+        121275
+      ]
+    },
+    "workflow-0065": {
+      "summary": "Reversed container cleanup ownership leaks allocated keys",
+      "workflow": [
+        "An associative container stores dynamically allocated records as keys while its associated values are intentionally empty.",
+        "Its cleanup configuration assigns the deallocator to values and leaves key cleanup unset, reversing the actual ownership layout.",
+        "When entries are removed or the container is destroyed, the allocated keys are not released.",
+        "Repeated use or leak checking reports persistent memory growth instead of clean reclamation."
+      ],
+      "issues": [
+        121390,
+        140306
+      ]
+    },
+    "workflow-0066": {
+      "summary": "Optimization bypasses validation and triggers compiler assertion",
+      "workflow": [
+        "A source input contains a context-sensitive asynchronous construct where it is invalid.",
+        "An optimization pass removes the surrounding code before the construct’s legality is validated.",
+        "Later compilation still processes the construct under an assumption that the context is valid.",
+        "An internal consistency assertion fails instead of returning a recoverable syntax error."
+      ],
+      "issues": [
+        121637
+      ]
+    },
+    "workflow-0067": {
+      "summary": "Incomplete configuration cleanup triggers sanitizer-reported leaks during build-time execution",
+      "workflow": [
+        "A build-time helper initializes runtime configuration and allocates nested strings, lists, and registration metadata.",
+        "The helper exits through cleanup that releases the outer configuration object but omits allocations owned by its nested fields.",
+        "Leak-detection instrumentation scans the remaining allocations at process exit and classifies them as leaks.",
+        "The helper exits unsuccessfully, causing the build to fail even though the generation operation itself completed."
+      ],
+      "issues": [
+        121847,
+        138756
+      ]
+    },
+    "workflow-0068": {
+      "summary": "Mismatched nested delimiters underflow parser nesting state",
+      "workflow": [
+        "A tokenizer parses nested interpolation expressions containing mismatched delimiters.",
+        "When a closing delimiter is encountered, it decrements the current nesting depth without first verifying that a matching opener exists.",
+        "The nesting depth becomes negative for the malformed input.",
+        "An internal consistency assertion fires instead of returning a recoverable syntax error identifying the unmatched delimiter."
+      ],
+      "issues": [
+        122026
+      ]
+    },
+    "workflow-0069": {
+      "summary": "Underestimated external capacity defeats a backpressure test expectation",
+      "workflow": [
+        "A test estimates usable external buffer capacity from a reported size.",
+        "It assumes the report accurately bounds how much data the system can accept and writes only that amount.",
+        "The system accepts more data than reported, so the intended backpressure state is not reached.",
+        "The test asserts that backpressure must already be observable and fails even though the I/O operation remains valid."
+      ],
+      "issues": [
+        122136
+      ]
+    },
+    "workflow-0070": {
+      "summary": "Undersized alternate signal stack overruns heap storage",
+      "workflow": [
+        "A fault-reporting subsystem allocates an alternate signal-handling stack using a fixed size heuristic.",
+        "The target environment requires more signal-handler stack space than the heuristic reserves.",
+        "A fault or diagnostic signal runs on the undersized alternate stack and writes beyond its heap buffer.",
+        "Later shutdown frees the corrupted buffer, and memory instrumentation detects the out-of-bounds access and terminates the process."
+      ],
+      "issues": [
+        124001
+      ]
+    },
+    "workflow-0071": {
+      "summary": "Dependency behavior change invalidates a narrow test expectation",
+      "workflow": [
+        "A test assumes a size option accepts only integer values and expects the corresponding integer-validation error for invalid input.",
+        "An external UI toolkit changes that option to accept general screen-distance values, including unit-bearing strings.",
+        "The unchanged test submits invalid input and receives a distance-parsing error instead of the previously expected integer error.",
+        "The assertion compares against the obsolete diagnostic and reports a test failure despite the underlying operation behaving correctly."
+      ],
+      "issues": [
+        124378
+      ]
+    },
+    "workflow-0072": {
+      "summary": "Reachability-unaware code generation produces compiler diagnostics",
+      "workflow": [
+        "A code generator emits generic cleanup, error-handling, and loop logic for low-level operation handlers without fully tracking reachability or compile-time-disabled branches.",
+        "Some generated handlers terminate with a return or jump, while other conditions are known to be impossible in a supported configuration.",
+        "The generator still emits statements after those termination points and retains branches or loops whose bodies cannot execute.",
+        "The compiler diagnoses the generated constructs as unreachable or unused code, producing build warnings or failures instead of clean generated output."
+      ],
+      "issues": [
+        125515
+      ]
+    },
+    "workflow-0073": {
+      "summary": "Instrumented subprocess failure is surfaced as a test assertion",
+      "workflow": [
+        "A test suite runs multiple process- and thread-heavy tests in parallel under race-detection instrumentation.",
+        "A subprocess-based import operation executes within that stressed instrumented environment.",
+        "The subprocess exits with a non-success status instead of completing successfully.",
+        "The test harness treats the unexpected exit status as an assertion failure and reports the test failure."
+      ],
+      "issues": [
+        126445
+      ]
+    },
+    "workflow-0074": {
+      "summary": "Concurrent lazy-cache initialization races during shared representation publication",
+      "workflow": [
+        "Multiple threads request a lazily generated encoded representation of the same shared value while its cached representation is absent.",
+        "Each thread observes the missing cache and independently generates and publishes the representation without synchronization.",
+        "The representation pointer and its associated length are updated concurrently, allowing unsynchronized reads and writes or inconsistent publication.",
+        "A caller observes the concurrently modified cache, producing a data race instead of safely reusing one fully initialized representation."
+      ],
+      "issues": [
+        128013,
+        128133,
+        128212,
+        130421,
+        153201,
+        154044
+      ]
+    },
+    "workflow-0075": {
+      "summary": "Concurrent evaluation loses shared interrupt state",
+      "workflow": [
+        "Multiple execution contexts concurrently perform evaluations that update shared process-wide state recording an unhandled interrupt.",
+        "One context records the interrupt, while another evaluation clears the same shared state as part of its own initialization.",
+        "The unsynchronized updates race, allowing the clearing operation to erase the other context’s indication.",
+        "A later termination check reads the cleared state and fails to handle the pending interrupt correctly."
+      ],
+      "issues": [
+        128130
+      ]
+    },
+    "workflow-0076": {
+      "summary": "Stale system configuration header overrides current build header",
+      "workflow": [
+        "A source-tree build generates a configuration header for the current build.",
+        "The compiler searches a system-wide configuration header from an older installation before finding the build-generated header.",
+        "Compilation combines stale configuration definitions with current source declarations, creating conflicting macros and types.",
+        "The compiler rejects the build instead of using the current configuration or reporting the header-selection problem clearly."
+      ],
+      "issues": [
+        129019
+      ]
+    },
+    "workflow-0077": {
+      "summary": "Concurrent isolated contexts race on shared process-wide state",
+      "workflow": [
+        "Multiple isolated execution contexts run concurrently and access shared process-wide metadata, configuration, or resources.",
+        "One context initializes, updates, or tears down shared state while another reads or uses it.",
+        "The shared accesses lack sufficient atomic coordination or locking, producing data races and, for resources such as descriptors, concurrent close/use.",
+        "Race-detection instrumentation reports the unsynchronized access, causing the affected concurrent tests to fail or be skipped instead of completing normally."
+      ],
+      "issues": [
+        129824,
+        130091,
+        130605,
+        133473,
+        140257,
+        140260,
+        150284,
+        152741,
+        153014,
+        153852,
+        154822
+      ]
+    },
+    "workflow-0078": {
+      "summary": "Independent feature and version checks redefine one compiler configuration symbol",
+      "workflow": [
+        "A build supports two alternative spellings for a compiler annotation that disables a selected class of diagnostics.",
+        "Capability detection on a newer compiler recognizes the modern spelling and defines one shared configuration symbol for it.",
+        "A separate version-based compiler check independently defines the same configuration symbol using the legacy spelling.",
+        "The compiler reports a duplicate definition instead of completing the build; guarding the fallback definition against an existing symbol resolves the conflict."
+      ],
+      "issues": [
+        129838
+      ]
+    },
+    "workflow-0079": {
+      "summary": "Concurrent initialization races with ownership-metadata inspection",
+      "workflow": [
+        "An object allocator reserves storage while another thread may inspect its ownership and reference metadata.",
+        "The allocator clears the entire allocation with a non-atomic bulk write before initializing the object header.",
+        "The concurrent inspection reads those header fields during the clearing operation, observing partially updated or transiently valid metadata.",
+        "The race can misidentify ownership or reference state, producing inconsistent behavior or sanitizer-reported failure instead of safe concurrent allocation."
+      ],
+      "issues": [
+        130019
+      ]
+    },
+    "workflow-0080": {
+      "summary": "Re-entrant cleanup invalidates embedded container storage during clearing",
+      "workflow": [
+        "A container clears entries whose value storage is embedded in an owning object.",
+        "Releasing one value invokes user cleanup code that re-enters and mutates the same container.",
+        "The re-entrant mutation changes or releases the embedded storage while the original clearing operation still holds its address.",
+        "The clearing operation continues through the invalidated storage, causing a use-after-free and process-terminating memory failure."
+      ],
+      "issues": [
+        130555,
+        140551,
+        142555,
+        142559,
+        142594,
+        142637,
+        142663,
+        142731,
+        142732,
+        142734,
+        142782,
+        142828,
+        142829,
+        142831,
+        142882,
+        142884,
+        143196,
+        143379,
+        143543,
+        143546,
+        143635,
+        143639
+      ]
+    },
+    "workflow-0081": {
+      "summary": "Concurrent unsynchronized access to shared byte storage",
+      "workflow": [
+        "Multiple threads obtain independent views of the same mutable byte buffer and begin repeated reads and writes concurrently.",
+        "One thread writes an element while another reads the same element without synchronization or atomic coordination.",
+        "The conflicting accesses form a data race, so observed values and execution behavior are undefined.",
+        "Race-detection instrumentation reports the unsynchronized access instead of allowing the workload to complete normally."
+      ],
+      "issues": [
+        130977,
+        131325,
+        132869,
+        142717,
+        144356,
+        149142,
+        151277,
+        153908,
+        154756
+      ]
+    },
+    "workflow-0082": {
+      "summary": "Removing sanitizer suppression exposes deliberate fault-trigger and mismatched-dispatch undefined behavior",
+      "workflow": [
+        "A low-level component uses deliberate undefined operations to trigger fault handling and dispatches specialized callbacks through generic interfaces with incompatible signatures.",
+        "Undefined-behavior sanitizer suppression hides these invalid operations and indirect calls, allowing the tests or build to appear successful.",
+        "The suppression is removed so instrumentation evaluates the fault-triggering and callback-dispatch paths directly.",
+        "The sanitizer reports a fatal undefined-behavior failure instead of allowing the intended fault signal or callback operation to complete.",
+        "The implementation must replace fabricated undefined behavior with explicit signaling and use signature-correct dispatch wrappers."
+      ],
+      "issues": [
+        133157
+      ]
+    },
+    "workflow-0083": {
+      "summary": "Immediate interactive exit leaves startup allocations unreclaimed",
+      "workflow": [
+        "An interactive runtime starts under memory-leak instrumentation and eagerly initializes built-in components.",
+        "Startup allocates object metadata and supporting strings for those components.",
+        "Immediate termination follows a cleanup path that does not reclaim all startup allocations.",
+        "Leak detection runs at process exit and classifies the residual allocations as leaks, causing an unsuccessful exit instead of clean termination."
+      ],
+      "issues": [
+        135618
+      ]
+    },
+    "workflow-0084": {
+      "summary": "Corrupted object header causes fatal metadata dereference",
+      "workflow": [
+        "An unsafe raw-memory operation overwrites the header of a live managed object with invalid pointer and ownership values.",
+        "A later operation consumes that object as structured metadata without detecting that its representation invariants were destroyed.",
+        "Metadata lookup follows the corrupted pointer while processing the operation.",
+        "The invalid dereference terminates the process instead of producing a recoverable error."
+      ],
+      "issues": [
+        135637
+      ]
+    },
+    "workflow-0085": {
+      "summary": "Partial instrumentation causes a false-positive uninitialized read during startup",
+      "workflow": [
+        "An application enables uninitialized-memory instrumentation but links against prebuilt dependencies that were not instrumented.",
+        "Startup initializes a valid string-like key through the uninstrumented code, leaving instrumentation metadata for part of its storage unavailable.",
+        "An instrumented lookup or hashing operation scans the key and treats the missing metadata as an uninitialized byte.",
+        "The instrumentation reports a fatal uninitialized read during normal startup even though the underlying value and memory access are valid."
+      ],
+      "issues": [
+        135774,
+        140332,
+        148850
+      ]
+    },
+    "workflow-0086": {
+      "summary": "Missing instrumentation guard exposes stack overflow in deep-recursion test",
+      "workflow": [
+        "A test intentionally exercises recursion requiring an unusually deep call stack.",
+        "A compatibility guard skips the test for some instrumentation modes but does not recognize the active memory-safety instrumentation mode.",
+        "The recursive workload exhausts the available stack under that instrumentation.",
+        "The instrumented runtime aborts on stack overflow, so the test fails instead of being skipped."
+      ],
+      "issues": [
+        135830
+      ]
+    },
+    "workflow-0087": {
+      "summary": "Default configuration overrides an explicit allocator selection",
+      "workflow": [
+        "A build configuration enables memory-error instrumentation and explicitly selects a custom memory allocator.",
+        "Configuration logic applies the instrumentation mode's default allocator setting without checking whether the user supplied an explicit allocator choice.",
+        "The default setting overrides the explicit selection, so the requested allocator is silently disabled.",
+        "The build proceeds with unintended allocator behavior instead of honoring the valid combined configuration."
+      ],
+      "issues": [
+        136872
+      ]
+    },
+    "workflow-0088": {
+      "summary": "Lock-held global pause creates circular wait",
+      "workflow": [
+        "One worker acquires a shared coordination lock and then requests a global pause requiring other workers to reach a safe point.",
+        "Another worker attaches its execution state and tries to acquire the same lock before reaching that safe point.",
+        "The first worker waits for the global pause while the second waits for the lock.",
+        "Neither worker can proceed, so the operation deadlocks instead of completing."
+      ],
+      "issues": [
+        139116,
+        151593
+      ]
+    },
+    "workflow-0089": {
+      "summary": "Exceptional execution path omits ownership release and leaks generated objects",
+      "workflow": [
+        "An execution object is created with an owned reference, while garbage-collector registration is deferred until after compilation succeeds.",
+        "Compilation or later optimized execution can fail through a recoverable exception path rather than the normal fatal or null-return path.",
+        "Cleanup releases the object only on the handled paths, leaving the owned reference unreleased on that exception path.",
+        "Repeated failures retain each abandoned object, causing memory usage to grow and leak detection to report unreclaimed allocations."
+      ],
+      "issues": [
+        139540,
+        139748,
+        139749,
+        140517
+      ]
+    },
+    "workflow-0090": {
+      "summary": "Repeated optimized execution leaks generated objects",
+      "workflow": [
+        "A repeated call pattern runs with an optional execution-optimization mode enabled.",
+        "The optimizer allocates a new generated execution object while preparing the repeated calls.",
+        "The generated objects are not released after use, so each iteration leaves another allocation reachable only to the leak detector.",
+        "At process shutdown, memory instrumentation reports the accumulated generated objects as leaks instead of clean termination."
+      ],
+      "issues": [
+        139750,
+        139827,
+        142985
+      ]
+    },
+    "workflow-0091": {
+      "summary": "Exceptional parse failure omits cleanup and leaks an intermediate allocation",
+      "workflow": [
+        "A source-processing operation allocates an intermediate value while decoding input text.",
+        "Later validation rejects an invalid argument and raises a recoverable error.",
+        "The exceptional cleanup path fails to release the intermediate allocation.",
+        "Leak detection reports the unreclaimed allocation after the operation exits."
+      ],
+      "issues": [
+        139751,
+        139988,
+        140398,
+        140406,
+        140530,
+        140593,
+        140939,
+        142917,
+        147998,
+        148484
+      ]
+    },
+    "workflow-0092": {
+      "summary": "Unnecessary tracking of cycle-ineligible immutable containers degrades collection performance",
+      "workflow": [
+        "A runtime begins registering every newly created immutable aggregate container with its cycle-detecting collector, regardless of whether its contents can participate in cycles.",
+        "An application creates many immutable containers holding only non-collectible values during ordinary execution.",
+        "Collection cycles repeatedly scan those containers even though they cannot contribute to reclaimable cycles.",
+        "The unnecessary tracking work causes a substantial garbage-collection performance regression instead of allowing such containers to remain untracked."
+      ],
+      "issues": [
+        139951
+      ]
+    },
+    "workflow-0093": {
+      "summary": "Overwritten allocation metadata causes repeated teardown leaks",
+      "workflow": [
+        "An aligned object is allocated from a larger raw memory block, and the original allocation address is saved inside the object for later cleanup.",
+        "Object initialization clears or overwrites that internal bookkeeping field while preparing the object for use.",
+        "Teardown relies on the overwritten field to recover the raw allocation address, so the original block is no longer released.",
+        "Repeated object creation leaves each raw allocation unreachable, and leak detection reports persistent memory growth."
+      ],
+      "issues": [
+        140067,
+        144067
+      ]
+    },
+    "workflow-0094": {
+      "summary": "Successful operation omits cleanup of temporary owned state",
+      "workflow": [
+        "A data-processing operation allocates temporary auxiliary state with owned heap components.",
+        "The operation successfully produces its result but returns without releasing those temporary components.",
+        "Repeated operations leave each allocation retained after completion.",
+        "Leak detection reports persistent memory growth instead of clean reclamation."
+      ],
+      "issues": [
+        140120,
+        140272,
+        140442,
+        140474,
+        141044,
+        141372,
+        141542,
+        142476,
+        145204
+      ]
+    },
+    "workflow-0095": {
+      "summary": "Unsynchronized inspection of concurrently updated synchronization state",
+      "workflow": [
+        "A worker updates shared synchronization-state bits atomically while coordinating with another thread.",
+        "A coordinator uses timing-based progress checks and then inspects those shared bits without an atomic or synchronized read.",
+        "The inspection can overlap with the worker’s update, creating a data race on the shared state.",
+        "Race detection reports the conflicting access and the concurrency test fails instead of completing normally."
+      ],
+      "issues": [
+        140263
+      ]
+    },
+    "workflow-0096": {
+      "summary": "Shutdown leaves a blocking background worker un-terminated",
+      "workflow": [
+        "A standalone service starts a background worker that blocks waiting for incoming connections.",
+        "Shutdown signals the service’s main loop and request handlers but does not signal the connection-accepting worker.",
+        "The accepting worker remains blocked and continues running after shutdown begins.",
+        "Instrumentation checks teardown and reports the still-live worker as a thread leak, causing shutdown validation to fail."
+      ],
+      "issues": [
+        140267
+      ]
+    },
+    "workflow-0097": {
+      "summary": "Unsupported target accepted until generated-artifact build failure",
+      "workflow": [
+        "A user enables an optional code-generation feature for a target environment that the feature does not support.",
+        "Configuration accepts the feature without validating that the target is among the generator's recognized targets.",
+        "The build invokes the generator with the unsupported target description, which rejects it and does not produce the generated header.",
+        "Compilation then fails because source files require the missing generated header instead of reporting the unsupported feature during configuration."
+      ],
+      "issues": [
+        140354
+      ]
+    },
+    "workflow-0098": {
+      "summary": "Null pointer passed to a native routine requiring valid string storage",
+      "workflow": [
+        "A foreign-function call supplies a null pointer for an argument that requires valid character storage.",
+        "The native routine assumes the argument is non-null and attempts to determine the referenced string's length.",
+        "The length operation dereferences the null address.",
+        "The invalid memory access terminates the process instead of producing a recoverable argument error."
+      ],
+      "issues": [
+        140408
+      ]
+    },
+    "workflow-0099": {
+      "summary": "Unchecked callback indexing causes heap-buffer-overflow",
+      "workflow": [
+        "A caller supplies a callback that accesses an element far beyond the bounds of a small allocated buffer.",
+        "The callback interface accepts the derived pointer and index without validating that the requested position belongs to the buffer.",
+        "The callback reads the out-of-range element and converts it into a managed value.",
+        "The conversion reads past the heap allocation, causing a heap-buffer-overflow and process termination instead of a recoverable bounds error."
+      ],
+      "issues": [
+        140409
+      ]
+    },
+    "workflow-0100": {
+      "summary": "Premature validation rejects an irrelevant character bound",
+      "workflow": [
+        "A text-construction operation receives a negative length indicating that no characters should be created, together with a maximum-character value just outside the permitted range.",
+        "The implementation validates the maximum-character value before handling the negative-length case.",
+        "The invalid maximum-character value triggers an internal system error even though the requested result is empty and the value would not affect any created character.",
+        "The operation fails instead of returning the empty result expected for the zero-output case."
+      ],
+      "issues": [
+        140410
+      ]
+    },
+    "workflow-0101": {
+      "summary": "Garbage-collector traversal dereferences partially initialized object state",
+      "workflow": [
+        "A newly created managed execution object is registered for collection before all fields needed by the collector’s traversal logic are initialized.",
+        "A later setup operation can trigger collection while the object remains partially initialized.",
+        "The collector traverses the object and reads an uninitialized field as though it contained valid state.",
+        "The invalid state is dereferenced during traversal, causing a segmentation fault instead of safe collection.],",
+        "summary機",
+        "selected_cluster_id",
+        "decision_reason",
+        "workflow"
+      ],
+      "issues": [
+        140431
+      ]
+    },
+    "workflow-0102": {
+      "summary": "Inconsistent executable metadata triggers internal validation error",
+      "workflow": [
+        "A caller clones an existing executable metadata object while changing its parameter-count fields.",
+        "The replacement supplies an extreme positional-parameter count and an inconsistent keyword-only count that do not match the stored parameter layout.",
+        "Internal validation compares the altered counts with the object’s remaining metadata and detects the violated construction invariants.",
+        "The operation raises an internal system error instead of returning a recoverable invalid-metadata error."
+      ],
+      "issues": [
+        140564,
+        141390
+      ]
+    },
+    "workflow-0103": {
+      "summary": "Pending lexical error is misinterpreted as normal end-of-input",
+      "workflow": [
+        "A tokenizer processes malformed input containing indentation changes followed by an embedded terminator byte.",
+        "The low-level character reader reports the invalid byte by returning an end-of-input sentinel while recording an error.",
+        "The tokenizer treats that sentinel as ordinary input completion and proceeds to emit a token instead of propagating the pending error.",
+        "A higher-level token iterator attempts to construct a normal token result while the error remains pending, producing an internal failure instead of a recoverable tokenization error"
+      ],
+      "issues": [
+        140576
+      ]
+    },
+    "workflow-0104": {
+      "summary": "Unchecked state-field type causes later invalid mapping access",
+      "workflow": [
+        "A state-restoration interface receives a structured record containing several fields, including an optional mapping field.",
+        "Validation checks some fields but omits validating the optional mapping field.",
+        "A caller supplies a value of the wrong type in that field, so the record is accepted as internal state.",
+        "Later execution treats the field as a mapping and performs a lookup through it.",
+        "The invalid representation reaches low-level memory access and crashes the process instead of producing a recoverable type error."
+      ],
+      "issues": [
+        140590,
+        140776
+      ]
+    },
+    "workflow-0105": {
+      "summary": "Zero-length input offset causes boundary-underflow read",
+      "workflow": [
+        "A line-reading routine receives input beginning with an embedded terminator byte, so its string-length calculation reports zero despite additional bytes having been read.",
+        "The routine uses the zero length to inspect the preceding buffer element while deciding whether to continue reading.",
+        "That index refers before the valid buffer range, causing an out-of-bounds read and undefined behavior.",
+        "Without detection, the loop may continue with an unchanged offset, overwrite previously read input on the next read, and process the wrong data instead of safely stopping at the8?"
+      ],
+      "issues": [
+        140594
+      ]
+    },
+    "workflow-0106": {
+      "summary": "Unvalidated returned byte count causes buffer over-read",
+      "workflow": [
+        "A buffered read operation allocates a destination buffer and delegates filling it to a lower-level provider.",
+        "The provider returns a byte count outside the valid range of zero through the buffer capacity.",
+        "The caller uses that count to construct the result without validating it against the allocated buffer.",
+        "An oversized count makes result construction read beyond the buffer, causing a heap-buffer-overflow or process termination instead of a recoverable input error."
+      ],
+      "issues": [
+        140607,
+        142554
+      ]
+    },
+    "workflow-0107": {
+      "summary": "Concurrent handshake cleanup double-frees shared native state",
+      "workflow": [
+        "Two worker threads initiate overlapping secure handshakes through shared native connection state.",
+        "One handshake encounters a cleanup path that releases an internal allocation while the other handshake still references or owns it.",
+        "The second handshake later performs its own cleanup on the same allocation without coordinated ownership or lifetime protection.",
+        "The allocation is released twice, and memory-safety instrumentation aborts the process instead of allowing both handshakes to finish safely."
+      ],
+      "issues": [
+        140608
+      ]
+    },
+    "workflow-0108": {
+      "summary": "Exception-retained dynamic type graph appears as indirect leaks",
+      "workflow": [
+        "A component dynamically creates a managed type and its supporting metadata when an object is instantiated.",
+        "The test then encounters an unrelated exception before the newly created object is released.",
+        "Failure reporting retains the exception context and its local object, keeping the object’s dynamically created type graph reachable.",
+        "Leak detection follows those retained references and reports the type, descriptors, and auxiliary metadata as indirect leaks instead of cleanly reclaiming them."
+      ],
+      "issues": [
+        140631
+      ]
+    },
+    "workflow-0109": {
+      "summary": "Unchecked enumeration of retained inactive resource entries",
+      "workflow": [
+        "A resource registry retains an entry after the associated resource is closed, destroyed, or released, clearing the entry’s backing-resource pointer.",
+        "An enumeration operation allocates output storage using the count of currently active resources but traverses every retained registry entry.",
+        "The enumeration assumes each entry still has a backing resource and reads its fields without checking for an inactive entry.",
+        "The null dereference, and potentially the mismatch between retained entries and allocated capacity, causes a process-terminating memory-safety failure instead of returning the list"
+      ],
+      "issues": [
+        140652
+      ]
+    },
+    "workflow-0110": {
+      "summary": "Inconsistent initial nesting level causes formatting-cache out-of-bounds access",
+      "workflow": [
+        "A low-level structured-data encoder accepts an inconsistent initial nesting level and initializes a formatting cache only for the base level.",
+        "Encoding a nested container increases the nesting level and requests cached separator data for a level whose entries do not exist.",
+        "The cache-growth helper assumes entries for the previous level and reads beyond the short cache while deriving the next indentation string.",
+        "The out-of-bounds read triggers an assertion or heap-buffer-overflow instead of producing a recoverable argument or state error."
+      ],
+      "issues": [
+        140750
+      ]
+    },
+    "workflow-0111": {
+      "summary": "Incompatible module state layout rejected by legacy registration",
+      "workflow": [
+        "A module-like component is created using a managed state layout that is incompatible with legacy global registration.",
+        "A caller invokes the legacy registration operation on that component.",
+        "The operation detects the incompatible layout and raises an internal system error instead of registering it."
+      ],
+      "issues": [
+        140751
+      ]
+    },
+    "workflow-0112": {
+      "summary": "Invalid shared-memory destination causes fatal initialization write",
+      "workflow": [
+        "A shared-memory-backed aggregate is created and initialized from ordinary input values.",
+        "Initialization prepares a native serialized representation in the shared backing storage.",
+        "The destination address for a bulk write is invalid or no longer refers to usable backing storage.",
+        "The bulk write accesses the invalid address, triggering a memory-safety fault and terminating the process instead of reporting a recoverable initialization error."
+      ],
+      "issues": [
+        140777
+      ]
+    },
+    "workflow-0113": {
+      "summary": "Reentrant finalization recreates state during teardown and leaks it",
+      "workflow": [
+        "A worker exits while its per-thread local state is being torn down.",
+        "Destroying a value in that state runs user finalization code that accesses the same thread-local container and recreates auxiliary per-thread state.",
+        "Teardown continues using its original cleanup sequence and does not reclaim the state recreated during finalization.",
+        "The recreated bookkeeping objects remain allocated after the worker finishes, so leak detection reports a memory leak instead of clean shutdown."
+      ],
+      "issues": [
+        140798
+      ]
+    },
+    "workflow-0114": {
+      "summary": "Accepted boundary execution position causes heap overwrite during state initialization",
+      "workflow": [
+        "A tracing or debugging callback moves a resumable function’s execution position to its first source position, which should be rejected as an invalid boundary.",
+        "Validation rejects positions before the first source position but mistakenly accepts the exact first position.",
+        "Execution resumes from the invalid boundary and derives an execution-record layout as though the position were a normal instruction location.",
+        "Initialization writes the expected execution state into a heap object allocated for a smaller layout.",
+        "The write exceeds the object’s allocation, causing a heap-buffer-overflow instead of returning a recoverable invalid-position error."
+      ],
+      "issues": [
+        140802
+      ]
+    },
+    "workflow-0115": {
+      "summary": "Teardown ordering preserves callback-retained module allocations",
+      "workflow": [
+        "A module initializer creates a managed type and associated metadata.",
+        "A process-wide callback registry retains a callback that keeps the module-created type graph reachable.",
+        "Shutdown collects and destroys modules before clearing the callback registry, so the retention cycle remains intact.",
+        "Leak detection at process exit reports the type and metadata as indirect leaks instead of clean reclamation."
+      ],
+      "issues": [
+        140860
+      ]
+    },
+    "workflow-0116": {
+      "summary": "Malformed encoded metadata triggers fatal decoder assertion",
+      "workflow": [
+        "A caller constructs an executable object with deliberately malformed encoded location metadata.",
+        "A diagnostic or inspection operation decodes the metadata assuming its encoding invariants are valid.",
+        "The malformed continuation pattern violates the decoder’s expected byte structure.",
+        "An internal assertion fires during decoding, terminating the process instead of reporting invalid metadata as a recoverable error."
+      ],
+      "issues": [
+        140935,
+        142736,
+        143430
+      ]
+    },
+    "workflow-0117": {
+      "summary": "Stale optimized execution during runtime finalization triggers an invalid state assertion",
+      "workflow": [
+        "A runtime specializes a frequently executed backward control-flow operation into an optimized form.",
+        "Process finalization begins while a suspended computation still retains that specialized operation.",
+        "Finalization disables the optimization subsystem without invalidating all already-specialized operations.",
+        "Cleanup resumes the suspended computation, which executes the stale optimized operation and invokes optimization logic.",
+        "The optimization logic asserts that the subsystem is enabled, detects it is disabled, and aborts instead of safely skipping optimization."
+      ],
+      "issues": [
+        140936
+      ]
+    },
+    "workflow-0118": {
+      "summary": "Maximum cursor position mishandled by zero-length read",
+      "workflow": [
+        "A seekable in-memory data source accepts a cursor position at the maximum representable offset, beyond its actual stored contents.",
+        "A subsequent read computes the remaining length from that cursor, obtains a negative result, and clamps the requested transfer length to zero.",
+        "The read path still assumes the cursor plus transfer length is strictly below the numeric limit and may perform pointer arithmetic from the out-of-range cursor.",
+        "The boundary assertion fails or undefined pointer formation occurs instead of returning an ordinary end-of-data result."
+      ],
+      "issues": [
+        141311,
+        142787
+      ]
+    },
+    "workflow-0119": {
+      "summary": "Unchecked state type reaches integer-only restoration logic",
+      "workflow": [
+        "A state-restoration interface accepts a value of an unsupported non-integer type without validating it.",
+        "The restoration logic passes that value to arithmetic intended for integer state.",
+        "The arithmetic path assumes the state is an integer and triggers an internal assertion when the assumption is false.",
+        "The operation terminates with an assertion failure instead of returning a recoverable type error."
+      ],
+      "issues": [
+        141312,
+        143006
+      ]
+    },
+    "workflow-0120": {
+      "summary": "Empty buffered snapshot violates position-calculation boundary assumption",
+      "workflow": [
+        "A text-reading operation consumes input ending with a standalone carriage-return line boundary and leaves an empty buffered snapshot.",
+        "A position-reporting optimization assumes buffered input is nonempty and selects a backward skip of at least one byte.",
+        "The implementation validates that skip against the empty snapshot, violating its own boundary assumption.",
+        "An internal assertion aborts the operation instead of returning the valid current position."
+      ],
+      "issues": [
+        141314
+      ]
+    },
+    "workflow-0121": {
+      "summary": "Recovery rewind underestimates decoder output capacity",
+      "workflow": [
+        "A streaming text decoder encounters malformed input and invokes a user-defined recovery handler.",
+        "The handler supplies replacement text and rewinds the input position, increasing the amount of input that remains to be processed.",
+        "Buffer-capacity accounting underestimates the required space by failing to include the full replacement length together with the newly remaining input.",
+        "Decoding reaches an internal capacity invariant with insufficient space and aborts instead of handling the malformed input safely."
+      ],
+      "issues": [
+        141336
+      ]
+    },
+    "workflow-0122": {
+      "summary": "Undersized output buffer causes native write overflow",
+      "workflow": [
+        "A caller supplies an output buffer that is empty or smaller than the native operation’s required result.",
+        "The interface forwards the buffer without validating that its capacity is sufficient.",
+        "The native operation writes the fixed-size result into the undersized buffer.",
+        "The write exceeds the buffer and produces a fatal system error instead of a recoverable argument-size error."
+      ],
+      "issues": [
+        141338,
+        144206
+      ]
+    },
+    "workflow-0123": {
+      "summary": "Instrumented lazy code dispatch dereferences an invalid generated-code address",
+      "workflow": [
+        "A build enables experimental runtime code generation together with undefined-behavior instrumentation.",
+        "A bootstrap executable begins ordinary code execution through the runtime’s lazy generated-code dispatch path.",
+        "That dispatch path uses an invalid or corrupted generated-code address under the affected toolchain and instrumentation combination.",
+        "The trampoline reads through the invalid address, causing an instrumented segmentation fault and aborting the build instead of completing code generation."
+      ],
+      "issues": [
+        141621
+      ]
+    },
+    "workflow-0124": {
+      "summary": "Stale specialized execution survives invalidation and misinterprets changed object layouts",
+      "workflow": [
+        "A workload repeatedly accesses the same operation on objects with incompatible layouts, causing the optimizer to build specialized paths and side exits.",
+        "An invalidation event marks those specialized paths obsolete, but reference cycles prevent the invalid paths from being fully removed from executable state.",
+        "Later execution reaches a retained specialized path despite the assumptions that made it valid no longer holding.",
+        "The stale path interprets execution data using the wrong layout, triggering an invalid memory access or an internal consistency failure."
+      ],
+      "issues": [
+        141648
+      ]
+    },
+    "workflow-0125": {
+      "summary": "Untracked mutable-attribute promotion leaves stale specialized code",
+      "workflow": [
+        "An optimizer promotes a mutable attribute lookup to a constant and specializes later execution based on the constant's type.",
+        "The underlying attribute is changed while the optimized code remains active, but the promotion was not registered for invalidation when that attribute changes.",
+        "Execution continues using the stale constant under the old type assumption.",
+        "A specialized operation asserts the assumed type and terminates instead of deoptimizing or reloading the updated attribute."
+      ],
+      "issues": [
+        142276
+      ]
+    },
+    "workflow-0126": {
+      "summary": "Tracing crosses instrumentation or exception boundaries with stale stack assumptions",
+      "workflow": [
+        "An execution optimizer begins recording a specialized trace for ordinary control flow.",
+        "Execution reaches an instrumented operation or exceptional path that invokes monitoring logic.",
+        "The optimizer fails to abandon or invalidate the trace before that transfer, allowing tracing to continue across the boundary.",
+        "The resulting trace uses stack-state assumptions that no longer match the actual execution path.",
+        "Frame cleanup detects the inconsistent residual stack state and aborts instead of safely deoptimizing or completing execution."
+      ],
+      "issues": [
+        142448
+      ]
+    },
+    "workflow-0127": {
+      "summary": "Copied object omits required metadata and later lookup aborts",
+      "workflow": [
+        "A stateful object is copied into a new object while operational state is duplicated but required identifying metadata is omitted, leaving a default invalid value.",
+        "A later property lookup uses the invalid metadata to query an external registry for descriptive information.",
+        "The registry may return no result without recording an error, while the caller assumes failure always includes an error indicator.",
+        "The strict failure check aborts the process, or the lookup surfaces an error instead of returning the copied object's expected property."
+      ],
+      "issues": [
+        142451,
+        144163
+      ]
+    },
+    "workflow-0128": {
+      "summary": "Reentrant finalization re-registers an object during destruction",
+      "workflow": [
+        "A managed object begins destruction and invokes user-defined finalization logic before teardown is complete.",
+        "The finalizer re-registers or otherwise retains the object in a shared registry, changing its lifetime during destruction.",
+        "The original teardown continues under the assumption that finalization could not make the object reachable again and releases or invalidates the object’s state.",
+        "Later registry use follows the retained entry to storage that teardown has already invalidated, causing a use-after-free or process-terminating failure."
+      ],
+      "issues": [
+        142556
+      ]
+    },
+    "workflow-0129": {
+      "summary": "Unchecked factory result is reinterpreted as type metadata",
+      "workflow": [
+        "Initialization invokes an overridable factory expected to return a type descriptor without validating the result.",
+        "The override returns an ordinary object with an incompatible, smaller layout.",
+        "The initializer reinterprets that object as a type descriptor and accesses its metadata fields.",
+        "The metadata access exceeds the object's allocation, causing a heap-buffer-overflow and process termination instead of a recoverable initialization error."
+      ],
+      "issues": [
+        142595,
+        142781,
+        143376,
+        143636
+      ]
+    },
+    "workflow-0130": {
+      "summary": "Transformed instruction index causes diagnostic table over-read",
+      "workflow": [
+        "A diagnostic formatter receives an optimized instruction whose opcode uses a transformed representation rather than the metadata table’s original index space.",
+        "The formatter treats that transformed value as a direct index into a fixed-size global metadata table.",
+        "The resulting index points beyond the table’s valid bounds during ordinary diagnostic output.",
+        "Memory-safety instrumentation reports a global buffer over-read and terminates the process instead of producing the trace."
+      ],
+      "issues": [
+        142629
+      ]
+    },
+    "workflow-0131": {
+      "summary": "Malformed instruction operand triggers internal assertion",
+      "workflow": [
+        "A caller constructs a low-level instruction record with an operation that does not accept an argument.",
+        "The caller supplies a nonzero argument value despite the operation’s operand contract.",
+        "The instruction builder validates the record against that contract and triggers an internal assertion.",
+        "The process terminates instead of rejecting the malformed instruction through a recoverable argument error."
+      ],
+      "issues": [
+        142661
+      ]
+    },
+    "workflow-0132": {
+      "summary": "Unsynchronized cached stack state during optimized-code side exit",
+      "workflow": [
+        "An optimizing execution engine keeps top-of-stack values in a fast cache instead of canonical stack storage.",
+        "Execution takes a side exit from optimized code to a fallback path.",
+        "The exit updates cache metadata but fails to write cached values back to canonical stack storage.",
+        "The fallback path interprets stale or missing stack state as valid and dereferences an invalid value, terminating the process."
+      ],
+      "issues": [
+        142718
+      ]
+    },
+    "workflow-0133": {
+      "summary": "Unchecked missing fallback dependency crashes error reporting",
+      "workflow": [
+        "An error-reporting path switches to a fallback formatter because the preferred formatter is unavailable.",
+        "The fallback formatter looks up a required callable in mutable shared support state after that callable has been removed or replaced.",
+        "The lookup fails and yields no callable, but the failure is not checked.",
+        "The formatter invokes the missing value as though it were a valid callable, triggering an internal assertion instead of displaying the original error."
+      ],
+      "issues": [
+        142737
+      ]
+    },
+    "workflow-0134": {
+      "summary": "Re-entrant type mutation leaves stale operation dispatch",
+      "workflow": [
+        "A compound operation begins on an object and invokes user-controlled conversion code to obtain an operand.",
+        "The conversion callback mutates the original object’s runtime type while the operation is still in progress.",
+        "The operation continues using the implementation selected for the object’s former type without revalidating the mutation.",
+        "The stale implementation accesses the object under incompatible type assumptions, causing a null-pointer dereference and process termination instead of a recoverable type error."
+      ],
+      "issues": [
+        142883
+      ]
+    },
+    "workflow-0135": {
+      "summary": "Misleading zero-size estimate causes append into shared empty storage",
+      "workflow": [
+        "An append-like operation accepts an iterator that reports a zero size estimate despite yielding elements.",
+        "The operation uses that estimate to retain a shared zero-terminated empty buffer with no writable element capacity.",
+        "When the first element arrives, it writes the value before checking whether the buffer must grow.",
+        "The write exceeds the shared buffer and corrupts adjacent memory, causing a buffer-overflow failure instead of safely expanding storage."
+      ],
+      "issues": [
+        143003
+      ]
+    },
+    "workflow-0136": {
+      "summary": "Unchecked type replacement causes later layout-based heap overflow",
+      "workflow": [
+        "A runtime allows an object with fixed-size contiguous storage to replace its type metadata without verifying that the new type has a compatible length, element representation, and",
+        "The object retains its original backing allocation while later operations interpret it using the replacement type’s layout.",
+        "A subsequent indexed assignment or bulk write computes offsets from the incompatible layout and writes beyond the allocated storage.",
+        "Memory-safety instrumentation detects the heap overflow and terminates the process instead of rejecting the incompatible type change."
+      ],
+      "issues": [
+        143005
+      ]
+    },
+    "workflow-0137": {
+      "summary": "Reentrant argument conversion invalidates a backing resource before later use",
+      "workflow": [
+        "An operation validates that its backing resource is attached and begins converting a caller-supplied position-like value.",
+        "The conversion invokes user-defined code that detaches or releases the backing resource, clearing the handle while the outer operation continues.",
+        "The outer operation fails to revalidate the resource after conversion returns.",
+        "It calls through the cleared handle, causing a null dereference and process termination instead of a recoverable detached-resource error."
+      ],
+      "issues": [
+        143007,
+        143008,
+        143195,
+        143198,
+        143200,
+        143236,
+        143308,
+        143310,
+        143375,
+        143378,
+        143380,
+        143544,
+        143545,
+        143637,
+        143638,
+        143662,
+        144128,
+        144922,
+        148625,
+        154189
+      ]
+    },
+    "workflow-0138": {
+      "summary": "Unchecked trailing-terminator removal causes boundary heap write",
+      "workflow": [
+        "A formatting adapter converts formatter output into mutable text storage.",
+        "The adapter assumes the resulting text is nonempty and ends with a line terminator.",
+        "Formatter output is empty or omits the expected terminator.",
+        "The adapter indexes the final position and writes a terminator without validating the length or suffix.",
+        "Empty output causes a write before the allocated buffer, producing a heap-buffer-overflow; unterminated output may also be truncated incorrectly."
+      ],
+      "issues": [
+        143377
+      ]
+    },
+    "workflow-0139": {
+      "summary": "Permitted concurrent release invalidates lock-handoff assertion",
+      "workflow": [
+        "Multiple workers contend for a shared lock, and a waiting worker is granted ownership through a handoff.",
+        "The lock semantics allow another worker to release the lock concurrently, potentially clearing its locked state before the handoff recipient finishes returning.",
+        "The acquisition routine assumes a successful handoff means the lock must still appear locked and asserts that invariant.",
+        "The valid concurrent state triggers an assertion and process termination instead of returning successful acquisition."
+      ],
+      "issues": [
+        143424
+      ]
+    },
+    "workflow-0140": {
+      "summary": "Mismatched capability probe enables unavailable interface",
+      "workflow": [
+        "A build configuration probes whether a platform-dependent interface is available using target settings that differ from the eventual compilation settings.",
+        "The probe reports the interface as available and enables code paths that depend on it.",
+        "Compilation runs under a target environment whose headers do not declare that interface.",
+        "Strict compiler diagnostics reject the undeclared use, so the build fails instead of selecting a compatible fallback or reporting the target mismatch clearly."
+      ],
+      "issues": [
+        143640
+      ]
+    },
+    "workflow-0141": {
+      "summary": "Uninstrumented dependency causes false-positive race reports",
+      "workflow": [
+        "A concurrency test runs with race-detection instrumentation enabled.",
+        "The test links against a prebuilt dependency that was compiled without the same instrumentation.",
+        "The dependency performs synchronization internally, but those operations are invisible to the instrumented runtime.",
+        "Concurrent use of the dependency is therefore reported as a data race even when the dependency’s synchronization is valid.",
+        "The instrumented test job fails on the false-positive diagnostic instead of completing successfully."
+      ],
+      "issues": [
+        143750
+      ]
+    },
+    "workflow-0142": {
+      "summary": "Oversized optimized trace corrupts generated-code metadata during cleanup",
+      "workflow": [
+        "A tracing optimizer is configured to accept traces larger than the generated-code subsystem can safely support.",
+        "Execution records and compiles an unusually long trace, reaching an internal machine-code size or representation limit.",
+        "The resulting executable metadata becomes inconsistent with the generated instruction sequence.",
+        "Later cleanup detaches the executable while assuming the metadata still has the expected entry instruction.",
+        "The invalid metadata access triggers an assertion or segmentation fault instead of safely rejecting or shortening the trace."
+      ],
+      "issues": [
+        143751
+      ]
+    },
+    "workflow-0143": {
+      "summary": "Worker teardown omits cleanup of private tracing state",
+      "workflow": [
+        "A background worker allocates private tracing state while executing optimized work.",
+        "The worker is abandoned when the hosting runtime shuts down, so its per-worker state is cleared through a special teardown path.",
+        "That teardown path releases ordinary worker state but omits the tracing allocation.",
+        "Leak detection runs after shutdown and reports the unreclaimed tracing state instead of clean termination."
+      ],
+      "issues": [
+        144068
+      ]
+    },
+    "workflow-0144": {
+      "summary": "Failed resource creation leaks unreachable partial allocations",
+      "workflow": [
+        "A wrapper allocates managed state before attempting to create an external resource.",
+        "The resource-creation operation fails after allocating internal resources but returns no usable handle.",
+        "Failure cleanup releases the wrapper, while the partially allocated external resources have no reachable cleanup path.",
+        "Repeated failed creation attempts leave those resources allocated, causing memory usage to grow and leak detection to report unreclaimed memory."
+      ],
+      "issues": [
+        144069
+      ]
+    },
+    "workflow-0145": {
+      "summary": "Unresolved pointer metadata triggers fatal assertion during argument conversion",
+      "workflow": [
+        "A foreign-function interface accepts a pointer descriptor whose target type metadata is unresolved.",
+        "Argument conversion uses that metadata to determine whether the supplied value matches the expected pointed-to type.",
+        "The missing metadata reaches an internal invariant assertion instead of being validated as an invalid argument.",
+        "The assertion aborts the process rather than returning a recoverable type or argument error."
+      ],
+      "issues": [
+        144100
+      ]
+    },
+    "workflow-0146": {
+      "summary": "Profiling-instrumented build helper fails on residual exit-time allocations",
+      "workflow": [
+        "A build enables execution profiling together with leak-detection instrumentation.",
+        "The build runs a small helper executable to generate source artifacts, and profiling initializes coverage bookkeeping during that execution.",
+        "The profiling bookkeeping remains allocated when the helper exits because its exit-time cleanup does not satisfy the leak detector.",
+        "Leak detection reports the residual profiling allocations as fatal leaks and gives the helper a failure status.",
+        "The failed helper prevents artifact generation and causes the overall build to abort."
+      ],
+      "issues": [
+        144199
+      ]
+    },
+    "workflow-0147": {
+      "summary": "Missing symbolic-value category causes optimizer crash",
+      "workflow": [
+        "An optimizer creates a symbolic value representing the result of a predicate operation.",
+        "Its truthiness analysis dispatches on symbolic-value categories but omits the predicate-result category.",
+        "The omitted category is processed using an incompatible representation assumption.",
+        "Truthiness analysis dereferences invalid state and terminates instead of treating the predicate result as unknown or boolean."
+      ],
+      "issues": [
+        144280
+      ]
+    },
+    "workflow-0148": {
+      "summary": "Malformed executable stream begins with a non-executable placeholder",
+      "workflow": [
+        "A caller manually rewrites an executable instruction stream and inserts a reserved placeholder intended only for embedded metadata at the beginning.",
+        "The rewrite shifts the original instructions without updating the stream’s execution boundaries or metadata layout.",
+        "The runtime dispatches from the beginning while assuming the stream contains only executable instructions.",
+        "Dispatch encounters the reserved placeholder as an instruction, violates an internal execution invariant, and terminates instead of rejecting the malformed stream."
+      ],
+      "issues": [
+        144282
+      ]
+    },
+    "workflow-0149": {
+      "summary": "Partial-object cleanup dereferences missing state and releases parent ownership twice",
+      "workflow": [
+        "An operation allocates a child object and associates it with a parent before all child fields are initialized.",
+        "A later allocation fails, so error handling releases the partially initialized child.",
+        "The child’s destructor assumes an optional handler table exists and dereferences its null pointer during cleanup.",
+        "The destructor also releases the parent association, while the error path releases the parent again as though ownership had not already been transferred.",
+        "The allocation failure therefore becomes a null dereference and double ownership decrement instead of a recoverable error."
+      ],
+      "issues": [
+        144984
+      ]
+    },
+    "workflow-0150": {
+      "summary": "Concurrent container mutation races with size inspection",
+      "workflow": [
+        "A shared dynamically sized container is mutated concurrently by one group of workers.",
+        "Another group inspects the container’s memory footprint by reading its capacity or backing-storage metadata.",
+        "Resizing or removal updates that metadata while the inspection reads it without synchronization.",
+        "The conflicting accesses form a data race, producing inconsistent size results or sanitizer-reported failure instead of safe concurrent operation."
+      ],
+      "issues": [
+        145036,
+        151722
+      ]
+    },
+    "workflow-0151": {
+      "summary": "Instrumented configuration probe hangs during pre-application runtime initialization",
+      "workflow": [
+        "A build configuration enables memory-safety instrumentation and runs a generated probe executable to test a capability.",
+        "The instrumented probe enters runtime initialization before its application code begins.",
+        "Initialization enters an incompatible startup path and spins indefinitely instead of completing.",
+        "The configuration process waits for the probe to finish, so it hangs rather than reporting a probe failure or continuing."
+      ],
+      "issues": [
+        145199
+      ]
+    },
+    "workflow-0152": {
+      "summary": "Unsynchronized concurrent replacement and reading of shared object state",
+      "workflow": [
+        "Multiple threads access a shared object field that points to executable or descriptive state.",
+        "One thread replaces the pointed-to value while another thread reads it concurrently.",
+        "The read and replacement use ordinary unsynchronized memory access, so the pointer and its ownership transition are observed inconsistently.",
+        "Race-detection instrumentation reports a data race instead of allowing concurrent access to complete safely."
+      ],
+      "issues": [
+        145272,
+        146270,
+        153981,
+        154821
+      ]
+    },
+    "workflow-0153": {
+      "summary": "Failed secondary registration causes double cleanup of an already-owned record",
+      "workflow": [
+        "Initialization allocates a record and successfully registers it under an initial key in a managed table.",
+        "Registration under a second key fails after the record is already owned by the table.",
+        "Failure cleanup independently releases the record before destroying the table.",
+        "Table destruction releases the same record again, causing a double-free and process termination instead of recoverable initialization failure."
+      ],
+      "issues": [
+        145301
+      ]
+    },
+    "workflow-0154": {
+      "summary": "Concurrent mapping mutation invalidates borrowed traversal references",
+      "workflow": [
+        "A serializer traverses a shared mutable mapping using non-owning references to its entries.",
+        "Another thread removes or replaces an entry, releasing the referenced value while traversal is still in progress.",
+        "The serializer attempts to retain or process the invalidated reference after the concurrent mutation.",
+        "The stale reference is dereferenced, causing a use-after-free crash instead of a recoverable concurrent-modification error."
+      ],
+      "issues": [
+        146452
+      ]
+    },
+    "workflow-0155": {
+      "summary": "Unchecked boundary state reaches undefined low-level arithmetic or representation access",
+      "workflow": [
+        "A low-level operation receives an extreme, empty, malformed, or otherwise boundary-case input that leaves storage absent, positions out of range, or numeric values outside safe enc",
+        "The implementation accepts that state without first validating or normalizing the relevant pointer, range, or representation invariant.",
+        "It performs pointer arithmetic, signed shifting, overflow-prone arithmetic, or direct representation access before those preconditions hold; some operations appear to return the-"
+      ],
+      "issues": [
+        148286,
+        154667
+      ]
+    },
+    "workflow-0156": {
+      "summary": "Polymorphic call optimization assumes a callable target exists",
+      "workflow": [
+        "A runtime monitoring mode is enabled and then cleared, leaving execution-specialization state altered.",
+        "A loop repeatedly invokes an operation on receivers whose types vary, so no single callable target can be determined.",
+        "After execution crosses the optimization threshold, the optimizer processes the polymorphic call site without handling the missing callable target.",
+        "An unchecked null assumption triggers an internal assertion and aborts instead of skipping optimization or using a safe fallback."
+      ],
+      "issues": [
+        148716
+      ]
+    },
+    "workflow-0157": {
+      "summary": "Concurrent reinitialization invalidates a reader's prior bounds check",
+      "workflow": [
+        "Multiple threads concurrently use one shared stateful object, with one thread reinitializing its internal state while another reads from it.",
+        "The reader checks an index or boundary condition before the reinitialization changes the related state.",
+        "The reader then uses the stale validation result with the newly changed state and accesses beyond the valid state storage.",
+        "The invalid read can expose adjacent memory or terminate the process instead of being prevented by synchronized access."
+      ],
+      "issues": [
+        149816
+      ]
+    },
+    "workflow-0158": {
+      "summary": "Concurrent handshakes race on shared connection state",
+      "workflow": [
+        "A concurrency check starts multiple workers performing handshakes through one shared connection configuration.",
+        "The connection library maintains mutable configuration state that is not safe for simultaneous handshakes.",
+        "Concurrent handshake workers access that shared state without sufficient synchronization.",
+        "Race-detection instrumentation reports a data race, causing the check to fail even though the intended configuration-update race is separate."
+      ],
+      "issues": [
+        150191
+      ]
+    },
+    "workflow-0159": {
+      "summary": "Fixed recursion depth no longer reaches the enforced limit",
+      "workflow": [
+        "A deep-recursion test chooses a fixed nesting depth intended to exceed the runtime's recursion threshold.",
+        "Build-time instrumentation or hardening changes the effective recursion behavior, so the chosen depth no longer reaches that threshold.",
+        "The recursive operation completes without raising the expected recursion-limit error.",
+        "The test assertion reports failure even though the runtime remains operational; increasing the tested depth restores the intended boundary condition."
+      ],
+      "issues": [
+        150195
+      ]
+    },
+    "workflow-0160": {
+      "summary": "Instrumentation and runtime linkage mismatch causes unresolved-symbol link failure",
+      "workflow": [
+        "A build enables optional memory instrumentation through custom compiler and linker settings.",
+        "The build configuration combines instrumented libraries with an incompatible runtime-linkage arrangement.",
+        "The instrumented and support libraries reference standard runtime symbols that the selected linkage does not provide.",
+        "The linker reports unresolved symbols and aborts the target build instead of producing the executable."
+      ],
+      "issues": [
+        150467
+      ]
+    },
+    "workflow-0161": {
+      "summary": "Platform-dependent cleanup leaks nested probe allocations",
+      "workflow": [
+        "Module initialization performs a compatibility probe that creates temporary records with separately allocated text fields.",
+        "Cleanup removes the probe records through a platform-dependent bulk cleanup routine.",
+        "On one implementation, that routine releases the records but leaves some embedded text allocations unreclaimed.",
+        "Leak detection at process exit reports the retained allocations as a memory leak instead of clean initialization."
+      ],
+      "issues": [
+        150536
+      ]
+    },
+    "workflow-0162": {
+      "summary": "Concurrent collection reaches an object during partially completed destruction",
+      "workflow": [
+        "A managed object reaches destruction with no remaining owners but remains registered with a concurrent cycle-detection collector.",
+        "Destruction performs registry removal that can pause other threads before the object is fully torn down.",
+        "During that pause, another thread runs collection and reaches the partially deallocated object because it is still registered.",
+        "Collection or subsequent cleanup uses the invalid intermediate state, causing a hang or process-terminating memory failure instead of safe destruction."
+      ],
+      "issues": [
+        153809
+      ]
+    },
+    "workflow-0163": {
+      "summary": "Concurrent iterator exhaustion double-releases shared state and invalidates an in-flight traversal",
+      "workflow": [
+        "Multiple threads advance the same shared iterator toward exhaustion concurrently.",
+        "Each thread observes the iterator’s still-present owner reference and enters the exhaustion cleanup path.",
+        "Because clearing and releasing the owner reference are not coordinated, more than one thread releases the same reference, corrupting the referenced object’s ownership count.",
+        "A thread still performing the iteration uses a borrowed pointer after another thread’s release has freed the referenced object.",
+        "The stale access or later ownership validation terminates the process instead of completing iteration safely."
+      ],
+      "issues": [
+        154130
+      ]
+    },
+    "workflow-0164": {
+      "summary": "Concurrent iterator cursor corruption causes invalid traversal dereference",
+      "workflow": [
+        "Multiple threads advance the same stateful iterator concurrently.",
+        "Each advancement updates several linked cursor fields through multiple steps without synchronization.",
+        "Interleaved updates leave the cursor level referring to an uninitialized, stale, or null node pointer.",
+        "The next iteration dereferences that invalid pointer, causing a memory-safety crash instead of merely skipping or duplicating items."
+      ],
+      "issues": [
+        154535
+      ]
+    }
+  }
+}

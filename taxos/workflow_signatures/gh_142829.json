@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142829,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A comparison traverses shared associative state while retaining borrowed references to its containers, keys, and values.",
+    "Comparing an element invokes user-defined behavior that re-enters and mutates one of the containers.",
+    "The mutation releases or replaces storage still referenced by the active comparison.",
+    "The comparison resumes using those stale references, causing a use-after-free and process-terminating failure."
+  ],
+  "summary": "Reentrant comparison invalidates active container references",
+  "decision_reason": "The failure workflow materially matches reentrant mutation of a container during an active operation, which invalidates storage still held by the original traversal. The specific callback and comparison context differ, but the causal mechanism is the same.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:12:14.397580+00:00"
+}

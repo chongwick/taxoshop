@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 111339,
+  "cluster_id": "workflow-0034",
+  "workflow": [
+    "A statically defined runtime type is initialized with metadata containing runtime-owned interned keys.",
+    "The runtime shuts down without including that type in lifecycle cleanup, so its metadata dictionary survives while the interned keys are reclaimed.",
+    "A subsequent runtime initialization reuses or re-prepares the stale type and scans the retained dictionary.",
+    "Dictionary validation encounters a freed key and aborts instead of rebuilding or clearing the type state."
+  ],
+  "summary": "Stale static type metadata survives runtime shutdown",
+  "decision_reason": "The bug shares workflow-0034’s core failure: runtime-owned state attached to process-global or static objects is omitted from repeated initialization/shutdown lifecycle management, leaving stale state across cycles. Here the residual state causes a dangling metadata-key assertion rather than only a.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:10:27.713983+00:00"
+}

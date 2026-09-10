@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142828,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A removal operation iterates a shared callback collection while comparing each stored entry with a user-supplied value.",
+    "The comparison invokes user code that clears and frees the collection during the iteration.",
+    "The removal operation resumes with its previous iteration state and accesses an element through the invalidated collection storage.",
+    "The stale access reads freed memory, causing a use-after-free failure and process termination."
+  ],
+  "summary": "Reentrant collection clearing invalidates iteration storage",
+  "decision_reason": "The failure workflow is materially the same as re-entrant cleanup invalidating container storage during an in-progress clearing or traversal operation; only the collection contents and triggering callback differ.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:11:55.410777+00:00"
+}

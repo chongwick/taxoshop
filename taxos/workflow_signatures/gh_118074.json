@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 118074,
+  "cluster_id": "workflow-0057",
+  "workflow": [
+    "A runtime stores special immutable records in a static array that does not provide the full storage expected for ordinary collectible objects.",
+    "The object type is marked as eligible for garbage-collection traversal without distinguishing those special records.",
+    "The collector invokes the type’s traversal logic on a special record and reads fields beyond that record’s valid bounds.",
+    "The out-of-bounds access is detected as a global memory-safety failure and terminates the process instead of skipping the noncollectible record."
+  ],
+  "summary": "Garbage-collector traversal overruns special static records",
+  "decision_reason": "No existing cluster matches the failure mechanism: this is an out-of-bounds traversal caused by misclassifying special static records as collectible objects, not a generic boundary scan, stale pointer, or retained-state failure.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:17:34.426995+00:00"
+}

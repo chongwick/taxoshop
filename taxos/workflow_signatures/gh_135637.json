@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 135637,
+  "cluster_id": "workflow-0084",
+  "workflow": [
+    "An unsafe raw-memory operation overwrites the header of a live managed object with invalid pointer and ownership values.",
+    "A later operation consumes that object as structured metadata without detecting that its representation invariants were destroyed.",
+    "Metadata lookup follows the corrupted pointer while processing the operation.",
+    "The invalid dereference terminates the process instead of producing a recoverable error."
+  ],
+  "summary": "Corrupted object header causes fatal metadata dereference",
+  "decision_reason": "No existing cluster matches deliberate raw-memory corruption of a live object followed by metadata access; the failure is distinct from retained-pointer use-after-free, invalid identifier lookup, and other listed workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:35:55.444833+00:00"
+}

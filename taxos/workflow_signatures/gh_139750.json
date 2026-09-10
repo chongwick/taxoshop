@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139750,
+  "cluster_id": "workflow-0090",
+  "workflow": [
+    "A repeated call pattern runs with an optional execution-optimization mode enabled.",
+    "The optimizer allocates a new generated execution object while preparing the repeated calls.",
+    "The generated objects are not released after use, so each iteration leaves another allocation reachable only to the leak detector.",
+    "At process shutdown, memory instrumentation reports the accumulated generated objects as leaks instead of clean termination."
+  ],
+  "summary": "Repeated optimized execution leaks generated objects",
+  "decision_reason": "This is distinct from the existing clusters: the analysis describes systematic failure to reclaim optimizer-generated objects during repeated execution, without an exceptional cleanup path, shutdown-cycle ownership state, or another materially matching mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:39:01.718349+00:00"
+}

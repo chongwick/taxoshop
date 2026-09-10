@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144169,
+  "cluster_id": "workflow-0050",
+  "workflow": [
+    "A keyword-style interface receives a non-text key where text keys are expected.",
+    "Validation detects the invalid or unexpected key and enters diagnostic reporting.",
+    "The diagnostic formatter uses a text-only representation for the arbitrary key, treating it as text storage.",
+    "Formatting dereferences the incompatible value and crashes instead of returning a recoverable type error."
+  ],
+  "summary": "Incompatible diagnostic formatting crashes on arbitrary keyword keys",
+  "decision_reason": "The failure workflow materially matches an existing cluster where error reporting applies an incompatible text format to a non-text value, causing an invalid memory read instead of returning the intended argument error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:28:51.695689+00:00"
+}

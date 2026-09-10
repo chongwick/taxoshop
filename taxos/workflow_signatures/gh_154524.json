@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 154524,
+  "cluster_id": "workflow-0056",
+  "workflow": [
+    "A shared resizable buffer exposes its current backing storage to readers or views.",
+    "One thread obtains or uses that storage while another resizes the buffer, freeing or replacing the backing storage and updating its pointer without synchronizing with the reader.",
+    "The reader observes stale state or continues using an export after its backing storage has been released.",
+    "Access through the stale export reaches freed or corrupted memory, causing a data race or use-after-free failure instead of coordinated lifetime handling."
+  ],
+  "summary": "Unsynchronized buffer reallocation invalidates active readers",
+  "decision_reason": "The bug has the same underlying failure workflow as unsynchronized mutation of a shared native resource handle during concurrent use: one execution context replaces or releases shared backing storage while another still reads or uses it.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:45:11.464541+00:00"
+}

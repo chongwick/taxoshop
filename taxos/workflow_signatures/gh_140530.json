@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140530,
+  "cluster_id": "workflow-0091",
+  "workflow": [
+    "An operation constructs a temporary owned object while converting an argument.",
+    "Validation determines that the constructed object has an invalid type and raises a recoverable error.",
+    "The error path exits without releasing the temporary object’s ownership reference.",
+    "Repeated invalid operations retain each temporary object, causing memory growth and leak reports instead of clean failure handling."
+  ],
+  "summary": "Exceptional validation failure omits temporary-object cleanup",
+  "decision_reason": "The failure workflow materially matches an exceptional validation path that leaves an intermediate owned allocation unreleased, causing leaks across repeated failures.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:49:10.324821+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140551,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "An associative-container lookup invokes user-defined key behavior while resolving an insertion or retrieval.",
+    "That user-defined behavior clears and reinitializes the same container during the active lookup.",
+    "The lookup resumes and the surrounding operation continues with assumptions about the container’s prior internal representation.",
+    "The operation accesses inconsistent or invalidated table state and terminates instead of safely handling the reentrant mutation."
+  ],
+  "summary": "Reentrant container mutation invalidates an active lookup",
+  "decision_reason": "The failure workflow is materially the same as re-entrant cleanup invalidating container storage during an ongoing operation: user code mutates the same container, then the original operation continues with stale internal-state assumptions. The callback occurs during lookup rather than cleanup, but상",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:49:33.535706+00:00"
+}

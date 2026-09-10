@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144280,
+  "cluster_id": "workflow-0147",
+  "workflow": [
+    "An optimizer creates a symbolic value representing the result of a predicate operation.",
+    "Its truthiness analysis dispatches on symbolic-value categories but omits the predicate-result category.",
+    "The omitted category is processed using an incompatible representation assumption.",
+    "Truthiness analysis dereferences invalid state and terminates instead of treating the predicate result as unknown or boolean."
+  ],
+  "summary": "Missing symbolic-value category causes optimizer crash",
+  "decision_reason": "No existing cluster captures an optimizer dispatch omission that misinterprets a valid symbolic value and crashes during analysis; the mechanism is materially distinct from the listed memory, parsing, and optimization-order failures.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:30:05.724758+00:00"
+}

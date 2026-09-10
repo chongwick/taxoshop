@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140564,
+  "cluster_id": "workflow-0102",
+  "workflow": [
+    "A caller clones an existing executable metadata object while changing its parameter-count fields.",
+    "The replacement supplies an extreme positional-parameter count and an inconsistent keyword-only count that do not match the stored parameter layout.",
+    "Internal validation compares the altered counts with the object’s remaining metadata and detects the violated construction invariants.",
+    "The operation raises an internal system error instead of returning a recoverable invalid-metadata error."
+  ],
+  "summary": "Inconsistent executable metadata triggers internal validation error",
+  "decision_reason": "The failure is malformed low-level executable metadata rejected during invariant validation; none of the existing clusters describes this workflow materially.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:49:48.877194+00:00"
+}

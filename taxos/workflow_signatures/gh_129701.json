@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 129701,
+  "cluster_id": "workflow-0049",
+  "workflow": [
+    "Multiple threads concurrently intern or deduplicate the same value through a shared table.",
+    "One thread inserts the value into the table before completing its transition to permanent retention.",
+    "Another thread observes the partially transitioned value and concurrently updates or reads its retention and ownership metadata.",
+    "Unsynchronized reference-count or state updates race, producing inconsistent shared-object metadata and potentially unsafe reuse or process termination."
+  ],
+  "summary": "Concurrent publication races with permanent retention of a shared value",
+  "decision_reason": "The bug materially matches the existing cluster: concurrent access to a shared deduplicated value overlaps with its transition to permanent retention, and unsynchronized metadata/refcount handling creates the failure. The generalized mechanism is the same despite different implementation details.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:30:18.764530+00:00"
+}

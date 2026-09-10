@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141621,
+  "cluster_id": "workflow-0123",
+  "workflow": [
+    "A build enables experimental runtime code generation together with undefined-behavior instrumentation.",
+    "A bootstrap executable begins ordinary code execution through the runtime’s lazy generated-code dispatch path.",
+    "That dispatch path uses an invalid or corrupted generated-code address under the affected toolchain and instrumentation combination.",
+    "The trampoline reads through the invalid address, causing an instrumented segmentation fault and aborting the build instead of completing code generation."
+  ],
+  "summary": "Instrumented lazy code dispatch dereferences an invalid generated-code address",
+  "decision_reason": "No existing cluster captures this specific failure workflow: an instrumented build reaches a lazy dynamic-code dispatch path and dereferences an invalid generated-code address. The closest instrumentation-related clusters involve configuration probes, deliberate fault handling, inherited profiling,或",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:01:38.947244+00:00"
+}

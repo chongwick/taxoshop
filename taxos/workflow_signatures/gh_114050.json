@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 114050,
+  "cluster_id": "workflow-0050",
+  "workflow": [
+    "An operation receives too many arguments and enters its error-reporting path.",
+    "The diagnostic format contains a text placeholder that has no matching text argument, while a numeric count is supplied instead.",
+    "The formatter interprets the numeric count as a pointer to text and reads from that invalid address.",
+    "Diagnostic construction crashes instead of returning the intended argument-count error."
+  ],
+  "summary": "Mismatched diagnostic placeholder causes invalid memory read during error reporting",
+  "decision_reason": "No existing cluster has the same underlying mechanism: a malformed diagnostic format causes an argument-type mismatch and invalid pointer dereference while reporting an otherwise recoverable input error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:13:08.206957+00:00"
+}

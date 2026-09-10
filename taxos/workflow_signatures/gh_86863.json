@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 86863,
+  "cluster_id": "workflow-0019",
+  "workflow": [
+    "A compatibility conditional is inverted, so a code path intended for older host versions runs on newer hosts.",
+    "A conversion involving a subclassed value in a special ambiguous-time case obtains a borrowed reference to a globally shared singleton.",
+    "Cleanup treats the borrowed reference as owned and decrements the singleton’s reference count on every conversion.",
+    "Repeated conversions corrupt the singleton’s ownership count without an immediate failure.",
+    "Later global cleanup attempts to release the still-static singleton as heap storage, causing an invalid free and process termination."
+  ],
+  "summary": "Repeated ownership-count corruption causes invalid release of shared singleton",
+  "decision_reason": "No existing cluster captures an inverted compatibility branch that mismanages borrowed ownership of a shared singleton until deferred cleanup performs an invalid free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:58:34.574082+00:00"
+}

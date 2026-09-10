@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 128130,
+  "cluster_id": "workflow-0075",
+  "workflow": [
+    "Multiple execution contexts concurrently perform evaluations that update shared process-wide state recording an unhandled interrupt.",
+    "One context records the interrupt, while another evaluation clears the same shared state as part of its own initialization.",
+    "The unsynchronized updates race, allowing the clearing operation to erase the other context’s indication.",
+    "A later termination check reads the cleared state and fails to handle the pending interrupt correctly."
+  ],
+  "summary": "Concurrent evaluation loses shared interrupt state",
+  "decision_reason": "No existing cluster materially matches this race: the failure is a concurrent lost update to shared status state, not resource-handle mutation, cache publication, ownership metadata corruption, or identifier collision.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:28:15.998296+00:00"
+}

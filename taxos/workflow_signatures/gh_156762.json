@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 156762,
+  "cluster_id": "workflow-0043",
+  "workflow": [
+    "A cleanup callback is defined with a return type different from the generic callback interface required by a registered slot.",
+    "The registration accepts the callback through an untyped function-pointer field, so compilation does not diagnose the mismatch.",
+    "A collector later invokes the callback through the generic signature during cycle cleanup.",
+    "The incompatible indirect call triggers undefined behavior or instrumentation failure, despite the callback’s cleanup actions completing."
+  ],
+  "summary": "Incompatible cleanup callback signature hidden by untyped registration",
+  "decision_reason": "The failure mechanism is materially the same as workflow-0043: a callback with an incompatible concrete signature is registered through an untyped or casted function-pointer interface, then invoked through the expected generic signature, producing undefined behavior during ordinary dispatch.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:46:44.488792+00:00"
+}

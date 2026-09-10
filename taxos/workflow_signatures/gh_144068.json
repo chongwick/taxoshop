@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144068,
+  "cluster_id": "workflow-0143",
+  "workflow": [
+    "A background worker allocates private tracing state while executing optimized work.",
+    "The worker is abandoned when the hosting runtime shuts down, so its per-worker state is cleared through a special teardown path.",
+    "That teardown path releases ordinary worker state but omits the tracing allocation.",
+    "Leak detection runs after shutdown and reports the unreclaimed tracing state instead of clean termination."
+  ],
+  "summary": "Worker teardown omits cleanup of private tracing state",
+  "decision_reason": "The failure is a teardown-time leak caused by an omitted cleanup action. It is distinct from workflow-0113 because that cluster requires reentrant finalization to recreate state during teardown; here the state is allocated normally and the cleanup path simply never releases it.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:27:15.857319+00:00"
+}

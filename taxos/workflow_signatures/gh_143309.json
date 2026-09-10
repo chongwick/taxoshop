@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143309,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "An operation collects elements from a caller-provided mapping into temporary sequences and begins converting one element through user-controlled conversion logic.",
+    "The conversion callback reentrantly mutates the source data, releasing the element while the operation retains only a borrowed reference.",
+    "The operation continues using or cleaning up the released element as though it were still valid.",
+    "The access reaches freed storage, causing a use-after-free crash instead of completing safely."
+  ],
+  "summary": "Reentrant mutation releases a borrowed element before conversion completes",
+  "decision_reason": "The failure is materially the same as retaining a pointer into storage whose owner releases the object before a later use; the reentrant callback is the trigger, while the core mechanism is use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:19:16.324841+00:00"
+}

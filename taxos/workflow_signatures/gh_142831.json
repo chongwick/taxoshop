@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142831,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "A traversal iterates a caller-controlled collection using non-owning references to its elements.",
+    "Processing an element invokes user-controlled code that reentrantly clears or mutates the collection.",
+    "The mutation invalidates the referenced element and may release its backing storage.",
+    "The traversal continues using the stale reference, causing a use-after-free and process-terminating memory failure."
+  ],
+  "summary": "Reentrant collection mutation invalidates an active element reference",
+  "decision_reason": "The failure workflow materially matches re-entrant mutation invalidating container storage while the original clearing or traversal operation still holds and uses a reference into that storage.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:12:59.075924+00:00"
+}

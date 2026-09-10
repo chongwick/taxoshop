@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 54726,
+  "cluster_id": "workflow-0001",
+  "workflow": [
+    "A multithreaded process stores per-thread execution state in thread-local storage.",
+    "The process is duplicated while other threads exist, leaving inherited state for threads absent in the child.",
+    "The child creates a worker whose thread identifier collides with a vanished parent thread.",
+    "Thread-local initialization retains the inherited entry instead of replacing it with the worker's state.",
+    "A later state lookup returns the stale entry, validation detects the mismatch, and the child terminates."
+  ],
+  "summary": "Inherited thread-local state reused after process duplication and identifier collision",
+  "decision_reason": "The causal workflow is materially identical: process duplication preserves stale per-thread state, a child worker reuses a vanished thread identifier, initialization fails to replace the stale entry, and validation triggers termination.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:52:43.883518+00:00"
+}

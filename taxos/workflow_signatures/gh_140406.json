@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140406,
+  "cluster_id": "workflow-0091",
+  "workflow": [
+    "An extensibility callback returns a newly allocated value of an invalid type.",
+    "The caller detects the type mismatch and raises a recoverable validation error.",
+    "The error path fails to release the owned result before returning.",
+    "Repeated invalid calls retain each result, causing a memory leak detected during cleanup."
+  ],
+  "summary": "Invalid callback result leaks on validation failure",
+  "decision_reason": "The workflow materially matches an exceptional validation path that omits cleanup of an intermediate owned allocation, causing repeated failures to leak memory.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:45:29.822187+00:00"
+}

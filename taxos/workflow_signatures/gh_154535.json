@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 154535,
+  "cluster_id": "workflow-0164",
+  "workflow": [
+    "Multiple threads advance the same stateful iterator concurrently.",
+    "Each advancement updates several linked cursor fields through multiple steps without synchronization.",
+    "Interleaved updates leave the cursor level referring to an uninitialized, stale, or null node pointer.",
+    "The next iteration dereferences that invalid pointer, causing a memory-safety crash instead of merely skipping or duplicating items."
+  ],
+  "summary": "Concurrent iterator cursor corruption causes invalid traversal dereference",
+  "decision_reason": "The failure is distinct from existing iterator clusters because no shared resource is closed, ownership is double-released, or underlying collection is structurally mutated; the crash comes solely from unsynchronized multi-field cursor updates.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:45:24.186642+00:00"
+}

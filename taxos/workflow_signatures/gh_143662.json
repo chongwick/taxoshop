@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143662,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "An operation verifies that its backing resource is available and begins converting input through user-controlled callback code.",
+    "The callback closes or releases the backing resource while the outer operation is still in progress.",
+    "The outer operation fails to revalidate the resource after the callback returns.",
+    "A later native-resource access dereferences the cleared handle and terminates the process instead of reporting a recoverable state error."
+  ],
+  "summary": "Re-entrant callback invalidates a backing resource before later use",
+  "decision_reason": "The bug materially matches this cluster: user-controlled conversion code releases the resource after an initial validity check, and the outer operation later uses the invalidated handle without revalidation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:25:41.642236+00:00"
+}

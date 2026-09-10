@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143545,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "An operation establishes an active execution context and invokes user-controlled callback code to obtain auxiliary data.",
+    "The callback re-enters the owning object and clears its active contexts, freeing a context still held by the outer operation.",
+    "The outer operation resumes without revalidating the context lifetime and reads or updates the released context.",
+    "The resulting use-after-free causes a memory-safety failure instead of safely handling the reentrant mutation."
+  ],
+  "summary": "Reentrant callback frees active context before outer operation resumes",
+  "decision_reason": "The bug materially matches the existing reentrant-resource-invalidation workflow: user-controlled conversion or callback code releases state that the outer operation validated and still uses afterward, leading to a use-after-free. The specific callback and profiling context are implementation-level,",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:22:42.954932+00:00"
+}

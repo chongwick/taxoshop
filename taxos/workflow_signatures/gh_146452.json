@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 146452,
+  "cluster_id": "workflow-0154",
+  "workflow": [
+    "A serializer traverses a shared mutable mapping using non-owning references to its entries.",
+    "Another thread removes or replaces an entry, releasing the referenced value while traversal is still in progress.",
+    "The serializer attempts to retain or process the invalidated reference after the concurrent mutation.",
+    "The stale reference is dereferenced, causing a use-after-free crash instead of a recoverable concurrent-modification error."
+  ],
+  "summary": "Concurrent mapping mutation invalidates borrowed traversal references",
+  "decision_reason": "No existing cluster captures the combination of concurrent mapping mutation, invalidation of non-owning traversal references, and subsequent use-after-free; the container-race and generic lifetime clusters describe materially different workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:35:21.714933+00:00"
+}

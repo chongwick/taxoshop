@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 98249,
+  "cluster_id": "workflow-0031",
+  "workflow": [
+    "A cross-compilation configuration probes for a host-side interpreter but selects an unversioned command without verifying that the command is available.",
+    "The generated build rules embed that command for host-side code generation during the target build.",
+    "The build reaches the generation step and the shell cannot locate the selected executable.",
+    "The generation step fails, so the overall build terminates instead of using an available versioned interpreter or reporting the configuration mismatch clearly."
+  ],
+  "summary": "Unverified interpreter selection breaks cross-compilation build generation",
+  "decision_reason": "No existing cluster captures incorrect tool discovery followed by invocation of a missing executable during build generation; the available configuration-failure cluster concerns incompatible compiler options, which is materially different.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:04:55.112447+00:00"
+}

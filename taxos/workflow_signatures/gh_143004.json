@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143004,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A container update obtains a non-owning reference to an existing value.",
+    "The update invokes user-controlled arithmetic that can re-enter and mutate or clear the container.",
+    "The mutation releases the value while the update still retains its non-owning reference.",
+    "The update later uses the released value, causing a use-after-free and process-terminating memory failure."
+  ],
+  "summary": "Reentrant container mutation invalidates a borrowed value reference",
+  "decision_reason": "The underlying failure is materially the same as retaining a pointer into owner-managed storage after the owner releases it, then dereferencing it later. The reentrant callback and container mutation are implementation-specific details of that general use-after-free workflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:15:20.141721+00:00"
+}

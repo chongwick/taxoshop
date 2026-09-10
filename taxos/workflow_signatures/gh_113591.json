@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 113591,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "An extension exposes an object across two independently managed runtimes and retains references on both sides.",
+    "One runtime deallocates the object while the other runtime still holds a stale reference because cross-runtime lifetime coordination is incomplete.",
+    "The second runtime later runs finalizers and invokes its release path on the stale reference.",
+    "The release accesses or frees already-released storage, causing a use-after-free or double-free crash during collection."
+  ],
+  "summary": "Cross-runtime stale reference causes invalid finalization",
+  "decision_reason": "The underlying failure is materially the same as a retained pointer outliving its owning storage: one manager releases the object while another retains a reachable reference and later uses it. The cross-runtime ownership details differ, but the causal core is stale-reference access after owner de，",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:12:13.695455+00:00"
+}

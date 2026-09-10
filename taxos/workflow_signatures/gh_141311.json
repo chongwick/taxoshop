@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141311,
+  "cluster_id": "workflow-0118",
+  "workflow": [
+    "A seekable in-memory data source accepts a cursor position at the maximum representable offset, beyond its actual stored contents.",
+    "A subsequent read computes the remaining length from that cursor, obtains a negative result, and clamps the requested transfer length to zero.",
+    "The read path still assumes the cursor plus transfer length is strictly below the numeric limit and may perform pointer arithmetic from the out-of-range cursor.",
+    "The boundary assertion fails or undefined pointer formation occurs instead of returning an ordinary end-of-data result."
+  ],
+  "summary": "Maximum cursor position mishandled by zero-length read",
+  "decision_reason": "No existing cluster captures this specific workflow: a valid boundary position is accepted, then a zero-length read path performs strict-boundary validation or pointer arithmetic as though the position were within the backing data.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:59:11.385143+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 116912,
+  "cluster_id": "workflow-0056",
+  "workflow": [
+    "A shared resource object stores a mutable native handle used by concurrent operations.",
+    "One thread closes or detaches the resource and changes the handle while another thread is using it.",
+    "The reader and writer access the handle without synchronization or atomic coordination.",
+    "The concurrent accesses form a data race, producing sanitizer failure and potentially invalid resource use instead of safe operation handling."
+  ],
+  "summary": "Unsynchronized resource-handle mutation during concurrent use",
+  "decision_reason": "This is distinct from the existing clusters: the core mechanism is a direct race between concurrent handle read and close/detach mutation, without the iterator exhaustion, use-after-free, identifier collision, or ownership-transition workflows represented elsewhere.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:17:19.851509+00:00"
+}

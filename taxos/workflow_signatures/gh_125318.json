@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "issue": 125318,
+  "cluster_id": "workflow-0017",
+  "workflow": [
+    "A caller supplies an object that provides some expected interface behavior but is not the concrete record type assumed by native code.",
+    "The implementation skips validating the object’s concrete representation and accesses fields at fixed offsets for that record type.",
+    "Those offsets refer to unrelated or out-of-bounds memory in the supplied object.",
+    "The resulting arbitrary value causes incorrect results or an invalid memory access that can terminate the process.],",
+    "summaryfghissue_125318 workflow signature",
+    "selected_cluster_id",
+    "decision_reason",
+    "The failure is materially the same as workflow-0017: an object of an unexpected record type is reinterpreted as the expected type and fields are read from invalid offsets, causing-"
+  ],
+  "summary": "Concrete-type assumption causes out-of-bounds field access",
+  "decision_reason": "The failure is materially the same as workflow-0017: an object of an unexpected record type is reinterpreted as the expected type and fields are read from invalid offsets, causing memory-safety failure. The specific interface and runtime details are generalized away.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:25:46.823485+00:00"
+}

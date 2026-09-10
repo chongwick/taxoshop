@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 113720,
+  "cluster_id": "workflow-0048",
+  "workflow": [
+    "Interactive input combines an opening delimiter, a line-continuation marker, a newline, and a following expression.",
+    "The tokenizer carries the continued construct across the newline and computes a character position using an invalid or overflowing offset.",
+    "The resulting pointer-index arithmetic exceeds the representable address range, triggering undefined-behavior diagnostics during otherwise valid input processing.",
+    "The runtime reports the diagnostic but continues instead of crashing; the affected path is encountered only once per session."
+  ],
+  "summary": "Tokenizer pointer-index overflow during continued multiline input",
+  "decision_reason": "No existing cluster captures a tokenizer-specific pointer-index overflow caused by continued multiline input. The boundary-overrun and insufficient-lookahead clusters involve distinct mechanisms and ordering.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:12:45.835070+00:00"
+}

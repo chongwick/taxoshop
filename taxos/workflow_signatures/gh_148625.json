@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 148625,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "An iterator compares a current element attribute with a sought value.",
+    "The comparison invokes user-controlled code reentrantly.",
+    "That code replaces or releases the element attribute, deallocating an object still referenced by the outer comparison.",
+    "The comparison resumes after the callback and reads the released object's metadata without revalidating or retaining it.",
+    "The stale access causes a use-after-free crash instead of completing the comparison safely."
+  ],
+  "summary": "Reentrant comparison invalidates an object before resumed use",
+  "decision_reason": "The failure workflow is materially the same: user-controlled conversion or comparison code invalidates a backing object during an outer operation, which resumes and uses the stale object without revalidation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:36:59.483849+00:00"
+}

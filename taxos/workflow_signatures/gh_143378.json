@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143378,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "A mutable in-memory buffer begins a write-like operation and validates that its internal storage is usable.",
+    "Acquiring the caller-provided input invokes user-controlled code that re-enters the same buffer and closes or otherwise mutates it.",
+    "The re-entrant mutation releases or invalidates the internal storage while the outer operation continues.",
+    "The outer operation fails to revalidate the buffer state and writes through the stale storage, causing use-after-free and process termination instead of a recoverable mutation or-간"
+  ],
+  "summary": "Reentrant mutation invalidates backing storage before write completion",
+  "decision_reason": "The underlying failure workflow materially matches the existing cluster: user-controlled conversion/acquisition code mutates or detaches a backing resource, and the outer operation continues without revalidating it before later use. The specific symptom here is use-after-free of internal buffer data",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:20:37.240064+00:00"
+}

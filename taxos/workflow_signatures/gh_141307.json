@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141307,
+  "cluster_id": "workflow-0044",
+  "workflow": [
+    "A loader probes for an optional native entry point using one naming convention, and the failed probe leaves an error pending.",
+    "The loader continues with an alternate probe without clearing or otherwise resolving the earlier error state.",
+    "The alternate path reports failure or invokes a creation callback while the stale error remains pending.",
+    "An internal caller assumes the callback is entered with no pending error and aborts on its invariant check instead of returning a recoverable load error."
+  ],
+  "summary": "Unchecked failed lookup leaves pending error during fallback",
+  "decision_reason": "The underlying workflow materially matches unchecked intermediate failure: a failed conversion or lookup is not handled immediately, processing continues with an invalid pending-error state, and downstream code crashes instead of propagating a recoverable error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:58:54.518552+00:00"
+}

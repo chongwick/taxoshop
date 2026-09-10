@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 111942,
+  "cluster_id": "workflow-0044",
+  "workflow": [
+    "A reconfiguration operation receives an argument of an unsupported type or a value whose conversion raises an exception.",
+    "The implementation invokes a conversion helper that reports failure but does not immediately check its result.",
+    "It continues by using the missing intermediate value or performing another conversion while the earlier exception remains pending.",
+    "Downstream processing encounters the invalid state and crashes instead of propagating a recoverable argument error."
+  ],
+  "summary": "Unchecked argument-conversion failure causes downstream crash",
+  "decision_reason": "No existing cluster captures the materially distinct mechanism of continuing after a failed argument conversion with an invalid result or pending exception.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:10:48.266239+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140517,
+  "cluster_id": "workflow-0089",
+  "workflow": [
+    "A multi-input operation retrieves and owns temporary values from earlier inputs.",
+    "A strict consistency check detects exhaustion or another error before all inputs are processed.",
+    "The error path returns without releasing the values already acquired.",
+    "Repeated failing operations retain those temporary values, causing memory usage to grow and leak detection to report unreclaimed allocations."
+  ],
+  "summary": "Error path omits cleanup of partially acquired temporary values",
+  "decision_reason": "The underlying failure workflow matches: an exceptional path omits releasing an owned intermediate object, causing repeated failures to leak allocations. The specific iteration and strictness behavior differ, but the ownership-cleanup omission is materially the same.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:48:54.213854+00:00"
+}

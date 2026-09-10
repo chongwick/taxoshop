@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 79374,
+  "cluster_id": "workflow-0013",
+  "workflow": [
+    "An optimizer scans a bounded instruction sequence to remove unreachable trailing content after a terminating operation.",
+    "The terminating operation is at the sequence boundary, leaving no following element to inspect.",
+    "A helper advances past the boundary because it lacks an effective end-of-sequence check.",
+    "The optimizer reads beyond the valid instruction data, causing a memory-safety failure or process termination."
+  ],
+  "summary": "Boundary overrun during unreachable-code optimization",
+  "decision_reason": "The failure workflow is materially identical: an optimizer scans past a terminating instruction at the end of bounded data because its helper mishandles the sequence boundary, resulting in an out-of-bounds read.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:55:32.019109+00:00"
+}

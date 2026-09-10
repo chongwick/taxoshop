@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143430,
+  "cluster_id": "workflow-0116",
+  "workflow": [
+    "A caller constructs an executable representation whose instruction data is longer than its associated source-location metadata.",
+    "A position-inspection operation parses the metadata assuming it contains a valid entry for each instruction range.",
+    "The truncated metadata violates the decoder’s boundary and encoding invariants during iteration.",
+    "An internal consistency check aborts the process instead of reporting malformed metadata as a recoverable input error."
+  ],
+  "summary": "Malformed location metadata triggers fatal decoder validation",
+  "decision_reason": "The bug materially matches the existing workflow: deliberately malformed encoded location metadata is later decoded under assumed invariants, and the decoder asserts fatally rather than rejecting the invalid representation recoverably.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:21:47.294983+00:00"
+}

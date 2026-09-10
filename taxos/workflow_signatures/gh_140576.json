@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140576,
+  "cluster_id": "workflow-0103",
+  "workflow": [
+    "A tokenizer processes malformed input containing indentation changes followed by an embedded terminator byte.",
+    "The low-level character reader reports the invalid byte by returning an end-of-input sentinel while recording an error.",
+    "The tokenizer treats that sentinel as ordinary input completion and proceeds to emit a token instead of propagating the pending error.",
+    "A higher-level token iterator attempts to construct a normal token result while the error remains pending, producing an internal failure instead of a recoverable tokenization error"
+  ],
+  "summary": "Pending lexical error is misinterpreted as normal end-of-input",
+  "decision_reason": "No existing cluster has the same underlying workflow: a low-level parser reports an error through an end-of-input sentinel, a caller ignores the pending error, and result construction fails. The issue is distinct from clusters involving parser recovery, unchecked conversions, or malformed diagnostic",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:50:03.647253+00:00"
+}

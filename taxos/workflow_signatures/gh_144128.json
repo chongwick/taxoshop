@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144128,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "A container-conversion operation obtains a borrowed reference to an element and invokes user-defined conversion code on it.",
+    "The conversion code re-enters the operation’s input container and removes the element currently being converted.",
+    "Removing the element releases its last ownership reference, so the borrowed reference becomes dangling while conversion is still active.",
+    "The outer operation continues using the invalidated element reference, causing a use-after-free and process-terminating crash instead of a recoverable conversion error."
+  ],
+  "summary": "Reentrant conversion invalidates the current element before use completes",
+  "decision_reason": "The failure workflow materially matches reentrant user-controlled conversion invalidating a backing object or resource before the outer operation revalidates or finishes using it. The specific container and conversion details are generalized away, while the essential ordering—conversion callback, re",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:28:15.939895+00:00"
+}

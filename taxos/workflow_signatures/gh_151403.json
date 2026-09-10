@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 151403,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A conversion routine retrieves an element from an owning sequence through a non-owning reference and invokes user-controlled conversion logic.",
+    "The conversion logic mutates the sequence and releases its last ownership of the current element.",
+    "The conversion routine continues along an error or validation path and accesses the borrowed element as though it remained alive.",
+    "The access dereferences freed memory and terminates the process instead of reporting a recoverable conversion failure."
+  ],
+  "summary": "Reentrant mutation invalidates a borrowed element during conversion",
+  "decision_reason": "The failure is materially the same as retained-pointer use-after-free: an owner releases storage while a non-owning reference remains reachable, and later code dereferences that stale reference. The reentrant conversion callback is the trigger, but the underlying failure workflow is identical.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:40:48.428743+00:00"
+}

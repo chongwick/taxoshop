@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140777,
+  "cluster_id": "workflow-0112",
+  "workflow": [
+    "A shared-memory-backed aggregate is created and initialized from ordinary input values.",
+    "Initialization prepares a native serialized representation in the shared backing storage.",
+    "The destination address for a bulk write is invalid or no longer refers to usable backing storage.",
+    "The bulk write accesses the invalid address, triggering a memory-safety fault and terminating the process instead of reporting a recoverable initialization error."
+  ],
+  "summary": "Invalid shared-memory destination causes fatal initialization write",
+  "decision_reason": "No existing cluster captures this specific failure workflow: the report indicates a fatal bulk write through invalid shared-memory-backed storage, but does not establish file truncation, ownership release, concurrency, or another materially matching mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:55:51.186173+00:00"
+}

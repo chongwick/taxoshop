@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 154130,
+  "cluster_id": "workflow-0163",
+  "workflow": [
+    "Multiple threads advance the same shared iterator toward exhaustion concurrently.",
+    "Each thread observes the iterator’s still-present owner reference and enters the exhaustion cleanup path.",
+    "Because clearing and releasing the owner reference are not coordinated, more than one thread releases the same reference, corrupting the referenced object’s ownership count.",
+    "A thread still performing the iteration uses a borrowed pointer after another thread’s release has freed the referenced object.",
+    "The stale access or later ownership validation terminates the process instead of completing iteration safely."
+  ],
+  "summary": "Concurrent iterator exhaustion double-releases shared state and invalidates an in-flight traversal",
+  "decision_reason": "No existing cluster is materially identical: the failure combines a race in one-time ownership release with an in-flight borrowed traversal of the released object. Existing double-free and concurrent-reference clusters involve different cleanup or mutation workflows.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:44:36.491061+00:00"
+}

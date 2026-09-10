@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 144922,
+  "cluster_id": "workflow-0137",
+  "workflow": [
+    "A bulk output operation caches the size and pointer of mutable backing storage before processing chunks.",
+    "Each chunk invokes user-controlled callback code that may clear, shrink, or replace the same storage.",
+    "The callback returns, but the operation continues using the cached size and pointer without revalidating them.",
+    "A later chunk reads released, null, or undersized storage, causing a use-after-free or out-of-bounds access instead of safe handling."
+  ],
+  "summary": "Reentrant callback invalidates cached backing storage",
+  "decision_reason": "The failure workflow materially matches reentrant invalidation of a backing resource before later use: user-controlled callback execution changes or releases the resource, and the outer operation continues with stale state without revalidation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:32:39.283547+00:00"
+}

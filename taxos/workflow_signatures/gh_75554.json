@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 75554,
+  "cluster_id": "workflow-0010",
+  "workflow": [
+    "A caller supplies a floating-point value for conversion into a narrower numeric representation.",
+    "Rounding, scaling, or splitting produces a result outside the destination type’s representable range.",
+    "The implementation performs the narrowing conversion before checking whether the result fits.",
+    "The out-of-range conversion has undefined behavior, so later validation cannot reliably report an overflow error.ﬁ"
+  ],
+  "summary": "Out-of-range floating-point narrowing occurs before representability validation",
+  "decision_reason": "The failure workflow is materially the same as the existing cluster: an out-of-range floating-point result is converted before validation, making the conversion undefined and invalidating subsequent overflow checks.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:54:39.762577+00:00"
+}

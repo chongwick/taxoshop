@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141648,
+  "cluster_id": "workflow-0124",
+  "workflow": [
+    "A workload repeatedly accesses the same operation on objects with incompatible layouts, causing the optimizer to build specialized paths and side exits.",
+    "An invalidation event marks those specialized paths obsolete, but reference cycles prevent the invalid paths from being fully removed from executable state.",
+    "Later execution reaches a retained specialized path despite the assumptions that made it valid no longer holding.",
+    "The stale path interprets execution data using the wrong layout, triggering an invalid memory access or an internal consistency failure."
+  ],
+  "summary": "Stale specialized execution survives invalidation and misinterprets changed object layouts",
+  "decision_reason": "This is distinct from the existing clusters: the central failure is retention of invalidated specialized execution through reference cycles, followed by shape-confusion execution, rather than a stale ordinary cache, teardown-only failure, or generic use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:02:01.690926+00:00"
+}

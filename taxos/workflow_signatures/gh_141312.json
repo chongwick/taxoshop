@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141312,
+  "cluster_id": "workflow-0119",
+  "workflow": [
+    "A state-restoration interface accepts a value of an unsupported non-integer type without validating it.",
+    "The restoration logic passes that value to arithmetic intended for integer state.",
+    "The arithmetic path assumes the state is an integer and triggers an internal assertion when the assumption is false.",
+    "The operation terminates with an assertion failure instead of returning a recoverable type error."
+  ],
+  "summary": "Unchecked state type reaches integer-only restoration logic",
+  "decision_reason": "No existing cluster matches this specific workflow of missing type validation followed by an integer-assumption assertion; the nearby unchecked-state cluster concerns treating a wrong-type field as a mapping and crashing during lookup, which is materially different.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:59:26.511402+00:00"
+}

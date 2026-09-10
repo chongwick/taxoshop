@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140750,
+  "cluster_id": "workflow-0110",
+  "workflow": [
+    "A low-level structured-data encoder accepts an inconsistent initial nesting level and initializes a formatting cache only for the base level.",
+    "Encoding a nested container increases the nesting level and requests cached separator data for a level whose entries do not exist.",
+    "The cache-growth helper assumes entries for the previous level and reads beyond the short cache while deriving the next indentation string.",
+    "The out-of-bounds read triggers an assertion or heap-buffer-overflow instead of producing a recoverable argument or state error."
+  ],
+  "summary": "Inconsistent initial nesting level causes formatting-cache out-of-bounds access",
+  "decision_reason": "No existing cluster has the same underlying workflow: this is a cache-size invariant failure caused by an inconsistent initial nesting level, not a generic returned-count error, boundary optimizer overrun, or unchecked callback index.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:55:01.678982+00:00"
+}

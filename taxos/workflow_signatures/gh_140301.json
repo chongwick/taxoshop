@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140301,
+  "cluster_id": "workflow-0045",
+  "workflow": [
+    "An isolated execution context is created with a copied configuration containing owned dynamic data.",
+    "The context is later destroyed, but teardown releases ordinary state without clearing the copied configuration data.",
+    "Repeated creation and destruction leaves those configuration allocations unreachable but unreclaimed.",
+    "Leak detection reports persistent memory growth and marks the otherwise successful operation as failed."
+  ],
+  "summary": "Per-context configuration storage leaks across repeated teardown cycles",
+  "decision_reason": "The bug is materially the same as repeated isolated-context teardown leaking context-owned auxiliary storage; only the omitted storage category differs.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:43:37.496512+00:00"
+}

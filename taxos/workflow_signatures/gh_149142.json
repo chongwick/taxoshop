@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 149142,
+  "cluster_id": "workflow-0081",
+  "workflow": [
+    "Multiple threads share one mutable execution-state record.",
+    "Concurrent operations read, update, or clear the same status fields without synchronization.",
+    "The conflicting accesses form a data race and can observe or overwrite inconsistent state.",
+    "Race-detection instrumentation reports the unsynchronized access instead of allowing the workload to complete normally."
+  ],
+  "summary": "Concurrent unsynchronized access to shared mutable state",
+  "decision_reason": "The failure mechanism materially matches unsynchronized concurrent reads and writes to shared mutable storage; only the stored data type differs.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:37:43.889825+00:00"
+}

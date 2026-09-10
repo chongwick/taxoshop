@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139951,
+  "cluster_id": "workflow-0092",
+  "workflow": [
+    "A runtime begins registering every newly created immutable aggregate container with its cycle-detecting collector, regardless of whether its contents can participate in cycles.",
+    "An application creates many immutable containers holding only non-collectible values during ordinary execution.",
+    "Collection cycles repeatedly scan those containers even though they cannot contribute to reclaimable cycles.",
+    "The unnecessary tracking work causes a substantial garbage-collection performance regression instead of allowing such containers to remain untracked."
+  ],
+  "summary": "Unnecessary tracking of cycle-ineligible immutable containers degrades collection performance",
+  "decision_reason": "No existing cluster describes a performance regression caused by registering objects with a collector when their contents cannot participate in cycles; the listed garbage-collection clusters concern memory-safety failures, leaks, races, or diagnostics rather than redundant collection work.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:40:12.433108+00:00"
+}

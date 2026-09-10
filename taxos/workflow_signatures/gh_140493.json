@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140493,
+  "cluster_id": "workflow-0027",
+  "workflow": [
+    "A multithreaded process is duplicated while other worker threads still own runtime allocations and stacks.",
+    "The child retains those resources even though the corresponding worker threads do not continue running there.",
+    "Child shutdown does not reclaim all inherited resources.",
+    "Leak detection reports the residual allocations, causing the child to exit unsuccessfully instead of completing normally."
+  ],
+  "summary": "Forked child leaks inherited resources from vanished threads",
+  "decision_reason": "The failure workflow materially matches the existing cluster: process duplication preserves live bookkeeping allocations in the child, ordinary child shutdown fails to reclaim them, and leak detection turns the residual state into a failure.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:47:59.501857+00:00"
+}

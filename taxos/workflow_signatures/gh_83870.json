@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 83870,
+  "cluster_id": "workflow-0015",
+  "workflow": [
+    "A byte-oriented conversion accepts arbitrary raw input for a logical value.",
+    "The conversion copies the bytes directly into a native logical object without normalizing nonzero values to canonical encodings.",
+    "The input contains a noncanonical bit pattern that is invalid for the native logical type.",
+    "A later read interprets the invalid representation, causing undefined behavior and potentially a wrong value or runtime diagnostic."
+  ],
+  "summary": "Noncanonical raw bytes reinterpreted as a logical value",
+  "decision_reason": "The failure mechanism is materially identical: arbitrary bytes are copied or reinterpreted as a native logical value without canonicalization, and later use of the invalid representation triggers undefined behavior.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:56:17.499760+00:00"
+}

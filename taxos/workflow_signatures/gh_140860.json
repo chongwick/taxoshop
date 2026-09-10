@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140860,
+  "cluster_id": "workflow-0115",
+  "workflow": [
+    "A module initializer creates a managed type and associated metadata.",
+    "A process-wide callback registry retains a callback that keeps the module-created type graph reachable.",
+    "Shutdown collects and destroys modules before clearing the callback registry, so the retention cycle remains intact.",
+    "Leak detection at process exit reports the type and metadata as indirect leaks instead of clean reclamation."
+  ],
+  "summary": "Teardown ordering preserves callback-retained module allocations",
+  "decision_reason": "This is distinct from the existing clusters: the core failure is a shutdown-ordering bug where a callback registry retains a module-created object graph during module destruction, producing indirect leaks. No existing cluster captures that specific retention-cycle and cleanup-order mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:57:20.873054+00:00"
+}

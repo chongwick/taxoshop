@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143636,
+  "cluster_id": "workflow-0129",
+  "workflow": [
+    "A clone-like operation invokes an overridable construction hook for an object subtype.",
+    "The hook returns an ordinary object whose type and storage do not satisfy the expected subtype layout.",
+    "The operation accepts the result without validating its type and reinterprets it as the expected structured object.",
+    "A later metadata update accesses fields at offsets belonging to the expected layout, causing an invalid memory access instead of a recoverable type error."
+  ],
+  "summary": "Unchecked construction result causes incompatible-layout metadata access",
+  "decision_reason": "The failure workflow is materially the same as workflow-0129: an overridable factory or construction hook returns an incompatible ordinary object, which is unchecked and then reinterpreted as a structured object, leading to an out-of-bounds or invalid metadata access.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:23:51.790568+00:00"
+}

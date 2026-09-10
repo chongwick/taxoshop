@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142629,
+  "cluster_id": "workflow-0130",
+  "workflow": [
+    "A diagnostic formatter receives an optimized instruction whose opcode uses a transformed representation rather than the metadata table’s original index space.",
+    "The formatter treats that transformed value as a direct index into a fixed-size global metadata table.",
+    "The resulting index points beyond the table’s valid bounds during ordinary diagnostic output.",
+    "Memory-safety instrumentation reports a global buffer over-read and terminates the process instead of producing the trace."
+  ],
+  "summary": "Transformed instruction index causes diagnostic table over-read",
+  "decision_reason": "No existing cluster has the same underlying workflow: an optimized or transformed instruction value is incorrectly used as a direct index into fixed metadata, causing an out-of-bounds global read during formatting. The closest bounds-related clusters involve different causes such as malformed input,",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:06:14.594669+00:00"
+}

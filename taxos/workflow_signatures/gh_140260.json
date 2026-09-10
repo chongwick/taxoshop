@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 140260,
+  "cluster_id": "workflow-0077",
+  "workflow": [
+    "Multiple isolated execution contexts concurrently initialize the same process-wide lookup tables for a shared data-conversion facility.",
+    "Each context assumes initialization is local or independently safe and writes optimized handlers into the shared tables.",
+    "The unsynchronized writes overlap, forming a data race on shared initialization state.",
+    "Race-detection instrumentation reports the conflicting access instead of allowing concurrent initialization to complete normally."
+  ],
+  "summary": "Concurrent initialization races on shared process-wide tables",
+  "decision_reason": "The failure is materially the same as concurrent isolated contexts racing on shared process-wide state; the shared tables and initialization context are implementation details.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:42:39.138532+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 153014,
+  "cluster_id": "workflow-0077",
+  "workflow": [
+    "Multiple threads concurrently update and read a shared runtime configuration flag while another thread performs related collection work.",
+    "The update and read operations access the flag through ordinary unsynchronized memory operations.",
+    "Concurrent accesses overlap, creating a data race on the shared flag.",
+    "Race-detection instrumentation reports the conflicting accesses instead of allowing the workload to complete normally."
+  ],
+  "summary": "Concurrent unsynchronized access to shared runtime configuration state",
+  "decision_reason": "The bug is materially the same shared-state race pattern: concurrent execution contexts access process- or runtime-wide state without sufficient atomic coordination. The specific flag and collection behavior differ, but the causal failure workflow matches.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:41:52.345600+00:00"
+}

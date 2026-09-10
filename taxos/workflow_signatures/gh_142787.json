@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142787,
+  "cluster_id": "workflow-0118",
+  "workflow": [
+    "A slicing operation computes an empty result because the requested bounds produce no elements, while the derived start position lies outside the data range.",
+    "The implementation forwards that out-of-range position to the normal bulk-read path without special-casing the zero-length result.",
+    "The bulk-read path asserts that the position is within the backing data even though no bytes need to be read.",
+    "The assertion terminates the operation instead of returning an empty result."
+  ],
+  "summary": "Out-of-range empty slice triggers read-position assertion",
+  "decision_reason": "The failure workflow is materially the same as the existing zero-length read boundary case: an empty transfer is paired with an invalid cursor position, and a boundary assumption triggers a fatal assertion instead of returning an ordinary empty result.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:11:40.371316+00:00"
+}

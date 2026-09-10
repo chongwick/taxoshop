@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issue": 154043,
+  "cluster_id": "workflow-0008",
+  "workflow": [
+    "Multiple threads concurrently advance one shared one-shot iterator whose remaining item is backed by a single owned object.",
+    "Each thread observes the item as still available and begins using the same backing object without synchronized claim or removal.",
+    "The threads independently clear the iterator state and release the same object.",
+    "One release frees the object while another thread is still reading it, and the repeated release corrupts ownership state.",
+    "The resulting use-after-free or double-free terminates the process instead of yielding one item and clean exhaustion."
+  ],
+  "summary": "Concurrent one-shot iterator consumption causes duplicate release and use-after-free.",
+  "decision_reason": "The failure is materially the same as concurrent exhaustion of a shared stateful iterator: unsynchronized consumers race over one remaining resource, one path releases it while another still uses it. This instance additionally exposes the race as duplicate release and double-free rather than only a;",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:44:06.753277+00:00"
+}

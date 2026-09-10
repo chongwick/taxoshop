@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139749,
+  "cluster_id": "workflow-0089",
+  "workflow": [
+    "A runtime prepares and allocates an optimized execution object for a computation.",
+    "The computation raises a recoverable validation error before normal execution completes.",
+    "The exceptional cleanup path omits releasing the allocated execution object.",
+    "Repeated or instrumented shutdown detects the unreclaimed allocation as a memory leak instead of completing cleanly."
+  ],
+  "summary": "Exceptional execution path omits cleanup of an allocated execution object",
+  "decision_reason": "The failure workflow materially matches the existing cluster: an allocated execution-related object becomes unreachable when a recoverable exception bypasses its ownership-release cleanup, producing a leak.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:38:45.297425+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 154044,
+  "cluster_id": "workflow-0074",
+  "workflow": [
+    "Multiple threads first request a lazily computed descriptive value from the same shared object while its cache is empty.",
+    "Each thread computes the value and publishes it to the shared cache without synchronization.",
+    "Concurrent cache publication races, allowing one result to overwrite another and lose ownership of the replaced result.",
+    "The race produces undefined behavior and unreclaimed allocations instead of one safely shared cached value."
+  ],
+  "summary": "Concurrent lazy-cache publication races and leaks replaced results",
+  "decision_reason": "The bug is materially the same as workflow-0074: concurrent first access to an absent shared lazy cache independently computes and publishes a representation without synchronization, causing a publication race and ownership loss. The cached value is descriptive rather than encoded, but that does not",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:44:20.546422+00:00"
+}

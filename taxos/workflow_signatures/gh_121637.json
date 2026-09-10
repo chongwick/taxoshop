@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 121637,
+  "cluster_id": "workflow-0066",
+  "workflow": [
+    "A source input contains a context-sensitive asynchronous construct where it is invalid.",
+    "An optimization pass removes the surrounding code before the construct’s legality is validated.",
+    "Later compilation still processes the construct under an assumption that the context is valid.",
+    "An internal consistency assertion fails instead of returning a recoverable syntax error."
+  ],
+  "summary": "Optimization bypasses validation and triggers compiler assertion",
+  "decision_reason": "No existing cluster captures validation being skipped for optimized-away invalid syntax followed by an internal compiler assertion; the failure workflow is materially distinct.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:22:26.443165+00:00"
+}

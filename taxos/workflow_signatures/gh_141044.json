@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141044,
+  "cluster_id": "workflow-0094",
+  "workflow": [
+    "A process selects a non-default stack allocation for a worker and starts a short-lived worker.",
+    "The process restores the default stack setting while worker-related setup and teardown bookkeeping is still in progress.",
+    "Worker completion fails to release auxiliary execution objects created along that path.",
+    "Leak detection finds the retained direct and indirectly referenced allocations at process exit and reports failure."
+  ],
+  "summary": "Worker stack configuration leaves auxiliary execution state unreclaimed",
+  "decision_reason": "The underlying failure is materially the same as a successful operation omitting cleanup of temporary owned state, resulting in persistent allocations; the threading-specific stack configuration is only the trigger and lifecycle context.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:58:36.712453+00:00"
+}

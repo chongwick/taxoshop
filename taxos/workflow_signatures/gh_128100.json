@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 128100,
+  "cluster_id": "workflow-0056",
+  "workflow": [
+    "Multiple threads access an object’s shared attribute-record pointer while one thread replaces the record.",
+    "The reader loads the pointer non-atomically while the writer swaps in a replacement and releases the previous record.",
+    "The reader continues using the released record without a guaranteed live reference or synchronization.",
+    "The concurrent access becomes a data race and can dereference freed memory, terminating the process instead of safely completing the lookup."
+  ],
+  "summary": "Unsynchronized shared-record replacement causes concurrent use-after-free",
+  "decision_reason": "The failure workflow materially matches concurrent mutation of a shared native handle while another thread uses it without synchronization, with the released resource becoming invalid during the reader’s operation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:27:58.256602+00:00"
+}

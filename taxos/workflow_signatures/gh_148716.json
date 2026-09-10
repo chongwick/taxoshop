@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 148716,
+  "cluster_id": "workflow-0156",
+  "workflow": [
+    "A runtime monitoring mode is enabled and then cleared, leaving execution-specialization state altered.",
+    "A loop repeatedly invokes an operation on receivers whose types vary, so no single callable target can be determined.",
+    "After execution crosses the optimization threshold, the optimizer processes the polymorphic call site without handling the missing callable target.",
+    "An unchecked null assumption triggers an internal assertion and aborts instead of skipping optimization or using a safe fallback."
+  ],
+  "summary": "Polymorphic call optimization assumes a callable target exists",
+  "decision_reason": "No existing cluster matches this specific workflow: an optimizer encounters a deliberately unresolved callable target at a type-unstable call site after altered monitoring state, then aborts due to an unchecked assumption.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:37:11.441961+00:00"
+}

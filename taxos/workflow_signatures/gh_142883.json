@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 142883,
+  "cluster_id": "workflow-0134",
+  "workflow": [
+    "A compound operation begins on an object and invokes user-controlled conversion code to obtain an operand.",
+    "The conversion callback mutates the original object’s runtime type while the operation is still in progress.",
+    "The operation continues using the implementation selected for the object’s former type without revalidating the mutation.",
+    "The stale implementation accesses the object under incompatible type assumptions, causing a null-pointer dereference and process termination instead of a recoverable type error."
+  ],
+  "summary": "Re-entrant type mutation leaves stale operation dispatch",
+  "decision_reason": "No existing cluster captures the materially distinct failure workflow: user-controlled conversion code changes an operand’s type during an active operation, after which stale type-specific dispatch is invoked. The closest re-entrancy and stale-state clusters concern cleanup or cached execution state",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:13:38.118380+00:00"
+}

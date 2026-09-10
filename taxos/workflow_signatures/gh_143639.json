@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143639,
+  "cluster_id": "workflow-0080",
+  "workflow": [
+    "An insertion operation retains borrowed references to pending keys and values in shared temporary state.",
+    "User-controlled key processing re-enters the same loader while the outer insertion is still active.",
+    "The nested operation clears the shared state and releases objects still referenced by the outer operation.",
+    "The outer insertion resumes with those dangling references and dereferences freed storage, causing a use-after-free crash."
+  ],
+  "summary": "Reentrant mutation invalidates borrowed insertion state",
+  "decision_reason": "The failure is materially the same as re-entrant cleanup invalidating shared storage while the original operation continues using retained addresses, leading to use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:24:56.316100+00:00"
+}

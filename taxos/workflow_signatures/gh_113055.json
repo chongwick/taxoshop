@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 113055,
+  "cluster_id": "workflow-0045",
+  "workflow": [
+    "An embedded application repeatedly creates and destroys isolated execution contexts that use private allocator arenas and auxiliary lookup metadata.",
+    "Context teardown releases ordinary execution state but fails to reclaim the allocator arenas and associated metadata.",
+    "Each initialization and shutdown cycle leaves additional allocator storage allocated.",
+    "After repeated cycles, leak detection reports persistent memory growth instead of clean shutdown."
+  ],
+  "summary": "Per-context allocator storage leaks across repeated teardown cycles",
+  "decision_reason": "The failure is a lifecycle omission for per-context allocator arenas and metadata, not the materially different shared extension-state retention described by the existing clusters.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:11:08.827585+00:00"
+}

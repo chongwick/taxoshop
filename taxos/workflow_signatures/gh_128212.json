@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 128212,
+  "cluster_id": "workflow-0074",
+  "workflow": [
+    "Multiple threads access a shared value whose derived representation is initialized lazily.",
+    "One thread computes and publishes the missing representation while another thread concurrently checks or reads the same cached field through a non-synchronized access.",
+    "The unsynchronized read and write form a data race on the shared cache metadata.",
+    "Thread-safety instrumentation reports the race, causing the operation or test to fail instead of safely reusing the representation."
+  ],
+  "summary": "Concurrent lazy-cache read races with representation publication",
+  "decision_reason": "The failure mechanism materially matches the existing cluster: concurrent access to a lazily initialized cached representation without consistent synchronization. The differing symptom is a consistency-check read racing with publication rather than two writers independently publishing the cache.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:29:35.425556+00:00"
+}

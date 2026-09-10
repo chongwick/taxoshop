@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 89391,
+  "cluster_id": "workflow-0022",
+  "workflow": [
+    "A low-level argument parser is given a format specification for a native integer type and a destination variable using a fixed-width integer type.",
+    "On a platform where the native type is wider than the destination variable, the parser writes the parsed value using the native width.",
+    "The write exceeds the destination variable and overwrites adjacent stack memory.",
+    "Sanitizer detection or later execution exposes the stack corruption as a process-terminating memory-safety failure."
+  ],
+  "summary": "Native-width parsing overruns narrower fixed-width storage",
+  "decision_reason": "No existing cluster captures a parser writing a platform-dependent native integer width into a narrower fixed-width stack variable, causing a stack buffer overflow.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:59:36.955427+00:00"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 135774,
+  "cluster_id": "workflow-0085",
+  "workflow": [
+    "An application enables uninitialized-memory instrumentation but links against prebuilt dependencies that were not instrumented.",
+    "Startup initializes a valid string-like key through the uninstrumented code, leaving instrumentation metadata for part of its storage unavailable.",
+    "An instrumented lookup or hashing operation scans the key and treats the missing metadata as an uninitialized byte.",
+    "The instrumentation reports a fatal uninitialized read during normal startup even though the underlying value and memory access are valid."
+  ],
+  "summary": "Partial instrumentation causes a false-positive uninitialized read during startup",
+  "decision_reason": "No existing cluster materially matches a diagnostic false positive caused by mixing instrumented application code with uninstrumented dependencies; the listed uninitialized-read workflows describe actual defective initialization rather than missing instrumentation coverage.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:36:08.103134+00:00"
+}

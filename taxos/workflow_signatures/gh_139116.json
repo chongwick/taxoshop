@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 139116,
+  "cluster_id": "workflow-0088",
+  "workflow": [
+    "One worker acquires a shared coordination lock and then requests a global pause requiring other workers to reach a safe point.",
+    "Another worker attaches its execution state and tries to acquire the same lock before reaching that safe point.",
+    "The first worker waits for the global pause while the second waits for the lock.",
+    "Neither worker can proceed, so the operation deadlocks instead of completing."
+  ],
+  "summary": "Lock-held global pause creates circular wait",
+  "decision_reason": "The failure is a lock-versus-global-pause circular wait; no existing cluster captures this workflow materially.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:37:05.869760+00:00"
+}

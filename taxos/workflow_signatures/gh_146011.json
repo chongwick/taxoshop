@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 146011,
+  "cluster_id": "workflow-0014",
+  "workflow": [
+    "A child view retains a non-owning pointer into storage owned by a parent object.",
+    "The parent object is explicitly destroyed while the child view remains reachable.",
+    "A later representation or inspection operation on the child view dereferences the retained pointer without checking whether the parent storage still exists.",
+    "The access uses freed storage, causing a use-after-free failure instead of reporting that the view is invalid."
+  ],
+  "summary": "Retained child view outlives destroyed parent storage",
+  "decision_reason": "The failure workflow is materially the same as the existing cluster: a derived object retains a non-owning pointer into storage whose owner is released, then later dereferences that stale pointer. The specific view and parent types are implementation details.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:34:38.300284+00:00"
+}
