@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0073",
+  "issues": [
+    126445
+  ],
+  "workflow_hypothesis": "Instrumented subprocess failure is surfaced as a test assertion",
+  "pattern": "A parallel, instrumented test environment causes a subprocess-based operation to return an unexpected non-success status, which the test harness surfaces as an;",
+  "description": "A subprocess success check can expose environment-sensitive failures during parallel execution of instrumented tests.",
+  "precondition": "Tests execute concurrently across multiple worker processes in an instrumented runtime or build.",
+  "critical_operation": "One test launches a subprocess to perform an isolated operation and requires that subprocess to complete successfully.",
+  "interference": "Concurrent workload and instrumentation-related runtime conditions affect the subprocess execution path or its process termination status.",
+  "invalid_assumption": "The subprocess will always return the expected success status despite the surrounding parallel, instrumented execution conditions.",
+  "failure": "The child exits with a non-success code, and the harness converts that unexpected status into an assertion failure.",
+  "search_strategy": [
+    "Inspect parallel test runners for subprocess-based tests whose child exit codes are asserted to indicate success.",
+    "Check instrumented-build and race-detection configurations for tests that launch additional processes under concurrent load.",
+    "Trace subprocess creation and teardown paths for environment-sensitive exit codes that are reported only as generic assertion failures.",
+    "Verify whether tests distinguish infrastructure or instrumentation failures from ordinary child-process assertion failures."
+  ],
+  "evidence": [
+    {
+      "issue": 126445,
+      "supports": "A Linux test run executed many tests in parallel under a thread-sanitized/free-threading configuration; an import-related test launched a separate interpreter process, which returned exit code 66, and the helper reported that unexpected status as an AssertionError."
+    }
+  ],
+  "scope_note": "This is a singleton report. It supports the interaction between parallel instrumented execution, subprocess success assertions, and surfaced exit-status failures, but does not establish the underlying cause of the child’s non-success exit or a universal race-specific mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:50:43.239589+00:00"
+}

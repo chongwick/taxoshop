@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0071",
+  "issues": [
+    124378
+  ],
+  "workflow_hypothesis": "Dependency behavior change invalidates a narrow test expectation",
+  "pattern": "Dependency contract drift makes compatibility tests stale",
+  "description": "A test suite encodes an external dependency's accepted-value domain, normalization, and diagnostics; a dependency update changes that contract, so unchanged assertions fail even though the operation remains valid.",
+  "precondition": "Tests directly exercise behavior owned or defined by an external toolkit and assert specific accepted input forms, converted results, or error text.",
+  "critical_operation": "Run those tests after upgrading the toolkit while retaining the existing version-independent expectations.",
+  "interference": "The toolkit broadens an option's value domain from integral values to general screen-distance values and correspondingly changes parsing, conversion, returned representations, or diagnostic wording.",
+  "invalid_assumption": "The tests assume the previous validator, normalization rules, and exact diagnostics remain stable across toolkit versions.",
+  "failure": "Valid operations or correctly rejected inputs produce a test failure because the assertion compares current dependency behavior with an obsolete expectation.",
+  "search_strategy": [
+    "Check tests that assert exact third-party error strings or validator-specific diagnostics.",
+    "Check shared test helpers for hard-coded conversions, rounding, clipping, or return-type assumptions tied to an external dependency.",
+    "Check version-gated option tests whenever a dependency changes an option's accepted input domain.",
+    "Check compatibility tests for assertions that distinguish integral values from unit-bearing or otherwise richer representations.",
+    "Check whether dependency-version branches cover changed normalization and representation behavior, not only changed input acceptance."
+  ],
+  "evidence": [
+    {
+      "issue": 124378,
+      "supports": "The report shows that an external UI toolkit changed size-related options from integer-only behavior to screen-distance values, altering conversion and error behavior; the test suite was revised to separate version-dependent expectations and update shared helpers, demonstrating stale dependency-contract assertions rather than an application failure"
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern. The report supports dependency-driven drift in accepted values, conversion/representation, and diagnostics within compatibility tests; it does not establish that every dependency update causes this failure mode.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:50:02.206199+00:00"
+}

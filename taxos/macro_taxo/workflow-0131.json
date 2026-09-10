@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0131",
+  "issues": [
+    142661
+  ],
+  "workflow_hypothesis": "Malformed instruction operand triggers internal assertion",
+  "pattern": "A low-level instruction record is constructed with an operation whose contract disallows an operand, but the record carries a nonzero operand value.",
+  "description": "A malformed operand supplied for an operand-free operation reaches low-level instruction construction, where an internal invariant is enforced by assertion rather than recoverable validation.",
+  "precondition": "A caller constructs an instruction record for an operation that does not accept an operand and supplies a nonzero operand value.",
+  "critical_operation": "The instruction builder validates the record against the operation's operand contract using an internal invariant assertion.",
+  "interference": "The caller-controlled malformed record reaches the internal builder without a public validation layer converting the contract violation into a recoverable error.",
+  "invalid_assumption": "The builder assumes callers always honor the operand contract, making process-terminating assertion failure an acceptable response to invalid input.",
+  "failure": "The process terminates on an internal assertion instead of rejecting the malformed instruction through a recoverable argument or validation error.",
+  "search_strategy": [
+    "Check instruction builders for operand-free operations and verify that nonzero operands produce recoverable validation errors.",
+    "Check low-level constructors for assertions directly guarding caller-controlled operand fields.",
+    "Check public wrappers around internal instruction builders for missing argument validation.",
+    "Check call sites that construct operand-free instructions with nonzero operand values and verify their error handling."
+  ],
+  "evidence": [
+    {
+      "issue": 142661,
+      "supports": "The report demonstrates that supplying a nonzero operand to an operation that accepts none reaches low-level validation and triggers an internal assertion, terminating the process instead of raising a recoverable error."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern covering operand-contract violations during low-level instruction construction; the report does not support generalizing to other malformed instruction fields or all assertion failures.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:26:16.827797+00:00"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0005",
+  "issues": [
+    71757,
+    81319,
+    127563,
+    146196
+  ],
+  "workflow_hypothesis": "Zero-length memory transfer is invoked with a null data pointer",
+  "pattern": "Zero-count memory transfer through absent or invalid storage",
+  "description": "An empty-state or zero-length path reaches a memory-transfer operation with a null, invalid, or improperly aligned pointer, even though no elements are transferred.",
+  "precondition": "The computed transfer count can be zero while the corresponding storage is absent or while pointer derivation produces a pointer that does not satisfy the pointed-to type or library contract.",
+  "critical_operation": "Unconditionally form source or destination pointers and invoke a byte/element copy or move primitive using the zero count.",
+  "interference": "The language rules, library contracts, compiler assumptions, and undefined-behavior sanitizers still require valid pointer arguments and may also reject invalid pointer formation or alignment, independently of whether any bytes would be accessed.",
+  "invalid_assumption": "A zero transfer count makes every pointer argument irrelevant and therefore permits null, invalid, or misaligned pointers to be passed or formed.",
+  "failure": "Undefined-behavior diagnostics such as nonnull or misalignment reports, with behavior exposed to optimizer-dependent transformations and possible faults if the same path is later used with a nonzero count.",
+  "search_strategy": [
+    "Check every zero-length copy or move path for null or absent backing storage before the transfer call.",
+    "Check whether typed or offset pointers are formed from empty-state storage before testing or using the element count.",
+    "Check callers that represent empty buffers with null pointers and verify the callee's pointer contract for zero counts.",
+    "Check sanitizer reports around memory primitives for invalid pointer arguments even when the reported size is zero."
+  ],
+  "evidence": [
+    {
+      "issue": 71757,
+      "supports": "Multiple empty-container operations computed zero-sized transfers and still passed null storage to memory primitives, producing undefined-behavior sanitizer reports; the remediation was to skip such transfers."
+    },
+    {
+      "issue": 81319,
+      "supports": "A zero-argument calling path allowed a null argument array to flow into an unconditional copy, and the sanitizer reported the null source pointer despite a zero copy length."
+    },
+    {
+      "issue": 127563,
+      "supports": "An empty internal representation caused a derived typed pointer to be invalid or misaligned before an unconditional zero-sized copy; the report explicitly notes that pointer formation itself can be undefined even without a read."
+    },
+    {
+      "issue": 146196,
+      "supports": "A caller supplied a null character pointer with length zero, and the function reached a copy and pointer-processing path until an explicit zero-length early return was added."
+    }
+  ],
+  "scope_note": "The shared mechanism is broader than null pointers: empty representations can yield invalid or misaligned derived pointers, and the problematic operation may be pointer formation as well as the transfer call. The reports concern C-style memory operations and sanitizer/compiler contracts; they do not establish that every zero-length API must accept a null pointer.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:37:07.550306+00:00"
+}

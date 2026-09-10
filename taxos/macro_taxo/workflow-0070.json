@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0070",
+  "issues": [
+    124001
+  ],
+  "workflow_hypothesis": "Undersized alternate signal stack overruns heap storage",
+  "pattern": "A fixed-size alternate signal stack is allocated without validating worst-case signal-handler stack usage; signal-path execution can corrupt the heap-backedっ",
+  "description": "A fault-reporting component allocates an alternate signal stack with a platform-sensitive fixed heuristic, and excessive signal-handler stack use corrupts that allocation before teardown.",
+  "precondition": "A fault-reporting subsystem uses a heap-backed alternate signal stack whose size is chosen by a fixed multiplier or other heuristic rather than being established from the complete handler call chain and platform requirements.",
+  "critical_operation": "A diagnostic or fault signal executes on the alternate stack and invokes handler logic, potentially including a prior handler or other callbacks.",
+  "interference": "The signal-path stack usage exceeds the reserved region and overwrites bytes or allocator metadata beyond the valid stack allocation.",
+  "invalid_assumption": "The heuristic-sized alternate stack is sufficient for every supported platform and handler path, and therefore remains intact until normal cleanup.",
+  "failure": "Later cleanup fills, validates, or frees the corrupted allocation; memory instrumentation detects the out-of-bounds state and terminates the process, although the corruption occurred earlier.",
+  "search_strategy": [
+    "Inspect alternate-signal-stack allocations for fixed constants or multipliers that are not derived from measured worst-case handler usage.",
+    "Trace every handler and chained-handler call reachable on the alternate stack, and compare its worst-case stack use with the reserved size on each target platform.",
+    "Check whether signal-stack allocations have guard regions, explicit overflow detection, or tests that exercise the deepest diagnostic path.",
+    "Verify that teardown-time allocator failures are correlated with earlier writes to the signal-stack allocation rather than treated as the point of origin."
+  ],
+  "evidence": [
+    {
+      "issue": 124001,
+      "supports": "The report repeatedly shows a heap allocation originating in alternate signal-stack setup and a later teardown-time debug fill triggering a heap-buffer-overflow. It identifies a fixed stack-size heuristic as weak and reproduces the failure across multiple target environments and releases; increasing the nominal multiplier did not eliminate the same"
+    }
+  ],
+  "scope_note": "This is a singleton cluster. The report supports a cautiously scoped pattern involving heap-backed alternate signal-stack corruption and delayed detection, but the enlargement experiment did not change the observed allocation or failure, so it does not conclusively prove that simple undersizing alone is the root cause.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:49:29.821237+00:00"
+}

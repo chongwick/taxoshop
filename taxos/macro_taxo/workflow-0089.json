@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0089",
+  "issues": [
+    139540,
+    139748,
+    139749,
+    140517
+  ],
+  "workflow_hypothesis": "Exceptional execution path omits ownership release and leaks generated objects",
+  "pattern": "Exceptional exits bypass cleanup for partially acquired ownership",
+  "description": "A routine acquires owned references or temporary allocations before a multi-stage operation completes, but some exceptional or validation exits bypass the release logic.",
+  "precondition": "A function establishes ownership of a resource or temporary reference before subsequent conversion, compilation, iteration, or optimized execution has finished.",
+  "critical_operation": "A later stage can fail after that ownership is established, including recoverable exceptions, validation failures, or compilation errors that preserve an error state without following the ordinary return path.",
+  "interference": "Control flow returns, jumps, or transfers into another execution path before a unified cleanup block runs, or cleanup is incorrectly delegated to a later stage that is never reached.",
+  "invalid_assumption": "The implementation assumes every failure reaches the same cleanup point or uses one specific failure sentinel, overlooking exceptional paths that retain ownership while bypassing that cleanup.",
+  "failure": "The owned reference or allocation remains live after the operation fails; repeated failures accumulate unreclaimed objects and produce reference-count or leak-detector reports.",
+  "search_strategy": [
+    "Trace every owned reference or temporary allocation from acquisition through all returns, gotos, exception transfers, and handoffs.",
+    "Check whether conversion, compilation, validation, or iterator failures can occur after ownership is acquired but before the common cleanup block.",
+    "Verify that cleanup is centralized or explicitly executed on recoverable exceptions, not only on success and one designated null or fatal path.",
+    "Inspect generated wrappers and helper callees for mismatched ownership conventions when a conversion succeeds but a later argument or operation fails.",
+    "Exercise each exceptional branch repeatedly with mortal or uniquely allocated objects and compare reference counts or allocation totals."
+  ],
+  "evidence": [
+    {
+      "issue": 139540,
+      "supports": "An execution object acquired an owned reference before compilation and optimized execution completed; compilation failure and an exception-bearing optimized exit could bypass the decrement, leaving the object allocated."
+    },
+    {
+      "issue": 139748,
+      "supports": "Argument conversion created a strong reference, but later conversion failures could exit the generated wrapper before the implementation-level cleanup ran, leaking the converted object."
+    },
+    {
+      "issue": 139749,
+      "supports": "A recoverable runtime exception during optimized execution reproduced an unreclaimed execution object allocated along the optimized path, consistent with exceptional exit bypassing ownership release."
+    },
+    {
+      "issue": 140517,
+      "supports": "An iterator-processing routine accumulated temporary item references, then strict-mode validation errors returned before the shared cleanup released the already acquired items."
+    }
+  ],
+  "scope_note": "The reports share an exceptional-control-flow and ownership-cleanup mechanism across different subsystems. They do not establish that every leak involves garbage-collector registration, compilation, or generated code; those are implementation-specific variants.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:01:16.192594+00:00"
+}

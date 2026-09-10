@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0068",
+  "issues": [
+    122026
+  ],
+  "workflow_hypothesis": "Mismatched nested delimiters underflow parser nesting state",
+  "pattern": "A nested-interpolation tokenizer updates delimiter-depth state for a closing delimiter before validating that the delimiter has a matching opener, allowing a-;",
+  "description": "A nested-interpolation tokenizer updates delimiter-depth state for a closing delimiter before validating that the delimiter has a matching opener, allowing a malformed delimiter sequence to underflow parser state and trigger an internal invariant failure instead of a recoverable syntax error.",
+  "precondition": "A tokenizer parses nested interpolation expressions whose delimiters may be mismatched or prematurely closed.",
+  "critical_operation": "When processing a closing delimiter inside an interpolation, the tokenizer decrements the current nesting-depth counter before checking whether a corresponding opener exists.",
+  "interference": "Malformed nested or interleaved delimiters cause an unmatched closer to pass through the ordinary nesting-state update path, driving the depth below zero.",
+  "invalid_assumption": "Every closing delimiter encountered in the interpolation context has a matching opener, so the nesting-depth counter cannot become negative.",
+  "failure": "The tokenizer violates its nonnegative-depth invariant and raises an internal assertion or aborts, rather than returning a syntax error that identifies the unmatched delimiter.",
+  "search_strategy": [
+    "Inspect every parser or tokenizer path that decrements delimiter depth before validating a matching opener.",
+    "Check malformed nested-interpolation inputs containing extra closing delimiters and verify they produce recoverable syntax errors rather than invariant failures.",
+    "Trace whether delimiter bookkeeping is shared across nested interpolation modes and can be updated by mismatched delimiter kinds.",
+    "Assert that nesting counters are checked for underflow at the point where closing delimiters are consumed."
+  ],
+  "evidence": [
+    {
+      "issue": 122026,
+      "supports": "The report demonstrates that malformed nested interpolation with mismatched closing delimiters drove a delimiter-depth counter negative and triggered an internal assertion; the fix added an underflow check that returns an unmatched-delimiter syntax error."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern supported by one report: it applies to tokenizers or parsers with nested interpolation and depth-based delimiter bookkeeping, and does not claim that all delimiter mismatches or all parser state errors share this exact failure mode.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:48:34.486696+00:00"
+}

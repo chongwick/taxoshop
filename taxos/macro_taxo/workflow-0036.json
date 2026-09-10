@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0036",
+  "issues": [
+    101180,
+    127971
+  ],
+  "workflow_hypothesis": "Insufficient lookahead causes out-of-bounds read during character-sequence encoding",
+  "pattern": "Boundary-sensitive text processing performs speculative lookahead for a multi-element candidate without first proving that the next element lies within the user",
+  "description": "A text-processing fast path examines a neighboring character while testing a multi-character encoding or search candidate, but the current position may be at the logical end of the input.",
+  "precondition": "The input ends at the current processing position, while the selected candidate probe or skip heuristic may require reading one additional character.",
+  "critical_operation": "The routine performs candidate probing, mismatch handling, or search skipping using an unvalidated next-element access.",
+  "interference": "Boundary validation is omitted, delayed until after the probe, or the probe receives a pointer that represents only the current element even though the candidate logic assumes a following element is available.",
+  "invalid_assumption": "A following character exists whenever the current position is treated as a possible candidate start.",
+  "failure": "The routine reads one element beyond the input boundary, producing an out-of-bounds access detectable by memory-safety instrumentation and potentially causing a process-terminating fault; functional correctness may otherwise appear unaffected.",
+  "search_strategy": [
+    "Check every multi-character candidate probe for an explicit remaining-length test before reading the following character.",
+    "Inspect optimized search skip and mismatch branches for accesses at current_index + 1 when current_index can equal the final valid position.",
+    "Verify that helper routines receive a buffer and length sufficient for every lookahead they may perform.",
+    "Exercise candidate misses and multi-character representations exactly at the input boundary under address sanitization."
+  ],
+  "evidence": [
+    {
+      "issue": 101180,
+      "supports": "A character encoder tested candidate representations through a path that could inspect a second character even when only the current character was supplied; a combining-character boundary case caused an out-of-bounds read, fixed by providing bounded two-element input and populating the second element only after confirming it exists."
+    },
+    {
+      "issue": 127971,
+      "supports": "Optimized string-search mismatch and skip paths unconditionally inspected the character after the current search position, including when that position was the last possible pattern start; adding a boundary guard prevented the one-past-end read."
+    }
+  ],
+  "scope_note": "The reports share an unchecked one-element lookahead at an input boundary, but differ in purpose: one occurs during multi-character encoding candidate selection and the other during optimized substring-search skipping. The pattern is scoped to text-processing routines with speculative neighboring-character access, not to encoders alone.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:33:39.940798+00:00"
+}

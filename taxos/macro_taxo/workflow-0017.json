@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0017",
+  "issues": [
+    85863,
+    125318,
+    140471
+  ],
+  "workflow_hypothesis": "Heterogeneous sequence element misinterpreted as a different record type",
+  "pattern": "I’m reading the three detailed analyses and will extract only the mechanism they jointly support.",
+  "description": "Unchecked representation-specific access after a weakly validated boundary admits an alternate record or object representation.",
+  "precondition": "A low-level routine receives data from an extensible, weakly typed, heterogeneous, or malformed input boundary, while its implementation relies on a concrete record layout or field type.",
+  "critical_operation": "The routine performs a direct typed cast, layout-specific field read, indexing operation, or formatting access without first validating the concrete representation of each input.",
+  "interference": "A refactor, compatibility path, or missing validation allows a wrapper record, duck-typed object, or malformed metadata value to bypass the expected-type check and reach that operation.",
+  "invalid_assumption": "Sequence membership, partial protocol compatibility, or a field’s nominal role is incorrectly treated as proof that the value has the exact internal layout and field type required by the accessor.",
+  "failure": "The accessor reads beyond the object or global buffer, producing undefined or nondeterministic data and potentially a sanitizer-detected buffer overflow, segmentation fault, or process termination.",
+  "search_strategy": [
+    "Trace every producer of a low-level consumer’s inputs and verify that concrete element or object types are validated at the boundary.",
+    "Check heterogeneous sequences for consumers that cast or index every element as one record subtype, especially first or last elements used for metadata.",
+    "Inspect fast paths for duck-typed or user-defined objects and confirm that representation-specific accessors are guarded by runtime type checks.",
+    "Review malformed or user-controlled metadata paths for formatters and field readers that assume strings, layouts, or lengths without validation.",
+    "Compare refactored collection and dispatch paths with their predecessors for lost filtering, wrapper unwrapping, or type checks."
+  ],
+  "evidence": [
+    {
+      "issue": 85863,
+      "supports": "An iterative argument collector passed a mixed sequence containing wrapper records to code that treated the final item as an expression record, so layout-specific metadata reads crossed the object boundary."
+    },
+    {
+      "issue": 125318,
+      "supports": "A native fast path accepted a custom object implementing only part of the expected temporal interface, then read an internal field belonging to the concrete temporal type, causing an out-of-bounds read and possible segmentation fault."
+    },
+    {
+      "issue": 140471,
+      "supports": "Malformed field metadata containing a non-string value reached a string-specific formatter, whose representation-dependent length access produced a global-buffer-overflow."
+    }
+  ],
+  "scope_note": "The reports share an unchecked boundary between flexible input representations and layout-specific native access. They differ in trigger details—mixed internal records, partial duck typing, and malformed metadata—so the pattern does not require a parser refactor or a particular record kind.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:45:06.892455+00:00"
+}

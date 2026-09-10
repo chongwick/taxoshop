@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0004",
+  "issues": [
+    66234
+  ],
+  "workflow_hypothesis": "Truncated mapped backing store causes fatal later access",
+  "pattern": "Live memory-mapped persistent storage can be externally truncated before a later update accesses the mapping.",
+  "description": "A persistent store remains open while its backing file is externally shortened, and a subsequent operation accesses mapped data using the original layout.",
+  "precondition": "A persistent file-backed store has live memory-mapped contents and assumes the backing file remains sufficiently sized and structurally valid.",
+  "critical_operation": "A later update or lookup dereferences mapped storage based on the previously valid file layout.",
+  "interference": "An external actor truncates or otherwise shortens the backing file while the store remains open.",
+  "invalid_assumption": "The existing mapping still refers to valid backing storage covering the original addresses and layout.",
+  "failure": "The access produces a fatal storage-library error or process-terminating memory fault instead of a recoverable error.",
+  "search_strategy": [
+    "Check whether live mappings can outlast validation of the backing file's current size.",
+    "Check update and lookup paths for mapped-memory dereferences without backing-file length validation.",
+    "Check whether external truncation or shrinkage is handled before accessing mapped data.",
+    "Check whether invalidated mappings become recoverable errors rather than fatal faults."
+  ],
+  "evidence": [
+    {
+      "issue": 66234,
+      "supports": "The report reproduces an open persistent store whose backing file is emptied externally, after which a write reaches invalid mapped storage and terminates the process; disabling mapping avoids the reproduced crash in the described configuration."
+    }
+  ],
+  "scope_note": "Singleton cluster: scoped to persistent stores using live memory mappings where the backing file may be truncated or shortened externally. The report does not establish a rule for ordinary buffered I/O, file replacement without shrinkage, or every form of mapping invalidation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:36:29.728368+00:00"
+}

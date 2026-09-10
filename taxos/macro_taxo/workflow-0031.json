@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0031",
+  "issues": [
+    98249
+  ],
+  "workflow_hypothesis": "Unverified interpreter selection breaks cross-compilation build generation",
+  "pattern": "In cross-compilation, host-side build tooling is selected by name without validating that the exact command is executable and suitable in the build environment;",
+  "description": "A cross-build configuration records an interpreter command for host-side generation, but the selected command does not actually resolve in the build environment.",
+  "precondition": "Cross-compilation requires a host-executed interpreter for generating build-time artifacts, while the environment may provide only a differently named or versioned interpreter.",
+  "critical_operation": "Configuration probes for and embeds an interpreter command into generated build rules without validating that the exact selected command is available and runnable.",
+  "interference": "The generated rules invoke the recorded command during host-side artifact generation, but command-name or version mismatches make that invocation unavailable.",
+  "invalid_assumption": "A discovered or selected command name is assumed to identify an executable compatible with the build environment, without checking exact availability and suitability.",
+  "failure": "The shell cannot resolve the embedded interpreter when generation begins, so the generation target fails and the overall cross-build terminates.",
+  "search_strategy": [
+    "Inspect cross-compilation configuration probes for interpreter names that are recorded without an exact executable or usability check.",
+    "Trace every configured host-tool variable into generated build rules and verify that the invoked command is resolvable on the build host.",
+    "Check fallback selection paths for unversioned commands when only versioned interpreters are installed.",
+    "Add a configuration-time validation or clear diagnostic for missing or incompatible host-side generators."
+  ],
+  "evidence": [
+    {
+      "issue": 98249,
+      "supports": "The report shows a cross-build selecting an unversioned interpreter command, embedding it in generated rules, and failing when the shell cannot find that command; it also documents that differently named or versioned installed interpreters did not match the selected command."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern: it generalizes the demonstrated cross-compilation failure in which host-tool command selection is not validated, without asserting that every interpreter-selection failure has the same cause.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:52:30.102323+00:00"
+}

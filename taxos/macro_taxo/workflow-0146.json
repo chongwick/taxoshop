@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0146",
+  "issues": [
+    144199
+  ],
+  "workflow_hypothesis": "Profiling-instrumented build helper fails on residual exit-time allocations",
+  "pattern": "Leak-checking a short-lived build helper that combines execution profiling with sanitizer instrumentation can mistake profiling-runtime shutdown bookkeeping for",
+  "description": "A profile-instrumented helper performs its intended generation work but fails during process teardown because profiling bookkeeping remains allocated when leak checking runs.",
+  "precondition": "A build compiles and runs a short-lived artifact-generation executable with both execution-profiling instrumentation and leak-detecting sanitizer instrumentation enabled.",
+  "critical_operation": "The build invokes that executable to generate source or metadata artifacts, causing the profiling runtime to initialize and later finalize its coverage bookkeeping at process exit.",
+  "interference": "Profiling finalization allocates or retains bookkeeping objects during exit-time dumping, and those objects remain reported as live when the leak detector performs its final check.",
+  "invalid_assumption": "The build assumes that profiling runtime shutdown is leak-clean, or that exit-time profiling allocations will be exempt from the sanitizer's process-exit leak report.",
+  "failure": "The sanitizer reports the residual profiling allocations as fatal leaks, the helper exits unsuccessfully, its generated artifact target fails, and the enclosing build pipeline aborts.",
+  "search_strategy": [
+    "Inspect build rules for helper executables compiled with both profiling instrumentation and leak-detecting sanitizers.",
+    "Trace profiling-runtime initialization, data dumping, and exit handlers for allocations that remain live at process termination.",
+    "Run each instrumented artifact generator under leak detection and verify that sanitizer reporting occurs only after all profiling teardown callbacks complete.",
+    "Check whether build-time helper targets treat sanitizer leak reports as fatal and whether profiling-specific leak suppression or cleanup is deliberately configured."
+  ],
+  "evidence": [
+    {
+      "issue": 144199,
+      "supports": "The reported build runs an instrumented helper during profile-generation setup; the helper triggers exit-time profiling bookkeeping allocations, LeakSanitizer reports direct and indirect residual allocations from that runtime, and the helper's failed make targets stop profile generation and the overall optimization build."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern supported by one report. It generalizes to short-lived build helpers combining execution profiling with leak detection; the report specifically demonstrates failure during exit-time profiling finalization, not a general incompatibility between profiling and sanitizers in all program lifetimes.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:33:37.204866+00:00"
+}

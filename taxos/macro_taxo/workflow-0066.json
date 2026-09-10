@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0066",
+  "issues": [
+    121637
+  ],
+  "workflow_hypothesis": "Optimization bypasses validation and triggers compiler assertion",
+  "pattern": "Context-sensitive syntax is validated only during later code generation, while an optimization pass can remove the construct first; residual compilation state,ā",
+  "description": "A compiler accepts source containing a construct whose legality depends on its enclosing context, but defers that legality check until code generation. Optimization can eliminate the construct before the check runs, while later compilation still consumes related scope or coroutine metadata. The compiler then relies on the missing construct having been context-valid and may abort on an internal assertion instead of reporting a syntax error.",
+  "precondition": "Source contains a context-sensitive asynchronous construct in an enclosing context where that construct is illegal, and the construct is located in code eligible for compile-time removal.",
+  "critical_operation": "Run the compiler's optimization pass before performing the construct's context-legality validation.",
+  "interference": "Optimization removes the source subtree that would have triggered the recoverable syntax check, while compilation continues with scope, symbol, or coroutine metadata derived from the original source.",
+  "invalid_assumption": "Later code-generation logic assumes every remaining relevant asynchronous construct is in a permitted function-like or explicitly enabled top-level context.",
+  "failure": "The compiler reaches an internal consistency assertion or equivalent unrecoverable failure instead of returning a syntax error for the invalid source.",
+  "search_strategy": [
+    "Find context-sensitive syntax whose legality is checked only in code-generation visitors rather than during an always-run semantic or symbol-analysis phase.",
+    "Trace optimization paths that delete constant-false branches, assertions, unreachable statements, or other dead subtrees before legality checks execute.",
+    "Check whether removed constructs can still affect scope, symbol, coroutine, or feature flags consumed by later compilation stages.",
+    "Verify that later compiler assertions about enclosing context are protected by an earlier validation that cannot be bypassed by optimization."
+  ],
+  "evidence": [
+    {
+      "issue": 121637,
+      "supports": "The report demonstrates that invalid top-level asynchronous expressions and asynchronous comprehensions inside optimized-away code bypassed deferred compiler checks, leaving later compilation to assert on an invalid context; the fix moved validation earlier so a syntax error is produced across optimization levels."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is cautiously scoped to compiler pipelines where optimization may precede validation of context-sensitive asynchronous constructs. The report covers multiple asynchronous forms but does not establish that every optimization or every context-sensitive language feature behaves this way.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:47:33.591720+00:00"
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0142",
+  "issues": [
+    143751
+  ],
+  "workflow_hypothesis": "Oversized optimized trace corrupts generated-code metadata during cleanup",
+  "pattern": "Increasing a trace-length limit beyond the generated-code subsystem’s supported size can produce invalid executable metadata that later cleanup cannot safely un",
+  "description": "A trace-size configuration exceeds the generated-code capacity, allowing a trace whose compiled representation is too large for reliable metadata/instruction bookkeeping; cleanup then encounters metadata that no longer identifies the expected entry instruction and crashes.",
+  "precondition": "A tracing optimizer permits traces larger than the generated-code subsystem’s machine-code or representation limits.",
+  "critical_operation": "The optimizer records and compiles an unusually long trace into executable code.",
+  "interference": "The generated-code size limit is reached or exceeded, leaving executable metadata inconsistent with the generated instruction sequence or its entry location.",
+  "invalid_assumption": "Cleanup assumes every executable has intact metadata pointing to the expected entry instruction.",
+  "failure": "Detaching or invalidating the executable dereferences invalid metadata and triggers an assertion or segmentation fault instead of rejecting, truncating, or safely discarding the oversized trace.",
+  "search_strategy": [
+    "Check whether configurable trace or IR limits can exceed the generated-code buffer, machine-code, or bookkeeping limits.",
+    "Trace oversized-compilation paths through metadata construction and verify that size-limit failures abort or truncate before publication.",
+    "Inspect executable cleanup and invalidation for unchecked assumptions about entry-instruction metadata.",
+    "Test boundary and over-limit traces under debug and sanitizer builds, including cleanup after failed or partially constructed compilation."
+  ],
+  "evidence": [
+    {
+      "issue": 143751,
+      "supports": "Raising the trace-length setting substantially caused the actual machine-code optimizer to compile a long trace and later crash during executable detachment when an assertion found that the referenced instruction was not the expected entry instruction; the report’s follow-up identifies a generated-code limit as the cause."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern. It supports oversized trace configuration crossing a generated-code limit and exposing inconsistent metadata during cleanup; it does not establish that every trace overflow or every compiler limit produces the same corruption or failure mode.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:32:10.098957+00:00"
+}

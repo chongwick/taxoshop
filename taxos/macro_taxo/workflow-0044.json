@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0044",
+  "issues": [
+    111942,
+    140650,
+    141307
+  ],
+  "workflow_hypothesis": "Unchecked argument-conversion failure causes downstream crash",
+  "pattern": "Unchecked failure from a conversion, coercion, or probe helper leaves an error pending; later control flow treats the result as valid and reaches a downstream-­",
+  "description": "A low-level helper reports failure through a sentinel and pending error, but its caller continues as though it produced a valid result. Subsequent logic then violates the error-state contract and fails catastrophically instead of propagating the original argument or lookup error.",
+  "precondition": "A reconfiguration, state-check, or loading operation invokes a helper that may fail while converting, coercing, accessing, or probing a value, leaving an error indicator pending and returning an error sentinel.",
+  "critical_operation": "The caller consumes the helper's result without immediately testing the failure sentinel, or proceeds to another operation while the helper's error remains pending.",
+  "interference": "The pending error contaminates later branching, conversion, fallback probing, or invocation; an error sentinel may also be misinterpreted as an ordinary truthy or usable result.",
+  "invalid_assumption": "The caller assumes the helper produced a valid result and that downstream operations begin with no pending error, instead of treating the sentinel and error state as an immediate exceptional path.",
+  "failure": "Downstream code overwrites or mishandles the original error, dereferences invalid state, triggers an internal consistency failure, or aborts/crashes rather than returning the appropriate recoverable exception.",
+  "search_strategy": [
+    "Inspect every conversion, coercion, attribute access, and lookup helper for an error sentinel paired with a pending error.",
+    "Verify that callers test failure sentinels immediately before branching, continuing, or invoking another helper.",
+    "Check whether error sentinels can be mistaken for valid boolean, pointer, index, or status results.",
+    "Trace fallback paths to ensure they explicitly preserve, clear, or propagate pending errors before making another call.",
+    "Add adversarial tests where conversion or lookup raises, returns an invalid type, or fails on the first probe."
+  ],
+  "evidence": [
+    {
+      "issue": 111942,
+      "supports": "Invalid reconfiguration arguments and failing value conversions were allowed to continue into later processing, producing crashes instead of the corresponding argument or conversion exception."
+    },
+    {
+      "issue": 140650,
+      "supports": "A state query whose value could not be converted to a boolean returned an error sentinel that callers treated as a valid closed-state result, causing internal error handling to fail; checking the sentinel restored exception propagation."
+    },
+    {
+      "issue": 141307,
+      "supports": "A failed first probe left an error pending while a fallback probe and subsequent call proceeded, ultimately reaching an internal assertion; clearing or propagating the probe error yielded a normal loading exception."
+    }
+  ],
+  "scope_note": "The reports differ in the helper involved—argument conversion, boolean coercion, and fallback symbol probing—but share the same error-state propagation defect. The pattern is scoped to callers of helpers whose failure is represented both by a sentinel/result and a pending error; it does not assert that every downstream crash has this cause.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:37:07.369762+00:00"
+}

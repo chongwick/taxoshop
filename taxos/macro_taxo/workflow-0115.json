@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0115",
+  "issues": [
+    140860
+  ],
+  "workflow_hypothesis": "Teardown ordering preserves callback-retained module allocations",
+  "pattern": "Module-created managed objects remain indirectly reachable when teardown destroys modules before clearing retained callbacks.",
+  "description": "A teardown-ordering bug where a long-lived callback registry preserves a reachability path into module-created runtime objects, preventing their reclamation.",
+  "precondition": "Module initialization creates managed types and associated metadata, and a process- or interpreter-scoped callback registry retains a callback or callback-related object graph connected to those module-created objects.",
+  "critical_operation": "Shutdown destroys or finalizes modules while the callback registry is still populated.",
+  "interference": "The retained callback graph keeps the module-created type graph reachable during module destruction and subsequent cleanup.",
+  "invalid_assumption": "Teardown can safely destroy modules before clearing callback registries, assuming module cleanup or a later interpreter-state cleanup will remove all remaining references.",
+  "failure": "The managed type and transitively owned metadata are not reclaimed and leak detection reports them as indirect leaks.",
+  "search_strategy": [
+    "Trace shutdown ordering and verify callback registries are cleared before unloading modules that create managed runtime types.",
+    "Search for interpreter- or process-scoped callback containers whose retained callbacks can reference module objects, types, descriptors, or metadata.",
+    "Check whether module finalization relies on a later state-clear phase to break references that must be removed before module destruction.",
+    "Add teardown tests with callback registration enabled and leak detection to confirm module-created object graphs are fully reclaimed."
+  ],
+  "evidence": [
+    {
+      "issue": 140860,
+      "supports": "The report reproduces indirect leaks of a module-created managed type and its descriptors, dictionaries, strings, and related metadata when a retained audit callback is active; the proposed fix clears the callback registry before module destruction, directly supporting the teardown-ordering mechanism."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is scoped to callback-retention interactions with module-created managed object graphs during interpreter or process shutdown; it does not establish that all callback registries or all module finalization paths share this defect.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:19:37.004332+00:00"
+}

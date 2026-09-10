@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0096",
+  "issues": [
+    140267
+  ],
+  "workflow_hypothesis": "Shutdown leaves a blocking background worker un-terminated",
+  "pattern": "A process-scoped background worker performs an indefinitely blocking connection wait, while shutdown signals are checked only outside that wait. The worker can,",
+  "description": "A process-scoped background worker performs an indefinitely blocking connection wait, while shutdown signals are checked only outside that wait. The worker can remain alive after the service’s main shutdown path finishes, causing teardown instrumentation to report a thread leak; joining it directly may instead block indefinitely if its wait or downstream I/O has no bounded exit.",
+  "precondition": "A standalone service uses a background worker for blocking connection acceptance, and the worker’s lifetime is tied to process termination or daemon-style cleanup rather than explicit cooperative shutdown.",
+  "critical_operation": "The worker enters a blocking accept or receive operation and the service begins shutdown by signaling its main loop and request-processing workers.",
+  "interference": "The blocking operation is not interrupted by the shutdown signal because the listener is not closed, timed out, or otherwise made responsive to cancellation; the worker therefore cannot return to recheck the signal.",
+  "invalid_assumption": "Shutdown signaling alone is assumed to terminate every worker, or teardown assumes that every still-live worker must be synchronously joined without accounting for process-scoped daemon semantics and potentially unbounded I/O.",
+  "failure": "Shutdown validation reports a live-worker or thread leak; if cleanup is changed to join the worker synchronously, shutdown can hang when the worker or its request handlers remain blocked.",
+  "search_strategy": [
+    "Trace every background worker’s blocking accept or receive call and verify how shutdown interrupts it.",
+    "Check whether each shutdown signal is observed inside the worker’s blocking loop rather than only by an outer loop.",
+    "Verify that listener closure, bounded timeouts, cancellation, or equivalent mechanisms make blocked workers exit.",
+    "Inspect teardown checks and joins for assumptions that process-scoped daemon workers must be synchronously reclaimed."
+  ],
+  "evidence": [
+    {
+      "issue": 140267,
+      "supports": "The report documents a standalone manager process whose daemon connection-accepting worker blocks in accept, does not observe the shutdown event, and is reported by thread instrumentation as leaked; review feedback also notes that joining blocking handler workers can itself be unreliable."
+    }
+  ],
+  "scope_note": "Singleton cluster. This pattern is scoped to standalone, process-bound services using daemon-style workers; in that design, an instrumentation warning may reflect an intentional process-exit cleanup model rather than an externally visible resource leak.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:06:28.241786+00:00"
+}

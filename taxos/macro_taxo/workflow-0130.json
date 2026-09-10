@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0130",
+  "issues": [
+    142629
+  ],
+  "workflow_hypothesis": "Transformed instruction index causes diagnostic table over-read",
+  "pattern": "Optimized diagnostic code uses a representation incompatible with the metadata table's indexing domain, causing an unchecked table lookup to read beyond the end",
+  "description": "A diagnostic path indexes fixed metadata with a transformed instruction identifier whose value space differs from the table's canonical index space.",
+  "precondition": "A system maintains fixed-size metadata indexed by canonical instruction or operation identifiers, while an optimization or lowering stage can rewrite those identifiers into another representation.",
+  "critical_operation": "Diagnostic formatting directly uses the transformed identifier as an index into the canonical metadata table.",
+  "interference": "The optimization/lowering transformation changes the identifier's numeric value or domain without restoring the canonical index before diagnostics run.",
+  "invalid_assumption": "The formatter assumes every instruction identifier it receives is a valid in-bounds index for the metadata table.",
+  "failure": "Ordinary diagnostic output performs an out-of-bounds read from the metadata table, which memory-safety instrumentation may report as a global buffer over-read and terminate the process.",
+  "search_strategy": [
+    "Trace every identifier used to index diagnostic metadata back through optimization and lowering transformations.",
+    "Check that transformed operation codes are converted back to the metadata table's canonical index space before lookup.",
+    "Verify that fixed-table lookups validate both the identifier domain and numeric bounds at diagnostic call sites.",
+    "Compare the declared metadata-table range with all values producible by optimized or lowered instructions.",
+    "Exercise diagnostic and tracing paths under optimized representations with bounds instrumentation enabled."
+  ],
+  "evidence": [
+    {
+      "issue": 142629,
+      "supports": "The report demonstrates that an optimized instruction carried a transformed opcode representation, while the diagnostic formatter indexed a fixed metadata-flags table with that value; the mismatch produced an instrumented global out-of-bounds read during normal trace printing, and the fix mapped the opcode back to its uncached canonical index."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is scoped to diagnostic metadata lookups over transformed instruction representations; it does not establish that all optimizer-induced table over-reads share this exact representation mismatch.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:25:55.517992+00:00"
+}

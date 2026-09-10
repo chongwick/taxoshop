@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0078",
+  "issues": [
+    129838
+  ],
+  "workflow_hypothesis": "Independent feature and version checks redefine one compiler configuration symbol",
+  "pattern": "A compiler-compatibility configuration symbol is established by multiple detection paths: a capability probe selects a modern annotation spelling, while a later",
+  "description": "Independent capability and version checks redundantly define one compiler-configuration symbol when newer toolchains accept both annotation spellings.",
+  "precondition": "A build supports modern and legacy spellings of the same compiler annotation, with capability-based and version-based detection paths targeting one shared configuration symbol.",
+  "critical_operation": "The capability probe defines the shared symbol for the modern spelling, while the version fallback independently defines it for the legacy spelling.",
+  "interference": "On newer compilers, both detection predicates are true because the compiler accepts both spellings, so the fallback executes after the symbol has already been defined.",
+  "invalid_assumption": "The detection paths are assumed to be mutually exclusive, or the version check is assumed to imply that the shared symbol is still undefined.",
+  "failure": "The compiler reports a duplicate configuration-symbol definition and the build fails; the fallback must be conditional on the symbol not already being defined.",
+  "search_strategy": [
+    "Inspect compiler capability probes and version fallbacks that define the same configuration symbol.",
+    "Check whether a version-based fallback is guarded against a symbol established by an earlier feature probe.",
+    "Trace whether newer toolchains satisfy both detection predicates because they accept both annotation spellings.",
+    "Verify that alternate compiler spellings are normalized through one guarded definition path."
+  ],
+  "evidence": [
+    {
+      "issue": 129838,
+      "supports": "The report shows a capability check selecting a modern diagnostic-suppression annotation and an independent compiler-version check selecting a legacy spelling; newer compilers satisfy both, causing a duplicate definition until the fallback is guarded by an undefined-symbol check."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is cautiously scoped to compiler-configuration macros or equivalent symbols selected through overlapping capability and version checks.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:53:59.855966+00:00"
+}

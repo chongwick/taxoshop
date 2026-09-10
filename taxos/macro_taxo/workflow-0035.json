@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0035",
+  "issues": [
+    100795
+  ],
+  "workflow_hypothesis": "Failed native lookup leaves ambiguous output for erroneous cleanup",
+  "pattern": "A caller relies on a failed native out-parameter remaining null to decide whether shared cleanup may release a result.",
+  "description": "A failed native lookup can leave its output parameter non-null or otherwise unusable, and generic cleanup may mistake that value for an owned successful result.",
+  "precondition": "The caller initializes an output pointer and routes both success and failure through cleanup that conditionally releases it.",
+  "critical_operation": "Invoke a native lookup through an output parameter and branch on its error status.",
+  "interference": "The callee or platform implementation changes the output parameter before returning an error, possibly after internally discarding temporary state.",
+  "invalid_assumption": "The caller assumes that a non-null output after failure is a valid, caller-owned result whose release is required and safe.",
+  "failure": "Shared cleanup performs a duplicate or invalid release, corrupting allocator state; a later lookup or memory access may then crash instead of returning the original recoverable error.",
+  "search_strategy": [
+    "Inspect every native out-parameter call whose failure path reaches cleanup, and verify the callee contract defines the output value and ownership on error.",
+    "Trace whether cleanup is selected solely by a non-null out pointer rather than by a confirmed successful return and transferred ownership.",
+    "Check whether the callee can allocate, clean up, or partially populate the output before reporting failure, including platform-specific implementations.",
+    "Review failure-path tests under alternate native-library implementations for double release, invalid free, heap corruption, or leaks."
+  ],
+  "evidence": [
+    {
+      "issue": 100795,
+      "supports": "The report documents a lookup wrapper that conditionally released an output pointer after a failed native call; discussion identified that an implementation could leave the pointer non-null or garbage, causing an unexpected duplicate or invalid release. The proposed fix treated the failed output as invalid, while maintainers noted the original user"
+    }
+  ],
+  "scope_note": "Singleton report. It supports a narrowly scoped pattern for native lookup APIs with ambiguous out-parameter state on failure; the report's original crash was not conclusively proven to have this mechanism as its root cause.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:33:18.349225+00:00"
+}

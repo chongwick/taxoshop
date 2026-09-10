@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0139",
+  "issues": [
+    143424
+  ],
+  "workflow_hypothesis": "Permitted concurrent release invalidates lock-handoff assertion",
+  "pattern": "A lock-acquisition path asserts that a successful ownership handoff must leave the lock’s state marked as held, even though the protocol permits another worker—",
+  "description": "A lock-acquisition path asserts that a successful ownership handoff must leave the lock’s state marked as held, even though the protocol permits another worker to release it concurrently.",
+  "precondition": "Multiple workers contend for a shared lock, and a waiting worker receives ownership through a handoff.",
+  "critical_operation": "The recipient completes the acquisition path and validates the lock’s current state before reporting successful acquisition.",
+  "interference": "Another permitted worker releases the lock concurrently, clearing its visible held state before or around the recipient’s return.",
+  "invalid_assumption": "Successful handoff guarantees that the lock remains visibly held until acquisition completion.",
+  "failure": "The valid interleaving violates the assertion and terminates the process instead of reporting successful acquisition.",
+  "search_strategy": [
+    "Inspect handoff-based acquisition paths for assertions that ownership transfer requires the lock to remain marked held.",
+    "Check whether the synchronization contract permits a different worker to release the lock during or immediately after handoff.",
+    "Compare asserted state invariants with the protocol’s permitted ownership and release semantics.",
+    "Review whether acquisition success remains valid when the lock state changes concurrently before the result is returned."
+  ],
+  "evidence": [
+    {
+      "issue": 143424,
+      "supports": "The report shows that ownership obtained through handoff can be followed by a permitted concurrent release, leaving the lock state clear while the acquisition routine is completing; the stronger state assertion then aborts the process."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern for lock implementations that permit one worker to release a lock acquired by another, including during handoff completion; it does not apply to protocols that forbid such releases or guarantee stable state through return.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:30:44.015476+00:00"
+}

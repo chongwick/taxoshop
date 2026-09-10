@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0094",
+  "issues": [
+    140120,
+    140272,
+    140442,
+    140474,
+    141044,
+    141372,
+    141542,
+    142476,
+    145204
+  ],
+  "workflow_hypothesis": "Successful operation omits cleanup of temporary owned state",
+  "pattern": "Owned auxiliary state allocated during an operation or lifecycle transition is not released when the path completes without transferring ownership, causing the/",
+  "description": "An operation or lifecycle transition allocates owned auxiliary state, then misses the required release or ownership handoff on a normal, empty-input, alternate, initialization, or teardown path. The result may be produced successfully, but the auxiliary allocation or reference remains retained.",
+  "precondition": "A routine acquires temporary buffers, objects, references, or nested state whose ownership must either be transferred explicitly or released before the routine or lifecycle phase ends.",
+  "critical_operation": "The routine uses that state to construct a result, update a container, register a callback, initialize a subsystem, create an execution object, or complete teardown, then reaches a return or ownership boundary.",
+  "interference": "The corresponding cleanup or ownership transfer is omitted, conditionalized incorrectly, or applied at the wrong boundary on one completion path.",
+  "invalid_assumption": "The implementation assumes that successful completion, insertion into another structure, garbage collection, interpreter shutdown, or later teardown will automatically reclaim state whose ownership was never correctly transferred or released.",
+  "failure": "Each affected invocation leaves direct or indirectly owned allocations live; repeated operations accumulate retained memory, while one-shot lifecycle paths produce sanitizer-reported leaks at shutdown or teardown.",
+  "search_strategy": [
+    "Trace every allocation, retain, or reference acquisition to an explicit release or ownership transfer on all return paths.",
+    "Check empty-input and zero-length branches for temporary buffers that are neither installed as owned state nor freed.",
+    "Verify that container insertion, callback registration, or object handoff clearly documents which side owns the reference afterward.",
+    "Audit initialization, shutdown, and teardown paths for auxiliary state that remains reachable after the owning operation completes."
+  ],
+  "evidence": [
+    {
+      "issue": 140120,
+      "supports": "A digest operation allocated nested temporary hashing state, produced its output, and returned without freeing the temporary components; repeated digest use exposed direct and indirect leaks."
+    },
+    {
+      "issue": 140272,
+      "supports": "A database-clearing loop received an owned key buffer for each item and omitted its release after successful deletion, with the error path also requiring cleanup."
+    },
+    {
+      "issue": 140442,
+      "supports": "Callback registration created a new argument container and failed to release the local ownership after packaging it into the registered callback, producing a shutdown leak."
+    },
+    {
+      "issue": 140474,
+      "supports": "Array construction allocated a temporary converted buffer; the empty-input branch completed without adopting the buffer or freeing it, so repeated construction leaked it."
+    },
+    {
+      "issue": 141044,
+      "supports": "A thread-related initialization and lifecycle path retained object graphs associated with configured thread behavior, leaving direct and indirect allocations reported at process completion."
+    },
+    {
+      "issue": 141372,
+      "supports": "Creating a profiling object under an alternate monitoring configuration left an object allocated during subsystem setup unreclaimed, yielding a direct leak report."
+    },
+    {
+      "issue": 141542,
+      "supports": "Tracing initialization allocated a large auxiliary block during thread execution and did not establish a cleanup path before the process ended, yielding a direct leak."
+    },
+    {
+      "issue": 142476,
+      "supports": "Executor creation involved conditional ownership between the created object, code storage, and tracing state; a missing or misplaced release caused retained executors, while an incorrect early release caused use-after-free, demonstrating the need for an exact ownership handoff."
+    },
+    {
+      "issue": 145204,
+      "supports": "An embedding configuration API returned an allocated empty list and created a configuration object, but the test path returned without releasing either, causing direct and indirect leaks."
+    }
+  ],
+  "scope_note": "The reports span conversion, iteration, registration, interpreter initialization, tracing, execution-object creation, threading, and embedding/test lifecycles. The shared pattern is an ownership-cleanup gap; it is broader than data-processing success paths and does not require every report to involve repeated successful operations or a confirmed fix.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:05:41.102424+00:00"
+}

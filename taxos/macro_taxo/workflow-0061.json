@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0061",
+  "issues": [
+    120378,
+    140462
+  ],
+  "workflow_hypothesis": "Unchecked oversized dimensions cause downstream integer overflow and refresh crash",
+  "pattern": "Unvalidated extreme geometry arguments cross an interface into a lower-level component whose internal representation or arithmetic cannot safely handle them.",
+  "description": "A wrapper forwards caller-controlled dimensions or coordinates without enforcing the downstream component’s actual safe range, allowing overflow or invalid memory access instead of a controlled range error.",
+  "precondition": "A caller can provide an unusually large geometry value that is representable by the wrapper’s input type but outside the lower-level component’s safe operational range.",
+  "critical_operation": "The interface passes that value into a lower-level resize, window, layout, or allocation operation that performs narrower conversion, arithmetic, indexing, or memory computation.",
+  "interference": "The interface omits validation or normalization against the downstream component’s effective range and relies on the dependency to reject the value safely.",
+  "invalid_assumption": "Because the value is accepted or representable at the wrapper boundary, it is assumed to remain valid for all downstream representations and calculations.",
+  "failure": "The lower-level component overflows or computes invalid state or addresses, causing a segmentation fault or later crash rather than returning a range or argument error.",
+  "search_strategy": [
+    "Check every wrapper that forwards dimensions, coordinates, lengths, or counts to a lower-level library for explicit validation against the callee’s documented and implementation-level limits.",
+    "Search for conversions from wider integers to narrower signed types before calls that allocate, resize, index, or compute offsets.",
+    "Trace extreme-value handling through downstream arithmetic and verify that overflow, invalid allocation sizes, and out-of-bounds geometry produce controlled errors.",
+    "Review whether a successful boundary conversion is incorrectly treated as evidence that the dependency can safely process the value."
+  ],
+  "evidence": [
+    {
+      "issue": 120378,
+      "supports": "Oversized resize dimensions were accepted as general integers even though the downstream terminal library used narrower signed dimensions; internal overflow corrupted state and a subsequent screen operation crashed, motivating explicit range rejection."
+    },
+    {
+      "issue": 140462,
+      "supports": "An extreme window coordinate was forwarded unchanged to the lower-level window library; the library failed to reject it before internal geometry processing and dereferenced an invalid address, producing a segmentation fault."
+    }
+  ],
+  "scope_note": "The shared pattern is unsafe forwarding of extreme geometry values across an interface. One report involves narrower dimension conversion and a later refresh crash; the other involves an extreme coordinate and an immediate lower-level memory fault. The reports do not establish that every instance requires a later refresh or that the wrapper alone can determine all valid limits.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:45:30.867477+00:00"
+}

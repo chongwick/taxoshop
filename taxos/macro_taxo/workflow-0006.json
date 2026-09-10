@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0006",
+  "issues": [
+    72111
+  ],
+  "workflow_hypothesis": "Externally removed installation causes unchecked missing metadata to crash recovery",
+  "pattern": "Unchecked absence of installation metadata during recovery",
+  "description": "A recovery or repackaging path fails to handle an externally removed, system-managed installation whose metadata record is missing, so absence is passed into iteration logic and becomes a type-level crash instead of a diagnostic or recovery result.",
+  "precondition": "A system-managed installation and its metadata coexist with another installation, and the system-managed files or metadata can be removed by an uncoordinated uninstaller.",
+  "critical_operation": "A bundled recovery or repackaging component reconstructs the installation by querying its recorded file set.",
+  "interference": "The external removal deletes the installation artifacts and metadata, causing the lookup to produce no record set.",
+  "invalid_assumption": "The recovery pipeline assumes the metadata lookup always returns an iterable collection and does not validate or explicitly handle absence.",
+  "failure": "The recovery operation raises a type error while iterating or packaging the absent record set, masking the missing-installation condition and preventing graceful recovery.",
+  "search_strategy": [
+    "Trace recovery and repackaging calls that consume installation metadata after an uninstall or external deletion.",
+    "Check every metadata lookup used for file enumeration for explicit handling of a missing record or absent installation.",
+    "Search for iteration, unpacking, or concatenation of lookup results whose contract permits no result.",
+    "Verify that uninstallation of system-managed files is detected and reported before recovery assumes their metadata remains available."
+  ],
+  "evidence": [
+    {
+      "issue": 72111,
+      "supports": "The report describes a system-managed installation being removed unintentionally alongside another version; the recovery path then receives no file-record metadata and passes that absent result to packaging logic, which raises a type error instead of reporting the damaged or missing installation."
+    }
+  ],
+  "scope_note": "Singleton cluster: this pattern is directly supported by one report and is scoped to recovery or repackaging workflows that consume metadata after external removal; it does not establish that all uninstallers or all missing-metadata cases fail this way.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:37:30.887795+00:00"
+}

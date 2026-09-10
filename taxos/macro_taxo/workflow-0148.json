@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0148",
+  "issues": [
+    144282
+  ],
+  "workflow_hypothesis": "Malformed executable stream begins with a non-executable placeholder",
+  "pattern": "Unvalidated mutation of an executable instruction stream exposes a metadata-only placeholder to instruction dispatch.",
+  "description": "A caller rewrites a low-level executable stream by inserting a reserved non-instruction marker at its entry without preserving the stream’s structural invariants, and the runtime aborts when dispatch treats that marker as executable.",
+  "precondition": "A caller can construct or mutate an executable instruction stream directly, including representations that contain reserved metadata or placeholder entries.",
+  "critical_operation": "The caller prepends such a reserved placeholder to the stream, shifting the original instructions without correspondingly updating execution boundaries or related layout metadata.",
+  "interference": "The inserted placeholder becomes the first element seen by normal dispatch, while the stream still presents the original execution entry and structure.",
+  "invalid_assumption": "The runtime assumes that every element reachable from the execution entry is a valid executable instruction and does not validate or reject caller-produced malformed streams before dispatch.",
+  "failure": "Dispatch encounters the reserved placeholder as an instruction, violates an internal execution invariant, and terminates fatally instead of returning a malformed-input error.",
+  "search_strategy": [
+    "Inspect code that directly edits serialized or encoded instruction streams and verify that instruction offsets, boundaries, and auxiliary metadata are updated together.",
+    "Search for reserved metadata markers or placeholder encodings that can become reachable from an execution entry.",
+    "Check whether externally constructed executable streams are validated before the dispatcher interprets their first element.",
+    "Review fatal invariant checks in dispatch paths and determine whether malformed stream input is rejected before those checks are reached."
+  ],
+  "evidence": [
+    {
+      "issue": 144282,
+      "supports": "The report demonstrates that manually prefixing an encoded executable stream with a reserved cache-like placeholder shifts the original instructions; execution starts at the prefix, treats it as an instruction, and aborts on an internal invariant. The comments explicitly characterize the input as malformed and outside the runtime’s supported threat"
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is cautiously scoped to runtimes that expose or tolerate direct mutation/construction of encoded instruction streams containing non-executable reserved entries. It does not establish that well-formed streams or supported transformation APIs are vulnerable.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:34:18.720345+00:00"
+}

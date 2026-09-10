@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0018",
+  "issues": [
+    86434
+  ],
+  "workflow_hypothesis": "Unsupported compiler option causes misleading downstream configuration failure",
+  "pattern": "Optional toolchain-specific instrumentation is enabled without confirming compiler support.",
+  "description": "A build configuration enables an optional feature whose required compiler flags may be unsupported by the selected toolchain.",
+  "precondition": "An optional instrumentation feature requiring compiler-specific flags is selected.",
+  "critical_operation": "The configuration unconditionally appends the feature's compiler and linker flags before validating that the selected toolchain accepts them.",
+  "interference": "Those unsupported flags are inherited by a later compile or dependency capability probe, causing that probe to fail.",
+  "invalid_assumption": "The downstream probe failure is treated as evidence of a missing capability or dependency rather than as evidence that the feature-specific flags are incompatible with the toolchain.",
+  "failure": "Configuration aborts with a misleading downstream check error instead of explicitly reporting that the selected toolchain does not support the requested feature.",
+  "search_strategy": [
+    "Check whether optional feature flags are added before compiler compatibility is validated.",
+    "Trace whether feature-specific compiler and linker flags leak into unrelated capability or dependency probes.",
+    "Verify that unsupported toolchain options produce an explicit feature-compatibility diagnostic.",
+    "Inspect probe setup to ensure downstream checks are not invalidated by unverified optional flags."
+  ],
+  "evidence": [
+    {
+      "issue": 86434,
+      "supports": "The report shows that enabling a compiler-specific sanitizer added incompatible flags under an unsupported compiler, causing a later address-resolution capability check to fail; the fix added an upfront compile-flag check and explicit incompatibility error."
+    }
+  ],
+  "scope_note": "Singleton cluster: scoped to build configuration flows where optional compiler-specific flags are propagated into later probes before compatibility validation; it does not generalize to all misleading configuration failures.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:45:30.406698+00:00"
+}

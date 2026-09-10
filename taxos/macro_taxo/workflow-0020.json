@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0020",
+  "issues": [
+    89359,
+    114331
+  ],
+  "workflow_hypothesis": "Instrumented allocation failure aborts instead of returning a recoverable error",
+  "pattern": "Stress tests use deliberately extreme allocations as if all allocators and runtime configurations will synchronously return a recoverable allocation failure, so",
+  "description": "Extreme-allocation tests are coupled to allocator and runtime failure semantics that vary by platform and diagnostic configuration.",
+  "precondition": "A test intentionally drives a computation into an infeasible memory allocation and expects allocation failure to be reported through the normal recoverable error path.",
+  "critical_operation": "The computation requests the extreme allocation and proceeds to depend on the allocator returning a failure indicator that the test can inspect.",
+  "interference": "The active allocator, platform memory policy, or diagnostic instrumentation changes the outcome: the request may be accepted as virtual memory and fail only when touched, trigger an operating-system kill, or cause instrumentation to terminate the process instead of returning failure.",
+  "invalid_assumption": "The test assumes that an infeasible allocation is rejected immediately and consistently as a recoverable error across allocators, platforms, and instrumented builds.",
+  "failure": "The process is killed or aborted before the expected error result reaches the test, so the test cannot validate graceful allocation-failure handling.",
+  "search_strategy": [
+    "Check tests that provoke allocation failure through intentionally extreme sizes and verify that the failure mechanism is explicit and deterministic.",
+    "Compare allocator, platform, overcommit, and instrumentation behavior before asserting that an allocation returns a recoverable error.",
+    "Inspect whether the test touches or materializes a huge allocation after the allocator call, which can convert deferred failure into process-wide OOM termination.",
+    "Verify that fatal diagnostic builds are skipped, isolated, or tested with subprocess exit expectations when allocation failure is expected to be recoverable."
+  ],
+  "evidence": [
+    {
+      "issue": 89359,
+      "supports": "The report shows that sanitizer-enabled builds convert an allocation that normally returns failure into a fatal crash, requiring such tests to be excluded or otherwise handled under those configurations."
+    },
+    {
+      "issue": 114331,
+      "supports": "The report shows that an alternate allocator on a particular platform accepts an enormous virtual allocation, then the process is killed when the memory is used, while another allocator returns failure earlier; the test therefore relied on non-portable allocation semantics."
+    }
+  ],
+  "scope_note": "This pattern is supported by two reports and covers the shared mismatch between extreme-allocation tests and environment-dependent failure semantics. The reports differ in mechanism—fatal instrumentation versus deferred allocation followed by OOM termination—so the pattern does not claim that every environment fails in the same way.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:46:31.891742+00:00"
+}

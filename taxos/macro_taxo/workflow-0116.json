@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0116",
+  "issues": [
+    140935,
+    142736,
+    143430
+  ],
+  "workflow_hypothesis": "Malformed encoded metadata triggers fatal decoder assertion",
+  "pattern": "Diagnostic decoding of malformed executable-object location metadata triggers an internal assertion",
+  "description": "A low-level mechanism allows an executable object to carry malformed or inconsistent encoded source-location metadata. Later diagnostic or position-inspection code decodes that metadata as if its structural invariants were guaranteed, so malformed continuation bytes or truncated records drive an internal assertion and process termination.",
+  "precondition": "An executable object is constructed or modified with location-mapping metadata that is truncated, structurally invalid, or inconsistent with the object’s instruction stream.",
+  "critical_operation": "A diagnostic, disassembly, or position-iteration operation parses the object’s encoded location metadata.",
+  "interference": "The metadata contains an invalid continuation-byte pattern or is too short to describe the associated instructions.",
+  "invalid_assumption": "The decoder assumes the metadata was produced in a valid canonical format and relies on internal cursor, line-state, and continuation invariants without first validating malformed input as recoverable data.",
+  "failure": "An internal assertion fires during decoding, aborting the process instead of returning an invalid-metadata error.",
+  "search_strategy": [
+    "Inspect every diagnostic or iterator path that decodes compact metadata embedded in executable objects.",
+    "Check whether object-replacement or low-level construction APIs validate metadata length and encoding invariants against the instruction stream.",
+    "Search decoder loops for assertions on continuation bits, cursor bounds, or derived state that can be reached before input validation.",
+    "Verify malformed or truncated metadata tests expect a recoverable error rather than process termination."
+  ],
+  "evidence": [
+    {
+      "issue": 140935,
+      "supports": "Replacing an executable object’s location table with bytes containing an invalid continuation pattern causes disassembly to reach a decoder assertion and abort."
+    },
+    {
+      "issue": 142736,
+      "supports": "A one-byte location table attached to an executable object causes disassembly to violate decoder cursor and continuation invariants, confirming that malformed metadata is treated as trusted internal data."
+    },
+    {
+      "issue": 143430,
+      "supports": "A location table too short for the supplied instruction stream causes position iteration to trigger the same bounds and state assertion during metadata parsing."
+    }
+  ],
+  "scope_note": "All three reports involve deliberately corrupted low-level executable-object metadata and diagnostic decoding; they support a boundary around unsafe or insufficiently validated object construction, not a claim that ordinarily generated metadata is malformed.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:19:54.787437+00:00"
+}

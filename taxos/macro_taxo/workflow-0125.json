@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0125",
+  "issues": [
+    142276
+  ],
+  "workflow_hypothesis": "Untracked mutable-attribute promotion leaves stale specialized code",
+  "pattern": "An optimizing runtime promotes a mutable attribute load into an embedded constant and specializes subsequent execution on the observed value, but fails to bind该",
+  "description": "An optimizing runtime promotes a mutable attribute load into an embedded constant and specializes subsequent execution on the observed value, but fails to bind that promotion to the attribute's invalidation mechanism.",
+  "precondition": "A mutable attribute is read by optimized code, and the optimizer can replace the lookup with a cached constant while specializing later operations for the constant's observed exact type.",
+  "critical_operation": "The optimizer embeds the attribute value and emits type-specialized execution without registering a dependency that invalidates the optimization when the owning object's attribute changes.",
+  "interference": "The attribute is reassigned while the optimized code remains active, potentially changing both its value and exact type.",
+  "invalid_assumption": "The embedded constant and its original type guarantee remain valid after the mutable attribute has been changed.",
+  "failure": "Execution reaches the specialized operation with the replacement value, causing a type assertion or equivalent hard termination instead of invalidating, deoptimizing, or reloading the attribute.",
+  "search_strategy": [
+    "Check every optimization that turns a mutable attribute lookup into an embedded constant for an explicit invalidation dependency on the owning object or type.",
+    "Trace attribute writes against all cached-load and specialization guards to verify that each write can invalidate active optimized code.",
+    "Inspect specialized operations consuming promoted attribute values for a guard, deoptimization path, or reload when the cached value is stale.",
+    "Review concurrent or re-entrant mutation scenarios where an attribute can change while optimized code is executing."
+  ],
+  "evidence": [
+    {
+      "issue": 142276,
+      "supports": "A mutable class attribute was read repeatedly while another execution path reassigned it; the optimizer had promoted the load to a constant without a corresponding type watcher, leaving stale specialized code that terminated on an exact-type assertion."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is scoped to optimized mutable-attribute promotion and its invalidation dependency; the report does not establish that all stale caches or all specialization failures share this mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:23:39.304884+00:00"
+}

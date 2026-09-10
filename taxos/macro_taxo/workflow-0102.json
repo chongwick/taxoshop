@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0102",
+  "issues": [
+    140564,
+    141390
+  ],
+  "workflow_hypothesis": "Inconsistent executable metadata triggers internal validation error",
+  "pattern": "Malformed cloned executable metadata bypasses safe rejection and reaches invariant-dependent internal validation or execution",
+  "description": "A low-level executable object is reconstructed with metadata or instruction structure inconsistent with its stored layout, allowing internal invariant failures to surface as fatal errors.",
+  "precondition": "A caller can clone or reconstruct an executable object while supplying independently editable metadata or instruction fields.",
+  "critical_operation": "The replacement object is created and then accepted for validation or execution using those altered fields.",
+  "interference": "The supplied counts, variable descriptors, captured-variable metadata, or instruction stream no longer agree with the object’s remaining layout.",
+  "invalid_assumption": "Internal validation or execution assumes that reconstructed executable objects already satisfy cross-field construction invariants and does not safely reject every inconsistent combination.",
+  "failure": "The malformed object triggers an internal system error or assertion failure instead of a recoverable invalid-object error.",
+  "search_strategy": [
+    "Check clone or reconstruction APIs that accept independently editable executable metadata fields.",
+    "Check whether parameter, variable, capture, and instruction counts are cross-validated against stored layouts before acceptance.",
+    "Check execution paths for assertions or unchecked assumptions about metadata matching instruction operands and associated descriptors.",
+    "Check malformed executable-object handling to confirm inconsistent combinations become recoverable errors rather than process-level failures."
+  ],
+  "evidence": [
+    {
+      "issue": 140564,
+      "supports": "Changing positional and keyword-only parameter counts on a cloned executable object to mutually inconsistent values caused internal validation to report an internal error."
+    },
+    {
+      "issue": 141390,
+      "supports": "Adding captured-variable metadata and a matching-looking instruction prefix without preserving the evaluator’s required metadata/instruction invariant caused an execution-time assertion failure."
+    }
+  ],
+  "scope_note": "Both reports concern deliberately tampered low-level executable objects outside ordinary construction paths; they support the shared invariant-breach pattern, not a general claim about normally created executable objects.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:08:31.332188+00:00"
+}

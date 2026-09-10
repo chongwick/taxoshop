@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0016",
+  "issues": [
+    83957
+  ],
+  "workflow_hypothesis": "Unsynchronized identifier collision corrupts thread-state caching",
+  "pattern": "Concurrent allocation of supposedly unique execution-state identifiers allows a cache keyed by those identifiers to alias distinct live states, causing cross-บ?",
+  "description": "When multiple threads create execution state concurrently, an unsynchronized shared identifier allocator can issue duplicates. A cache that uses the identifier as the state’s sole identity then conflates contexts, returning one thread’s state to another; subsequent use can yield incorrect results or access released state and crash.",
+  "precondition": "Multiple threads concurrently create or initialize live execution-state records, and their identifiers are allocated from shared mutable state without synchronization.",
+  "critical_operation": "Allocate each state’s identifier through an unsynchronized shared counter or equivalent uniqueness mechanism.",
+  "interference": "Concurrent creators race on the shared allocation, so distinct live states can receive the same identifier; identifier-keyed caching then aliases their state or context.",
+  "invalid_assumption": "The identifier is unique and therefore sufficient to identify the owning live state for cache hits and later updates.",
+  "failure": "A thread can read or modify another thread’s state, producing incorrect results; if the aliased cached object is no longer owned or alive, later access can cause use-after-free or a crash.",
+  "search_strategy": [
+    "Check whether every shared identifier allocation is atomic or protected by the same lock that governs the associated state registry.",
+    "Check whether a cache treats a numeric or recycled identifier as the sole identity of a live state.",
+    "Check whether concurrent state creation can assign duplicate identifiers before cache insertion or lookup completes.",
+    "Check whether cached state references remain valid for the full period in which an identifier can be reused or collide."
+  ],
+  "evidence": [
+    {
+      "issue": 83957,
+      "supports": "The report documents concurrently created thread states receiving duplicate identifiers because the shared identifier increment was not protected; identifier-based context caching then returned another thread’s context, causing wrong results and, in observed runs, invalid access and crashes."
+    }
+  ],
+  "scope_note": "Singleton cluster: this pattern is narrowly supported for concurrent execution-state creation with unsynchronized supposedly unique identifiers and identifier-keyed caching; it does not generalize to all cache races or all identifier reuse without that collision-to-aliasing chain.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:44:08.490702+00:00"
+}

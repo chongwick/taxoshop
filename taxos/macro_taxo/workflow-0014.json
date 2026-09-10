@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0014",
+  "issues": [
+    80434,
+    88350,
+    96572,
+    101975,
+    103718,
+    108253,
+    113591,
+    114106,
+    115243,
+    116510,
+    120289,
+    120298,
+    124878,
+    135636,
+    139210,
+    139400,
+    140138,
+    140651,
+    140815,
+    142557,
+    142558,
+    142560,
+    142664,
+    142665,
+    142783,
+    142830,
+    143004,
+    143197,
+    143309,
+    143547,
+    144172,
+    144281,
+    144475,
+    144833,
+    146011,
+    148382,
+    151046,
+    151403
+  ],
+  "workflow_hypothesis": "Retained pointer dereferences storage after its owner releases the buffer",
+  "pattern": "Borrowed or derived handles are used after reentrancy, concurrency, mutation, or teardown invalidates their owner or backing storage.",
+  "description": "A non-owning pointer, reference, view, cache entry, iterator position, or metadata slot survives an operation that can invalidate the object or storage it designates, then is used as though it remained valid.",
+  "precondition": "Code retains a borrowed or derived handle to an object, allocation, buffer, container element, interpreter state, stack entry, or related backing resource while another operation, callback, thread, or lifecycle event can invalidate that target.",
+  "critical_operation": "A decrement, release, resize, reallocation, container mutation, callback, garbage-collection pass, interpreter shutdown, or concurrent teardown invalidates or frees the target while the retained handle remains reachable.",
+  "interference": "Control returns to, or another execution context enters, code that dereferences, traverses, indexes, formats, compares, or otherwise uses the retained handle without first reacquiring or validating ownership.",
+  "invalid_assumption": "The code assumes that the target cannot be destroyed or replaced during the intervening operation, or treats a borrowed reference, cached pointer, exported view, or stale slot as an ownership guarantee.",
+  "failure": "The stale handle accesses freed, moved, released, or otherwise invalid storage or object state, causing use-after-free, stack-use-after-return, out-of-bounds access, crashes, corrupted results, or unsafe behavior.",
+  "search_strategy": [
+    "Trace every borrowed pointer, reference, view, iterator position, cache entry, and raw buffer address across callbacks, conversions, comparisons, formatting, and other callouts that may run arbitrary code.",
+    "Find decref, release, resize, reallocation, container-mutation, garbage-collection, shutdown, and cross-thread teardown paths and verify that retained handles are kept alive or invalidated before use.",
+    "Inspect code that captures a handle before invoking user code or releasing synchronization and verify that it reacquires ownership or validates the target after the call returns.",
+    "Check temporary views and exported buffers for explicit release or invalidation before their backing allocation can be destroyed or resized.",
+    "Review error and fallback paths separately; confirm they do not dereference an object after dropping its last reference or after a callback mutates the relevant container."
+  ],
+  "evidence": [
+    {
+      "issue": 80434,
+      "supports": "A pointer into a deallocated buffer remains usable after the buffer owner is destroyed, directly supporting stale borrowed storage access."
+    },
+    {
+      "issue": 88350,
+      "supports": "Interpreter finalization frees a heap object while cleanup later follows a reference to that object, supporting missing lifetime ownership during teardown."
+    },
+    {
+      "issue": 96572,
+      "supports": "A stale object reference remains in tracing metadata after the object is freed and is later traversed, supporting invalid retained bookkeeping references."
+    },
+    {
+      "issue": 101975,
+      "supports": "Garbage collection traverses a stack slot whose bounds were not updated after an element was freed, supporting stale lifetime metadata causing invalid access."
+    },
+    {
+      "issue": 103718,
+      "supports": "Buffer reallocation leaves cached pointers into tokenizer state referring to the old allocation, supporting failure to repair derived pointers after storage movement."
+    },
+    {
+      "issue": 108253,
+      "supports": "A version cache retains a stale pointer after the associated object changes or is deallocated, supporting invalid cache entries used after target lifetime ends."
+    },
+    {
+      "issue": 113591,
+      "supports": "Two runtimes independently manage shared objects and one frees memory still expected by the other, supporting cross-owner lifetime mismatches."
+    },
+    {
+      "issue": 114106,
+      "supports": "Mutation of underlying mapping state leaves cached data used after it was freed, supporting stale cached values after invalidation."
+    },
+    {
+      "issue": 115243,
+      "supports": "An element obtained from a container can be freed during comparison before subsequent use, supporting borrowed element access across reentrant or concurrent work."
+    },
+    {
+      "issue": 116510,
+      "supports": "Interpreter shutdown frees GC metadata or interned objects still referenced by another interpreter, supporting cross-lifetime shared state."
+    },
+    {
+      "issue": 120289,
+      "supports": "A user-controlled timer callback mutates profiler state while a borrowed internal object remains in use, supporting callback-induced invalidation."
+    },
+    {
+      "issue": 120298,
+      "supports": "A comparison can mutate a list and free an element after it was fetched but before later use, supporting borrowed container-element lifetime failure."
+    },
+    {
+      "issue": 124878,
+      "supports": "Interpreter finalization races with a daemon thread holding thread-state pointers, supporting concurrent teardown of retained state."
+    },
+    {
+      "issue": 135636,
+      "supports": "A reference-count increment operates on an object whose storage has already been freed, supporting use of a stale object pointer before ownership is secured."
+    },
+    {
+      "issue": 139210,
+      "supports": "An error-reporting path decrements an object and then uses the same pointer, supporting immediate post-release dereference."
+    },
+    {
+      "issue": 139400,
+      "supports": "A subparser can outlive the parent parser whose state backs it, supporting derived parser state used after owner destruction."
+    },
+    {
+      "issue": 140138,
+      "supports": "Subinterpreter shutdown can free interpreter state while daemon-thread activity still uses it, supporting teardown races over shared state."
+    },
+    {
+      "issue": 140651,
+      "supports": "Parsing retains a pointer into storage that is later freed and then reads through it, supporting direct stale-buffer access."
+    },
+    {
+      "issue": 140815,
+      "supports": "A watchdog thread reads frame data concurrently with frame destruction, supporting unsynchronized access to state being finalized."
+    },
+    {
+      "issue": 142557,
+      "supports": "Formatting invokes user code that mutates and clears the formatted bytearray while the formatting path still relies on its storage, supporting reentrant invalidation."
+    },
+    {
+      "issue": 142558,
+      "supports": "Argument conversion can clear or resize the searched bytearray after a raw buffer is captured, supporting stale buffer use across conversion."
+    },
+    {
+      "issue": 142560,
+      "supports": "Search helpers capture a raw buffer before a reentrant argument operation invalidates it, supporting owner mutation during an intervening callout."
+    },
+    {
+      "issue": 142664,
+      "supports": "Hash computation invokes user code that releases or mutates the view or its exporter while the hash path still uses the view, supporting reentrant lifetime invalidation."
+    },
+    {
+      "issue": 142665,
+      "supports": "Slice parsing releases or truncates the underlying buffer after a subview is created, leaving the subview with a dangling pointer."
+    },
+    {
+      "issue": 142783,
+      "supports": "A cache accessor returns a newly created object as though it were borrowed and releases it too early, supporting incorrect ownership transfer."
+    },
+    {
+      "issue": 142830,
+      "supports": "Callbacks mutate or clear callback state during their own execution while surrounding code continues using the old context, supporting callback-induced stale state."
+    },
+    {
+      "issue": 143004,
+      "supports": "A mapping lookup returns a borrowed value, and an arithmetic callout mutates the mapping before the value is reused, supporting borrowed-reference invalidation across user code."
+    },
+    {
+      "issue": 143197,
+      "supports": "A reentrant conversion replaces and decrements an object while the outer operation continues writing through the old object pointer, supporting stale self access."
+    },
+    {
+      "issue": 143309,
+      "supports": "Environment conversion can mutate the source mapping during key or value processing, invalidating retained traversal data before later use."
+    },
+    {
+      "issue": 143547,
+      "supports": "A failing callback causes its object to be freed, but fallback logging reuses the dangling pointer, supporting error-path lifetime failure."
+    },
+    {
+      "issue": 144172,
+      "supports": "Tracing retains pointers to strings created by a subinterpreter and accesses them after that interpreter frees them, supporting cross-component ownership failure."
+    },
+    {
+      "issue": 144281,
+      "supports": "A shared-memory buffer can become invalid while a view assignment still targets it, supporting external backing-resource invalidation."
+    },
+    {
+      "issue": 144475,
+      "supports": "Representation code iterates borrowed tuple entries after reentrant mutation replaces and frees the original tuple, supporting stale container storage access and out-of-bounds behavior."
+    },
+    {
+      "issue": 144833,
+      "supports": "An error path decrements an object to destruction and then reads through the released pointer, directly supporting post-release dereference."
+    },
+    {
+      "issue": 146011,
+      "supports": "A child view retains a borrowed pointer to fields in a context object that can be explicitly destroyed, supporting derived view lifetime failure."
+    },
+    {
+      "issue": 148382,
+      "supports": "A borrowed context pointer is used after intervening callbacks replace and free the context, supporting callback-induced owner invalidation."
+    },
+    {
+      "issue": 151046,
+      "supports": "A temporary view is retained by a callee after its short-lived backing buffer is released, directly supporting dangling view access."
+    },
+    {
+      "issue": 151403,
+      "supports": "A conversion callback mutates the argument sequence and frees its current item, while an error path still reads that item through a borrowed pointer."
+    }
+  ],
+  "scope_note": "The reports share an ownership and lifetime-ordering failure, but the invalidated target is not always a byte buffer and the invalidation may come from reentrancy, concurrency, mutation, refcounting, garbage collection, interpreter shutdown, or external resource teardown. One report manifests as a heap-buffer-overflow rather than a sanitizer-labeled use-after-free; it is included because the same stale borrowed-container-storage mechanism causes the invalid access.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:43:11.488044+00:00"
+}

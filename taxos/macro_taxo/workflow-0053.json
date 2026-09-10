@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0053",
+  "issues": [
+    115378,
+    122431
+  ],
+  "workflow_hypothesis": "Unvalidated thread identifier causes native lookup crash",
+  "pattern": "Unchecked numeric input reaches native code that assumes a valid handle or range, causing unsafe memory access.",
+  "description": "A caller-controlled integer is accepted by an interface and forwarded to native code without validating its semantic domain; the native routine then uses it as a trusted handle or bounded value, potentially accessing invalid memory and terminating the process instead of returning an input error.",
+  "precondition": "A caller supplies a numeric value outside the valid identifier or range domain, while the interface performs only syntactic conversion or type checking.",
+  "critical_operation": "The interface forwards the converted value to a native routine without validating that it denotes a live resource or falls within the supported range.",
+  "interference": "The native routine interprets the value as a trusted internal handle, pointer-like value, count, or boundary and uses it in memory-access operations.",
+  "invalid_assumption": "A successfully converted numeric argument is semantically valid for the native operation.",
+  "failure": "The invalid value can cause an out-of-bounds or invalid-memory access, terminating the process instead of producing a recoverable argument error.",
+  "search_strategy": [
+    "Check numeric arguments passed to native routines for semantic range, sign, liveness, and representability validation before forwarding.",
+    "Check whether native code uses caller-controlled integers as handles, pointer-like values, counts, indexes, or memory boundaries without defensive validation.",
+    "Check invalid, negative, extreme, stale, and out-of-range inputs for recoverable errors rather than crashes or sanitizer-detected memory faults.",
+    "Check interface conversion code for type checks that are mistaken for validation of the value’s operational domain."
+  ],
+  "evidence": [
+    {
+      "issue": 115378,
+      "supports": "An invalid numeric thread identifier is converted and passed to native lookup code, which treats it as a pointer-like thread handle and dereferences it, producing a segmentation fault."
+    },
+    {
+      "issue": 122431,
+      "supports": "A negative numeric count, including an extreme minimum value, reaches native history-processing code without rejection and can cause an out-of-bounds memory access; the fix adds explicit range validation and a recoverable value error."
+    }
+  ],
+  "scope_note": "The reports support a general pattern of missing semantic validation at a native-interface boundary. They differ in whether the value is used as a thread handle or a count, so the pattern does not claim that all invalid numeric arguments cause the same specific memory fault.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:41:07.222610+00:00"
+}

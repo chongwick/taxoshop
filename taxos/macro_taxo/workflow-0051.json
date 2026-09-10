@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0051",
+  "issues": [
+    114083
+  ],
+  "workflow_hypothesis": "Optimization-pass ordering leaves redundant control-flow edge",
+  "pattern": "A control-flow optimizer performs jump threading while constant-dependent branch folding can still rewrite target successors, and bounded cleanup checks invari,",
+  "description": "A control-flow optimizer performs jump threading while constant-dependent branch folding can still rewrite target successors, and bounded cleanup checks invariants before reaching a fixed point.",
+  "precondition": "The control-flow graph contains an incoming jump to a block whose leading instructions encode a compile-time constant condition, while jump threading and constant folding are performed in an order that permits both transformations within the same optimization phase.",
+  "critical_operation": "The optimizer examines the target's current control flow and attempts to redirect or eliminate the incoming jump before the target's constant condition has been folded into its final unconditional or removed form.",
+  "interference": "Constant folding subsequently changes the target block's successor relationship, invalidating the earlier threading decision and exposing a jump that is now redundant.",
+  "invalid_assumption": "The optimizer assumes its bounded cleanup passes have fully propagated the consequences of interacting control-flow rewrites before checking the no-redundant-edge invariant.",
+  "failure": "A redundant jump remains in the graph when the invariant is checked, causing the optimizer's internal assertion to terminate compilation.",
+  "search_strategy": [
+    "Trace whether constant-condition folding and jump threading inspect or rewrite the same blocks within one pass.",
+    "Check whether a transformation can change a block's successor after an earlier pass has redirected an incoming edge.",
+    "Verify that redundant-jump and no-op cleanup repeats until no changes remain rather than using a fixed iteration bound.",
+    "Inspect invariant checks for control-flow properties that are asserted before all dependent rewrites have reached a fixed point."
+  ],
+  "evidence": [
+    {
+      "issue": 114083,
+      "supports": "The report shows that constant-dependent branch folding and jump threading in one optimization phase can be ordered so threading observes stale target control flow; the later fold creates a redundant jump, and the fix separates the passes and makes cleanup iterate to convergence."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped pattern from a singleton report: it generalizes to interacting CFG rewrites whose successor changes can invalidate earlier edge transformations, but does not establish that every redundant-edge assertion failure has this cause.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:40:16.318401+00:00"
+}

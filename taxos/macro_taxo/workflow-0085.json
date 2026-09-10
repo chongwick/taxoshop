@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0085",
+  "issues": [
+    135774,
+    140332,
+    148850
+  ],
+  "workflow_hypothesis": "Partial instrumentation causes a false-positive uninitialized read during startup",
+  "pattern": "Sanitized code consumes data initialized across an uninstrumented library or system-call boundary",
+  "description": "A memory-sanitized component reads data whose real bytes are initialized, but whose sanitizer shadow metadata was not propagated across an uninstrumented boundary.",
+  "precondition": "A program enables uninitialized-memory instrumentation while relying on a library or low-level data source that is not instrumented compatibly.",
+  "critical_operation": "Instrumented code scans, compares, hashes, or otherwise reads the returned buffer or string-like value.",
+  "interference": "The boundary initializes or fills the actual storage without updating the instrumentation metadata, or metadata from the producing component is unavailable.",
+  "invalid_assumption": "The sanitizer's shadow state is assumed to accurately represent the data's real initialization state across every call, library, and system interface.",
+  "failure": "The sanitizer reports a fatal use of uninitialized memory during a valid operation, producing a false positive until the producer is instrumented or the boundary explicitly marks the data initialized.",
+  "search_strategy": [
+    "Check every library and runtime dependency on a sanitized link path for compatible sanitizer instrumentation.",
+    "Inspect system-call and foreign-function boundaries for buffers whose sanitizer initialization metadata is not explicitly propagated.",
+    "Trace every reported read of a valid buffer back to its producer and compare actual writes with shadow-metadata updates.",
+    "Add a targeted test that consumes data returned by each uninstrumented boundary under the sanitizer and verify whether explicit metadata marking is required."
+  ],
+  "evidence": [
+    {
+      "issue": 135774,
+      "supports": "A valid startup key created through code linked from an unsanitized prebuilt runtime was later hashed by instrumented code, exposing missing shadow metadata as an uninitialized read."
+    },
+    {
+      "issue": 140332,
+      "supports": "A sanitized extension passed data through an unsanitized cryptographic library, whose comparison path triggered an apparent uninitialized read because the external library was not built with matching instrumentation."
+    },
+    {
+      "issue": 148850,
+      "supports": "A system call filled a buffer without sanitizer metadata updates; a later instrumented search treated the valid returned bytes as uninitialized until the buffer was explicitly unpoisoned."
+    }
+  ],
+  "scope_note": "The reports support a pattern specific to shadow-metadata sanitizers such as MSan at uninstrumented library, runtime, or syscall boundaries. They do not establish that every uninitialized-memory report is a false positive or that all boundary crossings require the same repair.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:59:08.097057+00:00"
+}

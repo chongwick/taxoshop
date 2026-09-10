@@ -1,0 +1,38 @@
+# An incremental C-string-based reader processes input containing an embedded NUL before its line delimiter. Its length remains zero or shorter than the bytes the
+
+A buffered line reader derives its offset from NUL-terminated string length, then indexes the preceding byte without proving the offset is nonzero. Embedded NUL input can hide already-read bytes, leaving the offset unchanged and making the preceding-byte access out of bounds.
+
+## Precondition
+
+An incremental reader accepts byte input that may contain an embedded NUL before the expected record or line terminator, while tracking progress with a NUL-terminated-string length.
+
+## Critical operation
+
+After each read, the reader evaluates the prior buffer element using an expression equivalent to buffer[offset - 1] to decide whether to continue.
+
+## Interference
+
+The NUL-terminated length operation stops at the embedded NUL, so the computed length can be zero even though the underlying read placed additional bytes in the buffer; the offset therefore fails to advance.
+
+## Invalid assumption
+
+The code assumes the computed length is positive whenever the preceding-element check executes, and that a string-derived length represents all bytes obtained by the read.
+
+## Failure
+
+The preceding-element access reads before the valid buffer range, causing undefined behavior and potentially sanitizer-detected failure. If undetected, the unchanged offset can make the next read overwrite earlier input, causing data loss or incorrect record processing.
+
+## Scope
+
+This is a cautiously scoped singleton pattern supported by one report: it applies to incremental byte readers that combine NUL-terminated string-length accounting with delimiter checks and unguarded preceding-element access. It does not establish that all embedded-NUL handling must truncate input; the confirmed defect is the invalid boundary access and its downstream effects.
+
+## Search strategy
+
+1. Search incremental buffered readers for expressions that index a buffer at length - 1 without an explicit length-positive guard.
+2. Check whether string-length functions are used to measure data from byte reads that may contain embedded NUL characters.
+3. Trace the offset update when the first byte read is NUL and verify that every subsequent read advances the write position before any boundary-relative access.
+4. Add tests with NUL bytes at the beginning and middle of a record followed by additional data and a delimiter, and verify both memory safety and record preservation.
+
+## Evidence
+
+- [#140594](../micro_taxo/gh_140594.md): The report demonstrates that an embedded NUL causes string-length computation to return zero, that the loop then reads the buffer at offset minus one, and that the resulting undefined behavior can either be detected as an out-of-bounds read or leave the offset unchanged so later input overwrites and replaces earlier bytes.

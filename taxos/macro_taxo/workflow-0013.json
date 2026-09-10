@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0013",
+  "issues": [
+    79374,
+    140497
+  ],
+  "workflow_hypothesis": "Boundary overrun during unreachable-code optimization",
+  "pattern": "Bounded instruction-stream consumers dereference an instruction after reaching the stream boundary because end-of-sequence validation is missing or bypassed.",
+  "description": "A component processes an instruction buffer whose valid range may end immediately after a terminating instruction or may be empty after transformation. It advances or dispatches at the boundary without proving that a valid instruction remains.",
+  "precondition": "The instruction buffer can be empty, malformed, or have a cursor/target equal to its length, including when a terminator is the final valid instruction.",
+  "critical_operation": "A scanner, target resolver, or execution dispatcher reads the instruction at the current or advanced cursor.",
+  "interference": "Boundary conditions leave no valid instruction for that read, but control flow still invokes the read or dereferences the returned boundary position.",
+  "invalid_assumption": "Every cursor or resolved target supplied to the instruction consumer identifies an existing instruction, so an end position does not require a separate validity check.",
+  "failure": "The consumer performs an out-of-bounds read, producing a memory-safety violation and potentially aborting or crashing the process.",
+  "search_strategy": [
+    "Check every instruction-scanning loop for a bounds check before reading the current element.",
+    "Check helpers that skip prefixes, extensions, or unreachable instructions for the case where advancement reaches exactly the sequence length.",
+    "Check every resolved branch target and dispatch cursor for validation against the instruction-buffer length before dereferencing.",
+    "Check code paths that accept, construct, or transform instruction buffers for empty or structurally incomplete sequences."
+  ],
+  "evidence": [
+    {
+      "issue": 79374,
+      "supports": "An optimization scan reached exactly the end of its bounded instruction array after a terminating operation, and its opcode-search helper read at that boundary; the fix added an explicit length check."
+    },
+    {
+      "issue": 140497,
+      "supports": "Execution of a deliberately empty instruction buffer caused the dispatcher to read beyond the allocated buffer, demonstrating the same missing validation when no instruction exists at the current position."
+    }
+  ],
+  "scope_note": "The reports differ in phase: one concerns optimization-time scanning after unreachable code, while the other concerns execution of an empty instruction buffer. The shared pattern is boundary dereference without validating that a current instruction exists; it does not require unreachable-code removal specifically.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:41:01.439034+00:00"
+}

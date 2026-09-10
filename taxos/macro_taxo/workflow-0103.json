@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0103",
+  "issues": [
+    140576
+  ],
+  "workflow_hypothesis": "Pending lexical error is misinterpreted as normal end-of-input",
+  "pattern": "Error-bearing end-of-input sentinels are mistaken for clean input exhaustion during tokenization.",
+  "description": "A layered tokenizer fails to distinguish normal end-of-input from an end-of-input sentinel returned alongside a pending lexical error.",
+  "precondition": "A tokenizer processes malformed input whose state transition, such as indentation handling, reaches an invalid embedded byte that the low-level reader can report through an end-of-input sentinel plus an error state.",
+  "critical_operation": "The tokenizer interprets the reader result and decides whether to finish the current token or propagate a lexical error.",
+  "interference": "The reader uses the same sentinel value for both clean exhaustion and invalid-byte detection while recording the latter as a pending error.",
+  "invalid_assumption": "Any end-of-input sentinel is safe to treat as ordinary completion, without checking whether an error is pending.",
+  "failure": "The tokenizer emits or constructs a normal token while the error remains pending, causing an internal invariant failure instead of a recoverable tokenization error.",
+  "search_strategy": [
+    "Inspect every branch handling an end-of-input sentinel from a lower-level reader and check the pending error state before treating it as clean exhaustion.",
+    "Trace error propagation from character reading through token emission and verify that no token result is constructed while an error is pending.",
+    "Add malformed-input tests combining indentation or other state transitions with an embedded terminator or invalid byte, and assert a lexical error rather than an internal failure.",
+    "Audit token-result constructors for callers that may receive sentinel-derived output and require explicit error propagation instead of a global error-state workaround."
+  ],
+  "evidence": [
+    {
+      "issue": 140576,
+      "supports": "A malformed indented input containing an embedded zero byte caused the character reader to return an end-of-input value with an error set; the tokenizer then allowed normal token construction to proceed, producing an internal system failure. The fix explicitly treats an error-bearing sentinel as an error token, and regression coverage expects a lex"
+    }
+  ],
+  "scope_note": "This cluster contains one report, so the pattern is cautiously scoped to layered tokenizers or similar incremental parsers where a low-level reader conflates clean exhaustion with error-bearing sentinel results.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:09:12.831022+00:00"
+}

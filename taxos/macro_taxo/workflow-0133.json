@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0133",
+  "issues": [
+    142737
+  ],
+  "workflow_hypothesis": "Unchecked missing fallback dependency crashes error reporting",
+  "pattern": "Fallback error handling invokes a missing dependency after an unchecked lookup.",
+  "description": "A fallback error-reporting path retrieves a required operation from mutable support state and uses the result without validating that the lookup succeeded.",
+  "precondition": "The normal error-reporting mechanism is unavailable, so fallback formatting must locate a lower-level support operation.",
+  "critical_operation": "The fallback formatter looks up that required operation and proceeds toward invoking the returned value.",
+  "interference": "The operation has been removed or otherwise made unavailable before the lookup.",
+  "invalid_assumption": "The lookup is assumed to return a valid callable, with no presence or validity check on failure.",
+  "failure": "The fallback path invokes an invalid or absent value, causing a secondary internal assertion or crash that prevents the original error from being reported.",
+  "search_strategy": [
+    "Trace fallback error-reporting branches for lookups of required operations from mutable registries, modules, or shared support objects.",
+    "Check every lookup result used as a callable for explicit failure handling before invocation.",
+    "Inspect mutation, teardown, and reconfiguration paths for removal or replacement of dependencies used by fallback handling.",
+    "Verify that failures inside diagnostic or recovery paths preserve the original error instead of terminating with a secondary internal failure."
+  ],
+  "evidence": [
+    {
+      "issue": 142737,
+      "supports": "The report demonstrates that fallback traceback formatting retrieves a support operation after it has been removed, fails to check the unsuccessful lookup, and later triggers an internal assertion while attempting to report the original runtime error."
+    }
+  ],
+  "scope_note": "This cluster contains one report, so the pattern is scoped to fallback diagnostic paths that depend on mutable support state; it does not claim that all error-reporting crashes share this mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:27:10.164041+00:00"
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0099",
+  "issues": [
+    140409
+  ],
+  "workflow_hypothesis": "Unchecked callback indexing causes heap-buffer-overflow",
+  "pattern": "A callback receives a raw pointer into a heap buffer without its allocation extent, then indexes relative to that pointer and exposes the selected element to a",
+  "description": "Unchecked indexing through a raw callback pointer permits managed conversion of an element outside the underlying heap allocation.",
+  "precondition": "A callback interface exposes a raw pointer into a heap allocation without carrying the buffer's valid extent, while callback code can supply an arbitrary element index.",
+  "critical_operation": "The callback performs indexed access and passes the resulting position through a native-to-managed conversion that reads the element from memory.",
+  "interference": "The indexed-access or conversion path does not validate that the requested position lies within the original allocation or within the callback's valid element range.",
+  "invalid_assumption": "The implementation assumes that every index used with a callback-provided pointer refers to an element in a sufficiently large valid buffer.",
+  "failure": "The conversion reads beyond the heap allocation, producing a heap out-of-bounds read and potentially terminating the process instead of returning a recoverable bounds error.",
+  "search_strategy": [
+    "Inspect callback interfaces that pass raw element pointers without an explicit length or end pointer.",
+    "Trace every indexed dereference performed on callback-supplied pointers and verify bounds are checked against the original allocation.",
+    "Check native-to-managed conversion routines for reads that trust a pointer and index without validating the accessible extent.",
+    "Audit callbacks that receive derived pointers rather than the allocation base for assumptions that the pointer still carries buffer-size information."
+  ],
+  "evidence": [
+    {
+      "issue": 140409,
+      "supports": "A callback receives pointers into a small heap buffer, applies a deliberately distant index to one pointer, and the element conversion reads beyond the allocation, triggering a heap-buffer-overflow and process abort."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern supported by one report: it covers raw-pointer callback indexing whose downstream element conversion lacks extent validation. It does not establish that all callback APIs or all out-of-bounds accesses share this mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:07:32.757972+00:00"
+}

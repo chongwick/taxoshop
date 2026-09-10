@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0144",
+  "issues": [
+    144069
+  ],
+  "workflow_hypothesis": "Failed resource creation leaks unreachable partial allocations",
+  "pattern": "A resource-owning wrapper enters failure cleanup before its resource field has been initialized to a defined empty state.",
+  "description": "Failed external-resource construction can leave wrapper cleanup with an indeterminate or unavailable ownership marker, so destructor-based cleanup cannot reliably account for resources involved in the failed attempt.",
+  "precondition": "A wrapper allocates its own state and has a destructor or rollback path that conditionally releases an external resource through a stored handle.",
+  "critical_operation": "The wrapper invokes external resource creation and immediately relies on the returned handle to represent all cleanup-relevant state.",
+  "interference": "Creation fails during setup, potentially after the external implementation has performed partial allocation, and returns no usable handle while wrapper teardown still runs.",
+  "invalid_assumption": "A failure return or null handle is assumed to mean that no cleanup-relevant state exists, or that the wrapper's handle field is already safely initialized for failure teardown.",
+  "failure": "Failed attempts can leave partial allocations unreclaimed or make cleanup act on stale indeterminate state, producing leaks or unsafe repeated teardown; repeated failures can grow memory usage.",
+  "search_strategy": [
+    "Inspect every constructor failure path where a destructor may run before each ownership field is explicitly initialized.",
+    "Check whether an external create/open call can perform side effects before returning a failure sentinel or null handle.",
+    "Verify that cleanup state distinguishes no resource acquired from partially initialized or failed acquisition state.",
+    "Exercise repeated failed creation attempts and inspect whether all underlying allocations are reclaimed."
+  ],
+  "evidence": [
+    {
+      "issue": 144069,
+      "supports": "The report describes an external database-opening operation that can allocate internal state before failure, while the wrapper is decremented and deallocated without a usable handle; the fix initializes the ownership field before the call and hardens teardown, supporting a failure-path ownership and initialization mismatch pattern."
+    }
+  ],
+  "scope_note": "This cluster contains one report. It supports a cautiously scoped pattern for wrappers around external resource creation, especially where failure can occur after partial setup and cleanup is destructor-driven; it does not establish that every failed creation returns a hidden usable handle or that every such bug is solely an external-library leak.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:32:55.258406+00:00"
+}

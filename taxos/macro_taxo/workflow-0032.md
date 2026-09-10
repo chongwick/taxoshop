@@ -1,0 +1,40 @@
+# Truncated compact metadata is decoded past its logical buffer boundary, causing adjacent memory to be interpreted as additional records.
+
+A metadata iterator or decoder processes compact, variable-length records without proving that each byte read remains within the supplied metadata length. Malformed or foreign-format input can therefore turn trailing bytes and adjacent memory into fabricated metadata.
+
+## Precondition
+
+An attacker or untrusted input can supply a structured object or serialized record whose compact location/line metadata is truncated, malformed, or encoded for an incompatible format.
+
+## Critical operation
+
+A lazy iterator decodes record headers and variable-length fields, advancing its cursor and interpreting continuation markers or record deltas to produce metadata values.
+
+## Interference
+
+The decoder performs reads or retry iterations without checking the remaining logical buffer length; zero-progress records, continuation bits, terminators, or allocator-provided trailing bytes allow decoding to continue after the valid payload ends.
+
+## Invalid assumption
+
+The implementation assumes each encoded record is complete and that a terminator or accessible trailing byte makes further reads safe, rather than treating end-of-buffer or format mismatch as malformed input.
+
+## Failure
+
+The decoder reads outside the metadata buffer and interprets unrelated memory as metadata, exposing fabricated values or driving later processing into crashes, fatal memory errors, or other unsafe behavior.
+
+## Scope
+
+The reports establish a shared pattern for compact location/line metadata readers and iterators; the third report is an integration-path manifestation rather than a separate decoding mechanism. The evidence does not justify extending the pattern to all parsers or claiming reliable exploitability beyond adjacent-memory disclosure and crash-inducing invalid processing.
+
+## Search strategy
+
+1. Search every byte, fixed-width field, and variable-length integer decoder for a remaining-length check before each cursor advance.
+2. Check loops that retry after zero-length or zero-progress records and verify they cannot perform another record read at end-of-buffer.
+3. Trace terminator, padding, and sentinel handling and confirm bounds use the logical payload length rather than allocator-added accessible bytes.
+4. Exercise truncated, continuation-marked, and foreign-version metadata with assertions disabled and verify that decoding returns a recoverable malformed-input error without out-of-bounds access.
+
+## Evidence
+
+- [#99974](../micro_taxo/gh_99974.md): A compact location-record iterator accepted an adversarial continuation-marked payload and decoded several variable-length fields beyond the payload, exposing adjacent heap bytes as metadata.
+- [#99975](../micro_taxo/gh_99975.md): A line-range iterator consumed a one-byte payload plus its trailing accessible byte, then retried after no progress and read two bytes beyond the logical metadata buffer.
+- [#121112](../micro_taxo/gh_121112.md): Foreign or malformed serialized code metadata reached the same unchecked location reader through an integration tool; the resulting out-of-bounds decoding produced crashes and debug memory-integrity failures, and the report later explicitly tied it to the unchecked location reader.

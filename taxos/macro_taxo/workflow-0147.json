@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0147",
+  "issues": [
+    144280
+  ],
+  "workflow_hypothesis": "Missing symbolic-value category causes optimizer crash",
+  "pattern": "A symbolic optimizer represents predicate results as a distinct value category, but a truthiness-analysis dispatch omits that category; the fallback then readsる",
+  "description": "A symbolic optimizer represents predicate results as a distinct value category, but a truthiness-analysis dispatch omits that category; the fallback then reads representation-specific state that is invalid for predicate values, causing a crash instead of returning an unknown or boolean truthiness result.",
+  "precondition": "The optimizer can construct symbolic values for predicate results and later analyze their truthiness through category-based dispatch.",
+  "critical_operation": "Dispatch truthiness analysis according to the symbolic value's category.",
+  "interference": "The predicate-result category is missing from the dispatch cases, so processing falls through to logic intended for a different symbolic representation.",
+  "invalid_assumption": "Every value reaching the fallback path has the representation fields and invariants expected by that path.",
+  "failure": "Truthiness analysis dereferences invalid state and terminates with a memory-access crash instead of conservatively reporting unknown truthiness or the predicate's known boolean result.",
+  "search_strategy": [
+    "Enumerate every symbolic-value category and verify that truthiness-analysis dispatch handles each category explicitly.",
+    "Trace newly added symbolic categories through all category switches, including diagnostic or printing paths.",
+    "Inspect fallback branches for representation-specific field access and verify their preconditions against every possible category.",
+    "Add tests covering unknown and constant predicate results before and after truthiness analysis."
+  ],
+  "evidence": [
+    {
+      "issue": 144280,
+      "supports": "The report shows a distinct symbolic predicate result reaching truthiness analysis, an omitted dispatch case, and a resulting invalid dereference; the fix adds the missing category handling and tests both unknown and constant predicate truthiness."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped pattern from a singleton report: it applies to category-dispatched symbolic analysis when a newly introduced predicate-result category is omitted, without claiming that all missing dispatch cases fail through the same fallback or produce the same crash.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:33:53.859968+00:00"
+}

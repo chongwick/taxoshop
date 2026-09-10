@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0120",
+  "issues": [
+    141314
+  ],
+  "workflow_hypothesis": "Empty buffered snapshot violates position-calculation boundary assumption",
+  "pattern": "A buffered position-reporting optimization applies a backward scan after text consumption without accounting for a valid empty buffered state.",
+  "description": "A text reader reaches a boundary after consuming input whose line ending can leave its lookahead buffer empty; requesting the current position invokes an optimization that scans backward through buffered data.",
+  "precondition": "A text-reading operation has consumed input ending at a standalone carriage-return boundary, leaving the reader at a valid position with an empty buffered snapshot.",
+  "critical_operation": "The position-reporting path computes a nearby restart point and performs a backward skip or scan through the buffered snapshot.",
+  "interference": "The input boundary causes the snapshot used by that optimization to contain zero bytes, even though the position is valid and no unread data remains.",
+  "invalid_assumption": "The optimization assumes its buffered snapshot is always nonempty and that the computed backward skip is therefore within the snapshot’s length.",
+  "failure": "An internal bounds assertion fails and aborts position reporting instead of returning the valid current position.",
+  "search_strategy": [
+    "Check position-calculation fast paths for backward skips that are validated against buffered data without first handling an empty buffer.",
+    "Search text or stream boundary handling for valid end states that produce empty lookahead snapshots.",
+    "Trace line-ending normalization paths, especially standalone carriage returns, into buffer-state and position-reporting code.",
+    "Verify that assertions guarding optimized scans distinguish empty-buffer cases from invalid offsets.",
+    "Test current-position reporting immediately after consuming input that ends at a standalone line boundary."
+  ],
+  "evidence": [
+    {
+      "issue": 141314,
+      "supports": "The report documents a position-reporting assertion triggered after reading input ending in a standalone carriage return; the resulting buffered snapshot is empty, while the optimization assumes buffered data exists and validates a backward skip against that empty snapshot. The merged remedy skips the optimization when the snapshot is empty and the"
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern: it is supported for text-stream position reporting when a valid line-boundary state leaves an empty buffered snapshot, specifically including standalone carriage-return endings. The report does not establish that every empty-buffer optimization or every stream API has the same defect.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:21:25.622593+00:00"
+}

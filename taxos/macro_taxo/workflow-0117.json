@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0117",
+  "issues": [
+    140936
+  ],
+  "workflow_hypothesis": "Stale optimized execution during runtime finalization triggers an invalid state assertion",
+  "pattern": "A runtime retains specialized executable state across teardown, then cleanup resumes it after the optimization subsystem has been disabled; the stale state reën",
+  "description": "A runtime retains specialized executable state across teardown, then cleanup resumes it after the optimization subsystem has been disabled; the stale state re-enters optimization code that assumes the subsystem is still active.",
+  "precondition": "A frequently executed operation has been specialized, and a suspended or otherwise retained computation can still execute that specialized representation during cleanup or finalization.",
+  "critical_operation": "Teardown disables the optimization or execution subsystem without first invalidating, de-specializing, or otherwise quarantining every already-specialized operation.",
+  "interference": "Cleanup resumes the retained computation and dispatches the stale specialized operation while subsystem shutdown is in progress or already complete.",
+  "invalid_assumption": "Optimization entry points assume that reaching them proves the optimization subsystem remains enabled, rather than defensively handling specialized state that outlived the subsystem.",
+  "failure": "A debug invariant or equivalent state check observes the disabled subsystem and aborts instead of safely bypassing optimization or falling back to the generic operation.",
+  "search_strategy": [
+    "Check finalization and shutdown paths for global optimization-state changes that leave specialized instructions or cached executors reachable.",
+    "Trace suspended frames, generators, callbacks, and deferred cleanup for execution after subsystem teardown begins.",
+    "Verify that disabling an optimization subsystem invalidates or safely gates every already-specialized operation before retained computations can resume.",
+    "Inspect optimizer entry points for unconditional assertions that subsystem-enabled state follows from the caller’s specialized representation."
+  ],
+  "evidence": [
+    {
+      "issue": 140936,
+      "supports": "The report shows that a hot control-flow operation remains specialized after runtime finalization disables the JIT, and that finalization of a live suspended computation re-enters the stale operation, triggering an assertion that the JIT is enabled; the fix adds a disabled-state guard and returns without optimization."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is cautiously scoped to shutdown or finalization races involving retained specialized execution state. The report establishes stale specialized state and unsafe optimizer re-entry, but does not justify a broader rule covering all cache invalidation or all concurrent subsystem shutdowns.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:20:18.569884+00:00"
+}

@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0137",
+  "issues": [
+    143007,
+    143008,
+    143195,
+    143198,
+    143200,
+    143236,
+    143308,
+    143310,
+    143375,
+    143378,
+    143380,
+    143544,
+    143545,
+    143637,
+    143638,
+    143662,
+    144128,
+    144922,
+    148625,
+    154189
+  ],
+  "workflow_hypothesis": "Reentrant argument conversion invalidates a backing resource before later use",
+  "pattern": "Reentrant user-code execution invalidates native state before later use",
+  "description": "A native operation retains a borrowed pointer, cached size, container slot, or backing-resource handle across a user-code boundary. The user code mutates, detaches, closes, replaces, or releases that state, but the operation resumes using its pre-bound view instead of acquiring a protected reference or validating the state again.",
+  "precondition": "The operation has validated or captured native state and then performs conversion, iteration, comparison, callback dispatch, or another protocol operation capable of executing user code.",
+  "critical_operation": "The operation invokes that user-controlled protocol or callback while retaining raw pointers, borrowed objects, cached dimensions, or assumptions about an attached resource for subsequent work.",
+  "interference": "Reentrant code invalidates the retained state by clearing or resizing a container, releasing a buffer, detaching or closing a resource, replacing object fields, freeing an exception or execution context, or recursively mutating the same operation object.",
+  "invalid_assumption": "After the user-code boundary, the previously validated handle, pointer, object lifetime, container layout, size, or associated resource is still valid and unchanged.",
+  "failure": "The resumed operation reads or calls through stale, cleared, freed, or out-of-bounds state, producing a null dereference, use-after-free, invalid read, heap overread, crash, or possible data corruption instead of a recoverable error.",
+  "search_strategy": [
+    "Check every conversion, protocol dispatch, comparison, iterator operation, and callback for user-code execution while raw pointers, borrowed references, cached sizes, or resource handles remain live.",
+    "Check whether reentrant code can clear, resize, detach, close, release, replace, or recursively re-enter the object whose state was captured before the call.",
+    "Check that every potentially invalidating boundary is followed by a lifetime-preserving reference or a fresh validity, identity, pointer, and size check before native state is used.",
+    "Check that invalidation is converted into a defined exception or abort path rather than dereferencing the stale state or continuing with cached bounds."
+  ],
+  "evidence": [
+    {
+      "issue": 143007,
+      "supports": "Numeric conversion of a caller-supplied position invokes user code that detaches the underlying resource; the operation then calls through the cleared handle."
+    },
+    {
+      "issue": 143008,
+      "supports": "A flush callback detaches the wrapped resource before a later operation uses the wrapper's backing handle."
+    },
+    {
+      "issue": 143195,
+      "supports": "A separator length query clears the byte storage before the hex conversion continues reading the original buffer."
+    },
+    {
+      "issue": 143198,
+      "supports": "Creating or obtaining a parameter iterator can close the database connection before cursor execution reuses cached statement state."
+    },
+    {
+      "issue": 143200,
+      "supports": "Index conversion can clear an element's child storage before slice processing continues with that storage."
+    },
+    {
+      "issue": 143236,
+      "supports": "Mapping lookup can execute key comparison code that clears frame locals while name lookup continues through the old locals state."
+    },
+    {
+      "issue": 143308,
+      "supports": "A callback result's truth conversion releases the buffer being serialized before serialization copies from the retained view."
+    },
+    {
+      "issue": 143310,
+      "supports": "String conversion of an element can clear the input list while the outer argument conversion continues traversing its old slots."
+    },
+    {
+      "issue": 143375,
+      "supports": "Offset conversion can close or detach the buffered writer before seek resumes with its buffered state."
+    },
+    {
+      "issue": 143378,
+      "supports": "Buffer acquisition can run user code that closes or mutates the target buffer before the write path finishes using its internal storage."
+    },
+    {
+      "issue": 143380,
+      "supports": "Sequence-length or parameter processing can reentrantly invalidate the database connection before execution uses the connection state."
+    },
+    {
+      "issue": 143544,
+      "supports": "Error construction can reenter and replace or free the exception type while the decoder still holds the old type assumption."
+    },
+    {
+      "issue": 143545,
+      "supports": "External timer index conversion can clear the profiler while initialization or stopping still writes through the profiler context."
+    },
+    {
+      "issue": 143637,
+      "supports": "Ancillary-data index conversion can clear the control list while the parser continues using its captured items and bounds."
+    },
+    {
+      "issue": 143638,
+      "supports": "Reentrant mapping assignment during pickle state processing can recursively mutate the same serializer state while the outer operation still uses it."
+    },
+    {
+      "issue": 143662,
+      "supports": "Text conversion through a user factory can close the database before cursor iteration calls a database helper with the cleared handle."
+    },
+    {
+      "issue": 144128,
+      "supports": "Element index conversion can clear the source list and release the element being converted before conversion completes."
+    },
+    {
+      "issue": 144922,
+      "supports": "A write callback can clear, shrink, or reallocate the array after block metadata and storage pointers were cached."
+    },
+    {
+      "issue": 148625,
+      "supports": "Rich comparison can execute user code that frees an object whose type or fields the enclosing comparison still reads afterward."
+    },
+    {
+      "issue": 154189,
+      "supports": "Keyword hashing can reenter object state replacement and free the argument and keyword containers behind cached raw pointers."
+    }
+  ],
+  "scope_note": "The shared pattern is broader than backing-resource detachment and broader than numeric conversion: the reports include container mutation, buffer release, object replacement, recursive use, and callback-driven invalidation. It is scoped to operations that retain native state across a user-code or equivalent reentrant boundary; it does not claim that every callback or mutation is unsafe when state is protected or revalidated.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:29:59.051249+00:00"
+}

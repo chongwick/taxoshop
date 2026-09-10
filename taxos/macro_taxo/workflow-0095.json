@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0095",
+  "issues": [
+    140263
+  ],
+  "workflow_hypothesis": "Unsynchronized inspection of concurrently updated synchronization state",
+  "pattern": "A concurrency check polls or delays before directly inspecting shared state that another thread updates atomically, but performs the inspection with a non-atom\u0002",
+  "description": "A concurrency check polls or delays before directly inspecting shared state that another thread updates atomically, but performs the inspection with a non-atomic, unsynchronized read.",
+  "precondition": "Shared synchronization state is concurrently accessible, with one thread updating it through atomic operations while another thread later checks its value.",
+  "critical_operation": "The checking thread reads the shared state directly to assert an expected combination of bits or flags after timing-based polling or delay.",
+  "interference": "The worker can still perform an atomic update while the checking thread executes that ordinary read; the delay or polling does not establish a synchronization relationship.",
+  "invalid_assumption": "Assuming that timing-based progress or the writer's atomic update makes a concurrent non-atomic read safe.",
+  "failure": "A race detector reports a data race between the atomic write and ordinary read, causing the concurrency test or assertion run to fail.",
+  "search_strategy": [
+    "Search for shared synchronization flags or bit fields written with atomic operations but read directly in assertions or diagnostics.",
+    "Check whether sleeps, polling loops, or timing-based progress checks precede a non-atomic read of state updated by another thread.",
+    "Verify that every cross-thread read of atomically updated state uses an atomic load or an equivalent lock-protected access."
+  ],
+  "evidence": [
+    {
+      "issue": 140263,
+      "supports": "The report documents a race between an atomic update of shared lock-state bits by a worker and a direct read by the checking thread after sleep-based polling; replacing the direct read with a relaxed atomic load removes the race."
+    }
+  ],
+  "scope_note": "This is a singleton cluster. It supports the mixed atomic-write/non-atomic-read pattern in concurrency tests, specifically where timing-based progress is mistaken for synchronization; it does not establish that all polling or delayed inspections are unsafe.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:06:01.124769+00:00"
+}

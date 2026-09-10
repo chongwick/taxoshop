@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0034",
+  "issues": [
+    100773,
+    104791,
+    111339,
+    113576,
+    140404
+  ],
+  "workflow_hypothesis": "Legacy shared extension state survives repeated runtime shutdown",
+  "pattern": "Process-global runtime or extension state retains interpreter-owned objects or metadata across interpreter teardown and reuse",
+  "description": "Interpreter lifecycle bugs occur when object-bearing state is shared at process scope instead of being owned by each interpreter instance and cleaned up with it.",
+  "precondition": "An embeddable runtime can create, destroy, and later recreate interpreter instances or subinterpreters, while a built-in or extension component stores interpreter-owned references, type metadata, caches, allocator state, or similar state in process-global or static storage without complete lifecycle ownership.",
+  "critical_operation": "The runtime initializes or imports the component, uses its objects or types, then finalizes the interpreter and later initializes another interpreter or destroys a subinterpreter.",
+  "interference": "Finalization releases interpreter-scoped objects such as strings, dictionaries, module state, or allocator resources while the shared state remains populated and is later reused or repopulated.",
+  "invalid_assumption": "Process-global state is assumed to remain valid across interpreter lifetimes, or interpreter finalization is assumed to discover and release every reference held by legacy shared state.",
+  "failure": "References and allocations survive teardown, producing leaks or cumulative memory growth; when stale state is reused, the result can be invalid reads, invalid frees, assertions, or crashes.",
+  "search_strategy": [
+    "Search for static or process-global variables that store object references, type metadata, caches, or allocator state.",
+    "Trace initialization and finalization paths to verify that every component-owned reference is associated with one interpreter and released before that interpreter is destroyed.",
+    "Exercise initialization/finalization twice and subinterpreter creation/destruction under leak and memory-safety instrumentation.",
+    "Inspect reusable built-in or extension types for metadata dictionaries, interned names, and other fields that survive teardown but reference interpreter-owned objects.",
+    "Verify that extension initialization provides explicit per-instance state and an explicit teardown path for all owned resources."
+  ],
+  "evidence": [
+    {
+      "issue": 100773,
+      "supports": "Repeatedly initializing and finalizing an embedded runtime exposed residual allocations; the analysis distinguishes one-time process-lifetime allocations from allocations recreated on each initialization and identifies incomplete migration of extensions to lifecycle-associated state as the relevant mechanism."
+    },
+    {
+      "issue": 104791,
+      "supports": "Leak detection during module checking was attributed to unresolved initialization and finalization work, with the implicated allocation originating from runtime activity that was not fully reclaimed by the lifecycle."
+    },
+    {
+      "issue": 111339,
+      "supports": "A static type retained metadata after finalization; a name owned by the finalized interpreter was invalidated, and the next initialization reused that stale metadata, causing an assertion or crash."
+    },
+    {
+      "issue": 113576,
+      "supports": "Importing an extension during two initialization/finalization cycles caused stale shared state to be accessed after teardown, yielding leaks and use-after-free or invalid-free reports; isolating the extension state per interpreter resolved the issue in newer versions."
+    },
+    {
+      "issue": 140404,
+      "supports": "Loading a single-phase extension in a subinterpreter leaked module-created types, dictionaries, callable objects, and related allocations because process-global state had no cleanup operation tied to subinterpreter destruction."
+    }
+  ],
+  "scope_note": "The reports include both cumulative per-cycle leaks and one-time residual allocations, as well as stale-state memory-safety failures. The shared pattern is specifically object-bearing or validity-dependent process-global state crossing an interpreter lifecycle; it does not imply that every sanitizer leak is caused by repeated initialization or that all process-global state is invalid.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:32:47.713529+00:00"
+}

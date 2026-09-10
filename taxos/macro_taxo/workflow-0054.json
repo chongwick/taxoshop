@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0054",
+  "issues": [
+    116550
+  ],
+  "workflow_hypothesis": "Uninitialized conversion-status read during numeric decoding",
+  "pattern": "A parser performs numeric conversion, then inspects auxiliary conversion status or boundary metadata to choose between accepting the result and using fallback/別",
+  "description": "A parser performs numeric conversion, then inspects auxiliary conversion status or boundary metadata to choose between accepting the result and using a fallback path.",
+  "precondition": "A decoding path relies on a native numeric-conversion routine and subsequently examines caller-visible status or end-position metadata.",
+  "critical_operation": "The decoder reads that auxiliary metadata to validate the converted value or decide whether to invoke an alternate conversion path.",
+  "interference": "On a successful or otherwise non-error conversion path, the routine or sanitizer boundary may not establish defined memory state for every auxiliary value the caller inspects.",
+  "invalid_assumption": "The caller assumes that a successful conversion necessarily leaves all inspected status and metadata initialized and sanitizer-visible.",
+  "failure": "Memory instrumentation reports a use of an uninitialized value and aborts decoding even though the input conversion would otherwise complete.",
+  "search_strategy": [
+    "Check numeric-decoding code for reads of error indicators or end-position outputs immediately after native conversion calls.",
+    "Verify that every auxiliary output and status variable is initialized on every conversion path, including successful conversion paths.",
+    "Inspect foreign-function or libc boundaries where error state is only specified to change on failure and confirm sanitizer-definedness is preserved.",
+    "Check fallback-selection conditions for metadata reads that occur before the conversion result has been independently validated.",
+    "Run valid numeric decoding under uninitialized-memory instrumentation and distinguish caller initialization defects from sanitizer/library modeling gaps."
+  ],
+  "evidence": [
+    {
+      "issue": 116550,
+      "supports": "The report shows a valid decoding test triggering an uninitialized-value read while a native integer conversion's error or termination metadata is examined; discussion specifically identifies the error indicator as potentially unset and notes uncertainty about sanitizer support, supporting a narrowly scoped conversion-status definedness pattern."
+    }
+  ],
+  "scope_note": "This is a singleton report. It supports a pattern at the boundary between numeric decoding, native conversion metadata, and memory instrumentation, but does not establish whether the root cause is the caller, the conversion library, or incomplete sanitizer modeling.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:41:36.562983+00:00"
+}

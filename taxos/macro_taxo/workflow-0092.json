@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0092",
+  "issues": [
+    139951
+  ],
+  "workflow_hypothesis": "Unnecessary tracking of cycle-ineligible immutable containers degrades collection performance",
+  "pattern": "precondition → critical operation → interference → invalid assumption → failure",
+  "description": "A runtime tracks immutable aggregate containers whose contents cannot participate in cycles, inflating collector work and triggering unnecessary collections.",
+  "precondition": "Many immutable aggregate containers are created with contents that are not eligible to participate in reference cycles, while the collector accounts for or tracks those containers as potential cyclic objects.",
+  "critical_operation": "The runtime unconditionally registers each newly created aggregate with the cycle-detecting collector and uses eligible-object counts to drive collection thresholds.",
+  "interference": "The collector repeatedly scans containers that cannot contribute to reclaimable cycles, and the inflated population causes collection scheduling and accounting overhead.",
+  "invalid_assumption": "Treating every collector-capable immutable aggregate as requiring tracking, and treating the number of potentially trackable objects as equivalent to the number of actually tracked objects, is assumed to be an acceptable approximation.",
+  "failure": "Allocation-heavy workloads suffer excessive collection frequency and scanning, producing a substantial garbage-collection performance regression.",
+  "search_strategy": [
+    "Check whether immutable aggregate constructors register objects unconditionally instead of inspecting whether their contents can participate in cycles.",
+    "Check whether collector thresholds and heap-size statistics count merely eligible objects rather than objects currently registered for cycle detection.",
+    "Check whether slicing, concatenation, repetition, packing, or copying paths preserve unnecessary tracking for immutable aggregates containing only non-cycle-participating values.",
+    "Check whether deferred untracking is relied upon to correct creation-time over-tracking before collection thresholds are reached."
+  ],
+  "evidence": [
+    {
+      "issue": 139951,
+      "supports": "The report shows that large numbers of small immutable aggregates containing only non-collectible values were tracked at creation, that collector accounting counted objects that were merely eligible for tracking, and that avoiding such tracking plus counting only actually tracked objects corrected the excessive-collection regression."
+    }
+  ],
+  "scope_note": "This is a singleton cluster. The evidence directly supports immutable tuple-like aggregates in a cycle-detecting garbage collector; extension to other immutable container types requires separate evidence.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:03:32.163400+00:00"
+}

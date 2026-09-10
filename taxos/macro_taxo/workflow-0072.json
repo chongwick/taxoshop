@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0072",
+  "issues": [
+    125515
+  ],
+  "workflow_hypothesis": "Reachability-unaware code generation produces compiler diagnostics",
+  "pattern": "A low-level code generator emits generic post-operation cleanup, error branches, or loop bodies without modeling handler-local termination and configuration-res",
+  "description": "Code generation preserves mechanically emitted statements or control-flow constructs after a handler has already terminated, or when configuration folding makes a branch or loop impossible.",
+  "precondition": "Generated handlers combine explicit returns or jumps with generic cleanup/error emission, and some conditions or operation paths are compile-time fixed by configuration.",
+  "critical_operation": "The generator emits the handler body and then appends cleanup, error-handling, or loop code using a fallthrough-oriented reachability model.",
+  "interference": "An internal return/jump, or a compile-time constant condition, makes the appended statement or branch unreachable, while the generator still places it in the generated source.",
+  "invalid_assumption": "The generator assumes every emitted continuation remains reachable and that conditionally emitted paths should be treated as runtime possibilities, rather than tracking termination and configuration-specific dead paths.",
+  "failure": "The compiler reports unreachable-code or unused-code diagnostics in generated low-level source; warning-as-error configurations can fail the build.",
+  "search_strategy": [
+    "Inspect generated handlers for statements emitted immediately after return or unconditional jump tokens.",
+    "Trace generator reachability state through return, jump, and error-label emission, and verify later cleanup is suppressed when the path terminates.",
+    "Search generated output under each supported compile-time configuration for constant-false branches and loops with provably non-executing bodies.",
+    "Compare generic stack or resource cleanup emission against handlers that return from inside an operation rather than at the normal epilogue."
+  ],
+  "evidence": [
+    {
+      "issue": 125515,
+      "supports": "The report documents unreachable cleanup after generated returns or jumps, loops whose conditions become statically impossible, and configuration-defined false error branches; subsequent fixes remove dead generated paths and teach the generator to mark return-following tokens unreachable."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped pattern from a singleton report. It covers generators that combine generic control-flow/cleanup templates with compile-time configuration folding; it does not claim that all compiler unreachable-code warnings originate in code generation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:50:20.157685+00:00"
+}

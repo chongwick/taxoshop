@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0012",
+  "issues": [
+    77813
+  ],
+  "workflow_hypothesis": "Oversized timeout overflows absolute-deadline calculation",
+  "pattern": "A blocking operation accepts a very large nonnegative relative timeout, then adds it to the current monotonic time to form an absolute deadline. The addition is",
+  "description": "A blocking operation accepts a very large nonnegative relative timeout, then adds it to the current monotonic time to form an absolute deadline. The addition is performed in a bounded signed representation, so a timeout that is valid by the API's own limit can still exceed the representable deadline range.",
+  "precondition": "A blocking or retrying operation receives a nonnegative timeout whose magnitude is near the maximum representable duration, while the current monotonic timestamp is already nonzero.",
+  "critical_operation": "The implementation constructs an absolute deadline by performing signed addition of the current monotonic timestamp and the relative timeout.",
+  "interference": "The timestamp contributes additional magnitude to the timeout, pushing the sum beyond the signed representation's maximum before the wait is configured.",
+  "invalid_assumption": "Validating the timeout against its standalone duration limit is incorrectly treated as proof that adding it to the current clock value is safe.",
+  "failure": "Signed integer overflow occurs during deadline construction, producing undefined behavior such as runtime diagnostics or a crash instead of bounded timeout handling.",
+  "search_strategy": [
+    "Check whether blocking operations convert relative timeouts into absolute deadlines by adding them to a current monotonic timestamp.",
+    "Check whether the deadline addition is performed in a bounded signed integer type without pre-addition overflow detection or saturating arithmetic.",
+    "Check whether timeout validation considers only the standalone timeout range and ignores the current clock value.",
+    "Check whether retry loops recompute remaining time from an absolute deadline that may have overflowed during initialization."
+  ],
+  "evidence": [
+    {
+      "issue": 77813,
+      "supports": "The report documents signed overflow when a very large timeout is added to the current monotonic time, and the eventual fix replaces direct deadline arithmetic with overflow-clamping addition and centralized deadline handling across multiple blocking and retry paths."
+    }
+  ],
+  "scope_note": "This is a singleton cluster. The report supports the general pattern of overflow-prone absolute-deadline construction from a large relative timeout; it does not establish that every timeout API or every bounded-time representation has the same limits.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:40:35.494137+00:00"
+}

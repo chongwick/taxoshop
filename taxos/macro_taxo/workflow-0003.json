@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0003",
+  "issues": [
+    65128,
+    95635,
+    96735
+  ],
+  "workflow_hypothesis": "Negative signed value is shifted before packed-state encoding",
+  "pattern": "Signed left shifts used to construct packed or bit-oriented values can trigger undefined behavior before the intended representation is finalized.",
+  "description": "Low-level code performs left shifts in a signed integer while building a packed value or transformed bit pattern, even though the intended result is an unsigned or fixed-width representation.",
+  "precondition": "A valid execution path can supply a negative intermediate value or a nonnegative value whose shifted result exceeds the signed type's representable range.",
+  "critical_operation": "The code left-shifts that value while it is still signed, postponing conversion or relying on signed arithmetic to produce the desired bit pattern.",
+  "interference": "Input-dependent values and ordinary startup or decoding paths reach signed-shift cases that violate the language's rules; sanitizer instrumentation exposes them even when the resulting machine-level bits appear usable.",
+  "invalid_assumption": "Signed left shift is assumed to provide predictable bit packing or wrapping, with unsigned conversion afterward making the operation safe.",
+  "failure": "Undefined-behavior diagnostics are emitted during normal execution, such as interpreter startup, routine decoding, or test execution; behavior is not portable and may differ between instrumented and release builds.",
+  "search_strategy": [
+    "Search for left shifts whose left operand has a signed integer type and trace whether valid inputs can make it negative or large enough to overflow.",
+    "Check packing, byte-accumulation, tagging, and scaling code for signed shifts performed before conversion to an unsigned or explicitly width-limited type.",
+    "Run undefined-behavior sanitizers through startup, decoding, and boundary-value paths, including all-ones and other values near the signed width limit.",
+    "Verify that shift counts and intermediate types are safe independently of the final cast or intended modulo representation."
+  ],
+  "evidence": [
+    {
+      "issue": 65128,
+      "supports": "The report records repeated diagnostics for left-shifting negative values and identifies a fix that converts negative numbers to an unsigned size type before shifting, supporting the signed-operand packing mechanism."
+    },
+    {
+      "issue": 95635,
+      "supports": "The report shows ordinary interpreter execution diagnosing a signed left shift whose positive result cannot be represented in the signed type, supporting that the pattern includes signed overflow, not only negative operands."
+    },
+    {
+      "issue": 96735,
+      "supports": "The report shows byte unpacking accumulating an all-ones value through a signed left shift that cannot be represented, supporting the packed-bit construction case and its dependence on boundary inputs."
+    }
+  ],
+  "scope_note": "The shared pattern is signed left-shift undefined behavior in low-level bit construction. The reports differ in trigger: one uses negative operands, while the others use positive values exceeding signed range; they do not establish a broader claim about every packed-state encoder or about release-build behavior.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:35:59.516338+00:00"
+}

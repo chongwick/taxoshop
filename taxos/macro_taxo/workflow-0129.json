@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0129",
+  "issues": [
+    142595,
+    142781,
+    143376,
+    143636
+  ],
+  "workflow_hypothesis": "Unchecked factory result is reinterpreted as type metadata",
+  "pattern": "Native or low-level code obtains an object through an overridable, re-entrant, or replaceable operation and expects a specific internal type or layout.",
+  "description": "Native or low-level code obtains an object through an overridable, re-entrant, or replaceable operation and expects a specific internal type or layout.",
+  "precondition": "A low-level path crosses a dynamic trust boundary such as a factory, constructor, cache method, or attribute lookup, then receives a generic object value.",
+  "critical_operation": "The path immediately uses that value as a specific internal representation, accessing fields or state through an unchecked cast or equivalent assumption.",
+  "interference": "User-controlled behavior at the trust boundary returns or exposes an object with an incompatible type or smaller layout.",
+  "invalid_assumption": "The value's provenance through the expected callback, cache, attribute, or constructor is treated as proof that it satisfies the required representation contract.",
+  "failure": "Representation-specific access or state mutation operates on the wrong object, causing type confusion, heap out-of-bounds access, or process termination instead of a recoverable validation error.",
+  "search_strategy": [
+    "Audit every dynamic callback, constructor, cache operation, and attribute lookup consumed by low-level code for immediate unchecked representation use.",
+    "Search for casts from generic object values to internal structs after dynamic dispatch or object creation.",
+    "Verify the required exact or compatible type before every metadata, field, or buffer access.",
+    "Check that malformed dynamic results are rejected before state mutation, cache updates, or decoder execution."
+  ],
+  "evidence": [
+    {
+      "issue": 142595,
+      "supports": "A replaceable type-producing call returned a non-type object that was cast to an internal type representation and dereferenced during initialization; the fix validates the result before use."
+    },
+    {
+      "issue": 142781,
+      "supports": "Replaceable cache operations returned an object incompatible with the requested instance type, and the consumer treated it as a valid internal instance; the fix validates cache results before dependent state updates."
+    },
+    {
+      "issue": 143376,
+      "supports": "A dynamically supplied attribute returned an arbitrary small object that a decoder treated as a larger internal identifier structure, producing a heap-buffer-overflow; the proposed fix validates the identifier type."
+    },
+    {
+      "issue": 143636,
+      "supports": "An overridable constructor returned a nonconforming object during replacement, after which the consumer accessed it as the expected namespace representation; the fix rejects the result before copying internal state."
+    }
+  ],
+  "scope_note": "The four reports support a general unchecked-use pattern across factories, constructors, caches, and attribute lookups—not only factory initialization. The exact consequence varies by representation and access path; the shared risk is treating dynamically obtained objects as validated internal representations without checking type and layout first.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:25:37.117271+00:00"
+}

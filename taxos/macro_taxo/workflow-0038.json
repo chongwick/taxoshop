@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0038",
+  "issues": [
+    104472
+  ],
+  "workflow_hypothesis": "Empty environment exposes expected leaks to sanitizer",
+  "pattern": "generalize evidence from singleton detailed bug analysis",
+  "description": "A deliberately empty subprocess environment can remove sanitizer leak-suppression settings, exposing expected runtime-retained allocations as failures.",
+  "precondition": "Run the environment-isolation test under leak-detecting instrumentation while the runtime retains initialization allocations until shutdown or intentionally does not reclaim them in the tested build mode.",
+  "critical_operation": "Launch a subprocess with an explicitly empty environment and initialize the runtime inside it.",
+  "interference": "Clearing the environment also removes instrumentation configuration that suppresses known or expected leak reports.",
+  "invalid_assumption": "Assume that an empty application environment leaves sanitizer behavior unchanged and that all allocations surviving the test process are genuine leaks.",
+  "failure": "The sanitizer classifies expected residual runtime allocations as leaks, causing the subprocess to exit unsuccessfully and the environment-isolation test to fail spuriously.",
+  "search_strategy": [
+    "Check subprocess tests that replace the inherited environment with an empty mapping while running under sanitizers.",
+    "Trace whether sanitizer suppression or configuration variables are inherited, filtered, or removed before child-process startup.",
+    "Identify runtime initialization allocations that are retained until process finalization and compare them with leak-detector failure criteria.",
+    "Guard environment-clearing tests when their instrumentation configuration cannot survive the intentionally empty environment."
+  ],
+  "evidence": [
+    {
+      "issue": 104472,
+      "supports": "A singleton report shows that an empty-environment subprocess removed leak-suppression settings, allowing initialization-time runtime allocations that were otherwise suppressed to trigger an AddressSanitizer leak failure; the fix skips this test under the relevant sanitizer."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern for tests that intentionally launch a subprocess with no inherited environment under leak-detecting instrumentation. It does not establish that every empty-environment test or every sanitizer report is caused by expected runtime residual allocations.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:34:24.461416+00:00"
+}
