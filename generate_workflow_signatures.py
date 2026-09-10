@@ -22,8 +22,9 @@ from openai_codex import Codex, CodexConfig, Sandbox
 
 REPOSITORY = Path(__file__).resolve().parent
 REPORTS = REPOSITORY / "taxos" / "micro_taxo"
-SIGNATURES = REPORTS / "workflow_signatures"
-CLUSTERS_PATH = REPORTS / "workflow_clusters.json"
+OUTPUT = REPOSITORY / "taxos" / "workflow_signatures"
+SIGNATURES = OUTPUT
+CLUSTERS_PATH = OUTPUT / "clusters.json"
 REPORT_NUMBER = re.compile(r"gh_(\d+)\.md$")
 
 OUTPUT_SCHEMA = {
@@ -60,7 +61,7 @@ OUTPUT_SCHEMA = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--model", default="gpt-5.6-terra", help="Codex model to use")
+    parser.add_argument("--model", default="gpt-5.6-luna", help="Codex model to use")
     parser.add_argument("--limit", type=int, help="process at most this many unprocessed reports")
     parser.add_argument("--only", nargs="+", type=int, metavar="ISSUE", help="process only these issue numbers")
     parser.add_argument("--force", action="store_true", help="regenerate signatures that already exist")

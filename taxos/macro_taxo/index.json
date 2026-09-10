@@ -1377,6 +1377,67 @@
         144984
       ],
       "file": "workflow-0149.json"
+    },
+    {
+      "cluster_id": "workflow-0150",
+      "pattern": "unserialized inspection of a concurrently changing container",
+      "issues": [
+        145036,
+        151722
+      ],
+      "file": "workflow-0150.json"
+    },
+    {
+      "cluster_id": "workflow-0151",
+      "pattern": "Instrumented capability probes can hang during platform/runtime startup before application code executes.",
+      "issues": [
+        145199
+      ],
+      "file": "workflow-0151.json"
+    },
+    {
+      "cluster_id": "workflow-0152",
+      "pattern": "Unsynchronized concurrent access to replaceable, reference-owned object fields",
+      "issues": [
+        145272,
+        146270,
+        153981,
+        154821
+      ],
+      "file": "workflow-0152.json"
+    },
+    {
+      "cluster_id": "workflow-0153",
+      "pattern": "A record is inserted into an ownership-tracking table under one key, then a later keyed insertion fails; failure cleanup frees it without accounting for the pre",
+      "issues": [
+        145301
+      ],
+      "file": "workflow-0153.json"
+    },
+    {
+      "cluster_id": "workflow-0154",
+      "pattern": "A concurrent traversal of a shared mutable mapping retrieves non-owning references to entries and later retains or processes them without synchronizing the hand",
+      "issues": [
+        146452
+      ],
+      "file": "workflow-0154.json"
+    },
+    {
+      "cluster_id": "workflow-0155",
+      "pattern": "Unchecked boundary inputs bypass validation before low-level arithmetic, pointer, representation, or fixed-format encoding",
+      "issues": [
+        148286,
+        154667
+      ],
+      "file": "workflow-0155.json"
+    },
+    {
+      "cluster_id": "workflow-0156",
+      "pattern": "A specialized runtime optimizer processes a hot polymorphic call site after instrumentation state changes, but assumes a single callable target was inferred.",
+      "issues": [
+        148716
+      ],
+      "file": "workflow-0156.json"
     }
   ]
 }
