@@ -1,6 +1,7 @@
 FROM ubuntu:24.04 AS build-base
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG CPYTHON_REF=origin/main
 ARG CPYTHON_HISTORY_DEPTH=5000
 
 RUN apt-get update \
@@ -32,6 +33,7 @@ RUN git init cpython \
     && cd cpython \
     && git remote add origin https://github.com/python/cpython.git \
     && git fetch --depth "${CPYTHON_HISTORY_DEPTH}" origin main \
+    && git checkout --detach "${CPYTHON_REF}"
 
 WORKDIR /src/cpython
 
