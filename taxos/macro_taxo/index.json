@@ -1438,6 +1438,70 @@
         148716
       ],
       "file": "workflow-0156.json"
+    },
+    {
+      "cluster_id": "workflow-0157",
+      "pattern": "Unsynchronized concurrent reinitialization can invalidate a previously checked position before a reader dereferences shared state.",
+      "issues": [
+        149816
+      ],
+      "file": "workflow-0157.json"
+    },
+    {
+      "cluster_id": "workflow-0158",
+      "pattern": "Concurrent handshake workers reuse one mutable connection or security context, and the underlying library is not safe for overlapping handshakes on that sharedÂ",
+      "issues": [
+        150191
+      ],
+      "file": "workflow-0158.json"
+    },
+    {
+      "cluster_id": "workflow-0159",
+      "pattern": "Fixed-depth recursion boundary tests become stale when build-time instrumentation or hardening changes effective recursion capacity.",
+      "issues": [
+        150195
+      ],
+      "file": "workflow-0159.json"
+    },
+    {
+      "cluster_id": "workflow-0160",
+      "pattern": "Memory-instrumented builds can fail at link time when instrumentation support libraries are combined with an incompatible runtime-library linkage mode.",
+      "issues": [
+        150467
+      ],
+      "file": "workflow-0160.json"
+    },
+    {
+      "cluster_id": "workflow-0161",
+      "pattern": "Backend-dependent cleanup of temporary compatibility-probe records can leak separately allocated nested fields.",
+      "issues": [
+        150536
+      ],
+      "file": "workflow-0161.json"
+    },
+    {
+      "cluster_id": "workflow-0162",
+      "pattern": "A concurrently collected object remains registered with the collector after ownership reaches zero, while its destructor performs a potentially blocking dereg\u0011g",
+      "issues": [
+        153809
+      ],
+      "file": "workflow-0162.json"
+    },
+    {
+      "cluster_id": "workflow-0163",
+      "pattern": "Concurrent exhaustion cleanup of a shared iterator releases one owner/reference more than once and can invalidate an overlapping traversal.",
+      "issues": [
+        154130
+      ],
+      "file": "workflow-0163.json"
+    },
+    {
+      "cluster_id": "workflow-0164",
+      "pattern": "Concurrent advancement of a shared stateful iterator interleaves a multi-field traversal-state update, desynchronizing the cursor and causing a subsequent dere-",
+      "issues": [
+        154535
+      ],
+      "file": "workflow-0164.json"
     }
   ]
 }

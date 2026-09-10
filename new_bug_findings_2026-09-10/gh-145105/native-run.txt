@@ -1,0 +1,8 @@
+CPython: 3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 16.0.0]
+Command: python3 repro.py
+Observed termination: Segmentation fault: 11
+Shell exit status: 139
+
+This is the local non-sanitized native-run check. The sanitizer output is
+preserved separately from the upstream report because the Docker build could
+not be run in this session.

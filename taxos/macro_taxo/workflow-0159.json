@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0159",
+  "issues": [
+    150195
+  ],
+  "workflow_hypothesis": "Fixed recursion depth no longer reaches the enforced limit",
+  "pattern": "Fixed-depth recursion boundary tests become stale when build-time instrumentation or hardening changes effective recursion capacity.",
+  "description": "A test assumes a hard-coded nesting depth will exceed the runtime recursion boundary, but build configuration changes the effective depth needed to trigger enforcement.",
+  "precondition": "A recursive-boundary test uses a fixed nesting depth as a guaranteed value beyond the configured recursion limit.",
+  "critical_operation": "The test performs recursive processing at that fixed depth and asserts that the runtime raises its recursion-limit error.",
+  "interference": "Compiler hardening or instrumentation changes per-level recursion behavior and resource consumption, so the same nesting depth no longer crosses the runtime guard.",
+  "invalid_assumption": "The historical fixed depth remains sufficient across materially different build configurations.",
+  "failure": "The recursive operation completes without the expected limit error, causing the assertion to fail even though the runtime remains operational; increasing the tested depth restores the intended boundary condition.",
+  "search_strategy": [
+    "Find recursive-boundary tests that use hard-coded nesting depths instead of deriving depth from the active limit.",
+    "Compare the effective recursion boundary under instrumented, hardened, and baseline builds.",
+    "Check that the test depth has sufficient margin above the configured limit for every supported build mode.",
+    "Re-run the boundary case with increased depth and measure whether the error is restored without unacceptable resource growth."
+  ],
+  "evidence": [
+    {
+      "issue": 150195,
+      "supports": "The report shows that a fixed deep-recursion depth stopped raising the expected recursion-limit error under a hardened build, and that increasing the tested limit/depth restored the intended condition; it also notes increased resource use for another deep test."
+    }
+  ],
+  "scope_note": "Singleton cluster: this pattern is cautiously scoped to deep-recursion boundary tests whose fixed depth becomes insufficient under compiler hardening or instrumentation; the report does not establish a broader rule for all instrumented test failures.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T20:18:12.553856+00:00"
+}

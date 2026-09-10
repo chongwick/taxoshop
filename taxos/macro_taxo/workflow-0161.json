@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0161",
+  "issues": [
+    150536
+  ],
+  "workflow_hypothesis": "Platform-dependent cleanup leaks nested probe allocations",
+  "pattern": "Backend-dependent cleanup of temporary compatibility-probe records can leak separately allocated nested fields.",
+  "description": "A platform-specific bulk cleanup operation releases temporary probe records but fails to reclaim some separately allocated fields contained within them.",
+  "precondition": "Initialization performs a compatibility probe that creates temporary records whose nested text or payload fields have independent allocations, and cleanup behavior differs across supported backends.",
+  "critical_operation": "The probe is cleaned up through a backend-provided bulk removal or reset operation.",
+  "interference": "One backend's bulk cleanup releases the outer records while leaving some embedded allocations unreclaimed.",
+  "invalid_assumption": "The caller assumes that the bulk cleanup operation recursively releases every allocation owned by each temporary record on every backend.",
+  "failure": "The retained nested allocations survive initialization and are reported as a process-level memory leak by leak detection.",
+  "search_strategy": [
+    "Search initialization and compatibility-probe code for temporary records containing independently allocated nested fields.",
+    "Trace every backend implementation of bulk cleanup and verify that it releases both outer records and embedded allocations.",
+    "Compare bulk reset APIs with per-record removal APIs and check the ownership of every returned record and nested field.",
+    "Check whether probe cleanup uses a backend-specific path when the backend's bulk cleanup is known not to be recursive."
+  ],
+  "evidence": [
+    {
+      "issue": 150536,
+      "supports": "A compatibility probe created temporary history records with separately duplicated text fields; on one platform, the bulk history reset released the records but not all duplicated strings, while explicit per-record removal and field deallocation eliminated the leak."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped pattern from a singleton report: it generalizes to backend-dependent cleanup of temporary records with nested allocations, but does not establish that all bulk cleanup APIs or all compatibility probes have this defect.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T20:19:02.196404+00:00"
+}
