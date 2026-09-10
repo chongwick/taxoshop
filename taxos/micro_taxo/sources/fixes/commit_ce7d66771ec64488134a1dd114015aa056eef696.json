@@ -1,0 +1,101 @@
+{
+  "sha": "ce7d66771ec64488134a1dd114015aa056eef696",
+  "node_id": "C_kwDOBN0Z8doAKGNlN2Q2Njc3MWVjNjQ0ODgxMzRhMWRkMTE0MDE1YWEwNTZlZWY2OTY",
+  "commit": {
+    "author": {
+      "name": "Victor Stinner",
+      "email": "vstinner@python.org",
+      "date": "2022-01-22T18:15:37Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2022-01-22T18:15:37Z"
+    },
+    "message": "bpo-45200: GHA Address Sanitizer skips 3 slowest tests (GH-30797)\n\nSkip the 3 slowest tests of the Address Sanitizer CI of GitHub\r\nActions:\r\n\r\n* test_tools\r\n* test_peg_generator\r\n* test_concurrent_futures\r\n\r\nThese tests take between 5 and 20 minutes on this CI which makes this\r\nCI job the slowest. Making this CI job faster makes the whole Python\r\nworkflow faster. These tests are run on all others CIs.\r\n\r\nExample of Address Sanitizer output:\r\n\r\n    10 slowest tests:\r\n    - test_peg_generator: 17 min 33 sec\r\n    - test_tools: 8 min 27 sec\r\n    - test_concurrent_futures: 5 min 24 sec\r\n    - test_zipfile: 2 min 41 sec\r\n    - test_compileall: 2 min 21 sec\r\n    - test_asyncio: 2 min 17 sec\r\n    - test_gdb: 1 min 43 sec\r\n    - test_weakref: 1 min 35 sec\r\n    - test_pickle: 1 min 18 sec\r\n    - test_subprocess: 1 min 12 sec\r\n\r\nMoreover, test_concurrent_futures also seems to be affected by\r\nbpo-45200 bug: libasan dead lock in pthread_create().",
+    "tree": {
+      "sha": "dbbf2dc8cb06f2282f4135858225e664c08969fc",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/dbbf2dc8cb06f2282f4135858225e664c08969fc"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/ce7d66771ec64488134a1dd114015aa056eef696",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJh7EnJCRBK7hj4Ov3rIwAACDwIACdtMtI104uTLsKl90+e+0iK\n1wTPgoEPUjZaJ8wQWCYGiMIQ5me57zwhPj/5CMMZjF+WO2fx1VYDMPiH/cSIKHHD\n/Ud5XWJyvVSFKeaLRQQZd/MxzZTfbgrNoFMhO+Ub97sZ5lnbD7wsvD8NhSwv1rPa\nRCZw3PRMuU0y8A3ddzuUqPPnSdWSU4ldDeBc47XBYP+0YHhvlC4BR5YG9Jo2Ankh\naAUCuZ9KnhNHNR/xN7LvKfisX4/VSa5lE4P4pjlZnD6Vh7veaS0KFOM6+Cmbzm7w\niFCmC1ZbXsAka9m8tG6xLi8kDiJHd1mzpqKoZ5x2gZ23qeiAQg4dFvZY9kM0pfI=\n=ezn3\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree dbbf2dc8cb06f2282f4135858225e664c08969fc\nparent 3a4c15bb9815b6f4652621fe6043ae18e0d202b3\nauthor Victor Stinner <vstinner@python.org> 1642875337 +0100\ncommitter GitHub <noreply@github.com> 1642875337 +0100\n\nbpo-45200: GHA Address Sanitizer skips 3 slowest tests (GH-30797)\n\nSkip the 3 slowest tests of the Address Sanitizer CI of GitHub\r\nActions:\r\n\r\n* test_tools\r\n* test_peg_generator\r\n* test_concurrent_futures\r\n\r\nThese tests take between 5 and 20 minutes on this CI which makes this\r\nCI job the slowest. Making this CI job faster makes the whole Python\r\nworkflow faster. These tests are run on all others CIs.\r\n\r\nExample of Address Sanitizer output:\r\n\r\n    10 slowest tests:\r\n    - test_peg_generator: 17 min 33 sec\r\n    - test_tools: 8 min 27 sec\r\n    - test_concurrent_futures: 5 min 24 sec\r\n    - test_zipfile: 2 min 41 sec\r\n    - test_compileall: 2 min 21 sec\r\n    - test_asyncio: 2 min 17 sec\r\n    - test_gdb: 1 min 43 sec\r\n    - test_weakref: 1 min 35 sec\r\n    - test_pickle: 1 min 18 sec\r\n    - test_subprocess: 1 min 12 sec\r\n\r\nMoreover, test_concurrent_futures also seems to be affected by\r\nbpo-45200 bug: libasan dead lock in pthread_create().",
+      "verified_at": "2024-11-07T05:33:05Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/ce7d66771ec64488134a1dd114015aa056eef696",
+  "html_url": "https://github.com/python/cpython/commit/ce7d66771ec64488134a1dd114015aa056eef696",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/ce7d66771ec64488134a1dd114015aa056eef696/comments",
+  "author": {
+    "login": "vstinner",
+    "id": 194129,
+    "node_id": "MDQ6VXNlcjE5NDEyOQ==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/194129?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/vstinner",
+    "html_url": "https://github.com/vstinner",
+    "followers_url": "https://api.github.com/users/vstinner/followers",
+    "following_url": "https://api.github.com/users/vstinner/following{/other_user}",
+    "gists_url": "https://api.github.com/users/vstinner/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/vstinner/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/vstinner/subscriptions",
+    "organizations_url": "https://api.github.com/users/vstinner/orgs",
+    "repos_url": "https://api.github.com/users/vstinner/repos",
+    "events_url": "https://api.github.com/users/vstinner/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/vstinner/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "3a4c15bb9815b6f4652621fe6043ae18e0d202b3",
+      "url": "https://api.github.com/repos/python/cpython/commits/3a4c15bb9815b6f4652621fe6043ae18e0d202b3",
+      "html_url": "https://github.com/python/cpython/commit/3a4c15bb9815b6f4652621fe6043ae18e0d202b3"
+    }
+  ],
+  "stats": {
+    "total": 7,
+    "additions": 6,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "d6af174d1c3a7fbab08449cda4fd7d58230d61b5",
+      "filename": ".github/workflows/build.yml",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 1,
+      "changes": 7,
+      "blob_url": "https://github.com/python/cpython/blob/ce7d66771ec64488134a1dd114015aa056eef696/.github%2Fworkflows%2Fbuild.yml",
+      "raw_url": "https://github.com/python/cpython/raw/ce7d66771ec64488134a1dd114015aa056eef696/.github%2Fworkflows%2Fbuild.yml",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/.github%2Fworkflows%2Fbuild.yml?ref=ce7d66771ec64488134a1dd114015aa056eef696",
+      "patch": "@@ -306,4 +306,9 @@ jobs:\n     - name: Display build info\n       run: make pythoninfo\n     - name: Tests\n-      run: xvfb-run make buildbottest TESTOPTS=\"-j4 -uall,-cpu -x test_ctypes test_crypt test_decimal test_faulthandler test_interpreters test___all__ test_idle test_tix test_tk test_ttk_guionly test_ttk_textonly test_multiprocessing_fork test_multiprocessing_forkserver test_multiprocessing_spawn\"\n+      # Skip test_tools test_peg_generator test_concurrent_futures because\n+      # there are too slow: between 5 and 20 minutes on this CI.\n+      #\n+      # Skip multiprocessing and concurrent.futures tests which are affected by\n+      # bpo-45200 bug: libasan dead lock in pthread_create().\n+      run: xvfb-run make buildbottest TESTOPTS=\"-j4 -uall,-cpu -x test_ctypes test_crypt test_decimal test_faulthandler test_interpreters test___all__ test_idle test_tix test_tk test_ttk_guionly test_ttk_textonly test_multiprocessing_fork test_multiprocessing_forkserver test_multiprocessing_spawn test_tools test_peg_generator test_concurrent_futures\""
+    }
+  ]
+}

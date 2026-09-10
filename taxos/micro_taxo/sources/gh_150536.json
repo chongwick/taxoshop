@@ -1,0 +1,108 @@
+{
+  "retrieved_at": "2026-09-10T13:09:59.881218+00:00",
+  "issue": {
+    "url": "https://api.github.com/repos/python/cpython/issues/150536",
+    "repository_url": "https://api.github.com/repos/python/cpython",
+    "labels_url": "https://api.github.com/repos/python/cpython/issues/150536/labels{/name}",
+    "comments_url": "https://api.github.com/repos/python/cpython/issues/150536/comments",
+    "events_url": "https://api.github.com/repos/python/cpython/issues/150536/events",
+    "html_url": "https://github.com/python/cpython/issues/150536",
+    "id": 4535526584,
+    "node_id": "I_kwDOBN0Z8c8AAAABDlakuA",
+    "number": 150536,
+    "title": "Importing `readline` leaks memory on macOS",
+    "user": {
+      "login": "KowalskiThomas",
+      "id": 14239160,
+      "node_id": "MDQ6VXNlcjE0MjM5MTYw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14239160?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/KowalskiThomas",
+      "html_url": "https://github.com/KowalskiThomas",
+      "followers_url": "https://api.github.com/users/KowalskiThomas/followers",
+      "following_url": "https://api.github.com/users/KowalskiThomas/following{/other_user}",
+      "gists_url": "https://api.github.com/users/KowalskiThomas/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/KowalskiThomas/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/KowalskiThomas/subscriptions",
+      "organizations_url": "https://api.github.com/users/KowalskiThomas/orgs",
+      "repos_url": "https://api.github.com/users/KowalskiThomas/repos",
+      "events_url": "https://api.github.com/users/KowalskiThomas/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/KowalskiThomas/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 536871770,
+        "node_id": "MDU6TGFiZWw1MzY4NzE3NzA=",
+        "url": "https://api.github.com/repos/python/cpython/labels/type-bug",
+        "name": "type-bug",
+        "color": "e99695",
+        "default": false,
+        "description": "An unexpected behavior, bug, or error"
+      },
+      {
+        "id": 588881297,
+        "node_id": "MDU6TGFiZWw1ODg4ODEyOTc=",
+        "url": "https://api.github.com/repos/python/cpython/labels/OS-mac",
+        "name": "OS-mac",
+        "color": "d4c5f9",
+        "default": false,
+        "description": null
+      },
+      {
+        "id": 4018672955,
+        "node_id": "LA_kwDOBN0Z8c7viBU7",
+        "url": "https://api.github.com/repos/python/cpython/labels/extension-modules",
+        "name": "extension-modules",
+        "color": "09fc59",
+        "default": false,
+        "description": "C modules in the Modules dir"
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignees": [],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2026-05-27T20:32:25Z",
+    "updated_at": "2026-05-28T02:39:13Z",
+    "closed_at": null,
+    "assignee": null,
+    "author_association": "CONTRIBUTOR",
+    "issue_field_values": [],
+    "type": null,
+    "active_lock_reason": null,
+    "sub_issues_summary": {
+      "total": 0,
+      "completed": 0,
+      "percent_completed": 0
+    },
+    "issue_dependencies_summary": {
+      "blocked_by": 0,
+      "total_blocked_by": 0,
+      "blocking": 0,
+      "total_blocking": 0
+    },
+    "body": "# Bug report\n\n### Bug description:\n\nIn `readline.c`, `setup_readline` probes libedit's indexing behaviour by calling `add_history` twice (with the strings `\"1\"` and `\"2\"`), replacing one entry via `replace_history_entry`, and then calling `clear_history` to clean up.\n\nhttps://github.com/python/cpython/blob/629da5c914b4407e01c1dc06cbcbd8dce825fef3/Modules/readline.c#L1360-L1397\n\nOn macOS, Apple's libedit `clear_history` does not free the `line` field (the internally `strdup`'d string) for all history entries, so one 2-byte allocation escapes. The replaced entry's old value is correctly freed by `_py_free_history_entry_lock_held`, but `clear_history` leaks one of the remaining `strdup`'d probe strings.\n\nThis leak (discovered while running unit tests for a Python package with LSan) is reported by Leak Sanitizer as:\n\n```\nDirect leak of 2 byte(s) in 1 object(s) allocated from:\n    #0 0x000101f3177c in strdup+0xfc (libclang_rt.asan_osx_dynamic.dylib:arm64+0x4d77c)\n    #1 0x0001dbc62ab0  (libedit.3.dylib:arm64e+0x14ab0)\n    #2 0x0001dbc63410 in history+0x6e4 (libedit.3.dylib:arm64e+0x15410)\n    #3 0x0001dbc5853c in add_history+0x50 (libedit.3.dylib:arm64e+0xa53c)\n    #4 0x00010b7b0ad4 in setup_readline readline.c:1373\n    #5 0x00010b7b0ad4 in PyInit_readline readline.c:1679\n    #6 0x000100ee935c in _PyImport_RunModInitFunc importdl.c:436\n    #7 0x000100ee36ac in import_run_extension import.c:2164\n    #8 0x000100ee6b90 in _imp_create_dynamic_impl import.c:5503\n    #9 0x000100ee6b90 in _imp_create_dynamic import.c.h:488\n    #10 0x000100aa5ffc in _PyVectorcall_Call call.c:273\n    #11 0x000100e01f68 in _PyEval_EvalFrameDefault generated_cases.c.h:2724\n    #12 0x000100dfc064 in _PyEval_EvalFrame pycore_ceval.h:122\n    #13 0x000100dfc064 in _PyEval_Vector ceval.c:2156\n    #14 0x000100aaa7c0 in _PyObject_VectorcallTstate pycore_call.h:144\n    #15 0x000100aaa7c0 in object_vacall call.c:823\n    #16 0x000100aaa29c in PyObject_CallMethodObjArgs call.c:960\n    #17 0x000100edf110 in import_find_and_load import.c:4125\n    #18 0x000100ede4a8 in PyImport_ImportModuleLevelObject import.c\n    #19 0x000100e37658 in _PyEval_ImportNameWithImport ceval.c:3011\n    #20 0x000100e37658 in _PyEval_ImportName ceval.c:2990\n    #21 0x000100e104ec in _PyEval_EvalFrameDefault generated_cases.c.h:6768\n    #22 0x000100af1004 in _PyEval_EvalFrame pycore_ceval.h:122\n    #23 0x000100af1004 in gen_send_ex2 genobject.c:280\n    #24 0x000100af1004 in gen_send_ex genobject.c:373\n    #25 0x000100aed464 in gen_iternext genobject.c:764\n    #26 0x000100df48cc in builtin_next bltinmodule.c:1764\n    #27 0x000100e14854 in _Py_BuiltinCallFast_StackRef ceval.c:824\n    #28 0x000100e14854 in _PyEval_EvalFrameDefault generated_cases.c.h:2420\n    #29 0x000100dfc064 in _PyEval_EvalFrame pycore_ceval.h:122\n    #30 0x000100dfc064 in _PyEval_Vector ceval.c:2156\n    #31 0x000100aa489c in _PyObject_VectorcallDictTstate call.c:146\n    #32 0x000100aa7130 in _PyObject_Call_Prepend call.c:504\n    #33 0x000100c292ec in call_method typeobject.c:3095\n    #34 0x000100c292ec in slot_tp_call typeobject.c:10913\n    #35 0x000100aa4d90 in _PyObject_MakeTpCall call.c:242\n    #36 0x000100dfce0c in _Py_VectorCallInstrumentation_StackRefSteal ceval.c:775\n    #37 0x000100e1336c in _PyEval_EvalFrameDefault generated_cases.c.h:3325\n    #38 0x000100dfc064 in _PyEval_EvalFrame pycore_ceval.h:122\n    #39 0x000100dfc064 in _PyEval_Vector ceval.c:2156\n    #40 0x000100aa9208 in _PyObject_VectorcallTstate pycore_call.h:144\n    #41 0x000100aa9208 in _PyObject_VectorcallPrepend call.c:877\n\nSUMMARY: AddressSanitizer: 2 byte(s) leaked in 1 allocation(s).\n```\n\nThat leak can easily by running the following under an LSan-enabled CPython on macOS.\n\n```sh\nASAN_OPTIONS=detect_leaks=1 ./python.exe -c \"import readline\"\n```\n\nLLM-reviewing this issue surfaces two other issues around that code:\n\n1. The probing block runs unconditionally even on GNU readline builds, where `libedit_history_start` and `libedit_append_replace_history_offset` are never read (every use of those variables is guarded by `if (using_libedit_emulation)`). This means `add_history`/`clear_history` are called unnecessarily on every readline import on Linux.\n\n2. There is no null check before calling `_py_free_history_entry_lock_held(old_entry)` on the return value of `replace_history_entry`, which can return `NULL` if the index is out of range.\n\n### Proposed fix\n\n- Guard the entire probing block with `if (using_libedit_emulation)`.\n- Replace `clear_history` inside that block with an explicit `remove_history(libedit_history_start)` loop that calls `_py_free_history_entry_lock_held` on each returned entry, bypassing the libedit bug.\n- Keep the unconditional `clear_history` call outside the block for readline state reset.\n\n\n### CPython versions tested on:\n\nCPython main branch\n\n### Operating systems tested on:\n\nmacOS\n\n<!-- gh-linked-prs -->\n### Linked PRs\n* gh-150537\n<!-- /gh-linked-prs -->\n",
+    "closed_by": null,
+    "reactions": {
+      "url": "https://api.github.com/repos/python/cpython/issues/150536/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "timeline_url": "https://api.github.com/repos/python/cpython/issues/150536/timeline",
+    "performed_via_github_app": null,
+    "state_reason": null,
+    "pinned_comment": null
+  },
+  "comments": []
+}

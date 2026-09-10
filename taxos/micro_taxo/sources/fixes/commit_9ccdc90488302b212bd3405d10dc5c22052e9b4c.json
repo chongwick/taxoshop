@@ -1,0 +1,113 @@
+{
+  "sha": "9ccdc90488302b212bd3405d10dc5c22052e9b4c",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6OWNjZGM5MDQ4ODMwMmIyMTJiZDM0MDVkMTBkYzVjMjIwNTJlOWI0Yw==",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2021-09-14T18:54:27Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-09-14T18:54:27Z"
+    },
+    "message": "bpo-45196: prevent unittest crash on address sanitizer builds (GH-28331)\n\n(cherry picked from commit b668cdfa09e9bdfcfddaadd23dbd455d5f667383)\n\nCo-authored-by: junyixie <xiejunyi.arch@bytedance.com>",
+    "tree": {
+      "sha": "69c3f439061fb46307dd39027a303d51bde58391",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/69c3f439061fb46307dd39027a303d51bde58391"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/9ccdc90488302b212bd3405d10dc5c22052e9b4c",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhQO/jCRBK7hj4Ov3rIwAAQvYIAGSTZPIRNfbm1CZn5LoODdiR\neFTOJqdylwt6OsgSmmH12hjlkMuZZp//sbixSZy2Xcj0RxQp9sJcsSLxRcBjIjOp\np6YJY70AUtZARNL+I2k+wvYBfFsnFvVfiU2QhP5Tjh7MqVkDXTc497G9BRe2vheo\nCipey03tnk1HQ+buzhBSrSsGLMrZvhK7sgCL50gTzFtNkw6QsyHXqG+FtXgVTZ63\nlU+2jpP8hZKukzden3TG1p+wsr4RfhTmOkiTUl8wQrIVHbvNb2Op3O9LC1+sVF0k\nqr4yJBDrOsUL7ngDW6EUP5WlKBIW0DL34zqEZm3aODB50CIJcNtCAj4RvPihSDI=\n=CFig\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 69c3f439061fb46307dd39027a303d51bde58391\nparent 13257d9fca13dfa1bda5b802d68ddaec72f3a07e\nauthor Miss Islington (bot) <31488909+miss-islington@users.noreply.github.com> 1631645667 -0700\ncommitter GitHub <noreply@github.com> 1631645667 -0700\n\nbpo-45196: prevent unittest crash on address sanitizer builds (GH-28331)\n\n(cherry picked from commit b668cdfa09e9bdfcfddaadd23dbd455d5f667383)\n\nCo-authored-by: junyixie <xiejunyi.arch@bytedance.com>",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/9ccdc90488302b212bd3405d10dc5c22052e9b4c",
+  "html_url": "https://github.com/python/cpython/commit/9ccdc90488302b212bd3405d10dc5c22052e9b4c",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/9ccdc90488302b212bd3405d10dc5c22052e9b4c/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "13257d9fca13dfa1bda5b802d68ddaec72f3a07e",
+      "url": "https://api.github.com/repos/python/cpython/commits/13257d9fca13dfa1bda5b802d68ddaec72f3a07e",
+      "html_url": "https://github.com/python/cpython/commit/13257d9fca13dfa1bda5b802d68ddaec72f3a07e"
+    }
+  ],
+  "stats": {
+    "total": 23,
+    "additions": 20,
+    "deletions": 3
+  },
+  "files": [
+    {
+      "sha": "44043505042986d3034e7e61e56afdc7dc199acb",
+      "filename": "Lib/test/test_decimal.py",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 0,
+      "changes": 13,
+      "blob_url": "https://github.com/python/cpython/blob/9ccdc90488302b212bd3405d10dc5c22052e9b4c/Lib%2Ftest%2Ftest_decimal.py",
+      "raw_url": "https://github.com/python/cpython/raw/9ccdc90488302b212bd3405d10dc5c22052e9b4c/Lib%2Ftest%2Ftest_decimal.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_decimal.py?ref=9ccdc90488302b212bd3405d10dc5c22052e9b4c",
+      "patch": "@@ -40,6 +40,17 @@\n import random\n import inspect\n import threading\n+import sysconfig\n+_cflags = sysconfig.get_config_var('CFLAGS') or ''\n+_config_args = sysconfig.get_config_var('CONFIG_ARGS') or ''\n+MEMORY_SANITIZER = (\n+    '-fsanitize=memory' in _cflags or\n+    '--with-memory-sanitizer' in _config_args\n+)\n+\n+ADDRESS_SANITIZER = (\n+    '-fsanitize=address' in _cflags\n+)\n \n \n if sys.platform == 'darwin':\n@@ -5486,6 +5497,8 @@ def __abs__(self):\n     # Issue 41540:\n     @unittest.skipIf(sys.platform.startswith(\"aix\"),\n                      \"AIX: default ulimit: test is flaky because of extreme over-allocation\")\n+    @unittest.skipIf(MEMORY_SANITIZER or ADDRESS_SANITIZER, \"sanitizer defaults to crashing \"\n+                     \"instead of returning NULL for malloc failure.\")\n     def test_maxcontext_exact_arith(self):\n \n         # Make sure that exact operations do not raise MemoryError due"
+    },
+    {
+      "sha": "49463e54e3c7218c70dcbd04e2344e2a8eaa81a3",
+      "filename": "Lib/test/test_io.py",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 3,
+      "changes": 10,
+      "blob_url": "https://github.com/python/cpython/blob/9ccdc90488302b212bd3405d10dc5c22052e9b4c/Lib%2Ftest%2Ftest_io.py",
+      "raw_url": "https://github.com/python/cpython/raw/9ccdc90488302b212bd3405d10dc5c22052e9b4c/Lib%2Ftest%2Ftest_io.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_io.py?ref=9ccdc90488302b212bd3405d10dc5c22052e9b4c",
+      "patch": "@@ -69,6 +69,10 @@ class EmptyStruct(ctypes.Structure):\n     '--with-memory-sanitizer' in _config_args\n )\n \n+ADDRESS_SANITIZER = (\n+    '-fsanitize=address' in _cflags\n+)\n+\n # Does io.IOBase finalizer log the exception if the close() method fails?\n # The exception is ignored silently by default in release build.\n IOBASE_EMITS_UNRAISABLE = (hasattr(sys, \"gettotalrefcount\") or sys.flags.dev_mode)\n@@ -1539,7 +1543,7 @@ def test_truncate_on_read_only(self):\n class CBufferedReaderTest(BufferedReaderTest, SizeofTest):\n     tp = io.BufferedReader\n \n-    @unittest.skipIf(MEMORY_SANITIZER, \"MSan defaults to crashing \"\n+    @unittest.skipIf(MEMORY_SANITIZER or ADDRESS_SANITIZER, \"sanitizer defaults to crashing \"\n                      \"instead of returning NULL for malloc failure.\")\n     def test_constructor(self):\n         BufferedReaderTest.test_constructor(self)\n@@ -1888,7 +1892,7 @@ def test_slow_close_from_thread(self):\n class CBufferedWriterTest(BufferedWriterTest, SizeofTest):\n     tp = io.BufferedWriter\n \n-    @unittest.skipIf(MEMORY_SANITIZER, \"MSan defaults to crashing \"\n+    @unittest.skipIf(MEMORY_SANITIZER or ADDRESS_SANITIZER, \"sanitizer defaults to crashing \"\n                      \"instead of returning NULL for malloc failure.\")\n     def test_constructor(self):\n         BufferedWriterTest.test_constructor(self)\n@@ -2387,7 +2391,7 @@ def test_interleaved_readline_write(self):\n class CBufferedRandomTest(BufferedRandomTest, SizeofTest):\n     tp = io.BufferedRandom\n \n-    @unittest.skipIf(MEMORY_SANITIZER, \"MSan defaults to crashing \"\n+    @unittest.skipIf(MEMORY_SANITIZER or ADDRESS_SANITIZER, \"sanitizer defaults to crashing \"\n                      \"instead of returning NULL for malloc failure.\")\n     def test_constructor(self):\n         BufferedRandomTest.test_constructor(self)"
+    }
+  ]
+}

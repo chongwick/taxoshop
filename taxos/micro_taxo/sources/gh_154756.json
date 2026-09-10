@@ -1,0 +1,108 @@
+{
+  "retrieved_at": "2026-09-10T13:10:03.561939+00:00",
+  "issue": {
+    "url": "https://api.github.com/repos/python/cpython/issues/154756",
+    "repository_url": "https://api.github.com/repos/python/cpython",
+    "labels_url": "https://api.github.com/repos/python/cpython/issues/154756/labels{/name}",
+    "comments_url": "https://api.github.com/repos/python/cpython/issues/154756/comments",
+    "events_url": "https://api.github.com/repos/python/cpython/issues/154756/events",
+    "html_url": "https://github.com/python/cpython/issues/154756",
+    "id": 4983983588,
+    "node_id": "I_kwDOBN0Z8c8AAAABKRGN5A",
+    "number": 154756,
+    "title": "Data race in list.sort() on no-gil build",
+    "user": {
+      "login": "weixlu",
+      "id": 39413832,
+      "node_id": "MDQ6VXNlcjM5NDEzODMy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39413832?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/weixlu",
+      "html_url": "https://github.com/weixlu",
+      "followers_url": "https://api.github.com/users/weixlu/followers",
+      "following_url": "https://api.github.com/users/weixlu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/weixlu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/weixlu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/weixlu/subscriptions",
+      "organizations_url": "https://api.github.com/users/weixlu/orgs",
+      "repos_url": "https://api.github.com/users/weixlu/repos",
+      "events_url": "https://api.github.com/users/weixlu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/weixlu/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 536871770,
+        "node_id": "MDU6TGFiZWw1MzY4NzE3NzA=",
+        "url": "https://api.github.com/repos/python/cpython/labels/type-bug",
+        "name": "type-bug",
+        "color": "e99695",
+        "default": false,
+        "description": "An unexpected behavior, bug, or error"
+      },
+      {
+        "id": 4018668718,
+        "node_id": "LA_kwDOBN0Z8c7viASu",
+        "url": "https://api.github.com/repos/python/cpython/labels/interpreter-core",
+        "name": "interpreter-core",
+        "color": "09fc59",
+        "default": false,
+        "description": "(Objects, Python, Grammar, and Parser dirs)"
+      },
+      {
+        "id": 6140426713,
+        "node_id": "LA_kwDOBN0Z8c8AAAABbf952Q",
+        "url": "https://api.github.com/repos/python/cpython/labels/topic-free-threading",
+        "name": "topic-free-threading",
+        "color": "0052cc",
+        "default": false,
+        "description": ""
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignees": [],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2026-07-27T03:17:22Z",
+    "updated_at": "2026-07-27T14:08:03Z",
+    "closed_at": null,
+    "assignee": null,
+    "author_association": "CONTRIBUTOR",
+    "issue_field_values": [],
+    "type": null,
+    "active_lock_reason": null,
+    "sub_issues_summary": {
+      "total": 0,
+      "completed": 0,
+      "percent_completed": 0
+    },
+    "issue_dependencies_summary": {
+      "blocked_by": 0,
+      "total_blocked_by": 0,
+      "blocking": 0,
+      "total_blocking": 0
+    },
+    "body": "# Bug report\n\n### Bug description:\n\n### Summary\nAs reported in #153852 (TSAN0014), `list.sort()` writes each slot of the array with a plain, non-atomic store. When another thread concurrently accesses the same list, there is a data race between the in-place sort and the reader, which will be reported by TSAN.\n\n### How to reproduce\nFirst we need to enable thread-sanitizer\n- ./configure --disable-gil --with-thread-sanitizer\n- TSAN_OPTIONS=\"halt_on_error=1 symbolize=1 history_size=4\" ./python repro.py\n\nThen run the following `repro.py`\n```python\nimport sys, threading\n\nsize, rounds, num_threads = 2000, 1500, 32\nSCRAMBLED = sorted(range(size), key=lambda x: (x * 2654435761) & 0xFFFFFFFF)\nglobal_list = list(SCRAMBLED)\nenter, leave = threading.Barrier(num_threads + 1), threading.Barrier(num_threads + 1)\n\ndef reader():\n    for _ in range(rounds):\n        enter.wait()\n        for _x in global_list:\n            pass\n        leave.wait()\n\ndef main_sorter():\n    for _ in range(rounds):\n        global_list[:] = SCRAMBLED\n        enter.wait()\n        global_list.sort()\n        leave.wait()\n\nts = [threading.Thread(target=reader) for _ in range(num_threads)]\nfor t in ts: \n    t.start()\nmain_sorter()\nfor t in ts: \n    t.join()\n```\nFinally we could see the log from TSan\n```\nWARNING: ThreadSanitizer: data race (pid=3143552)\n  Write of size 8 at 0xffffb6b3c018 by main thread:\n    #0 binarysort Objects/listobject.c:1918 (python+0x1c64bc)\n```\n\n### CPython versions tested on:\n\nCPython main branch\n\n### Operating systems tested on:\n\nLinux\n\n<!-- gh-linked-prs -->\n### Linked PRs\n* gh-154572\n<!-- /gh-linked-prs -->\n",
+    "closed_by": null,
+    "reactions": {
+      "url": "https://api.github.com/repos/python/cpython/issues/154756/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "timeline_url": "https://api.github.com/repos/python/cpython/issues/154756/timeline",
+    "performed_via_github_app": null,
+    "state_reason": null,
+    "pinned_comment": null
+  },
+  "comments": []
+}

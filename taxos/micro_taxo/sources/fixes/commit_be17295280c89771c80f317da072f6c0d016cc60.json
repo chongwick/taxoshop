@@ -1,0 +1,137 @@
+{
+  "sha": "be17295280c89771c80f317da072f6c0d016cc60",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6YmUxNzI5NTI4MGM4OTc3MWM4MGYzMTdkYTA3MmY2YzBkMDE2Y2M2MA==",
+  "commit": {
+    "author": {
+      "name": "Pablo Galindo",
+      "email": "Pablogsal@gmail.com",
+      "date": "2020-09-03T15:35:17Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2020-09-03T15:35:17Z"
+    },
+    "message": "[3.9] bpo-41697: Correctly handle KeywordOrStarred when parsing arguments in the parser (GH-22077) (GH-22079)\n\n(cherry picked from commit 315a61f7a9418d904e0eea14b1f054fac3a90e9f)\r\n\r\nCo-authored-by: Pablo Galindo <Pablogsal@gmail.com>",
+    "tree": {
+      "sha": "493b010d08d201ce1770ce7a143945f6f195bc78",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/493b010d08d201ce1770ce7a143945f6f195bc78"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/be17295280c89771c80f317da072f6c0d016cc60",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJfUQ01CRBK7hj4Ov3rIwAAdHIIAGmdn46zFGonuXuMOt4dwQhF\n/m4gAQmD6/M5qk79GxubxzwDW/CdMcCRt0BiJch1W7vnOLW9vJg5qzm2OfEQv/J1\nGuBXnnnOn7Nlak8OnKEQI/87VUPsEurBfJegM/u+XHHdawMC5mhuE9q/tpCbNz0t\nIJ79sfuy3wFBQiNiiEX927eYpbXQeWpsv/BgcoOeu7K943G5LJ6Y5JMWO47zxLPJ\nCo0eGRbL+YP3oyV+k5inAxdlIZeH8dmdyT2lNmKnSdY3CsVOsPCcWFjPgWiHAIse\nsDZxtZEy+rMrOGpx3Vr4rBlzbzGfC1hxDxzh7oMCUl96rktmSzKHuFB+8RByUSg=\n=M9po\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 493b010d08d201ce1770ce7a143945f6f195bc78\nparent a5d0232b0d2cbcbdeb0d89ea3d8826241a53a7c7\nauthor Pablo Galindo <Pablogsal@gmail.com> 1599147317 +0100\ncommitter GitHub <noreply@github.com> 1599147317 +0100\n\n[3.9] bpo-41697: Correctly handle KeywordOrStarred when parsing arguments in the parser (GH-22077) (GH-22079)\n\n(cherry picked from commit 315a61f7a9418d904e0eea14b1f054fac3a90e9f)\r\n\r\nCo-authored-by: Pablo Galindo <Pablogsal@gmail.com>",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/be17295280c89771c80f317da072f6c0d016cc60",
+  "html_url": "https://github.com/python/cpython/commit/be17295280c89771c80f317da072f6c0d016cc60",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/be17295280c89771c80f317da072f6c0d016cc60/comments",
+  "author": {
+    "login": "pablogsal",
+    "id": 11718525,
+    "node_id": "MDQ6VXNlcjExNzE4NTI1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/11718525?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/pablogsal",
+    "html_url": "https://github.com/pablogsal",
+    "followers_url": "https://api.github.com/users/pablogsal/followers",
+    "following_url": "https://api.github.com/users/pablogsal/following{/other_user}",
+    "gists_url": "https://api.github.com/users/pablogsal/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pablogsal/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pablogsal/subscriptions",
+    "organizations_url": "https://api.github.com/users/pablogsal/orgs",
+    "repos_url": "https://api.github.com/users/pablogsal/repos",
+    "events_url": "https://api.github.com/users/pablogsal/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pablogsal/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "a5d0232b0d2cbcbdeb0d89ea3d8826241a53a7c7",
+      "url": "https://api.github.com/repos/python/cpython/commits/a5d0232b0d2cbcbdeb0d89ea3d8826241a53a7c7",
+      "html_url": "https://github.com/python/cpython/commit/a5d0232b0d2cbcbdeb0d89ea3d8826241a53a7c7"
+    }
+  ],
+  "stats": {
+    "total": 34,
+    "additions": 23,
+    "deletions": 11
+  },
+  "files": [
+    {
+      "sha": "44d435cc159ea3d83dd145869463537e55077de3",
+      "filename": "Grammar/python.gram",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/be17295280c89771c80f317da072f6c0d016cc60/Grammar%2Fpython.gram",
+      "raw_url": "https://github.com/python/cpython/raw/be17295280c89771c80f317da072f6c0d016cc60/Grammar%2Fpython.gram",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Grammar%2Fpython.gram?ref=be17295280c89771c80f317da072f6c0d016cc60",
+      "patch": "@@ -537,7 +537,7 @@ arguments[expr_ty] (memo):\n     | a=args [','] &')' { a }\n     | incorrect_arguments\n args[expr_ty]:\n-    | a=','.(starred_expression | named_expression !'=')+ b=[',' k=kwargs {k}] { _PyPegen_collect_call_seqs(p, a, b) }\n+    | a=','.(starred_expression | named_expression !'=')+ b=[',' k=kwargs {k}] { _PyPegen_collect_call_seqs(p, a, b, EXTRA) }\n     | a=kwargs { _Py_Call(_PyPegen_dummy_name(p),\n                           CHECK_NULL_ALLOWED(_PyPegen_seq_extract_starred_exprs(p, a)),\n                           CHECK_NULL_ALLOWED(_PyPegen_seq_delete_starred_exprs(p, a)),"
+    },
+    {
+      "sha": "f74b6f297b0403bcaaf2e9d0745548171ef1b5f4",
+      "filename": "Parser/pegen/parse.c",
+      "status": "modified",
+      "additions": 10,
+      "deletions": 1,
+      "changes": 11,
+      "blob_url": "https://github.com/python/cpython/blob/be17295280c89771c80f317da072f6c0d016cc60/Parser%2Fpegen%2Fparse.c",
+      "raw_url": "https://github.com/python/cpython/raw/be17295280c89771c80f317da072f6c0d016cc60/Parser%2Fpegen%2Fparse.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Parser%2Fpegen%2Fparse.c?ref=be17295280c89771c80f317da072f6c0d016cc60",
+      "patch": "@@ -12271,7 +12271,16 @@ args_rule(Parser *p)\n         )\n         {\n             D(fprintf(stderr, \"%*c+ args[%d-%d]: %s succeeded!\\n\", p->level, ' ', _mark, p->mark, \"','.(starred_expression | named_expression !'=')+ [',' kwargs]\"));\n-            _res = _PyPegen_collect_call_seqs ( p , a , b );\n+            Token *_token = _PyPegen_get_last_nonnwhitespace_token(p);\n+            if (_token == NULL) {\n+                D(p->level--);\n+                return NULL;\n+            }\n+            int _end_lineno = _token->end_lineno;\n+            UNUSED(_end_lineno); // Only used by EXTRA macro\n+            int _end_col_offset = _token->end_col_offset;\n+            UNUSED(_end_col_offset); // Only used by EXTRA macro\n+            _res = _PyPegen_collect_call_seqs ( p , a , b , EXTRA );\n             if (_res == NULL && PyErr_Occurred()) {\n                 p->error_indicator = 1;\n                 D(p->level--);"
+    },
+    {
+      "sha": "2c435fb367836e49a8180351ab9add03c6a99f2c",
+      "filename": "Parser/pegen/pegen.c",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 8,
+      "changes": 17,
+      "blob_url": "https://github.com/python/cpython/blob/be17295280c89771c80f317da072f6c0d016cc60/Parser%2Fpegen%2Fpegen.c",
+      "raw_url": "https://github.com/python/cpython/raw/be17295280c89771c80f317da072f6c0d016cc60/Parser%2Fpegen%2Fpegen.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Parser%2Fpegen%2Fpegen.c?ref=be17295280c89771c80f317da072f6c0d016cc60",
+      "patch": "@@ -2218,14 +2218,15 @@ _PyPegen_nonparen_genexp_in_call(Parser *p, expr_ty args)\n }\n \n \n-expr_ty _PyPegen_collect_call_seqs(Parser *p, asdl_seq *a, asdl_seq *b) {\n+expr_ty _PyPegen_collect_call_seqs(Parser *p, asdl_seq *a, asdl_seq *b,\n+                     int lineno, int col_offset, int end_lineno,\n+                     int end_col_offset, PyArena *arena) {\n     Py_ssize_t args_len = asdl_seq_LEN(a);\n     Py_ssize_t total_len = args_len;\n \n     if (b == NULL) {\n-        expr_ty first = asdl_seq_GET(a, 0);\n-        expr_ty last = asdl_seq_GET(a, args_len - 1);\n-        return _Py_Call(_PyPegen_dummy_name(p), a, NULL, EXTRA_EXPR(first, last));\n+        return _Py_Call(_PyPegen_dummy_name(p), a, NULL, lineno, col_offset,\n+                        end_lineno, end_col_offset, arena);\n \n     }\n \n@@ -2236,7 +2237,7 @@ expr_ty _PyPegen_collect_call_seqs(Parser *p, asdl_seq *a, asdl_seq *b) {\n         total_len += asdl_seq_LEN(starreds);\n     }\n \n-    asdl_seq *args = _Py_asdl_seq_new(total_len, p->arena);\n+    asdl_seq *args = _Py_asdl_seq_new(total_len, arena);\n \n     Py_ssize_t i = 0;\n     for (i = 0; i < args_len; i++) {\n@@ -2246,8 +2247,8 @@ expr_ty _PyPegen_collect_call_seqs(Parser *p, asdl_seq *a, asdl_seq *b) {\n         asdl_seq_SET(args, i, asdl_seq_GET(starreds, i - args_len));\n     }\n \n-    expr_ty first = asdl_seq_GET(args, 0);\n-    expr_ty last = asdl_seq_GET(b, asdl_seq_LEN(b)-1);\n+    return _Py_Call(_PyPegen_dummy_name(p), args, keywords, lineno,\n+                    col_offset, end_lineno, end_col_offset, arena);\n+\n \n-    return _Py_Call(_PyPegen_dummy_name(p), args, keywords, EXTRA_EXPR(first, last));\n }"
+    },
+    {
+      "sha": "bd35d4ff71ae8d2ba61decc0d154dcf6fe272d1c",
+      "filename": "Parser/pegen/pegen.h",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 1,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/be17295280c89771c80f317da072f6c0d016cc60/Parser%2Fpegen%2Fpegen.h",
+      "raw_url": "https://github.com/python/cpython/raw/be17295280c89771c80f317da072f6c0d016cc60/Parser%2Fpegen%2Fpegen.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Parser%2Fpegen%2Fpegen.h?ref=be17295280c89771c80f317da072f6c0d016cc60",
+      "patch": "@@ -257,7 +257,9 @@ stmt_ty _PyPegen_class_def_decorators(Parser *, asdl_seq *, stmt_ty);\n KeywordOrStarred *_PyPegen_keyword_or_starred(Parser *, void *, int);\n asdl_seq *_PyPegen_seq_extract_starred_exprs(Parser *, asdl_seq *);\n asdl_seq *_PyPegen_seq_delete_starred_exprs(Parser *, asdl_seq *);\n-expr_ty _PyPegen_collect_call_seqs(Parser *, asdl_seq *, asdl_seq *);\n+expr_ty _PyPegen_collect_call_seqs(Parser *, asdl_seq *, asdl_seq *,\n+                     int lineno, int col_offset, int end_lineno,\n+                     int end_col_offset, PyArena *arena);\n expr_ty _PyPegen_concatenate_strings(Parser *p, asdl_seq *);\n asdl_seq *_PyPegen_join_sequences(Parser *, asdl_seq *, asdl_seq *);\n int _PyPegen_check_barry_as_flufl(Parser *);"
+    }
+  ]
+}

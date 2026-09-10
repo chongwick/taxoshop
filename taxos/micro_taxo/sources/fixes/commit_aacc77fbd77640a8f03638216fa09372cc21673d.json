@@ -1,0 +1,353 @@
+{
+  "sha": "aacc77fbd77640a8f03638216fa09372cc21673d",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6YWFjYzc3ZmJkNzc2NDBhOGYwMzYzODIxNmZhMDkzNzJjYzIxNjczZA==",
+  "commit": {
+    "author": {
+      "name": "Jeroen Demeyer",
+      "email": "J.Demeyer@UGent.be",
+      "date": "2019-05-29T18:31:52Z"
+    },
+    "committer": {
+      "name": "Petr Viktorin",
+      "email": "encukou@gmail.com",
+      "date": "2019-05-29T18:31:52Z"
+    },
+    "message": "bpo-36974: implement PEP 590 (GH-13185)\n\n\r\nCo-authored-by: Jeroen Demeyer <J.Demeyer@UGent.be>\r\nCo-authored-by: Mark Shannon <mark@hotpy.org>",
+    "tree": {
+      "sha": "fd64be1c4c1167a8bf708d1fd22c733cf3a9a30f",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/fd64be1c4c1167a8bf708d1fd22c733cf3a9a30f"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/aacc77fbd77640a8f03638216fa09372cc21673d",
+    "comment_count": 2,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/aacc77fbd77640a8f03638216fa09372cc21673d",
+  "html_url": "https://github.com/python/cpython/commit/aacc77fbd77640a8f03638216fa09372cc21673d",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/aacc77fbd77640a8f03638216fa09372cc21673d/comments",
+  "author": {
+    "login": "jdemeyer",
+    "id": 3625785,
+    "node_id": "MDQ6VXNlcjM2MjU3ODU=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/3625785?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/jdemeyer",
+    "html_url": "https://github.com/jdemeyer",
+    "followers_url": "https://api.github.com/users/jdemeyer/followers",
+    "following_url": "https://api.github.com/users/jdemeyer/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jdemeyer/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/jdemeyer/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jdemeyer/subscriptions",
+    "organizations_url": "https://api.github.com/users/jdemeyer/orgs",
+    "repos_url": "https://api.github.com/users/jdemeyer/repos",
+    "events_url": "https://api.github.com/users/jdemeyer/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/jdemeyer/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "encukou",
+    "id": 302922,
+    "node_id": "MDQ6VXNlcjMwMjkyMg==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/302922?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/encukou",
+    "html_url": "https://github.com/encukou",
+    "followers_url": "https://api.github.com/users/encukou/followers",
+    "following_url": "https://api.github.com/users/encukou/following{/other_user}",
+    "gists_url": "https://api.github.com/users/encukou/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/encukou/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/encukou/subscriptions",
+    "organizations_url": "https://api.github.com/users/encukou/orgs",
+    "repos_url": "https://api.github.com/users/encukou/repos",
+    "events_url": "https://api.github.com/users/encukou/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/encukou/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "d30da5dd9a8a965cf24a22bbaff8a5b1341c2944",
+      "url": "https://api.github.com/repos/python/cpython/commits/d30da5dd9a8a965cf24a22bbaff8a5b1341c2944",
+      "html_url": "https://github.com/python/cpython/commit/d30da5dd9a8a965cf24a22bbaff8a5b1341c2944"
+    }
+  ],
+  "stats": {
+    "total": 637,
+    "additions": 404,
+    "deletions": 233
+  },
+  "files": [
+    {
+      "sha": "c83303c390055380d1777c6233b90f36200c438c",
+      "filename": "Include/classobject.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fclassobject.h",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fclassobject.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fclassobject.h?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -14,6 +14,7 @@ typedef struct {\n     PyObject *im_func;   /* The callable object implementing the method */\n     PyObject *im_self;   /* The instance it is bound to */\n     PyObject *im_weakreflist; /* List of weak references */\n+    vectorcallfunc vectorcall;\n } PyMethodObject;\n \n PyAPI_DATA(PyTypeObject) PyMethod_Type;"
+    },
+    {
+      "sha": "7099178f82087dedf12f3ba19dc2b5ef0a62e691",
+      "filename": "Include/cpython/abstract.h",
+      "status": "modified",
+      "additions": 83,
+      "deletions": 34,
+      "changes": 117,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fcpython%2Fabstract.h",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fcpython%2Fabstract.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fcpython%2Fabstract.h?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -47,7 +47,7 @@ PyAPI_FUNC(int) _PyStack_UnpackDict(\n /* Suggested size (number of positional arguments) for arrays of PyObject*\n    allocated on a C stack to avoid allocating memory on the heap memory. Such\n    array is used to pass positional arguments to call functions of the\n-   _PyObject_FastCall() family.\n+   _PyObject_Vectorcall() family.\n \n    The size is chosen to not abuse the C stack and so limit the risk of stack\n    overflow. The size is also chosen to allow using the small stack for most\n@@ -56,50 +56,103 @@ PyAPI_FUNC(int) _PyStack_UnpackDict(\n #define _PY_FASTCALL_SMALL_STACK 5\n \n /* Return 1 if callable supports FASTCALL calling convention for positional\n-   arguments: see _PyObject_FastCallDict() and _PyObject_FastCallKeywords() */\n+   arguments: see _PyObject_Vectorcall() and _PyObject_FastCallDict() */\n PyAPI_FUNC(int) _PyObject_HasFastCall(PyObject *callable);\n \n-/* Call the callable object 'callable' with the \"fast call\" calling convention:\n-   args is a C array for positional arguments (nargs is the number of\n-   positional arguments), kwargs is a dictionary for keyword arguments.\n+PyAPI_FUNC(PyObject *) _Py_CheckFunctionResult(PyObject *callable,\n+                                               PyObject *result,\n+                                               const char *where);\n \n-   If nargs is equal to zero, args can be NULL. kwargs can be NULL.\n-   nargs must be greater or equal to zero.\n+/* === Vectorcall protocol (PEP 590) ============================= */\n \n-   Return the result on success. Raise an exception and return NULL on\n-   error. */\n-PyAPI_FUNC(PyObject *) _PyObject_FastCallDict(\n+/* Call callable using tp_call. Arguments are like _PyObject_Vectorcall()\n+   or _PyObject_FastCallDict() (both forms are supported),\n+   except that nargs is plainly the number of arguments without flags. */\n+PyAPI_FUNC(PyObject *) _PyObject_MakeTpCall(\n     PyObject *callable,\n-    PyObject *const *args,\n-    Py_ssize_t nargs,\n-    PyObject *kwargs);\n+    PyObject *const *args, Py_ssize_t nargs,\n+    PyObject *keywords);\n \n-/* Call the callable object 'callable' with the \"fast call\" calling convention:\n-   args is a C array for positional arguments followed by values of\n-   keyword arguments. Keys of keyword arguments are stored as a tuple\n-   of strings in kwnames. nargs is the number of positional parameters at\n-   the beginning of stack. The size of kwnames gives the number of keyword\n-   values in the stack after positional arguments.\n+#define PY_VECTORCALL_ARGUMENTS_OFFSET ((size_t)1 << (8 * sizeof(size_t) - 1))\n \n-   kwnames must only contains str strings, no subclass, and all keys must\n-   be unique.\n+static inline Py_ssize_t\n+PyVectorcall_NARGS(size_t n)\n+{\n+    return n & ~PY_VECTORCALL_ARGUMENTS_OFFSET;\n+}\n+\n+static inline vectorcallfunc\n+_PyVectorcall_Function(PyObject *callable)\n+{\n+    PyTypeObject *tp = Py_TYPE(callable);\n+    if (!PyType_HasFeature(tp, _Py_TPFLAGS_HAVE_VECTORCALL)) {\n+        return NULL;\n+    }\n+    assert(PyCallable_Check(callable));\n+    Py_ssize_t offset = tp->tp_vectorcall_offset;\n+    assert(offset > 0);\n+    vectorcallfunc *ptr = (vectorcallfunc *)(((char *)callable) + offset);\n+    return *ptr;\n+}\n+\n+/* Call the callable object 'callable' with the \"vectorcall\" calling\n+   convention.\n+\n+   args is a C array for positional arguments.\n+\n+   nargsf is the number of positional arguments plus optionally the flag\n+   PY_VECTORCALL_ARGUMENTS_OFFSET which means that the caller is allowed to\n+   modify args[-1].\n \n-   If nargs is equal to zero and there is no keyword argument (kwnames is\n-   NULL or its size is zero), args can be NULL.\n+   kwnames is a tuple of keyword names. The values of the keyword arguments\n+   are stored in \"args\" after the positional arguments (note that the number\n+   of keyword arguments does not change nargsf). kwnames can also be NULL if\n+   there are no keyword arguments.\n+\n+   keywords must only contains str strings (no subclass), and all keys must\n+   be unique.\n \n    Return the result on success. Raise an exception and return NULL on\n    error. */\n-PyAPI_FUNC(PyObject *) _PyObject_FastCallKeywords(\n+static inline PyObject *\n+_PyObject_Vectorcall(PyObject *callable, PyObject *const *args,\n+                     size_t nargsf, PyObject *kwnames)\n+{\n+    assert(kwnames == NULL || PyTuple_Check(kwnames));\n+    assert(args != NULL || PyVectorcall_NARGS(nargsf) == 0);\n+    vectorcallfunc func = _PyVectorcall_Function(callable);\n+    if (func == NULL) {\n+        Py_ssize_t nargs = PyVectorcall_NARGS(nargsf);\n+        return _PyObject_MakeTpCall(callable, args, nargs, kwnames);\n+    }\n+    PyObject *res = func(callable, args, nargsf, kwnames);\n+    return _Py_CheckFunctionResult(callable, res, NULL);\n+}\n+\n+/* Same as _PyObject_Vectorcall except that keyword arguments are passed as\n+   dict, which may be NULL if there are no keyword arguments. */\n+PyAPI_FUNC(PyObject *) _PyObject_FastCallDict(\n     PyObject *callable,\n     PyObject *const *args,\n-    Py_ssize_t nargs,\n-    PyObject *kwnames);\n+    size_t nargsf,\n+    PyObject *kwargs);\n \n-#define _PyObject_FastCall(func, args, nargs) \\\n-    _PyObject_FastCallDict((func), (args), (nargs), NULL)\n+/* Call \"callable\" (which must support vectorcall) with positional arguments\n+   \"tuple\" and keyword arguments \"dict\". \"dict\" may also be NULL */\n+PyAPI_FUNC(PyObject *) PyVectorcall_Call(PyObject *callable, PyObject *tuple, PyObject *dict);\n \n-#define _PyObject_CallNoArg(func) \\\n-    _PyObject_FastCallDict((func), NULL, 0, NULL)\n+/* Same as _PyObject_Vectorcall except without keyword arguments */\n+static inline PyObject *\n+_PyObject_FastCall(PyObject *func, PyObject *const *args, Py_ssize_t nargs)\n+{\n+    return _PyObject_Vectorcall(func, args, (size_t)nargs, NULL);\n+}\n+\n+/* Call a callable without any arguments */\n+static inline PyObject *\n+_PyObject_CallNoArg(PyObject *func) {\n+    return _PyObject_Vectorcall(func, NULL, 0, NULL);\n+}\n \n PyAPI_FUNC(PyObject *) _PyObject_Call_Prepend(\n     PyObject *callable,\n@@ -113,10 +166,6 @@ PyAPI_FUNC(PyObject *) _PyObject_FastCall_Prepend(\n     PyObject *const *args,\n     Py_ssize_t nargs);\n \n-PyAPI_FUNC(PyObject *) _Py_CheckFunctionResult(PyObject *callable,\n-                                               PyObject *result,\n-                                               const char *where);\n-\n /* Like PyObject_CallMethod(), but expect a _Py_Identifier*\n    as the method name. */\n PyAPI_FUNC(PyObject *) _PyObject_CallMethodId(PyObject *obj,"
+    },
+    {
+      "sha": "a65aaf6482159cad2c65e8fb67c64de6350b82e9",
+      "filename": "Include/cpython/object.h",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 7,
+      "changes": 15,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fcpython%2Fobject.h",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fcpython%2Fobject.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fcpython%2Fobject.h?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -55,6 +55,9 @@ typedef struct bufferinfo {\n typedef int (*getbufferproc)(PyObject *, Py_buffer *, int);\n typedef void (*releasebufferproc)(PyObject *, Py_buffer *);\n \n+typedef PyObject *(*vectorcallfunc)(PyObject *callable, PyObject *const *args,\n+                                    size_t nargsf, PyObject *kwnames);\n+\n /* Maximum number of dimensions */\n #define PyBUF_MAX_NDIM 64\n \n@@ -167,12 +170,9 @@ typedef struct {\n      releasebufferproc bf_releasebuffer;\n } PyBufferProcs;\n \n-/* We can't provide a full compile-time check that limited-API\n-   users won't implement tp_print. However, not defining printfunc\n-   and making tp_print of a different function pointer type\n-   if Py_LIMITED_API is set should at least cause a warning\n-   in most cases. */\n-typedef int (*printfunc)(PyObject *, FILE *, int);\n+/* Allow printfunc in the tp_vectorcall_offset slot for\n+ * backwards-compatibility */\n+typedef Py_ssize_t printfunc;\n \n typedef struct _typeobject {\n     PyObject_VAR_HEAD\n@@ -182,7 +182,7 @@ typedef struct _typeobject {\n     /* Methods to implement standard operations */\n \n     destructor tp_dealloc;\n-    printfunc tp_print;\n+    Py_ssize_t tp_vectorcall_offset;\n     getattrfunc tp_getattr;\n     setattrfunc tp_setattr;\n     PyAsyncMethods *tp_as_async; /* formerly known as tp_compare (Python 2)\n@@ -254,6 +254,7 @@ typedef struct _typeobject {\n     unsigned int tp_version_tag;\n \n     destructor tp_finalize;\n+    vectorcallfunc tp_vectorcall;\n \n #ifdef COUNT_ALLOCS\n     /* these must be last and never explicitly initialized */"
+    },
+    {
+      "sha": "3db09635399cc24c9cf201d087981334a1a42757",
+      "filename": "Include/descrobject.h",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fdescrobject.h",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fdescrobject.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fdescrobject.h?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -53,6 +53,7 @@ typedef struct {\n typedef struct {\n     PyDescr_COMMON;\n     PyMethodDef *d_method;\n+    vectorcallfunc vectorcall;\n } PyMethodDescrObject;\n \n typedef struct {\n@@ -92,7 +93,7 @@ PyAPI_FUNC(PyObject *) PyDescr_NewGetSet(PyTypeObject *,\n #ifndef Py_LIMITED_API\n \n PyAPI_FUNC(PyObject *) _PyMethodDescr_FastCallKeywords(\n-        PyObject *descrobj, PyObject *const *stack, Py_ssize_t nargs, PyObject *kwnames);\n+        PyObject *descrobj, PyObject *const *args, size_t nargsf, PyObject *kwnames);\n PyAPI_FUNC(PyObject *) PyDescr_NewWrapper(PyTypeObject *,\n                                                 struct wrapperbase *, void *);\n #define PyDescr_IsData(d) (Py_TYPE(d)->tp_descr_set != NULL)"
+    },
+    {
+      "sha": "7ba000e1f13cc2b4497d6378b2984c2f9fedd9ff",
+      "filename": "Include/funcobject.h",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Ffuncobject.h",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Ffuncobject.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Ffuncobject.h?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -32,6 +32,7 @@ typedef struct {\n     PyObject *func_module;      /* The __module__ attribute, can be anything */\n     PyObject *func_annotations; /* Annotations, a dict or NULL */\n     PyObject *func_qualname;    /* The qualified name */\n+    vectorcallfunc vectorcall;\n \n     /* Invariant:\n      *     func_closure contains the bindings for func_code->co_freevars, so\n@@ -68,7 +69,7 @@ PyAPI_FUNC(PyObject *) _PyFunction_FastCallDict(\n PyAPI_FUNC(PyObject *) _PyFunction_FastCallKeywords(\n     PyObject *func,\n     PyObject *const *stack,\n-    Py_ssize_t nargs,\n+    size_t nargsf,\n     PyObject *kwnames);\n #endif\n "
+    },
+    {
+      "sha": "5dbe2145dadc3987b6c4eadb172404fa97499dd3",
+      "filename": "Include/methodobject.h",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fmethodobject.h",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fmethodobject.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fmethodobject.h?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -49,7 +49,7 @@ PyAPI_FUNC(PyObject *) _PyCFunction_FastCallDict(PyObject *func,\n \n PyAPI_FUNC(PyObject *) _PyCFunction_FastCallKeywords(PyObject *func,\n     PyObject *const *stack,\n-    Py_ssize_t nargs,\n+    size_t nargsf,\n     PyObject *kwnames);\n #endif\n \n@@ -105,6 +105,7 @@ typedef struct {\n     PyObject    *m_self; /* Passed as 'self' arg to the C func, can be NULL */\n     PyObject    *m_module; /* The __module__ attribute, can be anything */\n     PyObject    *m_weakreflist; /* List of weak references */\n+    vectorcallfunc vectorcall;\n } PyCFunctionObject;\n \n PyAPI_FUNC(PyObject *) _PyMethodDef_RawFastCallDict("
+    },
+    {
+      "sha": "11ba2bb8e2388c1ca131198a14bb75b6c3f6b868",
+      "filename": "Include/object.h",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 0,
+      "changes": 5,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fobject.h",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Include%2Fobject.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fobject.h?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -291,6 +291,11 @@ given type object has a specified feature.\n /* Set if the type allows subclassing */\n #define Py_TPFLAGS_BASETYPE (1UL << 10)\n \n+/* Set if the type implements the vectorcall protocol (PEP 590) */\n+#ifndef Py_LIMITED_API\n+#define _Py_TPFLAGS_HAVE_VECTORCALL (1UL << 11)\n+#endif\n+\n /* Set if the type is 'ready' -- fully initialized */\n #define Py_TPFLAGS_READY (1UL << 12)\n "
+    },
+    {
+      "sha": "9f0a75b84a03c3a59170b26fbca72b84f753c26d",
+      "filename": "Lib/test/test_call.py",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 8,
+      "changes": 16,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Lib%2Ftest%2Ftest_call.py",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Lib%2Ftest%2Ftest_call.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_call.py?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -402,7 +402,7 @@ def test_fastcall(self):\n                     result = _testcapi.pyobject_fastcall(func, None)\n                     self.check_result(result, expected)\n \n-    def test_fastcall_dict(self):\n+    def test_vectorcall_dict(self):\n         # Test _PyObject_FastCallDict()\n \n         for func, args, expected in self.CALLS_POSARGS:\n@@ -429,33 +429,33 @@ def test_fastcall_dict(self):\n                 result = _testcapi.pyobject_fastcalldict(func, args, kwargs)\n                 self.check_result(result, expected)\n \n-    def test_fastcall_keywords(self):\n-        # Test _PyObject_FastCallKeywords()\n+    def test_vectorcall(self):\n+        # Test _PyObject_Vectorcall()\n \n         for func, args, expected in self.CALLS_POSARGS:\n             with self.subTest(func=func, args=args):\n                 # kwnames=NULL\n-                result = _testcapi.pyobject_fastcallkeywords(func, args, None)\n+                result = _testcapi.pyobject_vectorcall(func, args, None)\n                 self.check_result(result, expected)\n \n                 # kwnames=()\n-                result = _testcapi.pyobject_fastcallkeywords(func, args, ())\n+                result = _testcapi.pyobject_vectorcall(func, args, ())\n                 self.check_result(result, expected)\n \n                 if not args:\n                     # kwnames=NULL\n-                    result = _testcapi.pyobject_fastcallkeywords(func, None, None)\n+                    result = _testcapi.pyobject_vectorcall(func, None, None)\n                     self.check_result(result, expected)\n \n                     # kwnames=()\n-                    result = _testcapi.pyobject_fastcallkeywords(func, None, ())\n+                    result = _testcapi.pyobject_vectorcall(func, None, ())\n                     self.check_result(result, expected)\n \n         for func, args, kwargs, expected in self.CALLS_KWARGS:\n             with self.subTest(func=func, args=args, kwargs=kwargs):\n                 kwnames = tuple(kwargs.keys())\n                 args = args + tuple(kwargs.values())\n-                result = _testcapi.pyobject_fastcallkeywords(func, args, kwnames)\n+                result = _testcapi.pyobject_vectorcall(func, args, kwnames)\n                 self.check_result(result, expected)\n \n     def test_fastcall_clearing_dict(self):"
+    },
+    {
+      "sha": "0813abb9a69722f6e032d7c7679218892b19cfee",
+      "filename": "Lib/test/test_capi.py",
+      "status": "modified",
+      "additions": 47,
+      "deletions": 0,
+      "changes": 47,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Lib%2Ftest%2Ftest_capi.py",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Lib%2Ftest%2Ftest_capi.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_capi.py?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -34,6 +34,11 @@ def testfunction(self):\n     \"\"\"some doc\"\"\"\n     return self\n \n+def testfunction_kw(self, *, kw):\n+    \"\"\"some doc\"\"\"\n+    return self\n+\n+\n class InstanceMethod:\n     id = _testcapi.instancemethod(id)\n     testfunction = _testcapi.instancemethod(testfunction)\n@@ -479,6 +484,48 @@ class MethodDescriptorHeap(_testcapi.MethodDescriptorBase):\n             pass\n         self.assertFalse(MethodDescriptorHeap.__flags__ & Py_TPFLAGS_METHOD_DESCRIPTOR)\n \n+    def test_vectorcall(self):\n+        # Test a bunch of different ways to call objects:\n+        # 1. normal call\n+        # 2. vectorcall using _PyObject_Vectorcall()\n+        # 3. vectorcall using PyVectorcall_Call()\n+        # 4. call as bound method\n+        # 5. call using functools.partial\n+\n+        # A list of (function, args, kwargs, result) calls to test\n+        calls = [(len, (range(42),), {}, 42),\n+                 (list.append, ([], 0), {}, None),\n+                 ([].append, (0,), {}, None),\n+                 (sum, ([36],), {\"start\":6}, 42),\n+                 (testfunction, (42,), {}, 42),\n+                 (testfunction_kw, (42,), {\"kw\":None}, 42)]\n+\n+        from _testcapi import pyobject_vectorcall, pyvectorcall_call\n+        from types import MethodType\n+        from functools import partial\n+\n+        def vectorcall(func, args, kwargs):\n+            args = *args, *kwargs.values()\n+            kwnames = tuple(kwargs)\n+            return pyobject_vectorcall(func, args, kwnames)\n+\n+        for (func, args, kwargs, expected) in calls:\n+            with self.subTest(str(func)):\n+                args1 = args[1:]\n+                meth = MethodType(func, args[0])\n+                wrapped = partial(func)\n+                if not kwargs:\n+                    self.assertEqual(expected, func(*args))\n+                    self.assertEqual(expected, pyobject_vectorcall(func, args, None))\n+                    self.assertEqual(expected, pyvectorcall_call(func, args))\n+                    self.assertEqual(expected, meth(*args1))\n+                    self.assertEqual(expected, wrapped(*args))\n+                self.assertEqual(expected, func(*args, **kwargs))\n+                self.assertEqual(expected, vectorcall(func, args, kwargs))\n+                self.assertEqual(expected, pyvectorcall_call(func, args, kwargs))\n+                self.assertEqual(expected, meth(*args1, **kwargs))\n+                self.assertEqual(expected, wrapped(*args, **kwargs))\n+\n \n class SubinterpreterTest(unittest.TestCase):\n "
+    },
+    {
+      "sha": "c558d116e6fe9d65c2528bf3154c36442f21a174",
+      "filename": "Lib/test/test_sys.py",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4,
+      "changes": 8,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Lib%2Ftest%2Ftest_sys.py",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Lib%2Ftest%2Ftest_sys.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_sys.py?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -1064,7 +1064,7 @@ def test_objecttypes(self):\n         # buffer\n         # XXX\n         # builtin_function_or_method\n-        check(len, size('4P')) # XXX check layout\n+        check(len, size('5P'))\n         # bytearray\n         samples = [b'', b'u'*100000]\n         for sample in samples:\n@@ -1095,7 +1095,7 @@ def inner():\n         # complex\n         check(complex(0,1), size('2d'))\n         # method_descriptor (descriptor object)\n-        check(str.lower, size('3PP'))\n+        check(str.lower, size('3PPP'))\n         # classmethod_descriptor (descriptor object)\n         # XXX\n         # member_descriptor (descriptor object)\n@@ -1164,7 +1164,7 @@ class C(object): pass\n         check(x, vsize('5P2c4P3ic' + CO_MAXBLOCKS*'3i' + 'P' + extras*'P'))\n         # function\n         def func(): pass\n-        check(func, size('12P'))\n+        check(func, size('13P'))\n         class c():\n             @staticmethod\n             def foo():\n@@ -1259,7 +1259,7 @@ def delx(self): del self.__x\n         check((1,2,3), vsize('') + 3*self.P)\n         # type\n         # static type: PyTypeObject\n-        fmt = 'P2n15Pl4Pn9Pn11PIP'\n+        fmt = 'P2nPI13Pl4Pn9Pn11PIPP'\n         if hasattr(sys, 'getcounts'):\n             fmt += '3n2P'\n         s = vsize(fmt)"
+    },
+    {
+      "sha": "c51c2e2419d1fa5230d14b560b764c5a8737c1c3",
+      "filename": "Misc/NEWS.d/next/C API/2019-05-22-15-24-08.bpo-36974.TkySRe.rst",
+      "status": "added",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Misc%2FNEWS.d%2Fnext%2FC%20API%2F2019-05-22-15-24-08.bpo-36974.TkySRe.rst",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Misc%2FNEWS.d%2Fnext%2FC%20API%2F2019-05-22-15-24-08.bpo-36974.TkySRe.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FC%20API%2F2019-05-22-15-24-08.bpo-36974.TkySRe.rst?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -0,0 +1,2 @@\n+Implement :pep:`590`: Vectorcall: a fast calling protocol for CPython.\n+This is a new protocol to optimize calls of custom callable objects."
+    },
+    {
+      "sha": "60136082a7eecfe9ff327bae1b3d7acfb3a66631",
+      "filename": "Modules/_asynciomodule.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 4,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Modules%2F_asynciomodule.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Modules%2F_asynciomodule.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Modules%2F_asynciomodule.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -367,8 +367,7 @@ call_soon(PyObject *loop, PyObject *func, PyObject *arg, PyObject *ctx)\n         }\n         stack[nargs] = (PyObject *)ctx;\n \n-        handle = _PyObject_FastCallKeywords(\n-            callable, stack, nargs, context_kwname);\n+        handle = _PyObject_Vectorcall(callable, stack, nargs, context_kwname);\n         Py_DECREF(callable);\n     }\n \n@@ -2805,8 +2804,7 @@ task_step_impl(TaskObj *task, PyObject *exc)\n         PyObject *stack[2];\n         stack[0] = wrapper;\n         stack[1] = (PyObject *)task->task_context;\n-        res = _PyObject_FastCallKeywords(\n-            add_cb, stack, 1, context_kwname);\n+        res = _PyObject_Vectorcall(add_cb, stack, 1, context_kwname);\n         Py_DECREF(add_cb);\n         Py_DECREF(wrapper);\n         if (res == NULL) {"
+    },
+    {
+      "sha": "f2f418c997ab59ecd6b10ceef834b193bb092c78",
+      "filename": "Modules/_testcapimodule.c",
+      "status": "modified",
+      "additions": 28,
+      "deletions": 3,
+      "changes": 31,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Modules%2F_testcapimodule.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Modules%2F_testcapimodule.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Modules%2F_testcapimodule.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -4713,7 +4713,7 @@ test_pyobject_fastcalldict(PyObject *self, PyObject *args)\n \n \n static PyObject *\n-test_pyobject_fastcallkeywords(PyObject *self, PyObject *args)\n+test_pyobject_vectorcall(PyObject *self, PyObject *args)\n {\n     PyObject *func, *func_args, *kwnames = NULL;\n     PyObject **stack;\n@@ -4742,7 +4742,31 @@ test_pyobject_fastcallkeywords(PyObject *self, PyObject *args)\n         PyErr_SetString(PyExc_TypeError, \"kwnames must be None or a tuple\");\n         return NULL;\n     }\n-    return _PyObject_FastCallKeywords(func, stack, nargs, kwnames);\n+    return _PyObject_Vectorcall(func, stack, nargs, kwnames);\n+}\n+\n+\n+static PyObject *\n+test_pyvectorcall_call(PyObject *self, PyObject *args)\n+{\n+    PyObject *func;\n+    PyObject *argstuple;\n+    PyObject *kwargs = NULL;\n+\n+    if (!PyArg_ParseTuple(args, \"OO|O\", &func, &argstuple, &kwargs)) {\n+        return NULL;\n+    }\n+\n+    if (!PyTuple_Check(argstuple)) {\n+        PyErr_SetString(PyExc_TypeError, \"args must be a tuple\");\n+        return NULL;\n+    }\n+    if (kwargs != NULL && !PyDict_Check(kwargs)) {\n+        PyErr_SetString(PyExc_TypeError, \"kwargs must be a dict\");\n+        return NULL;\n+    }\n+\n+    return PyVectorcall_Call(func, argstuple, kwargs);\n }\n \n \n@@ -5230,7 +5254,8 @@ static PyMethodDef TestMethods[] = {\n     {\"raise_SIGINT_then_send_None\", raise_SIGINT_then_send_None, METH_VARARGS},\n     {\"pyobject_fastcall\", test_pyobject_fastcall, METH_VARARGS},\n     {\"pyobject_fastcalldict\", test_pyobject_fastcalldict, METH_VARARGS},\n-    {\"pyobject_fastcallkeywords\", test_pyobject_fastcallkeywords, METH_VARARGS},\n+    {\"pyobject_vectorcall\", test_pyobject_vectorcall, METH_VARARGS},\n+    {\"pyvectorcall_call\", test_pyvectorcall_call, METH_VARARGS},\n     {\"stack_pointer\", stack_pointer, METH_NOARGS},\n #ifdef W_STOPCODE\n     {\"W_STOPCODE\", py_w_stopcode, METH_VARARGS},"
+    },
+    {
+      "sha": "183a5c2e5a24ff6947019aa2c4dff3f1e551e42c",
+      "filename": "Objects/call.c",
+      "status": "modified",
+      "additions": 105,
+      "deletions": 103,
+      "changes": 208,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Fcall.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Fcall.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Fcall.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -5,6 +5,10 @@\n #include \"frameobject.h\"\n \n \n+static PyObject *\n+cfunction_call_varargs(PyObject *func, PyObject *args, PyObject *kwargs);\n+\n+\n int\n _PyObject_HasFastCall(PyObject *callable)\n {\n@@ -83,131 +87,132 @@ _Py_CheckFunctionResult(PyObject *callable, PyObject *result, const char *where)\n /* --- Core PyObject call functions ------------------------------- */\n \n PyObject *\n-_PyObject_FastCallDict(PyObject *callable, PyObject *const *args, Py_ssize_t nargs,\n-                       PyObject *kwargs)\n+_PyObject_FastCallDict(PyObject *callable, PyObject *const *args,\n+                       size_t nargsf, PyObject *kwargs)\n {\n     /* _PyObject_FastCallDict() must not be called with an exception set,\n        because it can clear it (directly or indirectly) and so the\n        caller loses its exception */\n     assert(!PyErr_Occurred());\n-\n     assert(callable != NULL);\n+\n+    Py_ssize_t nargs = PyVectorcall_NARGS(nargsf);\n     assert(nargs >= 0);\n     assert(nargs == 0 || args != NULL);\n     assert(kwargs == NULL || PyDict_Check(kwargs));\n \n-    if (PyFunction_Check(callable)) {\n-        return _PyFunction_FastCallDict(callable, args, nargs, kwargs);\n+    vectorcallfunc func = _PyVectorcall_Function(callable);\n+    if (func == NULL) {\n+        /* Use tp_call instead */\n+        return _PyObject_MakeTpCall(callable, args, nargs, kwargs);\n     }\n-    else if (PyCFunction_Check(callable)) {\n-        return _PyCFunction_FastCallDict(callable, args, nargs, kwargs);\n+\n+    PyObject *res;\n+    if (kwargs == NULL) {\n+        res = func(callable, args, nargsf, NULL);\n     }\n     else {\n-        PyObject *argstuple, *result;\n-        ternaryfunc call;\n-\n-        /* Slow-path: build a temporary tuple */\n-        call = callable->ob_type->tp_call;\n-        if (call == NULL) {\n-            PyErr_Format(PyExc_TypeError, \"'%.200s' object is not callable\",\n-                         callable->ob_type->tp_name);\n-            return NULL;\n-        }\n-\n-        argstuple = _PyTuple_FromArray(args, nargs);\n-        if (argstuple == NULL) {\n+        PyObject *kwnames;\n+        PyObject *const *newargs;\n+        if (_PyStack_UnpackDict(args, nargs, kwargs, &newargs, &kwnames) < 0) {\n             return NULL;\n         }\n-\n-        if (Py_EnterRecursiveCall(\" while calling a Python object\")) {\n-            Py_DECREF(argstuple);\n-            return NULL;\n+        res = func(callable, newargs, nargs, kwnames);\n+        if (kwnames != NULL) {\n+            Py_ssize_t i, n = PyTuple_GET_SIZE(kwnames) + nargs;\n+            for (i = 0; i < n; i++) {\n+                Py_DECREF(newargs[i]);\n+            }\n+            PyMem_Free((PyObject **)newargs);\n+            Py_DECREF(kwnames);\n         }\n-\n-        result = (*call)(callable, argstuple, kwargs);\n-\n-        Py_LeaveRecursiveCall();\n-        Py_DECREF(argstuple);\n-\n-        result = _Py_CheckFunctionResult(callable, result, NULL);\n-        return result;\n     }\n+    return _Py_CheckFunctionResult(callable, res, NULL);\n }\n \n \n PyObject *\n-_PyObject_FastCallKeywords(PyObject *callable, PyObject *const *stack, Py_ssize_t nargs,\n-                           PyObject *kwnames)\n+_PyObject_MakeTpCall(PyObject *callable, PyObject *const *args, Py_ssize_t nargs, PyObject *keywords)\n {\n-    /* _PyObject_FastCallKeywords() must not be called with an exception set,\n-       because it can clear it (directly or indirectly) and so the\n-       caller loses its exception */\n-    assert(!PyErr_Occurred());\n+    /* Slow path: build a temporary tuple for positional arguments and a\n+     * temporary dictionary for keyword arguments (if any) */\n+    ternaryfunc call = Py_TYPE(callable)->tp_call;\n+    if (call == NULL) {\n+        PyErr_Format(PyExc_TypeError, \"'%.200s' object is not callable\",\n+                     Py_TYPE(callable)->tp_name);\n+        return NULL;\n+    }\n \n     assert(nargs >= 0);\n-    assert(kwnames == NULL || PyTuple_CheckExact(kwnames));\n-\n-    /* kwnames must only contains str strings, no subclass, and all keys must\n-       be unique: these checks are implemented in Python/ceval.c and\n-       _PyArg_ParseStackAndKeywords(). */\n-\n-    if (PyFunction_Check(callable)) {\n-        return _PyFunction_FastCallKeywords(callable, stack, nargs, kwnames);\n+    assert(nargs == 0 || args != NULL);\n+    assert(keywords == NULL || PyTuple_Check(keywords) || PyDict_Check(keywords));\n+    PyObject *argstuple = _PyTuple_FromArray(args, nargs);\n+    if (argstuple == NULL) {\n+        return NULL;\n     }\n-    if (PyCFunction_Check(callable)) {\n-        return _PyCFunction_FastCallKeywords(callable, stack, nargs, kwnames);\n+\n+    PyObject *kwdict;\n+    if (keywords == NULL || PyDict_Check(keywords)) {\n+        kwdict = keywords;\n     }\n     else {\n-        /* Slow-path: build a temporary tuple for positional arguments and a\n-           temporary dictionary for keyword arguments (if any) */\n-\n-        ternaryfunc call;\n-        PyObject *argstuple;\n-        PyObject *kwdict, *result;\n-        Py_ssize_t nkwargs;\n-\n-        nkwargs = (kwnames == NULL) ? 0 : PyTuple_GET_SIZE(kwnames);\n-        assert((nargs == 0 && nkwargs == 0) || stack != NULL);\n-\n-        call = callable->ob_type->tp_call;\n-        if (call == NULL) {\n-            PyErr_Format(PyExc_TypeError, \"'%.200s' object is not callable\",\n-                         callable->ob_type->tp_name);\n-            return NULL;\n-        }\n-\n-        argstuple = _PyTuple_FromArray(stack, nargs);\n-        if (argstuple == NULL) {\n-            return NULL;\n-        }\n-\n-        if (nkwargs > 0) {\n-            kwdict = _PyStack_AsDict(stack + nargs, kwnames);\n+        if (PyTuple_GET_SIZE(keywords)) {\n+            assert(args != NULL);\n+            kwdict = _PyStack_AsDict(args + nargs, keywords);\n             if (kwdict == NULL) {\n                 Py_DECREF(argstuple);\n                 return NULL;\n             }\n         }\n         else {\n-            kwdict = NULL;\n+            keywords = kwdict = NULL;\n         }\n+    }\n \n-        if (Py_EnterRecursiveCall(\" while calling a Python object\")) {\n-            Py_DECREF(argstuple);\n-            Py_XDECREF(kwdict);\n-            return NULL;\n-        }\n+    PyObject *result = NULL;\n+    if (Py_EnterRecursiveCall(\" while calling a Python object\") == 0)\n+    {\n+        result = call(callable, argstuple, kwdict);\n+        Py_LeaveRecursiveCall();\n+    }\n \n-        result = (*call)(callable, argstuple, kwdict);\n+    Py_DECREF(argstuple);\n+    if (kwdict != keywords) {\n+        Py_DECREF(kwdict);\n+    }\n \n-        Py_LeaveRecursiveCall();\n+    result = _Py_CheckFunctionResult(callable, result, NULL);\n+    return result;\n+}\n \n-        Py_DECREF(argstuple);\n-        Py_XDECREF(kwdict);\n \n-        result = _Py_CheckFunctionResult(callable, result, NULL);\n-        return result;\n+PyObject *\n+PyVectorcall_Call(PyObject *callable, PyObject *tuple, PyObject *kwargs)\n+{\n+    vectorcallfunc func = _PyVectorcall_Function(callable);\n+    if (func == NULL) {\n+        PyErr_Format(PyExc_TypeError, \"'%.200s' object does not support vectorcall\",\n+                     Py_TYPE(callable)->tp_name);\n+        return NULL;\n     }\n+    PyObject *const *args;\n+    Py_ssize_t nargs = PyTuple_GET_SIZE(tuple);\n+    PyObject *kwnames;\n+    if (_PyStack_UnpackDict(_PyTuple_ITEMS(tuple), nargs,\n+        kwargs, &args, &kwnames) < 0) {\n+        return NULL;\n+    }\n+    PyObject *result = func(callable, args, nargs, kwnames);\n+    if (kwnames != NULL) {\n+        Py_ssize_t i, n = PyTuple_GET_SIZE(kwnames) + nargs;\n+        for (i = 0; i < n; i++) {\n+            Py_DECREF(args[i]);\n+        }\n+        PyMem_Free((PyObject **)args);\n+        Py_DECREF(kwnames);\n+    }\n+\n+    return result;\n }\n \n \n@@ -224,14 +229,13 @@ PyObject_Call(PyObject *callable, PyObject *args, PyObject *kwargs)\n     assert(PyTuple_Check(args));\n     assert(kwargs == NULL || PyDict_Check(kwargs));\n \n-    if (PyFunction_Check(callable)) {\n-        return _PyFunction_FastCallDict(callable,\n-                                        _PyTuple_ITEMS(args),\n-                                        PyTuple_GET_SIZE(args),\n-                                        kwargs);\n+    if (_PyVectorcall_Function(callable) != NULL) {\n+        return PyVectorcall_Call(callable, args, kwargs);\n     }\n     else if (PyCFunction_Check(callable)) {\n-        return PyCFunction_Call(callable, args, kwargs);\n+        /* This must be a METH_VARARGS function, otherwise we would be\n+         * in the previous case */\n+        return cfunction_call_varargs(callable, args, kwargs);\n     }\n     else {\n         call = callable->ob_type->tp_call;\n@@ -384,9 +388,10 @@ _PyFunction_FastCallDict(PyObject *func, PyObject *const *args, Py_ssize_t nargs\n     return result;\n }\n \n+\n PyObject *\n-_PyFunction_FastCallKeywords(PyObject *func, PyObject *const *stack,\n-                             Py_ssize_t nargs, PyObject *kwnames)\n+_PyFunction_FastCallKeywords(PyObject *func, PyObject* const* stack,\n+                             size_t nargsf, PyObject *kwnames)\n {\n     PyCodeObject *co = (PyCodeObject *)PyFunction_GET_CODE(func);\n     PyObject *globals = PyFunction_GET_GLOBALS(func);\n@@ -397,6 +402,7 @@ _PyFunction_FastCallKeywords(PyObject *func, PyObject *const *stack,\n     Py_ssize_t nd;\n \n     assert(PyFunction_Check(func));\n+    Py_ssize_t nargs = PyVectorcall_NARGS(nargsf);\n     assert(nargs >= 0);\n     assert(kwnames == NULL || PyTuple_CheckExact(kwnames));\n     assert((nargs == 0 && nkwargs == 0) || stack != NULL);\n@@ -725,13 +731,14 @@ _PyMethodDef_RawFastCallKeywords(PyMethodDef *method, PyObject *self,\n \n PyObject *\n _PyCFunction_FastCallKeywords(PyObject *func,\n-                              PyObject *const *args, Py_ssize_t nargs,\n+                              PyObject *const *args, size_t nargsf,\n                               PyObject *kwnames)\n {\n     PyObject *result;\n \n     assert(func != NULL);\n     assert(PyCFunction_Check(func));\n+    Py_ssize_t nargs = PyVectorcall_NARGS(nargsf);\n \n     result = _PyMethodDef_RawFastCallKeywords(((PyCFunctionObject*)func)->m_ml,\n                                               PyCFunction_GET_SELF(func),\n@@ -751,6 +758,7 @@ cfunction_call_varargs(PyObject *func, PyObject *args, PyObject *kwargs)\n     PyObject *self = PyCFunction_GET_SELF(func);\n     PyObject *result;\n \n+    assert(PyCFunction_GET_FLAGS(func) & METH_VARARGS);\n     if (PyCFunction_GET_FLAGS(func) & METH_KEYWORDS) {\n         if (Py_EnterRecursiveCall(\" while calling a Python object\")) {\n             return NULL;\n@@ -783,18 +791,12 @@ cfunction_call_varargs(PyObject *func, PyObject *args, PyObject *kwargs)\n PyObject *\n PyCFunction_Call(PyObject *func, PyObject *args, PyObject *kwargs)\n {\n-    /* first try METH_VARARGS to pass directly args tuple unchanged.\n-       _PyMethodDef_RawFastCallDict() creates a new temporary tuple\n-       for METH_VARARGS. */\n+    /* For METH_VARARGS, we cannot use vectorcall as the vectorcall pointer\n+     * is NULL. This is intentional, since vectorcall would be slower. */\n     if (PyCFunction_GET_FLAGS(func) & METH_VARARGS) {\n         return cfunction_call_varargs(func, args, kwargs);\n     }\n-    else {\n-        return _PyCFunction_FastCallDict(func,\n-                                         _PyTuple_ITEMS(args),\n-                                         PyTuple_GET_SIZE(args),\n-                                         kwargs);\n-    }\n+    return PyVectorcall_Call(func, args, kwargs);\n }\n \n "
+    },
+    {
+      "sha": "cfc24460a747b006b6b7a4d9f45969370fec9f60",
+      "filename": "Objects/classobject.c",
+      "status": "modified",
+      "additions": 43,
+      "deletions": 2,
+      "changes": 45,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Fclassobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Fclassobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Fclassobject.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -40,6 +40,45 @@ PyMethod_Self(PyObject *im)\n     return ((PyMethodObject *)im)->im_self;\n }\n \n+\n+static PyObject *\n+method_vectorcall(PyObject *method, PyObject *const *args,\n+                  size_t nargsf, PyObject *kwnames)\n+{\n+    assert(Py_TYPE(method) == &PyMethod_Type);\n+    PyObject *self, *func, *result;\n+    self = PyMethod_GET_SELF(method);\n+    func = PyMethod_GET_FUNCTION(method);\n+    Py_ssize_t nargs = PyVectorcall_NARGS(nargsf);\n+\n+    if (nargsf & PY_VECTORCALL_ARGUMENTS_OFFSET) {\n+        /* PY_VECTORCALL_ARGUMENTS_OFFSET is set, so we are allowed to mutate the vector */\n+        PyObject **newargs = (PyObject**)args - 1;\n+        nargs += 1;\n+        PyObject *tmp = newargs[0];\n+        newargs[0] = self;\n+        result = _PyObject_Vectorcall(func, newargs, nargs, kwnames);\n+        newargs[0] = tmp;\n+    }\n+    else {\n+        Py_ssize_t nkwargs = (kwnames == NULL) ? 0 : PyTuple_GET_SIZE(kwnames);\n+        PyObject **newargs;\n+        Py_ssize_t totalargs = nargs + nkwargs;\n+        newargs = PyMem_Malloc((totalargs+1) * sizeof(PyObject *));\n+        if (newargs == NULL) {\n+            PyErr_NoMemory();\n+            return NULL;\n+        }\n+        /* use borrowed references */\n+        newargs[0] = self;\n+        memcpy(newargs + 1, args, totalargs * sizeof(PyObject *));\n+        result = _PyObject_Vectorcall(func, newargs, nargs+1, kwnames);\n+        PyMem_Free(newargs);\n+    }\n+    return result;\n+}\n+\n+\n /* Method objects are used for bound instance methods returned by\n    instancename.methodname. ClassName.methodname returns an ordinary\n    function.\n@@ -69,6 +108,7 @@ PyMethod_New(PyObject *func, PyObject *self)\n     im->im_func = func;\n     Py_XINCREF(self);\n     im->im_self = self;\n+    im->vectorcall = method_vectorcall;\n     _PyObject_GC_TRACK(im);\n     return (PyObject *)im;\n }\n@@ -309,7 +349,7 @@ PyTypeObject PyMethod_Type = {\n     sizeof(PyMethodObject),\n     0,\n     (destructor)method_dealloc,                 /* tp_dealloc */\n-    0,                                          /* tp_print */\n+    offsetof(PyMethodObject, vectorcall),       /* tp_vectorcall_offset */\n     0,                                          /* tp_getattr */\n     0,                                          /* tp_setattr */\n     0,                                          /* tp_reserved */\n@@ -323,7 +363,8 @@ PyTypeObject PyMethod_Type = {\n     method_getattro,                            /* tp_getattro */\n     PyObject_GenericSetAttr,                    /* tp_setattro */\n     0,                                          /* tp_as_buffer */\n-    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, /* tp_flags */\n+    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC |\n+    _Py_TPFLAGS_HAVE_VECTORCALL,                /* tp_flags */\n     method_doc,                                 /* tp_doc */\n     (traverseproc)method_traverse,              /* tp_traverse */\n     0,                                          /* tp_clear */"
+    },
+    {
+      "sha": "759018503c65e00bba3ea687e36335fcb295859c",
+      "filename": "Objects/descrobject.c",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 3,
+      "changes": 10,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Fdescrobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Fdescrobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Fdescrobject.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -265,13 +265,14 @@ methoddescr_call(PyMethodDescrObject *descr, PyObject *args, PyObject *kwargs)\n // same to methoddescr_call(), but use FASTCALL convention.\n PyObject *\n _PyMethodDescr_FastCallKeywords(PyObject *descrobj,\n-                                PyObject *const *args, Py_ssize_t nargs,\n+                                PyObject *const *args, size_t nargsf,\n                                 PyObject *kwnames)\n {\n     assert(Py_TYPE(descrobj) == &PyMethodDescr_Type);\n     PyMethodDescrObject *descr = (PyMethodDescrObject *)descrobj;\n     PyObject *self, *result;\n \n+    Py_ssize_t nargs = PyVectorcall_NARGS(nargsf);\n     /* Make sure that the first argument is acceptable as 'self' */\n     if (nargs < 1) {\n         PyErr_Format(PyExc_TypeError,\n@@ -542,7 +543,7 @@ PyTypeObject PyMethodDescr_Type = {\n     sizeof(PyMethodDescrObject),\n     0,\n     (destructor)descr_dealloc,                  /* tp_dealloc */\n-    0,                                          /* tp_print */\n+    offsetof(PyMethodDescrObject, vectorcall),  /* tp_vectorcall_offset */\n     0,                                          /* tp_getattr */\n     0,                                          /* tp_setattr */\n     0,                                          /* tp_reserved */\n@@ -557,6 +558,7 @@ PyTypeObject PyMethodDescr_Type = {\n     0,                                          /* tp_setattro */\n     0,                                          /* tp_as_buffer */\n     Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC |\n+    _Py_TPFLAGS_HAVE_VECTORCALL |\n     Py_TPFLAGS_METHOD_DESCRIPTOR,               /* tp_flags */\n     0,                                          /* tp_doc */\n     descr_traverse,                             /* tp_traverse */\n@@ -752,8 +754,10 @@ PyDescr_NewMethod(PyTypeObject *type, PyMethodDef *method)\n \n     descr = (PyMethodDescrObject *)descr_new(&PyMethodDescr_Type,\n                                              type, method->ml_name);\n-    if (descr != NULL)\n+    if (descr != NULL) {\n         descr->d_method = method;\n+        descr->vectorcall = &_PyMethodDescr_FastCallKeywords;\n+    }\n     return (PyObject *)descr;\n }\n "
+    },
+    {
+      "sha": "2b1f42db746dbcd3a006829e3e946a65a6397d23",
+      "filename": "Objects/funcobject.c",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 1,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Ffuncobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Ffuncobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Ffuncobject.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -36,6 +36,7 @@ PyFunction_NewWithQualName(PyObject *code, PyObject *globals, PyObject *qualname\n     op->func_defaults = NULL; /* No default arguments */\n     op->func_kwdefaults = NULL; /* No keyword only defaults */\n     op->func_closure = NULL;\n+    op->vectorcall = _PyFunction_FastCallKeywords;\n \n     consts = ((PyCodeObject *)code)->co_consts;\n     if (PyTuple_Size(consts) >= 1) {\n@@ -649,7 +650,7 @@ PyTypeObject PyFunction_Type = {\n     sizeof(PyFunctionObject),\n     0,\n     (destructor)func_dealloc,                   /* tp_dealloc */\n-    0,                                          /* tp_print */\n+    offsetof(PyFunctionObject, vectorcall),     /* tp_vectorcall_offset */\n     0,                                          /* tp_getattr */\n     0,                                          /* tp_setattr */\n     0,                                          /* tp_reserved */\n@@ -664,6 +665,7 @@ PyTypeObject PyFunction_Type = {\n     0,                                          /* tp_setattro */\n     0,                                          /* tp_as_buffer */\n     Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC |\n+    _Py_TPFLAGS_HAVE_VECTORCALL |\n     Py_TPFLAGS_METHOD_DESCRIPTOR,               /* tp_flags */\n     func_new__doc__,                            /* tp_doc */\n     (traverseproc)func_traverse,                /* tp_traverse */"
+    },
+    {
+      "sha": "76497c93894a897567076e04fc784530a816a907",
+      "filename": "Objects/methodobject.c",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 2,
+      "changes": 13,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Fmethodobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Objects%2Fmethodobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Fmethodobject.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -46,6 +46,14 @@ PyCFunction_NewEx(PyMethodDef *ml, PyObject *self, PyObject *module)\n     op->m_self = self;\n     Py_XINCREF(module);\n     op->m_module = module;\n+    if (ml->ml_flags & METH_VARARGS) {\n+        /* For METH_VARARGS functions, it's more efficient to use tp_call\n+         * instead of vectorcall. */\n+        op->vectorcall = NULL;\n+    }\n+    else {\n+        op->vectorcall = &_PyCFunction_FastCallKeywords;\n+    }\n     _PyObject_GC_TRACK(op);\n     return (PyObject *)op;\n }\n@@ -264,7 +272,7 @@ PyTypeObject PyCFunction_Type = {\n     sizeof(PyCFunctionObject),\n     0,\n     (destructor)meth_dealloc,                   /* tp_dealloc */\n-    0,                                          /* tp_print */\n+    offsetof(PyCFunctionObject, vectorcall),    /* tp_vectorcall_offset */\n     0,                                          /* tp_getattr */\n     0,                                          /* tp_setattr */\n     0,                                          /* tp_reserved */\n@@ -278,7 +286,8 @@ PyTypeObject PyCFunction_Type = {\n     PyObject_GenericGetAttr,                    /* tp_getattro */\n     0,                                          /* tp_setattro */\n     0,                                          /* tp_as_buffer */\n-    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,/* tp_flags */\n+    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC |\n+    _Py_TPFLAGS_HAVE_VECTORCALL,                /* tp_flags */\n     0,                                          /* tp_doc */\n     (traverseproc)meth_traverse,                /* tp_traverse */\n     0,                                          /* tp_clear */"
+    },
+    {
+      "sha": "48dadcc9d4964dc2d6abde8f0a6cbe28d0ad38b0",
+      "filename": "Python/bltinmodule.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Python%2Fbltinmodule.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Python%2Fbltinmodule.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fbltinmodule.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -483,7 +483,7 @@ builtin_breakpoint(PyObject *self, PyObject *const *args, Py_ssize_t nargs, PyOb\n         return NULL;\n     }\n     Py_INCREF(hook);\n-    PyObject *retval = _PyObject_FastCallKeywords(hook, args, nargs, keywords);\n+    PyObject *retval = _PyObject_Vectorcall(hook, args, nargs, keywords);\n     Py_DECREF(hook);\n     return retval;\n }\n@@ -2231,7 +2231,7 @@ builtin_sorted(PyObject *self, PyObject *const *args, Py_ssize_t nargs, PyObject\n     }\n \n     assert(nargs >= 1);\n-    v = _PyObject_FastCallKeywords(callable, args + 1, nargs - 1, kwnames);\n+    v = _PyObject_Vectorcall(callable, args + 1, nargs - 1, kwnames);\n     Py_DECREF(callable);\n     if (v == NULL) {\n         Py_DECREF(newlist);"
+    },
+    {
+      "sha": "47baa4d03ed9cc480cfeba58f97b424fe06cac69",
+      "filename": "Python/ceval.c",
+      "status": "modified",
+      "additions": 37,
+      "deletions": 55,
+      "changes": 92,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Python%2Fceval.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Python%2Fceval.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fceval.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -4806,6 +4806,40 @@ if (tstate->use_tracing && tstate->c_profilefunc) { \\\n     x = call; \\\n     }\n \n+\n+static PyObject *\n+trace_call_function(PyThreadState *tstate,\n+                    PyObject *func,\n+                    PyObject **args, Py_ssize_t nargs,\n+                    PyObject *kwnames)\n+{\n+    PyObject *x;\n+    if (PyCFunction_Check(func)) {\n+        C_TRACE(x, _PyCFunction_FastCallKeywords(func, args, nargs, kwnames));\n+        return x;\n+    }\n+    else if (Py_TYPE(func) == &PyMethodDescr_Type && nargs > 0) {\n+        /* We need to create a temporary bound method as argument\n+           for profiling.\n+\n+           If nargs == 0, then this cannot work because we have no\n+           \"self\". In any case, the call itself would raise\n+           TypeError (foo needs an argument), so we just skip\n+           profiling. */\n+        PyObject *self = args[0];\n+        func = Py_TYPE(func)->tp_descr_get(func, self, (PyObject*)Py_TYPE(self));\n+        if (func == NULL) {\n+            return NULL;\n+        }\n+        C_TRACE(x, _PyCFunction_FastCallKeywords(func,\n+                                                 args+1, nargs-1,\n+                                                 kwnames));\n+        Py_DECREF(func);\n+        return x;\n+    }\n+    return _PyObject_Vectorcall(func, args, nargs | PY_VECTORCALL_ARGUMENTS_OFFSET, kwnames);\n+}\n+\n /* Issue #29227: Inline call_function() into _PyEval_EvalFrameDefault()\n    to reduce the stack consumption. */\n Py_LOCAL_INLINE(PyObject *) _Py_HOT_FUNCTION\n@@ -4818,63 +4852,11 @@ call_function(PyThreadState *tstate, PyObject ***pp_stack, Py_ssize_t oparg, PyO\n     Py_ssize_t nargs = oparg - nkwargs;\n     PyObject **stack = (*pp_stack) - nargs - nkwargs;\n \n-    /* Always dispatch PyCFunction first, because these are\n-       presumed to be the most frequent callable object.\n-    */\n-    if (PyCFunction_Check(func)) {\n-        C_TRACE(x, _PyCFunction_FastCallKeywords(func, stack, nargs, kwnames));\n-    }\n-    else if (Py_TYPE(func) == &PyMethodDescr_Type) {\n-        if (nargs > 0 && tstate->use_tracing) {\n-            /* We need to create a temporary bound method as argument\n-               for profiling.\n-\n-               If nargs == 0, then this cannot work because we have no\n-               \"self\". In any case, the call itself would raise\n-               TypeError (foo needs an argument), so we just skip\n-               profiling. */\n-            PyObject *self = stack[0];\n-            func = Py_TYPE(func)->tp_descr_get(func, self, (PyObject*)Py_TYPE(self));\n-            if (func != NULL) {\n-                C_TRACE(x, _PyCFunction_FastCallKeywords(func,\n-                                                         stack+1, nargs-1,\n-                                                         kwnames));\n-                Py_DECREF(func);\n-            }\n-            else {\n-                x = NULL;\n-            }\n-        }\n-        else {\n-            x = _PyMethodDescr_FastCallKeywords(func, stack, nargs, kwnames);\n-        }\n+    if (tstate->use_tracing) {\n+        x = trace_call_function(tstate, func, stack, nargs, kwnames);\n     }\n     else {\n-        if (PyMethod_Check(func) && PyMethod_GET_SELF(func) != NULL) {\n-            /* Optimize access to bound methods. Reuse the Python stack\n-               to pass 'self' as the first argument, replace 'func'\n-               with 'self'. It avoids the creation of a new temporary tuple\n-               for arguments (to replace func with self) when the method uses\n-               FASTCALL. */\n-            PyObject *self = PyMethod_GET_SELF(func);\n-            Py_INCREF(self);\n-            func = PyMethod_GET_FUNCTION(func);\n-            Py_INCREF(func);\n-            Py_SETREF(*pfunc, self);\n-            nargs++;\n-            stack--;\n-        }\n-        else {\n-            Py_INCREF(func);\n-        }\n-\n-        if (PyFunction_Check(func)) {\n-            x = _PyFunction_FastCallKeywords(func, stack, nargs, kwnames);\n-        }\n-        else {\n-            x = _PyObject_FastCallKeywords(func, stack, nargs, kwnames);\n-        }\n-        Py_DECREF(func);\n+        x = _PyObject_Vectorcall(func, stack, nargs | PY_VECTORCALL_ARGUMENTS_OFFSET, kwnames);\n     }\n \n     assert((x != NULL) ^ (_PyErr_Occurred(tstate) != NULL));"
+    },
+    {
+      "sha": "f48c376b4ffaa98b705d8d8ff336586e0097a061",
+      "filename": "Python/context.c",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Python%2Fcontext.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Python%2Fcontext.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fcontext.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -631,7 +631,7 @@ context_run(PyContext *self, PyObject *const *args,\n         return NULL;\n     }\n \n-    PyObject *call_result = _PyObject_FastCallKeywords(\n+    PyObject *call_result = _PyObject_Vectorcall(\n         args[0], args + 1, nargs - 1, kwnames);\n \n     if (PyContext_Exit((PyObject *)self)) {"
+    },
+    {
+      "sha": "12b1bd7711d5b807c73036881e2fbfa01cd62d2c",
+      "filename": "Python/sysmodule.c",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/aacc77fbd77640a8f03638216fa09372cc21673d/Python%2Fsysmodule.c",
+      "raw_url": "https://github.com/python/cpython/raw/aacc77fbd77640a8f03638216fa09372cc21673d/Python%2Fsysmodule.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fsysmodule.c?ref=aacc77fbd77640a8f03638216fa09372cc21673d",
+      "patch": "@@ -481,7 +481,7 @@ sys_breakpointhook(PyObject *self, PyObject *const *args, Py_ssize_t nargs, PyOb\n         return NULL;\n     }\n     PyMem_RawFree(envar);\n-    PyObject *retval = _PyObject_FastCallKeywords(hook, args, nargs, keywords);\n+    PyObject *retval = _PyObject_Vectorcall(hook, args, nargs, keywords);\n     Py_DECREF(hook);\n     return retval;\n "
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "sha": "45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+  "node_id": "C_kwDOBN0Z8doAKDQ1ZTYyYTJiYzFjMDAwMGUyZTliNjEzZmZmNmJlYmYyYzI2ZmNiOTM",
+  "commit": {
+    "author": {
+      "name": "Mark Shannon",
+      "email": "mark@hotpy.org",
+      "date": "2022-06-20T11:59:25Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2022-06-20T11:59:25Z"
+    },
+    "message": "GH-93897: Store frame size in code object and de-opt if insufficient space on thread frame stack. (GH-93908)",
+    "tree": {
+      "sha": "2fb6748705e118b6a3cd9264f6b946bcfa06e5e5",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/2fb6748705e118b6a3cd9264f6b946bcfa06e5e5"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJisGEdCRBK7hj4Ov3rIwAAxJkIAKVeFb/34KzynATl0y8+ysoy\nfSoVx0OnD1f4HZ90AOt86bs2OujZH4JOhBqnRHtIl/RzrEpfiH6Z2eWsdz2AYNzO\n33wcTPQ/JUgUXVhEXIhi0Pz8Q0SIthQBvPIsi2XyxtSDV+zq5zdtXHVYKD6onzTz\nyFepcvqqfJxt069F5Y0Lt2ytS3FsjHFZv/D26c17HsXNEFflvHLX1YNeDWQbe4O7\nWYm7ulwTV6EcoDfgP4IstV/5aHx5846ko/E3PW6dvWsOtZou7YtVkDpftJ/T/k6d\neH6vspUiS9mU22ZzcuRxV0lrihH72z4/Qw/TWW4WZrQbI4iHQ0UPurBp2LNlc2s=\n=i02D\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 2fb6748705e118b6a3cd9264f6b946bcfa06e5e5\nparent 774ef28814d0d9d57ec813cb31b0a7af6c476127\nauthor Mark Shannon <mark@hotpy.org> 1655726365 +0100\ncommitter GitHub <noreply@github.com> 1655726365 +0100\n\nGH-93897: Store frame size in code object and de-opt if insufficient space on thread frame stack. (GH-93908)\n\n",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+  "html_url": "https://github.com/python/cpython/commit/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/comments",
+  "author": {
+    "login": "markshannon",
+    "id": 9448417,
+    "node_id": "MDQ6VXNlcjk0NDg0MTc=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/9448417?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/markshannon",
+    "html_url": "https://github.com/markshannon",
+    "followers_url": "https://api.github.com/users/markshannon/followers",
+    "following_url": "https://api.github.com/users/markshannon/following{/other_user}",
+    "gists_url": "https://api.github.com/users/markshannon/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/markshannon/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/markshannon/subscriptions",
+    "organizations_url": "https://api.github.com/users/markshannon/orgs",
+    "repos_url": "https://api.github.com/users/markshannon/repos",
+    "events_url": "https://api.github.com/users/markshannon/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/markshannon/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "774ef28814d0d9d57ec813cb31b0a7af6c476127",
+      "url": "https://api.github.com/repos/python/cpython/commits/774ef28814d0d9d57ec813cb31b0a7af6c476127",
+      "html_url": "https://github.com/python/cpython/commit/774ef28814d0d9d57ec813cb31b0a7af6c476127"
+    }
+  ],
+  "stats": {
+    "total": 117,
+    "additions": 50,
+    "deletions": 67
+  },
+  "files": [
+    {
+      "sha": "3ccd101415bf0b574ceb5d73120493b3b5faac7a",
+      "filename": "Include/cpython/code.h",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Include%2Fcpython%2Fcode.h",
+      "raw_url": "https://github.com/python/cpython/raw/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Include%2Fcpython%2Fcode.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fcpython%2Fcode.h?ref=45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+      "patch": "@@ -73,8 +73,8 @@ typedef uint16_t _Py_CODEUNIT;\n                                                                                \\\n     /* redundant values (derived from co_localsplusnames and                   \\\n        co_localspluskinds) */                                                  \\\n-    int co_nlocalsplus;           /* number of local + cell + free variables   \\\n-                                  */                                           \\\n+    int co_nlocalsplus;           /* number of local + cell + free variables */ \\\n+    int co_framesize;             /* Size of frame in words */                 \\\n     int co_nlocals;               /* number of local variables */              \\\n     int co_nplaincellvars;        /* number of non-arg cell variables */       \\\n     int co_ncellvars;             /* total number of cell variables */         \\"
+    },
+    {
+      "sha": "eed26fbb06218a3efc365b5c361a6c53c01e14bf",
+      "filename": "Include/internal/pycore_frame.h",
+      "status": "modified",
+      "additions": 27,
+      "deletions": 23,
+      "changes": 50,
+      "blob_url": "https://github.com/python/cpython/blob/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Include%2Finternal%2Fpycore_frame.h",
+      "raw_url": "https://github.com/python/cpython/raw/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Include%2Finternal%2Fpycore_frame.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Finternal%2Fpycore_frame.h?ref=45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+      "patch": "@@ -6,6 +6,7 @@ extern \"C\" {\n \n #include <stdbool.h>\n #include <stddef.h>\n+#include \"pycore_code.h\"         // STATS\n \n /* See Objects/frame_layout.md for an explanation of the frame stack\n  * including explanation of the PyFrameObject and _PyInterpreterFrame\n@@ -94,20 +95,20 @@ static inline void _PyFrame_StackPush(_PyInterpreterFrame *f, PyObject *value) {\n \n void _PyFrame_Copy(_PyInterpreterFrame *src, _PyInterpreterFrame *dest);\n \n-/* Consumes reference to func */\n+/* Consumes reference to func and locals */\n static inline void\n _PyFrame_InitializeSpecials(\n     _PyInterpreterFrame *frame, PyFunctionObject *func,\n-    PyObject *locals, int nlocalsplus)\n+    PyObject *locals, PyCodeObject *code)\n {\n     frame->f_func = func;\n-    frame->f_code = (PyCodeObject *)Py_NewRef(func->func_code);\n+    frame->f_code = (PyCodeObject *)Py_NewRef(code);\n     frame->f_builtins = func->func_builtins;\n     frame->f_globals = func->func_globals;\n-    frame->f_locals = Py_XNewRef(locals);\n-    frame->stacktop = nlocalsplus;\n+    frame->f_locals = locals;\n+    frame->stacktop = code->co_nlocalsplus;\n     frame->frame_obj = NULL;\n-    frame->prev_instr = _PyCode_CODE(frame->f_code) - 1;\n+    frame->prev_instr = _PyCode_CODE(code) - 1;\n     frame->is_entry = false;\n     frame->owner = FRAME_OWNED_BY_THREAD;\n }\n@@ -172,29 +173,32 @@ _PyFrame_FastToLocalsWithError(_PyInterpreterFrame *frame);\n void\n _PyFrame_LocalsToFast(_PyInterpreterFrame *frame, int clear);\n \n-extern _PyInterpreterFrame *\n-_PyThreadState_BumpFramePointerSlow(PyThreadState *tstate, size_t size);\n \n-static inline _PyInterpreterFrame *\n-_PyThreadState_BumpFramePointer(PyThreadState *tstate, size_t size)\n+static inline bool\n+_PyThreadState_HasStackSpace(PyThreadState *tstate, int size)\n {\n-    PyObject **base = tstate->datastack_top;\n-    if (base) {\n-        PyObject **top = base + size;\n-        assert(tstate->datastack_limit);\n-        if (top < tstate->datastack_limit) {\n-            tstate->datastack_top = top;\n-            return (_PyInterpreterFrame *)base;\n-        }\n-    }\n-    return _PyThreadState_BumpFramePointerSlow(tstate, size);\n+    return tstate->datastack_top + size < tstate->datastack_limit;\n }\n \n+extern _PyInterpreterFrame *\n+_PyThreadState_PushFrame(PyThreadState *tstate, size_t size);\n+\n void _PyThreadState_PopFrame(PyThreadState *tstate, _PyInterpreterFrame *frame);\n \n-/* Consume reference to func */\n-_PyInterpreterFrame *\n-_PyFrame_Push(PyThreadState *tstate, PyFunctionObject *func);\n+/* Pushes a frame without checking for space.\n+ * Must be guarded by _PyThreadState_HasStackSpace()\n+ * Consumes reference to func. */\n+static inline _PyInterpreterFrame *\n+_PyFrame_PushUnchecked(PyThreadState *tstate, PyFunctionObject *func)\n+{\n+    CALL_STAT_INC(frames_pushed);\n+    PyCodeObject *code = (PyCodeObject *)func->func_code;\n+    _PyInterpreterFrame *new_frame = (_PyInterpreterFrame *)tstate->datastack_top;\n+    tstate->datastack_top += code->co_framesize;\n+    assert(tstate->datastack_top < tstate->datastack_limit);\n+    _PyFrame_InitializeSpecials(new_frame, func, NULL, code);\n+    return new_frame;\n+}\n \n int _PyInterpreterFrame_GetLine(_PyInterpreterFrame *frame);\n "
+    },
+    {
+      "sha": "556d3a31c751423c1a2da628f9a8f2f6c49cd2e7",
+      "filename": "Objects/codeobject.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Objects%2Fcodeobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Objects%2Fcodeobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Fcodeobject.c?ref=45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+      "patch": "@@ -4,6 +4,7 @@\n #include \"opcode.h\"\n #include \"structmember.h\"         // PyMemberDef\n #include \"pycore_code.h\"          // _PyCodeConstructor\n+#include \"pycore_frame.h\"         // FRAME_SPECIALS_SIZE\n #include \"pycore_interp.h\"        // PyInterpreterState.co_extra_freefuncs\n #include \"pycore_opcode.h\"        // _PyOpcode_Deopt\n #include \"pycore_pystate.h\"       // _PyInterpreterState_GET()\n@@ -327,6 +328,7 @@ init_code(PyCodeObject *co, struct _PyCodeConstructor *con)\n     /* derived values */\n     co->co_nlocalsplus = nlocalsplus;\n     co->co_nlocals = nlocals;\n+    co->co_framesize = nlocalsplus + con->stacksize + FRAME_SPECIALS_SIZE;\n     co->co_nplaincellvars = nplaincellvars;\n     co->co_ncellvars = ncellvars;\n     co->co_nfreevars = nfreevars;"
+    },
+    {
+      "sha": "94bd245eafc74b80dcc696ca1e3fd8b2adf018d4",
+      "filename": "Objects/frameobject.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Objects%2Fframeobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Objects%2Fframeobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Fframeobject.c?ref=45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+      "patch": "@@ -858,8 +858,9 @@ init_frame(_PyInterpreterFrame *frame, PyFunctionObject *func, PyObject *locals)\n {\n     /* _PyFrame_InitializeSpecials consumes reference to func */\n     Py_INCREF(func);\n+    Py_XINCREF(locals);\n     PyCodeObject *code = (PyCodeObject *)func->func_code;\n-    _PyFrame_InitializeSpecials(frame, func, locals, code->co_nlocalsplus);\n+    _PyFrame_InitializeSpecials(frame, func, locals, code);\n     for (Py_ssize_t i = 0; i < code->co_nlocalsplus; i++) {\n         frame->localsplus[i] = NULL;\n     }"
+    },
+    {
+      "sha": "19b2bb4d393b455bdc85cf8d79993ad5da2a679e",
+      "filename": "Python/ceval.c",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 24,
+      "changes": 38,
+      "blob_url": "https://github.com/python/cpython/blob/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Python%2Fceval.c",
+      "raw_url": "https://github.com/python/cpython/raw/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Python%2Fceval.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fceval.c?ref=45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+      "patch": "@@ -2240,13 +2240,10 @@ _PyEval_EvalFrameDefault(PyThreadState *tstate, _PyInterpreterFrame *frame, int\n             DEOPT_IF(getitem->func_version != cache->func_version, BINARY_SUBSCR);\n             PyCodeObject *code = (PyCodeObject *)getitem->func_code;\n             assert(code->co_argcount == 2);\n+            DEOPT_IF(!_PyThreadState_HasStackSpace(tstate, code->co_framesize), BINARY_SUBSCR);\n             STAT_INC(BINARY_SUBSCR, hit);\n-\n             Py_INCREF(getitem);\n-            _PyInterpreterFrame *new_frame = _PyFrame_Push(tstate, getitem);\n-            if (new_frame == NULL) {\n-                goto error;\n-            }\n+            _PyInterpreterFrame *new_frame = _PyFrame_PushUnchecked(tstate, getitem);\n             CALL_STAT_INC(inlined_py_calls);\n             STACK_SHRINK(2);\n             new_frame->localsplus[0] = container;\n@@ -3664,13 +3661,10 @@ _PyEval_EvalFrameDefault(PyThreadState *tstate, _PyInterpreterFrame *frame, int\n             DEOPT_IF(f->func_version != func_version, LOAD_ATTR);\n             PyCodeObject *code = (PyCodeObject *)f->func_code;\n             assert(code->co_argcount == 1);\n+            DEOPT_IF(!_PyThreadState_HasStackSpace(tstate, code->co_framesize), LOAD_ATTR);\n             STAT_INC(LOAD_ATTR, hit);\n-\n             Py_INCREF(fget);\n-            _PyInterpreterFrame *new_frame = _PyFrame_Push(tstate, f);\n-            if (new_frame == NULL) {\n-                goto error;\n-            }\n+            _PyInterpreterFrame *new_frame = _PyFrame_PushUnchecked(tstate, f);\n             SET_TOP(NULL);\n             int push_null = !(oparg & 1);\n             STACK_SHRINK(push_null);\n@@ -4724,7 +4718,7 @@ _PyEval_EvalFrameDefault(PyThreadState *tstate, _PyInterpreterFrame *frame, int\n             // Check if the call can be inlined or not\n             if (Py_TYPE(function) == &PyFunction_Type && tstate->interp->eval_frame == NULL) {\n                 int code_flags = ((PyCodeObject*)PyFunction_GET_CODE(function))->co_flags;\n-                PyObject *locals = code_flags & CO_OPTIMIZED ? NULL : PyFunction_GET_GLOBALS(function);\n+                PyObject *locals = code_flags & CO_OPTIMIZED ? NULL : Py_NewRef(PyFunction_GET_GLOBALS(function));\n                 STACK_SHRINK(total_args);\n                 _PyInterpreterFrame *new_frame = _PyEvalFramePushAndInit(\n                     tstate, (PyFunctionObject *)function, locals,\n@@ -4810,11 +4804,9 @@ _PyEval_EvalFrameDefault(PyThreadState *tstate, _PyInterpreterFrame *frame, int\n             DEOPT_IF(func->func_version != read_u32(cache->func_version), CALL);\n             PyCodeObject *code = (PyCodeObject *)func->func_code;\n             DEOPT_IF(code->co_argcount != argcount, CALL);\n+            DEOPT_IF(!_PyThreadState_HasStackSpace(tstate, code->co_framesize), CALL);\n             STAT_INC(CALL, hit);\n-            _PyInterpreterFrame *new_frame = _PyFrame_Push(tstate, func);\n-            if (new_frame == NULL) {\n-                goto error;\n-            }\n+            _PyInterpreterFrame *new_frame = _PyFrame_PushUnchecked(tstate, func);\n             CALL_STAT_INC(inlined_py_calls);\n             STACK_SHRINK(argcount);\n             for (int i = 0; i < argcount; i++) {\n@@ -4846,11 +4838,9 @@ _PyEval_EvalFrameDefault(PyThreadState *tstate, _PyInterpreterFrame *frame, int\n             DEOPT_IF(argcount > code->co_argcount, CALL);\n             int minargs = cache->min_args;\n             DEOPT_IF(argcount < minargs, CALL);\n+            DEOPT_IF(!_PyThreadState_HasStackSpace(tstate, code->co_framesize), CALL);\n             STAT_INC(CALL, hit);\n-            _PyInterpreterFrame *new_frame = _PyFrame_Push(tstate, func);\n-            if (new_frame == NULL) {\n-                goto error;\n-            }\n+            _PyInterpreterFrame *new_frame = _PyFrame_PushUnchecked(tstate, func);\n             CALL_STAT_INC(inlined_py_calls);\n             STACK_SHRINK(argcount);\n             for (int i = 0; i < argcount; i++) {\n@@ -6298,20 +6288,19 @@ initialize_locals(PyThreadState *tstate, PyFunctionObject *func,\n     return -1;\n }\n \n-/* Consumes references to func and all the args */\n+/* Consumes references to func, locals and all the args */\n static _PyInterpreterFrame *\n _PyEvalFramePushAndInit(PyThreadState *tstate, PyFunctionObject *func,\n                         PyObject *locals, PyObject* const* args,\n                         size_t argcount, PyObject *kwnames)\n {\n     PyCodeObject * code = (PyCodeObject *)func->func_code;\n-    size_t size = code->co_nlocalsplus + code->co_stacksize + FRAME_SPECIALS_SIZE;\n     CALL_STAT_INC(frames_pushed);\n-    _PyInterpreterFrame *frame = _PyThreadState_BumpFramePointer(tstate, size);\n+    _PyInterpreterFrame *frame = _PyThreadState_PushFrame(tstate, code->co_framesize);\n     if (frame == NULL) {\n         goto fail;\n     }\n-    _PyFrame_InitializeSpecials(frame, func, locals, code->co_nlocalsplus);\n+    _PyFrame_InitializeSpecials(frame, func, locals, code);\n     PyObject **localsarray = &frame->localsplus[0];\n     for (int i = 0; i < code->co_nlocalsplus; i++) {\n         localsarray[i] = NULL;\n@@ -6355,8 +6344,9 @@ _PyEval_Vector(PyThreadState *tstate, PyFunctionObject *func,\n                PyObject *kwnames)\n {\n     /* _PyEvalFramePushAndInit consumes the references\n-     * to func and all its arguments */\n+     * to func, locals and all its arguments */\n     Py_INCREF(func);\n+    Py_XINCREF(locals);\n     for (size_t i = 0; i < argcount; i++) {\n         Py_INCREF(args[i]);\n     }"
+    },
+    {
+      "sha": "206ecab44c1b871ae2090ffe14738409864233b9",
+      "filename": "Python/frame.c",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 16,
+      "changes": 16,
+      "blob_url": "https://github.com/python/cpython/blob/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Python%2Fframe.c",
+      "raw_url": "https://github.com/python/cpython/raw/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Python%2Fframe.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fframe.c?ref=45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+      "patch": "@@ -114,22 +114,6 @@ _PyFrame_Clear(_PyInterpreterFrame *frame)\n     Py_DECREF(frame->f_code);\n }\n \n-/* Consumes reference to func */\n-_PyInterpreterFrame *\n-_PyFrame_Push(PyThreadState *tstate, PyFunctionObject *func)\n-{\n-    PyCodeObject *code = (PyCodeObject *)func->func_code;\n-    size_t size = code->co_nlocalsplus + code->co_stacksize + FRAME_SPECIALS_SIZE;\n-    CALL_STAT_INC(frames_pushed);\n-    _PyInterpreterFrame *new_frame = _PyThreadState_BumpFramePointer(tstate, size);\n-    if (new_frame == NULL) {\n-        Py_DECREF(func);\n-        return NULL;\n-    }\n-    _PyFrame_InitializeSpecials(new_frame, func, NULL, code->co_nlocalsplus);\n-    return new_frame;\n-}\n-\n int\n _PyInterpreterFrame_GetLine(_PyInterpreterFrame *frame)\n {"
+    },
+    {
+      "sha": "11cc122185f781f31fa0e8ed9e39858a256727f1",
+      "filename": "Python/pystate.c",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Python%2Fpystate.c",
+      "raw_url": "https://github.com/python/cpython/raw/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Python%2Fpystate.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fpystate.c?ref=45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+      "patch": "@@ -2168,7 +2168,7 @@ push_chunk(PyThreadState *tstate, int size)\n }\n \n _PyInterpreterFrame *\n-_PyThreadState_BumpFramePointerSlow(PyThreadState *tstate, size_t size)\n+_PyThreadState_PushFrame(PyThreadState *tstate, size_t size)\n {\n     assert(size < INT_MAX/sizeof(PyObject *));\n     PyObject **base = tstate->datastack_top;"
+    },
+    {
+      "sha": "de8fde448e30b15543cb2160ae738e2bf8cfab23",
+      "filename": "Tools/scripts/deepfreeze.py",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Tools%2Fscripts%2Fdeepfreeze.py",
+      "raw_url": "https://github.com/python/cpython/raw/45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93/Tools%2Fscripts%2Fdeepfreeze.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Tools%2Fscripts%2Fdeepfreeze.py?ref=45e62a2bc1c0000e2e9b613fff6bebf2c26fcb93",
+      "patch": "@@ -118,6 +118,7 @@ def __init__(self, file: TextIO) -> None:\n         self.write('#include \"Python.h\"')\n         self.write('#include \"internal/pycore_gc.h\"')\n         self.write('#include \"internal/pycore_code.h\"')\n+        self.write('#include \"internal/pycore_frame.h\"')\n         self.write('#include \"internal/pycore_long.h\"')\n         self.write(\"\")\n \n@@ -256,6 +257,7 @@ def generate_code(self, name: str, code: types.CodeType) -> str:\n             self.field(code, \"co_argcount\")\n             self.field(code, \"co_posonlyargcount\")\n             self.field(code, \"co_kwonlyargcount\")\n+            self.write(f\".co_framesize = {code.co_stacksize + len(localsplusnames)} + FRAME_SPECIALS_SIZE,\")\n             self.field(code, \"co_stacksize\")\n             self.field(code, \"co_firstlineno\")\n             self.write(f\".co_nlocalsplus = {len(localsplusnames)},\")"
+    }
+  ]
+}

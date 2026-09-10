@@ -1,0 +1,137 @@
+{
+  "sha": "0219017df7ec41839fd0d56a3076b5f09c58d313",
+  "node_id": "C_kwDOBN0Z8doAKDAyMTkwMTdkZjdlYzQxODM5ZmQwZDU2YTMwNzZiNWYwOWM1OGQzMTM",
+  "commit": {
+    "author": {
+      "name": "Pablo Galindo Salgado",
+      "email": "Pablogsal@gmail.com",
+      "date": "2021-10-07T21:33:05Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-10-07T21:33:05Z"
+    },
+    "message": "bpo-45408: Don't override previous tokenizer errors in the second parser pass (GH-28812)",
+    "tree": {
+      "sha": "be87fb79c30e38016710ad6a519be8697fb02653",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/be87fb79c30e38016710ad6a519be8697fb02653"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/0219017df7ec41839fd0d56a3076b5f09c58d313",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhX2eRCRBK7hj4Ov3rIwAAyvMIAChans+pflM2+geqUEYT3ncY\ns1ZEB5H0FGjb5TjTCDROZI58OP7hk1osYtqgtHZg7o8rNGxFU6ia3fj2FL/CAR1S\n/Q1UB6IcBRoyURPHuwYDPqlMQ8yIb9J+/MNXP26SzN+27pn2YwHwowO1NI8iFL28\n8+fSISrQmuszlY64MdcfiVSn/+ft2i1UDgFwNQgUkX3OmDqBMvFKKkqC5TuZfrAW\nCb3iMh5srLQM4Zc5QFDcSGNipBmd3/tuKGjew062paUdAMZwNRhaa5ufJmUOs+MM\nHGyFlF4nAviDlxCF5fkE/Jfb9MycxdTmWbA9cZnz4XtlsklSQeeRkcNJAlUVK8c=\n=mg3v\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree be87fb79c30e38016710ad6a519be8697fb02653\nparent 6811fdaec825bd6ab64e358a4b480108f5634d2d\nauthor Pablo Galindo Salgado <Pablogsal@gmail.com> 1633642385 +0100\ncommitter GitHub <noreply@github.com> 1633642385 +0100\n\nbpo-45408: Don't override previous tokenizer errors in the second parser pass (GH-28812)\n\n",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/0219017df7ec41839fd0d56a3076b5f09c58d313",
+  "html_url": "https://github.com/python/cpython/commit/0219017df7ec41839fd0d56a3076b5f09c58d313",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/0219017df7ec41839fd0d56a3076b5f09c58d313/comments",
+  "author": {
+    "login": "pablogsal",
+    "id": 11718525,
+    "node_id": "MDQ6VXNlcjExNzE4NTI1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/11718525?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/pablogsal",
+    "html_url": "https://github.com/pablogsal",
+    "followers_url": "https://api.github.com/users/pablogsal/followers",
+    "following_url": "https://api.github.com/users/pablogsal/following{/other_user}",
+    "gists_url": "https://api.github.com/users/pablogsal/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pablogsal/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pablogsal/subscriptions",
+    "organizations_url": "https://api.github.com/users/pablogsal/orgs",
+    "repos_url": "https://api.github.com/users/pablogsal/repos",
+    "events_url": "https://api.github.com/users/pablogsal/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pablogsal/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "6811fdaec825bd6ab64e358a4b480108f5634d2d",
+      "url": "https://api.github.com/repos/python/cpython/commits/6811fdaec825bd6ab64e358a4b480108f5634d2d",
+      "html_url": "https://github.com/python/cpython/commit/6811fdaec825bd6ab64e358a4b480108f5634d2d"
+    }
+  ],
+  "stats": {
+    "total": 17,
+    "additions": 15,
+    "deletions": 2
+  },
+  "files": [
+    {
+      "sha": "e630677f796845312a462f1014060c24f50fe785",
+      "filename": "Lib/test/test_ast.py",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 0,
+      "changes": 8,
+      "blob_url": "https://github.com/python/cpython/blob/0219017df7ec41839fd0d56a3076b5f09c58d313/Lib%2Ftest%2Ftest_ast.py",
+      "raw_url": "https://github.com/python/cpython/raw/0219017df7ec41839fd0d56a3076b5f09c58d313/Lib%2Ftest%2Ftest_ast.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_ast.py?ref=0219017df7ec41839fd0d56a3076b5f09c58d313",
+      "patch": "@@ -1075,6 +1075,14 @@ def test_literal_eval_malformed_lineno(self):\n         with self.assertRaisesRegex(ValueError, msg):\n             ast.literal_eval(node)\n \n+    def test_literal_eval_syntax_errors(self):\n+        msg = \"unexpected character after line continuation character\"\n+        with self.assertRaisesRegex(SyntaxError, msg):\n+            ast.literal_eval(r'''\n+                \\\n+                (\\\n+            \\ ''')\n+\n     def test_bad_integer(self):\n         # issue13436: Bad error message with invalid numeric values\n         body = [ast.ImportFrom(module='time',"
+    },
+    {
+      "sha": "02489a2bd92150f7dc0b62a324159506a6adc0a8",
+      "filename": "Lib/test/test_exceptions.py",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/0219017df7ec41839fd0d56a3076b5f09c58d313/Lib%2Ftest%2Ftest_exceptions.py",
+      "raw_url": "https://github.com/python/cpython/raw/0219017df7ec41839fd0d56a3076b5f09c58d313/Lib%2Ftest%2Ftest_exceptions.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_exceptions.py?ref=0219017df7ec41839fd0d56a3076b5f09c58d313",
+      "patch": "@@ -223,7 +223,7 @@ def testSyntaxErrorOffset(self):\n         check('x = \"a', 1, 5)\n         check('lambda x: x = 2', 1, 1)\n         check('f{a + b + c}', 1, 1)\n-        check('[file for str(file) in []\\n])', 2, 2)\n+        check('[file for str(file) in []\\n])', 1, 11)\n         check('a = « hello » « world »', 1, 5)\n         check('[\\nfile\\nfor str(file)\\nin\\n[]\\n]', 3, 5)\n         check('[file for\\n str(file) in []]', 2, 2)"
+    },
+    {
+      "sha": "e4d4db9cb95362eaf68f4634e3d996453413b825",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2021-10-07-21-26-44.bpo-45408.qUqzcd.rst",
+      "status": "added",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/0219017df7ec41839fd0d56a3076b5f09c58d313/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-10-07-21-26-44.bpo-45408.qUqzcd.rst",
+      "raw_url": "https://github.com/python/cpython/raw/0219017df7ec41839fd0d56a3076b5f09c58d313/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-10-07-21-26-44.bpo-45408.qUqzcd.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-10-07-21-26-44.bpo-45408.qUqzcd.rst?ref=0219017df7ec41839fd0d56a3076b5f09c58d313",
+      "patch": "@@ -0,0 +1,2 @@\n+Fix a crash in the parser when reporting tokenizer errors that occur at the\n+same time unclosed parentheses are detected. Patch by Pablo Galindo."
+    },
+    {
+      "sha": "a9896356e5b58911763a0fc4536ee1e0b02f2cd7",
+      "filename": "Parser/pegen.c",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1,
+      "changes": 5,
+      "blob_url": "https://github.com/python/cpython/blob/0219017df7ec41839fd0d56a3076b5f09c58d313/Parser%2Fpegen.c",
+      "raw_url": "https://github.com/python/cpython/raw/0219017df7ec41839fd0d56a3076b5f09c58d313/Parser%2Fpegen.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Parser%2Fpegen.c?ref=0219017df7ec41839fd0d56a3076b5f09c58d313",
+      "patch": "@@ -1342,13 +1342,16 @@ _PyPegen_run_parser(Parser *p)\n {\n     void *res = _PyPegen_parse(p);\n     if (res == NULL) {\n+        if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_SyntaxError)) {\n+            return NULL;\n+        }\n         Token *last_token = p->tokens[p->fill - 1];\n         reset_parser_state(p);\n         _PyPegen_parse(p);\n         if (PyErr_Occurred()) {\n             // Prioritize tokenizer errors to custom syntax errors raised\n             // on the second phase only if the errors come from the parser.\n-            if (p->tok->done != E_ERROR && PyErr_ExceptionMatches(PyExc_SyntaxError)) {\n+            if (p->tok->done == E_DONE && PyErr_ExceptionMatches(PyExc_SyntaxError)) {\n                 _PyPegen_check_tokenizer_errors(p);\n             }\n             return NULL;"
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+Installing Python via nuget...
+Feeds used:
+
+Installing package 'pythonx86' to 'C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\externals'.
+Fetching external libraries...
+bzip2-1.0.8 already exists, skipping.
+sqlite-3.37.2.0 already exists, skipping.
+xz-5.2.5 already exists, skipping.
+zlib-1.2.12 already exists, skipping.
+Fetching external binaries...
+libffi-3.3.0 already exists, skipping.
+openssl-bin-1.1.1n already exists, skipping.
+tcltk-8.6.12.0 already exists, skipping.
+Finished.
+Using "C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\msbuild.exe" (found in the Visual Studio installation)
+
+C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild>"C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\msbuild.exe" "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\pcbuild.proj" /t:Build /m /nologo /v:m /clp:summary /p:Configuration=Release /p:Platform=win32 /p:IncludeExternals=true /p:IncludeCTypes=true /p:IncludeSSL=true /p:IncludeTkinter=true /p:UseTestMarker= /p:GIT="C:\Program Files\Git\bin\git.exe"          
+  Killing any running python.exe instances...
+  Getting build info from "C:\Program Files\Git\bin\git.exe"
+  fatal: not a git repository (or any of the parent directories): .git
+C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\pythoncore.vcxproj(534,5): warning MSB3073: The command ""C:\Program Files\Git\bin\git.exe" name-rev --name-only HEAD > "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\obj\39win32_Release\pythoncore\gitbranch.txt"" exited with code 128.
+  fatal: not a git repository (or any of the parent directories): .git
+C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\pythoncore.vcxproj(535,5): warning MSB3073: The command ""C:\Program Files\Git\bin\git.exe" rev-parse --short HEAD > "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\obj\39win32_Release\pythoncore\gitversion.txt"" exited with code 128.
+  fatal: not a git repository (or any of the parent directories): .git
+C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\pythoncore.vcxproj(536,5): warning MSB3073: The command ""C:\Program Files\Git\bin\git.exe" describe --all --always --dirty > "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\obj\39win32_Release\pythoncore\gittag.txt"" exited with code 128.
+  Building : 
+  pythoncore.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\python39.dll
+  _ctypes_test.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_ctypes_test.pyd
+  _testbuffer.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_testbuffer.pyd
+  _testcapi.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_testcapi.pyd
+  _testinternalcapi.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_testinternalcapi.pyd
+  _testembed.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_testembed.exe
+  _testimportmultiple.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_testimportmultiple.pyd
+  _testmultiphase.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_testmultiphase.pyd
+  _testconsole.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_testconsole.pyd
+  Rebuilding python3stub.lib
+     Creating library C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\python3stub.lib and object C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\python3stub.exp
+     Creating library C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\python3.lib and object C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\python3.exp
+  Generating code
+  Finished generating code
+  python3dll.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\python3.dll
+  xxlimited.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\xxlimited.pyd
+  pylauncher.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\py.exe
+  venvwlauncher.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\venvwlauncher.exe
+  venvlauncher.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\venvlauncher.exe
+  pywlauncher.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\pyw.exe
+  pyshellext.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\pyshellext.dll
+  _asyncio.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_asyncio.pyd
+  _elementtree.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_elementtree.pyd
+  _zoneinfo.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_zoneinfo.pyd
+  _overlapped.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_overlapped.pyd
+  _multiprocessing.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_multiprocessing.pyd
+  select.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\select.pyd
+  _queue.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_queue.pyd
+  unicodedata.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\unicodedata.pyd
+  pyexpat.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\pyexpat.pyd
+  winsound.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\winsound.pyd
+  _msi.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_msi.pyd
+  _uuid.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_uuid.pyd
+  _bz2.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_bz2.pyd
+  _ctypes.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_ctypes.pyd
+  sqlite3.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\sqlite3.dll
+  _socket.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_socket.pyd
+  _hashlib.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_hashlib.pyd
+  _tkinter.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_tkinter.pyd
+  _sqlite3.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_sqlite3.pyd
+  _ssl.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_ssl.pyd
+  liblzma.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\liblzma.lib
+  _lzma.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_lzma.pyd
+  _decimal.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_decimal.pyd
+  _freeze_importlib.vcxproj -> C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_freeze_importlib.exe
+  =================================================================
+  ==5104==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x02302010 at pc 0x68d65232 bp 0x00cfefbc sp 0x00cfefb0
+  READ of size 4 at 0x02302010 thread T0
+      #0 0x68d65231 in address_in_range C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\obmalloc.c:1420
+      #1 0x68d65f05 in pymalloc_free C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\obmalloc.c:1866
+      #2 0x68d66037 in PyObject_Free C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\obmalloc.c:1920
+      #3 0x68cf9d0e in dictresize C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\dictobject.c:1285
+      #4 0x68cf8fe4 in insertion_resize C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\dictobject.c:1040
+      #5 0x68d002da in PyDict_SetDefault C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\dictobject.c:2964
+      #6 0x68dec7b8 in PyUnicode_InternInPlace C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\unicodeobject.c:15723
+      #7 0x68d9b968 in _PyTypes_InitSlotDefs C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\typeobject.c:7600
+      #8 0x68d61cd9 in _PyTypes_Init C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\object.c:1736
+      #9 0x68ef5b1b in pycore_init_types C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Python\pylifecycle.c:588
+      #10 0x68ef6acb in pycore_interp_init C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Python\pylifecycle.c:725
+      #11 0x68ef6fd8 in pyinit_config C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Python\pylifecycle.c:766
+      #12 0x68ef8509 in pyinit_core C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Python\pylifecycle.c:927
+      #13 0x68ef995f in Py_InitializeFromConfig C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Python\pylifecycle.c:1134
+      #14 0x11a136d in main C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Programs\_freeze_importlib.c:96
+      #15 0x11a1b40 in _scrt_common_main_seh d:\agent\_work\4\s\src\vctools\crt\vcstartup\src\startup\exe_common.inl:288
+      #16 0x77440418  (C:\Windows\System32\KERNEL32.DLL+0x6b820418)
+      #17 0x775f77fc  (C:\Windows\SYSTEM32\ntdll.dll+0x4b2e77fc)
+      #18 0x775f77cc  (C:\Windows\SYSTEM32\ntdll.dll+0x4b2e77cc)
+  
+  Address 0x02302010 is a wild pointer.
+  SUMMARY: AddressSanitizer: heap-buffer-overflow C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Objects\obmalloc.c:1420 in address_in_range
+  Shadow bytes around the buggy address:
+    0x304603b0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+    0x304603c0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+    0x304603d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+    0x304603e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+    0x304603f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  =>0x30460400: fa fa[fa]fa fa fa fa fa fa fa fa fa fa fa fa fa
+    0x30460410: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+    0x30460420: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+    0x30460430: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+    0x30460440: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+    0x30460450: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  Shadow byte legend (one shadow byte represents 8 application bytes):
+    Addressable:           00
+    Partially addressable: 01 02 03 04 05 06 07 
+    Heap left redzone:       fa
+    Freed heap region:       fd
+    Stack left redzone:      f1
+    Stack mid redzone:       f2
+    Stack right redzone:     f3
+    Stack after return:      f5
+    Stack use after scope:   f8
+    Global redzone:          f9
+    Global init order:       f6
+    Poisoned by user:        f7
+    Container overflow:      fc
+    Array cookie:            ac
+    Intra object redzone:    bb
+    ASan internal:           fe
+    Left alloca redzone:     ca
+    Right alloca redzone:    cb
+    Shadow gap:              cc
+  ==5104==ABORTING
+C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\_freeze_importlib.vcxproj(131,5): error MSB3073: The command ""C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_freeze_importlib.exe" "importlib._bootstrap" "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Lib\importlib\_bootstrap.py" "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\obj\39win32_Release\_freeze_importlib\importlib.g.h"" exited with code 1.
+
+Build FAILED.
+
+C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\pythoncore.vcxproj(534,5): warning MSB3073: The command ""C:\Program Files\Git\bin\git.exe" name-rev --name-only HEAD > "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\obj\39win32_Release\pythoncore\gitbranch.txt"" exited with code 128.
+C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\pythoncore.vcxproj(535,5): warning MSB3073: The command ""C:\Program Files\Git\bin\git.exe" rev-parse --short HEAD > "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\obj\39win32_Release\pythoncore\gitversion.txt"" exited with code 128.
+C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\pythoncore.vcxproj(536,5): warning MSB3073: The command ""C:\Program Files\Git\bin\git.exe" describe --all --always --dirty > "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\obj\39win32_Release\pythoncore\gittag.txt"" exited with code 128.
+C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\_freeze_importlib.vcxproj(131,5): error MSB3073: The command ""C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\win32\_freeze_importlib.exe" "importlib._bootstrap" "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\Lib\importlib\_bootstrap.py" "C:\Users\livuser\Downloads\Python-3.9.13\Python-3.9.13_pre\PCbuild\obj\39win32_Release\_freeze_importlib\importlib.g.h"" exited with code 1.
+    3 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:03.51

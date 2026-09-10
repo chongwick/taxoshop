@@ -1,0 +1,113 @@
+{
+  "sha": "cadf06eab75c887dfc753ca80ef35cd2a7871135",
+  "node_id": "C_kwDOBN0Z8doAKGNhZGYwNmVhYjc1Yzg4N2RmYzc1M2NhODBlZjM1Y2QyYTc4NzExMzU",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2021-10-23T13:35:48Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-10-23T13:35:48Z"
+    },
+    "message": "bpo-45574: fix warning about `print_escape` being unused (GH-29172) (#29176)\n\nIt used to be like this:\r\n<img width=\"1232\" alt=\"Снимок экрана 2021-10-22 в 23 07 40\" src=\"https://user-images.githubusercontent.com/4660275/138516608-fef6ec01-a96a-40f4-81ef-52265b0f536b.png\">\r\n\r\nQuick `grep` tells that it is just used in one place under `Py_DEBUG`: https://github.com/python/cpython/blame/f6e8b80d20159596cf641305bad3a833bedd2f4f/Parser/tokenizer.cGH-L1047-L1051\r\n<img width=\"752\" alt=\"Снимок экрана 2021-10-22 в 23 08 09\" src=\"https://user-images.githubusercontent.com/4660275/138516684-ea503136-1e92-48a5-95bb-419e190d5866.png\">\r\n\r\nI am not sure, but it also looks like a private thing, it should not affect other users.\r\n\r\nAutomerge-Triggered-By: GH:pablogsal\r\n(cherry picked from commit 4bc5473a42c5eae0928430930b897209492e849d)\r\n\r\nCo-authored-by: Nikita Sobolev <mail@sobolevn.me>\r\n\r\nCo-authored-by: Nikita Sobolev <mail@sobolevn.me>",
+    "tree": {
+      "sha": "a105b20ad07634aa541bebec8993a04e9a90bf25",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/a105b20ad07634aa541bebec8993a04e9a90bf25"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/cadf06eab75c887dfc753ca80ef35cd2a7871135",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhdA+0CRBK7hj4Ov3rIwAAAicIAAS15c3ns5wqtlHPoG5De8Kr\nsB+kRsIfD2tLvQZvEw2VO71h7vqzBzHqSonuLw9+f0ZN72W904Yqrm4PQtVEhn8J\nlqHGHSntU6P8uZJ6LaE3VM1tZ/FiyafG8myNga1qQ9Tra/+r5tOoDHVTNT515362\nCjh7Ide/+yc6gvSuTEiprxJsGLqiqZ27j1XRdlmN88Y1l65to2CBIE7NGllwdSIu\nvvU6cPctQdhHLazdX0swkBrMSrMtY2ij0enRTT7Q3orTySvNJ3JgKv/Uk3LluI4Z\n2G+ZZbnFroPeyTTI4bKJyqzt9t6bKaZ3sSmJwCfr4WecM11aWAlK8s1St40gNy4=\n=MQMO\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree a105b20ad07634aa541bebec8993a04e9a90bf25\nparent f812fef2f8f12441ce559335645433c8124e7db5\nauthor Miss Islington (bot) <31488909+miss-islington@users.noreply.github.com> 1634996148 -0700\ncommitter GitHub <noreply@github.com> 1634996148 +0100\n\nbpo-45574: fix warning about `print_escape` being unused (GH-29172) (#29176)\n\nIt used to be like this:\r\n<img width=\"1232\" alt=\"Снимок экрана 2021-10-22 в 23 07 40\" src=\"https://user-images.githubusercontent.com/4660275/138516608-fef6ec01-a96a-40f4-81ef-52265b0f536b.png\">\r\n\r\nQuick `grep` tells that it is just used in one place under `Py_DEBUG`: https://github.com/python/cpython/blame/f6e8b80d20159596cf641305bad3a833bedd2f4f/Parser/tokenizer.cGH-L1047-L1051\r\n<img width=\"752\" alt=\"Снимок экрана 2021-10-22 в 23 08 09\" src=\"https://user-images.githubusercontent.com/4660275/138516684-ea503136-1e92-48a5-95bb-419e190d5866.png\">\r\n\r\nI am not sure, but it also looks like a private thing, it should not affect other users.\r\n\r\nAutomerge-Triggered-By: GH:pablogsal\r\n(cherry picked from commit 4bc5473a42c5eae0928430930b897209492e849d)\r\n\r\nCo-authored-by: Nikita Sobolev <mail@sobolevn.me>\r\n\r\nCo-authored-by: Nikita Sobolev <mail@sobolevn.me>",
+      "verified_at": "2024-11-09T20:31:41Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/cadf06eab75c887dfc753ca80ef35cd2a7871135",
+  "html_url": "https://github.com/python/cpython/commit/cadf06eab75c887dfc753ca80ef35cd2a7871135",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/cadf06eab75c887dfc753ca80ef35cd2a7871135/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "f812fef2f8f12441ce559335645433c8124e7db5",
+      "url": "https://api.github.com/repos/python/cpython/commits/f812fef2f8f12441ce559335645433c8124e7db5",
+      "html_url": "https://github.com/python/cpython/commit/f812fef2f8f12441ce559335645433c8124e7db5"
+    }
+  ],
+  "stats": {
+    "total": 3,
+    "additions": 3,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "b404d24473960cf37fcac945380306ece85324a4",
+      "filename": "Misc/NEWS.d/next/Library/2021-10-22-23-06-33.bpo-45574.svqA84.rst",
+      "status": "added",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/cadf06eab75c887dfc753ca80ef35cd2a7871135/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-10-22-23-06-33.bpo-45574.svqA84.rst",
+      "raw_url": "https://github.com/python/cpython/raw/cadf06eab75c887dfc753ca80ef35cd2a7871135/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-10-22-23-06-33.bpo-45574.svqA84.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-10-22-23-06-33.bpo-45574.svqA84.rst?ref=cadf06eab75c887dfc753ca80ef35cd2a7871135",
+      "patch": "@@ -0,0 +1 @@\n+Fix warning about ``print_escape`` being unused."
+    },
+    {
+      "sha": "cd348487e0fd5f870c79be874821240d3b65b970",
+      "filename": "Parser/tokenizer.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/cadf06eab75c887dfc753ca80ef35cd2a7871135/Parser%2Ftokenizer.c",
+      "raw_url": "https://github.com/python/cpython/raw/cadf06eab75c887dfc753ca80ef35cd2a7871135/Parser%2Ftokenizer.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Parser%2Ftokenizer.c?ref=cadf06eab75c887dfc753ca80ef35cd2a7871135",
+      "patch": "@@ -994,6 +994,7 @@ tok_underflow_file(struct tok_state *tok) {\n     return tok->done == E_OK;\n }\n \n+#if defined(Py_DEBUG)\n static void\n print_escape(FILE *f, const char *s, Py_ssize_t size)\n {\n@@ -1020,6 +1021,7 @@ print_escape(FILE *f, const char *s, Py_ssize_t size)\n     }\n     putc('\"', f);\n }\n+#endif\n \n /* Get next char, updating state; error code goes into tok->done */\n "
+    }
+  ]
+}

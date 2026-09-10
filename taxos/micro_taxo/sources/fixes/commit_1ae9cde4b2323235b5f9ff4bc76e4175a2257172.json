@@ -1,0 +1,101 @@
+{
+  "sha": "1ae9cde4b2323235b5f9ff4bc76e4175a2257172",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6MWFlOWNkZTRiMjMyMzIzNWI1ZjlmZjRiYzc2ZTQxNzVhMjI1NzE3Mg==",
+  "commit": {
+    "author": {
+      "name": "Stefan Krah",
+      "email": "skrah@bytereef.org",
+      "date": "2020-03-12T18:35:38Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2020-03-12T18:35:38Z"
+    },
+    "message": "bpo-39689: Do not test undefined casts to _Bool (GH-18964)\n\n- When casting to _Bool, arrays should only contain zeros or ones.",
+    "tree": {
+      "sha": "4ed231a4a962389f5f0e6d5101632d6524f6c691",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/4ed231a4a962389f5f0e6d5101632d6524f6c691"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/1ae9cde4b2323235b5f9ff4bc76e4175a2257172",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJeaoD6CRBK7hj4Ov3rIwAAdHIIACwknxG+6GP9edI6W7hd3T+N\n06i8B9id8Y6SFQaV8jGhCXZ4LxTSmthamkOAapeR2kkZnHFtvODfZ+VuK4bt76RH\nNJc2gQYb/I7raqhDps08o624NljML4yOJ6L7zaT4saKqFpRf5pw4ieq+QQlfyUx0\nAvQuk+VADP0LGf2PIaAAVc3LLhgmoaOeH5nmWVM9735XGTqCYi8QZNE9ovq+S2hX\n6kCK5NPRba1mVMH5CVsEr0SZJVqGkLyYcgy+k9AALdE0aZEOZ6u7Srvw/9POrZR9\nVaKmtd4N1x2p1UewQvjD8cSDNGySK2RLzVSkljfK3ntWlsP3MJglfdJQncyM4dE=\n=BJpa\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 4ed231a4a962389f5f0e6d5101632d6524f6c691\nparent fdcd53fe1a8a7f052d7217c36b2597df06b6e016\nauthor Stefan Krah <skrah@bytereef.org> 1584038138 +0100\ncommitter GitHub <noreply@github.com> 1584038138 +0100\n\nbpo-39689: Do not test undefined casts to _Bool (GH-18964)\n\n- When casting to _Bool, arrays should only contain zeros or ones.",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/1ae9cde4b2323235b5f9ff4bc76e4175a2257172",
+  "html_url": "https://github.com/python/cpython/commit/1ae9cde4b2323235b5f9ff4bc76e4175a2257172",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/1ae9cde4b2323235b5f9ff4bc76e4175a2257172/comments",
+  "author": {
+    "login": "skrah",
+    "id": 16530421,
+    "node_id": "MDQ6VXNlcjE2NTMwNDIx",
+    "avatar_url": "https://avatars.githubusercontent.com/u/16530421?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/skrah",
+    "html_url": "https://github.com/skrah",
+    "followers_url": "https://api.github.com/users/skrah/followers",
+    "following_url": "https://api.github.com/users/skrah/following{/other_user}",
+    "gists_url": "https://api.github.com/users/skrah/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/skrah/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/skrah/subscriptions",
+    "organizations_url": "https://api.github.com/users/skrah/orgs",
+    "repos_url": "https://api.github.com/users/skrah/repos",
+    "events_url": "https://api.github.com/users/skrah/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/skrah/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "fdcd53fe1a8a7f052d7217c36b2597df06b6e016",
+      "url": "https://api.github.com/repos/python/cpython/commits/fdcd53fe1a8a7f052d7217c36b2597df06b6e016",
+      "html_url": "https://github.com/python/cpython/commit/fdcd53fe1a8a7f052d7217c36b2597df06b6e016"
+    }
+  ],
+  "stats": {
+    "total": 4,
+    "additions": 4,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "d440bcf7e0faa1faf7b00e9763d6a9f02d06a239",
+      "filename": "Lib/test/test_buffer.py",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/1ae9cde4b2323235b5f9ff4bc76e4175a2257172/Lib%2Ftest%2Ftest_buffer.py",
+      "raw_url": "https://github.com/python/cpython/raw/1ae9cde4b2323235b5f9ff4bc76e4175a2257172/Lib%2Ftest%2Ftest_buffer.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_buffer.py?ref=1ae9cde4b2323235b5f9ff4bc76e4175a2257172",
+      "patch": "@@ -2754,6 +2754,10 @@ def test_memoryview_cast_1D_ND(self):\n         # be 1D, at least one format must be 'c', 'b' or 'B'.\n         for _tshape in gencastshapes():\n             for char in fmtdict['@']:\n+                # Casts to _Bool are undefined if the source contains values\n+                # other than 0 or 1.\n+                if char == \"?\":\n+                    continue\n                 tfmt = ('', '@')[randrange(2)] + char\n                 tsize = struct.calcsize(tfmt)\n                 n = prod(_tshape) * tsize"
+    }
+  ]
+}

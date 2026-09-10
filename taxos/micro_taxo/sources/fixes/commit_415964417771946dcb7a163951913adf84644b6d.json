@@ -1,0 +1,185 @@
+{
+  "sha": "415964417771946dcb7a163951913adf84644b6d",
+  "node_id": "C_kwDOBN0Z8doAKDQxNTk2NDQxNzc3MTk0NmRjYjdhMTYzOTUxOTEzYWRmODQ2NDRiNmQ",
+  "commit": {
+    "author": {
+      "name": "Pierre Ossman (ThinLinc team)",
+      "email": "ossman@cendio.se",
+      "date": "2024-03-18T20:15:53Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2024-03-18T20:15:53Z"
+    },
+    "message": "gh-113538: Add asycio.Server.{close,abort}_clients (redo) (#116784)\n\nThese give applications the option of more forcefully terminating client\r\nconnections for asyncio servers. Useful when terminating a service and\r\nthere is limited time to wait for clients to finish up their work.\r\n\r\nThis is a do-over with a test fix for gh-114432, which was reverted.",
+    "tree": {
+      "sha": "7c3d02dbe2970052516f2aee11dd5863caaba64f",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/7c3d02dbe2970052516f2aee11dd5863caaba64f"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/415964417771946dcb7a163951913adf84644b6d",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJl+KD5CRC1aQ7uu5UhlAAAdnsQADrxEzCqeMb/0mHdGgwWSL66\nSQmCzMGoKa8d5FSCXndAPv8k5AFIkm8vsKijW8g69Lx6ObxVfgyW27K/yJSmvckw\nC4I7zzGQ8JK3Q0Fzd5srFgiHhK+p50URA0dRMoYmAVrlKSFsqJcrdKw5xDN3MFJk\n5tx7ipIrr7wDZ16aOfYarr99zqukyiU2omhhNHas8j/zfpHeOGmkN8Y+r5wRaIOa\nlvt4lmg7BB99GJmLBRWTbwMmfDhFF/x1+k6X/eYwvSJCA/Heog3Ejb48mZnJe9uS\nHCu/+uKHjL7CKYxqdt4Rw2o7HlspENlLoe7dbTGVBi2BtML8D5amxPi37Iid3ELW\nuGMzxa5I3DLHEC/jYPibr0GTnMQ9+E3P/AYSNvDfXsndDoxnhU2PYbB60iSd24dB\nWhNIImnJqPFegBAvlH4h11H6xGbBHjsdgDRs1HQG7JedLiQ4niZNTtkutG+yOiI8\nl6TItOJc+7g3/0yk6ZKqghp1EJ9/KN3pHqyn7IZ5E5Vju34PP3V8rNo7qS0Dzdek\npRx1fe6DXYMhy4J57eAQgvSP+SE+iIhK6VS3loISjDMwQMyknBe+2pCkYvAeNnNX\n7EsaxN9I6FH39SrW/qyjf1/6lzTNh6APIx/nmSQ3J/pZOhZQsFkmucKMWcwVV1D6\n0tLWVgqU/VYrRP6ZS2I8\n=BENA\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 7c3d02dbe2970052516f2aee11dd5863caaba64f\nparent a9c304cf020e2fa3ae78fd88359dfc808c9dd639\nauthor Pierre Ossman (ThinLinc team) <ossman@cendio.se> 1710792953 +0100\ncommitter GitHub <noreply@github.com> 1710792953 -0700\n\ngh-113538: Add asycio.Server.{close,abort}_clients (redo) (#116784)\n\nThese give applications the option of more forcefully terminating client\r\nconnections for asyncio servers. Useful when terminating a service and\r\nthere is limited time to wait for clients to finish up their work.\r\n\r\nThis is a do-over with a test fix for gh-114432, which was reverted.",
+      "verified_at": "2024-11-05T16:30:27Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/415964417771946dcb7a163951913adf84644b6d",
+  "html_url": "https://github.com/python/cpython/commit/415964417771946dcb7a163951913adf84644b6d",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/415964417771946dcb7a163951913adf84644b6d/comments",
+  "author": {
+    "login": "CendioOssman",
+    "id": 6640916,
+    "node_id": "MDQ6VXNlcjY2NDA5MTY=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/6640916?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/CendioOssman",
+    "html_url": "https://github.com/CendioOssman",
+    "followers_url": "https://api.github.com/users/CendioOssman/followers",
+    "following_url": "https://api.github.com/users/CendioOssman/following{/other_user}",
+    "gists_url": "https://api.github.com/users/CendioOssman/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/CendioOssman/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/CendioOssman/subscriptions",
+    "organizations_url": "https://api.github.com/users/CendioOssman/orgs",
+    "repos_url": "https://api.github.com/users/CendioOssman/repos",
+    "events_url": "https://api.github.com/users/CendioOssman/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/CendioOssman/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "a9c304cf020e2fa3ae78fd88359dfc808c9dd639",
+      "url": "https://api.github.com/repos/python/cpython/commits/a9c304cf020e2fa3ae78fd88359dfc808c9dd639",
+      "html_url": "https://github.com/python/cpython/commit/a9c304cf020e2fa3ae78fd88359dfc808c9dd639"
+    }
+  ],
+  "stats": {
+    "total": 172,
+    "additions": 152,
+    "deletions": 20
+  },
+  "files": [
+    {
+      "sha": "d6ed817b13676fc17307a9088ec1619b00e75484",
+      "filename": "Doc/library/asyncio-eventloop.rst",
+      "status": "modified",
+      "additions": 25,
+      "deletions": 0,
+      "changes": 25,
+      "blob_url": "https://github.com/python/cpython/blob/415964417771946dcb7a163951913adf84644b6d/Doc%2Flibrary%2Fasyncio-eventloop.rst",
+      "raw_url": "https://github.com/python/cpython/raw/415964417771946dcb7a163951913adf84644b6d/Doc%2Flibrary%2Fasyncio-eventloop.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Doc%2Flibrary%2Fasyncio-eventloop.rst?ref=415964417771946dcb7a163951913adf84644b6d",
+      "patch": "@@ -1641,6 +1641,31 @@ Do not instantiate the :class:`Server` class directly.\n       coroutine to wait until the server is closed (and no more\n       connections are active).\n \n+   .. method:: close_clients()\n+\n+      Close all existing incoming client connections.\n+\n+      Calls :meth:`~asyncio.BaseTransport.close` on all associated\n+      transports.\n+\n+      :meth:`close` should be called before :meth:`close_clients` when\n+      closing the server to avoid races with new clients connecting.\n+\n+      .. versionadded:: 3.13\n+\n+   .. method:: abort_clients()\n+\n+      Close all existing incoming client connections immediately,\n+      without waiting for pending operations to complete.\n+\n+      Calls :meth:`~asyncio.WriteTransport.abort` on all associated\n+      transports.\n+\n+      :meth:`close` should be called before :meth:`abort_clients` when\n+      closing the server to avoid races with new clients connecting.\n+\n+      .. versionadded:: 3.13\n+\n    .. method:: get_loop()\n \n       Return the event loop associated with the server object."
+    },
+    {
+      "sha": "0553cc97c5c75af4d7ffc5122a36364160d026b4",
+      "filename": "Doc/whatsnew/3.13.rst",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 0,
+      "changes": 5,
+      "blob_url": "https://github.com/python/cpython/blob/415964417771946dcb7a163951913adf84644b6d/Doc%2Fwhatsnew%2F3.13.rst",
+      "raw_url": "https://github.com/python/cpython/raw/415964417771946dcb7a163951913adf84644b6d/Doc%2Fwhatsnew%2F3.13.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Doc%2Fwhatsnew%2F3.13.rst?ref=415964417771946dcb7a163951913adf84644b6d",
+      "patch": "@@ -270,6 +270,11 @@ asyncio\n   the buffer size.\n   (Contributed by Jamie Phan in :gh:`115199`.)\n \n+* Add :meth:`asyncio.Server.close_clients` and\n+  :meth:`asyncio.Server.abort_clients` methods which allow to more\n+  forcefully close an asyncio server.\n+  (Contributed by Pierre Ossman in :gh:`113538`.)\n+\n base64\n ---\n "
+    },
+    {
+      "sha": "f0e690b61a73dd15e6b7696b9148ef4e09b62f01",
+      "filename": "Lib/asyncio/base_events.py",
+      "status": "modified",
+      "additions": 17,
+      "deletions": 8,
+      "changes": 25,
+      "blob_url": "https://github.com/python/cpython/blob/415964417771946dcb7a163951913adf84644b6d/Lib%2Fasyncio%2Fbase_events.py",
+      "raw_url": "https://github.com/python/cpython/raw/415964417771946dcb7a163951913adf84644b6d/Lib%2Fasyncio%2Fbase_events.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Fasyncio%2Fbase_events.py?ref=415964417771946dcb7a163951913adf84644b6d",
+      "patch": "@@ -279,7 +279,9 @@ def __init__(self, loop, sockets, protocol_factory, ssl_context, backlog,\n                  ssl_handshake_timeout, ssl_shutdown_timeout=None):\n         self._loop = loop\n         self._sockets = sockets\n-        self._active_count = 0\n+        # Weak references so we don't break Transport's ability to\n+        # detect abandoned transports\n+        self._clients = weakref.WeakSet()\n         self._waiters = []\n         self._protocol_factory = protocol_factory\n         self._backlog = backlog\n@@ -292,14 +294,13 @@ def __init__(self, loop, sockets, protocol_factory, ssl_context, backlog,\n     def __repr__(self):\n         return f'<{self.__class__.__name__} sockets={self.sockets!r}>'\n \n-    def _attach(self):\n+    def _attach(self, transport):\n         assert self._sockets is not None\n-        self._active_count += 1\n+        self._clients.add(transport)\n \n-    def _detach(self):\n-        assert self._active_count > 0\n-        self._active_count -= 1\n-        if self._active_count == 0 and self._sockets is None:\n+    def _detach(self, transport):\n+        self._clients.discard(transport)\n+        if len(self._clients) == 0 and self._sockets is None:\n             self._wakeup()\n \n     def _wakeup(self):\n@@ -348,9 +349,17 @@ def close(self):\n             self._serving_forever_fut.cancel()\n             self._serving_forever_fut = None\n \n-        if self._active_count == 0:\n+        if len(self._clients) == 0:\n             self._wakeup()\n \n+    def close_clients(self):\n+        for transport in self._clients.copy():\n+            transport.close()\n+\n+    def abort_clients(self):\n+        for transport in self._clients.copy():\n+            transport.abort()\n+\n     async def start_serving(self):\n         self._start_serving()\n         # Skip one loop iteration so that all 'loop.add_reader'"
+    },
+    {
+      "sha": "be495469a0558b9c6fcfd4c55ce91efc95c00deb",
+      "filename": "Lib/asyncio/events.py",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 0,
+      "changes": 8,
+      "blob_url": "https://github.com/python/cpython/blob/415964417771946dcb7a163951913adf84644b6d/Lib%2Fasyncio%2Fevents.py",
+      "raw_url": "https://github.com/python/cpython/raw/415964417771946dcb7a163951913adf84644b6d/Lib%2Fasyncio%2Fevents.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Fasyncio%2Fevents.py?ref=415964417771946dcb7a163951913adf84644b6d",
+      "patch": "@@ -175,6 +175,14 @@ def close(self):\n         \"\"\"Stop serving.  This leaves existing connections open.\"\"\"\n         raise NotImplementedError\n \n+    def close_clients(self):\n+        \"\"\"Close all active connections.\"\"\"\n+        raise NotImplementedError\n+\n+    def abort_clients(self):\n+        \"\"\"Close all active connections immediately.\"\"\"\n+        raise NotImplementedError\n+\n     def get_loop(self):\n         \"\"\"Get the event loop the Server object is attached to.\"\"\"\n         raise NotImplementedError"
+    },
+    {
+      "sha": "397a8cda75789507fe0b7f4425b91302fdf854f6",
+      "filename": "Lib/asyncio/proactor_events.py",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/415964417771946dcb7a163951913adf84644b6d/Lib%2Fasyncio%2Fproactor_events.py",
+      "raw_url": "https://github.com/python/cpython/raw/415964417771946dcb7a163951913adf84644b6d/Lib%2Fasyncio%2Fproactor_events.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Fasyncio%2Fproactor_events.py?ref=415964417771946dcb7a163951913adf84644b6d",
+      "patch": "@@ -63,7 +63,7 @@ def __init__(self, loop, sock, protocol, waiter=None,\n         self._called_connection_lost = False\n         self._eof_written = False\n         if self._server is not None:\n-            self._server._attach()\n+            self._server._attach(self)\n         self._loop.call_soon(self._protocol.connection_made, self)\n         if waiter is not None:\n             # only wake up the waiter when connection_made() has been called\n@@ -167,7 +167,7 @@ def _call_connection_lost(self, exc):\n             self._sock = None\n             server = self._server\n             if server is not None:\n-                server._detach()\n+                server._detach(self)\n                 self._server = None\n             self._called_connection_lost = True\n "
+    },
+    {
+      "sha": "f94bf10b4225e79cdb9fe5437510f84b5ad983f3",
+      "filename": "Lib/asyncio/selector_events.py",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 2,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/415964417771946dcb7a163951913adf84644b6d/Lib%2Fasyncio%2Fselector_events.py",
+      "raw_url": "https://github.com/python/cpython/raw/415964417771946dcb7a163951913adf84644b6d/Lib%2Fasyncio%2Fselector_events.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Fasyncio%2Fselector_events.py?ref=415964417771946dcb7a163951913adf84644b6d",
+      "patch": "@@ -791,7 +791,7 @@ def __init__(self, loop, sock, protocol, extra=None, server=None):\n         self._paused = False  # Set when pause_reading() called\n \n         if self._server is not None:\n-            self._server._attach()\n+            self._server._attach(self)\n         loop._transports[self._sock_fd] = self\n \n     def __repr__(self):\n@@ -868,6 +868,8 @@ def __del__(self, _warn=warnings.warn):\n         if self._sock is not None:\n             _warn(f\"unclosed transport {self!r}\", ResourceWarning, source=self)\n             self._sock.close()\n+            if self._server is not None:\n+                self._server._detach(self)\n \n     def _fatal_error(self, exc, message='Fatal error on transport'):\n         # Should be called from exception handler only.\n@@ -906,7 +908,7 @@ def _call_connection_lost(self, exc):\n             self._loop = None\n             server = self._server\n             if server is not None:\n-                server._detach()\n+                server._detach(self)\n                 self._server = None\n \n     def get_write_buffer_size(self):"
+    },
+    {
+      "sha": "4ca8a166a0f1a1f2451e6a54e7ab990c3ef60e54",
+      "filename": "Lib/test/test_asyncio/test_server.py",
+      "status": "modified",
+      "additions": 88,
+      "deletions": 8,
+      "changes": 96,
+      "blob_url": "https://github.com/python/cpython/blob/415964417771946dcb7a163951913adf84644b6d/Lib%2Ftest%2Ftest_asyncio%2Ftest_server.py",
+      "raw_url": "https://github.com/python/cpython/raw/415964417771946dcb7a163951913adf84644b6d/Lib%2Ftest%2Ftest_asyncio%2Ftest_server.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_asyncio%2Ftest_server.py?ref=415964417771946dcb7a163951913adf84644b6d",
+      "patch": "@@ -125,8 +125,12 @@ async def main(srv):\n class TestServer2(unittest.IsolatedAsyncioTestCase):\n \n     async def test_wait_closed_basic(self):\n-        async def serve(*args):\n-            pass\n+        async def serve(rd, wr):\n+            try:\n+                await rd.read()\n+            finally:\n+                wr.close()\n+                await wr.wait_closed()\n \n         srv = await asyncio.start_server(serve, socket_helper.HOSTv4, 0)\n         self.addCleanup(srv.close)\n@@ -137,7 +141,8 @@ async def serve(*args):\n         self.assertFalse(task1.done())\n \n         # active count != 0, not closed: should block\n-        srv._attach()\n+        addr = srv.sockets[0].getsockname()\n+        (rd, wr) = await asyncio.open_connection(addr[0], addr[1])\n         task2 = asyncio.create_task(srv.wait_closed())\n         await asyncio.sleep(0)\n         self.assertFalse(task1.done())\n@@ -152,7 +157,8 @@ async def serve(*args):\n         self.assertFalse(task2.done())\n         self.assertFalse(task3.done())\n \n-        srv._detach()\n+        wr.close()\n+        await wr.wait_closed()\n         # active count == 0, closed: should unblock\n         await task1\n         await task2\n@@ -161,22 +167,96 @@ async def serve(*args):\n \n     async def test_wait_closed_race(self):\n         # Test a regression in 3.12.0, should be fixed in 3.12.1\n-        async def serve(*args):\n-            pass\n+        async def serve(rd, wr):\n+            try:\n+                await rd.read()\n+            finally:\n+                wr.close()\n+                await wr.wait_closed()\n \n         srv = await asyncio.start_server(serve, socket_helper.HOSTv4, 0)\n         self.addCleanup(srv.close)\n \n         task = asyncio.create_task(srv.wait_closed())\n         await asyncio.sleep(0)\n         self.assertFalse(task.done())\n-        srv._attach()\n+        addr = srv.sockets[0].getsockname()\n+        (rd, wr) = await asyncio.open_connection(addr[0], addr[1])\n         loop = asyncio.get_running_loop()\n         loop.call_soon(srv.close)\n-        loop.call_soon(srv._detach)\n+        loop.call_soon(wr.close)\n         await srv.wait_closed()\n \n+    async def test_close_clients(self):\n+        async def serve(rd, wr):\n+            try:\n+                await rd.read()\n+            finally:\n+                wr.close()\n+                await wr.wait_closed()\n+\n+        srv = await asyncio.start_server(serve, socket_helper.HOSTv4, 0)\n+        self.addCleanup(srv.close)\n+\n+        addr = srv.sockets[0].getsockname()\n+        (rd, wr) = await asyncio.open_connection(addr[0], addr[1])\n+        self.addCleanup(wr.close)\n+\n+        task = asyncio.create_task(srv.wait_closed())\n+        await asyncio.sleep(0)\n+        self.assertFalse(task.done())\n+\n+        srv.close()\n+        srv.close_clients()\n+        await asyncio.sleep(0)\n+        await asyncio.sleep(0)\n+        self.assertTrue(task.done())\n+\n+    async def test_abort_clients(self):\n+        async def serve(rd, wr):\n+            fut.set_result((rd, wr))\n+            await wr.wait_closed()\n+\n+        fut = asyncio.Future()\n+        srv = await asyncio.start_server(serve, socket_helper.HOSTv4, 0)\n+        self.addCleanup(srv.close)\n+\n+        addr = srv.sockets[0].getsockname()\n+        (c_rd, c_wr) = await asyncio.open_connection(addr[0], addr[1], limit=4096)\n+        self.addCleanup(c_wr.close)\n+\n+        (s_rd, s_wr) = await fut\n+\n+        # Limit the socket buffers so we can reliably overfill them\n+        s_sock = s_wr.get_extra_info('socket')\n+        s_sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 65536)\n+        c_sock = c_wr.get_extra_info('socket')\n+        c_sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 65536)\n+\n+        # Get the reader in to a paused state by sending more than twice\n+        # the configured limit\n+        s_wr.write(b'a' * 4096)\n+        s_wr.write(b'a' * 4096)\n+        s_wr.write(b'a' * 4096)\n+        while c_wr.transport.is_reading():\n+            await asyncio.sleep(0)\n+\n+        # Get the writer in a waiting state by sending data until the\n+        # socket buffers are full on both server and client sockets and\n+        # the kernel stops accepting more data\n+        s_wr.write(b'a' * c_sock.getsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF))\n+        s_wr.write(b'a' * s_sock.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF))\n+        self.assertNotEqual(s_wr.transport.get_write_buffer_size(), 0)\n+\n+        task = asyncio.create_task(srv.wait_closed())\n+        await asyncio.sleep(0)\n+        self.assertFalse(task.done())\n \n+        srv.close()\n+        srv.abort_clients()\n+        await asyncio.sleep(0)\n+        await asyncio.sleep(0)\n+        self.assertTrue(task.done())\n \n \n # Test the various corner cases of Unix server socket removal"
+    },
+    {
+      "sha": "5c59af98e136bba3d9fc199ce81cf5d0700ec445",
+      "filename": "Misc/NEWS.d/next/Library/2024-01-22-15-50-58.gh-issue-113538.v2wrwg.rst",
+      "status": "added",
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/415964417771946dcb7a163951913adf84644b6d/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2024-01-22-15-50-58.gh-issue-113538.v2wrwg.rst",
+      "raw_url": "https://github.com/python/cpython/raw/415964417771946dcb7a163951913adf84644b6d/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2024-01-22-15-50-58.gh-issue-113538.v2wrwg.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2024-01-22-15-50-58.gh-issue-113538.v2wrwg.rst?ref=415964417771946dcb7a163951913adf84644b6d",
+      "patch": "@@ -0,0 +1,3 @@\n+Add :meth:`asyncio.Server.close_clients` and\n+:meth:`asyncio.Server.abort_clients` methods which allow to more forcefully\n+close an asyncio server."
+    }
+  ]
+}

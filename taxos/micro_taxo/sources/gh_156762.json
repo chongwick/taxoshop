@@ -1,0 +1,126 @@
+{
+  "retrieved_at": "2026-09-10T13:10:03.941723+00:00",
+  "issue": {
+    "url": "https://api.github.com/repos/python/cpython/issues/156762",
+    "repository_url": "https://api.github.com/repos/python/cpython",
+    "labels_url": "https://api.github.com/repos/python/cpython/issues/156762/labels{/name}",
+    "comments_url": "https://api.github.com/repos/python/cpython/issues/156762/comments",
+    "events_url": "https://api.github.com/repos/python/cpython/issues/156762/events",
+    "html_url": "https://github.com/python/cpython/issues/156762",
+    "id": 5311047646,
+    "node_id": "I_kwDOBN0Z8c8AAAABPJAn3g",
+    "number": 156762,
+    "title": "`_operator`: `methodcaller_clear` has the wrong signature for the `tp_clear` slot (returns `void`, not `int`)",
+    "user": {
+      "login": "ashm-dev",
+      "id": 173620149,
+      "node_id": "U_kgDOClk7tQ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/173620149?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ashm-dev",
+      "html_url": "https://github.com/ashm-dev",
+      "followers_url": "https://api.github.com/users/ashm-dev/followers",
+      "following_url": "https://api.github.com/users/ashm-dev/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ashm-dev/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ashm-dev/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ashm-dev/subscriptions",
+      "organizations_url": "https://api.github.com/users/ashm-dev/orgs",
+      "repos_url": "https://api.github.com/users/ashm-dev/repos",
+      "events_url": "https://api.github.com/users/ashm-dev/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ashm-dev/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 536871770,
+        "node_id": "MDU6TGFiZWw1MzY4NzE3NzA=",
+        "url": "https://api.github.com/repos/python/cpython/labels/type-bug",
+        "name": "type-bug",
+        "color": "e99695",
+        "default": false,
+        "description": "An unexpected behavior, bug, or error"
+      },
+      {
+        "id": 4018672955,
+        "node_id": "LA_kwDOBN0Z8c7viBU7",
+        "url": "https://api.github.com/repos/python/cpython/labels/extension-modules",
+        "name": "extension-modules",
+        "color": "09fc59",
+        "default": false,
+        "description": "C modules in the Modules dir"
+      },
+      {
+        "id": 6924881042,
+        "node_id": "LA_kwDOBN0Z8c8AAAABnMFMkg",
+        "url": "https://api.github.com/repos/python/cpython/labels/3.14",
+        "name": "3.14",
+        "color": "2e730f",
+        "default": false,
+        "description": "bugs and security fixes"
+      },
+      {
+        "id": 8574427031,
+        "node_id": "LA_kwDOBN0Z8c8AAAAB_xNflw",
+        "url": "https://api.github.com/repos/python/cpython/labels/3.15",
+        "name": "3.15",
+        "color": "2e730f",
+        "default": false,
+        "description": "pre-release feature fixes, bugs and security fixes"
+      },
+      {
+        "id": 10891624341,
+        "node_id": "LA_kwDOBN0Z8c8AAAACiTD_lQ",
+        "url": "https://api.github.com/repos/python/cpython/labels/3.16",
+        "name": "3.16",
+        "color": "2e730f",
+        "default": false,
+        "description": "new features, bugs and security fixes"
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignees": [],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2026-09-01T11:07:13Z",
+    "updated_at": "2026-09-01T13:21:26Z",
+    "closed_at": null,
+    "assignee": null,
+    "author_association": "CONTRIBUTOR",
+    "issue_field_values": [],
+    "type": null,
+    "active_lock_reason": null,
+    "sub_issues_summary": {
+      "total": 0,
+      "completed": 0,
+      "percent_completed": 0
+    },
+    "issue_dependencies_summary": {
+      "blocked_by": 0,
+      "total_blocked_by": 0,
+      "blocking": 0,
+      "total_blocking": 0
+    },
+    "body": "# Bug report\n\n### Bug description:\n\n`methodcaller_clear` in `Modules/_operator.c` is declared as returning `void`, but it is\ninstalled in the `Py_tp_clear` slot, which requires `inquiry`\n(`typedef int (*inquiry)(PyObject *);`, `Include/object.h:285`).\n\n```c\n/* Modules/_operator.c:1743 */\nstatic void\nmethodcaller_clear(PyObject *op)\n{\n    methodcallerobject *mc = methodcallerobject_CAST(op);\n    Py_CLEAR(mc->name);\n    Py_CLEAR(mc->args);\n    Py_CLEAR(mc->kwds);\n    Py_CLEAR(mc->vectorcall_args);\n    Py_CLEAR(mc->vectorcall_kwnames);\n}\n\n/* Modules/_operator.c:1928 */\nstatic PyType_Slot methodcaller_type_slots[] = {\n    ...\n    {Py_tp_clear, methodcaller_clear},\n    ...\n};\n```\n\nThe mismatch is not diagnosed at compile time because `PyType_Slot.pfunc` is `void *`\n(`Include/object.h:327`), so the function pointer converts implicitly and is later cast\nback to `inquiry`.\n\nUBSan with `-fsanitize=function` reports it whenever a `methodcaller` instance is cleared\nby the cyclic GC:\n\n```\nPython/gc_free_threading.c:1761:24: runtime error: call to function methodcaller_clear through pointer to incorrect function type 'int (*)(struct _object *)'\nModules/_operator.c:1745: note: methodcaller_clear defined here\n```\n\nThe trace above is from a free-threaded build. The defect is in the slot registration, not in\neither GC, so it is present in both builds and both reach the bad call the same way:\n\n* default build: `Python/gc.c:1105`\n* free-threaded build: `Python/gc_free_threading.c:1761`\n\n## Impact\n\nBenign on the mainstream targets I checked. Both GC implementations discard the result\n(`(void) clear(op);` at `Python/gc.c:1105` and `Python/gc_free_threading.c:1761`), and\n`operator.methodcaller` does not set `Py_TPFLAGS_BASETYPE`, so the `return baseclear(self);`\npath in `subtype_clear` (`Objects/typeobject.c:2751`) cannot reach it.\n\nIt is still an indirect call through an incompatible function type, i.e. undefined behaviour,\nand it matters for:\n\n* builds using Clang CFI (`-fsanitize=cfi-icall`), where an indirect-call type mismatch aborts;\n* WebAssembly targets, where indirect call signatures are checked by the runtime;\n* UBSan builds in general, where it is persistent noise that hides other findings.\n\n`methodcaller_traverse` immediately below (`Modules/_operator.c:1764`) uses the correct\n`static int` form, so this looks like an oversight from the slot-signature cleanup.\n\nI grepped every `tp_clear` slot registration under `Modules/`, `Objects/` and `Python/`:\n`methodcaller_clear` is the only one with a `void` return type.\n\n## Reproducer\n\nThe wrong slot signature is present in every build; a sanitizer build is only what makes it\nvisible. Configured with:\n\n```\nCC=clang CXX=clang++ LDFLAGS='-fuse-ld=lld' ./configure --with-address-sanitizer --with-undefined-behavior-sanitizer --with-pydebug --disable-gil\n```\n\n`--with-undefined-behavior-sanitizer` adds `-fsanitize=undefined` (`configure.ac:3528`), and\nClang includes `function` in that group, which is the check that fires here.\n\nThen:\n\n```\n./python -c \"import gc, operator\nclass C: pass\nc = C()\nc.m = operator.methodcaller('foo', c)\ndel c\ngc.collect()\"\n```\n\nThe `methodcaller` keeps a reference to `c` through its `args` tuple, so the cycle\n`c -> m -> args -> c` reaches `tp_clear` and the diagnostic fires.\n\n## Suggested fix\n\n```diff\n-static void\n+static int\n methodcaller_clear(PyObject *op)\n {\n     methodcallerobject *mc = methodcallerobject_CAST(op);\n     Py_CLEAR(mc->name);\n     Py_CLEAR(mc->args);\n     Py_CLEAR(mc->kwds);\n     Py_CLEAR(mc->vectorcall_args);\n     Py_CLEAR(mc->vectorcall_kwnames);\n+    return 0;\n }\n```\n\n`methodcaller_dealloc` (`Modules/_operator.c:1759`) already calls it as\n`(void)methodcaller_clear(op);` and needs no change.\n\n## Environment\n\n* CPython `main`, commit `b93576a2b66`\n* Linux x86-64\n* Clang 22.1.8, lld\n* Free-threaded debug build with ASan and UBSan:\n\n```\nCC=clang CXX=clang++ LDFLAGS='-fuse-ld=lld' ./configure --with-address-sanitizer --with-undefined-behavior-sanitizer --with-pydebug --disable-gil\n```\n\n\n### CPython versions tested on:\n\n3.16, CPython main branch, 3.15\n\n### Operating systems tested on:\n\nLinux\n\n<!-- gh-linked-prs -->\n### Linked PRs\n* gh-156769\n<!-- /gh-linked-prs -->\n",
+    "closed_by": null,
+    "reactions": {
+      "url": "https://api.github.com/repos/python/cpython/issues/156762/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "timeline_url": "https://api.github.com/repos/python/cpython/issues/156762/timeline",
+    "performed_via_github_app": null,
+    "state_reason": null,
+    "pinned_comment": null
+  },
+  "comments": []
+}

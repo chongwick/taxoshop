@@ -1,0 +1,3632 @@
+[
+  {
+    "number": 100086,
+    "title": "Add more details about the Python build in sys.version",
+    "comments": 7,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "4f1ff24c2f0eab32a913d2f71b45af3efa19ccb17a12a0e744f0d2be86c20704"
+  },
+  {
+    "number": 100773,
+    "title": "`Py_Initialize()` still leaks in libpython3.11",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 2,
+    "source_sha256": "6b309bb0990396e14c94015dc7d7fbb40d3dcbad763e92144df18b84e78d7ade"
+  },
+  {
+    "number": 100795,
+    "title": "segfault in a docker container on host with ipv6 disabled when using  getaddrinfo from socket.py",
+    "comments": 15,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "fba33e7dfcdf5544390cd6f5da9986f2d9af33c1fb9302f824fabc69f0c1d295"
+  },
+  {
+    "number": 101180,
+    "title": "Modules/cjkcodecs/_codecs_iso2022.c - read out of bounds",
+    "comments": 8,
+    "diagnostic_source_records": 4,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 2,
+    "source_sha256": "ad631f1934adcd5553b1c2621624f2cfcdcd749488991289f2a7ba1a9bc719a6"
+  },
+  {
+    "number": 101975,
+    "title": "Potential SegFault with multithreading garbage collection.",
+    "comments": 7,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3f3fad7eaab11db9208b163b125f0b47807d681cadaf225b5ce34180b449efb4"
+  },
+  {
+    "number": 102509,
+    "title": "cpython3:fuzz_builtin_unicode: Use-of-uninitialized-value in maybe_small_long",
+    "comments": 11,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "858019d8fbda95cb52aa561d32ece76466012ef6e9a4797cbed69088627fb58f"
+  },
+  {
+    "number": 103718,
+    "title": "Not closing an f-string leads to a use-after-free",
+    "comments": 1,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e17dcbebf819ff4d21f76a493c936f359205d70cdd4bba7b35e1c1c8784dfc3d"
+  },
+  {
+    "number": 104472,
+    "title": "ASAN failure was detected while running test_threading",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "b9e22999cbf40252ee0202d6fb627f7d48c7f3707bade069e9f1eb43b2b89eb5"
+  },
+  {
+    "number": 104791,
+    "title": "LeakSanitizer at build time using --with-address-sanitizer on Ubuntu 22.04 #AddressSanitizer #ASAN",
+    "comments": 2,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "8ce4af53b9f2748da9130dbd6f9bc67fe71c9b7cd829898024d030a8cf7c8e04"
+  },
+  {
+    "number": 106012,
+    "title": "Crash in test_import: Assertion error about monitoring version.",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1f87abfa0c09340696445935320d9dccbcc6218cee38e57ec9b533f1e99c5770"
+  },
+  {
+    "number": 106914,
+    "title": "Use of uninitialized memory in Objects/longobject.c",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "739c5a8f60de8f68630d6c49776f37cdd278861da0acaf40167c41e72c82d70f"
+  },
+  {
+    "number": 108253,
+    "title": "heap-use-after-free in _PyFunction_LookupByVersion",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "deaa1321edc176ec39d1a29de9b1aa0960ba4696afe53ee3bc674f3b98a480c8"
+  },
+  {
+    "number": 109128,
+    "title": "Address sanitizer tests fail: env changed",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "4d029cb90d840a1f783e2475b4e514177ad2093f25722bc1950cbd9dc297a81e"
+  },
+  {
+    "number": 109580,
+    "title": "test_perf_profiler: test_trampoline_works_with_forks() failed on Address Sanitizer CI",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "761a0fab9ade15c889db87418b7f85234b8c3f8d614bd26336349b2e485a824e"
+  },
+  {
+    "number": 110097,
+    "title": "test_concurrent_futures.test_process_pool: test_map_timeout failed",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "26f8f916394fc5935d0a4ca19874a3503995c992f83f519f341b6022a781f087"
+  },
+  {
+    "number": 111178,
+    "title": "UBSan: Calling a function through pointer to incorrect function type is undefined behavior",
+    "comments": 43,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "98831143fd6e109b3ef0b31d0c41cffb7162f319c0ad1a07b7a3112ef39e1295"
+  },
+  {
+    "number": 111339,
+    "title": "Crashes and errors in test_embed with PYTHONUOPS=1",
+    "comments": 13,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "fb8d28e7cba3119013b34727e05c81ed6b936bbde12a1da03d44eedd493e8ad2"
+  },
+  {
+    "number": 111942,
+    "title": "TextIOWrapper.reconfigure() crashes if encoding is not string or None",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c7704f7dbfb129d6c4727772061f002500fc1fa791bc00ba085a04850cc9c068"
+  },
+  {
+    "number": 113055,
+    "title": "Memory leak on executables embedded with 3.13",
+    "comments": 20,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "948bde44419bf6a0ec5975d4b444f58c1bf76d9f192149367bc25a18db6b0a8f"
+  },
+  {
+    "number": 113190,
+    "title": "python3.12 introduces numerous memory leaks (as reported by ASAN)",
+    "comments": 9,
+    "diagnostic_source_records": 4,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3697274597c86d9dcff9cc067b66e9ef1a92bb2099bd14632335f5e9685c8472"
+  },
+  {
+    "number": 113576,
+    "title": "Possible `heap-use-after-free` in ctypes in Python 3.12",
+    "comments": 7,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "737dcf043e7b53792ccd7b59c5c73088444eda3bd1816fbb87451249c449fab1"
+  },
+  {
+    "number": 113591,
+    "title": "Segfaults on 3.12 when using PySR and running Julia's GC",
+    "comments": 8,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "b8488e039bf05ae3b9f85f3b49ecaae7b2cafd307f52086e4e69a579b486f9f8"
+  },
+  {
+    "number": 113602,
+    "title": "Objects/call.c:342: PyObject *_PyObject_Call(PyThreadState *, PyObject *, PyObject *, PyObject *): Assertion `!_PyErr_Occurred(tstate)' failed.",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "de6d80e35693fc90429e3880689428e9cdde5ac8c70ddeca55a237dc42e47035"
+  },
+  {
+    "number": 113720,
+    "title": "[not crashing] runtime error in tokenizer (pointer index expression overflow)",
+    "comments": 3,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "6ecb3fae9b795eed5c519e035280bb816e2622135a4b4eb866d918ca34760b4c"
+  },
+  {
+    "number": 113956,
+    "title": "`_Py_SetImmortal` must be run on allocating thread (no-gil)",
+    "comments": 8,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "cdfa43005a0535b5ab42f3a2b6c4d7558bbbf9f528bf43159001dbfd15357757"
+  },
+  {
+    "number": 114050,
+    "title": "crash in long_vectorcall in longobject.c",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 1,
+    "source_sha256": "8d4da359d44dc6e5cabf15802db0ca3183ff1f1553b4ea8aad9cd34a556361c8"
+  },
+  {
+    "number": 114083,
+    "title": "Python/flowgraph.c:497: _Bool no_redundant_jumps(cfg_builder *): Assertion `0' failed.",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "489b32b278dcf243416aa8148746647b65b94c845d6d7668f098850fdc2cb900"
+  },
+  {
+    "number": 114106,
+    "title": "segfault when compiling gc referrers referents with frozenset",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "1cce7cb1f0e30420ed366903b2bae69b396437130d29a419d471521d0ae599c1"
+  },
+  {
+    "number": 114331,
+    "title": "mimalloc should fail to allocate 784 271 641 GiB: test_decimal killed by the Linux kernel with OOM on a Free Threading build",
+    "comments": 19,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 2,
+    "source_sha256": "c2831c50762465d7262f61cd596b5fd7659ae86b881629c1c06af5de19939df5"
+  },
+  {
+    "number": 114453,
+    "title": "pycore_interp.h: field has incomplete type 'struct _dtoa_state'",
+    "comments": 5,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 1,
+    "source_sha256": "beec5fd727c4a9a7030f3d16b4656646fc38d663811a8ebad681fa10addfc009"
+  },
+  {
+    "number": 115243,
+    "title": "Use After Free in deque_index_impl",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d4b8cb355225ba8766d8a7a4775431b2e7cb8f5d3df66d87347b21afc92d7a0e"
+  },
+  {
+    "number": 115378,
+    "title": "Segmentation Fault in pthread_getcpuclockid function in time module",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "d5786f3bb00eb440ff82e2f33eaa7ff1c8445fc5b23ff18f510154a1b90eca9e"
+  },
+  {
+    "number": 116259,
+    "title": "[3.11] ./config.status: line 527: 0a1,698: command not found",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 1,
+    "source_sha256": "eb0ab4f9600310d81d117c97303532328ccf5649f389c47f9ed9ba0763e0b776"
+  },
+  {
+    "number": 116510,
+    "title": "CPython 3.12 embedded in WeeChat causes segfault on subsequent calls to Py_EndInterpreter",
+    "comments": 17,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a2066cb3e5899442b4c2a7b464e4ae5f843d3c7cfae29ecdd3f5f094df747df8"
+  },
+  {
+    "number": 116550,
+    "title": "Reading undefined value in pickle module w/memory sanitizer enabled",
+    "comments": 5,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "8cded999e3576be22238d1d2e8334e5066ebaa6f351cab061c28927ab1d0d888"
+  },
+  {
+    "number": 116886,
+    "title": "CIFuzz build failures - _freeze_module segfaults during the build, fuzz testing doesn't start.",
+    "comments": 10,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "9443355748b036681797015b95efa5b352a1e92fb0cd5261a487695e698f08a9"
+  },
+  {
+    "number": 116891,
+    "title": "Error configuring with TSAN",
+    "comments": 4,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "1b10e73209c329c42d179a1759149d6e40d2b277a1a6a2deb2e24bab7a139ac6"
+  },
+  {
+    "number": 116912,
+    "title": "TSan: data race accessing socket fd",
+    "comments": 4,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "6505d88836a2a47e59721189e82cfe2890105a6c09c396e75ebc86fd423672d9"
+  },
+  {
+    "number": 118074,
+    "title": "global-buffer-overflow in test_opt.py",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f1ff2f4be3e128c1565e7ebb4c5473f8923a735359211491c837a6b61ad0462f"
+  },
+  {
+    "number": 118113,
+    "title": "Optimizer/executor crash when using address sanitizer",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "4b0425666ac9a6fcf26760937d742c86970b508fd4b9ca92161c2261fe67a66e"
+  },
+  {
+    "number": 118729,
+    "title": "\"thread sanitizer\" (tsan) CI job is hanging",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "cb60fdeaa16201a22d5de30d5f3a597c5a0c5b48ee4a8f077f6e9b73f508a451"
+  },
+  {
+    "number": 119447,
+    "title": "1506-007 (S) \"struct _dtoa_state\" is undefined on AIX",
+    "comments": 7,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d8d2de9c6eea44d38b182336019b99e674d2ff753b9ae6bf13e6bd5e82664071"
+  },
+  {
+    "number": 119462,
+    "title": "Python 3.13b repeatedly setting superclass attribute in subclass leads to crashes",
+    "comments": 20,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "0b686415c56ab2613a517ba786bdbd124c4780001a2785ef07ab1bf23e612903"
+  },
+  {
+    "number": 120289,
+    "title": "Use After Free in initContext(_lsprof.c)",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "bcbe427c602c5d2b9e16507c484cc09e9f1a9dec5cdf977ae2af5001b0323292"
+  },
+  {
+    "number": 120298,
+    "title": "Use After Free in list_richcompare_impl ",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a77083cb8bf9fec8654e0b1d24e1c14d6c7707765c804ee5cffaf3b2ef98b8a2"
+  },
+  {
+    "number": 120378,
+    "title": "Segmentation Fault in _curses",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "745b2ad459d01ccfff88f596365cd35935a3fc8b5229197eab6c1bbd041e3e8b"
+  },
+  {
+    "number": 120696,
+    "title": "faulthandler will hang the process with a TSAN and free-thread build Python",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "23938ebf0a05fa183270da5057084d620372053ea7eae11429b0f660ef155d10"
+  },
+  {
+    "number": 121065,
+    "title": "Thread sanitizer (free-threading) tests fail: test_signal raises RecursionError",
+    "comments": 7,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e5294dd2f4a0366385607108e26d8d4d3a76ad8ff01395bb613b939d395a3c60"
+  },
+  {
+    "number": 121112,
+    "title": "[marshal] diffoscope crash when loading PYC files: memory corruption",
+    "comments": 20,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "52f411a3b454702499e8d75911056c356a84da36416a4ae40a41c0d7159d72a5"
+  },
+  {
+    "number": 121275,
+    "title": "Some tests in test_smtplib and test_logging failed when Python is configured with `--disable-ipv6`",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "982d41d9d50d0c42e081d2896c118e6bbb0fe77c94c0529be7f058bfcdbff8bc"
+  },
+  {
+    "number": 121390,
+    "title": "Memory leak in tracemalloc",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "263de7a57867b897874a9dbcf29645b0c827f47236358acb06fb2232ca3d756e"
+  },
+  {
+    "number": 121637,
+    "title": "Python/compile.c:7482: int compute_code_flags(struct compiler *): Assertion `IS_TOP_LEVEL_AWAIT(c) || _PyST_IsFunctionLike(ste)' failed",
+    "comments": 10,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1476c798633517c188b1d8813f5e2a70041a373af7f7047f30e400cdbf7fd405"
+  },
+  {
+    "number": 121847,
+    "title": "Build failure with \"--with-address-sanitizer\" flag",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 1,
+    "source_sha256": "be72d8e0cc5f19aef22490f2eef9832b6b2af6275e256403d90f0d8baee836d2"
+  },
+  {
+    "number": 122026,
+    "title": "Parser/lexer/lexer.c:1218: int tok_get_normal_mode(struct tok_state *, tokenizer_mode *, struct token *): Assertion `current_tok->curly_bracket_depth >= 0' failed.",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8defc3ea428dac7c0f8347c5920234732fdaf18056bb4b8f4516a4fca24aa1fc"
+  },
+  {
+    "number": 122136,
+    "title": "test.test_asyncio.test_server.TestServer2.test_abort_clients consistently fails on Linux 6.10.x",
+    "comments": 19,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 2,
+    "source_sha256": "c0f3edf4052f99708c0714ce1f024976ff71aa5330d285a4a337c519dccacff4"
+  },
+  {
+    "number": 122431,
+    "title": "Segmentation Fault in append_history_file of readline ",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "40d4c335de26647297cc8c4b0f6fb75724abad15e72d029abfc7e03c62f4e7a6"
+  },
+  {
+    "number": 124001,
+    "title": "PyFaulthandler: heap-buffer-overflow",
+    "comments": 8,
+    "diagnostic_source_records": 5,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "a8f0d0732892f1cab089b665d3e5aa032abeba0999fa47e61bd3ab8e6e8db064"
+  },
+  {
+    "number": 124378,
+    "title": "New test_ttk failure on Mac: \"bad screen distance\"",
+    "comments": 16,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 1,
+    "source_sha256": "3962f83b81ded008da1bd521ed2345e85df4ae9b83270b5181ab42f451db2e03"
+  },
+  {
+    "number": 124878,
+    "title": "race condition in threading when interpreter finalized while daemon thread runs (thread sanitizer identified)",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1574663d5ef9c1b8125a9462eb520cae2dcc539c8e6ee4568dfe44e0cea94075"
+  },
+  {
+    "number": 125318,
+    "title": "Segfault from `zoneinfo` with custom DateTime class",
+    "comments": 17,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "0ad69279aa7dda820b53837ed345e406337facabaaa5e6e5febbe89ba33134d7"
+  },
+  {
+    "number": 125515,
+    "title": "Multiple unused code warnings in `Python/generated_cases.c.h`",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c846181e538094f870cba5f7be2e869464c4b0548694b33993eedfb1a3d1491d"
+  },
+  {
+    "number": 126445,
+    "title": "Thread sanitizer (free-threading) / Thread sanitizer test failure",
+    "comments": 2,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "1a84392d134d87d16a37f9126d62013a56feda8894681a40a008fa7969e0ea10"
+  },
+  {
+    "number": 127563,
+    "title": "UBSan: misaligned memory loads in `Objects/dictobject.c`",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "7f6e25795188e12a7ae540935aa9a79e5bd0ac3a985506865ab5b52d71ff6e6e"
+  },
+  {
+    "number": 127971,
+    "title": "ASan: heap-buffer-overflow in ucs2lib_default_find",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "2f2e7e5117ca8708bebf960a596cfb46465e065bf28e2c079f4f6e449d3ac768"
+  },
+  {
+    "number": 128013,
+    "title": "Data race in PyUnicode_AsUTF8AndSize under free-threading",
+    "comments": 7,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ce5ea61166b3cac6e1884fe980f823dd668538eb896a487dcaec27c74a6c456e"
+  },
+  {
+    "number": 128050,
+    "title": "Race between `partial_vectorcall_fallback` and `_PyVectorcall_FunctionInline` under free-threading",
+    "comments": 7,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "6ab5fa9ba174159bf2b0e7d1d8f7ce17dc139c9dbfa4560189aceee13b29a61c"
+  },
+  {
+    "number": 128100,
+    "title": "Race between _PyObject_GenericGetAttrWithDict and ensure_nonmanaged_dict under free-threading",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ad87ad3562e518acda0f10d025a97d549e81cf90393d999f3d4fcf9b24cffd19"
+  },
+  {
+    "number": 128130,
+    "title": "Race on `_PyRuntime.signals.unhandled_keyboard_interrupt` when calling `eval()` concurrently in free-threading mode",
+    "comments": 10,
+    "diagnostic_source_records": 3,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8887a91b9f2a83302792fbf91b02cad1ae381bb86f5609c4eda1ca74341c1e35"
+  },
+  {
+    "number": 128133,
+    "title": "Race in bytes_hash under free-threading",
+    "comments": 13,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "631336121945fc5a71ecb4a2d0c2c336c5636fb5c9ea165f229da2e9ea7813af"
+  },
+  {
+    "number": 128137,
+    "title": "Race in PyUnicode_InternFromString under free-threading",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1fe3419b56a651a868267d1d699fbfb5e098862f4179c740c41a7a98264ebd35"
+  },
+  {
+    "number": 128144,
+    "title": "Race between PyMember_GetOne and PyMember_SetOne for _Py_T_OBJECT members under freethreading",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "27ce418db9b0b08a3395ed9af5be27f80016308573e39375ef436197fe8d0177"
+  },
+  {
+    "number": 128212,
+    "title": "Race between ` PyUnicode_SET_UTF8` and `_PyUnicode_CheckConsistency`",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "5bbdd150aee6de5460092ad58ebbf0e962b32cc2df3eaddbb8f33ceb078e69f0"
+  },
+  {
+    "number": 129019,
+    "title": "Compiling 3.13.1 fails when /usr/local/include/pyconfig.h is outdated",
+    "comments": 19,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "851a34d85f605fd8f1bd4a503c594979a195ce57d2308e4691292b41ec59fb66"
+  },
+  {
+    "number": 129701,
+    "title": "Data race in `intern_common` when interning str objects in the free threading build",
+    "comments": 8,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "89c5ad37b1f0d86e68d19896434cbc1fe1395087ea2c8fa588345ad0847ed7f1"
+  },
+  {
+    "number": 129824,
+    "title": "Various data races in subinterpreter tests under TSAN",
+    "comments": 2,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "2b469ee85711478631ff81f6c4f4bffba033646aa192d513f59d67b68a2b7a1f"
+  },
+  {
+    "number": 129838,
+    "title": "_Py_NO_SANITIZE_UNDEFINED is defined twice when compiling with recent GCC",
+    "comments": 0,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "517421ede9a81b057746104e9b562cc2a8bd0d83539ab15c50aa8f3dcf48e139"
+  },
+  {
+    "number": 130019,
+    "title": "Data race in `_PyType_AllocNoTrack` in free threaded build",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "5a172fd429353fe562e4693041e55c2bc0da1757197c70e914e3fe9c6fa61705"
+  },
+  {
+    "number": 130091,
+    "title": "Data race in `PyThread_tss_delete` and `_PyThreadState_Attach`",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1e470c1241922e2a2faf13062eaf96d1bbda8c5bf4526f3e14efb44147d73fc2"
+  },
+  {
+    "number": 130421,
+    "title": "TSAN failures seen running PyO3 tests with the free-threaded build",
+    "comments": 10,
+    "diagnostic_source_records": 3,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "662eeaede175d38d9a17ced4aac247ff1ccc0f32432231edf354d3b550004906"
+  },
+  {
+    "number": 130555,
+    "title": "Use after free in `PyDict_Clear()` due to re-entrancy",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e90d293242ecbc6d4cfb0ffc2f107226af6ad9ffe97507e3e8693c4ead760e8f"
+  },
+  {
+    "number": 130605,
+    "title": "`test_concurrent_futures` TSAN failures",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "27745a6beebac178e9a79acda8307edd6762d5dbcc2ad5902616b23f35b72b9a"
+  },
+  {
+    "number": 130977,
+    "title": "Data races in free-threaded python on Py_buffer use",
+    "comments": 13,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a8013877502ebcaf92648ff017af67c45396f4f19cbb94865f67f4f52d4d9cc1"
+  },
+  {
+    "number": 131325,
+    "title": "data race while running `test_asyncio.test_sendfile` in TSAN",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "cf18358e19c253dc69705ac95f99a635a6c8e3ed5c371424e66ce46e8c2298a3"
+  },
+  {
+    "number": 132097,
+    "title": "UBSan: runtime undefined behaviours when using `-fsanitize=undefined -fno-sanitize-recover`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "800bdf48b5038cf89f3aa63f8a143159ea04e1e51c1d00fa4752caee82c4fce5"
+  },
+  {
+    "number": 132869,
+    "title": "Crash due to racy read in dictobject do_lookup under free threading",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "7305133b2d8400baaf709eb028b44200b0251ed14caa4b32c8aedb5693dd5280"
+  },
+  {
+    "number": 132886,
+    "title": "Socket file descriptor races in GIL-enabled build",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d134b4d7ac2b740aa5c69d57b7304a8f3559b19a43d6ce36f387fe74234e3149"
+  },
+  {
+    "number": 133157,
+    "title": "UBsan: Remove _Py_NO_SANITIZE_UNDEFINED",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8a8645695e18bcf1afc9901807afcd16c0c637c959ba64aa465a62cfae310cbd"
+  },
+  {
+    "number": 133473,
+    "title": "TSan data races from test_queue with free threading",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "d068490e6a6db107cb311b48f13fb65befa72fd571a5499557d49341e03105fd"
+  },
+  {
+    "number": 134457,
+    "title": "Type of vectorcall nargs inconsistent",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "cd3c2f211edd1e29ad92552bd1f094a4a217d514ff77141408a010ebd27dc00a"
+  },
+  {
+    "number": 135618,
+    "title": "ASan detects memory leaks in Python REPL during immediate exit after startup",
+    "comments": 5,
+    "diagnostic_source_records": 3,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 1,
+    "source_sha256": "ce27160d10e7cebd29bc0a2a7959b56f9e9b86b87389d9375a98213dd222f21c"
+  },
+  {
+    "number": 135636,
+    "title": "Use After Free on Py_INCREF",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "172efb76197481291c9c260dc23abe216272e379cb09f2f78fdd9fc9ad3ca77d"
+  },
+  {
+    "number": 135637,
+    "title": "SEGV on _Py_type_getattro_impl",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "cd82fb2b686c12d1336a290c670f1835aa0fe6af8d803500d0f39b9ad7799df7"
+  },
+  {
+    "number": 135774,
+    "title": "clang -fsanitize=memory detected error with the trivial program that embeds the Python interpreter",
+    "comments": 3,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "67d1abe52e89651a46c04857c4379b0ff35f61096e76a1e47872db6160d4bc8b"
+  },
+  {
+    "number": 135830,
+    "title": "[MSVC][ASAN] Cpython failed to run test_call test_functools tests with ASAN using MSVC on windows",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "36de495b39db512d60cc5b69f129ac40e95f91e093342f671ad24bc2fb013b71"
+  },
+  {
+    "number": 136872,
+    "title": "The configure script doesn't allow running ASan with PyMalloc",
+    "comments": 1,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "884fcc371ce206846d73b2145d74bd554961753c41110527f6a210a398e14aea"
+  },
+  {
+    "number": 138756,
+    "title": "PyInitConfig_Free() doesn't release memory allocated by PyInitConfig_SetStr()",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ee8cebdc194225b3c8567494a68697ff1512d5c30d7f7a315458c0976e69e6b5"
+  },
+  {
+    "number": 139116,
+    "title": "Potential deadlock in test_tracemalloc with the FT build and tail-call dispatch.",
+    "comments": 12,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "b57e9f504c956865a35cbfac5522a1c08680ba69c3033957afa5abd96bd7337b"
+  },
+  {
+    "number": 139210,
+    "title": "heap-use-after-free `_elementtree_XMLParser__setevents_impl`",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3b82e5a304075de292f4d31c5a3249f127ce9cda035a3d804c5d9677558da7e4"
+  },
+  {
+    "number": 139269,
+    "title": "JIT: UB: unaligned store in `patch_*` functions",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 1,
+    "source_sha256": "59912867aacd4a1f7abb44ecfb6e72b198df7380c0cbbbe7f1a3db11f6ee27f6"
+  },
+  {
+    "number": 139400,
+    "title": "Heap-use-after-free issue in `pyexpat` related to `.ExternalEntityParserCreate`",
+    "comments": 19,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e04a8da5025676084b8c7af4664f3a1e6584667072f4a4e7890ac5c8853982d2"
+  },
+  {
+    "number": 139540,
+    "title": "JIT executors are not properly freed",
+    "comments": 26,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "7601b6e9027b635f1f7738c87e71df718bc9632d50e2fbb63ff504e693ddcb0f"
+  },
+  {
+    "number": 139748,
+    "title": "Argument Clinic does not handle error paths for converters creating a strong reference to a PyObject",
+    "comments": 8,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c7aab0bd3151e6ce3a3e42d884e2032d8d258348d292cf2375f94bec93039ca9"
+  },
+  {
+    "number": 139749,
+    "title": "memory leak after ValueError in JIT",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "b208de36c61de98c099f9d1ce802e15f5bb3901125995f07fbae9d57ab463609"
+  },
+  {
+    "number": 139750,
+    "title": "memory leak with glob and mock in JIT",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "4378f1ac27069cdf1a631a96932acce3e43d92591c58aa4154144b7ce6ceab67"
+  },
+  {
+    "number": 139751,
+    "title": "symtable ValueError and memory leak",
+    "comments": 3,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "11e2162ec0919cf2beae4d1e30f4bce7f626b14c1c93f895d8c528efb2ce4aac"
+  },
+  {
+    "number": 139827,
+    "title": "memory leak in email message make mixed with long boundary",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "d46a31ee272a78bb45919564dc209f0e05ef4add20eee8edc177b818ec48b5c7"
+  },
+  {
+    "number": 139834,
+    "title": "JIT: Segfault in _Py_LazyJitTrampoline with ASan/UBSan enabled",
+    "comments": 18,
+    "diagnostic_source_records": 3,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 1,
+    "source_sha256": "6c3aa42f5122b54a38d571ec63cb130bd83de925b9310e5d3c8d495d46d9d07b"
+  },
+  {
+    "number": 139951,
+    "title": "Potentially serious regression in garbage collector performance in Python 3.14",
+    "comments": 31,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1a346c6a4ad68bf7535e16277b0d30bd767178b766b287d896ea75a548d7b65d"
+  },
+  {
+    "number": 139988,
+    "title": "Leak with a Union object when an argument is not a type",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "bb6dfcaa5a6df8736ce4a60f3cb0bf783e707aabf1738ed899cfd3d10621f95d"
+  },
+  {
+    "number": 140067,
+    "title": "Memory leak in test_sys with subinterpreters creation (AddressSanitizer detection)",
+    "comments": 17,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "355474d1bc077f61010b6948cd32bc5cb19d0273a2d35e66fbafcc5d26ed678c"
+  },
+  {
+    "number": 140120,
+    "title": "Memory leak in `hmac` module with HACL* backend detected by AddressSanitizer",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 1,
+    "source_sha256": "66468fa636a69cf048134024d4f8d2f0712d2468dc9a90e6654521695b892a7e"
+  },
+  {
+    "number": 140138,
+    "title": "TSAN failure with free-threaded build, test_daemon_threads_fatal_error",
+    "comments": 17,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "9a6a025c41fb38ff546a14fc06cd7520f1b1cb69fa94990b6926a268fe6c7334"
+  },
+  {
+    "number": 140159,
+    "title": "Build Failure in posixmodule.c with Clang, ThreadSanitizer, and free-threaded build enabled",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "77faf1fba88e2ec0917146e9a0e1ab8080bc680fcd1882ead3ccb7d850122c63"
+  },
+  {
+    "number": 140257,
+    "title": "ThreadSanitizer: data race in interpreter_clear() vs take_gil() during finalization with daemon threads",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "bdca383df70588cc80434b864b298c5827b3c313b28a6af2fad71cd475bb51e1"
+  },
+  {
+    "number": 140260,
+    "title": "ThreadSanitizer: data race in _struct module initialization with InterpreterPoolExecutor (free-threading build)",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 1,
+    "source_sha256": "4293b7a3fa778db1b02b297941240dacc2f21705080e68adfdfc7a6a4c376292"
+  },
+  {
+    "number": 140263,
+    "title": "TSan data race in test_capi.test_lock_two_threads",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a6f2505c4b3154bd15f3f2b6fd5caa4de6960a3d678c216718aa3c5f82c2809d"
+  },
+  {
+    "number": 140267,
+    "title": "ThreadSanitizer reports thread leak in multiprocessing.Manager accepter thread",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d354c81ebf0ac0467f0e1ab777b20f5080f00c61a1d08ed222a0b4099bbd8a92"
+  },
+  {
+    "number": 140272,
+    "title": "Memory leak in _gdbm.gdbm.clear() method: missing free() for gdbm_firstkey() result",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "0fda1544e050e289154ec478ec0d52f6547f2ba12dbe805a2cfc698149e4173a"
+  },
+  {
+    "number": 140301,
+    "title": "Memory leak in test_capi with subinterpreter creation",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 4,
+    "source_sha256": "28492dc3fa3bcb271bf1e4f5c25b0c49f60c05531f52b838e5aff2e62b6d1a69"
+  },
+  {
+    "number": 140306,
+    "title": "Memory leak in test__interpchannels: _PyXIData_New not freed in channel_send",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 3,
+    "source_sha256": "39d61cd973cf3edb9fdd10fcfad1b545328534070446ac2156aa44a01a7ba81f"
+  },
+  {
+    "number": 140332,
+    "title": "MemorySanitizer: use-of-uninitialized-value in _ssl.txt2obj via OpenSSL's OBJ_txt2obj",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "856193e0e64f01bf34e4f3f8d632934adb51fac5c1011a39b56efbc40ef9ef5d"
+  },
+  {
+    "number": 140354,
+    "title": "fail build when enable-experimental-jit on Android",
+    "comments": 10,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "417f2fef490b637975d6a858e37091a8b61ab2eecbfc6b69b6597601cc88a090"
+  },
+  {
+    "number": 140398,
+    "title": "Memory leaks in readline module when PySys_Audit fails",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1cbfb0d23176b9985e872127e12ed70c6fa4d6d965bd2826c2166fb68bebee19"
+  },
+  {
+    "number": 140404,
+    "title": "LeakSanitizer detects memory leaks in test_import with _testsinglephase module in subinterpreter",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 4,
+    "source_sha256": "859a9e3d07604afc40aeda7dbf6619f29365e22fb998e8b2e62a8a527f489a62"
+  },
+  {
+    "number": 140406,
+    "title": "Memory leak when `object.__hash__` returns a non-`int` value",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "b1ccbff91fe388a07899f13b669769adcadc210f4d8842d52eaa5d7578053be4"
+  },
+  {
+    "number": 140408,
+    "title": "python crash at ffi call",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "814c7ce9c0030a9a5a7c71f784638006491905c2fee1a8f152d0d7ae8c6ae4ee"
+  },
+  {
+    "number": 140409,
+    "title": "heap-buffer-overflow in ctypes.create_string_buffer _ctypes_test.my_qsort",
+    "comments": 8,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "2103e9336f818e900891c8e1fb4c0458689d20a7fdd7ff4dc8d9e3c287144235"
+  },
+  {
+    "number": 140410,
+    "title": "SystemError: invalid maximum character passed to PyUnicode_New",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "c8d85685648bd9b9c2cfad9601986e366a2a4824eb2a7214b14b5babc43719e7"
+  },
+  {
+    "number": 140431,
+    "title": "Segfault in gc_free_threading.c after PR #140262 with ASAN build and free-threading tests",
+    "comments": 17,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "4bb97847b4aa05966640eacb3ca60617104a70ae7fea79ba306d6652d83b9373"
+  },
+  {
+    "number": 140442,
+    "title": "LeakSan: 80-byte leak at shutdown after atexit.register of bound list.append(-0.0)",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "91440be1e508b50babebaf455babf432308523fdbbb3d8ccb57e17e1d3a413e3"
+  },
+  {
+    "number": 140462,
+    "title": "SEGV due to `ncurses` allowing sizes to be excessively large",
+    "comments": 5,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "142f6691f08227f5140bfd9398b8f7bdac99da1f97ed287bf2191fc83401b4eb"
+  },
+  {
+    "number": 140471,
+    "title": "global-buffer-overflow PyUnicode_GET_LENGTH cpython/unicodeobject.h",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8e4db9864dba1b96bde0d73b06d8151e03639a326b4af16bc45ff33e19968cb5"
+  },
+  {
+    "number": 140474,
+    "title": "memory leak in array.array",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "b549b53fa205579ea4bd546ea34f41cf2c28fe93242714d9f05d148137e85467"
+  },
+  {
+    "number": 140492,
+    "title": "heap buffer overflow in ast _copy_characters",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "23087ed6ebf8a4fe8a76fa3bdacec15a49bcfdb5031c86fdc767fed87b050f5f"
+  },
+  {
+    "number": 140493,
+    "title": "memory leak in multi threading with fork",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "74c896632abed83a5daef0c245d03fbe30438e5168d1ff65dbfb001aa8ca2fc2"
+  },
+  {
+    "number": 140496,
+    "title": "cpython crash (heap-use-after-free) _Py_IsImmortal Include/internal/pycore_stackref.h",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "c3712a89e13d78ab11c20b684c7f98f60d4c47d6c9d92dc63d7cffb56fdcaeb1"
+  },
+  {
+    "number": 140497,
+    "title": "cpython crash (heap-buffer-overflow) Python/generated_cases.c.h _PyEval_EvalFrameDefault",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "0b4dc6b83e6ef681e3dd232ca5c46b526aa4b6812a87fee7e3e47f2f9695377c"
+  },
+  {
+    "number": 140517,
+    "title": "Memory leak in `map_next` in strict mode in case of error",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c19ee132b3937996f937119f778582c83bb29c87d1822c31fe358c79d25f9981"
+  },
+  {
+    "number": 140530,
+    "title": "Reference leak when failing to raise from an exception cause",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "7428f6e73f17e9d4b17fb804fd8acbe8c63efb3c735ae56f929ed4ca51be1005"
+  },
+  {
+    "number": 140551,
+    "title": "Crash in `dict` if `hash` `__eq__` function has side effects",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "b2a875b4c4dcc4d3ce6ab81a983f412ed24483b7d245e83c3a57ade54348e3a3"
+  },
+  {
+    "number": 140564,
+    "title": "SystemError: Objects/codeobject.c bad argument to internal function",
+    "comments": 2,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "28f385d3a44e786ce3892b411447a848d31466a725d4aea6a4d4d168ec6c4443"
+  },
+  {
+    "number": 140576,
+    "title": "SystemError in _generate_tokens_from_c_tokenizer",
+    "comments": 2,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "bcebb7de46397f6de65f9783b9f8fa35a68a7d94718de8f766eefe90d1b1c41b"
+  },
+  {
+    "number": 140590,
+    "title": "SEGV functools _Py_dict_lookup",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "859e5e80c16685d8af96e51035a4f888196f1aaac2d3f730f5ea094363589e65"
+  },
+  {
+    "number": 140593,
+    "title": "Memory leak in function `my_ElementDeclHandler` of `pyexpat`",
+    "comments": 8,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "711cbb2d68ea280a67f5fcf2c2fc70315fbe066327349bcbeceafad652c50962"
+  },
+  {
+    "number": 140594,
+    "title": "heap-buffer-overflow PyOS_StdioReadline Parser/myreadline.c",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c88ae698f235856ead01e37130c23ff85a5a78645ad7981217aa2303fa82fc16"
+  },
+  {
+    "number": 140607,
+    "title": "heap-buffer-overflow in _io__RawIOBase_read",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1a17761187d59aaf1e0351aabc9976886996e78c7ddd1858b5d1b0383ac609b9"
+  },
+  {
+    "number": 140608,
+    "title": "ASAN: double-free in SSL handshake",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "5d5f78899246368d9aca44bdb1491f604b7294d5a0925fc72cac39979d477cbb"
+  },
+  {
+    "number": 140631,
+    "title": "Indirect memory leak when instantiating hashlib types",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "0ccc8bd46dd5bd321f8e3b725f6550eb033c60a53d728a1353079dc7423e8169"
+  },
+  {
+    "number": 140634,
+    "title": "heap-buffer-overflow deepcopy posix_param",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8d819e602b75a75e1f34438c183930d5a7e25b3f4188b21ad1502c749798c0dc"
+  },
+  {
+    "number": 140650,
+    "title": "SystemError in io.BufferedWriter.close when closed errors",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8d16223fe74798b383929eadbeb7890fdbbb84b75ecdf5f6150af957120458c2"
+  },
+  {
+    "number": 140651,
+    "title": "heap-use-after-free in pickle posix",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "028948a02835827a0f175f5eb9a8561547c22c5dc491bc67a7fe2f06575e1b7f"
+  },
+  {
+    "number": 140652,
+    "title": "SEGV in module interpchannels",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "4438a9f6274848327d55748218d6e03e310fb095b4ff1493764c1f60ef6020f0"
+  },
+  {
+    "number": 140750,
+    "title": "JSON: heap-buffer-overflow in encoder caused by indentation caching",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "bcb0e909973b0b424c93685749606cefed895a4269854581e8c73e3500f998a3"
+  },
+  {
+    "number": 140751,
+    "title": "SystemError PyState_AddModule called on module with slots in testmultiphase",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "e203522015774d0141e53589c357b41396a94f1ad527cb6039d3f5f7ed8fdd24"
+  },
+  {
+    "number": 140776,
+    "title": "SEGV when changing `co_consts` of a function definition",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "1050db099be443a1fdbbb7c31f7d31f86fd6dda8e8d7f4c0257e4ce47893ff5b"
+  },
+  {
+    "number": 140777,
+    "title": "AddressSanitizer: BUS abort in multiprocessing.shared_memory",
+    "comments": 10,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "14ef10cae2459cf76db6fd525ade71bf551da6a9f4eba4293a8538c2ffc95b83"
+  },
+  {
+    "number": 140798,
+    "title": "Memory leak with `threading.local` when tracing is active",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3d81777ac13e7799da7578210473a465b4aacb90f8540b40c2643d891dbd3395"
+  },
+  {
+    "number": 140802,
+    "title": "heap-buffer-overflow in pycore_interpframe.h _PyFrame_Initialize",
+    "comments": 15,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "e23d796a60702317391853d6dc64513e9c48339ed0393f95b3e60df902af2be8"
+  },
+  {
+    "number": 140815,
+    "title": "SEGV in `faulthandler.dump_traceback_later`",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "36041d6b83a18b93412f3269ed468c5ba371afa1504e3847ed3b1242ceb2e214"
+  },
+  {
+    "number": 140860,
+    "title": "indirect memory leak with audit hook",
+    "comments": 5,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "196f2c73ed13d1f0f68bf53564f18363d6293dbcef2501b2d7ec88d979ceb46e"
+  },
+  {
+    "number": 140935,
+    "title": "Assertion failure in Objects/codeobject.c advance_with_locations",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "1542a2dabab7c61c68b188e0492b12b5ced1b4a6ff190066d959330d9e4270ba"
+  },
+  {
+    "number": 140936,
+    "title": "Assertion failure in Python/optimizer.c _PyOptimizer_Optimize in JIT",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "2c0a30066ce4f1472ddd5f5b45b6e4e8736d462e37fa790a4dee3093400d4f59"
+  },
+  {
+    "number": 140939,
+    "title": "memory leak in `_PyBytes_FormatEx` error path",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d62fa3b5b612ebaba9073b6b488e54dae5da25144c8782edb5dcbd5f2d5e7fa8"
+  },
+  {
+    "number": 141044,
+    "title": "memory leak in threading stack size",
+    "comments": 2,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "81db720796bdf85491e881111963f4ced28f5fdb946f58d4cae46bffd28eb08b"
+  },
+  {
+    "number": 141307,
+    "title": "Assertion failure in Objects/call.c `_PyObject_VectorcallDictTstate: Assertion `!_PyErr_Occurred(tstate)' failed.`",
+    "comments": 7,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "070af7d52435e2ade40503ab683c5ea23cae3af14945951666fdf25d361d09ba"
+  },
+  {
+    "number": 141311,
+    "title": "Assertion failure in Modules/_io/bytesio.c `_io_BytesIO_readinto_impl: Assertion 'self->pos + len < PY_SSIZE_T_MAX' failed.`",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "022ed56b1047eaf1dfba1e279f07cda9f1037547f1e3ab6be0cad614df2ee6ea"
+  },
+  {
+    "number": 141312,
+    "title": "Assertion failure in Objects/rangeobject.c `compute_range_length: Assertion PyLong_Check(start)' failed`",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c348b4de17e6c76189586f118b7c68784fc52a9ee88dfdd6c559f95b449097cb"
+  },
+  {
+    "number": 141314,
+    "title": "Assertion failure in Modules/_io/textio.c `_io_TextIOWrapper_tell_impl: Assertion 'skip_back <= PyBytes_GET_SIZE(next_input)' failed`",
+    "comments": 5,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1848cf05d3e8188144bd5b983b0215f1fc439e18f364fd0f422816863bdbfb84"
+  },
+  {
+    "number": 141336,
+    "title": "Assertion failure in Objects/unicodeobject.c `_PyUnicode_DecodeUnicodeEscapeInternal2: Assertion 'end - s <= writer.size - writer.pos' failed`",
+    "comments": 4,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "b941872055c52b85e74f3d2a2628708c8c8b17b59cdb7204ff8b152cb586268b"
+  },
+  {
+    "number": 141338,
+    "title": "SystemError buffer overflow in `fcntl.fcntl`",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "c0bed6c863265ddd7d509a1d846dc8642cd0c5483bd512b46a3978bc72fbc79a"
+  },
+  {
+    "number": 141372,
+    "title": "memory leak in `cProfile.Profile`",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "7fda100d04d1d63bb7ccf1cba610837997b1bb121a41d7a96b1891d0a453ac7e"
+  },
+  {
+    "number": 141390,
+    "title": "Assertion failure in Python/generated_cases.c.h `PyObject *_PyEval_EvalFrameDefault(PyThreadState *, _PyInterpreterFrame *, int): Assertion 'oparg == co->co_nfreevars' failed`",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "08e8133a9faed7e97047a8544114d1f16ec8e75cefe6252e71b60bddf3624141"
+  },
+  {
+    "number": 141542,
+    "title": "memory leak in `_PyJit_TryInitializeTracing`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "dc24eba8a9cf6c3e61522c9306025f3422f8edf2d1bcde7d539dc8985f7b325a"
+  },
+  {
+    "number": 141621,
+    "title": "UBSan SEGV in `_Py_LazyJitTrampoline` when building with Clang and `--with-undefined-behavior-sanitizer` + experimental JIT",
+    "comments": 2,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "fe926b931442da919d95b9d8d39f7f45bc8529d81c61b0748862022b1e75d76f"
+  },
+  {
+    "number": 141648,
+    "title": "JIT segfault or aborts from shape confusion code",
+    "comments": 15,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 2,
+    "source_sha256": "8102c643395966e8c6e6210a7ac72af01d8559f427d959dbaffc91b5e9535d7e"
+  },
+  {
+    "number": 142276,
+    "title": "JIT Assertion failure `_POP_TOP_INT.c:119: _Py_CODEUNIT *_JIT_ENTRY(_PyInterpreterFrame *, _PyStackRef *, PyThreadState *): Assertion 'PyLong_CheckExact(PyStackRef_AsPyObjectBorrow(value))' failed`",
+    "comments": 2,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f3cca8c6e917f2823c2587ca58f21418c8259872e270fad5ba5a889b4b510d77"
+  },
+  {
+    "number": 142448,
+    "title": "Assertion failure at Python/generated_cases.c.h:10059 `PyObject *_PyEval_EvalFrameDefault(PyThreadState *, _PyInterpreterFrame *, int): Assertion 'STACK_LEVEL() == 0' failed`",
+    "comments": 9,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "089183b55cc950fe988068b0934e79115076cd53716741fb7cca2ba707526eb5"
+  },
+  {
+    "number": 142451,
+    "title": "HMAC.copy() does not correctly copy its attributes",
+    "comments": 7,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8f04a336f9f2ea63ff8f3f908757593ad4c937d3a1001acfbfebe4d8e4ab9650"
+  },
+  {
+    "number": 142476,
+    "title": "ASan memory leak in test_gc with --enable-experimental-jit (allocate_executor)",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "aaa1523c81c653d5c89079e4a456b8d649146cb2c0a0dcfb2a0148de11e45240"
+  },
+  {
+    "number": 142554,
+    "title": "Out-of-bound Read in `pylong_int_divmod` via override `_pylong.int_divmod` method",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "382f13eec315213cada393500d91a73759a1448cf98f260dfe63edb2f6b0dd51"
+  },
+  {
+    "number": 142555,
+    "title": "`array`: `*_setitem` functions & co may crash on re-entrant `__index__`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c8f0e14818b65aca153065ff0fdc057657b406bd2389c5f4792b9d8286d2e35e"
+  },
+  {
+    "number": 142556,
+    "title": "Use-after-free in `asyncio` Task deallocation via re-registering task in `call_exception_handler`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d4fce42ccf95352bb4193bd779049fe799948f4201c36b8e473290c3ee3d9a16"
+  },
+  {
+    "number": 142557,
+    "title": "Use-after-free in `bytearray_mod` (bytes formatting) via re-entrant `__repr__` method",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d40f938493384f7d35adca44c1f5485faf26e92196be28012e78b1de863144fb"
+  },
+  {
+    "number": 142558,
+    "title": "Use-after-free in `bytearray.count` via re-entrant `__index__`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "97b1743dc6732a7d24eae9b69cf92a005f9d6d6dbf52dffa3b05e6b7bb807430"
+  },
+  {
+    "number": 142559,
+    "title": "Use-after-free in `bytearray.find` via re-entrant `__index__`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "9d67b93df163ee8d7a85221f234954c3c1cd7893df778cdc1a0c086e6c9c0c6f"
+  },
+  {
+    "number": 142560,
+    "title": "Use-after-free in `bytearray` search methods via re-entrant `__index__`",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e3088743bd8033ad264076cb576317b9d7e928b28a30090bd5d83900dd1f8b48"
+  },
+  {
+    "number": 142594,
+    "title": "Null pointer dereference in `TextIOWrapper.close()` via re-entrant `closed` property that detaches `buffer`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "751ce5231cdff4214cb92ad36c2fefc08734f598d6d6edd2cbd6c41f140d2f17"
+  },
+  {
+    "number": 142595,
+    "title": "Heap-buffer-overflow in `_decimal_exec` via overriding `collections.namedtuple`",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "462d76dbfff1f144dcc7c52f99cedc11082b331d6f0318f9f74c4660932c5f3d"
+  },
+  {
+    "number": 142629,
+    "title": "JIT: Global buffer overflow in `_PyUOpPrint` when running with `PYTHON_LLTRACE=4`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "71f03252eed5a696a04b61a0b19c07e1c13384be911b6d0f71002d7dfcf7c586"
+  },
+  {
+    "number": 142637,
+    "title": "Use-after-free in several `OrderedDict` operations via re-entrant `__eq__`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "59d018d957bdf8e9c22899efd58db1dd5451b201af77db8758cd786d594b561c"
+  },
+  {
+    "number": 142661,
+    "title": "Assertion failure at Python/instruction_sequence.c:121: `int _PyInstructionSequence_Addop(instr_sequence *, int, int, location): Assertion 'OPCODE_HAS_ARG(opcode) || HAS_TARGET(opcode) || oparg == 0' failed`",
+    "comments": 2,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "724675f5d0594c92cabfaf3558aa66ac1f3d287f6bbaa3d14c2295c2bdf39b59"
+  },
+  {
+    "number": 142663,
+    "title": "Use-after-free in `memoryview` comparison via re-entrant `struct.Struct.unpack_from`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f9f8be801a608c6ade4830f32e3c70c6c032d3edd29f3832f89380fadf623a27"
+  },
+  {
+    "number": 142664,
+    "title": "Use-after-free in `memoryview.__hash__` via re-entrant `__hash__`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3eddeaaeebca1f3a5b0b9f755f286116547afe8e3322b5189ee61f516516d3bb"
+  },
+  {
+    "number": 142665,
+    "title": "Use-after-free in `memoryview` slicing via re-entrant `__index__`",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3e1f178480b8445aa72a42c3674970cc1c18d4f63736d556c2c24bc83bd20039"
+  },
+  {
+    "number": 142717,
+    "title": "SEGV race condition with heapq in JIT",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "8b2fbe8f6315c0aa0124f1de4a8599436f9e741dac8181c4e608dc0a17c2fdcd"
+  },
+  {
+    "number": 142718,
+    "title": "SEGV at Python/generated_cases.c.h _PyEval_EvalFrameDefault in JIT",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "5cc4af1e03a83452288373f3c90ca5384559a92a22c98e3991675ef8cb7d2a2b"
+  },
+  {
+    "number": 142731,
+    "title": "Use-after-free in `builtin_delattr_impl` and `builtin_setattr_impl` via re-entrant `__hash__`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "6b70464f18b92c5851d560c884384b60a51ae97bcfeaaee7b98ba98619bbb522"
+  },
+  {
+    "number": 142732,
+    "title": "Use-after-free in `itertools.zip_longest_next/islice/batched` via re-entrant iterator",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d33e4eb66a6521cc41e0547d41ea375a01082dba22d3f7a27e1243acc27cf62a"
+  },
+  {
+    "number": 142734,
+    "title": "Use-after-free in `OrderedDict.copy` via re-entrant `__getitem__`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d45b90bf6e93e6d34029fb51b09412839eb4c6b7ddc4cb2ad6c3b5f7a8e8e255"
+  },
+  {
+    "number": 142736,
+    "title": "Assertion failure dis null byte",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "a18aab7ca00dcb0271a88fb088e3b0af7638c8a03b6cf03392c35ec94150cbf7"
+  },
+  {
+    "number": 142737,
+    "title": "assertion failure at Objects/call.c:618: `PyObject *callmethod(PyThreadState *, PyObject *, const char *, struct __va_list_tag *): Assertion 'callable != NULL' failed.`",
+    "comments": 4,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1904f2aabcff002b64bad402de9b69378703ff18b1e9706dd97133f44fa0dac9"
+  },
+  {
+    "number": 142781,
+    "title": "Type confusion in `zoneinfo_ZoneInfo_impl` via overridden cache `setdefault()`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e35e849e17392b17efb7c9a255f37257b75cf065ace8f44ecdcdf3f08b9bb938"
+  },
+  {
+    "number": 142782,
+    "title": "Use-after-free in `zone_from_strong_cache` via re-entrant `ZoneInfo.clear_cache()` from key `__eq__`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "ae4e0badbd8a34a53e41bb7316ccc4bb11bf27e32beb77e1cb387448f78892ce"
+  },
+  {
+    "number": 142783,
+    "title": "Use-after-free in `zoneinfo.get_weak_cache` via weak DECREF assumption",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "35c05ce495ed1414a9ca417024ac282d68da8ba9e677cad4f83cb2b494a5c2da"
+  },
+  {
+    "number": 142787,
+    "title": "assertion failure at Modules/_sqlite/blob.c:146: `PyObject *read_multiple(pysqlite_Blob *, Py_ssize_t, Py_ssize_t): Assertion 'offset < sqlite3_blob_bytes(self->blob)' failed`",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "415c12ea5f00fcac69b862fb23b68dbd45d3930c7878ef4fa0b742be29312841"
+  },
+  {
+    "number": 142828,
+    "title": "Use-after-free in `atexit.unregister` via re-entrant `__eq__`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "40d48d3473d9c80c3cc63b57ddbb24d7772e0d3edae532892a4269c1615d5d08"
+  },
+  {
+    "number": 142829,
+    "title": "Use-after-free in `Context.__eq__` via re-entrant `ContextVar.set`",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "76405dac4545e3e2ce04845aebce64b83e3ab905c1ccd66d1d16a8e6045f6849"
+  },
+  {
+    "number": 142830,
+    "title": "Use-after-free in `sqlite3` progress handler via re-entrant `__bool__`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a92f30dc9b16dc38e3b5e4faddecacedf39d3f7cc54765b44b3ebb2620103556"
+  },
+  {
+    "number": 142831,
+    "title": "Use-after-free in `json.encoder` mapping iteration via re-entrant key encoder",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ece4590ea7fdbc9225fc195506277db52adfbfacaa9e2ca0f61538219c3d1591"
+  },
+  {
+    "number": 142882,
+    "title": "Null pointer dereference in `II_setitem` via re-entrant `__index__` during `array.extend`",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e51d78d93410ef5df5fb09a60261b2a5027fcc80335e8ef0de3a8d16f38d9c3c"
+  },
+  {
+    "number": 142883,
+    "title": "Null pointer dereference in `array_repeat` via re-entrant `__index__` during array multiplication",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c10766d56531a793aa3ee3c4929d33c4223f5ff01e04663bc2bfb751e15e8472"
+  },
+  {
+    "number": 142884,
+    "title": "Null pointer dereference in `array.array.tofile` via reentrant writer",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ebc2e05e74d146efe49c4d8993fb54bce369851d4952dfbf2163a8cf7ddc410b"
+  },
+  {
+    "number": 142917,
+    "title": "memory leak `WARNING: invalid path to external symbolizer`",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "9b9a46afa6dbfc1f7074075eacebc1fbd71d91c539e182811d6283bb261f4144"
+  },
+  {
+    "number": 142985,
+    "title": "Build failure with `--enable-experimental-jit` and ASan: Memory leak in `allocate_executor` during module freezing",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "e250221b7498ec23c7b19dac3e7a55f7c42e49150933df4211cd1a297a9ddd04"
+  },
+  {
+    "number": 143003,
+    "title": "Global buffer overflow in `bytearray_extend` via misleading `__length_hint__`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d7e7537811261b5b1a87149a2c7f2dec5ac26ffa790a3e80dc528938d266e16c"
+  },
+  {
+    "number": 143004,
+    "title": "Use-after-free in `Counter.update` via re-entrant `__add__`",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "177ebe4611bdcd86dbd89db25bef093fd07724107dfa5207afe1cd9563ebf969"
+  },
+  {
+    "number": 143005,
+    "title": "Heap buffer overflow in ctypes array assignment via `__class__` swap",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "31fb4032eea254a434e609f0389e45939e2a7e9953fb97be803dde51b12243c2"
+  },
+  {
+    "number": 143006,
+    "title": "Type confusion in `float_richcompare` via re-entrant `__neg__`",
+    "comments": 7,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "46f7e2d373351ccea16cbe916e05d53a1dcb59365e4586f705fa322b0ce7bd30"
+  },
+  {
+    "number": 143007,
+    "title": "Null pointer dereference in `TextIOWrapper.seek` via re-entrant `__int__`",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3a0fad018896ef495aa20f3f6193a602833ec0325d6332c17e7feda280b85e3b"
+  },
+  {
+    "number": 143008,
+    "title": "Null pointer dereference in `TextIOWrapper.truncate` via re-entrant `flush`",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "06d5c101ffe5d18250aa6f1d9540d7205561ae483a6a632b79953143a4704769"
+  },
+  {
+    "number": 143195,
+    "title": "Use-after-free in `_Py_strhex_impl` via re-entrant `sep.__len__` in `bytearray.hex`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "547b1ea59a0f83eaeb16f39f51f0bc1e7352d2ac446e6164447cbddfecf8e502"
+  },
+  {
+    "number": 143196,
+    "title": "Heap-buffer-overflow in `json.encoder` indentation cache via re-entrant `__mul__`",
+    "comments": 8,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8b91699d94a707cc2cba743f12481f48e82cbba79d862f67adf9657e472bbf78"
+  },
+  {
+    "number": 143197,
+    "title": "Use-after-free in range iterator `__setstate__` via re-entrant `__mul__`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "cf7af6d3c3f1026115ccc2b7735fe557a8f72f1dccb77e43b37bd88b35d78edb"
+  },
+  {
+    "number": 143198,
+    "title": "Null pointer dereference in `_sqlite` cursor cache via re-entrant parameter iterator",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "79891b0be822ef3ab774129449f91b6be9ce33958f6a1a557bd41910a7f0a74d"
+  },
+  {
+    "number": 143200,
+    "title": "Null pointer dereference in `element_[ass_]subscr` via re-entrant calls",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a3fcb00cc0f21e1e137f2de06b67440b1f51e8b20a62e787505a6f7bef901658"
+  },
+  {
+    "number": 143236,
+    "title": "Use-after-free in `_PyEval_LoadName` via re-entrant frame locals lookup",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "26405b0c90c60a71e3b8baf9ee4d8e788eb369903f18aff79810f926507bf024"
+  },
+  {
+    "number": 143308,
+    "title": "Use-after-free in `save_picklebuffer` via re-entrant `buffer_callback` and `__bool__`",
+    "comments": 11,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "05b2253ac01af569a2bb11a668334af98465bad989f438b29bf0f589ae8f4a9a"
+  },
+  {
+    "number": 143309,
+    "title": "Use-after-free in `parse_envlist` via re-entrant `env.keys()` or `env.values()`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "59d3dd72132453a80177865d95ff84789c3544851bc1624d3e5b75a2f86a24c1"
+  },
+  {
+    "number": 143310,
+    "title": "Null pointer dereference in `_tkinter` `AsObj` via re-entrant `__str__`",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3f5b373f42e00ff64c080d28a3383806197be880d89cb6bdfc7d4fd1335ee18b"
+  },
+  {
+    "number": 143375,
+    "title": "Null pointer dereference in `BufferedWriter.seek` during re-entrant close",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1d44dd468e84c8153fd0c58603153c2416344884b9f39bff37259c0135994a6f"
+  },
+  {
+    "number": 143376,
+    "title": "Type confusion in `_channelid_shared` via unvalidated `_id` attribute",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "110c64d78dc8f3ec876a95b005e4d8027994b98aea1dec789f185dcdac8d3ad3"
+  },
+  {
+    "number": 143377,
+    "title": "Heap buffer overflow in `_format_TracebackException` when `TracebackException.format` omits newline",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "99a760fbbb7110a671a57153c0ba050e3900e1ca59212d8ffa2d86c6f4d167f1"
+  },
+  {
+    "number": 143378,
+    "title": "Use-after-free in `_io.BytesIO.writelines` via re-entrant `__buffer__` close",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "4ec2b6f8b9d7fd2b2daec6b77b63377ce6ddb71b5c63758d411785736e09d579"
+  },
+  {
+    "number": 143379,
+    "title": "Use-after-free in `s_pack_internal` via re-entrant `__bool__`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1d253a47a307b421d456e7af1221cab68dce8aed9de3852aaf5a1055d6a1d423"
+  },
+  {
+    "number": 143380,
+    "title": "Null pointer dereference in `_sqlite` execute via re-entrant sequence length",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a5e608451b868ac631ad79e2213b8a9bd27c8d27619c7dd7ebf19d99514315df"
+  },
+  {
+    "number": 143424,
+    "title": "Deadlock Assertion failure at Python/lock.c:128: PyLockStatus _PyMutex_LockTimed(PyMutex *, PyTime_t, _PyLockFlags): `Assertion '_Py_atomic_load_uint8_relaxed(&m->_bits) & _Py_LOCKED' failed`",
+    "comments": 2,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ec837ee7234fffcfc7f2121d79ad65b02985c67a6f2350c015ec6c64ed2a1bed"
+  },
+  {
+    "number": 143430,
+    "title": "Assertion failure at Objects/codeobject.c:1199: 'void advance_with_locations(PyCodeAddressRange *, int *, int *, int *): Assertion `bounds->opaque.lo_next <= bounds->opaque.limit .. ' failed`",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "05bf8c6ab24d066b06e0faad77a5290710f966556bf0453684674d75cce8551c"
+  },
+  {
+    "number": 143442,
+    "title": "`test_profiling` sometimes times out under TSan",
+    "comments": 2,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "50f3b201595d5f288f73ae6ab7acf7c6937c165938d35215ca95a893e4770098"
+  },
+  {
+    "number": 143543,
+    "title": "Use-after-free in `itertools.groupby` via re-entrant key comparison through `__eq__`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ec48fa83324c8ecf7b74afca4134d9f06f212ac359e0f6e9f6a62d60162a0743"
+  },
+  {
+    "number": 143544,
+    "title": "Use-after-free in `_json.raise_errmsg` via re-entrant `JSONDecodeError` hook",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "0bd89cc8ac0bd393afdac85d686baf66219873ea9af8f42cf9b0b87cfcec0964"
+  },
+  {
+    "number": 143545,
+    "title": "Use-after-free in lsprof `initContext` via re-entrant external timer `__index__`",
+    "comments": 2,
+    "diagnostic_source_records": 3,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "108f2e0fc112f0e02ebace5414f2e06f7413504403a6a2e98d24cafbab3a4015"
+  },
+  {
+    "number": 143546,
+    "title": "Heap buffer overflow in `set_clear_internal` via re-entrant `__eq__` during `set_iand`",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "91cda9a6f6710ece541b962fff571364df1700ca22bf0fefac1409b6b93192e1"
+  },
+  {
+    "number": 143547,
+    "title": "Use-after-free when `sys.unraisablehook` fails and falls back to default logger",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f894d6ecbf0a2df4f55af848dba6f1991e90a17ca4f61dd66a3da6da9f59383b"
+  },
+  {
+    "number": 143635,
+    "title": "Use-after-free in `_Py_typing_type_repr` via re-entrant `__origin__` lookup during `GenericAlias` repr",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "2ea9c35f22a9b709ddacf595f2c5a133546532f2c07724ef69aba7a16ce8874b"
+  },
+  {
+    "number": 143636,
+    "title": "Type confusion in `SimpleNamespace.__replace__` via re-entrant `__new__`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f561464f30986d145ddba9d3f55d1cf6be61f5960e4a3642b34d45d8a0488921"
+  },
+  {
+    "number": 143637,
+    "title": "Heap out-of-bound read in `socket.sendmsg` ancillary parser after re-entrant `__index__` clears the control list",
+    "comments": 8,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1176613fc284abab2ed5208320b52117a90fc4cd3c7c15c216e8d78bac373fba"
+  },
+  {
+    "number": 143638,
+    "title": "Use-after-free in pickle BUILD via re-entrant `__setitem__`",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f7bc5c6b3d1de82fab7d7354f9d0058656c168067c96fa27bfbde18274eaf4fd"
+  },
+  {
+    "number": 143639,
+    "title": "Use-after-free in `_pickle.load_setitem` via re-entrant key `__hash__`",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "ed6146be1a2a012dd5578ef56d3d6d5cb192e50d75b04984a1e8256bd605c7fe"
+  },
+  {
+    "number": 143640,
+    "title": "Termux on Android: Python/parking_lot.c:159:15: error: call to undeclared function 'sem_clockwait'",
+    "comments": 19,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "8ec8d738fdfbb888e63209c95665cc9b7c48841c700ec9cf4715256dcb921bfb"
+  },
+  {
+    "number": 143662,
+    "title": "Null pointer dereference in `cursor.fetchone` after re-entrant `text_factory` closes connection",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "824a059bfe2a25d86312a8114a26a27adc7a4cc089eb0b03323b09e75f005108"
+  },
+  {
+    "number": 143750,
+    "title": "Use OpenSSL instrumented with TSan for TSan tests",
+    "comments": 0,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "07da7554a54543732d2f354f12f481c294e0089f9543eddcdcadcde08eb979fe"
+  },
+  {
+    "number": 143751,
+    "title": "JIT: Segfault from setting `UOP_MAX_TRACE_LENGTH` to a large value",
+    "comments": 4,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 1,
+    "source_sha256": "731163a9a3d08f67119aac43426f4e165abcd2be5d650b1bec4fae659b7cbe85"
+  },
+  {
+    "number": 143756,
+    "title": "Data races in OpenSSL bindings",
+    "comments": 9,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f80367279613367e263de3885eba6b5e0867e1b8021cb7dfc36155300c52324a"
+  },
+  {
+    "number": 144067,
+    "title": "Document that it is unsafe to call `curses.initscr` after `curses.setupterm`",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "69b9a5563161d47b37ee38d79f71621d62002eba49752d51edfc3fbb3047ae4f"
+  },
+  {
+    "number": 144068,
+    "title": "Memory leak in _PyJit_TryInitializeTracing when daemon thread exits",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1ca6ff54cf8649649e89b379d26d89830cc35702b7291196aed1e8738bbd10b5"
+  },
+  {
+    "number": 144069,
+    "title": "Memory leak in _dbm.open (libdb) when file creation fails (ENOENT)",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e75d6ba2df63407ca7f476fe32fb54e23de6c1c7ce6bb6cd024d124a8c818dc1"
+  },
+  {
+    "number": 144100,
+    "title": "Assertion failed: typeinfo->proto in PyCPointerType_from_param_impl when using deprecated POINTER(str) in argtypes",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a1610a81a1e078d07982e68f8a0b52a2937dfc53912e4b53b640ebeacb30db7b"
+  },
+  {
+    "number": 144128,
+    "title": "CPython UaF during index callbacks",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "5afbf7d4d87f7f009ce9fb178aadc4489c5ba8e9dc965e3e3be1f29b7b8516b8"
+  },
+  {
+    "number": 144163,
+    "title": "Segfault in _testinternalcapi.assemble_code_object with LOAD_CLOSURE",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "19f1db0c4e33641d6503ca3edcf0f78f6fd84b2445063548323cf4f2c4076bb6"
+  },
+  {
+    "number": 144169,
+    "title": "ast: Segfault in node constructor when passing non-string keyword arguments",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "2a2bb3fae46def400193758b58267539c270c3960a149d795e9e0f9b36845ea1"
+  },
+  {
+    "number": 144172,
+    "title": "tracemalloc: Heap-use-after-free in _Py_IsImmortal when destroying subinterpreters while tracing",
+    "comments": 5,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "ae3c8127197e2fc0868dc519eda9ce2fcabac0debf12042a29c90955de6cac26"
+  },
+  {
+    "number": 144199,
+    "title": "Leak sanitizer errors when `--enable-profiling` is passed to `configure` during build",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 1,
+    "source_sha256": "de5450baeeeca5317e4dd47d1fc16e078b529407ce87b15c12f0afea5a310a07"
+  },
+  {
+    "number": 144206,
+    "title": "fcntl.ioctl raises SystemError: buffer overflow instead of ValueError when mutating undersized buffers",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f82890322f51ff59aef5b2100e5b984f7754b52ce71885984d5d52b870341448"
+  },
+  {
+    "number": 144280,
+    "title": "[JIT] Crash (SEGV) in optimizer_symbols.c:696 during symbolic truthiness analysis in Tier 2 uop optimizer",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8fb63f86aba63e735de735239b80cae49eac3e23ca3f49380c6332f66406032b"
+  },
+  {
+    "number": 144281,
+    "title": "SIGBUS (Invalid Write) in memory_ass_sub via multiprocessing.shared_memory during buffer assignment",
+    "comments": 8,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "07827f5cb8e718e47633f6ceb413706ec2d9a72e88d8e9687a8d636d45ca8120"
+  },
+  {
+    "number": 144282,
+    "title": "\"Fatal Python error: _PyEval_EvalFrameDefault: Executing a cache\" when prepending CACHE opcodes via code.replace",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "60e668ec4b70431322ff4e436c16a8e1cece475e34a2783b71b7194aef9fa3cc"
+  },
+  {
+    "number": 144356,
+    "title": "Data race in set iterator length_hint under no-gil",
+    "comments": 2,
+    "diagnostic_source_records": 3,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "46cb7571c75ea3506b9d0ef129cc3830199b0fea7ea154de0056db50b99c749e"
+  },
+  {
+    "number": 144475,
+    "title": "heap-buffer-overflow in functools.partial.__repr__()",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "5218c488de22d349d51157ff1895d6a6715f95c1307189e92f3bba90a4bac4e8"
+  },
+  {
+    "number": 144567,
+    "title": "`heap-use-after-free` running functions from `profiling.sampling` in free-threaded build",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "1cde1eba303d0fc76058c452a8a82e9908743f16c408274b55d4c508deffb9a8"
+  },
+  {
+    "number": 144759,
+    "title": "Uninitialized start and multi_line_start Causing Undefined Behavior - Pointer overflow",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "4a678f3f4473b1fb431255e9602d7c2f089b87c22f9cd3c5ff0792ae4a231c4f"
+  },
+  {
+    "number": 144833,
+    "title": "Use-after-free and type confusion in `newPySSLSocket()` when `SSL_new()` fails",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "6fa778e04c2afaf31c59e2f4c9108e1c6317aa70ce9b82a458bcfd2e2acc6991"
+  },
+  {
+    "number": 144922,
+    "title": "`array.tofile()` crashes due to use-after-free when `write()` callback modifies the array",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "6422a01c73bd8b64ffd42c5a17f060460c4ddc59bfdd15739cb5d38862001a78"
+  },
+  {
+    "number": 144984,
+    "title": "NULL deref + Double Py_DECREF in pyexpat ExternalEntityParserCreate()",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "94a3c99009bb7ca6571fe74083412eb50ca5037b5c58d5b40ef06402f15d8cec"
+  },
+  {
+    "number": 145036,
+    "title": "Possible data race in `list.__sizeof__()` with free-threading build",
+    "comments": 5,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "dde83dd9953f81ad5b91cbebe10e2b1ad5812cf335ba6d59a9f9104aa74196cf"
+  },
+  {
+    "number": 145199,
+    "title": "configure hangs with --with-address-sanitizer on macOS (conftest spins in __asan::InitializeShadowMemory)",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "742010745e5d0e5cd5f85c02327c6bd856eee052b38f7ee59922d69c363a210a"
+  },
+  {
+    "number": 145204,
+    "title": "Summary  When running _testembed under LeakSanitizer, test_initconfig_get_api reports a memory leak.",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "42546d0067f22cf26993f10e68bf6f6f3dd3d2fd74a6c27e1566262643766db4"
+  },
+  {
+    "number": 145272,
+    "title": "Data race in `func_set_code`",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c63c947f1d2aec3dd037a7269cc44feb3bbe4d03f773bc4062195467b544c9cf"
+  },
+  {
+    "number": 145301,
+    "title": "`_hashlib`: Use-After-Free + Double Free in `_hashopenssl.c` `py_hashentry_table_new()`",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "668f0fe110244b5e23c00e7d638c4f0a32f29a04bcf6d77f5980acbd6b2ef83a"
+  },
+  {
+    "number": 145933,
+    "title": "hmac_digest race condition with openssl 3.0.19 and Python 3.14t",
+    "comments": 10,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "641d8de2fa9bbb4fdf1b7752e6990dd5533f8917eb996a8a7f017ad44ee1824d"
+  },
+  {
+    "number": 146011,
+    "title": "heap-use-after-free in signaldict_repr: signaldict outlives its parent Context after explicit del",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "deabd0dbe598eaba53c3ba6dbde15ec4e49f223927e95a20412fb1de7beeef2f"
+  },
+  {
+    "number": 146196,
+    "title": "Undefined Behavior in _PyUnicodeWriter_WriteASCIIString: NULL pointer passed to memcpy when len is 0",
+    "comments": 8,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "bc15764e99e6b9a763e5e76bf74c04262a83fea67abf28051520952524697c8b"
+  },
+  {
+    "number": 146270,
+    "title": "`slot.__delete__()` behaves as non-atomic in free-threading",
+    "comments": 12,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "42ce6bb08eba56668a4194559dc6d1654764ae96132248b006f42bde40bdf634"
+  },
+  {
+    "number": 146452,
+    "title": "Segfault in _pickle.c:batch_dict_exact when pickling dict with concurrent mutation (free-threading)",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "145b259b106fe17fb076f29f2eac69daea7ad232e3f832bb2235696d306aa60e"
+  },
+  {
+    "number": 147998,
+    "title": "Avoid memory leak in `_pop_preserved()`",
+    "comments": 7,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d58efd223c601fc844157a079695c97838caace049c0b08d68e8d467332824d1"
+  },
+  {
+    "number": 148286,
+    "title": "Various UB warnings found by UBSan",
+    "comments": 4,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "077790b4422935ba75c7f5f925d65187d54ca019e5494bec913039aa99b10862"
+  },
+  {
+    "number": 148382,
+    "title": "`_decimal::CURRENT_CONTEXT`: UAF via borrowed reference across Python callbacks",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "aef1096d13a5047fb35e7c6aa905a1e7fd9cd40c69edd2e63df80368795268e1"
+  },
+  {
+    "number": 148484,
+    "title": "incomplete fix for memory leak in array.array",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "27637ca9c8873414b85cb1c5ea240b6410f989b9f979bea653096be80f6417e4"
+  },
+  {
+    "number": 148625,
+    "title": "Crash: use-after-free in `elementiter_next`",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "58644305d113fbe7679d4013a33a95e26f0fe92ef55de7bdfc5989d6acccc911"
+  },
+  {
+    "number": 148716,
+    "title": "Assertion 'probable_callable != NULL' in optimize_uops when sys.settrace is set and cleared before a type-unstable method call loop crosses the JIT threshold",
+    "comments": 2,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "3f71e344224c5c4a6687a768298036a7606cf705b88504c99d40178ae0e3043d"
+  },
+  {
+    "number": 148850,
+    "title": "Memory sanitizer generates false positives on data returned by os.getrandom()",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "081ddd9dadbd76da5a098624757b7894d3549e3a6423f60288c1f1b7064d3ae9"
+  },
+  {
+    "number": 149142,
+    "title": "_decimal: `mpd_context_t::status`/`traps` mutated non-atomically leading to data race",
+    "comments": 4,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c526507602d93cf06bba805d990de243013483717c3703df99e893244d2f52e3"
+  },
+  {
+    "number": 149816,
+    "title": "22 free-threading race conditions",
+    "comments": 18,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e40f85ded544a617ea53a7ad8b90b1212f5211e0e36eb293bf57603644ff03a5"
+  },
+  {
+    "number": 150191,
+    "title": "Data race in test_ssl.test_sni_callback_race",
+    "comments": 5,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "cf16cf861c4ed2d961c45c06dd2ee6d4888c7d8b9f66868ae8514788fe78a027"
+  },
+  {
+    "number": 150195,
+    "title": "Test failures on no-GIL interpreter macOS 26 ARM64 with UBSan",
+    "comments": 9,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "1ed4f66873c68c6d53d80d7414623cddd07af0e0126139bfae08ecced2fc4443"
+  },
+  {
+    "number": 150284,
+    "title": "TSan warnings with free-threaded interpreter on macOS 26 arm64 and Clang 22",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "97fab285d3b8cd044f00b7ad65bc90e113dff46708a2ef29acefa498dadf9928"
+  },
+  {
+    "number": 150467,
+    "title": "[Asan + msvc] Cpython build failed with error LNK2001: unresolved external symbol on windows",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "ec816ce48f3736496b67411a0bf56501061e4e643abea67f9e74edf6ea812b80"
+  },
+  {
+    "number": 150536,
+    "title": "Importing `readline` leaks memory on macOS",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f3108ea2827264fa6e3902355fb58c9ce33f7a91f438a81762a2587b3e0156e9"
+  },
+  {
+    "number": 150966,
+    "title": "test_profiling: test_run_failed_module_live() fails on AMD64 Arch Linux Asan 3.x",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8a92341cc78fc779d11b6f51f6659d11ee7a2b2301f35c7478a37f08f6c33ce2"
+  },
+  {
+    "number": 151046,
+    "title": "Use-after-free in _Unpickler_ReadIntoFromFile: temporary memoryview passed to readinto() can outlive its buffer",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "142537fc236f578978af1d1344d14dd023796b50f16ad99c0bb2e78d370ccf77"
+  },
+  {
+    "number": 151277,
+    "title": "TSan detects a data race when running test_ssl.test_sni_callback_race() on Free Threading",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "18c8f499bc411b19c8a5943cd023da74b7d35ea0a6004d75c6d75122ca860f00"
+  },
+  {
+    "number": 151403,
+    "title": "_posixsubprocess.fork_exec(): use-after-free if an argv item's __fspath__ mutates args",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "616ae6620a6bfca6adcf71f60aef939d1a907485f495f13efb96bfd35a4a0c35"
+  },
+  {
+    "number": 151593,
+    "title": "test_abc hangs on TSan Parallel Test on Free Threading",
+    "comments": 25,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 2,
+    "source_sha256": "f9fa2d1f6c66916dfb6ed12022f91a0eb75116d15d4c17f901466f3353399233"
+  },
+  {
+    "number": 151722,
+    "title": "Data race on frozendict reads during construction in the free-threading build",
+    "comments": 2,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "106cf6327eeaf8ea40e8d30c46350858ccd85090098cde8b559cf163c75a3412"
+  },
+  {
+    "number": 152741,
+    "title": "Data race between `sys._current_exceptions()` and a concurrently attaching thread",
+    "comments": 2,
+    "diagnostic_source_records": 3,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d69530a52da5b742c8d7e670b46068c54d06114146c7e80270c9033737e93445"
+  },
+  {
+    "number": 153014,
+    "title": "Data race on the GC debug flag (gc.set_debug/get_debug) in free-threading builds",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "9cbf2c124d4afa8ce81813d7513aa615df559d2f630e6ef386d51e754a47f3e4"
+  },
+  {
+    "number": 153201,
+    "title": "test_hashlib fails when run on Free Threading with TSAN",
+    "comments": 8,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 1,
+    "source_sha256": "83ec121e3b71b5ccf7027956b2efb5c19580179830adc84c885b47128e86ad7b"
+  },
+  {
+    "number": 153809,
+    "title": "asyncio: TaskObj_dealloc leaves a refcount-0 Task GC-tracked, hanging or crashing the free-threaded build",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "daa69b1aa977af19659310293e6d4fcb55d5875039193b1481158dac9fd512da"
+  },
+  {
+    "number": 153852,
+    "title": "Free-threading data races in CPython: 15 findings (9 new + 6 residual of existing FT work)",
+    "comments": 14,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3fea70d8cde10098f992ce4ff8135c853a2eea3215b93652974b2a18910e8425"
+  },
+  {
+    "number": 153908,
+    "title": "tsan-006: itertoolsmodule.c: count.__repr__ plain-reads cnt",
+    "comments": 4,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "14063e5ab44b3382d1c4986a5124a3aae0a017b8ca3136a55af261855776f887"
+  },
+  {
+    "number": 153928,
+    "title": "thread safety issues in unicodeobject.c",
+    "comments": 4,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8172e3643db4762665052ebf804470e41f9d1f2b5136da5ad833386dec3cddf2"
+  },
+  {
+    "number": 153981,
+    "title": "itertoolsmodule: free-threading use after free bug in counting slow mode",
+    "comments": 1,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a6cc56d345fa0aa22244645825d4afa2b8f19da51874c90dd8c4088ae78edb5c"
+  },
+  {
+    "number": 154043,
+    "title": "segfault in ga_iternext: sharing a types.GenericAlias iterator across threads double-frees under free-threading",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "faa4d4087156913a6668d9e466dace2a9dc304a0ecbb0f7c29d6c489acb5d136"
+  },
+  {
+    "number": 154044,
+    "title": "Data race + leak: descr_get_qualname lazily caches d_qualname without synchronization (free-threading)",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "6518af5d01c0445fe7badb39c4487384ea18b6d1dbe8d826d97d41a4382f36da"
+  },
+  {
+    "number": 154130,
+    "title": "Sharing a dict iterator across threads double-DECREFs di_dict under free-threading",
+    "comments": 6,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "9bfb9004a8543ee426abb507222aa61899a922787435138081ea203e55aa403e"
+  },
+  {
+    "number": 154189,
+    "title": "use-after-free: functools partial",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "43cb613e90cd575101e8a3e1099068174e19788125ee80ed151feeb0d30b1817"
+  },
+  {
+    "number": 154524,
+    "title": "Data race: ctypes `PyCData_NewGetBuffer` reads `b_ptr` without the critical section `_ctypes_resize` holds",
+    "comments": 3,
+    "diagnostic_source_records": 2,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "5a23875dee04cedc39fa9f400adeaf65f458306525f4866ac44fc301b916eff6"
+  },
+  {
+    "number": 154535,
+    "title": "Sharing a `contextvars.Context` iterator across threads crashes (HAMT iterator cursor corruption) under free-threading",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "c703ead70239a22701da2834aa79d8ded8853eca4df0b17507abd515e69b4f49"
+  },
+  {
+    "number": 154667,
+    "title": "`zipfile`: Inconsistent and insufficient date_time validation and handling across `ZipInfo` methods",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "11c2d2627dd31c0507f97a829a23e4bd52676091a00ced094571a4db626c93bd"
+  },
+  {
+    "number": 154756,
+    "title": "Data race in list.sort() on no-gil build",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "e8aa2c6871d8ad6240feda1d40244e6739e49c97c008e113dbb02efb6a58118d"
+  },
+  {
+    "number": 154821,
+    "title": "Race on func_get_name/func_set_name under free threading",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f5665bcc36824624cf8d10ef6cb0ad6c9be1190f61047a62a4300ccd4e7b7cbd"
+  },
+  {
+    "number": 154822,
+    "title": "Free-threading: data race on `interp->threads.head` in `handle_thread_shutdown_exception` (unlocked `assert` before `_PyEval_StopTheWorld`)",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "01805b95795b8a6064fa7a72adda9ca390b428c54f28b81cada31017376bd5d3"
+  },
+  {
+    "number": 156762,
+    "title": "`_operator`: `methodcaller_clear` has the wrong signature for the `tp_clear` slot (returns `void`, not `int`)",
+    "comments": 0,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ad665e41eadb3b642f121ee3aa6cf6f3e56737de2c27516bf6ae2d58042dc2c0"
+  },
+  {
+    "number": 54726,
+    "title": "test_concurrent_futures crashes with \"--with-pydebug\" on RHEL5 with \"Fatal Python error: Invalid thread state for this thread\"",
+    "comments": 38,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "425ae34c09cfb42a0cd44e7f02185d5e48b00023e92cdf09f74f25121320c724"
+  },
+  {
+    "number": 57894,
+    "title": "argparse update help msg  for % signs",
+    "comments": 7,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "d4af010d2d5eb0fbd8c5c673635a1d66a708cba4e81c3a0fadafd8540b8af6c8"
+  },
+  {
+    "number": 65128,
+    "title": "Undefined behavior flagged by Clang 3.4 (Python 3.4-RC3)",
+    "comments": 14,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "17e5c3f3dd499b37995167b261625891a2425ae3fe74dc137e0a7d53027df81d"
+  },
+  {
+    "number": 66234,
+    "title": "Fatal error in dbm.gdbm",
+    "comments": 12,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "2e1f64b9a0d8d0cd4dae5ee98435a4256e9fc0fdb4df53bf317759ef7a922448"
+  },
+  {
+    "number": 71757,
+    "title": "Avoid memcpy(. . ., NULL, 0) etc calls",
+    "comments": 7,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "319277a418eadfc20390fa91ab6c8c2430d2e7b536a596e942056c997a4ba80a"
+  },
+  {
+    "number": 72111,
+    "title": "ensurepip raises TypeError after pip uninstall",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "7b7b6f0b2987541ef8652eeb741f8992b6837ccd9898a79a87bd068cba0831f0"
+  },
+  {
+    "number": 72174,
+    "title": "obmalloc's 8-byte alignment causes undefined behavior",
+    "comments": 41,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ff3a81463d3fa80bf67f4139f7bf854dd9c9e31cfcf2f405d288273430e2e638"
+  },
+  {
+    "number": 73069,
+    "title": "Python 3.5.2 crashers (from PyPy)",
+    "comments": 15,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f9243b76381d55d593df2c02ea01a95d8550a60e6484d4d3a26c35e5e95d557c"
+  },
+  {
+    "number": 73331,
+    "title": "failing overflow checks in replace_*",
+    "comments": 22,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "2adfadac8c682cb7e45f23c48d47337f781670a6be96f56668be7a5a8d7a00b5"
+  },
+  {
+    "number": 75554,
+    "title": "demoting floating float values to unrepresentable types is undefined behavior",
+    "comments": 10,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "ea8e98dd0f4a92c75d1ecee66e51ab17a3b368d2324bbfa5cda6eb2d6d49f03c"
+  },
+  {
+    "number": 77756,
+    "title": "Python relies on C undefined behavior float-cast-overflow",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "dbcec477056d93fb8837b16347c908f2f7773f7bb0af35dfcbb00c576212a587"
+  },
+  {
+    "number": 77808,
+    "title": "test-complex of test_numeric_tower.test_complex() crashes intermittently on Ubuntu buildbots",
+    "comments": 14,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "933a7713a924e3dfb2c9ff89eb8939597865cd4738fc291b90649361ade6490d"
+  },
+  {
+    "number": 77813,
+    "title": "undefined behaviour: signed integer overflow in threadmodule.c",
+    "comments": 9,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "b1aaec2ed4053e3ff3c85399c6a8399f519a1a69c2cfaff463c463ba24170862"
+  },
+  {
+    "number": 79374,
+    "title": "Off by one error in peephole call to find_op on case RETURN_VALUE",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f5fe22284724f434fe7eeeb505a1bbab46fad34ad265b342c91f806fa6f23dab"
+  },
+  {
+    "number": 80434,
+    "title": "Use after free in ctypes test suite",
+    "comments": 4,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "8851d15e0e57e8d315d923dc2ba881250127a5971ec6cd20597ba1ed1382909f"
+  },
+  {
+    "number": 81319,
+    "title": "PEP 590 method_vectorcall calls memcpy with NULL src",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3358c45bc1f7bbf873076942d1780a034839abf991d90eca4f6de118d184c47b"
+  },
+  {
+    "number": 83870,
+    "title": "struct and memoryview tests rely on undefined behavior (as revealed by clang 9)",
+    "comments": 43,
+    "diagnostic_source_records": 3,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "77052428ba66a72fadfce2d1e9d60473b85510224a21fec749696abe4cd83fb4"
+  },
+  {
+    "number": 83957,
+    "title": "PyContextVar_Get(): crash due to race condition in updating tstate->id",
+    "comments": 25,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "fa9921cd1851c6e28389b8f437ae6b3bd769b1562c41ac46d09a03d47d8b061a"
+  },
+  {
+    "number": 85863,
+    "title": "Heap buffer overflow in the parser",
+    "comments": 19,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "4ee5d34aa377cc04b05319fbbd63d11712e770b4af6f0b32cae34044dcec35ea"
+  },
+  {
+    "number": 86434,
+    "title": "./configure failing when --with-memory-sanitizer specified",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "2a59f9ce0221382596b68eba64a166d04b3433f716fb368f5dd4759e264abf07"
+  },
+  {
+    "number": 86863,
+    "title": "3.8.7rc1 regression: 'free(): invalid pointer' after running backports-zoneinfo test suite",
+    "comments": 13,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "0e7ca5e1c525f086e48c9eb9ded8ab84bde7a06db531a4b0d87e5e31bddf7511"
+  },
+  {
+    "number": 88350,
+    "title": "crash on windows invoking flake8",
+    "comments": 45,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "a96fc486a65d32297109eebb6a4abe85ef22ea4969d5ba0b9e7fd153b77319a9"
+  },
+  {
+    "number": 89359,
+    "title": "macOS. ./configure --with-address-sanitizer; make test; cause test case crash.",
+    "comments": 5,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "6f3af8f4fa33a78daf871816d5530ff08a71637f8d960ad2df168e66811c3001"
+  },
+  {
+    "number": 89363,
+    "title": "Address Sanitizer: libasan dead lock in pthread_create() (test_multiprocessing_fork.test_get() hangs)",
+    "comments": 15,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3fdecd21d652356274c1088c6d98cbb2c038c654ed1440cd16cfbdc032d50223"
+  },
+  {
+    "number": 89391,
+    "title": "Stack buffer overflow in parsing J1939 network address",
+    "comments": 4,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "d9aba545573234447b03b3cc98b8d30926bf815249fb16ebb87668a2cdb5371f"
+  },
+  {
+    "number": 89571,
+    "title": "[fuzzer] Weird input with continuation and newlines causes null deref in parser",
+    "comments": 6,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "f619eca8d149c2111540ac3a61b1eb898c769e73da1400e230e9ec885abbb055"
+  },
+  {
+    "number": 89657,
+    "title": "[fuzzer] Parser null deref with continuation characters and generator parenthesis error",
+    "comments": 12,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "3a533002141672f82bd475ba78d0606ba333334f9f02a1fabbe2d5e959097f14"
+  },
+  {
+    "number": 89737,
+    "title": "Warning: \u2018print_escape\u2019 defined but not used",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "97475ab0ba924219231f53817812a0b86c6fc10f99e212f488074bfded030f1c"
+  },
+  {
+    "number": 93619,
+    "title": "Linking error when building 3.11 beta on mips64le",
+    "comments": 3,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "53f674238b02504044309d707fb3e9a87b33b2c6e2b05b1689677cfac2742059"
+  },
+  {
+    "number": 93981,
+    "title": "Address Sanitizer: some test function of test.test_concurrent_futures  fail",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "c8c2760ff667702cf5d9e1e8193aa6ada1640ea60a9d1cf1d685c3c6da6b0a14"
+  },
+  {
+    "number": 94064,
+    "title": "ASAN : Memory leak found in python3.9.9 regrtest",
+    "comments": 8,
+    "diagnostic_source_records": 3,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "85610e36b64707edac87a65c1fa0e1784002c3c2189c6525e693ef3b77cb2232"
+  },
+  {
+    "number": 94404,
+    "title": "makesetup can fail on macOS and uses wrong CFLAGS",
+    "comments": 0,
+    "diagnostic_source_records": 0,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "67fb8d6681ecbb06973ea7aba319daa394c6f8de1bc44a86350163de1db0fc18"
+  },
+  {
+    "number": 95635,
+    "title": "make test fails; executable works; runtime error in background",
+    "comments": 13,
+    "diagnostic_source_records": 3,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 4,
+    "source_sha256": "7c80ee0bc4b2d1a89ef9ab544ccf293c752fde64fdcdf8ee9b1f393b1e172f39"
+  },
+  {
+    "number": 96569,
+    "title": "undefined behavior: tstate->datastack_top == NULL",
+    "comments": 27,
+    "diagnostic_source_records": 1,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "b98df2929967b01bd3c612d428206ed1fc8879c9834c96a85855e57b2d77cb7b"
+  },
+  {
+    "number": 96572,
+    "title": "Use after free in 3.11",
+    "comments": 13,
+    "diagnostic_source_records": 2,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "6ed594b50d5667793d0ab4f21eac68117042165720fec67c1d82902753c92b93"
+  },
+  {
+    "number": 96678,
+    "title": "Undefined behaviour in `main` and 3.11",
+    "comments": 36,
+    "diagnostic_source_records": 3,
+    "has_fix_references": true,
+    "fix_data_collected": true,
+    "attachments": 0,
+    "source_sha256": "0c874c28d65e14017f457ba471ff76c7502ffdc0bfa7d5c44db5f7b21f3555eb"
+  },
+  {
+    "number": 96714,
+    "title": "Wild pointer detected with ASAN during source build",
+    "comments": 1,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 1,
+    "source_sha256": "c95d47ae3d8c63333d5f3daa19890741326cb246618c7ee24846136628d92bcb"
+  },
+  {
+    "number": 96735,
+    "title": "Undefined behavior in `struct.unpack`",
+    "comments": 3,
+    "diagnostic_source_records": 1,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "d7bfffedcc7dab89bf0042486fbd380e1e2049136c11149c4e43c87bf69178b9"
+  },
+  {
+    "number": 98249,
+    "title": "/bin/sh: 1: python: not found",
+    "comments": 1,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "1609b772fa7572fcc75fa56af8ed528fe307fd2a476c842c82d90f765ee27abd"
+  },
+  {
+    "number": 99974,
+    "title": "Leak 21~42 bits of heap data in python 3.12 by exploiting the code object co_positions iterator",
+    "comments": 6,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "fdfac369d57b1f9ab7e6ed9359ee0d9a67eb25de397d2d01b07be93cb8566ac9"
+  },
+  {
+    "number": 99975,
+    "title": "Out of bound read of two bytes in 3.10 if code object `co_lnotab = b'\\0'`",
+    "comments": 4,
+    "diagnostic_source_records": 0,
+    "has_fix_references": false,
+    "fix_data_collected": false,
+    "attachments": 0,
+    "source_sha256": "dd6f1f696e070c2bb393efef007f513674fe10a74cdb0bab4b45ee95ab145eb9"
+  }
+]

@@ -1,0 +1,166 @@
+==41884== Memcheck, a memory error detector
+==41884== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==41884== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==41884== Command: ./a.out
+==41884== 
+==41884== 
+==41884== HEAP SUMMARY:
+==41884==     in use at exit: 408,136 bytes in 15 blocks
+==41884==   total heap usage: 7,822 allocs, 7,807 frees, 20,756,092 bytes allocated
+==41884== 
+==41884== 20 bytes in 1 blocks are still reachable in loss record 1 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A58E07: _PyMem_RawWcsdup (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2AF1B: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B321D7: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32EC3: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== 20 bytes in 1 blocks are still reachable in loss record 2 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A58E07: _PyMem_RawWcsdup (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2AF3F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B321D7: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32EC3: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== 32 bytes in 1 blocks are still reachable in loss record 3 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A58E07: _PyMem_RawWcsdup (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2AF87: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B321D7: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32EC3: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== 68 bytes in 1 blocks are still reachable in loss record 4 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A58E07: _PyMem_RawWcsdup (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2AFCB: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B321D7: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32EC3: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== 80 bytes in 1 blocks are still reachable in loss record 5 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A58E07: _PyMem_RawWcsdup (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2AF63: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B321D7: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32EC3: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== 304 bytes in 1 blocks are still reachable in loss record 6 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4B2B03F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B321D7: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32EC3: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== 768 bytes in 1 blocks are still reachable in loss record 7 of 13
+==41884==    at 0x4864F48: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A5F6FB: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A5F813: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B5C217: _PyObject_GC_New (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A3243F: PyList_New (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2CAA7: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4C4B6BB: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32E2B: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== 1,332 bytes in 2 blocks are still reachable in loss record 8 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A5F81F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A8663F: PyUnicode_New (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A8FBCB: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A71E47: PyType_Ready (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2ADEF: PyModule_AddType (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4C0F1C3: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A5668F: PyModule_ExecDef (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B19563: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A558B3: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x499A7AB: _PyEval_EvalFrameDefault (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4AF151B: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884== 
+==41884== 1,520 bytes in 1 blocks are still reachable in loss record 9 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A5F81F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A45A53: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A45C13: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A47087: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A71E63: PyType_Ready (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2ADEF: PyModule_AddType (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4BF043F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A5668F: PyModule_ExecDef (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B19563: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A558B3: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x499A7AB: _PyEval_EvalFrameDefault (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884== 
+==41884== 1,536 bytes in 2 blocks are still reachable in loss record 10 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A5F81F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A45A53: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A45C13: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A47F4F: PyDict_SetDefault (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A71D1F: PyType_Ready (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2C27F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2F157: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4C4B6BB: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32E2B: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== 9,240 bytes in 1 blocks are still reachable in loss record 11 of 13
+==41884==    at 0x4865058: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A5F81F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A45A53: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A45C13: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A47087: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A71A3F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A72307: PyType_Ready (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2ADEF: PyModule_AddType (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4C0F1C3: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A5668F: PyModule_ExecDef (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B19563: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A558B3: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884== 
+==41884== 131,072 bytes in 1 blocks are still reachable in loss record 12 of 13
+==41884==    at 0x4869F34: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A5894B: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A5F50F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A5F813: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B5C217: _PyObject_GC_New (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A3243F: PyList_New (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2CAA7: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4C4B6BB: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32E2B: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== 262,144 bytes in 1 blocks are still reachable in loss record 13 of 13
+==41884==    at 0x4869F34: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==41884==    by 0x4A58993: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A5F50F: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A5F813: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B5C217: _PyObject_GC_New (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4A3243F: PyList_New (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B2CAA7: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4C4B6BB: ??? (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B32E2B: Py_InitializeFromConfig (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x4B38387: Py_InitializeEx (in /usr/lib/aarch64-linux-gnu/libpython3.11.so.1.0)
+==41884==    by 0x1087EF: main (test.c:4)
+==41884== 
+==41884== LEAK SUMMARY:
+==41884==    definitely lost: 0 bytes in 0 blocks
+==41884==    indirectly lost: 0 bytes in 0 blocks
+==41884==      possibly lost: 0 bytes in 0 blocks
+==41884==    still reachable: 408,136 bytes in 15 blocks
+==41884==         suppressed: 0 bytes in 0 blocks
+==41884== 
+==41884== For lists of detected and suppressed errors, rerun with: -s
+==41884== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

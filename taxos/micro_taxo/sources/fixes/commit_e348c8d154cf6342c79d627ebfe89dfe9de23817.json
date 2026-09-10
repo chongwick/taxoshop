@@ -1,0 +1,101 @@
+{
+  "sha": "e348c8d154cf6342c79d627ebfe89dfe9de23817",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6ZTM0OGM4ZDE1NGNmNjM0MmM3OWQ2MjdlYmZlODlkZmU5ZGUyMzgxNw==",
+  "commit": {
+    "author": {
+      "name": "Gregory P. Smith",
+      "email": "greg@krypto.org",
+      "date": "2012-12-11T02:05:05Z"
+    },
+    "committer": {
+      "name": "Gregory P. Smith",
+      "email": "greg@krypto.org",
+      "date": "2012-12-11T02:05:05Z"
+    },
+    "message": "Using 'long double' to force this structure to be worst case aligned is no\nlonger required as of Python 2.5+ when the gc_refs changed from an int (4\nbytes) to a Py_ssize_t (8 bytes) as the minimum size is 16 bytes.\n\nThe use of a 'long double' triggered a warning by Clang trunk's\nUndefined-Behavior Sanitizer as on many platforms a long double requires\n16-byte alignment but the Python memory allocator only guarantees 8 byte\nalignment.\n\nSo our code would allocate and use these structures with technically improper\nalignment.  Though it didn't matter since the 'dummy' field is never used.\nThis silences that warning.\n\nSpelunking into code history, the double was added in 2001 to force better\nalignment on some platforms and changed to a long double in 2002 to appease\nTru64.  That issue should no loner be present since the upgrade from int to\nPy_ssize_t where the minimum structure size increased to 16 (unless anyone\nknows of a platform where ssize_t is 4 bytes?) or 24 bytes depending on if the\nbuild uses 4 or 8 byte pointers.\n\nWe can probably get rid of the double and this union hack all together today.\nThat is a slightly more invasive change that can be left for later.\n\nA more correct non-hacky alternative if any alignment issues are still found\nwould be to use a compiler specific alignment declaration on the structure and\ndetermine which value to use at configure time.",
+    "tree": {
+      "sha": "2618f5fc462afe4c17bb3d71beeec2a330bc8362",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/2618f5fc462afe4c17bb3d71beeec2a330bc8362"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/e348c8d154cf6342c79d627ebfe89dfe9de23817",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/e348c8d154cf6342c79d627ebfe89dfe9de23817",
+  "html_url": "https://github.com/python/cpython/commit/e348c8d154cf6342c79d627ebfe89dfe9de23817",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/e348c8d154cf6342c79d627ebfe89dfe9de23817/comments",
+  "author": {
+    "login": "gpshead",
+    "id": 68491,
+    "node_id": "MDQ6VXNlcjY4NDkx",
+    "avatar_url": "https://avatars.githubusercontent.com/u/68491?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/gpshead",
+    "html_url": "https://github.com/gpshead",
+    "followers_url": "https://api.github.com/users/gpshead/followers",
+    "following_url": "https://api.github.com/users/gpshead/following{/other_user}",
+    "gists_url": "https://api.github.com/users/gpshead/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/gpshead/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/gpshead/subscriptions",
+    "organizations_url": "https://api.github.com/users/gpshead/orgs",
+    "repos_url": "https://api.github.com/users/gpshead/repos",
+    "events_url": "https://api.github.com/users/gpshead/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/gpshead/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "gpshead",
+    "id": 68491,
+    "node_id": "MDQ6VXNlcjY4NDkx",
+    "avatar_url": "https://avatars.githubusercontent.com/u/68491?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/gpshead",
+    "html_url": "https://github.com/gpshead",
+    "followers_url": "https://api.github.com/users/gpshead/followers",
+    "following_url": "https://api.github.com/users/gpshead/following{/other_user}",
+    "gists_url": "https://api.github.com/users/gpshead/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/gpshead/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/gpshead/subscriptions",
+    "organizations_url": "https://api.github.com/users/gpshead/orgs",
+    "repos_url": "https://api.github.com/users/gpshead/repos",
+    "events_url": "https://api.github.com/users/gpshead/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/gpshead/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "60112ae319c5d95e74dafe6c67c04d01f50d965a",
+      "url": "https://api.github.com/repos/python/cpython/commits/60112ae319c5d95e74dafe6c67c04d01f50d965a",
+      "html_url": "https://github.com/python/cpython/commit/60112ae319c5d95e74dafe6c67c04d01f50d965a"
+    }
+  ],
+  "stats": {
+    "total": 2,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "b577be2df3b5fd0a7527fa15176d445c5048e796",
+      "filename": "Include/objimpl.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/e348c8d154cf6342c79d627ebfe89dfe9de23817/Include%2Fobjimpl.h",
+      "raw_url": "https://github.com/python/cpython/raw/e348c8d154cf6342c79d627ebfe89dfe9de23817/Include%2Fobjimpl.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fobjimpl.h?ref=e348c8d154cf6342c79d627ebfe89dfe9de23817",
+      "patch": "@@ -251,7 +251,7 @@ typedef union _gc_head {\n         union _gc_head *gc_prev;\n         Py_ssize_t gc_refs;\n     } gc;\n-    long double dummy;  /* force worst-case alignment */\n+    double dummy;  /* force worst-case alignment */\n } PyGC_Head;\n \n extern PyGC_Head *_PyGC_generation0;"
+    }
+  ]
+}

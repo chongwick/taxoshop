@@ -1,0 +1,137 @@
+{
+  "sha": "298ee657ab8170adf75a186c0414b7ca3baf1991",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6Mjk4ZWU2NTdhYjgxNzBhZGY3NWExODZjMDQxNGI3Y2EzYmFmMTk5MQ==",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2021-07-15T23:36:51Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-07-15T23:36:51Z"
+    },
+    "message": "bpo-44184: Fix subtype_dealloc() for freed type (GH-26274)\n\n\nFix a crash at Python exit when a deallocator function removes the\nlast strong reference to a heap type.\n\nDon't read type memory after calling basedealloc() since\nbasedealloc() can deallocate the type and free its memory.\n\n_PyMem_IsPtrFreed() argument is now constant.\n(cherry picked from commit 615069eb08494d089bf24e43547fbc482ed699b8)\n\nCo-authored-by: Victor Stinner <vstinner@python.org>",
+    "tree": {
+      "sha": "17307435e9ee9871f12df489ea194d102f9dc13f",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/17307435e9ee9871f12df489ea194d102f9dc13f"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/298ee657ab8170adf75a186c0414b7ca3baf1991",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJg8MaTCRBK7hj4Ov3rIwAA0KMIAGQAWrborCdpDqfy+r+BIPDz\nKSgGSZz+QPMuOWHAGUBsLtBNZg7yPYKJQGwCAnDmogjB3RQjLOX8LDmQEEWFiUri\nNWNziWTYq43YvW5m1t6dwNBeMWale9HYOntf6jbFgi6sVGQK+Vsizl3E+dp/BApe\nnP+Y3wU3a6B6ImJ4sdJqw1pjz9+5/vSQtHUIz7Li30iIHMlpg7Hv395RQX5I4aX3\nGJLKr6nUOCu2XifvtKPyE1nWm7nnZ4Tk5+MfzKDC63xfQHMwkrL11Q60TKHktZtc\nWednk4F15xUm7BGhnS8aeTQ2s4qUeEuLQ0wrMnooZwesVkIGO4RZNMIFHMW49cY=\n=wDUT\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 17307435e9ee9871f12df489ea194d102f9dc13f\nparent 0b4704973dbef712d05bdd62349bb4244f545430\nauthor Miss Islington (bot) <31488909+miss-islington@users.noreply.github.com> 1626392211 -0700\ncommitter GitHub <noreply@github.com> 1626392211 -0700\n\nbpo-44184: Fix subtype_dealloc() for freed type (GH-26274)\n\n\nFix a crash at Python exit when a deallocator function removes the\nlast strong reference to a heap type.\n\nDon't read type memory after calling basedealloc() since\nbasedealloc() can deallocate the type and free its memory.\n\n_PyMem_IsPtrFreed() argument is now constant.\n(cherry picked from commit 615069eb08494d089bf24e43547fbc482ed699b8)\n\nCo-authored-by: Victor Stinner <vstinner@python.org>",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/298ee657ab8170adf75a186c0414b7ca3baf1991",
+  "html_url": "https://github.com/python/cpython/commit/298ee657ab8170adf75a186c0414b7ca3baf1991",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/298ee657ab8170adf75a186c0414b7ca3baf1991/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "0b4704973dbef712d05bdd62349bb4244f545430",
+      "url": "https://api.github.com/repos/python/cpython/commits/0b4704973dbef712d05bdd62349bb4244f545430",
+      "html_url": "https://github.com/python/cpython/commit/0b4704973dbef712d05bdd62349bb4244f545430"
+    }
+  ],
+  "stats": {
+    "total": 50,
+    "additions": 46,
+    "deletions": 4
+  },
+  "files": [
+    {
+      "sha": "9bcb5f5efd742964d31f3d477ded029a60c757cd",
+      "filename": "Include/internal/pycore_pymem.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/298ee657ab8170adf75a186c0414b7ca3baf1991/Include%2Finternal%2Fpycore_pymem.h",
+      "raw_url": "https://github.com/python/cpython/raw/298ee657ab8170adf75a186c0414b7ca3baf1991/Include%2Finternal%2Fpycore_pymem.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Finternal%2Fpycore_pymem.h?ref=298ee657ab8170adf75a186c0414b7ca3baf1991",
+      "patch": "@@ -42,7 +42,7 @@ PyAPI_FUNC(int) _PyMem_SetDefaultAllocator(\n    fills newly allocated memory with CLEANBYTE (0xCD) and newly freed memory\n    with DEADBYTE (0xDD). Detect also \"untouchable bytes\" marked\n    with FORBIDDENBYTE (0xFD). */\n-static inline int _PyMem_IsPtrFreed(void *ptr)\n+static inline int _PyMem_IsPtrFreed(const void *ptr)\n {\n     uintptr_t value = (uintptr_t)ptr;\n #if SIZEOF_VOID_P == 8"
+    },
+    {
+      "sha": "59cff20e6a7e7ffa4bb996790dc7977f994ac6f6",
+      "filename": "Lib/test/test_gc.py",
+      "status": "modified",
+      "additions": 33,
+      "deletions": 1,
+      "changes": 34,
+      "blob_url": "https://github.com/python/cpython/blob/298ee657ab8170adf75a186c0414b7ca3baf1991/Lib%2Ftest%2Ftest_gc.py",
+      "raw_url": "https://github.com/python/cpython/raw/298ee657ab8170adf75a186c0414b7ca3baf1991/Lib%2Ftest%2Ftest_gc.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_gc.py?ref=298ee657ab8170adf75a186c0414b7ca3baf1991",
+      "patch": "@@ -1360,6 +1360,34 @@ def __del__(self):\n             # empty __dict__.\n             self.assertEqual(x, None)\n \n+\n+class PythonFinalizationTests(unittest.TestCase):\n+    def test_ast_fini(self):\n+        # bpo-44184: Regression test for subtype_dealloc() when deallocating\n+        # an AST instance also destroy its AST type: subtype_dealloc() must\n+        # not access the type memory after deallocating the instance, since\n+        # the type memory can be freed as well. The test is also related to\n+        # _PyAST_Fini() which clears references to AST types.\n+        code = textwrap.dedent(\"\"\"\n+            import ast\n+            import codecs\n+\n+            # Small AST tree to keep their AST types alive\n+            tree = ast.parse(\"def f(x, y): return 2*x-y\")\n+            x = [tree]\n+            x.append(x)\n+\n+            # Put the cycle somewhere to survive until the last GC collection.\n+            # Codec search functions are only cleared at the end of\n+            # interpreter_clear().\n+            def search_func(encoding):\n+                return None\n+            search_func.a = x\n+            codecs.register(search_func)\n+        \"\"\")\n+        assert_python_ok(\"-c\", code)\n+\n+\n def test_main():\n     enabled = gc.isenabled()\n     gc.disable()\n@@ -1369,7 +1397,11 @@ def test_main():\n \n     try:\n         gc.collect() # Delete 2nd generation garbage\n-        run_unittest(GCTests, GCTogglingTests, GCCallbackTests)\n+        run_unittest(\n+            GCTests,\n+            GCCallbackTests,\n+            GCTogglingTests,\n+            PythonFinalizationTests)\n     finally:\n         gc.set_debug(debug)\n         # test gc.enable() even if GC is disabled by default"
+    },
+    {
+      "sha": "3aba9a58475c61fd67a85d05cbfa53c122f8c5fc",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2021-05-21-01-42-45.bpo-44184.9qOptC.rst",
+      "status": "added",
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/298ee657ab8170adf75a186c0414b7ca3baf1991/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-05-21-01-42-45.bpo-44184.9qOptC.rst",
+      "raw_url": "https://github.com/python/cpython/raw/298ee657ab8170adf75a186c0414b7ca3baf1991/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-05-21-01-42-45.bpo-44184.9qOptC.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-05-21-01-42-45.bpo-44184.9qOptC.rst?ref=298ee657ab8170adf75a186c0414b7ca3baf1991",
+      "patch": "@@ -0,0 +1,3 @@\n+Fix a crash at Python exit when a deallocator function removes the last strong\n+reference to a heap type.\n+Patch by Victor Stinner."
+    },
+    {
+      "sha": "f201515d7db330138c911739168e8709bfff30ed",
+      "filename": "Objects/typeobject.c",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 2,
+      "changes": 11,
+      "blob_url": "https://github.com/python/cpython/blob/298ee657ab8170adf75a186c0414b7ca3baf1991/Objects%2Ftypeobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/298ee657ab8170adf75a186c0414b7ca3baf1991/Objects%2Ftypeobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Ftypeobject.c?ref=298ee657ab8170adf75a186c0414b7ca3baf1991",
+      "patch": "@@ -1341,15 +1341,22 @@ subtype_dealloc(PyObject *self)\n     if (_PyType_IS_GC(base)) {\n         _PyObject_GC_TRACK(self);\n     }\n+\n+    // Don't read type memory after calling basedealloc() since basedealloc()\n+    // can deallocate the type and free its memory.\n+    int type_needs_decref = (type->tp_flags & Py_TPFLAGS_HEAPTYPE\n+                             && !(base->tp_flags & Py_TPFLAGS_HEAPTYPE));\n+\n     assert(basedealloc);\n     basedealloc(self);\n \n     /* Can't reference self beyond this point. It's possible tp_del switched\n        our type from a HEAPTYPE to a non-HEAPTYPE, so be careful about\n        reference counting. Only decref if the base type is not already a heap\n        allocated type. Otherwise, basedealloc should have decref'd it already */\n-    if (type->tp_flags & Py_TPFLAGS_HEAPTYPE && !(base->tp_flags & Py_TPFLAGS_HEAPTYPE))\n-      Py_DECREF(type);\n+    if (type_needs_decref) {\n+        Py_DECREF(type);\n+    }\n \n   endlabel:\n     Py_TRASHCAN_END"
+    }
+  ]
+}

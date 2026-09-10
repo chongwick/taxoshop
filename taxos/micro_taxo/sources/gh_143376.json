@@ -1,0 +1,108 @@
+{
+  "retrieved_at": "2026-09-10T13:09:47.881154+00:00",
+  "issue": {
+    "url": "https://api.github.com/repos/python/cpython/issues/143376",
+    "repository_url": "https://api.github.com/repos/python/cpython",
+    "labels_url": "https://api.github.com/repos/python/cpython/issues/143376/labels{/name}",
+    "comments_url": "https://api.github.com/repos/python/cpython/issues/143376/comments",
+    "events_url": "https://api.github.com/repos/python/cpython/issues/143376/events",
+    "html_url": "https://github.com/python/cpython/issues/143376",
+    "id": 3777650309,
+    "node_id": "I_kwDOBN0Z8c7hKl6F",
+    "number": 143376,
+    "title": "Type confusion in `_channelid_shared` via unvalidated `_id` attribute",
+    "user": {
+      "login": "jackfromeast",
+      "id": 51242003,
+      "node_id": "MDQ6VXNlcjUxMjQyMDAz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51242003?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jackfromeast",
+      "html_url": "https://github.com/jackfromeast",
+      "followers_url": "https://api.github.com/users/jackfromeast/followers",
+      "following_url": "https://api.github.com/users/jackfromeast/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jackfromeast/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jackfromeast/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jackfromeast/subscriptions",
+      "organizations_url": "https://api.github.com/users/jackfromeast/orgs",
+      "repos_url": "https://api.github.com/users/jackfromeast/repos",
+      "events_url": "https://api.github.com/users/jackfromeast/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jackfromeast/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 4018672955,
+        "node_id": "LA_kwDOBN0Z8c7viBU7",
+        "url": "https://api.github.com/repos/python/cpython/labels/extension-modules",
+        "name": "extension-modules",
+        "color": "09fc59",
+        "default": false,
+        "description": "C modules in the Modules dir"
+      },
+      {
+        "id": 4018848914,
+        "node_id": "LA_kwDOBN0Z8c7visSS",
+        "url": "https://api.github.com/repos/python/cpython/labels/type-crash",
+        "name": "type-crash",
+        "color": "b60205",
+        "default": false,
+        "description": "A hard crash of the interpreter, possibly with a core dump"
+      },
+      {
+        "id": 4018993468,
+        "node_id": "LA_kwDOBN0Z8c7vjPk8",
+        "url": "https://api.github.com/repos/python/cpython/labels/topic-subinterpreters",
+        "name": "topic-subinterpreters",
+        "color": "0052cc",
+        "default": false,
+        "description": ""
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignees": [],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2026-01-03T04:07:14Z",
+    "updated_at": "2026-03-28T14:15:45Z",
+    "closed_at": null,
+    "assignee": null,
+    "author_association": "NONE",
+    "issue_field_values": [],
+    "type": null,
+    "active_lock_reason": null,
+    "sub_issues_summary": {
+      "total": 0,
+      "completed": 0,
+      "percent_completed": 0
+    },
+    "issue_dependencies_summary": {
+      "blocked_by": 0,
+      "total_blocked_by": 0,
+      "blocking": 0,
+      "total_blocking": 0
+    },
+    "body": "### What happened?\n\n`_channelend_shared` trusts an end's `_id` attribute and hands it to `_channelid_shared`, which blindly treats the object as a `_ChannelID` struct; a crafted end type can return an arbitrary tiny object, so the decoder misinterprets memory layout and walks past the allocation, producing a type confusion that ends in a heap buffer overflow.\n\n**Proof of Concept:**\n\n```python\nimport _interpchannels as ch\nimport _interpreters\n\nclass Tiny:\n    __slots__ = ()\n\ntiny = Tiny()\n\nclass End:\n    __slots__ = ()\n    def __new__(cls, cid=None):\n        return object.__new__(cls)\n    @property\n    def _id(self):\n        return tiny  # bogus non-string id\n\nclass Send(End): pass\nclass Recv(End): pass\n\nch._register_end_types(Send, Recv)\nchan = ch._channel_id(ch.create(), _resolve=True)\n\ninterp = _interpreters.create()\ntry:\n    _interpreters.run_string(interp, \"pass\", {\"chan\": Send(chan)})\nfinally:\n    _interpreters.destroy(interp)\n```\n\n**Vulnerable Code Snippet:**\n\n<details>\n<summary>Click to expand</summary>\n\n```c\n/* Buggy Re-entrant Path */\nstatic PyObject *\n_interpreters_run_string_impl(PyObject *module, PyObject *id,\n                              PyObject *script, PyObject *shared,\n                              int restricted)\n{\n    /* ... */\n    int res = _run_in_interpreter(tstate, interp, &xidata, NULL, shared, &runres);\n    /* ... */\n    Py_RETURN_NONE;\n}\n\nstatic int\n_get_xidata(PyThreadState *tstate,\n            PyObject *obj, xidata_fallback_t fallback, _PyXIData_t *xidata)\n{\n    /* ... */\n    _PyXIData_getdata_t getdata = lookup_getdata(&ctx, obj);\n    int res = getdata.basic != NULL\n        ? getdata.basic(tstate, obj, xidata)\n        : getdata.fallback(tstate, obj, fallback, xidata);\n    /* ... */\n    return res;\n}\n\nstatic int\n_channelend_shared(PyThreadState *tstate, PyObject *obj, _PyXIData_t *data)\n{\n    PyObject *cidobj = PyObject_GetAttrString(obj, \"_id\");  /* Reentrant call site */\n    if (cidobj == NULL) {\n        return -1;\n    }\n    int res = _channelid_shared(tstate, cidobj, data);\n    Py_DECREF(cidobj);\n    if (res < 0) {\n        return -1;\n    }\n    _PyXIData_SET_NEW_OBJECT(data, _channelend_from_xid);\n    return 0;\n}\n\nstatic int\n_channelid_shared(PyThreadState *tstate, PyObject *obj, _PyXIData_t *data)\n{\n    /* ... */\n    struct _channelid_xid *xid = (struct _channelid_xid *)_PyXIData_DATA(data);\n    channelid *cidobj = channelid_CAST(obj);  /* crashing pointer derived */\n    xid->cid = cidobj->cid;                   /* Crash site */\n    xid->end = cidobj->end;\n    xid->resolve = cidobj->resolve;\n    return 0;\n}\n\n/* Clobbering Path */\nstatic int\n_channelend_shared(PyThreadState *tstate, PyObject *obj, _PyXIData_t *data)\n{\n    PyObject *cidobj = PyObject_GetAttrString(obj, \"_id\");  /* state mutate site */\n    /* no validation that cidobj is a _ChannelID */\n    /* ... */\n    return 0;\n}\n```\n</details>\n\n**Sanitizer Output:**\n\n<details>\n<summary>Click to expand</summary>\n\n```\n=================================================================\n==2202758==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x50300001af70 at pc 0x7ddaf5b70bab bp 0x7ffddb3f5520 sp 0x7ffddb3f5510\nREAD of size 8 at 0x50300001af70 thread T0\n    #0 0x7ddaf5b70baa in _channelid_shared Modules/_interpchannelsmodule.c:2643\n    #1 0x7ddaf5b70baa in _channelend_shared Modules/_interpchannelsmodule.c:2799\n    #2 0x56723fa7ae6a in _get_xidata Python/crossinterp.c:502\n    #3 0x56723fa7f779 in _sharednsitem_set_value Python/crossinterp.c:2076\n    #4 0x56723fa7f779 in _sharednsitem_copy_from_ns Python/crossinterp.c:2121\n    #5 0x56723fa7f779 in _fill_sharedns Python/crossinterp.c:2385\n    #6 0x56723fa854a3 in _PyXI_Enter Python/crossinterp.c:2639\n    #7 0x7ddaf5b58caf in _run_in_interpreter Modules/_interpretersmodule.c:674\n    #8 0x7ddaf5b5a528 in _interpreters_run_string_impl Modules/_interpretersmodule.c:1202\n    #9 0x7ddaf5b5a528 in _interpreters_run_string Modules/clinic/_interpretersmodule.c.h:531\n    #10 0x56723f6a93e7 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:169\n    #11 0x56723f6a93e7 in PyObject_Vectorcall Objects/call.c:327\n    #12 0x56723f55d5a2 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1620\n    #13 0x56723fa27ad6 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:121\n    #14 0x56723fa27ad6 in _PyEval_Vector Python/ceval.c:2001\n    #15 0x56723fa27ad6 in PyEval_EvalCode Python/ceval.c:884\n    #16 0x56723fb6d16e in run_eval_code_obj Python/pythonrun.c:1365\n    #17 0x56723fb6d16e in run_mod Python/pythonrun.c:1459\n    #18 0x56723fb71e17 in pyrun_file Python/pythonrun.c:1293\n    #19 0x56723fb71e17 in _PyRun_SimpleFileObject Python/pythonrun.c:521\n    #20 0x56723fb7293c in _PyRun_AnyFileObject Python/pythonrun.c:81\n    #21 0x56723fbe5e3c in pymain_run_file_obj Modules/main.c:410\n    #22 0x56723fbe5e3c in pymain_run_file Modules/main.c:429\n    #23 0x56723fbe5e3c in pymain_run_python Modules/main.c:691\n    #24 0x56723fbe771e in Py_RunMain Modules/main.c:772\n    #25 0x56723fbe771e in pymain_main Modules/main.c:802\n    #26 0x56723fbe771e in Py_BytesMain Modules/main.c:826\n    #27 0x7ddaf602a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58\n    #28 0x7ddaf602a28a in __libc_start_main_impl ../csu/libc-start.c:360\n    #29 0x56723f581634 in _start (/home/jackfromeast/Desktop/entropy/targets/grammar-afl++-latest/targets/cpython/python+0x206634) (BuildId: 4d105290d0ad566a4d6f4f7b2f05fbc9e317b533)\n\n0x50300001af70 is located 0 bytes after 32-byte region [0x50300001af50,0x50300001af70)\nallocated by thread T0 here:\n    #0 0x7ddaf64fd9c7 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69\n    #1 0x56723f84e88e in _PyObject_MallocWithType Include/internal/pycore_object_alloc.h:46\n    #2 0x56723f84e88e in _PyType_AllocNoTrack Objects/typeobject.c:2504\n    #3 0x56723f84eaf4 in PyType_GenericAlloc Objects/typeobject.c:2535\n    #4 0x56723f846118 in type_call Objects/typeobject.c:2448\n    #5 0x56723f6a79cd in _PyObject_MakeTpCall Objects/call.c:242\n    #6 0x56723f565f33 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1620\n    #7 0x56723fa27ad6 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:121\n    #8 0x56723fa27ad6 in _PyEval_Vector Python/ceval.c:2001\n    #9 0x56723fa27ad6 in PyEval_EvalCode Python/ceval.c:884\n    #10 0x56723fb6d16e in run_eval_code_obj Python/pythonrun.c:1365\n    #11 0x56723fb6d16e in run_mod Python/pythonrun.c:1459\n    #12 0x56723fb71e17 in pyrun_file Python/pythonrun.c:1293\n    #13 0x56723fb71e17 in _PyRun_SimpleFileObject Python/pythonrun.c:521\n    #14 0x56723fb7293c in _PyRun_AnyFileObject Python/pythonrun.c:81\n    #15 0x56723fbe5e3c in pymain_run_file_obj Modules/main.c:410\n    #16 0x56723fbe5e3c in pymain_run_file Modules/main.c:429\n    #17 0x56723fbe5e3c in pymain_run_python Modules/main.c:691\n    #18 0x56723fbe771e in Py_RunMain Modules/main.c:772\n    #19 0x56723fbe771e in pymain_main Modules/main.c:802\n    #20 0x56723fbe771e in Py_BytesMain Modules/main.c:826\n    #21 0x7ddaf602a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58\n    #22 0x7ddaf602a28a in __libc_start_main_impl ../csu/libc-start.c:360\n    #23 0x56723f581634 in _start (/home/jackfromeast/Desktop/entropy/targets/grammar-afl++-latest/targets/cpython/python+0x206634) (BuildId: 4d105290d0ad566a4d6f4f7b2f05fbc9e317b533)\n\nSUMMARY: AddressSanitizer: heap-buffer-overflow Modules/_interpchannelsmodule.c:2643 in _channelid_shared\nShadow bytes around the buggy address:\n  0x50300001ac80: fd fd fd fd fa fa fd fd fd fd fa fa fd fd fd fd\n  0x50300001ad00: fa fa fd fd fd fd fa fa fd fd fd fd fa fa fd fd\n  0x50300001ad80: fd fd fa fa fd fd fd fd fa fa fd fd fd fd fa fa\n  0x50300001ae00: fd fd fd fd fa fa fd fd fd fd fa fa fd fd fd fd\n  0x50300001ae80: fa fa fd fd fd fd fa fa 00 00 00 00 fa fa fd fd\n=>0x50300001af00: fd fd fa fa 00 00 00 00 fa fa 00 00 00 00[fa]fa\n  0x50300001af80: 00 00 00 00 fa fa 00 00 00 00 fa fa 00 00 00 00\n  0x50300001b000: fa fa 00 00 00 fa fa fa 00 00 00 00 fa fa 00 00\n  0x50300001b080: 00 00 fa fa fd fd fd fa fa fa fd fd fd fd fa fa\n  0x50300001b100: fd fd fd fa fa fa fd fd fd fa fa fa fd fd fd fd\n  0x50300001b180: fa fa fd fd fd fd fa fa 00 00 00 00 fa fa 00 00\nShadow byte legend (one shadow byte represents 8 application bytes):\n  Addressable:           00\n  Partially addressable: 01 02 03 04 05 06 07 \n  Heap left redzone:       fa\n  Freed heap region:       fd\n  Stack left redzone:      f1\n  Stack mid redzone:       f2\n  Stack right redzone:     f3\n  Stack after return:      f5\n  Stack use after scope:   f8\n  Global redzone:          f9\n  Global init order:       f6\n  Poisoned by user:        f7\n  Container overflow:      fc\n  Array cookie:            ac\n  Intra object redzone:    bb\n  ASan internal:           fe\n  Left alloca redzone:     ca\n  Right alloca redzone:    cb\n==2202758==ABORTING\n```\n</details>\n\n### CPython versions tested on:\n\n<details>\n\n| Python Version | Status | Exit Code |\n|---|---|---|\n| `Python 3.9.24+ (heads/3.9:111bbc15b26, Oct 28 2025, 16:51:20) ` | Exception | 1 |\n| `Python 3.10.19+ (heads/3.10:014261980b1, Oct 28 2025, 16:52:08) [Clang 18.1.3 (1ubuntu1)]` | Exception | 1 |\n| `Python 3.11.14+ (heads/3.11:88f3f5b5f11, Oct 28 2025, 16:53:08) [Clang 18.1.3 (1ubuntu1)]` | Exception | 1 |\n| `Python 3.12.12+ (heads/3.12:8cb2092bd8c, Oct 28 2025, 16:54:14) [Clang 18.1.3 (1ubuntu1)]` | Exception | 1 |\n| `Python 3.13.9+ (heads/3.13:9c8eade20c6, Oct 28 2025, 16:55:18) [Clang 18.1.3 (1ubuntu1)]` | Exception | 1 |\n| `Python 3.14.0+ (heads/3.14:2e216728038, Oct 28 2025, 16:56:16) [Clang 18.1.3 (1ubuntu1)]` | ASAN | 1 |\n| `Python 3.15.0a1+ (heads/main:f5394c257ce, Oct 28 2025, 19:29:54) [GCC 13.3.0]` | ASAN | 1 |\n\n</details>\n\n### Operating systems tested on:\n\nLinux\n\n### Output from running 'python -VV' on the command line:\n\nPython 3.15.0a1+ (heads/main:f5394c257ce, Oct 28 2025, 19:29:54) [GCC 13.3.0]\n\n\n\n<!-- gh-linked-prs -->\n### Linked PRs\n* gh-146574\n<!-- /gh-linked-prs -->\n",
+    "closed_by": null,
+    "reactions": {
+      "url": "https://api.github.com/repos/python/cpython/issues/143376/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "timeline_url": "https://api.github.com/repos/python/cpython/issues/143376/timeline",
+    "performed_via_github_app": null,
+    "state_reason": null,
+    "pinned_comment": null
+  },
+  "comments": []
+}

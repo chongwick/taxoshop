@@ -1,0 +1,101 @@
+{
+  "sha": "472fc843ca816d65c12f9508ac762ca492165c45",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6NDcyZmM4NDNjYTgxNmQ2NWMxMmY5NTA4YWM3NjJjYTQ5MjE2NWM0NQ==",
+  "commit": {
+    "author": {
+      "name": "Stefan Krah",
+      "email": "skrah@bytereef.org",
+      "date": "2020-03-24T13:01:13Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2020-03-24T13:01:13Z"
+    },
+    "message": "bpo-39689: Do not use native packing for format \"?\" with standard size (GH-18969)",
+    "tree": {
+      "sha": "db46841bdc9f8d0f5b78d89b64de9eaacd7d8b51",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/db46841bdc9f8d0f5b78d89b64de9eaacd7d8b51"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/472fc843ca816d65c12f9508ac762ca492165c45",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJeegSZCRBK7hj4Ov3rIwAAdHIIADVVEcNx+H028GVSvcb+78pm\n2lXwTchRWms3Ja5Vv/6eLIKIBe2vjuOKedXHqfUIAM0cyQSNNF3jSJQgHlFUt5za\nUAkc0h+s4JozqROKuUk5u7gpdh3vaMcOd6BvfMhQts1uDdpVWdBNt+vz6ScNQRp9\nYkmYRWSs+oYkc2C2QeOG5Sne4DWpeGefeDDlZBhDtyDj+jsGkkAqI7x8fnr7r4/O\nJbBOmLUjkbtyqVyfC92W12J0EdHggHvHeukNDpAfOUeiy7S+2JTzMPcXrIaRs/mQ\noovfZIe1mNCzcH6lX6KmHJZXUbfZxZcZ35aK67TtX13EkZE0NQ8zYqwxlB5C4TU=\n=SOLy\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree db46841bdc9f8d0f5b78d89b64de9eaacd7d8b51\nparent 6000087fe979705dc588a46a35da884cc0198c67\nauthor Stefan Krah <skrah@bytereef.org> 1585054873 +0100\ncommitter GitHub <noreply@github.com> 1585054873 -0700\n\nbpo-39689: Do not use native packing for format \"?\" with standard size (GH-18969)\n\n\n\n",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/472fc843ca816d65c12f9508ac762ca492165c45",
+  "html_url": "https://github.com/python/cpython/commit/472fc843ca816d65c12f9508ac762ca492165c45",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/472fc843ca816d65c12f9508ac762ca492165c45/comments",
+  "author": {
+    "login": "skrah",
+    "id": 16530421,
+    "node_id": "MDQ6VXNlcjE2NTMwNDIx",
+    "avatar_url": "https://avatars.githubusercontent.com/u/16530421?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/skrah",
+    "html_url": "https://github.com/skrah",
+    "followers_url": "https://api.github.com/users/skrah/followers",
+    "following_url": "https://api.github.com/users/skrah/following{/other_user}",
+    "gists_url": "https://api.github.com/users/skrah/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/skrah/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/skrah/subscriptions",
+    "organizations_url": "https://api.github.com/users/skrah/orgs",
+    "repos_url": "https://api.github.com/users/skrah/repos",
+    "events_url": "https://api.github.com/users/skrah/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/skrah/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "6000087fe979705dc588a46a35da884cc0198c67",
+      "url": "https://api.github.com/repos/python/cpython/commits/6000087fe979705dc588a46a35da884cc0198c67",
+      "html_url": "https://github.com/python/cpython/commit/6000087fe979705dc588a46a35da884cc0198c67"
+    }
+  ],
+  "stats": {
+    "total": 3,
+    "additions": 3,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "242ca9c10df2de221dda0c96e8fff94e4f162ccc",
+      "filename": "Modules/_struct.c",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/472fc843ca816d65c12f9508ac762ca492165c45/Modules%2F_struct.c",
+      "raw_url": "https://github.com/python/cpython/raw/472fc843ca816d65c12f9508ac762ca492165c45/Modules%2F_struct.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Modules%2F_struct.c?ref=472fc843ca816d65c12f9508ac762ca492165c45",
+      "patch": "@@ -2407,6 +2407,9 @@ PyInit__struct(void)\n                        \"unknown\" float format */\n                     if (ptr->format == 'd' || ptr->format == 'f')\n                         break;\n+                    /* Skip _Bool, semantics are different for standard size */\n+                    if (ptr->format == '?')\n+                        break;\n                     ptr->pack = native->pack;\n                     ptr->unpack = native->unpack;\n                     break;"
+    }
+  ]
+}

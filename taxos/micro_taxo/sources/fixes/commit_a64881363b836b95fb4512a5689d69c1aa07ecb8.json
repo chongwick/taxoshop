@@ -1,0 +1,161 @@
+{
+  "sha": "a64881363b836b95fb4512a5689d69c1aa07ecb8",
+  "node_id": "C_kwDOBN0Z8doAKGE2NDg4MTM2M2I4MzZiOTVmYjQ1MTJhNTY4OWQ2OWMxYWEwN2VjYjg",
+  "commit": {
+    "author": {
+      "name": "Peter Bierma",
+      "email": "zintensitydev@gmail.com",
+      "date": "2025-09-17T15:14:19Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2025-09-17T15:14:19Z"
+    },
+    "message": "gh-128639: Don't assume one thread in subinterpreter finalization with fixed daemon thread support (GH-134606)\n\nThis reapplies GH-128640.",
+    "tree": {
+      "sha": "2083dcda3a31866c9c6fb290fcb4af8d57c65473",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/2083dcda3a31866c9c6fb290fcb4af8d57c65473"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/a64881363b836b95fb4512a5689d69c1aa07ecb8",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJoytBLCRC1aQ7uu5UhlAAA5wIQAKUVatOMuvCs19K+Fe3jPm19\nDBB8IufkG+P0JguxGzDmhxNrx0B1CxLbm8LRBZ4V/V7b1hwRIdTvlCmQZAGQPl3A\n92RzgRi66Q8FUBkziM3z8Hck9C1B7UJPsID25byeEv1I/EUKJs0ITcieBFnl1Ute\nya7oY5DE3miqjBLoz/Y7hirHJkYN8/nzLLSx0YFt+uC1DBUVeH98GNyl5vTTroPW\nhSEo1Z7Gr2/imr0zy1Qi9AArVZV+XuIJ3d2dQ17OTB+q1uTt1Mnrx14MPPsHZv72\nU3e8jQSPA5dAmwfs33xbMfyY+iVzmCJ2TY6YRkVb9lY1FajzRBg7Y3tGE+Yz4U5Z\nu03KggBJC8lgr/ALxZGIbC8vRQ0EOEPb7ksnlgEI9+fyjxaWMGcHLaTYhbO9iQgM\ngnqn2sol/pg3IJaXm5RzTHbUV3DN0mTF4GWL2J/s/zwdffBzeo7boET6AM63iSQF\nyZa052XYSNYEnvpogi/i7n63HH4R6qQBjrF54VAJCMg1xKHkxODQkYzwaaOlGN69\n11LCsxcXibQ2gjIgY1uEZXHmYQWNXYO35oPAPr29gbwKOj41ykxfSESb6ZYbE97D\nXZKmKzaFVwbAmA5Pzdpsw4kTFFZNs5wm09JghZlg4so2ShHzMsNoy+WcI6tndmlo\nEgnumzuQH+NKaN9w3q+C\n=bky3\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 2083dcda3a31866c9c6fb290fcb4af8d57c65473\nparent 299de38e61e09e8821f3245a833e5e4c1b6e5aa8\nauthor Peter Bierma <zintensitydev@gmail.com> 1758122059 -0400\ncommitter GitHub <noreply@github.com> 1758122059 -0400\n\ngh-128639: Don't assume one thread in subinterpreter finalization with fixed daemon thread support (GH-134606)\n\nThis reapplies GH-128640.",
+      "verified_at": "2025-09-17T15:14:20Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/a64881363b836b95fb4512a5689d69c1aa07ecb8",
+  "html_url": "https://github.com/python/cpython/commit/a64881363b836b95fb4512a5689d69c1aa07ecb8",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/a64881363b836b95fb4512a5689d69c1aa07ecb8/comments",
+  "author": {
+    "login": "ZeroIntensity",
+    "id": 49501366,
+    "node_id": "MDQ6VXNlcjQ5NTAxMzY2",
+    "avatar_url": "https://avatars.githubusercontent.com/u/49501366?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/ZeroIntensity",
+    "html_url": "https://github.com/ZeroIntensity",
+    "followers_url": "https://api.github.com/users/ZeroIntensity/followers",
+    "following_url": "https://api.github.com/users/ZeroIntensity/following{/other_user}",
+    "gists_url": "https://api.github.com/users/ZeroIntensity/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/ZeroIntensity/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/ZeroIntensity/subscriptions",
+    "organizations_url": "https://api.github.com/users/ZeroIntensity/orgs",
+    "repos_url": "https://api.github.com/users/ZeroIntensity/repos",
+    "events_url": "https://api.github.com/users/ZeroIntensity/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/ZeroIntensity/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "299de38e61e09e8821f3245a833e5e4c1b6e5aa8",
+      "url": "https://api.github.com/repos/python/cpython/commits/299de38e61e09e8821f3245a833e5e4c1b6e5aa8",
+      "html_url": "https://github.com/python/cpython/commit/299de38e61e09e8821f3245a833e5e4c1b6e5aa8"
+    }
+  ],
+  "stats": {
+    "total": 153,
+    "additions": 114,
+    "deletions": 39
+  },
+  "files": [
+    {
+      "sha": "3fee98ea93e6377676e387de9b89103e149ed616",
+      "filename": "Lib/test/test_interpreters/test_api.py",
+      "status": "modified",
+      "additions": 68,
+      "deletions": 2,
+      "changes": 70,
+      "blob_url": "https://github.com/python/cpython/blob/a64881363b836b95fb4512a5689d69c1aa07ecb8/Lib%2Ftest%2Ftest_interpreters%2Ftest_api.py",
+      "raw_url": "https://github.com/python/cpython/raw/a64881363b836b95fb4512a5689d69c1aa07ecb8/Lib%2Ftest%2Ftest_interpreters%2Ftest_api.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_interpreters%2Ftest_api.py?ref=a64881363b836b95fb4512a5689d69c1aa07ecb8",
+      "patch": "@@ -11,6 +11,7 @@\n from test.support import os_helper\n from test.support import script_helper\n from test.support import import_helper\n+from test.support.script_helper import assert_python_ok\n # Raise SkipTest if subinterpreters not supported.\n _interpreters = import_helper.import_module('_interpreters')\n from concurrent import interpreters\n@@ -707,6 +708,68 @@ def test_created_with_capi(self):\n                     self.interp_exists(interpid))\n \n \n+    def test_remaining_threads(self):\n+        r_interp, w_interp = self.pipe()\n+\n+        FINISHED = b'F'\n+\n+        # It's unlikely, but technically speaking, it's possible\n+        # that the thread could've finished before interp.close() is\n+        # reached, so this test might not properly exercise the case.\n+        # However, it's quite unlikely and probably not worth bothering about.\n+        interp = interpreters.create()\n+        interp.exec(f\"\"\"if True:\n+            import os\n+            import threading\n+            import time\n+\n+            def task():\n+                time.sleep(1)\n+                os.write({w_interp}, {FINISHED!r})\n+\n+            threads = (threading.Thread(target=task) for _ in range(3))\n+            for t in threads:\n+                t.start()\n+            \"\"\")\n+        interp.close()\n+\n+        self.assertEqual(os.read(r_interp, 1), FINISHED)\n+\n+    def test_remaining_daemon_threads(self):\n+        # Daemon threads leak reference by nature, because they hang threads\n+        # without allowing them to do cleanup (i.e., release refs).\n+        # To prevent that from messing up the refleak hunter and whatnot, we\n+        # run this in a subprocess.\n+        code = '''if True:\n+        import _interpreters\n+        import types\n+        interp = _interpreters.create(\n+            types.SimpleNamespace(\n+                use_main_obmalloc=False,\n+                allow_fork=False,\n+                allow_exec=False,\n+                allow_threads=True,\n+                allow_daemon_threads=True,\n+                check_multi_interp_extensions=True,\n+                gil='own',\n+            )\n+        )\n+        _interpreters.exec(interp, f\"\"\"if True:\n+            import threading\n+            import time\n+\n+            def task():\n+                time.sleep(3)\n+\n+            threads = (threading.Thread(target=task, daemon=True) for _ in range(3))\n+            for t in threads:\n+                t.start()\n+            \"\"\")\n+        _interpreters.destroy(interp)\n+        '''\n+        assert_python_ok('-c', code)\n+\n+\n class TestInterpreterPrepareMain(TestBase):\n \n     def test_empty(self):\n@@ -815,7 +878,10 @@ def script():\n                 spam.eggs()\n \n             interp = interpreters.create()\n-            interp.exec(script)\n+            try:\n+                interp.exec(script)\n+            finally:\n+                interp.close()\n             \"\"\")\n \n         stdout, stderr = self.assert_python_failure(scriptfile)\n@@ -824,7 +890,7 @@ def script():\n         #      File \"{interpreters.__file__}\", line 179, in exec\n         self.assertEqual(stderr, dedent(f\"\"\"\\\n             Traceback (most recent call last):\n-              File \"{scriptfile}\", line 9, in <module>\n+              File \"{scriptfile}\", line 10, in <module>\n                 interp.exec(script)\n                 ~~~~~~~~~~~^^^^^^^^\n               {interpmod_line.strip()}"
+    },
+    {
+      "sha": "39c1441b67c133f5338fda06a10c6420bca33c2e",
+      "filename": "Lib/test/test_interpreters/test_lifecycle.py",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 1,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/a64881363b836b95fb4512a5689d69c1aa07ecb8/Lib%2Ftest%2Ftest_interpreters%2Ftest_lifecycle.py",
+      "raw_url": "https://github.com/python/cpython/raw/a64881363b836b95fb4512a5689d69c1aa07ecb8/Lib%2Ftest%2Ftest_interpreters%2Ftest_lifecycle.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_interpreters%2Ftest_lifecycle.py?ref=a64881363b836b95fb4512a5689d69c1aa07ecb8",
+      "patch": "@@ -132,6 +132,7 @@ def test_sys_path_0(self):\n                     'sub': sys.path[0],\n                 }}, indent=4), flush=True)\n                 \"\"\")\n+            interp.close()\n             '''\n         # <tmp>/\n         #   pkg/\n@@ -172,7 +173,10 @@ def test_gh_109793(self):\n         argv = [sys.executable, '-c', '''if True:\n             from concurrent import interpreters\n             interp = interpreters.create()\n-            raise Exception\n+            try:\n+                raise Exception\n+            finally:\n+                interp.close()\n             ''']\n         proc = subprocess.run(argv, capture_output=True, text=True)\n         self.assertIn('Traceback', proc.stderr)"
+    },
+    {
+      "sha": "95b2692cd3018600be9d1f81bd4bff0499f781ed",
+      "filename": "Lib/test/test_threading.py",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 4,
+      "changes": 5,
+      "blob_url": "https://github.com/python/cpython/blob/a64881363b836b95fb4512a5689d69c1aa07ecb8/Lib%2Ftest%2Ftest_threading.py",
+      "raw_url": "https://github.com/python/cpython/raw/a64881363b836b95fb4512a5689d69c1aa07ecb8/Lib%2Ftest%2Ftest_threading.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_threading.py?ref=a64881363b836b95fb4512a5689d69c1aa07ecb8",
+      "patch": "@@ -1794,10 +1794,7 @@ def f():\n \n             _testcapi.run_in_subinterp(%r)\n             \"\"\" % (subinterp_code,)\n-        with test.support.SuppressCrashReport():\n-            rc, out, err = assert_python_failure(\"-c\", script)\n-        self.assertIn(\"Fatal Python error: Py_EndInterpreter: \"\n-                      \"not the last thread\", err.decode())\n+        assert_python_ok(\"-c\", script)\n \n     def _check_allowed(self, before_start='', *,\n                        allowed=True,"
+    },
+    {
+      "sha": "040c6d56c47244690755f8fb42ed8eaba52189e7",
+      "filename": "Misc/NEWS.d/next/Core_and_Builtins/2025-01-08-12-52-47.gh-issue-128640.9nbh9z.rst",
+      "status": "added",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/a64881363b836b95fb4512a5689d69c1aa07ecb8/Misc%2FNEWS.d%2Fnext%2FCore_and_Builtins%2F2025-01-08-12-52-47.gh-issue-128640.9nbh9z.rst",
+      "raw_url": "https://github.com/python/cpython/raw/a64881363b836b95fb4512a5689d69c1aa07ecb8/Misc%2FNEWS.d%2Fnext%2FCore_and_Builtins%2F2025-01-08-12-52-47.gh-issue-128640.9nbh9z.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore_and_Builtins%2F2025-01-08-12-52-47.gh-issue-128640.9nbh9z.rst?ref=a64881363b836b95fb4512a5689d69c1aa07ecb8",
+      "patch": "@@ -0,0 +1 @@\n+Fix a crash when using threads inside of a subinterpreter."
+    },
+    {
+      "sha": "b5047a014ac64e251fa5ee497e9f4c09fcee2d7e",
+      "filename": "Programs/_testembed.c",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 3,
+      "changes": 9,
+      "blob_url": "https://github.com/python/cpython/blob/a64881363b836b95fb4512a5689d69c1aa07ecb8/Programs%2F_testembed.c",
+      "raw_url": "https://github.com/python/cpython/raw/a64881363b836b95fb4512a5689d69c1aa07ecb8/Programs%2F_testembed.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Programs%2F_testembed.c?ref=a64881363b836b95fb4512a5689d69c1aa07ecb8",
+      "patch": "@@ -1388,9 +1388,12 @@ static int test_audit_subinterpreter(void)\n     PySys_AddAuditHook(_audit_subinterpreter_hook, NULL);\n     _testembed_initialize();\n \n-    Py_NewInterpreter();\n-    Py_NewInterpreter();\n-    Py_NewInterpreter();\n+    PyThreadState *tstate = PyThreadState_Get();\n+    for (int i = 0; i < 3; ++i)\n+    {\n+        Py_EndInterpreter(Py_NewInterpreter());\n+        PyThreadState_Swap(tstate);\n+    }\n \n     Py_Finalize();\n "
+    },
+    {
+      "sha": "889f035b8d46d09ac855b2a8f02e64f7044326d9",
+      "filename": "Python/pylifecycle.c",
+      "status": "modified",
+      "additions": 33,
+      "deletions": 29,
+      "changes": 62,
+      "blob_url": "https://github.com/python/cpython/blob/a64881363b836b95fb4512a5689d69c1aa07ecb8/Python%2Fpylifecycle.c",
+      "raw_url": "https://github.com/python/cpython/raw/a64881363b836b95fb4512a5689d69c1aa07ecb8/Python%2Fpylifecycle.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fpylifecycle.c?ref=a64881363b836b95fb4512a5689d69c1aa07ecb8",
+      "patch": "@@ -2000,6 +2000,7 @@ resolve_final_tstate(_PyRuntimeState *runtime)\n             }\n             else {\n                 /* Fall back to the current tstate.  It's better than nothing. */\n+                // XXX No it's not\n                 main_tstate = tstate;\n             }\n         }\n@@ -2045,6 +2046,16 @@ _Py_Finalize(_PyRuntimeState *runtime)\n \n     _PyAtExit_Call(tstate->interp);\n \n+    /* Clean up any lingering subinterpreters.\n+\n+       Two preconditions need to be met here:\n+\n+        - This has to happen before _PyRuntimeState_SetFinalizing is\n+          called, or else threads might get prematurely blocked.\n+        - The world must not be stopped, as finalizers can run.\n+    */\n+    finalize_subinterpreters();\n+\n     assert(_PyThreadState_GET() == tstate);\n \n     /* Copy the core config, PyInterpreterState_Delete() free\n@@ -2132,9 +2143,6 @@ _Py_Finalize(_PyRuntimeState *runtime)\n     _PyImport_FiniExternal(tstate->interp);\n     finalize_modules(tstate);\n \n-    /* Clean up any lingering subinterpreters. */\n-    finalize_subinterpreters();\n-\n     /* Print debug stats if any */\n     _PyEval_Fini();\n \n@@ -2416,9 +2424,8 @@ Py_NewInterpreter(void)\n     return tstate;\n }\n \n-/* Delete an interpreter and its last thread.  This requires that the\n-   given thread state is current, that the thread has no remaining\n-   frames, and that it is its interpreter's only remaining thread.\n+/* Delete an interpreter.  This requires that the given thread state\n+   is current, and that the thread has no remaining frames.\n    It is a fatal error to violate these constraints.\n \n    (Py_FinalizeEx() doesn't have these constraints -- it zaps\n@@ -2448,15 +2455,20 @@ Py_EndInterpreter(PyThreadState *tstate)\n     _Py_FinishPendingCalls(tstate);\n \n     _PyAtExit_Call(tstate->interp);\n-\n-    if (tstate != interp->threads.head || tstate->next != NULL) {\n-        Py_FatalError(\"not the last thread\");\n-    }\n-\n+    _PyRuntimeState *runtime = interp->runtime;\n+    _PyEval_StopTheWorldAll(runtime);\n     /* Remaining daemon threads will automatically exit\n        when they attempt to take the GIL (ex: PyEval_RestoreThread()). */\n     _PyInterpreterState_SetFinalizing(interp, tstate);\n \n+    PyThreadState *list = _PyThreadState_RemoveExcept(tstate);\n+    for (PyThreadState *p = list; p != NULL; p = p->next) {\n+        _PyThreadState_SetShuttingDown(p);\n+    }\n+\n+    _PyEval_StartTheWorldAll(runtime);\n+    _PyThreadState_DeleteList(list, /*is_after_fork=*/0);\n+\n     // XXX Call something like _PyImport_Disable() here?\n \n     _PyImport_FiniExternal(tstate->interp);\n@@ -2486,6 +2498,8 @@ finalize_subinterpreters(void)\n     PyInterpreterState *main_interp = _PyInterpreterState_Main();\n     assert(final_tstate->interp == main_interp);\n     _PyRuntimeState *runtime = main_interp->runtime;\n+    assert(!runtime->stoptheworld.world_stopped);\n+    assert(_PyRuntimeState_GetFinalizing(runtime) == NULL);\n     struct pyinterpreters *interpreters = &runtime->interpreters;\n \n     /* Get the first interpreter in the list. */\n@@ -2514,27 +2528,17 @@ finalize_subinterpreters(void)\n \n     /* Clean up all remaining subinterpreters. */\n     while (interp != NULL) {\n-        assert(!_PyInterpreterState_IsRunningMain(interp));\n-\n-        /* Find the tstate to use for fini.  We assume the interpreter\n-           will have at most one tstate at this point. */\n-        PyThreadState *tstate = interp->threads.head;\n-        if (tstate != NULL) {\n-            /* Ideally we would be able to use tstate as-is, and rely\n-               on it being in a ready state: no exception set, not\n-               running anything (tstate->current_frame), matching the\n-               current thread ID (tstate->thread_id).  To play it safe,\n-               we always delete it and use a fresh tstate instead. */\n-            assert(tstate != final_tstate);\n-            _PyThreadState_Attach(tstate);\n-            PyThreadState_Clear(tstate);\n-            _PyThreadState_Detach(tstate);\n-            PyThreadState_Delete(tstate);\n+        /* Make a tstate for finalization. */\n+        PyThreadState *tstate = _PyThreadState_NewBound(interp, _PyThreadState_WHENCE_FINI);\n+        if (tstate == NULL) {\n+            // XXX Some graceful way to always get a thread state?\n+            Py_FatalError(\"thread state allocation failed\");\n         }\n-        tstate = _PyThreadState_NewBound(interp, _PyThreadState_WHENCE_FINI);\n \n-        /* Destroy the subinterpreter. */\n+        /* Enter the subinterpreter. */\n         _PyThreadState_Attach(tstate);\n+\n+        /* Destroy the subinterpreter. */\n         Py_EndInterpreter(tstate);\n         assert(_PyThreadState_GET() == NULL);\n "
+    }
+  ]
+}

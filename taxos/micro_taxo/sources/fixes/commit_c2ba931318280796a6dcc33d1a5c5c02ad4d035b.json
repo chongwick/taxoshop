@@ -1,0 +1,137 @@
+{
+  "sha": "c2ba931318280796a6dcc33d1a5c5c02ad4d035b",
+  "node_id": "C_kwDOBN0Z8doAKGMyYmE5MzEzMTgyODA3OTZhNmRjYzMzZDFhNWM1YzAyYWQ0ZDAzNWI",
+  "commit": {
+    "author": {
+      "name": "Peter Bierma",
+      "email": "zintensitydev@gmail.com",
+      "date": "2024-10-02T14:31:23Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2024-10-02T14:31:23Z"
+    },
+    "message": "gh-120378: Fix crash caused by integer overflow in `curses` (#124555)\n\nThis is actually an upstream problem in curses, and has been reported\r\nto them already:\r\nhttps://lists.gnu.org/archive/html/bug-ncurses/2024-09/msg00101.html\r\n\r\nThis is a nice workaround in the meantime to prevent the segfault.\r\n\r\nCo-authored-by: Bénédikt Tran <10796600+picnixz@users.noreply.github.com>",
+    "tree": {
+      "sha": "1c50974434339ba212d8bc648d7e25fae2610565",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/1c50974434339ba212d8bc648d7e25fae2610565"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/c2ba931318280796a6dcc33d1a5c5c02ad4d035b",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJm/Vk7CRC1aQ7uu5UhlAAA7PkQADWDCu/QSe9e1oDKMY9G27rA\nB6FPKLZNqem/X/bS0mhiwDkCn9xYZg4cEmjB0DGUdmmbsdhEIOp80TrBnr++kCrU\ndi6LXf2+RY9W2ZgqRIbrCsfFMlVDXaAthdQ+6tptWSW4334eve/6y43eMi9d1YjP\n5Q1vjN8O9OdjspZoFd1mf5RpaEVaAp5sERw6/JNpwJoK4+Qof1rOxu6/+4wqhOAl\nstBhPPUyCuO9qAvtLT/oG1W7Kfd6yyRKhw3wn6kTToWRjd5yAaBmWwR7jL1WBCrx\nE58ViEHd9fvrPEz5C7nCHiJWkQyl3PcMaNYn/rW9t/2Cf3EzR27ebr7UmSV9lzXG\nk3JT0yilcUfJT22YbK9+4+Wyb6VxPmEP7PpUO2ft+OpDpMMh6JLQJQcwc5GObpQA\ncXco88+IAH5HW1UriTrgs8RBWzoE5QE2glwDrs2BoQr3oZl7q2N1NWAgn1gUnPi1\ncVl0Qj9EVvgoyo6GVmpOCg7SNGQ+M6JLH5UIz2tPkBgpOYvcSLz4zCIYMc3E8ybU\nLWP6X0ngEk//UwE1QugEhZBFb2ZXXFFJOM3wV7Hne+ol1+e9WgPn4wxq/a+JhTVI\nEqG9r2/Vjrkg7OL4dAWsj9Iqx9orWJJNCnh5ITTpc+fvPPpwHnxXYpDZhoufj28t\nEcDtQasx7/Msh7PJTn5U\n=KGiD\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 1c50974434339ba212d8bc648d7e25fae2610565\nparent 7bd9dbf8e148f14f9c9c6715a820bfda6adff957\nauthor Peter Bierma <zintensitydev@gmail.com> 1727879483 -0400\ncommitter GitHub <noreply@github.com> 1727879483 +0000\n\ngh-120378: Fix crash caused by integer overflow in `curses` (#124555)\n\nThis is actually an upstream problem in curses, and has been reported\r\nto them already:\r\nhttps://lists.gnu.org/archive/html/bug-ncurses/2024-09/msg00101.html\r\n\r\nThis is a nice workaround in the meantime to prevent the segfault.\r\n\r\nCo-authored-by: Bénédikt Tran <10796600+picnixz@users.noreply.github.com>",
+      "verified_at": "2024-11-05T10:08:57Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/c2ba931318280796a6dcc33d1a5c5c02ad4d035b",
+  "html_url": "https://github.com/python/cpython/commit/c2ba931318280796a6dcc33d1a5c5c02ad4d035b",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/c2ba931318280796a6dcc33d1a5c5c02ad4d035b/comments",
+  "author": {
+    "login": "ZeroIntensity",
+    "id": 49501366,
+    "node_id": "MDQ6VXNlcjQ5NTAxMzY2",
+    "avatar_url": "https://avatars.githubusercontent.com/u/49501366?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/ZeroIntensity",
+    "html_url": "https://github.com/ZeroIntensity",
+    "followers_url": "https://api.github.com/users/ZeroIntensity/followers",
+    "following_url": "https://api.github.com/users/ZeroIntensity/following{/other_user}",
+    "gists_url": "https://api.github.com/users/ZeroIntensity/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/ZeroIntensity/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/ZeroIntensity/subscriptions",
+    "organizations_url": "https://api.github.com/users/ZeroIntensity/orgs",
+    "repos_url": "https://api.github.com/users/ZeroIntensity/repos",
+    "events_url": "https://api.github.com/users/ZeroIntensity/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/ZeroIntensity/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "7bd9dbf8e148f14f9c9c6715a820bfda6adff957",
+      "url": "https://api.github.com/repos/python/cpython/commits/7bd9dbf8e148f14f9c9c6715a820bfda6adff957",
+      "html_url": "https://github.com/python/cpython/commit/7bd9dbf8e148f14f9c9c6715a820bfda6adff957"
+    }
+  ],
+  "stats": {
+    "total": 132,
+    "additions": 105,
+    "deletions": 27
+  },
+  "files": [
+    {
+      "sha": "cc3aa561cd4c42833696a2191c2a8a2bdbf7d3d8",
+      "filename": "Lib/test/test_curses.py",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 0,
+      "changes": 16,
+      "blob_url": "https://github.com/python/cpython/blob/c2ba931318280796a6dcc33d1a5c5c02ad4d035b/Lib%2Ftest%2Ftest_curses.py",
+      "raw_url": "https://github.com/python/cpython/raw/c2ba931318280796a6dcc33d1a5c5c02ad4d035b/Lib%2Ftest%2Ftest_curses.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_curses.py?ref=c2ba931318280796a6dcc33d1a5c5c02ad4d035b",
+      "patch": "@@ -1081,6 +1081,14 @@ def test_resize_term(self):\n         self.assertEqual(curses.LINES, lines)\n         self.assertEqual(curses.COLS, cols)\n \n+        with self.assertRaises(OverflowError):\n+            curses.resize_term(35000, 1)\n+        with self.assertRaises(OverflowError):\n+            curses.resize_term(1, 35000)\n+        # GH-120378: Overflow failure in resize_term() causes refresh to fail\n+        tmp = curses.initscr()\n+        tmp.erase()\n+\n     @requires_curses_func('resizeterm')\n     def test_resizeterm(self):\n         curses.update_lines_cols()\n@@ -1095,6 +1103,14 @@ def test_resizeterm(self):\n         self.assertEqual(curses.LINES, lines)\n         self.assertEqual(curses.COLS, cols)\n \n+        with self.assertRaises(OverflowError):\n+            curses.resizeterm(35000, 1)\n+        with self.assertRaises(OverflowError):\n+            curses.resizeterm(1, 35000)\n+        # GH-120378: Overflow failure in resizeterm() causes refresh to fail\n+        tmp = curses.initscr()\n+        tmp.erase()\n+\n     def test_ungetch(self):\n         curses.ungetch(b'A')\n         self.assertEqual(self.stdscr.getkey(), 'A')"
+    },
+    {
+      "sha": "1a8c1427b6b9b97d5a483b8720539bdb5f1865fa",
+      "filename": "Misc/NEWS.d/next/Library/2024-09-25-18-07-51.gh-issue-120378.NlBSz_.rst",
+      "status": "added",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/c2ba931318280796a6dcc33d1a5c5c02ad4d035b/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2024-09-25-18-07-51.gh-issue-120378.NlBSz_.rst",
+      "raw_url": "https://github.com/python/cpython/raw/c2ba931318280796a6dcc33d1a5c5c02ad4d035b/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2024-09-25-18-07-51.gh-issue-120378.NlBSz_.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2024-09-25-18-07-51.gh-issue-120378.NlBSz_.rst?ref=c2ba931318280796a6dcc33d1a5c5c02ad4d035b",
+      "patch": "@@ -0,0 +1,2 @@\n+Fix a crash related to an integer overflow in :func:`curses.resizeterm`\n+and :func:`curses.resize_term`."
+    },
+    {
+      "sha": "36f6c6c57f656d891d5c02a0f3f65b692acf74ff",
+      "filename": "Modules/_cursesmodule.c",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 8,
+      "changes": 16,
+      "blob_url": "https://github.com/python/cpython/blob/c2ba931318280796a6dcc33d1a5c5c02ad4d035b/Modules%2F_cursesmodule.c",
+      "raw_url": "https://github.com/python/cpython/raw/c2ba931318280796a6dcc33d1a5c5c02ad4d035b/Modules%2F_cursesmodule.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Modules%2F_cursesmodule.c?ref=c2ba931318280796a6dcc33d1a5c5c02ad4d035b",
+      "patch": "@@ -4204,9 +4204,9 @@ NoArgNoReturnFunctionBody(resetty)\n /*[clinic input]\n _curses.resizeterm\n \n-    nlines: int\n+    nlines: short\n         Height.\n-    ncols: int\n+    ncols: short\n         Width.\n     /\n \n@@ -4217,8 +4217,8 @@ window dimensions (in particular the SIGWINCH handler).\n [clinic start generated code]*/\n \n static PyObject *\n-_curses_resizeterm_impl(PyObject *module, int nlines, int ncols)\n-/*[clinic end generated code: output=56d6bcc5194ad055 input=0fca02ebad5ffa82]*/\n+_curses_resizeterm_impl(PyObject *module, short nlines, short ncols)\n+/*[clinic end generated code: output=4de3abab50c67f02 input=414e92a63e3e9899]*/\n {\n     PyObject *result;\n \n@@ -4240,9 +4240,9 @@ _curses_resizeterm_impl(PyObject *module, int nlines, int ncols)\n /*[clinic input]\n _curses.resize_term\n \n-    nlines: int\n+    nlines: short\n         Height.\n-    ncols: int\n+    ncols: short\n         Width.\n     /\n \n@@ -4256,8 +4256,8 @@ without additional interaction with the application.\n [clinic start generated code]*/\n \n static PyObject *\n-_curses_resize_term_impl(PyObject *module, int nlines, int ncols)\n-/*[clinic end generated code: output=9e26d8b9ea311ed2 input=2197edd05b049ed4]*/\n+_curses_resize_term_impl(PyObject *module, short nlines, short ncols)\n+/*[clinic end generated code: output=46c6d749fa291dbd input=276afa43d8ea7091]*/\n {\n     PyObject *result;\n "
+    },
+    {
+      "sha": "0b52308f10243edc3dd36ab2224496e6cfb41f3c",
+      "filename": "Modules/clinic/_cursesmodule.c.h",
+      "status": "modified",
+      "additions": 79,
+      "deletions": 19,
+      "changes": 98,
+      "blob_url": "https://github.com/python/cpython/blob/c2ba931318280796a6dcc33d1a5c5c02ad4d035b/Modules%2Fclinic%2F_cursesmodule.c.h",
+      "raw_url": "https://github.com/python/cpython/raw/c2ba931318280796a6dcc33d1a5c5c02ad4d035b/Modules%2Fclinic%2F_cursesmodule.c.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Modules%2Fclinic%2F_cursesmodule.c.h?ref=c2ba931318280796a6dcc33d1a5c5c02ad4d035b",
+      "patch": "@@ -3693,25 +3693,55 @@ PyDoc_STRVAR(_curses_resizeterm__doc__,\n     {\"resizeterm\", _PyCFunction_CAST(_curses_resizeterm), METH_FASTCALL, _curses_resizeterm__doc__},\n \n static PyObject *\n-_curses_resizeterm_impl(PyObject *module, int nlines, int ncols);\n+_curses_resizeterm_impl(PyObject *module, short nlines, short ncols);\n \n static PyObject *\n _curses_resizeterm(PyObject *module, PyObject *const *args, Py_ssize_t nargs)\n {\n     PyObject *return_value = NULL;\n-    int nlines;\n-    int ncols;\n+    short nlines;\n+    short ncols;\n \n     if (!_PyArg_CheckPositional(\"resizeterm\", nargs, 2, 2)) {\n         goto exit;\n     }\n-    nlines = PyLong_AsInt(args[0]);\n-    if (nlines == -1 && PyErr_Occurred()) {\n-        goto exit;\n+    {\n+        long ival = PyLong_AsLong(args[0]);\n+        if (ival == -1 && PyErr_Occurred()) {\n+            goto exit;\n+        }\n+        else if (ival < SHRT_MIN) {\n+            PyErr_SetString(PyExc_OverflowError,\n+                            \"signed short integer is less than minimum\");\n+            goto exit;\n+        }\n+        else if (ival > SHRT_MAX) {\n+            PyErr_SetString(PyExc_OverflowError,\n+                            \"signed short integer is greater than maximum\");\n+            goto exit;\n+        }\n+        else {\n+            nlines = (short) ival;\n+        }\n     }\n-    ncols = PyLong_AsInt(args[1]);\n-    if (ncols == -1 && PyErr_Occurred()) {\n-        goto exit;\n+    {\n+        long ival = PyLong_AsLong(args[1]);\n+        if (ival == -1 && PyErr_Occurred()) {\n+            goto exit;\n+        }\n+        else if (ival < SHRT_MIN) {\n+            PyErr_SetString(PyExc_OverflowError,\n+                            \"signed short integer is less than minimum\");\n+            goto exit;\n+        }\n+        else if (ival > SHRT_MAX) {\n+            PyErr_SetString(PyExc_OverflowError,\n+                            \"signed short integer is greater than maximum\");\n+            goto exit;\n+        }\n+        else {\n+            ncols = (short) ival;\n+        }\n     }\n     return_value = _curses_resizeterm_impl(module, nlines, ncols);\n \n@@ -3744,25 +3774,55 @@ PyDoc_STRVAR(_curses_resize_term__doc__,\n     {\"resize_term\", _PyCFunction_CAST(_curses_resize_term), METH_FASTCALL, _curses_resize_term__doc__},\n \n static PyObject *\n-_curses_resize_term_impl(PyObject *module, int nlines, int ncols);\n+_curses_resize_term_impl(PyObject *module, short nlines, short ncols);\n \n static PyObject *\n _curses_resize_term(PyObject *module, PyObject *const *args, Py_ssize_t nargs)\n {\n     PyObject *return_value = NULL;\n-    int nlines;\n-    int ncols;\n+    short nlines;\n+    short ncols;\n \n     if (!_PyArg_CheckPositional(\"resize_term\", nargs, 2, 2)) {\n         goto exit;\n     }\n-    nlines = PyLong_AsInt(args[0]);\n-    if (nlines == -1 && PyErr_Occurred()) {\n-        goto exit;\n+    {\n+        long ival = PyLong_AsLong(args[0]);\n+        if (ival == -1 && PyErr_Occurred()) {\n+            goto exit;\n+        }\n+        else if (ival < SHRT_MIN) {\n+            PyErr_SetString(PyExc_OverflowError,\n+                            \"signed short integer is less than minimum\");\n+            goto exit;\n+        }\n+        else if (ival > SHRT_MAX) {\n+            PyErr_SetString(PyExc_OverflowError,\n+                            \"signed short integer is greater than maximum\");\n+            goto exit;\n+        }\n+        else {\n+            nlines = (short) ival;\n+        }\n     }\n-    ncols = PyLong_AsInt(args[1]);\n-    if (ncols == -1 && PyErr_Occurred()) {\n-        goto exit;\n+    {\n+        long ival = PyLong_AsLong(args[1]);\n+        if (ival == -1 && PyErr_Occurred()) {\n+            goto exit;\n+        }\n+        else if (ival < SHRT_MIN) {\n+            PyErr_SetString(PyExc_OverflowError,\n+                            \"signed short integer is less than minimum\");\n+            goto exit;\n+        }\n+        else if (ival > SHRT_MAX) {\n+            PyErr_SetString(PyExc_OverflowError,\n+                            \"signed short integer is greater than maximum\");\n+            goto exit;\n+        }\n+        else {\n+            ncols = (short) ival;\n+        }\n     }\n     return_value = _curses_resize_term_impl(module, nlines, ncols);\n \n@@ -4318,4 +4378,4 @@ _curses_has_extended_color_support(PyObject *module, PyObject *Py_UNUSED(ignored\n #ifndef _CURSES_USE_DEFAULT_COLORS_METHODDEF\n     #define _CURSES_USE_DEFAULT_COLORS_METHODDEF\n #endif /* !defined(_CURSES_USE_DEFAULT_COLORS_METHODDEF) */\n-/*[clinic end generated code: output=96887782374f070a input=a9049054013a1b77]*/\n+/*[clinic end generated code: output=8745c1562b537fb4 input=a9049054013a1b77]*/"
+    }
+  ]
+}

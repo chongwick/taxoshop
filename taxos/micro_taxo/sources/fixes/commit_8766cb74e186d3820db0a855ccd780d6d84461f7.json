@@ -1,0 +1,113 @@
+{
+  "sha": "8766cb74e186d3820db0a855ccd780d6d84461f7",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6ODc2NmNiNzRlMTg2ZDM4MjBkYjBhODU1Y2NkNzgwZDZkODQ0NjFmNw==",
+  "commit": {
+    "author": {
+      "name": "Inada Naoki",
+      "email": "songofacandy@gmail.com",
+      "date": "2019-06-03T01:51:32Z"
+    },
+    "committer": {
+      "name": "Gregory P. Smith",
+      "email": "greg@krypto.org",
+      "date": "2019-06-03T01:51:31Z"
+    },
+    "message": "[3.7] bpo-27987: align PyGC_Head to alignof(long double) (GH-13335) (GH-13581)\n\nThis reverts commit 2156fec1f7a8f9972e90cdbaf404e3fd9eaccb35.\r\n\r\nNow that https://github.com/python/cpython/commit/1b85f4ec45a5d63188ee3866bd55eb29fdec7fbf is in, this change makes sense.",
+    "tree": {
+      "sha": "d7db8e7f31f0bc8a46306b7b9913c25edcf53bc8",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/d7db8e7f31f0bc8a46306b7b9913c25edcf53bc8"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/8766cb74e186d3820db0a855ccd780d6d84461f7",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/8766cb74e186d3820db0a855ccd780d6d84461f7",
+  "html_url": "https://github.com/python/cpython/commit/8766cb74e186d3820db0a855ccd780d6d84461f7",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/8766cb74e186d3820db0a855ccd780d6d84461f7/comments",
+  "author": {
+    "login": "methane",
+    "id": 199592,
+    "node_id": "MDQ6VXNlcjE5OTU5Mg==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/199592?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/methane",
+    "html_url": "https://github.com/methane",
+    "followers_url": "https://api.github.com/users/methane/followers",
+    "following_url": "https://api.github.com/users/methane/following{/other_user}",
+    "gists_url": "https://api.github.com/users/methane/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/methane/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/methane/subscriptions",
+    "organizations_url": "https://api.github.com/users/methane/orgs",
+    "repos_url": "https://api.github.com/users/methane/repos",
+    "events_url": "https://api.github.com/users/methane/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/methane/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "gpshead",
+    "id": 68491,
+    "node_id": "MDQ6VXNlcjY4NDkx",
+    "avatar_url": "https://avatars.githubusercontent.com/u/68491?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/gpshead",
+    "html_url": "https://github.com/gpshead",
+    "followers_url": "https://api.github.com/users/gpshead/followers",
+    "following_url": "https://api.github.com/users/gpshead/following{/other_user}",
+    "gists_url": "https://api.github.com/users/gpshead/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/gpshead/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/gpshead/subscriptions",
+    "organizations_url": "https://api.github.com/users/gpshead/orgs",
+    "repos_url": "https://api.github.com/users/gpshead/repos",
+    "events_url": "https://api.github.com/users/gpshead/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/gpshead/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "9390e98c3ed9eb9fa414030a2feec1926193af94",
+      "url": "https://api.github.com/repos/python/cpython/commits/9390e98c3ed9eb9fa414030a2feec1926193af94",
+      "html_url": "https://github.com/python/cpython/commit/9390e98c3ed9eb9fa414030a2feec1926193af94"
+    }
+  ],
+  "stats": {
+    "total": 8,
+    "additions": 7,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "0436ba7899d9a8a3769ff4d228982439707254b0",
+      "filename": "Include/objimpl.h",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 1,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/8766cb74e186d3820db0a855ccd780d6d84461f7/Include%2Fobjimpl.h",
+      "raw_url": "https://github.com/python/cpython/raw/8766cb74e186d3820db0a855ccd780d6d84461f7/Include%2Fobjimpl.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fobjimpl.h?ref=8766cb74e186d3820db0a855ccd780d6d84461f7",
+      "patch": "@@ -255,7 +255,11 @@ typedef union _gc_head {\n         union _gc_head *gc_prev;\n         Py_ssize_t gc_refs;\n     } gc;\n-    double dummy;  /* force worst-case alignment */\n+    long double dummy;  /* force worst-case alignment */\n+    // malloc returns memory block aligned for any built-in types and\n+    // long double is the largest standard C type.\n+    // On amd64 linux, long double requires 16 byte alignment.\n+    // See bpo-27987 for more discussion.\n } PyGC_Head;\n \n extern PyGC_Head *_PyGC_generation0;"
+    },
+    {
+      "sha": "98073471ca7e5a905f6fe6a370fe8bb4e6dedbdc",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2019-05-15-18-28-43.bpo-27987.FaxuLy.rst",
+      "status": "added",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/8766cb74e186d3820db0a855ccd780d6d84461f7/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2019-05-15-18-28-43.bpo-27987.FaxuLy.rst",
+      "raw_url": "https://github.com/python/cpython/raw/8766cb74e186d3820db0a855ccd780d6d84461f7/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2019-05-15-18-28-43.bpo-27987.FaxuLy.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2019-05-15-18-28-43.bpo-27987.FaxuLy.rst?ref=8766cb74e186d3820db0a855ccd780d6d84461f7",
+      "patch": "@@ -0,0 +1,2 @@\n+``PyGC_Head`` structure is aligned to ``long double``.  This is needed to\n+ensure GC-ed objects are aligned properly.  Patch by Inada Naoki."
+    }
+  ]
+}

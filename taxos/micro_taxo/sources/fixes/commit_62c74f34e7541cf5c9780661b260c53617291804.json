@@ -1,0 +1,113 @@
+{
+  "sha": "62c74f34e7541cf5c9780661b260c53617291804",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6NjJjNzRmMzRlNzU0MWNmNWM5NzgwNjYxYjI2MGM1MzYxNzI5MTgwNA==",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2021-09-17T09:09:29Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-09-17T09:09:29Z"
+    },
+    "message": "bpo-45228: Fix stack buffer overflow in parsing J1939 address (GH-28404)\n\n(cherry picked from commit 773319545ba60577bc140aa46eac83b360240b7a)\n\nCo-authored-by: Serhiy Storchaka <storchaka@gmail.com>",
+    "tree": {
+      "sha": "9883cf99a2a084a575035ea017dd26188c9834cd",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/9883cf99a2a084a575035ea017dd26188c9834cd"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/62c74f34e7541cf5c9780661b260c53617291804",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhRFtJCRBK7hj4Ov3rIwAAsOkIAIG7nC0wNytwy+AY1exhTSF9\n7nT38URBBiin0uCVvuuqLxiSvShPWVrSJtlKW/iI81JgH+5Aq5VVg5ehffSsQOmW\nEEauZHEX3ZlgwG8EwMk+kXJA/QZ5E504oR/TguYzEoa2lQ8Q2nZtAk3gSSprqg3V\n2S/D5miJ6fXzZOywARuqaEb3Lf7DpABR+BaCtUO+sGYz2qRggtX265fEeXGfszyE\nS01joPe87CqB2WYErtjq805kZgDDe3bsKVnyJw3kbeDC0l09tedTWhIx2QcECjSa\nG7zGmBL0D0VyaBaOmJJfcF/ssNX1UYvyor7FUTCwPeUhdjX+E+u5fUqpfAoCxKs=\n=cLYy\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 9883cf99a2a084a575035ea017dd26188c9834cd\nparent ed28b92e924b8a0ff403b64f567b65824117b891\nauthor Miss Islington (bot) <31488909+miss-islington@users.noreply.github.com> 1631869769 -0700\ncommitter GitHub <noreply@github.com> 1631869769 -0700\n\nbpo-45228: Fix stack buffer overflow in parsing J1939 address (GH-28404)\n\n(cherry picked from commit 773319545ba60577bc140aa46eac83b360240b7a)\n\nCo-authored-by: Serhiy Storchaka <storchaka@gmail.com>",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/62c74f34e7541cf5c9780661b260c53617291804",
+  "html_url": "https://github.com/python/cpython/commit/62c74f34e7541cf5c9780661b260c53617291804",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/62c74f34e7541cf5c9780661b260c53617291804/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "ed28b92e924b8a0ff403b64f567b65824117b891",
+      "url": "https://api.github.com/repos/python/cpython/commits/ed28b92e924b8a0ff403b64f567b65824117b891",
+      "html_url": "https://github.com/python/cpython/commit/ed28b92e924b8a0ff403b64f567b65824117b891"
+    }
+  ],
+  "stats": {
+    "total": 17,
+    "additions": 9,
+    "deletions": 8
+  },
+  "files": [
+    {
+      "sha": "9336c0aed92bc40a2b6f535949fc452997e9585a",
+      "filename": "Misc/NEWS.d/next/Library/2021-09-17-09-59-33.bpo-45228.WV1dcT.rst",
+      "status": "added",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/62c74f34e7541cf5c9780661b260c53617291804/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-09-17-09-59-33.bpo-45228.WV1dcT.rst",
+      "raw_url": "https://github.com/python/cpython/raw/62c74f34e7541cf5c9780661b260c53617291804/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-09-17-09-59-33.bpo-45228.WV1dcT.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-09-17-09-59-33.bpo-45228.WV1dcT.rst?ref=62c74f34e7541cf5c9780661b260c53617291804",
+      "patch": "@@ -0,0 +1 @@\n+Fix stack buffer overflow in parsing J1939 network address."
+    },
+    {
+      "sha": "83f05b72ecbd9ed3d60171b8db7001a994947f08",
+      "filename": "Modules/socketmodule.c",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 8,
+      "changes": 16,
+      "blob_url": "https://github.com/python/cpython/blob/62c74f34e7541cf5c9780661b260c53617291804/Modules%2Fsocketmodule.c",
+      "raw_url": "https://github.com/python/cpython/raw/62c74f34e7541cf5c9780661b260c53617291804/Modules%2Fsocketmodule.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Modules%2Fsocketmodule.c?ref=62c74f34e7541cf5c9780661b260c53617291804",
+      "patch": "@@ -1513,10 +1513,10 @@ makesockaddr(SOCKET_T sockfd, struct sockaddr *addr, size_t addrlen, int proto)\n #ifdef CAN_J1939\n           case CAN_J1939:\n           {\n-              return Py_BuildValue(\"O&KkB\", PyUnicode_DecodeFSDefault,\n+              return Py_BuildValue(\"O&KIB\", PyUnicode_DecodeFSDefault,\n                                           ifname,\n-                                          a->can_addr.j1939.name,\n-                                          a->can_addr.j1939.pgn,\n+                                          (unsigned long long)a->can_addr.j1939.name,\n+                                          (unsigned int)a->can_addr.j1939.pgn,\n                                           a->can_addr.j1939.addr);\n           }\n #endif /* CAN_J1939 */\n@@ -2207,13 +2207,13 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,\n             PyObject *interfaceName;\n             struct ifreq ifr;\n             Py_ssize_t len;\n-            uint64_t j1939_name;\n-            uint32_t j1939_pgn;\n+            unsigned long long j1939_name; /* at least 64 bits */\n+            unsigned int j1939_pgn; /* at least 32 bits */\n             uint8_t j1939_addr;\n \n             struct sockaddr_can *addr = &addrbuf->can;\n \n-            if (!PyArg_ParseTuple(args, \"O&KkB\", PyUnicode_FSConverter,\n+            if (!PyArg_ParseTuple(args, \"O&KIB\", PyUnicode_FSConverter,\n                                               &interfaceName,\n                                               &j1939_name,\n                                               &j1939_pgn,\n@@ -2241,8 +2241,8 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,\n \n             addr->can_family = AF_CAN;\n             addr->can_ifindex = ifr.ifr_ifindex;\n-            addr->can_addr.j1939.name = j1939_name;\n-            addr->can_addr.j1939.pgn = j1939_pgn;\n+            addr->can_addr.j1939.name = (uint64_t)j1939_name;\n+            addr->can_addr.j1939.pgn = (uint32_t)j1939_pgn;\n             addr->can_addr.j1939.addr = j1939_addr;\n \n             *len_ret = sizeof(*addr);"
+    }
+  ]
+}

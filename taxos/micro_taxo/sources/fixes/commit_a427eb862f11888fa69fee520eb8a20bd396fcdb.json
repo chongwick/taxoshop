@@ -1,0 +1,101 @@
+{
+  "sha": "a427eb862f11888fa69fee520eb8a20bd396fcdb",
+  "node_id": "C_kwDOBN0Z8doAKGE0MjdlYjg2MmYxMTg4OGZhNjlmZWU1MjBlYjhhMjBiZDM5NmZjZGI",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2021-11-20T17:59:34Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-11-20T17:59:34Z"
+    },
+    "message": "bpo-45494: Fix error location in EOF tokenizer errors (GH-29108)\n\n(cherry picked from commit 79ff0d1687e3f823fb121a19f0297ad052871b1b)\n\nCo-authored-by: Pablo Galindo Salgado <Pablogsal@gmail.com>",
+    "tree": {
+      "sha": "41a57399a82b66128b4b8d4c6f2ef522d837fb84",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/41a57399a82b66128b4b8d4c6f2ef522d837fb84"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/a427eb862f11888fa69fee520eb8a20bd396fcdb",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhmTeGCRBK7hj4Ov3rIwAAS/gIAD52QC7tzeXJGuvYDWBnY35O\nv4SN7HRZBgGGsjruuwa7i7s1PvsJ4SPJ7ZfoyK3veXTNBFOO0gyApE5zbQwCTOGl\nCO1Och2Bwn6QFJKRposq1m/6mzpyTIr43Kbood0cvEVwHc56q6wx65urWT1+biDg\nfvKY4lBsgp2iN561ItJMLPrmB5Zk3hG0GBchkSQ4bY7iSmYnDeqnI8EuG956JMx3\nll0bp3JS8zyXCBvqbbNjyf2goqRkbRNx5Wi711lfOKb32zuxWfe/fHcl39M76EbN\n5JRpZzPwHwOUSCBN7xHCv8fDaTlJbHxfTzK2tnSIZwEtFL/HgICGE2NPBZ66rq0=\n=+uc5\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 41a57399a82b66128b4b8d4c6f2ef522d837fb84\nparent 511ee1c0fa4dedf32cc2b9f9fa13aa61e07bd165\nauthor Miss Islington (bot) <31488909+miss-islington@users.noreply.github.com> 1637431174 -0800\ncommitter GitHub <noreply@github.com> 1637431174 -0800\n\nbpo-45494: Fix error location in EOF tokenizer errors (GH-29108)\n\n(cherry picked from commit 79ff0d1687e3f823fb121a19f0297ad052871b1b)\n\nCo-authored-by: Pablo Galindo Salgado <Pablogsal@gmail.com>",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/a427eb862f11888fa69fee520eb8a20bd396fcdb",
+  "html_url": "https://github.com/python/cpython/commit/a427eb862f11888fa69fee520eb8a20bd396fcdb",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/a427eb862f11888fa69fee520eb8a20bd396fcdb/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "511ee1c0fa4dedf32cc2b9f9fa13aa61e07bd165",
+      "url": "https://api.github.com/repos/python/cpython/commits/511ee1c0fa4dedf32cc2b9f9fa13aa61e07bd165",
+      "html_url": "https://github.com/python/cpython/commit/511ee1c0fa4dedf32cc2b9f9fa13aa61e07bd165"
+    }
+  ],
+  "stats": {
+    "total": 9,
+    "additions": 7,
+    "deletions": 2
+  },
+  "files": [
+    {
+      "sha": "464a902173dfb97500cc06e2e321653a69a907a3",
+      "filename": "Parser/pegen.c",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 2,
+      "changes": 9,
+      "blob_url": "https://github.com/python/cpython/blob/a427eb862f11888fa69fee520eb8a20bd396fcdb/Parser%2Fpegen.c",
+      "raw_url": "https://github.com/python/cpython/raw/a427eb862f11888fa69fee520eb8a20bd396fcdb/Parser%2Fpegen.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Parser%2Fpegen.c?ref=a427eb862f11888fa69fee520eb8a20bd396fcdb",
+      "patch": "@@ -403,8 +403,12 @@ _PyPegen_raise_error(Parser *p, PyObject *errtype, const char *errmsg, ...)\n     Py_ssize_t col_offset;\n     Py_ssize_t end_col_offset = -1;\n     if (t->col_offset == -1) {\n-        col_offset = Py_SAFE_DOWNCAST(p->tok->cur - p->tok->buf,\n-                                      intptr_t, int);\n+        if (p->tok->cur == p->tok->buf) {\n+            col_offset = 0;\n+        } else {\n+            const char* start = p->tok->buf  ? p->tok->line_start : p->tok->buf;\n+            col_offset = Py_SAFE_DOWNCAST(p->tok->cur - start, intptr_t, int);\n+        }\n     } else {\n         col_offset = t->col_offset + 1;\n     }\n@@ -431,6 +435,7 @@ get_error_line(Parser *p, Py_ssize_t lineno)\n     assert(p->tok->fp == NULL || p->tok->fp == stdin);\n \n     char *cur_line = p->tok->fp_interactive ? p->tok->interactive_src_start : p->tok->str;\n+    assert(cur_line != NULL);\n \n     for (int i = 0; i < lineno - 1; i++) {\n         cur_line = strchr(cur_line, '\\n') + 1;"
+    }
+  ]
+}

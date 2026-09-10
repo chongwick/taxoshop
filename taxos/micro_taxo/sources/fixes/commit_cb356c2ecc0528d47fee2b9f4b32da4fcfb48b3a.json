@@ -1,0 +1,137 @@
+{
+  "sha": "cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6Y2IzNTZjMmVjYzA1MjhkNDdmZWUyYjlmNGIzMmRhNGZjZmI0OGIzYQ==",
+  "commit": {
+    "author": {
+      "name": "Benjamin Peterson",
+      "email": "benjamin@python.org",
+      "date": "2017-09-12T06:08:49Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2017-09-12T06:08:49Z"
+    },
+    "message": "[3.6] bpo-31373: remove overly strict float range checks (GH-3486) (#3495)\n\nThis undoes a853a8ba7850381d49b284295dd6f0dc491dbe44 except for the pytime.c\r\nparts. We want to continue to allow IEEE 754 doubles larger than FLT_MAX to be\r\nrounded into finite floats. Tests were added to very this behavior.\r\n(cherry picked from commit 2bb69a5b4e7f96cb35d1b28aa7b7b3974b351f59)",
+    "tree": {
+      "sha": "ae90d2a83114d93250692df87b5c811488e8e1a7",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/ae90d2a83114d93250692df87b5c811488e8e1a7"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a",
+  "html_url": "https://github.com/python/cpython/commit/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a/comments",
+  "author": {
+    "login": "benjaminp",
+    "id": 219470,
+    "node_id": "MDQ6VXNlcjIxOTQ3MA==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/219470?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/benjaminp",
+    "html_url": "https://github.com/benjaminp",
+    "followers_url": "https://api.github.com/users/benjaminp/followers",
+    "following_url": "https://api.github.com/users/benjaminp/following{/other_user}",
+    "gists_url": "https://api.github.com/users/benjaminp/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/benjaminp/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/benjaminp/subscriptions",
+    "organizations_url": "https://api.github.com/users/benjaminp/orgs",
+    "repos_url": "https://api.github.com/users/benjaminp/repos",
+    "events_url": "https://api.github.com/users/benjaminp/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/benjaminp/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "99b941b420d63027654dc6722f1648a8f36d2925",
+      "url": "https://api.github.com/repos/python/cpython/commits/99b941b420d63027654dc6722f1648a8f36d2925",
+      "html_url": "https://github.com/python/cpython/commit/99b941b420d63027654dc6722f1648a8f36d2925"
+    }
+  ],
+  "stats": {
+    "total": 20,
+    "additions": 14,
+    "deletions": 6
+  },
+  "files": [
+    {
+      "sha": "c5ca50c8f71206d5b3e55a053bacd6f5e90817af",
+      "filename": "Lib/test/test_float.py",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 0,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a/Lib%2Ftest%2Ftest_float.py",
+      "raw_url": "https://github.com/python/cpython/raw/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a/Lib%2Ftest%2Ftest_float.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_float.py?ref=cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a",
+      "patch": "@@ -613,6 +613,12 @@ def test_float_specials_do_unpack(self):\n                           ('<f', LE_FLOAT_NAN)]:\n             struct.unpack(fmt, data)\n \n+    @support.requires_IEEE_754\n+    def test_serialized_float_rounding(self):\n+        from _testcapi import FLT_MAX\n+        self.assertEqual(struct.pack(\"<f\", 3.40282356e38), struct.pack(\"<f\", FLT_MAX))\n+        self.assertEqual(struct.pack(\"<f\", -3.40282356e38), struct.pack(\"<f\", -FLT_MAX))\n+\n class FormatTestCase(unittest.TestCase):\n \n     def test_format(self):"
+    },
+    {
+      "sha": "d14a6ee31fd8b120c2292bb48132098c6dcd95d9",
+      "filename": "Lib/test/test_getargs2.py",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 0,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a/Lib%2Ftest%2Ftest_getargs2.py",
+      "raw_url": "https://github.com/python/cpython/raw/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a/Lib%2Ftest%2Ftest_getargs2.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_getargs2.py?ref=cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a",
+      "patch": "@@ -377,6 +377,12 @@ def test_f(self):\n         r = getargs_f(NAN)\n         self.assertNotEqual(r, r)\n \n+    @support.requires_IEEE_754\n+    def test_f_rounding(self):\n+        from _testcapi import getargs_f\n+        self.assertEqual(getargs_f(3.40282356e38), FLT_MAX)\n+        self.assertEqual(getargs_f(-3.40282356e38), -FLT_MAX)\n+\n     def test_d(self):\n         from _testcapi import getargs_d\n         self.assertEqual(getargs_d(4.25), 4.25)"
+    },
+    {
+      "sha": "1f134aa113154b982406b1063883d922e6e3b355",
+      "filename": "Objects/floatobject.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a/Objects%2Ffloatobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a/Objects%2Ffloatobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Ffloatobject.c?ref=cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a",
+      "patch": "@@ -2182,13 +2182,13 @@ _PyFloat_Pack4(double x, unsigned char *p, int le)\n \n     }\n     else {\n+        float y = (float)x;\n         int i, incr = 1;\n \n-        if (fabs(x) > FLT_MAX && !Py_IS_INFINITY(x))\n+        if (Py_IS_INFINITY(y) && !Py_IS_INFINITY(x))\n             goto Overflow;\n \n         unsigned char s[sizeof(float)];\n-        float y = (float)x;\n         memcpy(s, &y, sizeof(float));\n \n         if ((float_format == ieee_little_endian_format && !le)"
+    },
+    {
+      "sha": "13819642060b4947f588f0de4f995d7396d1e7cd",
+      "filename": "Python/getargs.c",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 4,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a/Python%2Fgetargs.c",
+      "raw_url": "https://github.com/python/cpython/raw/cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a/Python%2Fgetargs.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fgetargs.c?ref=cb356c2ecc0528d47fee2b9f4b32da4fcfb48b3a",
+      "patch": "@@ -811,10 +811,6 @@ convertsimple(PyObject *arg, const char **p_format, va_list *p_va, int flags,\n         double dval = PyFloat_AsDouble(arg);\n         if (PyErr_Occurred())\n             RETURN_ERR_OCCURRED;\n-        else if (dval > FLT_MAX)\n-            *p = (float)INFINITY;\n-        else if (dval < -FLT_MAX)\n-            *p = (float)-INFINITY;\n         else\n             *p = (float) dval;\n         break;"
+    }
+  ]
+}

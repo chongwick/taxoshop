@@ -1,0 +1,69 @@
+diff --git a/Lib/test/support/__init__.py b/Lib/test/support/__init__.py
+index 628529b8664..f7eb5da93ba 100644
+--- a/Lib/test/support/__init__.py
++++ b/Lib/test/support/__init__.py
+@@ -253,22 +253,16 @@ class USEROBJECTFLAGS(ctypes.Structure):
+         # process not running under the same user id as the current console
+         # user.  To avoid that, raise an exception if the window manager
+         # connection is not available.
+-        from ctypes import cdll, c_int, pointer, Structure
+-        from ctypes.util import find_library
+-
+-        app_services = cdll.LoadLibrary(find_library("ApplicationServices"))
+-
+-        if app_services.CGMainDisplayID() == 0:
+-            reason = "gui tests cannot run without OS X window manager"
++        import subprocess
++        try:
++            rc = subprocess.run(["launchctl", "managername"],
++                                capture_output=True, check=True)
++            managername = rc.stdout.decode("utf-8").strip()
++        except subprocess.CalledProcessError:
++            reason = "unable to detect macOS launchd job manager"
+         else:
+-            class ProcessSerialNumber(Structure):
+-                _fields_ = [("highLongOfPSN", c_int),
+-                            ("lowLongOfPSN", c_int)]
+-            psn = ProcessSerialNumber()
+-            psn_p = pointer(psn)
+-            if (  (app_services.GetCurrentProcess(psn_p) < 0) or
+-                  (app_services.SetFrontProcess(psn_p) < 0) ):
+-                reason = "cannot run without OS X gui process"
++            if managername != "Aqua":
++                reason = f"{managername=} -- can only run in a macOS GUI session"
+ 
+     # check on every platform whether tkinter can actually do anything
+     if not reason:
+diff --git a/Lib/test/test_ttk/test_style.py b/Lib/test/test_ttk/test_style.py
+index 9a04a95dc40..1eae997152c 100644
+--- a/Lib/test/test_ttk/test_style.py
++++ b/Lib/test/test_ttk/test_style.py
+@@ -227,12 +227,12 @@ def test_element_create_image(self):
+                                    foreground='blue', background='yellow')
+         img3 = tkinter.BitmapImage(master=self.root, file=imgfile,
+                                    foreground='white', background='black')
+-        style.element_create('Button.button', 'image',
++        style.element_create('Button.button2', 'image',
+                              img1, ('pressed', img2), ('active', img3),
+                              border=(2, 4), sticky='we')
+-        self.assertIn('Button.button', style.element_names())
++        self.assertIn('Button.button2', style.element_names())
+ 
+-        style.layout('Button', [('Button.button', {'sticky': 'news'})])
++        style.layout('Button', [('Button.button2', {'sticky': 'news'})])
+         b = ttk.Button(self.root, style='Button')
+         b.pack(expand=True, fill='both')
+         self.assertEqual(b.winfo_reqwidth(), 16)
+diff --git a/Lib/test/test_ttk/test_widgets.py b/Lib/test/test_ttk/test_widgets.py
+index cb210b7d2fc..60827ccc630 100644
+--- a/Lib/test/test_ttk/test_widgets.py
++++ b/Lib/test/test_ttk/test_widgets.py
+@@ -374,7 +374,7 @@ def test_identify(self):
+         self.entry.update()
+ 
+         # bpo-27313: macOS Cocoa widget differs from X, allow either
+-        self.assertEqual(self.entry.identify(5, 5), self.IDENTIFY_AS)
++        self.assertEqual(self.entry.identify(1, 1), self.IDENTIFY_AS)
+         self.assertEqual(self.entry.identify(-1, -1), "")
+ 
+         self.assertRaises(tkinter.TclError, self.entry.identify, None, 5)

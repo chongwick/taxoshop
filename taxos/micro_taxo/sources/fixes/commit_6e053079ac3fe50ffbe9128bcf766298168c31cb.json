@@ -1,0 +1,101 @@
+{
+  "sha": "6e053079ac3fe50ffbe9128bcf766298168c31cb",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6NmUwNTMwNzlhYzNmZTUwZmZiZTkxMjhiY2Y3NjYyOTgxNjhjMzFjYg==",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2019-06-07T18:25:53Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2019-06-07T18:25:53Z"
+    },
+    "message": "bpo-37138: fix undefined behaviour with memcpy() on NULL array (GH-13867)\n\n(cherry picked from commit 1f9531764cc0f8dbca1d8f429d162dc28282f4b4)\n\nCo-authored-by: Jeroen Demeyer <J.Demeyer@UGent.be>",
+    "tree": {
+      "sha": "0a99b60c04009e922efba7edd4348c75cca1b84b",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/0a99b60c04009e922efba7edd4348c75cca1b84b"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/6e053079ac3fe50ffbe9128bcf766298168c31cb",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJc+qwxCRBK7hj4Ov3rIwAAdHIIAJRE3uxMELRO+asgVoOZtwMD\nwXEF+B+cp8e3c1SeZXt07OATRfoZJjCFwkTbNf4UCKW1mq+okxQ6EN6+I5O1MZzs\nKZO2mMU43eTfLFaYkWNmnqwTCA3I365fcLkPOTwNBRfTD4KxZ/FWpR7WSJRTKgJu\nEwdznIt3XVIusm1zp5GmhOzVuB29z9TGuUFjv7aFxix08p3s4qgsMqKYFa/1S5Qm\nOCxVXmrCi43QcjgyD4NPxjoqP5UWr4vR5Ifhv82GXz0iKzfb8xshhtUuLE0UCuTc\noRTYUKDVEdQ/dAv9BAqk2dK7+BADu9tVGZPIymSVY8kAoW/lEGNGRBqAOFRAm0k=\n=zvSh\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 0a99b60c04009e922efba7edd4348c75cca1b84b\nparent 84d47bd8ad48f29ed5d333f4307408ad1e081f59\nauthor Miss Islington (bot) <31488909+miss-islington@users.noreply.github.com> 1559931953 -0700\ncommitter GitHub <noreply@github.com> 1559931953 -0700\n\nbpo-37138: fix undefined behaviour with memcpy() on NULL array (GH-13867)\n\n(cherry picked from commit 1f9531764cc0f8dbca1d8f429d162dc28282f4b4)\n\nCo-authored-by: Jeroen Demeyer <J.Demeyer@UGent.be>",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/6e053079ac3fe50ffbe9128bcf766298168c31cb",
+  "html_url": "https://github.com/python/cpython/commit/6e053079ac3fe50ffbe9128bcf766298168c31cb",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/6e053079ac3fe50ffbe9128bcf766298168c31cb/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "84d47bd8ad48f29ed5d333f4307408ad1e081f59",
+      "url": "https://api.github.com/repos/python/cpython/commits/84d47bd8ad48f29ed5d333f4307408ad1e081f59",
+      "html_url": "https://github.com/python/cpython/commit/84d47bd8ad48f29ed5d333f4307408ad1e081f59"
+    }
+  ],
+  "stats": {
+    "total": 6,
+    "additions": 5,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "2415ed14cb1506c406e4bd2474a6b82c57196230",
+      "filename": "Objects/classobject.c",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 1,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/6e053079ac3fe50ffbe9128bcf766298168c31cb/Objects%2Fclassobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/6e053079ac3fe50ffbe9128bcf766298168c31cb/Objects%2Fclassobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Fclassobject.c?ref=6e053079ac3fe50ffbe9128bcf766298168c31cb",
+      "patch": "@@ -71,7 +71,11 @@ method_vectorcall(PyObject *method, PyObject *const *args,\n         }\n         /* use borrowed references */\n         newargs[0] = self;\n-        memcpy(newargs + 1, args, totalargs * sizeof(PyObject *));\n+        if (totalargs) { /* bpo-37138: if totalargs == 0, then args may be\n+                          * NULL and calling memcpy() with a NULL pointer\n+                          * is undefined behaviour. */\n+            memcpy(newargs + 1, args, totalargs * sizeof(PyObject *));\n+        }\n         result = _PyObject_Vectorcall(func, newargs, nargs+1, kwnames);\n         PyMem_Free(newargs);\n     }"
+    }
+  ]
+}

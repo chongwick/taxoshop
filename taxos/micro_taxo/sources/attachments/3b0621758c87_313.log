@@ -1,0 +1,1003 @@
+Objects/object.c:1105:16: runtime error: call to function long_hash through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:3606: note: long_hash defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1105:16 
+Objects/object.c:2939:5: runtime error: call to function MemoryError_dealloc through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/exceptions.c:3384: note: MemoryError_dealloc defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:2939:5 
+Python/gc.c:1777:11: runtime error: call to function module_traverse through pointer to incorrect function type 'int (*)(struct _object *, int (*)(struct _object *, void *), void *)'
+/home/shamil/oss/cpython/3.13/Objects/moduleobject.c:1083: note: module_traverse defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/gc.c:1777:11 
+Objects/abstract.c:2919:14: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:2919:14 
+Python/gc.c:464:16: runtime error: call to function meth_traverse through pointer to incorrect function type 'int (*)(struct _object *, int (*)(struct _object *, void *), void *)'
+/home/shamil/oss/cpython/3.13/Objects/methodobject.c:247: note: meth_traverse defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/gc.c:464:16 
+Python/gc.c:577:20: runtime error: call to function gc_traverse through pointer to incorrect function type 'int (*)(struct _object *, int (*)(struct _object *, void *), void *)'
+/home/shamil/oss/cpython/3.13/Objects/weakrefobject.c:149: note: gc_traverse defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/gc.c:577:20 
+Objects/descrobject.c:193:16: runtime error: call to function function___annotations___get through pointer to incorrect function type 'struct _object *(*)(struct _object *, void *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/funcobject.c.h:34: note: function___annotations___get defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:193:16 
+Python/generated_cases.c.h:2804:24: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:2804:24 
+Objects/object.c:1261:18: runtime error: call to function _Py_module_getattro through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/moduleobject.c:1077: note: _Py_module_getattro defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1261:18 
+Objects/descrobject.c:447:24: runtime error: call to function dict_items through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/dictobject.c.h:294: note: dict_items defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:447:24 
+Objects/abstract.c:2277:19: runtime error: call to function tuplecontains through pointer to incorrect function type 'int (*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:354: note: tuplecontains defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:2277:19 
+Objects/typeobject.c:1997:19: runtime error: call to function AttributeError_init through pointer to incorrect function type 'int (*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/exceptions.c:2273: note: AttributeError_init defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:1997:19 
+Objects/abstract.c:158:26: runtime error: call to function tuplesubscript through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:766: note: tuplesubscript defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:158:26 
+Objects/descrobject.c:401:24: runtime error: call to function dict_pop through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/dictobject.c.h:179: note: dict_pop defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:401:24 
+Objects/object.c:1905:15: runtime error: call to function long_bool through pointer to incorrect function type 'int (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:5201: note: long_bool defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1905:15 
+Python/generated_cases.c.h:1649:23: runtime error: call to function dict_pop through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/dictobject.c.h:179: note: dict_pop defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1649:23 
+Objects/descrobject.c:475:24: runtime error: call to function list_append through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/listobject.c.h:118: note: list_append defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:475:24 
+Include/internal/pycore_object.h:249:9: runtime error: call to function PyObject_Free through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/obmalloc.c:1427: note: PyObject_Free defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Include/internal/pycore_object.h:249:9 
+Python/bltinmodule.c:372:16: runtime error: call to function gen_iternext through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/genobject.c:593: note: gen_iternext defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:372:16 
+Objects/methodobject.c:539:18: runtime error: call to function rlock_acquire through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_threadmodule.c:1018: note: rlock_acquire defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:539:18 
+Objects/methodobject.c:550:18: runtime error: call to function rlock_release through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_threadmodule.c:1075: note: rlock_release defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:550:18 
+Objects/object.c:1911:15: runtime error: call to function set_len through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/setobject.c:582: note: set_len defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1911:15 
+Objects/abstract.c:2860:25: runtime error: call to function set_iter through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/setobject.c:920: note: set_iter defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:2860:25 
+Objects/abstract.c:63:26: runtime error: call to function set_len through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/setobject.c:582: note: set_len defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:63:26 
+Python/bltinmodule.c:323:16: runtime error: call to function gen_iternext through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/genobject.c:593: note: gen_iternext defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:323:16 
+Objects/abstract.c:1149:18: runtime error: call to function tupleconcat through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:443: note: tupleconcat defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1149:18 
+Objects/abstract.c:442:15: runtime error: call to function bytes_buffer_getbuffer through pointer to incorrect function type 'int (*)(struct _object *, Py_buffer *, int)'
+/home/shamil/oss/cpython/3.13/Objects/bytesobject.c:1698: note: bytes_buffer_getbuffer defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:442:15 
+Objects/methodobject.c:440:24: runtime error: call to function int_from_bytes through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/longobject.c.h:396: note: int_from_bytes defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:440:24 
+Objects/object.c:1908:15: runtime error: call to function tuplelength through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:348: note: tuplelength defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1908:15 
+Objects/abstract.c:961:13: runtime error: call to function long_add through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:3784: note: long_add defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:961:13 
+Objects/typeobject.c:2388:5: runtime error: call to function ImportError_dealloc through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/exceptions.c:1572: note: ImportError_dealloc defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:2388:5 
+Include/internal/pycore_object.h:249:9: runtime error: call to function PyObject_Free through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/obmalloc.c:1427: note: PyObject_Free defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Include/internal/pycore_object.h:249:9 
+Objects/listobject.c:1267:26: runtime error: call to function gen_iternext through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/genobject.c:593: note: gen_iternext defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/listobject.c:1267:26 
+Python/generated_cases.c.h:1803:23: runtime error: call to function list_extend through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/listobject.c:1458: note: list_extend defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1803:23 
+Objects/methodobject.c:483:24: runtime error: call to function _io_FileIO_readall through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_io/clinic/fileio.c.h:280: note: _io_FileIO_readall defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:483:24 
+Objects/descrobject.c:380:24: runtime error: call to function _io_FileIO_close through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _typeobject *, struct _object *const *, unsigned long, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_io/clinic/fileio.c.h:29: note: _io_FileIO_close defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:380:24 
+Objects/object.c:1010:15: runtime error: call to function bytes_richcompare through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, int)'
+/home/shamil/oss/cpython/3.13/Objects/bytesobject.c:1560: note: bytes_richcompare defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1010:15 
+Objects/descrobject.c:249:16: runtime error: call to function type_set_abstractmethods through pointer to incorrect function type 'int (*)(struct _object *, struct _object *, void *)'
+/home/shamil/oss/cpython/3.13/Objects/typeobject.c:1425: note: type_set_abstractmethods defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:249:16 
+Objects/methodobject.c:511:24: runtime error: call to function list_remove through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/listobject.c.h:359: note: list_remove defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:511:24 
+Objects/methodobject.c:424:24: runtime error: call to function list_insert through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/listobject.c.h:27: note: list_insert defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:424:24 
+Include/internal/pycore_call.h:168:11: runtime error: call to function range_vectorcall through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, unsigned long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/rangeobject.c:148: note: range_vectorcall defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Include/internal/pycore_call.h:168:11 
+Objects/typeobject.c:2166:16: runtime error: call to function tupletraverse through pointer to incorrect function type 'int (*)(struct _object *, int (*)(struct _object *, void *), void *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:606: note: tupletraverse defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:2166:16 
+Objects/abstract.c:969:23: runtime error: call to function long_mul through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:4263: note: long_mul defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:969:23 
+Python/bltinmodule.c:1545:11: runtime error: call to function gen_iternext through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/genobject.c:593: note: gen_iternext defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:1545:11 
+Objects/descrobject.c:420:24: runtime error: call to function bytes_decode through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/bytesobject.c.h:1034: note: bytes_decode defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:420:24 
+Python/generated_cases.c.h:1701:23: runtime error: call to function bytes_decode through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/bytesobject.c.h:1034: note: bytes_decode defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1701:23 
+Objects/abstract.c:1239:27: runtime error: call to function set_ior through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/setobject.c:1339: note: set_ior defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1239:27 
+Python/lock.c:332:23: runtime error: call to function init_types through pointer to incorrect function type 'int (*)(void *)'
+/home/shamil/oss/cpython/3.13/Python/Python-ast.c:5546: note: init_types defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/lock.c:332:23 
+Objects/abstract.c:812:9: runtime error: call to function bytearray_releasebuffer through pointer to incorrect function type 'void (*)(struct _object *, Py_buffer *)'
+/home/shamil/oss/cpython/3.13/Objects/bytearrayobject.c:62: note: bytearray_releasebuffer defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:812:9 
+Python/generated_cases.c.h:1273:23: runtime error: call to function builtin_id through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Python/bltinmodule.c:1286: note: builtin_id defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1273:23 
+Objects/abstract.c:1392:1: runtime error: call to function long_neg through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:5180: note: long_neg defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1392:1 
+Python/gc.c:1015:24: runtime error: call to function func_clear through pointer to incorrect function type 'int (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/funcobject.c:1007: note: func_clear defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/gc.c:1015:24 
+Objects/listobject.c:2732:15: runtime error: call to function bytes_richcompare through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, int)'
+/home/shamil/oss/cpython/3.13/Objects/bytesobject.c:1560: note: bytes_richcompare defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/listobject.c:2732:15 
+Objects/enumobject.c:232:17: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/enumobject.c:232:17 
+Python/generated_cases.c.h:1753:23: runtime error: call to function set_pop through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/setobject.c.h:24: note: set_pop defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1753:23 
+Python/generated_cases.c.h:1130:23: runtime error: call to function range_vectorcall through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, unsigned long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/rangeobject.c:148: note: range_vectorcall defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1130:23 
+Objects/abstract.c:232:19: runtime error: call to function bytearray_ass_subscript through pointer to incorrect function type 'int (*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/bytearrayobject.c:592: note: bytearray_ass_subscript defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:232:19 
+Objects/descrobject.c:358:14: runtime error: call to function lock_PyThread_acquire_lock through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_threadmodule.c:788: note: lock_PyThread_acquire_lock defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:358:14 
+Objects/abstract.c:1394:1: runtime error: call to function long_invert through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:5164: note: long_invert defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1394:1 
+Objects/call.c:242:18: runtime error: call to function partial_call through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_functoolsmodule.c:316: note: partial_call defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/call.c:242:18 
+Objects/abstract.c:1763:25: runtime error: call to function tupleconcat through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:443: note: tupleconcat defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1763:25 
+Objects/abstract.c:1733:26: runtime error: call to function tuplelength through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:348: note: tuplelength defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1733:26 
+Python/bltinmodule.c:2928:20: runtime error: call to function reversed_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/enumobject.c:430: note: reversed_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:2928:20 
+Objects/abstract.c:1893:25: runtime error: call to function tupleitem through pointer to incorrect function type 'struct _object *(*)(struct _object *, long)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:365: note: tupleitem defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1893:25 
+Python/bltinmodule.c:2951:20: runtime error: call to function reversed_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/enumobject.c:430: note: reversed_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:2951:20 
+Python/bltinmodule.c:1432:25: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:1432:25 
+Objects/abstract.c:1917:25: runtime error: call to function tuplesubscript through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:766: note: tuplesubscript defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1917:25 
+Objects/abstract.c:1320:26: runtime error: call to function tupleconcat through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:443: note: tupleconcat defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1320:26 
+Objects/call.c:361:18: runtime error: call to function lru_cache_call through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_functoolsmodule.c:1328: note: lru_cache_call defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/call.c:361:18 
+Python/generated_cases.c.h:1174:23: runtime error: call to function typevar_typing_prepare_subst through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/typevarobject.c.h:141: note: typevar_typing_prepare_subst defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1174:23 
+Objects/abstract.c:1171:21: runtime error: call to function bytes_repeat through pointer to incorrect function type 'struct _object *(*)(struct _object *, long)'
+/home/shamil/oss/cpython/3.13/Objects/bytesobject.c:1488: note: bytes_repeat defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1171:21 
+Modules/itertoolsmodule.c:3950:16: runtime error: call to function chain_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/itertoolsmodule.c:2124: note: chain_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Modules/itertoolsmodule.c:3950:16 
+Modules/itertoolsmodule.c:2144:16: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Modules/itertoolsmodule.c:2144:16 
+Python/generated_cases.c.h:5340:30: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:5340:30 
+Objects/descrobject.c:324:24: runtime error: call to function match_group through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_sre/sre.c:2387: note: match_group defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:324:24 
+Objects/abstract.c:1395:1: runtime error: call to function long_abs through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:5192: note: long_abs defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1395:1 
+Objects/typeobject.c:8917:11: runtime error: call to function count_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/itertoolsmodule.c:4172: note: count_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:8917:11 
+Using random seed: 2781142758
+0:00:00 load avg: 1.32 Run 1 test in parallel using 1 worker process
+Python/parking_lot.c:361:9: runtime error: call to function mutex_unpark through pointer to incorrect function type 'void (*)(void *, void *, int)'
+/home/shamil/oss/cpython/3.13/Python/lock.c:141: note: mutex_unpark defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/parking_lot.c:361:9 
+Objects/object.c:566:5: runtime error: call to function ScandirIterator_finalize through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/posixmodule.c:16253: note: ScandirIterator_finalize defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:566:5 
+Objects/typeobject.c:9037:9: runtime error: call to function BaseException_init through pointer to incorrect function type 'int (*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/exceptions.c:73: note: BaseException_init defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:9037:9 
+0:00:03 load avg: 1.32 [1/1/1] test__interpchannels worker non-zero exit code (Exit code 1)
+Modules/_io/textio.c:1697:17: runtime error: call to function utf8_encode through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_io/textio.c:792: note: utf8_encode defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Modules/_io/textio.c:1697:17 
+Objects/object.c:1105:16: runtime error: call to function long_hash through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:3606: note: long_hash defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1105:16 
+Objects/object.c:2939:5: runtime error: call to function MemoryError_dealloc through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/exceptions.c:3384: note: MemoryError_dealloc defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:2939:5 
+Python/gc.c:1777:11: runtime error: call to function module_traverse through pointer to incorrect function type 'int (*)(struct _object *, int (*)(struct _object *, void *), void *)'
+/home/shamil/oss/cpython/3.13/Objects/moduleobject.c:1083: note: module_traverse defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/gc.c:1777:11 
+Objects/abstract.c:2919:14: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:2919:14 
+Python/gc.c:464:16: runtime error: call to function meth_traverse through pointer to incorrect function type 'int (*)(struct _object *, int (*)(struct _object *, void *), void *)'
+/home/shamil/oss/cpython/3.13/Objects/methodobject.c:247: note: meth_traverse defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/gc.c:464:16 
+Python/gc.c:577:20: runtime error: call to function gc_traverse through pointer to incorrect function type 'int (*)(struct _object *, int (*)(struct _object *, void *), void *)'
+/home/shamil/oss/cpython/3.13/Objects/weakrefobject.c:149: note: gc_traverse defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/gc.c:577:20 
+Objects/descrobject.c:193:16: runtime error: call to function function___annotations___get through pointer to incorrect function type 'struct _object *(*)(struct _object *, void *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/funcobject.c.h:34: note: function___annotations___get defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:193:16 
+Python/generated_cases.c.h:2804:24: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:2804:24 
+Objects/object.c:1261:18: runtime error: call to function _Py_module_getattro through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/moduleobject.c:1077: note: _Py_module_getattro defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1261:18 
+Objects/descrobject.c:447:24: runtime error: call to function dict_items through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/dictobject.c.h:294: note: dict_items defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:447:24 
+Objects/abstract.c:2277:19: runtime error: call to function tuplecontains through pointer to incorrect function type 'int (*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:354: note: tuplecontains defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:2277:19 
+Objects/typeobject.c:1997:19: runtime error: call to function AttributeError_init through pointer to incorrect function type 'int (*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/exceptions.c:2273: note: AttributeError_init defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:1997:19 
+Objects/abstract.c:158:26: runtime error: call to function tuplesubscript through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:766: note: tuplesubscript defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:158:26 
+Objects/descrobject.c:401:24: runtime error: call to function dict_pop through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/dictobject.c.h:179: note: dict_pop defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:401:24 
+Objects/object.c:1905:15: runtime error: call to function long_bool through pointer to incorrect function type 'int (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:5201: note: long_bool defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1905:15 
+Python/generated_cases.c.h:1649:23: runtime error: call to function dict_pop through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/dictobject.c.h:179: note: dict_pop defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1649:23 
+Objects/descrobject.c:475:24: runtime error: call to function list_append through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/listobject.c.h:118: note: list_append defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:475:24 
+Include/internal/pycore_object.h:249:9: runtime error: call to function PyObject_Free through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/obmalloc.c:1427: note: PyObject_Free defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Include/internal/pycore_object.h:249:9 
+Python/bltinmodule.c:372:16: runtime error: call to function gen_iternext through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/genobject.c:593: note: gen_iternext defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:372:16 
+Objects/methodobject.c:539:18: runtime error: call to function rlock_acquire through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_threadmodule.c:1018: note: rlock_acquire defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:539:18 
+Objects/methodobject.c:550:18: runtime error: call to function rlock_release through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_threadmodule.c:1075: note: rlock_release defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:550:18 
+Objects/object.c:1911:15: runtime error: call to function set_len through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/setobject.c:582: note: set_len defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1911:15 
+Objects/abstract.c:2860:25: runtime error: call to function set_iter through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/setobject.c:920: note: set_iter defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:2860:25 
+Objects/abstract.c:63:26: runtime error: call to function set_len through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/setobject.c:582: note: set_len defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:63:26 
+Python/bltinmodule.c:323:16: runtime error: call to function gen_iternext through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/genobject.c:593: note: gen_iternext defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:323:16 
+Objects/abstract.c:1149:18: runtime error: call to function tupleconcat through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:443: note: tupleconcat defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1149:18 
+Objects/abstract.c:442:15: runtime error: call to function bytes_buffer_getbuffer through pointer to incorrect function type 'int (*)(struct _object *, Py_buffer *, int)'
+/home/shamil/oss/cpython/3.13/Objects/bytesobject.c:1698: note: bytes_buffer_getbuffer defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:442:15 
+Objects/methodobject.c:440:24: runtime error: call to function int_from_bytes through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/longobject.c.h:396: note: int_from_bytes defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:440:24 
+Objects/object.c:1908:15: runtime error: call to function tuplelength through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:348: note: tuplelength defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1908:15 
+Objects/abstract.c:961:13: runtime error: call to function long_add through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:3784: note: long_add defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:961:13 
+Objects/typeobject.c:2388:5: runtime error: call to function ImportError_dealloc through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/exceptions.c:1572: note: ImportError_dealloc defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:2388:5 
+Include/internal/pycore_object.h:249:9: runtime error: call to function PyObject_Free through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/obmalloc.c:1427: note: PyObject_Free defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Include/internal/pycore_object.h:249:9 
+Objects/listobject.c:1267:26: runtime error: call to function gen_iternext through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/genobject.c:593: note: gen_iternext defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/listobject.c:1267:26 
+Python/generated_cases.c.h:1803:23: runtime error: call to function list_extend through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/listobject.c:1458: note: list_extend defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1803:23 
+Objects/methodobject.c:483:24: runtime error: call to function _io_FileIO_readall through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_io/clinic/fileio.c.h:280: note: _io_FileIO_readall defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:483:24 
+Objects/descrobject.c:380:24: runtime error: call to function _io_FileIO_close through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _typeobject *, struct _object *const *, unsigned long, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_io/clinic/fileio.c.h:29: note: _io_FileIO_close defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:380:24 
+Objects/object.c:1010:15: runtime error: call to function bytes_richcompare through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, int)'
+/home/shamil/oss/cpython/3.13/Objects/bytesobject.c:1560: note: bytes_richcompare defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:1010:15 
+Objects/descrobject.c:249:16: runtime error: call to function type_set_abstractmethods through pointer to incorrect function type 'int (*)(struct _object *, struct _object *, void *)'
+/home/shamil/oss/cpython/3.13/Objects/typeobject.c:1425: note: type_set_abstractmethods defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:249:16 
+Objects/methodobject.c:511:24: runtime error: call to function list_remove through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/listobject.c.h:359: note: list_remove defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:511:24 
+Objects/methodobject.c:424:24: runtime error: call to function list_insert through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/listobject.c.h:27: note: list_insert defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:424:24 
+Include/internal/pycore_call.h:168:11: runtime error: call to function range_vectorcall through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, unsigned long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/rangeobject.c:148: note: range_vectorcall defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Include/internal/pycore_call.h:168:11 
+Objects/typeobject.c:2166:16: runtime error: call to function tupletraverse through pointer to incorrect function type 'int (*)(struct _object *, int (*)(struct _object *, void *), void *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:606: note: tupletraverse defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:2166:16 
+Objects/abstract.c:969:23: runtime error: call to function long_mul through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:4263: note: long_mul defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:969:23 
+Python/bltinmodule.c:1545:11: runtime error: call to function gen_iternext through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/genobject.c:593: note: gen_iternext defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:1545:11 
+Objects/descrobject.c:420:24: runtime error: call to function bytes_decode through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/bytesobject.c.h:1034: note: bytes_decode defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:420:24 
+Python/generated_cases.c.h:1701:23: runtime error: call to function bytes_decode through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/bytesobject.c.h:1034: note: bytes_decode defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1701:23 
+Objects/abstract.c:1239:27: runtime error: call to function set_ior through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/setobject.c:1339: note: set_ior defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1239:27 
+Python/gc.c:1015:24: runtime error: call to function func_clear through pointer to incorrect function type 'int (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/funcobject.c:1007: note: func_clear defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/gc.c:1015:24 
+Objects/enumobject.c:232:17: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/enumobject.c:232:17 
+Python/generated_cases.c.h:1753:23: runtime error: call to function set_pop through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/setobject.c.h:24: note: set_pop defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1753:23 
+Python/generated_cases.c.h:1130:23: runtime error: call to function range_vectorcall through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, unsigned long, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/rangeobject.c:148: note: range_vectorcall defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1130:23 
+Python/generated_cases.c.h:1273:23: runtime error: call to function list_append through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/listobject.c.h:118: note: list_append defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1273:23 
+Objects/call.c:242:18: runtime error: call to function partial_call through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_functoolsmodule.c:316: note: partial_call defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/call.c:242:18 
+Objects/abstract.c:1763:25: runtime error: call to function tupleconcat through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:443: note: tupleconcat defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1763:25 
+Objects/abstract.c:1394:1: runtime error: call to function long_invert through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:5164: note: long_invert defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1394:1 
+Objects/abstract.c:232:19: runtime error: call to function bytearray_ass_subscript through pointer to incorrect function type 'int (*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/bytearrayobject.c:592: note: bytearray_ass_subscript defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:232:19 
+Objects/abstract.c:1392:1: runtime error: call to function long_neg through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:5180: note: long_neg defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1392:1 
+Objects/descrobject.c:358:14: runtime error: call to function lock_PyThread_acquire_lock through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_threadmodule.c:788: note: lock_PyThread_acquire_lock defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:358:14 
+Objects/abstract.c:1917:25: runtime error: call to function tuplesubscript through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:766: note: tuplesubscript defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1917:25 
+Objects/abstract.c:1320:26: runtime error: call to function tupleconcat through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:443: note: tupleconcat defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1320:26 
+Objects/call.c:361:18: runtime error: call to function lru_cache_call through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_functoolsmodule.c:1328: note: lru_cache_call defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/call.c:361:18 
+Objects/abstract.c:1733:26: runtime error: call to function tuplelength through pointer to incorrect function type 'long (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:348: note: tuplelength defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1733:26 
+Python/bltinmodule.c:2928:20: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:2928:20 
+Python/generated_cases.c.h:1174:23: runtime error: call to function typevar_typing_prepare_subst through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *const *, long)'
+/home/shamil/oss/cpython/3.13/Objects/clinic/typevarobject.c.h:141: note: typevar_typing_prepare_subst defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:1174:23 
+Python/lock.c:332:23: runtime error: call to function init_types through pointer to incorrect function type 'int (*)(void *)'
+/home/shamil/oss/cpython/3.13/Python/Python-ast.c:5546: note: init_types defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/lock.c:332:23 
+Objects/abstract.c:1893:25: runtime error: call to function tupleitem through pointer to incorrect function type 'struct _object *(*)(struct _object *, long)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:365: note: tupleitem defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1893:25 
+Python/bltinmodule.c:2951:20: runtime error: call to function reversed_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/enumobject.c:430: note: reversed_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:2951:20 
+Python/bltinmodule.c:1432:25: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/bltinmodule.c:1432:25 
+Objects/abstract.c:1171:21: runtime error: call to function bytes_repeat through pointer to incorrect function type 'struct _object *(*)(struct _object *, long)'
+/home/shamil/oss/cpython/3.13/Objects/bytesobject.c:1488: note: bytes_repeat defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1171:21 
+Objects/abstract.c:812:9: runtime error: call to function bytearray_releasebuffer through pointer to incorrect function type 'void (*)(struct _object *, Py_buffer *)'
+/home/shamil/oss/cpython/3.13/Objects/bytearrayobject.c:62: note: bytearray_releasebuffer defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:812:9 
+Modules/itertoolsmodule.c:3950:16: runtime error: call to function chain_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/itertoolsmodule.c:2124: note: chain_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Modules/itertoolsmodule.c:3950:16 
+Modules/itertoolsmodule.c:2144:16: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Modules/itertoolsmodule.c:2144:16 
+Python/generated_cases.c.h:5340:30: runtime error: call to function tupleiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/tupleobject.c:995: note: tupleiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/generated_cases.c.h:5340:30 
+Objects/methodobject.c:456:24: runtime error: call to function _sre_SRE_Pattern_match through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _typeobject *, struct _object *const *, unsigned long, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_sre/clinic/sre.c.h:183: note: _sre_SRE_Pattern_match defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/methodobject.c:456:24 
+Objects/abstract.c:1395:1: runtime error: call to function long_abs through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/longobject.c:5192: note: long_abs defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/abstract.c:1395:1 
+Objects/object.c:814:11: runtime error: call to function BaseException_str through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/exceptions.c:120: note: BaseException_str defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:814:11 
+Modules/itertoolsmodule.c:1809:16: runtime error: call to function positionsiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/codeobject.c:1437: note: positionsiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Modules/itertoolsmodule.c:1809:16 
+Python/modsupport.c:436:20: runtime error: call to function _source_offset_converter through pointer to incorrect function type 'struct _object *(*)(void *)'
+/home/shamil/oss/cpython/3.13/Objects/codeobject.c:1335: note: _source_offset_converter defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/modsupport.c:436:20 
+Modules/itertoolsmodule.c:1817:12: runtime error: call to function positionsiter_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/codeobject.c:1437: note: positionsiter_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Modules/itertoolsmodule.c:1817:12 
+Objects/typeobject.c:8917:11: runtime error: call to function count_next through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/itertoolsmodule.c:4172: note: count_next defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:8917:11 
+Python/parking_lot.c:361:9: runtime error: call to function mutex_unpark through pointer to incorrect function type 'void (*)(void *, void *, int)'
+/home/shamil/oss/cpython/3.13/Python/lock.c:141: note: mutex_unpark defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/parking_lot.c:361:9 
+Objects/descrobject.c:324:24: runtime error: call to function PyThreadHandleObject_join through pointer to incorrect function type 'struct _object *(*)(struct _object *, struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/_threadmodule.c:635: note: PyThreadHandleObject_join defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/descrobject.c:324:24 
+Objects/typeobject.c:2225:16: runtime error: call to function BaseException_clear through pointer to incorrect function type 'int (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/exceptions.c:83: note: BaseException_clear defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:2225:16 
+Objects/typeobject.c:8600:12: runtime error: call to function float_repr through pointer to incorrect function type 'struct _object *(*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/Objects/floatobject.c:376: note: float_repr defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/typeobject.c:8600:12 
+Objects/object.c:566:5: runtime error: call to function ScandirIterator_finalize through pointer to incorrect function type 'void (*)(struct _object *)'
+/home/shamil/oss/cpython/3.13/./Modules/posixmodule.c:16253: note: ScandirIterator_finalize defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/object.c:566:5 
+Objects/moduleobject.c:775:9: runtime error: call to function pickle_free through pointer to incorrect function type 'void (*)(void *)'
+/home/shamil/oss/cpython/3.13/./Modules/_pickle.c:7860: note: pickle_free defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/moduleobject.c:775:9 
+Python/hashtable.c:385:9: runtime error: call to function del_extensions_cache_value through pointer to incorrect function type 'void (*)(void *)'
+/home/shamil/oss/cpython/3.13/Python/import.c:1147: note: del_extensions_cache_value defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/hashtable.c:385:9 
+[0 refs, 0 blocks]
+
+=================================================================
+==1083258==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 1088 byte(s) in 17 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x758e7bbbd565 in channel_send /home/shamil/oss/cpython/3.13/./Modules/_interpchannelsmodule.c:1781:37
+    #3 0x758e7bbb1c5f in channelsmod_send /home/shamil/oss/cpython/3.13/./Modules/_interpchannelsmodule.c:3115:15
+    #4 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #5 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #6 0x5fa23596a8d2 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1509:19
+    #7 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #8 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #9 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #10 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #11 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #12 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #13 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #14 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #15 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #16 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #17 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #18 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #19 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #20 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #21 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #22 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #23 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #24 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #25 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #26 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #27 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #28 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #29 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+
+Direct leak of 312 byte(s) in 2 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a773cd in _format_TracebackException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:444:29
+    #4 0x5fa235a773cd in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:703:28
+    #5 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #6 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #7 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #8 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #9 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #10 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #11 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #12 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #13 0x5fa235978405 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:813:23
+    #14 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #15 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #16 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #17 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #18 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #19 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #20 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #21 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #22 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #23 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #24 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #25 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #26 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #27 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #28 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #29 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #30 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #31 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+Direct leak of 192 byte(s) in 3 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x758e7bbbd565 in channel_send /home/shamil/oss/cpython/3.13/./Modules/_interpchannelsmodule.c:1781:37
+    #3 0x758e7bbb1c5f in channelsmod_send /home/shamil/oss/cpython/3.13/./Modules/_interpchannelsmodule.c:3115:15
+    #4 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #5 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #6 0x5fa23596a8d2 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1509:19
+    #7 0x5fa23594e853 in PyEval_EvalCode /home/shamil/oss/cpython/3.13/Python/ceval.c:604:21
+    #8 0x5fa235becc1d in run_eval_code_obj /home/shamil/oss/cpython/3.13/Python/pythonrun.c:1381:9
+    #9 0x5fa235be7b16 in run_mod /home/shamil/oss/cpython/3.13/Python/pythonrun.c:1489:19
+    #10 0x5fa235be7b16 in _PyRun_StringFlagsWithName /home/shamil/oss/cpython/3.13/Python/pythonrun.c:1261:15
+    #11 0x5fa235be7b16 in PyRun_StringFlags /home/shamil/oss/cpython/3.13/Python/pythonrun.c:1273:12
+    #12 0x798e7d70e18c in _run_script /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:435:18
+    #13 0x798e7d70e18c in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:480:15
+    #14 0x798e7d70e18c in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #15 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #16 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #17 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #18 0x5fa235978405 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:813:23
+    #19 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #20 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #21 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #22 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #23 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #24 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #25 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #26 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #27 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #28 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #29 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #30 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #31 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #32 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #33 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+
+Direct leak of 140 byte(s) in 1 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a773cd in _format_TracebackException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:444:29
+    #4 0x5fa235a773cd in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:703:28
+    #5 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #6 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #7 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #8 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #9 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #10 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #11 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #12 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #13 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #14 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #15 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #16 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #17 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #18 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #19 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #20 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #21 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #22 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #23 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #24 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #25 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #26 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #27 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #28 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #29 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #30 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #31 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+Direct leak of 128 byte(s) in 2 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x758e7bbbd565 in channel_send /home/shamil/oss/cpython/3.13/./Modules/_interpchannelsmodule.c:1781:37
+    #3 0x758e7bbbbb07 in channel_send_wait /home/shamil/oss/cpython/3.13/./Modules/_interpchannelsmodule.c:1841:15
+    #4 0x758e7bbb1c4d in channelsmod_send /home/shamil/oss/cpython/3.13/./Modules/_interpchannelsmodule.c:3112:15
+    #5 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #6 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #7 0x5fa23596a8d2 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1509:19
+    #8 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #9 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #10 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #11 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #12 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #13 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #14 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #15 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #16 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #17 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #18 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #19 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #20 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #21 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #22 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #23 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #24 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #25 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #26 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #27 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #28 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #29 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+
+Direct leak of 90 byte(s) in 2 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a7719d in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:687:17
+    #4 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #5 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #6 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #7 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #8 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #9 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #10 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #11 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #12 0x5fa235978405 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:813:23
+    #13 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #14 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #15 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #16 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #17 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #18 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #19 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #20 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #21 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #22 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #23 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #24 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #25 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #26 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #27 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #28 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #29 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #30 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+Direct leak of 86 byte(s) in 2 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a76fbc in _excinfo_init_type_from_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:499:18
+    #4 0x5fa235a76fbc in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:676:9
+    #5 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #6 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #7 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #8 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #9 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #10 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #11 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #12 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #13 0x5fa235978405 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:813:23
+    #14 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #15 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #16 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #17 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #18 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #19 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #20 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #21 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #22 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #23 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #24 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #25 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #26 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #27 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #28 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #29 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #30 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #31 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+Direct leak of 86 byte(s) in 2 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a7705b in _excinfo_init_type_from_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:510:22
+    #4 0x5fa235a7705b in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:676:9
+    #5 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #6 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #7 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #8 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #9 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #10 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #11 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #12 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #13 0x5fa235978405 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:813:23
+    #14 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #15 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #16 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #17 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #18 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #19 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #20 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #21 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #22 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #23 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #24 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #25 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #26 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #27 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #28 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #29 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #30 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #31 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+Direct leak of 80 byte(s) in 2 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a770f8 in _excinfo_init_type_from_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:521:20
+    #4 0x5fa235a770f8 in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:676:9
+    #5 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #6 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #7 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #8 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #9 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #10 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #11 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #12 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #13 0x5fa235978405 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:813:23
+    #14 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #15 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #16 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #17 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #18 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #19 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #20 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #21 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #22 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #23 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #24 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #25 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #26 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #27 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #28 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #29 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #30 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #31 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+Direct leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7a4c7 in _sharednsitem_set_value /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1149:18
+    #3 0x5fa235a7a4c7 in _sharednsitem_copy_from_ns /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1198:9
+    #4 0x5fa235a7a4c7 in _PyXI_FillNamespaceFromDict /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1462:13
+    #5 0x5fa235a7bcf0 in _PyXI_NamespaceFromDict /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1502:9
+    #6 0x5fa235a7bcf0 in _PyXI_Enter /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1708:20
+    #7 0x798e7d70c1e9 in interp_set___main___attrs /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:842:9
+    #8 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #9 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #10 0x5fa235978405 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:813:23
+    #11 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #12 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #13 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #14 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #15 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #16 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #17 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #18 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #19 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #20 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #21 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #22 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #23 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #24 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #25 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #26 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #27 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #28 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #29 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #30 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #31 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #32 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+
+Direct leak of 54 byte(s) in 1 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a7719d in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:687:17
+    #4 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #5 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #6 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #7 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #8 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #9 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #10 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #11 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #12 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #13 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #14 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #15 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #16 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #17 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #18 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #19 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #20 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #21 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #22 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #23 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #24 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #25 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #26 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #27 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #28 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #29 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #30 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+Direct leak of 34 byte(s) in 1 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a7705b in _excinfo_init_type_from_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:510:22
+    #4 0x5fa235a7705b in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:676:9
+    #5 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #6 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #7 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #8 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #9 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #10 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #11 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #12 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #13 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #14 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #15 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #16 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #17 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #18 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #19 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #20 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #21 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #22 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #23 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #24 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #25 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #26 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #27 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #28 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #29 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #30 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #31 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+Direct leak of 34 byte(s) in 1 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a76fbc in _excinfo_init_type_from_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:499:18
+    #4 0x5fa235a76fbc in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:676:9
+    #5 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #6 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #7 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #8 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #9 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #10 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #11 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #12 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #13 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #14 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #15 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #16 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #17 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #18 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #19 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #20 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #21 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #22 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #23 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #24 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #25 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #26 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #27 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #28 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #29 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #30 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #31 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+Direct leak of 33 byte(s) in 1 object(s) allocated from:
+    #0 0x5fa2350862a8 in malloc (/home/shamil/oss/cpython/3.13/python+0x9392a8) (BuildId: c1bc4482b3e1cb0880b8473f9baa17628861038e)
+    #1 0x5fa235692b43 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.13/Objects/obmalloc.c:2792:24
+    #2 0x5fa235a7e541 in _copy_string_obj_raw /home/shamil/oss/cpython/3.13/Python/crossinterp.c:354:20
+    #3 0x5fa235a770f8 in _excinfo_init_type_from_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:521:20
+    #4 0x5fa235a770f8 in _PyXI_excinfo_InitFromException /home/shamil/oss/cpython/3.13/Python/crossinterp.c:676:9
+    #5 0x5fa235a7f238 in _PyXI_InitError /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1030:19
+    #6 0x5fa235a7c66c in _capture_current_exception /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1662:19
+    #7 0x5fa235a7d2b5 in _PyXI_Exit /home/shamil/oss/cpython/3.13/Python/crossinterp.c:1772:5
+    #8 0x798e7d70e299 in _run_in_interpreter /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:483:5
+    #9 0x798e7d70e299 in _interp_exec /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:961:15
+    #10 0x798e7d70bc58 in interp_run_string /home/shamil/oss/cpython/3.13/./Modules/_interpretersmodule.c:1121:15
+    #11 0x5fa23562fbba in cfunction_call /home/shamil/oss/cpython/3.13/Objects/methodobject.c:539:18
+    #12 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #13 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #14 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #15 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #16 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #17 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #18 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #19 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #20 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #21 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #22 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+    #23 0x5fa2354b5183 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.13/./Include/internal/pycore_call.h:168:11
+    #24 0x5fa2354b194d in method_vectorcall /home/shamil/oss/cpython/3.13/Objects/classobject.c:93:18
+    #25 0x5fa2354a884b in _PyVectorcall_Call /home/shamil/oss/cpython/3.13/Objects/call.c:273:16
+    #26 0x5fa235964e8b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1362:26
+    #27 0x5fa2354a5b8e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.13/Objects/call.c:135:15
+    #28 0x5fa2354a9d8d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.13/Objects/call.c:504:24
+    #29 0x5fa235716618 in slot_tp_call /home/shamil/oss/cpython/3.13/Objects/typeobject.c:9570:15
+    #30 0x5fa2354a60d4 in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.13/Objects/call.c:242:18
+    #31 0x5fa235955657 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.13/Python/generated_cases.c.h:1850:23
+
+SUMMARY: AddressSanitizer: 2421 byte(s) leaked in 38 allocation(s).
+
+== Tests result: FAILURE ==
+
+1 test failed:
+    test__interpchannels
+
+Total duration: 3.1 sec
+Total tests: run=0
+Total test files: run=1/1 failed=1
+Result: FAILURE
+Objects/moduleobject.c:775:9: runtime error: call to function pickle_free through pointer to incorrect function type 'void (*)(void *)'
+/home/shamil/oss/cpython/3.13/./Modules/_pickle.c:7860: note: pickle_free defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Objects/moduleobject.c:775:9 
+Python/hashtable.c:385:9: runtime error: call to function del_extensions_cache_value through pointer to incorrect function type 'void (*)(void *)'
+/home/shamil/oss/cpython/3.13/Python/import.c:1147: note: del_extensions_cache_value defined here
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Python/hashtable.c:385:9 
+[0 refs, 0 blocks]

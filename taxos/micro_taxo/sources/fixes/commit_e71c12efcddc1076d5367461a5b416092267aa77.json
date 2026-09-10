@@ -1,0 +1,125 @@
+{
+  "sha": "e71c12efcddc1076d5367461a5b416092267aa77",
+  "node_id": "C_kwDOBN0Z8doAKGU3MWMxMmVmY2RkYzEwNzZkNTM2NzQ2MWE1YjQxNjA5MjI2N2FhNzc",
+  "commit": {
+    "author": {
+      "name": "Pablo Galindo Salgado",
+      "email": "Pablogsal@gmail.com",
+      "date": "2021-11-27T18:04:06Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-11-27T18:04:06Z"
+    },
+    "message": "bpo-42268: Fail the configure step if the selected compiler doesn't support memory sanitizer (GH-29806)",
+    "tree": {
+      "sha": "72abdf06c22880b0ea1f093fd6bbad63426d81ce",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/72abdf06c22880b0ea1f093fd6bbad63426d81ce"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/e71c12efcddc1076d5367461a5b416092267aa77",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhonMWCRBK7hj4Ov3rIwAAPH4IAIB08XgGmpzcxzQOvyDPTlk1\nu6S/6AKoUR7PY2IRiD1M8CY3OlGVlsVaEDfMjJQUctj/4cmSPIXXU++q68jEdiS7\nWjWWavdc3rrdHeee1m0ZK3SQVi4m9iMEoZP8oeriWkYKpc7q5XJcv+8eeY4pzd/y\nkcg+XsGgdP+cz0pqVfUHnJPEdidTTeO5A30og38gEjSGQuBlqZcgoyjneq1PFJB/\nwayaWMadYgtFC/+gIqWMvOGaiBAQTqwa3dnM9cMDlDiwpU+jojd61MEnkj+laHyL\nn/BoT4QwQh78gmTiJl6G6C/bZ0eKMXiGBJykHWBFIxwgnGvUll6LBtWeBU9Husw=\n=r92I\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 72abdf06c22880b0ea1f093fd6bbad63426d81ce\nparent af9ee57b96cb872df6574e36027cc753417605f9\nauthor Pablo Galindo Salgado <Pablogsal@gmail.com> 1638036246 +0000\ncommitter GitHub <noreply@github.com> 1638036246 +0000\n\nbpo-42268: Fail the configure step if the selected compiler doesn't support memory sanitizer (GH-29806)\n\n",
+      "verified_at": "2024-11-07T05:33:13Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/e71c12efcddc1076d5367461a5b416092267aa77",
+  "html_url": "https://github.com/python/cpython/commit/e71c12efcddc1076d5367461a5b416092267aa77",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/e71c12efcddc1076d5367461a5b416092267aa77/comments",
+  "author": {
+    "login": "pablogsal",
+    "id": 11718525,
+    "node_id": "MDQ6VXNlcjExNzE4NTI1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/11718525?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/pablogsal",
+    "html_url": "https://github.com/pablogsal",
+    "followers_url": "https://api.github.com/users/pablogsal/followers",
+    "following_url": "https://api.github.com/users/pablogsal/following{/other_user}",
+    "gists_url": "https://api.github.com/users/pablogsal/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pablogsal/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pablogsal/subscriptions",
+    "organizations_url": "https://api.github.com/users/pablogsal/orgs",
+    "repos_url": "https://api.github.com/users/pablogsal/repos",
+    "events_url": "https://api.github.com/users/pablogsal/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pablogsal/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "af9ee57b96cb872df6574e36027cc753417605f9",
+      "url": "https://api.github.com/repos/python/cpython/commits/af9ee57b96cb872df6574e36027cc753417605f9",
+      "html_url": "https://github.com/python/cpython/commit/af9ee57b96cb872df6574e36027cc753417605f9"
+    }
+  ],
+  "stats": {
+    "total": 40,
+    "additions": 40,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "615bbb22ae2ebf94d395efed5780c2b79dd5c68f",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2021-11-26-22-31-22.bpo-42268.3wl-09.rst",
+      "status": "added",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/e71c12efcddc1076d5367461a5b416092267aa77/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-11-26-22-31-22.bpo-42268.3wl-09.rst",
+      "raw_url": "https://github.com/python/cpython/raw/e71c12efcddc1076d5367461a5b416092267aa77/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-11-26-22-31-22.bpo-42268.3wl-09.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-11-26-22-31-22.bpo-42268.3wl-09.rst?ref=e71c12efcddc1076d5367461a5b416092267aa77",
+      "patch": "@@ -0,0 +1,2 @@\n+Fail the configure step if the selected compiler doesn't support memory\n+sanitizer. Patch by Pablo Galindo"
+    },
+    {
+      "sha": "958007288a1652416e670dd94ec6684adf28d790",
+      "filename": "configure",
+      "status": "modified",
+      "additions": 36,
+      "deletions": 0,
+      "changes": 36,
+      "blob_url": "https://github.com/python/cpython/blob/e71c12efcddc1076d5367461a5b416092267aa77/configure",
+      "raw_url": "https://github.com/python/cpython/raw/e71c12efcddc1076d5367461a5b416092267aa77/configure",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/configure?ref=e71c12efcddc1076d5367461a5b416092267aa77",
+      "patch": "@@ -9920,8 +9920,44 @@ if test \"${with_memory_sanitizer+set}\" = set; then :\n   withval=$with_memory_sanitizer;\n { $as_echo \"$as_me:${as_lineno-$LINENO}: result: $withval\" >&5\n $as_echo \"$withval\" >&6; }\n+{ $as_echo \"$as_me:${as_lineno-$LINENO}: checking whether C compiler accepts -fsanitize=memory\" >&5\n+$as_echo_n \"checking whether C compiler accepts -fsanitize=memory... \" >&6; }\n+if ${ax_cv_check_cflags___fsanitize_memory+:} false; then :\n+  $as_echo_n \"(cached) \" >&6\n+else\n+\n+  ax_check_save_flags=$CFLAGS\n+  CFLAGS=\"$CFLAGS  -fsanitize=memory\"\n+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext\n+/* end confdefs.h.  */\n+\n+int\n+main ()\n+{\n+\n+  ;\n+  return 0;\n+}\n+_ACEOF\n+if ac_fn_c_try_compile \"$LINENO\"; then :\n+  ax_cv_check_cflags___fsanitize_memory=yes\n+else\n+  ax_cv_check_cflags___fsanitize_memory=no\n+fi\n+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext\n+  CFLAGS=$ax_check_save_flags\n+fi\n+{ $as_echo \"$as_me:${as_lineno-$LINENO}: result: $ax_cv_check_cflags___fsanitize_memory\" >&5\n+$as_echo \"$ax_cv_check_cflags___fsanitize_memory\" >&6; }\n+if test \"x$ax_cv_check_cflags___fsanitize_memory\" = xyes; then :\n+\n BASECFLAGS=\"-fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer $BASECFLAGS\"\n LDFLAGS=\"-fsanitize=memory -fsanitize-memory-track-origins=2 $LDFLAGS\"\n+\n+else\n+  as_fn_error $? \"The selected compiler doesn't support memory sanitizer\" \"$LINENO\" 5\n+fi\n+\n # MSan works by controlling memory allocation, our own malloc interferes.\n with_pymalloc=\"no\"\n "
+    },
+    {
+      "sha": "0fce3f61f5a50a14a729e4fd02250d63bdb56fb1",
+      "filename": "configure.ac",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/e71c12efcddc1076d5367461a5b416092267aa77/configure.ac",
+      "raw_url": "https://github.com/python/cpython/raw/e71c12efcddc1076d5367461a5b416092267aa77/configure.ac",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/configure.ac?ref=e71c12efcddc1076d5367461a5b416092267aa77",
+      "patch": "@@ -2565,8 +2565,10 @@ AC_ARG_WITH(memory_sanitizer,\n                            [enable MemorySanitizer allocation error detector, 'msan' (default is no)]),\n [\n AC_MSG_RESULT($withval)\n+AX_CHECK_COMPILE_FLAG([-fsanitize=memory],[\n BASECFLAGS=\"-fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer $BASECFLAGS\"\n LDFLAGS=\"-fsanitize=memory -fsanitize-memory-track-origins=2 $LDFLAGS\"\n+],[AC_MSG_ERROR([The selected compiler doesn't support memory sanitizer])])\n # MSan works by controlling memory allocation, our own malloc interferes.\n with_pymalloc=\"no\"\n ],"
+    }
+  ]
+}

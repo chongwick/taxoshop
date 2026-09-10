@@ -1,0 +1,113 @@
+{
+  "sha": "852aee69f49c654a03ad1f64d90a78ba8848e2c6",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6ODUyYWVlNjlmNDljNjU0YTAzYWQxZjY0ZDkwYTc4YmE4ODQ4ZTJjNg==",
+  "commit": {
+    "author": {
+      "name": "Stefan Krah",
+      "email": "skrah@bytereef.org",
+      "date": "2020-03-03T08:19:58Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2020-03-03T08:19:58Z"
+    },
+    "message": " bpo-39776: Lock ++interp->tstate_next_unique_id (GH-18746)\n\n- Threads created by PyGILState_Ensure() could have a duplicate tstate->id.\r\n\r\n(cherry picked from commit b3b9ade4a3d3fe00d933bcd8fc5c5c755d1024f9)",
+    "tree": {
+      "sha": "6a7036d1d48565cdd9c85347bef63a9fa50c12d3",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/6a7036d1d48565cdd9c85347bef63a9fa50c12d3"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/852aee69f49c654a03ad1f64d90a78ba8848e2c6",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJeXhMuCRBK7hj4Ov3rIwAAdHIIAEiQliE5tBbIY6+Nn+YFm4m7\nX47u7F+pEbPYSN2/CvleC0ocx9FNjg5bTwJtFi+Gg+EukUJOZZNPT3a5zhL4EBHu\nycF+wRydNdaKRujNmZoWPG1Dd27vyFBu7D1xBcvUzO6BnuDjLnag5Km40p2Hwjgc\nl6XuXbw01DvjWj3BetQf3oYmhFTS86I57bUzJfrO4FY29KX+/53QrqRkHVFLtOCs\nGcwKAK9ZNuIohmcLMzNwQZwlgVg47bFjwxold+3IxvTr0wyObUg9pb4GPdJGoS3k\nU8rsiyg22qHRzqjfmEFHHQhsMNwhuK4DFvyrgWG9t2cmZcAl6W0XqMMa7myU+BU=\n=AH26\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 6a7036d1d48565cdd9c85347bef63a9fa50c12d3\nparent 72fff60d7649df88026838d8b5f14f541393f268\nauthor Stefan Krah <skrah@bytereef.org> 1583223598 +0100\ncommitter GitHub <noreply@github.com> 1583223598 +0100\n\n bpo-39776: Lock ++interp->tstate_next_unique_id (GH-18746)\n\n- Threads created by PyGILState_Ensure() could have a duplicate tstate->id.\r\n\r\n(cherry picked from commit b3b9ade4a3d3fe00d933bcd8fc5c5c755d1024f9)",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/852aee69f49c654a03ad1f64d90a78ba8848e2c6",
+  "html_url": "https://github.com/python/cpython/commit/852aee69f49c654a03ad1f64d90a78ba8848e2c6",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/852aee69f49c654a03ad1f64d90a78ba8848e2c6/comments",
+  "author": {
+    "login": "skrah",
+    "id": 16530421,
+    "node_id": "MDQ6VXNlcjE2NTMwNDIx",
+    "avatar_url": "https://avatars.githubusercontent.com/u/16530421?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/skrah",
+    "html_url": "https://github.com/skrah",
+    "followers_url": "https://api.github.com/users/skrah/followers",
+    "following_url": "https://api.github.com/users/skrah/following{/other_user}",
+    "gists_url": "https://api.github.com/users/skrah/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/skrah/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/skrah/subscriptions",
+    "organizations_url": "https://api.github.com/users/skrah/orgs",
+    "repos_url": "https://api.github.com/users/skrah/repos",
+    "events_url": "https://api.github.com/users/skrah/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/skrah/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "72fff60d7649df88026838d8b5f14f541393f268",
+      "url": "https://api.github.com/repos/python/cpython/commits/72fff60d7649df88026838d8b5f14f541393f268",
+      "html_url": "https://github.com/python/cpython/commit/72fff60d7649df88026838d8b5f14f541393f268"
+    }
+  ],
+  "stats": {
+    "total": 8,
+    "additions": 7,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "e5a00bd96ae47a987ecfc7f430d984d10bb27962",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2020-03-02-20-12-33.bpo-39776.fNaxi_.rst",
+      "status": "added",
+      "additions": 6,
+      "deletions": 0,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/852aee69f49c654a03ad1f64d90a78ba8848e2c6/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2020-03-02-20-12-33.bpo-39776.fNaxi_.rst",
+      "raw_url": "https://github.com/python/cpython/raw/852aee69f49c654a03ad1f64d90a78ba8848e2c6/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2020-03-02-20-12-33.bpo-39776.fNaxi_.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2020-03-02-20-12-33.bpo-39776.fNaxi_.rst?ref=852aee69f49c654a03ad1f64d90a78ba8848e2c6",
+      "patch": "@@ -0,0 +1,6 @@\n+Fix race condition where threads created by PyGILState_Ensure() could get a\n+duplicate id.\n+\n+This affects consumers of tstate->id like the contextvar caching machinery,\n+which could return invalid cached objects under heavy thread load (observed\n+in embedded scenarios)."
+    },
+    {
+      "sha": "ebfe6ce65de0343e17be08cb3d7700e880ce2e81",
+      "filename": "Python/pystate.c",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/852aee69f49c654a03ad1f64d90a78ba8848e2c6/Python%2Fpystate.c",
+      "raw_url": "https://github.com/python/cpython/raw/852aee69f49c654a03ad1f64d90a78ba8848e2c6/Python%2Fpystate.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fpystate.c?ref=852aee69f49c654a03ad1f64d90a78ba8848e2c6",
+      "patch": "@@ -411,12 +411,12 @@ new_threadstate(PyInterpreterState *interp, int init)\n         tstate->context = NULL;\n         tstate->context_ver = 1;\n \n-        tstate->id = ++interp->tstate_next_unique_id;\n \n         if (init)\n             _PyThreadState_Init(tstate);\n \n         HEAD_LOCK();\n+        tstate->id = ++interp->tstate_next_unique_id;\n         tstate->prev = NULL;\n         tstate->next = interp->tstate_head;\n         if (tstate->next)"
+    }
+  ]
+}

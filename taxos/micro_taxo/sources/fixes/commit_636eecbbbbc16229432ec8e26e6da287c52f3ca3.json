@@ -1,0 +1,101 @@
+{
+  "sha": "636eecbbbbc16229432ec8e26e6da287c52f3ca3",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6NjM2ZWVjYmJiYmMxNjIyOTQzMmVjOGUyNmU2ZGEyODdjNTJmM2NhMw==",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2020-03-12T18:55:36Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2020-03-12T18:55:36Z"
+    },
+    "message": "bpo-39689: Do not test undefined casts to _Bool (GH-18964) (#18965)\n\n- When casting to _Bool, arrays should only contain zeros or ones.\r\n(cherry picked from commit 1ae9cde4b2323235b5f9ff4bc76e4175a2257172)\r\n\r\nCo-authored-by: Stefan Krah <skrah@bytereef.org>",
+    "tree": {
+      "sha": "7de24a64a3ffec46e6ade5720cc2a0618a2a887d",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/7de24a64a3ffec46e6ade5720cc2a0618a2a887d"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/636eecbbbbc16229432ec8e26e6da287c52f3ca3",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJeaoWoCRBK7hj4Ov3rIwAAdHIIAGA5FjlbP1ucHeu9hsJLnaX0\nRyQEfZhORuVCZWmjaVvMFC6MGR6B9amzz/1KqFOHFF1toqZfQ7RJSnxvzxelejPk\nTiIUqAPZ2CtVtlCZ5MT9qVyr1gGCmAXVcYZK4xuHfMx3UuiN+S835MKfVuXUbN7V\nIptGelETkHO16wWK19iBdWhpH0sFVBcCTh5W9omRauMBi8WvLOoQUIcHHEsNj786\n+DdV+I1fyAD8XyaEqL/vAWN8F9Q0MjfwDv0t+waxh8AJa7HnWJPZAzMCb0LjDWky\nzbpZjScfxVL6M4kVy895DbOEsrWIX3eTnpTuwPoKZO26WX6UzWcxdVdz7lg4CXw=\n=eevl\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 7de24a64a3ffec46e6ade5720cc2a0618a2a887d\nparent feaf0c37891dfe8f0f3e643c3711af3af23bf805\nauthor Miss Islington (bot) <31488909+miss-islington@users.noreply.github.com> 1584039336 -0700\ncommitter GitHub <noreply@github.com> 1584039336 +0100\n\nbpo-39689: Do not test undefined casts to _Bool (GH-18964) (#18965)\n\n- When casting to _Bool, arrays should only contain zeros or ones.\r\n(cherry picked from commit 1ae9cde4b2323235b5f9ff4bc76e4175a2257172)\r\n\r\nCo-authored-by: Stefan Krah <skrah@bytereef.org>",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/636eecbbbbc16229432ec8e26e6da287c52f3ca3",
+  "html_url": "https://github.com/python/cpython/commit/636eecbbbbc16229432ec8e26e6da287c52f3ca3",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/636eecbbbbc16229432ec8e26e6da287c52f3ca3/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "feaf0c37891dfe8f0f3e643c3711af3af23bf805",
+      "url": "https://api.github.com/repos/python/cpython/commits/feaf0c37891dfe8f0f3e643c3711af3af23bf805",
+      "html_url": "https://github.com/python/cpython/commit/feaf0c37891dfe8f0f3e643c3711af3af23bf805"
+    }
+  ],
+  "stats": {
+    "total": 4,
+    "additions": 4,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "2ae5ffaf61be778ae241cdb6a96510e9499bb3b9",
+      "filename": "Lib/test/test_buffer.py",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/636eecbbbbc16229432ec8e26e6da287c52f3ca3/Lib%2Ftest%2Ftest_buffer.py",
+      "raw_url": "https://github.com/python/cpython/raw/636eecbbbbc16229432ec8e26e6da287c52f3ca3/Lib%2Ftest%2Ftest_buffer.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_buffer.py?ref=636eecbbbbc16229432ec8e26e6da287c52f3ca3",
+      "patch": "@@ -2730,6 +2730,10 @@ def test_memoryview_cast_1D_ND(self):\n         # be 1D, at least one format must be 'c', 'b' or 'B'.\n         for _tshape in gencastshapes():\n             for char in fmtdict['@']:\n+                # Casts to _Bool are undefined if the source contains values\n+                # other than 0 or 1.\n+                if char == \"?\":\n+                    continue\n                 tfmt = ('', '@')[randrange(2)] + char\n                 tsize = struct.calcsize(tfmt)\n                 n = prod(_tshape) * tsize"
+    }
+  ]
+}

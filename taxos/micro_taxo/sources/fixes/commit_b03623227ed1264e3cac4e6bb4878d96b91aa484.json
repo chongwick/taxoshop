@@ -1,0 +1,149 @@
+{
+  "sha": "b03623227ed1264e3cac4e6bb4878d96b91aa484",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6YjAzNjIzMjI3ZWQxMjY0ZTNjYWM0ZTZiYjQ4NzhkOTZiOTFhYTQ4NA==",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2017-09-07T18:35:03Z"
+    },
+    "committer": {
+      "name": "Benjamin Peterson",
+      "email": "benjamin@python.org",
+      "date": "2017-09-07T18:35:03Z"
+    },
+    "message": "[3.6] fixes bpo-31373: fix undefined floating-point demotions (GH-3396) (#3424)\n\n(cherry picked from commit a853a8ba7850381d49b284295dd6f0dc491dbe44)",
+    "tree": {
+      "sha": "019511e476f77bf6ed4e2cbfd9c8280ff89d9e96",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/019511e476f77bf6ed4e2cbfd9c8280ff89d9e96"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/b03623227ed1264e3cac4e6bb4878d96b91aa484",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/b03623227ed1264e3cac4e6bb4878d96b91aa484",
+  "html_url": "https://github.com/python/cpython/commit/b03623227ed1264e3cac4e6bb4878d96b91aa484",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/b03623227ed1264e3cac4e6bb4878d96b91aa484/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "benjaminp",
+    "id": 219470,
+    "node_id": "MDQ6VXNlcjIxOTQ3MA==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/219470?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/benjaminp",
+    "html_url": "https://github.com/benjaminp",
+    "followers_url": "https://api.github.com/users/benjaminp/followers",
+    "following_url": "https://api.github.com/users/benjaminp/following{/other_user}",
+    "gists_url": "https://api.github.com/users/benjaminp/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/benjaminp/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/benjaminp/subscriptions",
+    "organizations_url": "https://api.github.com/users/benjaminp/orgs",
+    "repos_url": "https://api.github.com/users/benjaminp/repos",
+    "events_url": "https://api.github.com/users/benjaminp/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/benjaminp/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "b0d0217c0e4c1512a06ef306928b2fd8f82d046e",
+      "url": "https://api.github.com/repos/python/cpython/commits/b0d0217c0e4c1512a06ef306928b2fd8f82d046e",
+      "html_url": "https://github.com/python/cpython/commit/b0d0217c0e4c1512a06ef306928b2fd8f82d046e"
+    }
+  ],
+  "stats": {
+    "total": 83,
+    "additions": 52,
+    "deletions": 31
+  },
+  "files": [
+    {
+      "sha": "6cf69f98acf93340a6bc45bee250d89c1d9d436d",
+      "filename": "Include/pymath.h",
+      "status": "modified",
+      "additions": 23,
+      "deletions": 11,
+      "changes": 34,
+      "blob_url": "https://github.com/python/cpython/blob/b03623227ed1264e3cac4e6bb4878d96b91aa484/Include%2Fpymath.h",
+      "raw_url": "https://github.com/python/cpython/raw/b03623227ed1264e3cac4e6bb4878d96b91aa484/Include%2Fpymath.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fpymath.h?ref=b03623227ed1264e3cac4e6bb4878d96b91aa484",
+      "patch": "@@ -187,14 +187,14 @@ PyAPI_FUNC(void) _Py_set_387controlword(unsigned short);\n  * result.\n  * Caution:\n  *    This isn't reliable.  C99 no longer requires libm to set errno under\n- *\t  any exceptional condition, but does require +- HUGE_VAL return\n- *\t  values on overflow.  A 754 box *probably* maps HUGE_VAL to a\n- *\t  double infinity, and we're cool if that's so, unless the input\n- *\t  was an infinity and an infinity is the expected result.  A C89\n- *\t  system sets errno to ERANGE, so we check for that too.  We're\n- *\t  out of luck if a C99 754 box doesn't map HUGE_VAL to +Inf, or\n- *\t  if the returned result is a NaN, or if a C89 box returns HUGE_VAL\n- *\t  in non-overflow cases.\n+ *        any exceptional condition, but does require +- HUGE_VAL return\n+ *        values on overflow.  A 754 box *probably* maps HUGE_VAL to a\n+ *        double infinity, and we're cool if that's so, unless the input\n+ *        was an infinity and an infinity is the expected result.  A C89\n+ *        system sets errno to ERANGE, so we check for that too.  We're\n+ *        out of luck if a C99 754 box doesn't map HUGE_VAL to +Inf, or\n+ *        if the returned result is a NaN, or if a C89 box returns HUGE_VAL\n+ *        in non-overflow cases.\n  *    X is evaluated more than once.\n  * Some platforms have better way to spell this, so expect some #ifdef'ery.\n  *\n@@ -211,8 +211,20 @@ PyAPI_FUNC(void) _Py_set_387controlword(unsigned short);\n #define Py_OVERFLOWED(X) isinf(X)\n #else\n #define Py_OVERFLOWED(X) ((X) != 0.0 && (errno == ERANGE ||    \\\n-\t\t\t\t\t (X) == Py_HUGE_VAL || \\\n-\t\t\t\t\t (X) == -Py_HUGE_VAL))\n-#endif\n+                                         (X) == Py_HUGE_VAL || \\\n+                                         (X) == -Py_HUGE_VAL))\n+#endif\n+\n+/* Return whether integral type *type* is signed or not. */\n+#define _Py_IntegralTypeSigned(type) ((type)(-1) < 0)\n+/* Return the maximum value of integral type *type*. */\n+#define _Py_IntegralTypeMax(type) ((_Py_IntegralTypeSigned(type)) ? (((((type)1 << (sizeof(type)*CHAR_BIT - 2)) - 1) << 1) + 1) : ~(type)0)\n+/* Return the minimum value of integral type *type*. */\n+#define _Py_IntegralTypeMin(type) ((_Py_IntegralTypeSigned(type)) ? -_Py_IntegralTypeMax(type) - 1 : 0)\n+/* Check whether *v* is in the range of integral type *type*. This is most\n+ * useful if *v* is floating-point, since demoting a floating-point *v* to an\n+ * integral type that cannot represent *v*'s integral part is undefined\n+ * behavior. */\n+#define _Py_InIntegralTypeRange(type, v) (_Py_IntegralTypeMin(type) <= v && v <= _Py_IntegralTypeMax(type))\n \n #endif /* Py_PYMATH_H */"
+    },
+    {
+      "sha": "3ffb40934709b20d00dc56d10d67fafef444085c",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2017-09-06-15-25-59.bpo-31373.dC4jd4.rst",
+      "status": "added",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/b03623227ed1264e3cac4e6bb4878d96b91aa484/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2017-09-06-15-25-59.bpo-31373.dC4jd4.rst",
+      "raw_url": "https://github.com/python/cpython/raw/b03623227ed1264e3cac4e6bb4878d96b91aa484/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2017-09-06-15-25-59.bpo-31373.dC4jd4.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2017-09-06-15-25-59.bpo-31373.dC4jd4.rst?ref=b03623227ed1264e3cac4e6bb4878d96b91aa484",
+      "patch": "@@ -0,0 +1,2 @@\n+Fix several possible instances of undefined behavior due to floating-point\n+demotions."
+    },
+    {
+      "sha": "1803a683ba0547c9b6b45c0ef1aeecba52a20d67",
+      "filename": "Objects/floatobject.c",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 4,
+      "changes": 10,
+      "blob_url": "https://github.com/python/cpython/blob/b03623227ed1264e3cac4e6bb4878d96b91aa484/Objects%2Ffloatobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/b03623227ed1264e3cac4e6bb4878d96b91aa484/Objects%2Ffloatobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Ffloatobject.c?ref=b03623227ed1264e3cac4e6bb4878d96b91aa484",
+      "patch": "@@ -2182,21 +2182,23 @@ _PyFloat_Pack4(double x, unsigned char *p, int le)\n \n     }\n     else {\n-        float y = (float)x;\n-        const unsigned char *s = (unsigned char*)&y;\n         int i, incr = 1;\n \n-        if (Py_IS_INFINITY(y) && !Py_IS_INFINITY(x))\n+        if (fabs(x) > FLT_MAX && !Py_IS_INFINITY(x))\n             goto Overflow;\n \n+        unsigned char s[sizeof(float)];\n+        float y = (float)x;\n+        memcpy(s, &y, sizeof(float));\n+\n         if ((float_format == ieee_little_endian_format && !le)\n             || (float_format == ieee_big_endian_format && le)) {\n             p += 3;\n             incr = -1;\n         }\n \n         for (i = 0; i < 4; i++) {\n-            *p = *s++;\n+            *p = s[i];\n             p += incr;\n         }\n         return 0;"
+    },
+    {
+      "sha": "8fb19f34ecb211ff0381a823d652219c8262a27b",
+      "filename": "Python/getargs.c",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 0,
+      "changes": 5,
+      "blob_url": "https://github.com/python/cpython/blob/b03623227ed1264e3cac4e6bb4878d96b91aa484/Python%2Fgetargs.c",
+      "raw_url": "https://github.com/python/cpython/raw/b03623227ed1264e3cac4e6bb4878d96b91aa484/Python%2Fgetargs.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fgetargs.c?ref=b03623227ed1264e3cac4e6bb4878d96b91aa484",
+      "patch": "@@ -4,6 +4,7 @@\n #include \"Python.h\"\n \n #include <ctype.h>\n+#include <float.h>\n \n \n #ifdef __cplusplus\n@@ -810,6 +811,10 @@ convertsimple(PyObject *arg, const char **p_format, va_list *p_va, int flags,\n         double dval = PyFloat_AsDouble(arg);\n         if (PyErr_Occurred())\n             RETURN_ERR_OCCURRED;\n+        else if (dval > FLT_MAX)\n+            *p = (float)INFINITY;\n+        else if (dval < -FLT_MAX)\n+            *p = (float)-INFINITY;\n         else\n             *p = (float) dval;\n         break;"
+    },
+    {
+      "sha": "387657af2cfe8a4cc62327aaec63a68af1a41f2f",
+      "filename": "Python/pytime.c",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 16,
+      "changes": 32,
+      "blob_url": "https://github.com/python/cpython/blob/b03623227ed1264e3cac4e6bb4878d96b91aa484/Python%2Fpytime.c",
+      "raw_url": "https://github.com/python/cpython/raw/b03623227ed1264e3cac4e6bb4878d96b91aa484/Python%2Fpytime.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fpytime.c?ref=b03623227ed1264e3cac4e6bb4878d96b91aa484",
+      "patch": "@@ -97,7 +97,7 @@ static int\n _PyTime_DoubleToDenominator(double d, time_t *sec, long *numerator,\n                             double denominator, _PyTime_round_t round)\n {\n-    double intpart, err;\n+    double intpart;\n     /* volatile avoids optimization changing how numbers are rounded */\n     volatile double floatpart;\n \n@@ -115,14 +115,13 @@ _PyTime_DoubleToDenominator(double d, time_t *sec, long *numerator,\n     }\n     assert(0.0 <= floatpart && floatpart < denominator);\n \n-    *sec = (time_t)intpart;\n-    *numerator = (long)floatpart;\n-\n-    err = intpart - (double)*sec;\n-    if (err <= -1.0 || err >= 1.0) {\n+    if (!_Py_InIntegralTypeRange(time_t, intpart)) {\n         error_time_t_overflow();\n         return -1;\n     }\n+    *sec = (time_t)intpart;\n+    *numerator = (long)floatpart;\n+\n     return 0;\n }\n \n@@ -150,20 +149,19 @@ int\n _PyTime_ObjectToTime_t(PyObject *obj, time_t *sec, _PyTime_round_t round)\n {\n     if (PyFloat_Check(obj)) {\n-        double intpart, err;\n+        double intpart;\n         /* volatile avoids optimization changing how numbers are rounded */\n         volatile double d;\n \n         d = PyFloat_AsDouble(obj);\n         d = _PyTime_Round(d, round);\n         (void)modf(d, &intpart);\n \n-        *sec = (time_t)intpart;\n-        err = intpart - (double)*sec;\n-        if (err <= -1.0 || err >= 1.0) {\n+        if (!_Py_InIntegralTypeRange(time_t, intpart)) {\n             error_time_t_overflow();\n             return -1;\n         }\n+        *sec = (time_t)intpart;\n         return 0;\n     }\n     else {\n@@ -180,7 +178,9 @@ _PyTime_ObjectToTimespec(PyObject *obj, time_t *sec, long *nsec,\n {\n     int res;\n     res = _PyTime_ObjectToDenominator(obj, sec, nsec, 1e9, round);\n-    assert(0 <= *nsec && *nsec < SEC_TO_NS);\n+    if (res == 0) {\n+        assert(0 <= *nsec && *nsec < SEC_TO_NS);\n+    }\n     return res;\n }\n \n@@ -190,7 +190,9 @@ _PyTime_ObjectToTimeval(PyObject *obj, time_t *sec, long *usec,\n {\n     int res;\n     res = _PyTime_ObjectToDenominator(obj, sec, usec, 1e6, round);\n-    assert(0 <= *usec && *usec < SEC_TO_US);\n+    if (res == 0) {\n+        assert(0 <= *usec && *usec < SEC_TO_US);\n+    }\n     return res;\n }\n \n@@ -276,7 +278,6 @@ static int\n _PyTime_FromFloatObject(_PyTime_t *t, double value, _PyTime_round_t round,\n                         long unit_to_ns)\n {\n-    double err;\n     /* volatile avoids optimization changing how numbers are rounded */\n     volatile double d;\n \n@@ -285,12 +286,11 @@ _PyTime_FromFloatObject(_PyTime_t *t, double value, _PyTime_round_t round,\n     d *= (double)unit_to_ns;\n     d = _PyTime_Round(d, round);\n \n-    *t = (_PyTime_t)d;\n-    err = d - (double)*t;\n-    if (fabs(err) >= 1.0) {\n+    if (!_Py_InIntegralTypeRange(_PyTime_t, d)) {\n         _PyTime_overflow();\n         return -1;\n     }\n+    *t = (_PyTime_t)d;\n     return 0;\n }\n "
+    }
+  ]
+}

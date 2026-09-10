@@ -1,0 +1,101 @@
+{
+  "sha": "a356272362c15f2561872f3206baf5e9a0543997",
+  "node_id": "C_kwDOBN0Z8doAKGEzNTYyNzIzNjJjMTVmMjU2MTg3MmYzMjA2YmFmNWU5YTA1NDM5OTc",
+  "commit": {
+    "author": {
+      "name": "Pablo Galindo Salgado",
+      "email": "Pablogsal@gmail.com",
+      "date": "2021-09-21T16:28:13Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-09-21T16:28:13Z"
+    },
+    "message": "bpo-45200: Ignore test_multiprocessing_* in ASAN build due to false positives (GH-28492)",
+    "tree": {
+      "sha": "d831fdcdc14ee38e9bb83ca5b8db8d824854518e",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/d831fdcdc14ee38e9bb83ca5b8db8d824854518e"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/a356272362c15f2561872f3206baf5e9a0543997",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhSggdCRBK7hj4Ov3rIwAAJcUIAEUY3H7NnQ+q0jIdI+xyyJnR\ndM2foEOp9K1adnM+7aKFOWiWOXlv0e6HlipsY8f+uSAWl3LNJB6qRgza5EJLYWbo\ntfALdeXza/19WEt7cjAkexQUFCKD5+Svhbe3bME6aKZNT+NW5zCulyO3X+LOsIxe\ngAO2cqf5lSQ6HQX3zaHV2Omjl7XWKOOoALbJjhRbagFiRJ+Bowl+qg2bo9GRIzRH\ntmtSsj5gJrSJY0J2sqtJ8mjYA5eExKTkWd3M/PhKY2kV7Nt+depTB47SZzlqDbh7\nrSzwYhoPVjcDC5mQIAmbejGvj/QzvdfYx9V7oST+O+Zxhq8xaYo/xubl/GiMw9w=\n=BQrv\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree d831fdcdc14ee38e9bb83ca5b8db8d824854518e\nparent 3e3ff09058a71b92c32d1d7dc32470c0cf49300c\nauthor Pablo Galindo Salgado <Pablogsal@gmail.com> 1632241693 +0100\ncommitter GitHub <noreply@github.com> 1632241693 +0100\n\nbpo-45200: Ignore test_multiprocessing_* in ASAN build due to false positives (GH-28492)\n\n",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/a356272362c15f2561872f3206baf5e9a0543997",
+  "html_url": "https://github.com/python/cpython/commit/a356272362c15f2561872f3206baf5e9a0543997",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/a356272362c15f2561872f3206baf5e9a0543997/comments",
+  "author": {
+    "login": "pablogsal",
+    "id": 11718525,
+    "node_id": "MDQ6VXNlcjExNzE4NTI1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/11718525?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/pablogsal",
+    "html_url": "https://github.com/pablogsal",
+    "followers_url": "https://api.github.com/users/pablogsal/followers",
+    "following_url": "https://api.github.com/users/pablogsal/following{/other_user}",
+    "gists_url": "https://api.github.com/users/pablogsal/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pablogsal/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pablogsal/subscriptions",
+    "organizations_url": "https://api.github.com/users/pablogsal/orgs",
+    "repos_url": "https://api.github.com/users/pablogsal/repos",
+    "events_url": "https://api.github.com/users/pablogsal/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pablogsal/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "3e3ff09058a71b92c32d1d7dc32470c0cf49300c",
+      "url": "https://api.github.com/repos/python/cpython/commits/3e3ff09058a71b92c32d1d7dc32470c0cf49300c",
+      "html_url": "https://github.com/python/cpython/commit/3e3ff09058a71b92c32d1d7dc32470c0cf49300c"
+    }
+  ],
+  "stats": {
+    "total": 2,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "b0a18913bf6a09150cb22ae7c6f4c59a36b2772a",
+      "filename": ".github/workflows/build.yml",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/a356272362c15f2561872f3206baf5e9a0543997/.github%2Fworkflows%2Fbuild.yml",
+      "raw_url": "https://github.com/python/cpython/raw/a356272362c15f2561872f3206baf5e9a0543997/.github%2Fworkflows%2Fbuild.yml",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/.github%2Fworkflows%2Fbuild.yml?ref=a356272362c15f2561872f3206baf5e9a0543997",
+      "patch": "@@ -267,4 +267,4 @@ jobs:\n     - name: Display build info\n       run: make pythoninfo\n     - name: Tests\n-      run: xvfb-run make buildbottest TESTOPTS=\"-j4 -uall,-cpu -x test_ctypes test_crypt test_decimal test_faulthandler test_interpreters test___all__ test_idle test_tix test_tk test_ttk_guionly test_ttk_textonly\"\n+      run: xvfb-run make buildbottest TESTOPTS=\"-j4 -uall,-cpu -x test_ctypes test_crypt test_decimal test_faulthandler test_interpreters test___all__ test_idle test_tix test_tk test_ttk_guionly test_ttk_textonly test_multiprocessing_fork test_multiprocessing_forkserver test_multiprocessing_spawn\""
+    }
+  ]
+}

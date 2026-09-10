@@ -1,0 +1,125 @@
+{
+  "sha": "4dea0fb67b7064eb637d859de0b5d3ce4989bd1c",
+  "node_id": "C_kwDOBN0Z8doAKDRkZWEwZmI2N2I3MDY0ZWI2MzdkODU5ZGUwYjVkM2NlNDk4OWJkMWM",
+  "commit": {
+    "author": {
+      "name": "Serhiy Storchaka",
+      "email": "storchaka@gmail.com",
+      "date": "2025-09-13T20:35:13Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2025-09-13T20:35:13Z"
+    },
+    "message": "[3.9] gh-118350: Fix support of elements \"textarea\" and \"title\" in HTMLParser (GH-135310) (GH-137784)\n\n(cherry picked from commit 4d02f31cdd45d81b95540d9076222b709d4f2335)\n\nCo-authored-by: Timon Viola <44016238+timonviola@users.noreply.github.com>\nCo-authored-by: Łukasz Langa <lukasz@langa.pl>",
+    "tree": {
+      "sha": "d43f274c0cf9ce3da24f75de5ddd72d7d63885f1",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/d43f274c0cf9ce3da24f75de5ddd72d7d63885f1"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJoxdWBCRC1aQ7uu5UhlAAAId4QADzBC8j6OfKlm1V2AyWenNAh\nR2vkXsri+vNdK1mNVmX0gxcNZRlFXq0uxFCxuYl+y5FvuKjH0fOjY7r1qyrz2qLc\nTVQIoCKf2BLS6yRG3cXmibA2ZzkbngV6CCbbodGUxcFtSowfZPH7e4rbUTflWW5C\nyv2gozOBq8ELlz+Y6/j218ChUEvL0ziIXGIQ09OkYr9yaB0IufU576nPc3uuchIy\n1VlDuqiMUIyycty/xd92y3S+fcojlviZ4z2jxPNs7/oIX//cc11/m5lPVFavUemz\nFiAjTZWPVpGNmMSKGRZ8Jz7Ae/i5zd/UiH40oCEYHuvF02kzeKs9968WswbUnQkF\nQog4eOIJC2rInoQwJryuOnXEVTYAA81/3S3Oyzv9j1otmol1oCjEU6nuozQx2fyu\n997f2gaG+Et8qbwF2Ny8y1cNZe01C2ktGIUDt4uwRMlYJXxGQ4epGggJ0e4NYEtu\nYqIt751TQWsdzzhtw+F9/Lmp4FZH0y1qntslbjC/jCnPSrXm/jKZwbXakX9bIQDy\nL9ehqJwrtB8FJOkNk10/KC/lbHIbr2a6awDoa0e8LEx2QpXWzqbxYuO1ax08V3xa\nHXEepWWxwXr2dEOvaCgqHECn5jr15TVOrc6STjT2mrYAr4r5XAIeGWZkmccyMmvH\nEoyFCcPaK8HrZ/IgSiCv\n=wCE5\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree d43f274c0cf9ce3da24f75de5ddd72d7d63885f1\nparent 220e67748a1e4f111a567dabe716357a1a351613\nauthor Serhiy Storchaka <storchaka@gmail.com> 1757795713 +0300\ncommitter GitHub <noreply@github.com> 1757795713 +0200\n\n[3.9] gh-118350: Fix support of elements \"textarea\" and \"title\" in HTMLParser (GH-135310) (GH-137784)\n\n(cherry picked from commit 4d02f31cdd45d81b95540d9076222b709d4f2335)\n\nCo-authored-by: Timon Viola <44016238+timonviola@users.noreply.github.com>\nCo-authored-by: Łukasz Langa <lukasz@langa.pl>",
+      "verified_at": "2025-09-13T20:35:14Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c",
+  "html_url": "https://github.com/python/cpython/commit/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c/comments",
+  "author": {
+    "login": "serhiy-storchaka",
+    "id": 3659035,
+    "node_id": "MDQ6VXNlcjM2NTkwMzU=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/3659035?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/serhiy-storchaka",
+    "html_url": "https://github.com/serhiy-storchaka",
+    "followers_url": "https://api.github.com/users/serhiy-storchaka/followers",
+    "following_url": "https://api.github.com/users/serhiy-storchaka/following{/other_user}",
+    "gists_url": "https://api.github.com/users/serhiy-storchaka/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/serhiy-storchaka/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/serhiy-storchaka/subscriptions",
+    "organizations_url": "https://api.github.com/users/serhiy-storchaka/orgs",
+    "repos_url": "https://api.github.com/users/serhiy-storchaka/repos",
+    "events_url": "https://api.github.com/users/serhiy-storchaka/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/serhiy-storchaka/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "220e67748a1e4f111a567dabe716357a1a351613",
+      "url": "https://api.github.com/repos/python/cpython/commits/220e67748a1e4f111a567dabe716357a1a351613",
+      "html_url": "https://github.com/python/cpython/commit/220e67748a1e4f111a567dabe716357a1a351613"
+    }
+  ],
+  "stats": {
+    "total": 118,
+    "additions": 113,
+    "deletions": 5
+  },
+  "files": [
+    {
+      "sha": "c609ee99b4d6a9c7a4336e3054e0cbdd005921a6",
+      "filename": "Lib/html/parser.py",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 5,
+      "changes": 20,
+      "blob_url": "https://github.com/python/cpython/blob/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c/Lib%2Fhtml%2Fparser.py",
+      "raw_url": "https://github.com/python/cpython/raw/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c/Lib%2Fhtml%2Fparser.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Fhtml%2Fparser.py?ref=4dea0fb67b7064eb637d859de0b5d3ce4989bd1c",
+      "patch": "@@ -110,6 +110,7 @@ class HTMLParser(_markupbase.ParserBase):\n     \"\"\"\n \n     CDATA_CONTENT_ELEMENTS = (\"script\", \"style\")\n+    RCDATA_CONTENT_ELEMENTS = (\"textarea\", \"title\")\n \n     def __init__(self, *, convert_charrefs=True):\n         \"\"\"Initialize and reset this instance.\n@@ -126,6 +127,7 @@ def reset(self):\n         self.lasttag = '???'\n         self.interesting = interesting_normal\n         self.cdata_elem = None\n+        self._escapable = True\n         _markupbase.ParserBase.reset(self)\n \n     def feed(self, data):\n@@ -147,14 +149,20 @@ def get_starttag_text(self):\n         \"\"\"Return full source of start tag: '<...>'.\"\"\"\n         return self.__starttag_text\n \n-    def set_cdata_mode(self, elem):\n+    def set_cdata_mode(self, elem, *, escapable=False):\n         self.cdata_elem = elem.lower()\n-        self.interesting = re.compile(r'</%s(?=[\\t\\n\\r\\f />])' % self.cdata_elem,\n-                                      re.IGNORECASE|re.ASCII)\n+        self._escapable = escapable\n+        if escapable and not self.convert_charrefs:\n+            self.interesting = re.compile(r'&|</%s(?=[\\t\\n\\r\\f />])' % self.cdata_elem,\n+                                          re.IGNORECASE|re.ASCII)\n+        else:\n+            self.interesting = re.compile(r'</%s(?=[\\t\\n\\r\\f />])' % self.cdata_elem,\n+                                          re.IGNORECASE|re.ASCII)\n \n     def clear_cdata_mode(self):\n         self.interesting = interesting_normal\n         self.cdata_elem = None\n+        self._escapable = True\n \n     # Internal -- handle data as far as reasonable.  May leave state\n     # and data to be processed by a subsequent call.  If 'end' is\n@@ -187,7 +195,7 @@ def goahead(self, end):\n                         break\n                     j = n\n             if i < j:\n-                if self.convert_charrefs and not self.cdata_elem:\n+                if self.convert_charrefs and self._escapable:\n                     self.handle_data(unescape(rawdata[i:j]))\n                 else:\n                     self.handle_data(rawdata[i:j])\n@@ -289,7 +297,7 @@ def goahead(self, end):\n                 assert 0, \"interesting.search() lied\"\n         # end while\n         if end and i < n:\n-            if self.convert_charrefs and not self.cdata_elem:\n+            if self.convert_charrefs and self._escapable:\n                 self.handle_data(unescape(rawdata[i:n]))\n             else:\n                 self.handle_data(rawdata[i:n])\n@@ -408,6 +416,8 @@ def parse_starttag(self, i):\n             self.handle_starttag(tag, attrs)\n             if tag in self.CDATA_CONTENT_ELEMENTS:\n                 self.set_cdata_mode(tag)\n+            elif tag in self.RCDATA_CONTENT_ELEMENTS:\n+                self.set_cdata_mode(tag, escapable=True)\n         return endpos\n \n     # Internal -- check to see if we have a complete starttag; return end"
+    },
+    {
+      "sha": "93f6ceae6f1422063ec458908844158f1047fc05",
+      "filename": "Lib/test/test_htmlparser.py",
+      "status": "modified",
+      "additions": 96,
+      "deletions": 0,
+      "changes": 96,
+      "blob_url": "https://github.com/python/cpython/blob/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c/Lib%2Ftest%2Ftest_htmlparser.py",
+      "raw_url": "https://github.com/python/cpython/raw/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c/Lib%2Ftest%2Ftest_htmlparser.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_htmlparser.py?ref=4dea0fb67b7064eb637d859de0b5d3ce4989bd1c",
+      "patch": "@@ -316,6 +316,49 @@ def test_style_content(self, content):\n                             (\"data\", content),\n                             (\"endtag\", \"style\")])\n \n+    @support.subTests('content', [\n+            '<!-- not a comment -->',\n+            \"<not a='start tag'>\",\n+            '<![CDATA[not a cdata]]>',\n+            '<!not a bogus comment>',\n+            '</not a bogus comment>',\n+            '\\u2603',\n+            '< /title>',\n+            '</ title>',\n+            '</titled>',\n+            '</title\\v>',\n+            '</title\\xa0>',\n+            '</tıtle>',\n+        ])\n+    def test_title_content(self, content):\n+        source = f\"<title>{content}</title>\"\n+        self._run_check(source, [\n+            (\"starttag\", \"title\", []),\n+            (\"data\", content),\n+            (\"endtag\", \"title\"),\n+        ])\n+\n+    @support.subTests('content', [\n+            '<!-- not a comment -->',\n+            \"<not a='start tag'>\",\n+            '<![CDATA[not a cdata]]>',\n+            '<!not a bogus comment>',\n+            '</not a bogus comment>',\n+            '\\u2603',\n+            '< /textarea>',\n+            '</ textarea>',\n+            '</textareable>',\n+            '</textarea\\v>',\n+            '</textarea\\xa0>',\n+        ])\n+    def test_textarea_content(self, content):\n+        source = f\"<textarea>{content}</textarea>\"\n+        self._run_check(source, [\n+            (\"starttag\", \"textarea\", []),\n+            (\"data\", content),\n+            (\"endtag\", \"textarea\"),\n+        ])\n+\n     @support.subTests('endtag', ['script', 'SCRIPT', 'script ', 'script\\n',\n                                  'script/', 'script foo=bar', 'script foo=\">\"'])\n     def test_script_closing_tag(self, endtag):\n@@ -345,6 +388,38 @@ def test_style_closing_tag(self, endtag):\n                             (\"endtag\", \"style\")],\n                         collector=EventCollectorNoNormalize(convert_charrefs=False))\n \n+    @support.subTests('endtag', ['title', 'TITLE', 'title ', 'title\\n',\n+                                 'title/', 'title foo=bar', 'title foo=\">\"'])\n+    def test_title_closing_tag(self, endtag):\n+        content = \"<!-- not a comment --><i>Egg &amp; Spam</i>\"\n+        s = f'<TitLe>{content}</{endtag}>'\n+        self._run_check(s, [(\"starttag\", \"title\", []),\n+                            ('data', '<!-- not a comment --><i>Egg & Spam</i>'),\n+                            (\"endtag\", \"title\")],\n+                        collector=EventCollectorNoNormalize(convert_charrefs=True))\n+        self._run_check(s, [(\"starttag\", \"title\", []),\n+                            ('data', '<!-- not a comment --><i>Egg '),\n+                            ('entityref', 'amp'),\n+                            ('data', ' Spam</i>'),\n+                            (\"endtag\", \"title\")],\n+                        collector=EventCollectorNoNormalize(convert_charrefs=False))\n+\n+    @support.subTests('endtag', ['textarea', 'TEXTAREA', 'textarea ', 'textarea\\n',\n+                                 'textarea/', 'textarea foo=bar', 'textarea foo=\">\"'])\n+    def test_textarea_closing_tag(self, endtag):\n+        content = \"<!-- not a comment --><i>Egg &amp; Spam</i>\"\n+        s = f'<TexTarEa>{content}</{endtag}>'\n+        self._run_check(s, [(\"starttag\", \"textarea\", []),\n+                            ('data', '<!-- not a comment --><i>Egg & Spam</i>'),\n+                            (\"endtag\", \"textarea\")],\n+                        collector=EventCollectorNoNormalize(convert_charrefs=True))\n+        self._run_check(s, [(\"starttag\", \"textarea\", []),\n+                            ('data', '<!-- not a comment --><i>Egg '),\n+                            ('entityref', 'amp'),\n+                            ('data', ' Spam</i>'),\n+                            (\"endtag\", \"textarea\")],\n+                        collector=EventCollectorNoNormalize(convert_charrefs=False))\n+\n     @support.subTests('tail,end', [\n         ('', False),\n         ('<', False),\n@@ -362,6 +437,27 @@ def test_eof_in_script(self, tail, end):\n                             (\"data\", content if end else content + tail)],\n                         collector=EventCollectorNoNormalize(convert_charrefs=False))\n \n+    @support.subTests('tail,end', [\n+        ('', False),\n+        ('<', False),\n+        ('</', False),\n+        ('</t', False),\n+        ('</title', False),\n+        ('</title ', True),\n+        ('</title foo=bar', True),\n+        ('</title foo=\">', True),\n+    ])\n+    def test_eof_in_title(self, tail, end):\n+        s = f'<TitLe>Egg &amp; Spam{tail}'\n+        self._run_check(s, [(\"starttag\", \"title\", []),\n+                            (\"data\", \"Egg & Spam\" + ('' if end else tail))],\n+                        collector=EventCollectorNoNormalize(convert_charrefs=True))\n+        self._run_check(s, [(\"starttag\", \"title\", []),\n+                            ('data', 'Egg '),\n+                            ('entityref', 'amp'),\n+                            ('data', ' Spam' + ('' if end else tail))],\n+                        collector=EventCollectorNoNormalize(convert_charrefs=False))\n+\n     def test_comments(self):\n         html = (\"<!-- I'm a valid comment -->\"\n                 '<!--me too!-->'"
+    },
+    {
+      "sha": "6ad3caf33b2201267c478e2060ef3ab86861d507",
+      "filename": "Misc/NEWS.d/next/Security/2025-06-09-20-38-25.gh-issue-118350.KgWCcP.rst",
+      "status": "added",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c/Misc%2FNEWS.d%2Fnext%2FSecurity%2F2025-06-09-20-38-25.gh-issue-118350.KgWCcP.rst",
+      "raw_url": "https://github.com/python/cpython/raw/4dea0fb67b7064eb637d859de0b5d3ce4989bd1c/Misc%2FNEWS.d%2Fnext%2FSecurity%2F2025-06-09-20-38-25.gh-issue-118350.KgWCcP.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FSecurity%2F2025-06-09-20-38-25.gh-issue-118350.KgWCcP.rst?ref=4dea0fb67b7064eb637d859de0b5d3ce4989bd1c",
+      "patch": "@@ -0,0 +1,2 @@\n+Fix support of escapable raw text mode (elements \"textarea\" and \"title\")\n+in :class:`html.parser.HTMLParser`."
+    }
+  ]
+}

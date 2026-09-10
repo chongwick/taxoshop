@@ -1,0 +1,113 @@
+{
+  "sha": "773319545ba60577bc140aa46eac83b360240b7a",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6NzczMzE5NTQ1YmE2MDU3N2JjMTQwYWE0NmVhYzgzYjM2MDI0MGI3YQ==",
+  "commit": {
+    "author": {
+      "name": "Serhiy Storchaka",
+      "email": "storchaka@gmail.com",
+      "date": "2021-09-17T08:46:19Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-09-17T08:46:19Z"
+    },
+    "message": "bpo-45228: Fix stack buffer overflow in parsing J1939 address (GH-28404)",
+    "tree": {
+      "sha": "b1857f89ed094cce722974eee2972d62162da469",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/b1857f89ed094cce722974eee2972d62162da469"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/773319545ba60577bc140aa46eac83b360240b7a",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhRFXbCRBK7hj4Ov3rIwAAhSoIAFijRv4WCmo2PulkRUaofe4R\nPYiRiOHAh7naZn96wt810zKTlDl9JglRqtjCc6G9nWl1BQ1BJG5HBUfBIvG2in/j\ns+U1fNccHYaut7bRQoXXD86L0U0OhVQ1xIzCSogcv4KVb947KUukuSnFxYqH7ESv\nIbhZ26/ySpMl8le5PTl32PsABMy1rXIr1Lj8vodmYkx5xp+XEEYf0dPTROQ0XDVP\nKmHhi7twTD0n3+Ueg8BxzJaOOlMYIxdz/1TVhFl5c726J9874asEoSu1oActiRR/\nWeRf6Q50lTuUfpU18DN133hiP8zlDydT6BeBkXHxWLsguQXKxgtkVPrbY4Nu4jU=\n=Eclf\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree b1857f89ed094cce722974eee2972d62162da469\nparent 80d9ff16483b6c1898bcdcc811b5450b57a5e573\nauthor Serhiy Storchaka <storchaka@gmail.com> 1631868379 +0300\ncommitter GitHub <noreply@github.com> 1631868379 +0300\n\nbpo-45228: Fix stack buffer overflow in parsing J1939 address (GH-28404)\n\n",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/773319545ba60577bc140aa46eac83b360240b7a",
+  "html_url": "https://github.com/python/cpython/commit/773319545ba60577bc140aa46eac83b360240b7a",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/773319545ba60577bc140aa46eac83b360240b7a/comments",
+  "author": {
+    "login": "serhiy-storchaka",
+    "id": 3659035,
+    "node_id": "MDQ6VXNlcjM2NTkwMzU=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/3659035?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/serhiy-storchaka",
+    "html_url": "https://github.com/serhiy-storchaka",
+    "followers_url": "https://api.github.com/users/serhiy-storchaka/followers",
+    "following_url": "https://api.github.com/users/serhiy-storchaka/following{/other_user}",
+    "gists_url": "https://api.github.com/users/serhiy-storchaka/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/serhiy-storchaka/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/serhiy-storchaka/subscriptions",
+    "organizations_url": "https://api.github.com/users/serhiy-storchaka/orgs",
+    "repos_url": "https://api.github.com/users/serhiy-storchaka/repos",
+    "events_url": "https://api.github.com/users/serhiy-storchaka/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/serhiy-storchaka/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "80d9ff16483b6c1898bcdcc811b5450b57a5e573",
+      "url": "https://api.github.com/repos/python/cpython/commits/80d9ff16483b6c1898bcdcc811b5450b57a5e573",
+      "html_url": "https://github.com/python/cpython/commit/80d9ff16483b6c1898bcdcc811b5450b57a5e573"
+    }
+  ],
+  "stats": {
+    "total": 17,
+    "additions": 9,
+    "deletions": 8
+  },
+  "files": [
+    {
+      "sha": "9336c0aed92bc40a2b6f535949fc452997e9585a",
+      "filename": "Misc/NEWS.d/next/Library/2021-09-17-09-59-33.bpo-45228.WV1dcT.rst",
+      "status": "added",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/773319545ba60577bc140aa46eac83b360240b7a/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-09-17-09-59-33.bpo-45228.WV1dcT.rst",
+      "raw_url": "https://github.com/python/cpython/raw/773319545ba60577bc140aa46eac83b360240b7a/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-09-17-09-59-33.bpo-45228.WV1dcT.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-09-17-09-59-33.bpo-45228.WV1dcT.rst?ref=773319545ba60577bc140aa46eac83b360240b7a",
+      "patch": "@@ -0,0 +1 @@\n+Fix stack buffer overflow in parsing J1939 network address."
+    },
+    {
+      "sha": "83f05b72ecbd9ed3d60171b8db7001a994947f08",
+      "filename": "Modules/socketmodule.c",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 8,
+      "changes": 16,
+      "blob_url": "https://github.com/python/cpython/blob/773319545ba60577bc140aa46eac83b360240b7a/Modules%2Fsocketmodule.c",
+      "raw_url": "https://github.com/python/cpython/raw/773319545ba60577bc140aa46eac83b360240b7a/Modules%2Fsocketmodule.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Modules%2Fsocketmodule.c?ref=773319545ba60577bc140aa46eac83b360240b7a",
+      "patch": "@@ -1513,10 +1513,10 @@ makesockaddr(SOCKET_T sockfd, struct sockaddr *addr, size_t addrlen, int proto)\n #ifdef CAN_J1939\n           case CAN_J1939:\n           {\n-              return Py_BuildValue(\"O&KkB\", PyUnicode_DecodeFSDefault,\n+              return Py_BuildValue(\"O&KIB\", PyUnicode_DecodeFSDefault,\n                                           ifname,\n-                                          a->can_addr.j1939.name,\n-                                          a->can_addr.j1939.pgn,\n+                                          (unsigned long long)a->can_addr.j1939.name,\n+                                          (unsigned int)a->can_addr.j1939.pgn,\n                                           a->can_addr.j1939.addr);\n           }\n #endif /* CAN_J1939 */\n@@ -2207,13 +2207,13 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,\n             PyObject *interfaceName;\n             struct ifreq ifr;\n             Py_ssize_t len;\n-            uint64_t j1939_name;\n-            uint32_t j1939_pgn;\n+            unsigned long long j1939_name; /* at least 64 bits */\n+            unsigned int j1939_pgn; /* at least 32 bits */\n             uint8_t j1939_addr;\n \n             struct sockaddr_can *addr = &addrbuf->can;\n \n-            if (!PyArg_ParseTuple(args, \"O&KkB\", PyUnicode_FSConverter,\n+            if (!PyArg_ParseTuple(args, \"O&KIB\", PyUnicode_FSConverter,\n                                               &interfaceName,\n                                               &j1939_name,\n                                               &j1939_pgn,\n@@ -2241,8 +2241,8 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,\n \n             addr->can_family = AF_CAN;\n             addr->can_ifindex = ifr.ifr_ifindex;\n-            addr->can_addr.j1939.name = j1939_name;\n-            addr->can_addr.j1939.pgn = j1939_pgn;\n+            addr->can_addr.j1939.name = (uint64_t)j1939_name;\n+            addr->can_addr.j1939.pgn = (uint32_t)j1939_pgn;\n             addr->can_addr.j1939.addr = j1939_addr;\n \n             *len_ret = sizeof(*addr);"
+    }
+  ]
+}

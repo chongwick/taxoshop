@@ -1,0 +1,113 @@
+{
+  "sha": "f0be4bbb9b3cee876249c23f2ae6f38f43fa7495",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6ZjBiZTRiYmI5YjNjZWU4NzYyNDljMjNmMmFlNmYzOGY0M2ZhNzQ5NQ==",
+  "commit": {
+    "author": {
+      "name": "Inada Naoki",
+      "email": "songofacandy@gmail.com",
+      "date": "2019-05-14T09:51:15Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2019-05-14T09:51:15Z"
+    },
+    "message": "bpo-27987: pymalloc: align by 16bytes on 64bit platform (GH-12850)",
+    "tree": {
+      "sha": "778915b3612b9f9edbec3e2a6b1a399af3b1f6a8",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/778915b3612b9f9edbec3e2a6b1a399af3b1f6a8"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/f0be4bbb9b3cee876249c23f2ae6f38f43fa7495",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJc2o+TCRBK7hj4Ov3rIwAAdHIIAAM11zpRgdplbQAcPQABGGWS\nHnLRzrctU6OmuLyAl7ksAojkmd9GvACvXFNN6ZqGgd4W3V9N3Na67s5Um7y+IjjR\nR7jLAEMFFzSJXvRCtdKTebNidWjL8boVApCrbr1l3InPt1yAxhP2pRIM07LTt/OC\nnLR0NGTLstvtG6trnhlq7XOYckyB9YoWA69u0wReFY7e5D4XvHoqSlAQ7uFhnxV9\ne+B21Y6dcI3psaBSgix06pzvor6Mnq+AVjwtx9l0Lin6kZfGyoqp9HfynsyjpGw4\nEu3Oj1ZYi2W5SvRhj7Vjp2BwMq1mdB+/1BWj/wb0My+Lto7/17zsM4pceWlzQLY=\n=UNbK\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 778915b3612b9f9edbec3e2a6b1a399af3b1f6a8\nparent c923c3449f825021b13521b2380e67ba35a36f55\nauthor Inada Naoki <songofacandy@gmail.com> 1557827475 +0900\ncommitter GitHub <noreply@github.com> 1557827475 +0900\n\nbpo-27987: pymalloc: align by 16bytes on 64bit platform (GH-12850)\n\n",
+      "verified_at": "2024-11-07T05:35:35Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/f0be4bbb9b3cee876249c23f2ae6f38f43fa7495",
+  "html_url": "https://github.com/python/cpython/commit/f0be4bbb9b3cee876249c23f2ae6f38f43fa7495",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/f0be4bbb9b3cee876249c23f2ae6f38f43fa7495/comments",
+  "author": {
+    "login": "methane",
+    "id": 199592,
+    "node_id": "MDQ6VXNlcjE5OTU5Mg==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/199592?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/methane",
+    "html_url": "https://github.com/methane",
+    "followers_url": "https://api.github.com/users/methane/followers",
+    "following_url": "https://api.github.com/users/methane/following{/other_user}",
+    "gists_url": "https://api.github.com/users/methane/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/methane/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/methane/subscriptions",
+    "organizations_url": "https://api.github.com/users/methane/orgs",
+    "repos_url": "https://api.github.com/users/methane/repos",
+    "events_url": "https://api.github.com/users/methane/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/methane/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "c923c3449f825021b13521b2380e67ba35a36f55",
+      "url": "https://api.github.com/repos/python/cpython/commits/c923c3449f825021b13521b2380e67ba35a36f55",
+      "html_url": "https://github.com/python/cpython/commit/c923c3449f825021b13521b2380e67ba35a36f55"
+    }
+  ],
+  "stats": {
+    "total": 9,
+    "additions": 9,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "b0f32a5c6c3f4165816075507859933afc7bd03a",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2019-04-16-11-52-21.bpo-27987.n2_DcQ.rst",
+      "status": "added",
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/f0be4bbb9b3cee876249c23f2ae6f38f43fa7495/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2019-04-16-11-52-21.bpo-27987.n2_DcQ.rst",
+      "raw_url": "https://github.com/python/cpython/raw/f0be4bbb9b3cee876249c23f2ae6f38f43fa7495/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2019-04-16-11-52-21.bpo-27987.n2_DcQ.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2019-04-16-11-52-21.bpo-27987.n2_DcQ.rst?ref=f0be4bbb9b3cee876249c23f2ae6f38f43fa7495",
+      "patch": "@@ -0,0 +1,3 @@\n+pymalloc returns memory blocks aligned by 16 bytes, instead of 8 bytes, on\n+64-bit platforms to conform x86-64 ABI. Recent compilers assume this alignment\n+more often. Patch by Inada Naoki."
+    },
+    {
+      "sha": "bd15bcf1363bdecf7cd05e65dc6316830003511e",
+      "filename": "Objects/obmalloc.c",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 0,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/f0be4bbb9b3cee876249c23f2ae6f38f43fa7495/Objects%2Fobmalloc.c",
+      "raw_url": "https://github.com/python/cpython/raw/f0be4bbb9b3cee876249c23f2ae6f38f43fa7495/Objects%2Fobmalloc.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Fobmalloc.c?ref=f0be4bbb9b3cee876249c23f2ae6f38f43fa7495",
+      "patch": "@@ -795,8 +795,14 @@ static int running_on_valgrind = -1;\n  *\n  * You shouldn't change this unless you know what you are doing.\n  */\n+\n+#if SIZEOF_VOID_P > 4\n+#define ALIGNMENT              16               /* must be 2^N */\n+#define ALIGNMENT_SHIFT         4\n+#else\n #define ALIGNMENT               8               /* must be 2^N */\n #define ALIGNMENT_SHIFT         3\n+#endif\n \n /* Return the number of bytes in size class I, as a uint. */\n #define INDEX2SIZE(I) (((uint)(I) + 1) << ALIGNMENT_SHIFT)"
+    }
+  ]
+}

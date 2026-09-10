@@ -1,0 +1,108 @@
+{
+  "retrieved_at": "2026-09-10T13:10:03.133500+00:00",
+  "issue": {
+    "url": "https://api.github.com/repos/python/cpython/issues/154535",
+    "repository_url": "https://api.github.com/repos/python/cpython",
+    "labels_url": "https://api.github.com/repos/python/cpython/issues/154535/labels{/name}",
+    "comments_url": "https://api.github.com/repos/python/cpython/issues/154535/comments",
+    "events_url": "https://api.github.com/repos/python/cpython/issues/154535/events",
+    "html_url": "https://github.com/python/cpython/issues/154535",
+    "id": 4958244703,
+    "node_id": "I_kwDOBN0Z8c8AAAABJ4jPXw",
+    "number": 154535,
+    "title": "Sharing a `contextvars.Context` iterator across threads crashes (HAMT iterator cursor corruption) under free-threading",
+    "user": {
+      "login": "devdanzin",
+      "id": 74280297,
+      "node_id": "MDQ6VXNlcjc0MjgwMjk3",
+      "avatar_url": "https://avatars.githubusercontent.com/u/74280297?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/devdanzin",
+      "html_url": "https://github.com/devdanzin",
+      "followers_url": "https://api.github.com/users/devdanzin/followers",
+      "following_url": "https://api.github.com/users/devdanzin/following{/other_user}",
+      "gists_url": "https://api.github.com/users/devdanzin/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/devdanzin/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/devdanzin/subscriptions",
+      "organizations_url": "https://api.github.com/users/devdanzin/orgs",
+      "repos_url": "https://api.github.com/users/devdanzin/repos",
+      "events_url": "https://api.github.com/users/devdanzin/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/devdanzin/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 4018668718,
+        "node_id": "LA_kwDOBN0Z8c7viASu",
+        "url": "https://api.github.com/repos/python/cpython/labels/interpreter-core",
+        "name": "interpreter-core",
+        "color": "09fc59",
+        "default": false,
+        "description": "(Objects, Python, Grammar, and Parser dirs)"
+      },
+      {
+        "id": 4018848914,
+        "node_id": "LA_kwDOBN0Z8c7visSS",
+        "url": "https://api.github.com/repos/python/cpython/labels/type-crash",
+        "name": "type-crash",
+        "color": "b60205",
+        "default": false,
+        "description": "A hard crash of the interpreter, possibly with a core dump"
+      },
+      {
+        "id": 6140426713,
+        "node_id": "LA_kwDOBN0Z8c8AAAABbf952Q",
+        "url": "https://api.github.com/repos/python/cpython/labels/topic-free-threading",
+        "name": "topic-free-threading",
+        "color": "0052cc",
+        "default": false,
+        "description": ""
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignees": [],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2026-07-23T11:12:54Z",
+    "updated_at": "2026-07-24T09:21:30Z",
+    "closed_at": null,
+    "assignee": null,
+    "author_association": "MEMBER",
+    "issue_field_values": [],
+    "type": null,
+    "active_lock_reason": null,
+    "sub_issues_summary": {
+      "total": 0,
+      "completed": 0,
+      "percent_completed": 0
+    },
+    "issue_dependencies_summary": {
+      "blocked_by": 0,
+      "total_blocked_by": 0,
+      "blocking": 0,
+      "total_blocking": 0
+    },
+    "body": "# Crash report\n\n### What happened?\n\nOn the free-threaded build, advancing a single shared iterator over a `contextvars.Context` from multiple threads corrupts the iterator's traversal cursor and dereferences a garbage node pointer → **SIGSEGV**.\n\nThe HAMT iterator keeps its whole cursor — `i_nodes[]` (borrowed node pointers), `i_pos[]`, `i_level` — inside the iterator object and advances it with plain reads/writes and **no critical section** (`Python/hamt.c`, main@`a1d580430c8`):\n\n```c\nstatic hamt_iter_t\nhamt_iterator_next(PyHamtIteratorState *iter, PyObject **key, PyObject **val) {\n    if (iter->i_level < 0)                       /* :2188  plain read of the cursor level */\n        return I_END;\n    PyHamtNode *current = iter->i_nodes[iter->i_level];   /* :2194  read node at current level */\n    if (IS_BITMAP_NODE(current)) {               /* :2196  Py_TYPE(current) -> SEGV on a wild node */\n        return hamt_iterator_bitmap_next(iter, key, val);\n    }\n    ...\n}\n\nstatic hamt_iter_t\nhamt_iterator_bitmap_next(PyHamtIteratorState *iter, ...) {\n    int8_t level = iter->i_level;\n    PyHamtNode_Bitmap *node = (PyHamtNode_Bitmap *)(iter->i_nodes[level]);\n    if (pos + 1 >= Py_SIZE(node)) {              /* :2092  Py_SIZE(node) -> SEGV on a wild node */\n        iter->i_level--;                         /* :2097  plain write of the cursor level */\n        return hamt_iterator_next(iter, key, val);\n    }\n    ...\n}\n```\n\nTwo threads calling `next()` on the same iterator desync `i_level` against `i_nodes[]`, so a thread reads `current = iter->i_nodes[iter->i_level]` as a stale / `NULL` / wild pointer and immediately evaluates `IS_BITMAP_NODE(current)` = `Py_TYPE(current)` (or `Py_SIZE(node)` in `hamt_iterator_bitmap_next`) — dereferencing garbage. Because the nodes in `i_nodes` are held **borrowed** (`hamt_iterator_init`: \"we don't incref/decref nodes in i_nodes\"), a concurrent structural change is not even required — cursor desync alone produces the wild dereference. This is safe under the GIL (one thread runs the advance at a time).\n\nThe HAMT iterator backs `contextvars.Context` iteration — `iter(ctx)`, `ctx.keys()`, `ctx.values()`, `ctx.items()` — via `hamt_baseiter_tp_iternext` (`hamt.c:2479`).\n\n### Reproducer\n\nFree-threaded build, `PYTHON_GIL=0`:\n\n```python\nimport contextvars, threading\nNT = 8; ITERS = 40000\nvs = [contextvars.ContextVar(f\"v{i}\") for i in range(16)]\nctx = contextvars.copy_context()\ndef populate():\n    for i, v in enumerate(vs):\n        v.set(i)\nctx.run(populate)\ncell = [iter(ctx)]\ndef worker():\n    for _ in range(ITERS):\n        it = cell[0]\n        try: next(it)\n        except StopIteration: cell[0] = iter(ctx)\n        except Exception: pass\nts = [threading.Thread(target=worker) for _ in range(NT)]\nfor t in ts: t.start()\nfor t in ts: t.join()\n```\n\n- **6/6 SIGSEGV** on a plain free-threaded debug build (no sanitizer).\n- On a free-threaded ASan build:\n\n```\nAddressSanitizer: SEGV in _Py_TYPE_impl  Include/object.h:234\n  hamt_iterator_bitmap_next  Python/hamt.c:2092\n  hamt_iterator_next         Python/hamt.c:2196\n  hamt_baseiter_tp_iternext  Python/hamt.c:2479\n  context_run                Python/context.c:731\n```\n\n- Under TSan: `WARNING: ThreadSanitizer: data race … Python/hamt.c:2188 in hamt_iterator_next`.\n\nThe crash is not `Py_DEBUG`-only — it reproduces as a raw SIGSEGV from the wild-pointer dereference on the plain free-threaded build.\n\n### Relationship to gh-124397\n\nPer gh-124397 (\"Strategy for Iterators in Free Threading\") point 3, C iterators should get \"the minimal changes necessary to cause them to **not crash** … Concurrent access is allowed to return duplicate values, skip values, or raise an exception.\" The HAMT / `Context` iterator was never brought under that hardening, so it crashes rather than returning dup/skip. It is the `contextvars.Context` sibling of the already-tracked shared-iterator crashes: dict (#154130), set (#144357), and memoryview.\n\n### Suggested fix\n\nBring the HAMT iterator advance under a per-iterator critical section (or make the `i_level`/`i_pos`/`i_nodes` cursor accesses atomic with a NULL/bounds check on the borrowed `i_nodes[i_level]` before dereferencing), matching the `dictiter`/`setiter` hardening. The guard must span the whole `hamt_iterator_next` → `*_bitmap_next` / `*_array_next` descent because `i_nodes` holds borrowed pointers.\n\n*Found with [fusil](https://github.com/devdanzin/fusil)'s `--tsan` mode; reproducer reduced and this report drafted with AI assistance (Claude Code), then verified by hand on free-threaded debug / ASan / TSan builds of `main`.*\n\n\n### CPython versions tested on:\n\nCPython main branch\n\n### Operating systems tested on:\n\nLinux\n\n### Output from running 'python -VV' on the command line:\n\nPython 3.16.0a0 free-threading build (heads/main:a1d580430c8, Jul 18 2026, 20:23:36) [Clang 21.1.8 (6ubuntu1)]\n\n<!-- gh-linked-prs -->\n### Linked PRs\n* gh-154586\n<!-- /gh-linked-prs -->\n",
+    "closed_by": null,
+    "reactions": {
+      "url": "https://api.github.com/repos/python/cpython/issues/154535/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "timeline_url": "https://api.github.com/repos/python/cpython/issues/154535/timeline",
+    "performed_via_github_app": null,
+    "state_reason": null,
+    "pinned_comment": null
+  },
+  "comments": []
+}

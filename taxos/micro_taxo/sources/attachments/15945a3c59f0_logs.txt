@@ -1,0 +1,178 @@
+➜  main git:(main) ✗ ./build/jit_debug_c11/python -m test
+== CPython 3.15.0a0 (heads/main-dirty:dd45179fa0, Sep 23 2025, 19:41:20) [Clang 20.1.2 (0ubuntu1)]
+== Linux-6.14.0-32-generic-x86_64-with-glibc2.41 little-endian
+== Python build: debug JIT ASAN+UBSAN
+== cwd: /home/shamil/oss/cpython/main/build/jit_debug_c11/build/test_python_worker_234008æ
+== CPU count: 8
+== encodings: locale=UTF-8 FS=utf-8
+== resources: all test resources are disabled, use -u option to unskip tests
+== sanitizers: address, undefined behavior
+== ASAN_OPTIONS='detect_leaks=0:strict_string_checks=1:fast_unwind_on_malloc=0:detect_stack_use_after_return=1:malloc_context_size=50:check_initialization_order=1:verify_asan_link_order=1:abort_on_error=1'
+== UBSAN_OPTIONS='print_stacktrace=1:halt_on_error=1:report_error_type=1:allocator_release_to_os_interval_ms=500'
+
+Using random seed: 2888416407
+0:00:00 load avg: 1.01 Run 493 tests sequentially in a single process
+0:00:00 load avg: 1.01 [  1/493] test.test_asyncio.test_base_events
+../../Python/jit.c:228:5: runtime error: store to misaligned address 0x7bc5f08215ab for type 'uint64_t' (aka 'unsigned long'), which requires 8 byte alignment
+0x7bc5f08215ab: note: pointer points here
+ 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00
+              ^
+    #0 0x5a21c1fc08a9 in patch_64 /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/jit.c:228:12
+    #1 0x5a21c1fc08a9 in emit__COLD_EXIT /home/shamil/oss/cpython/main/build/jit_debug_c11/./jit_stencils-x86_64-unknown-linux-gnu.h:36611:5
+    #2 0x5a21c2073e43 in _PyJIT_Compile /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/jit.c:542:9
+    #3 0x5a21c20a2f44 in _PyExecutor_GetColdExecutor /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/optimizer.c:1513:9
+    #4 0x5a21c2099f56 in make_executor_from_uops /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/optimizer.c:1203:31
+    #5 0x5a21c2099f56 in uop_optimize /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/optimizer.c:1337:35
+    #6 0x5a21c2099f56 in _PyOptimizer_Optimize /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/optimizer.c:135:15
+    #7 0x5a21c1d4b1ee in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:7655:37
+    #8 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #9 0x5a21c1860ee3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Include/internal/pycore_call.h:169:11
+    #10 0x5a21c185d25d in method_vectorcall /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/classobject.c:95:18
+    #11 0x5a21c18537ab in _PyVectorcall_Call /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:273:16
+    #12 0x5a21c1d37f18 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:2616:32
+    #13 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #14 0x5a21c1860ee3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Include/internal/pycore_call.h:169:11
+    #15 0x5a21c185d321 in method_vectorcall /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/classobject.c:65:18
+    #16 0x5a21c185365b in _PyVectorcall_Call /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:285:24
+    #17 0x5a21c1d37f18 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:2616:32
+    #18 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #19 0x5a21c1850f2b in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:146:15
+    #20 0x5a21c1854cad in _PyObject_Call_Prepend /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:504:24
+    #21 0x5a21c1acd877 in call_method /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/typeobject.c:3076:19
+    #22 0x5a21c1b11cc9 in slot_tp_init /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/typeobject.c:10828:21
+    #23 0x5a21c1ab4f7c in type_call /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/typeobject.c:2460:19
+    #24 0x5a21c185153e in _PyObject_MakeTpCall /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:242:18
+    #25 0x5a21c1d22ea8 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:3188:35
+    #26 0x5a21c18db6c3 in _PyEval_EvalFrame /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Include/internal/pycore_ceval.h:121:16
+    #27 0x5a21c18db6c3 in gen_send_ex2 /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/genobject.c:259:24
+    #28 0x5a21c18d3b40 in gen_iternext /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/genobject.c:634:9
+    #29 0x5a21c1cfbb37 in builtin_next /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/bltinmodule.c:1682:11
+    #30 0x5a21c1d3a5d0 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:2249:35
+    #31 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #32 0x5a21c1860ee3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Include/internal/pycore_call.h:169:11
+    #33 0x5a21c185d25d in method_vectorcall /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/classobject.c:95:18
+    #34 0x5a21c18537ab in _PyVectorcall_Call /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:273:16
+    #35 0x5a21c1d37f18 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:2616:32
+    #36 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #37 0x5a21c1850fde in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:135:15
+    #38 0x5a21c1854cad in _PyObject_Call_Prepend /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:504:24
+    #39 0x5a21c1acd877 in call_method /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/typeobject.c:3076:19
+    #40 0x5a21c185153e in _PyObject_MakeTpCall /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:242:18
+    #41 0x5a21c1d1b4ea in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:4021:35
+    #42 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #43 0x5a21c1860ee3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Include/internal/pycore_call.h:169:11
+    #44 0x5a21c185d25d in method_vectorcall /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/classobject.c:95:18
+    #45 0x5a21c18537ab in _PyVectorcall_Call /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:273:16
+    #46 0x5a21c1d37f18 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:2616:32
+    #47 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #48 0x5a21c1850fde in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:135:15
+    #49 0x5a21c1854cad in _PyObject_Call_Prepend /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:504:24
+    #50 0x5a21c1acd877 in call_method /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/typeobject.c:3076:19
+    #51 0x5a21c185153e in _PyObject_MakeTpCall /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:242:18
+    #52 0x5a21c1d5af57 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:1620:35
+    #53 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #54 0x5a21c1860ee3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Include/internal/pycore_call.h:169:11
+    #55 0x5a21c185d25d in method_vectorcall /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/classobject.c:95:18
+    #56 0x5a21c18537ab in _PyVectorcall_Call /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:273:16
+    #57 0x5a21c1d37f18 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:2616:32
+    #58 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #59 0x5a21c1850fde in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:135:15
+    #60 0x5a21c1854cad in _PyObject_Call_Prepend /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:504:24
+    #61 0x5a21c1acd877 in call_method /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/typeobject.c:3076:19
+    #62 0x5a21c185153e in _PyObject_MakeTpCall /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:242:18
+    #63 0x5a21c1d5af57 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:1620:35
+    #64 0x5a21c1d063bc in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #65 0x5a21c1d063bc in PyEval_EvalCode /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:873:21
+    #66 0x5a21c1cf9bbc in builtin_exec_impl /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/bltinmodule.c:1181:17
+    #67 0x5a21c1cf9bbc in builtin_exec /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/clinic/bltinmodule.c.h:568:20
+    #68 0x5a21c1850bee in _PyObject_VectorcallTstate /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Include/internal/pycore_call.h:169:11
+    #69 0x5a21c1d5af57 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/generated_cases.c.h:1620:35
+    #70 0x5a21c1d06831 in _PyEval_Vector /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Python/ceval.c:1990:12
+    #71 0x5a21c18537ab in _PyVectorcall_Call /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Objects/call.c:273:16
+    #72 0x5a21c22085f9 in pymain_run_module /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Modules/main.c:353:14
+    #73 0x5a21c2206c8e in pymain_run_python /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Modules/main.c
+    #74 0x5a21c2206c8e in Py_RunMain /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Modules/main.c:772:5
+    #75 0x5a21c2207f71 in pymain_main /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Modules/main.c:802:12
+    #76 0x5a21c22081db in Py_BytesMain /home/shamil/oss/cpython/main/build/jit_debug_c11/../../Modules/main.c:826:12
+    #77 0x7bc5f062a577 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #78 0x7bc5f062a63a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #79 0x5a21c13df7d4 in _start (/home/shamil/oss/cpython/main/build/jit_debug_c11/python+0x9627d4) (BuildId: 0a734b7925b234a124c040d57ff1a6e474f503bb)
+
+SUMMARY: UndefinedBehaviorSanitizer: misaligned-pointer-use ../../Python/jit.c:228:5
+Fatal Python error: Aborted
+
+Current thread 0x00007bc5f083a380 [python] (most recent call first):
+  File "/home/shamil/oss/cpython/main/Lib/inspect.py", line 1719 in _shadowed_dict
+  File "/home/shamil/oss/cpython/main/Lib/inspect.py", line 1685 in _check_class
+  File "/home/shamil/oss/cpython/main/Lib/inspect.py", line 1746 in getattr_static
+  File "/home/shamil/oss/cpython/main/Lib/unittest/mock.py", line 554 in _mock_add_spec
+  File "/home/shamil/oss/cpython/main/Lib/unittest/mock.py", line 485 in __init__
+  File "/home/shamil/oss/cpython/main/Lib/unittest/mock.py", line 1157 in __init__
+  File "/home/shamil/oss/cpython/main/Lib/unittest/mock.py", line 2176 in __init__
+  File "/home/shamil/oss/cpython/main/Lib/test/test_asyncio/test_base_events.py", line 36 in mock_socket_module
+  File "/home/shamil/oss/cpython/main/Lib/unittest/mock.py", line 1561 in __enter__
+  File "/home/shamil/oss/cpython/main/Lib/contextlib.py", line 530 in enter_context
+  File "/home/shamil/oss/cpython/main/Lib/unittest/mock.py", line 1411 in decoration_helper
+  File "/home/shamil/oss/cpython/main/Lib/contextlib.py", line 141 in __enter__
+  File "/home/shamil/oss/cpython/main/Lib/unittest/mock.py", line 1429 in patched
+  File "/home/shamil/oss/cpython/main/Lib/unittest/case.py", line 613 in _callTestMethod
+  File "/home/shamil/oss/cpython/main/Lib/unittest/case.py", line 667 in run
+  File "/home/shamil/oss/cpython/main/Lib/unittest/case.py", line 723 in __call__
+  File "/home/shamil/oss/cpython/main/Lib/unittest/suite.py", line 122 in run
+  File "/home/shamil/oss/cpython/main/Lib/unittest/suite.py", line 84 in __call__
+  File "/home/shamil/oss/cpython/main/Lib/unittest/suite.py", line 122 in run
+  File "/home/shamil/oss/cpython/main/Lib/unittest/suite.py", line 84 in __call__
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/testresult.py", line 148 in run
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/single.py", line 84 in _run_suite
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/single.py", line 42 in run_unittest
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/single.py", line 162 in test_func
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/single.py", line 118 in regrtest_runner
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/single.py", line 165 in _load_run_test
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/single.py", line 210 in _runtest_env_changed_exc
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/single.py", line 319 in _runtest
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/single.py", line 348 in run_single_test
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/main.py", line 393 in run_test
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/main.py", line 423 in run_tests_sequentially
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/main.py", line 563 in _run_tests
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/main.py", line 598 in run_tests
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/main.py", line 767 in main
+  File "/home/shamil/oss/cpython/main/Lib/test/libregrtest/main.py", line 775 in main
+  File "/home/shamil/oss/cpython/main/Lib/test/__main__.py", line 2 in <module>
+  File "/home/shamil/oss/cpython/main/Lib/runpy.py", line 88 in _run_code
+  File "/home/shamil/oss/cpython/main/Lib/runpy.py", line 198 in _run_module_as_main
+
+Current thread's C stack trace (most recent call first):
+  Binary file "./build/jit_debug_c11/python", at ___interceptor_backtrace+0x4a [0x5a21c1428aea]
+  Binary file "./build/jit_debug_c11/python", at _Py_DumpStack+0x109 [0x5a21c21c5f91]
+  Binary file "./build/jit_debug_c11/python", at +0x17c22e6 [0x5a21c223f2e6]
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", at +0x458d0 [0x7bc5f06458d0]
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", at pthread_kill+0x11c [0x7bc5f06a49bc]
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", at gsignal+0x1e [0x7bc5f064579e]
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", at abort+0x2c [0x7bc5f06288cd]
+  Binary file "./build/jit_debug_c11/python", at +0xa2f7c0 [0x5a21c14ac7c0]
+  Binary file "./build/jit_debug_c11/python", at +0xa2d522 [0x5a21c14aa522]
+  Binary file "./build/jit_debug_c11/python", at +0xa45485 [0x5a21c14c2485]
+  Binary file "./build/jit_debug_c11/python", at +0xa46040 [0x5a21c14c3040]
+  Binary file "./build/jit_debug_c11/python", at __ubsan_handle_type_mismatch_v1+0x38 [0x5a21c14c2bf8]
+  Binary file "./build/jit_debug_c11/python", at +0x15438aa [0x5a21c1fc08aa]
+  Binary file "./build/jit_debug_c11/python", at +0x15f6e44 [0x5a21c2073e44]
+  Binary file "./build/jit_debug_c11/python", at +0x1625f45 [0x5a21c20a2f45]
+  Binary file "./build/jit_debug_c11/python", at _PyOptimizer_Optimize+0x207f [0x5a21c2099f57]
+  Binary file "./build/jit_debug_c11/python", at _PyEval_EvalFrameDefault+0x44067 [0x5a21c1d4b1ef]
+  Binary file "./build/jit_debug_c11/python", at +0x1289832 [0x5a21c1d06832]
+  Binary file "./build/jit_debug_c11/python", at +0xde3ee4 [0x5a21c1860ee4]
+  Binary file "./build/jit_debug_c11/python", at +0xde025e [0x5a21c185d25e]
+  Binary file "./build/jit_debug_c11/python", at +0xdd67ac [0x5a21c18537ac]
+  Binary file "./build/jit_debug_c11/python", at _PyEval_EvalFrameDefault+0x30d91 [0x5a21c1d37f19]
+  Binary file "./build/jit_debug_c11/python", at +0x1289832 [0x5a21c1d06832]
+  Binary file "./build/jit_debug_c11/python", at +0xde3ee4 [0x5a21c1860ee4]
+  Binary file "./build/jit_debug_c11/python", at +0xde0322 [0x5a21c185d322]
+  Binary file "./build/jit_debug_c11/python", at +0xdd665c [0x5a21c185365c]
+  Binary file "./build/jit_debug_c11/python", at _PyEval_EvalFrameDefault+0x30d91 [0x5a21c1d37f19]
+  Binary file "./build/jit_debug_c11/python", at +0x1289832 [0x5a21c1d06832]
+  Binary file "./build/jit_debug_c11/python", at +0xdd3f2c [0x5a21c1850f2c]
+  Binary file "./build/jit_debug_c11/python", at +0xdd7cae [0x5a21c1854cae]
+  Binary file "./build/jit_debug_c11/python", at +0x1050878 [0x5a21c1acd878]
+  Binary file "./build/jit_debug_c11/python", at +0x1094cca [0x5a21c1b11cca]
+  <truncated rest of calls>
+[1]    234008 IOT instruction  ./build/jit_debug_c11/python -m test

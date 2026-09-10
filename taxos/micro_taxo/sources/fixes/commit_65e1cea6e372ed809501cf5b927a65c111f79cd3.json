@@ -1,0 +1,101 @@
+{
+  "sha": "65e1cea6e372ed809501cf5b927a65c111f79cd3",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6NjVlMWNlYTZlMzcyZWQ4MDk1MDFjZjViOTI3YTY1YzExMWY3OWNkMw==",
+  "commit": {
+    "author": {
+      "name": "Guido van Rossum",
+      "email": "guido@python.org",
+      "date": "2001-01-17T22:11:59Z"
+    },
+    "committer": {
+      "name": "Guido van Rossum",
+      "email": "guido@python.org",
+      "date": "2001-01-17T22:11:59Z"
+    },
+    "message": "Convert to rich comparisons:\n\n- sort's docompare() calls RichCompare(Py_LT).\n\n- list_contains(), list_index(), listcount(), listremove() call\n  RichCompare(Py_EQ).\n\n- Get rid of list_compare(), in favor of new list_richcompare().  The\n  latter does some nice shortcuts, like when == or != is requested, it\n  first compares the lengths for trivial accept/reject.  Then it goes\n  over the items until it finds an index where the items differe; then\n  it does more shortcut magic to minimize the number of additional\n  comparisons.\n\n- Aligned the comments for large struct initializers.",
+    "tree": {
+      "sha": "c1d623c8cc41e1dffca50c4db184812b24bf161c",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/c1d623c8cc41e1dffca50c4db184812b24bf161c"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/65e1cea6e372ed809501cf5b927a65c111f79cd3",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/65e1cea6e372ed809501cf5b927a65c111f79cd3",
+  "html_url": "https://github.com/python/cpython/commit/65e1cea6e372ed809501cf5b927a65c111f79cd3",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/65e1cea6e372ed809501cf5b927a65c111f79cd3/comments",
+  "author": {
+    "login": "gvanrossum",
+    "id": 2894642,
+    "node_id": "MDQ6VXNlcjI4OTQ2NDI=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/2894642?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/gvanrossum",
+    "html_url": "https://github.com/gvanrossum",
+    "followers_url": "https://api.github.com/users/gvanrossum/followers",
+    "following_url": "https://api.github.com/users/gvanrossum/following{/other_user}",
+    "gists_url": "https://api.github.com/users/gvanrossum/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/gvanrossum/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/gvanrossum/subscriptions",
+    "organizations_url": "https://api.github.com/users/gvanrossum/orgs",
+    "repos_url": "https://api.github.com/users/gvanrossum/repos",
+    "events_url": "https://api.github.com/users/gvanrossum/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/gvanrossum/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "gvanrossum",
+    "id": 2894642,
+    "node_id": "MDQ6VXNlcjI4OTQ2NDI=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/2894642?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/gvanrossum",
+    "html_url": "https://github.com/gvanrossum",
+    "followers_url": "https://api.github.com/users/gvanrossum/followers",
+    "following_url": "https://api.github.com/users/gvanrossum/following{/other_user}",
+    "gists_url": "https://api.github.com/users/gvanrossum/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/gvanrossum/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/gvanrossum/subscriptions",
+    "organizations_url": "https://api.github.com/users/gvanrossum/orgs",
+    "repos_url": "https://api.github.com/users/gvanrossum/repos",
+    "events_url": "https://api.github.com/users/gvanrossum/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/gvanrossum/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "7d6457743a2f48888dd10a41cee0e072fb4595ce",
+      "url": "https://api.github.com/repos/python/cpython/commits/7d6457743a2f48888dd10a41cee0e072fb4595ce",
+      "html_url": "https://github.com/python/cpython/commit/7d6457743a2f48888dd10a41cee0e072fb4595ce"
+    }
+  ],
+  "stats": {
+    "total": 253,
+    "additions": 163,
+    "deletions": 90
+  },
+  "files": [
+    {
+      "sha": "f57f6fbed8dcffd79c620cde5df24408f74e2a29",
+      "filename": "Objects/listobject.c",
+      "status": "modified",
+      "additions": 163,
+      "deletions": 90,
+      "changes": 253,
+      "blob_url": "https://github.com/python/cpython/blob/65e1cea6e372ed809501cf5b927a65c111f79cd3/Objects%2Flistobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/65e1cea6e372ed809501cf5b927a65c111f79cd3/Objects%2Flistobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Flistobject.c?ref=65e1cea6e372ed809501cf5b927a65c111f79cd3",
+      "patch": "@@ -245,19 +245,6 @@ list_repr(PyListObject *v)\n \treturn s;\n }\n \n-static int\n-list_compare(PyListObject *v, PyListObject *w)\n-{\n-\tint i;\n-\t\n-\tfor (i = 0; i < v->ob_size && i < w->ob_size; i++) {\n-\t\tint cmp = PyObject_Compare(v->ob_item[i], w->ob_item[i]);\n-\t\tif (cmp != 0)\n-\t\t\treturn cmp;\n-\t}\n-\treturn v->ob_size - w->ob_size;\n-}\n-\n static int\n list_length(PyListObject *a)\n {\n@@ -269,13 +256,14 @@ list_length(PyListObject *a)\n static int\n list_contains(PyListObject *a, PyObject *el)\n {\n-\tint i, cmp;\n+\tint i;\n \n \tfor (i = 0; i < a->ob_size; ++i) {\n-\t\tcmp = PyObject_Compare(el, PyList_GET_ITEM(a, i));\n-\t\tif (cmp == 0)\n+\t\tint cmp = PyObject_RichCompareBool(el, PyList_GET_ITEM(a, i),\n+\t\t\t\t\t\t   Py_EQ);\n+\t\tif (cmp > 0)\n \t\t\treturn 1;\n-\t\tif (PyErr_Occurred())\n+\t\telse if (cmp < 0)\n \t\t\treturn -1;\n \t}\n \treturn 0;\n@@ -725,10 +713,16 @@ docompare(PyObject *x, PyObject *y, PyObject *compare)\n \tint i;\n \n \tif (compare == NULL) {\n-\t\ti = PyObject_Compare(x, y);\n-\t\tif (i && PyErr_Occurred())\n-\t\t\ti = CMPERROR;\n-\t\treturn i;\n+\t\t/* NOTE: we rely on the fact here that the sorting algorithm\n+\t\t   only ever checks whether k<0, i.e., whether x<y.  So we\n+\t\t   invoke the rich comparison function with Py_LT ('<'), and\n+\t\t   return -1 when it returns true and 0 when it returns\n+\t\t   false. */\n+\t\ti = PyObject_RichCompareBool(x, y, Py_LT);\n+\t\tif (i < 0)\n+\t\t\treturn CMPERROR;\n+\t\telse\n+\t\t\treturn -i;\n \t}\n \n \targs = Py_BuildValue(\"(OO)\", x, y);\n@@ -1344,9 +1338,10 @@ listindex(PyListObject *self, PyObject *args)\n \tif (!PyArg_ParseTuple_Compat1(args, \"O:index\", &v))\n \t\treturn NULL;\n \tfor (i = 0; i < self->ob_size; i++) {\n-\t\tif (PyObject_Compare(self->ob_item[i], v) == 0)\n+\t\tint cmp = PyObject_RichCompareBool(self->ob_item[i], v, Py_EQ);\n+\t\tif (cmp > 0)\n \t\t\treturn PyInt_FromLong((long)i);\n-\t\tif (PyErr_Occurred())\n+\t\telse if (cmp < 0)\n \t\t\treturn NULL;\n \t}\n \tPyErr_SetString(PyExc_ValueError, \"list.index(x): x not in list\");\n@@ -1363,9 +1358,10 @@ listcount(PyListObject *self, PyObject *args)\n \tif (!PyArg_ParseTuple_Compat1(args, \"O:count\", &v))\n \t\treturn NULL;\n \tfor (i = 0; i < self->ob_size; i++) {\n-\t\tif (PyObject_Compare(self->ob_item[i], v) == 0)\n+\t\tint cmp = PyObject_RichCompareBool(self->ob_item[i], v, Py_EQ);\n+\t\tif (cmp > 0)\n \t\t\tcount++;\n-\t\tif (PyErr_Occurred())\n+\t\telse if (cmp < 0)\n \t\t\treturn NULL;\n \t}\n \treturn PyInt_FromLong((long)count);\n@@ -1380,14 +1376,15 @@ listremove(PyListObject *self, PyObject *args)\n \tif (!PyArg_ParseTuple_Compat1(args, \"O:remove\", &v))\n \t\treturn NULL;\n \tfor (i = 0; i < self->ob_size; i++) {\n-\t\tif (PyObject_Compare(self->ob_item[i], v) == 0) {\n+\t\tint cmp = PyObject_RichCompareBool(self->ob_item[i], v, Py_EQ);\n+\t\tif (cmp > 0) {\n \t\t\tif (list_ass_slice(self, i, i+1,\n \t\t\t\t\t   (PyObject *)NULL) != 0)\n \t\t\t\treturn NULL;\n \t\t\tPy_INCREF(Py_None);\n \t\t\treturn Py_None;\n \t\t}\n-\t\tif (PyErr_Occurred())\n+\t\telse if (cmp < 0)\n \t\t\treturn NULL;\n \t}\n \tPyErr_SetString(PyExc_ValueError, \"list.remove(x): x not in list\");\n@@ -1418,6 +1415,78 @@ list_clear(PyListObject *lp)\n \treturn 0;\n }\n \n+static PyObject *\n+list_richcompare(PyObject *v, PyObject *w, int op)\n+{\n+\tPyListObject *vl, *wl;\n+\tint i;\n+\n+\tif (!PyList_Check(v) || !PyList_Check(w)) {\n+\t\tPy_INCREF(Py_NotImplemented);\n+\t\treturn Py_NotImplemented;\n+\t}\n+\n+\tvl = (PyListObject *)v;\n+\twl = (PyListObject *)w;\n+\n+\tif (vl->ob_size != wl->ob_size && (op == Py_EQ || op == Py_NE)) {\n+\t\t/* Shortcut: if the lengths differ, the lists differ */\n+\t\tPyObject *res;\n+\t\tif (op == Py_EQ)\n+\t\t\tres = Py_False;\n+\t\telse\n+\t\t\tres = Py_True;\n+\t\tPy_INCREF(res);\n+\t\treturn res;\n+\t}\n+\n+\t/* Search for the first index where items are different */\n+\tfor (i = 0; i < vl->ob_size && i < wl->ob_size; i++) {\n+\t\tint k = PyObject_RichCompareBool(vl->ob_item[i],\n+\t\t\t\t\t\t wl->ob_item[i], Py_EQ);\n+\t\tif (k < 0)\n+\t\t\treturn NULL;\n+\t\tif (!k)\n+\t\t\tbreak;\n+\t}\n+\n+\tif (i >= vl->ob_size || i >= wl->ob_size) {\n+\t\t/* No more items to compare -- compare sizes */\n+\t\tint vs = vl->ob_size;\n+\t\tint ws = wl->ob_size;\n+\t\tint cmp;\n+\t\tPyObject *res;\n+\t\tswitch (op) {\n+\t\tcase Py_LT: cmp = vs <  ws; break;\n+\t\tcase Py_LE: cmp = ws <= ws; break;\n+\t\tcase Py_EQ: cmp = vs == ws; break;\n+\t\tcase Py_NE: cmp = vs != ws; break;\n+\t\tcase Py_GT: cmp = vs >  ws; break;\n+\t\tcase Py_GE: cmp = vs >= ws; break;\n+\t\tdefault: return NULL; /* cannot happen */\n+\t\t}\n+\t\tif (cmp)\n+\t\t\tres = Py_True;\n+\t\telse\n+\t\t\tres = Py_False;\n+\t\tPy_INCREF(res);\n+\t\treturn res;\n+\t}\n+\n+\t/* We have an item that differs -- shortcuts for EQ/NE */\n+\tif (op == Py_EQ) {\n+\t\tPy_INCREF(Py_False);\n+\t\treturn Py_False;\n+\t}\n+\tif (op == Py_NE) {\n+\t\tPy_INCREF(Py_True);\n+\t\treturn Py_True;\n+\t}\n+\n+\t/* Compare the final item again using the proper operator */\n+\treturn PyObject_RichCompare(vl->ob_item[i], wl->ob_item[i], op);\n+}\n+\n static char append_doc[] =\n \"L.append(object) -- append object to end\";\n static char extend_doc[] =\n@@ -1438,15 +1507,15 @@ static char sort_doc[] =\n \"L.sort([cmpfunc]) -- sort *IN PLACE*; if given, cmpfunc(x, y) -> -1, 0, 1\";\n \n static PyMethodDef list_methods[] = {\n-\t{\"append\",\t(PyCFunction)listappend, METH_VARARGS, append_doc},\n-\t{\"insert\",\t(PyCFunction)listinsert, METH_VARARGS, insert_doc},\n-\t{\"extend\",      (PyCFunction)listextend, METH_VARARGS, extend_doc},\n-\t{\"pop\",\t\t(PyCFunction)listpop, METH_VARARGS, pop_doc},\n-\t{\"remove\",\t(PyCFunction)listremove, METH_VARARGS, remove_doc},\n-\t{\"index\",\t(PyCFunction)listindex, METH_VARARGS, index_doc},\n-\t{\"count\",\t(PyCFunction)listcount, METH_VARARGS, count_doc},\n+\t{\"append\",\t(PyCFunction)listappend,  METH_VARARGS, append_doc},\n+\t{\"insert\",\t(PyCFunction)listinsert,  METH_VARARGS, insert_doc},\n+\t{\"extend\",      (PyCFunction)listextend,  METH_VARARGS, extend_doc},\n+\t{\"pop\",\t\t(PyCFunction)listpop, \t  METH_VARARGS, pop_doc},\n+\t{\"remove\",\t(PyCFunction)listremove,  METH_VARARGS, remove_doc},\n+\t{\"index\",\t(PyCFunction)listindex,   METH_VARARGS, index_doc},\n+\t{\"count\",\t(PyCFunction)listcount,   METH_VARARGS, count_doc},\n \t{\"reverse\",\t(PyCFunction)listreverse, METH_VARARGS, reverse_doc},\n-\t{\"sort\",\t(PyCFunction)listsort, METH_VARARGS, sort_doc},\n+\t{\"sort\",\t(PyCFunction)listsort, \t  METH_VARARGS, sort_doc},\n \t{NULL,\t\tNULL}\t\t/* sentinel */\n };\n \n@@ -1457,16 +1526,16 @@ list_getattr(PyListObject *f, char *name)\n }\n \n static PySequenceMethods list_as_sequence = {\n-\t(inquiry)list_length, /*sq_length*/\n-\t(binaryfunc)list_concat, /*sq_concat*/\n-\t(intargfunc)list_repeat, /*sq_repeat*/\n-\t(intargfunc)list_item, /*sq_item*/\n-\t(intintargfunc)list_slice, /*sq_slice*/\n-\t(intobjargproc)list_ass_item, /*sq_ass_item*/\n-\t(intintobjargproc)list_ass_slice, /*sq_ass_slice*/\n-\t(objobjproc)list_contains, /*sq_contains*/\n-\t(binaryfunc)list_inplace_concat, /*sq_inplace_concat*/\n-\t(intargfunc)list_inplace_repeat, /*sq_inplace_repeat*/\n+\t(inquiry)list_length,\t\t\t/* sq_length */\n+\t(binaryfunc)list_concat,\t\t/* sq_concat */\n+\t(intargfunc)list_repeat,\t\t/* sq_repeat */\n+\t(intargfunc)list_item,\t\t\t/* sq_item */\n+\t(intintargfunc)list_slice,\t\t/* sq_slice */\n+\t(intobjargproc)list_ass_item,\t\t/* sq_ass_item */\n+\t(intintobjargproc)list_ass_slice,\t/* sq_ass_slice */\n+\t(objobjproc)list_contains,\t\t/* sq_contains */\n+\t(binaryfunc)list_inplace_concat,\t/* sq_inplace_concat */\n+\t(intargfunc)list_inplace_repeat,\t/* sq_inplace_repeat */\n };\n \n PyTypeObject PyList_Type = {\n@@ -1475,25 +1544,26 @@ PyTypeObject PyList_Type = {\n \t\"list\",\n \tsizeof(PyListObject) + PyGC_HEAD_SIZE,\n \t0,\n-\t(destructor)list_dealloc, /*tp_dealloc*/\n-\t(printfunc)list_print, /*tp_print*/\n-\t(getattrfunc)list_getattr, /*tp_getattr*/\n-\t0,\t\t/*tp_setattr*/\n-\t(cmpfunc)list_compare, /*tp_compare*/\n-\t(reprfunc)list_repr, /*tp_repr*/\n-\t0,\t\t/*tp_as_number*/\n-\t&list_as_sequence,\t/*tp_as_sequence*/\n-\t0,\t\t/*tp_as_mapping*/\n-\t0,\t\t/*tp_hash*/\n-\t0,\t\t/*tp_call*/\n-\t0,\t\t/*tp_str*/\n-\t0,\t\t/*tp_getattro*/\n-\t0,\t\t/*tp_setattro*/\n-\t0,\t\t/*tp_as_buffer*/\n-\tPy_TPFLAGS_DEFAULT | Py_TPFLAGS_GC,\t/*tp_flags*/\n- \t0,\t\t/* tp_doc */\n- \t(traverseproc)list_traverse,\t/* tp_traverse */\n- \t(inquiry)list_clear,\t/* tp_clear */\n+\t(destructor)list_dealloc,\t\t/* tp_dealloc */\n+\t(printfunc)list_print,\t\t\t/* tp_print */\n+\t(getattrfunc)list_getattr,\t\t/* tp_getattr */\n+\t0,\t\t\t\t\t/* tp_setattr */\n+\t0,\t\t\t\t\t/* tp_compare */\n+\t(reprfunc)list_repr,\t\t\t/* tp_repr */\n+\t0,\t\t\t\t\t/* tp_as_number */\n+\t&list_as_sequence,\t\t\t/* tp_as_sequence */\n+\t0,\t\t\t\t\t/* tp_as_mapping */\n+\t0,\t\t\t\t\t/* tp_hash */\n+\t0,\t\t\t\t\t/* tp_call */\n+\t0,\t\t\t\t\t/* tp_str */\n+\t0,\t\t\t\t\t/* tp_getattro */\n+\t0,\t\t\t\t\t/* tp_setattro */\n+\t0,\t\t\t\t\t/* tp_as_buffer */\n+\tPy_TPFLAGS_DEFAULT | Py_TPFLAGS_GC,\t/* tp_flags */\n+ \t0,\t\t\t\t\t/* tp_doc */\n+ \t(traverseproc)list_traverse,\t\t/* tp_traverse */\n+ \t(inquiry)list_clear,\t\t\t/* tp_clear */\n+\tlist_richcompare,\t\t\t/* tp_richcompare */\n };\n \n \n@@ -1536,14 +1606,14 @@ immutable_list_ass(void)\n }\n \n static PySequenceMethods immutable_list_as_sequence = {\n-\t(inquiry)list_length, /*sq_length*/\n-\t(binaryfunc)list_concat, /*sq_concat*/\n-\t(intargfunc)list_repeat, /*sq_repeat*/\n-\t(intargfunc)list_item, /*sq_item*/\n-\t(intintargfunc)list_slice, /*sq_slice*/\n-\t(intobjargproc)immutable_list_ass, /*sq_ass_item*/\n-\t(intintobjargproc)immutable_list_ass, /*sq_ass_slice*/\n-\t(objobjproc)list_contains, /*sq_contains*/\n+\t(inquiry)list_length,\t\t\t/* sq_length */\n+\t(binaryfunc)list_concat,\t\t/* sq_concat */\n+\t(intargfunc)list_repeat,\t\t/* sq_repeat */\n+\t(intargfunc)list_item,\t\t\t/* sq_item */\n+\t(intintargfunc)list_slice,\t\t/* sq_slice */\n+\t(intobjargproc)immutable_list_ass,\t/* sq_ass_item */\n+\t(intintobjargproc)immutable_list_ass,\t/* sq_ass_slice */\n+\t(objobjproc)list_contains,\t\t/* sq_contains */\n };\n \n static PyTypeObject immutable_list_type = {\n@@ -1552,22 +1622,25 @@ static PyTypeObject immutable_list_type = {\n \t\"list (immutable, during sort)\",\n \tsizeof(PyListObject) + PyGC_HEAD_SIZE,\n \t0,\n-\t0,\t\t/*tp_dealloc*/ /* Cannot happen */\n-\t(printfunc)list_print, /*tp_print*/\n-\t(getattrfunc)immutable_list_getattr, /*tp_getattr*/\n-\t0,\t\t/*tp_setattr*/\n-\t0,\t\t/*tp_compare*/ /* Won't be called */\n-\t(reprfunc)list_repr, /*tp_repr*/\n-\t0,\t\t/*tp_as_number*/\n-\t&immutable_list_as_sequence,\t/*tp_as_sequence*/\n-\t0,\t\t/*tp_as_mapping*/\n-\t0,\t\t/*tp_hash*/\n-\t0,\t\t/*tp_call*/\n-\t0,\t\t/*tp_str*/\n-\t0,\t\t/*tp_getattro*/\n-\t0,\t\t/*tp_setattro*/\n-\t0,\t\t/*tp_as_buffer*/\n-\tPy_TPFLAGS_DEFAULT | Py_TPFLAGS_GC,\t/*tp_flags*/\n- \t0,\t\t/* tp_doc */\n- \t(traverseproc)list_traverse,\t/* tp_traverse */\n+\t0, /* Cannot happen */\t\t\t/* tp_dealloc */\n+\t(printfunc)list_print,\t\t\t/* tp_print */\n+\t(getattrfunc)immutable_list_getattr,\t/* tp_getattr */\n+\t0,\t\t\t\t\t/* tp_setattr */\n+\t0, /* Won't be called */\t\t/* tp_compare */\n+\t(reprfunc)list_repr,\t\t\t/* tp_repr */\n+\t0,\t\t\t\t\t/* tp_as_number */\n+\t&immutable_list_as_sequence,\t\t/* tp_as_sequence */\n+\t0,\t\t\t\t\t/* tp_as_mapping */\n+\t0,\t\t\t\t\t/* tp_hash */\n+\t0,\t\t\t\t\t/* tp_call */\n+\t0,\t\t\t\t\t/* tp_str */\n+\t0,\t\t\t\t\t/* tp_getattro */\n+\t0,\t\t\t\t\t/* tp_setattro */\n+\t0,\t\t\t\t\t/* tp_as_buffer */\n+\tPy_TPFLAGS_DEFAULT | Py_TPFLAGS_GC,\t/* tp_flags */\n+ \t0,\t\t\t\t\t/* tp_doc */\n+ \t(traverseproc)list_traverse,\t\t/* tp_traverse */\n+\t0,\t\t\t\t\t/* tp_clear */\n+\tlist_richcompare,\t\t\t/* tp_richcompare */\n+\t/* NOTE: This is *not* the standard list_type struct! */\n };"
+    }
+  ]
+}

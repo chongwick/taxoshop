@@ -1,0 +1,101 @@
+{
+  "sha": "6aa59c68dc7910c0675ad23c1f9d88edfb81dfcb",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6NmFhNTljNjhkYzc5MTBjMDY3NWFkMjNjMWY5ZDg4ZWRmYjgxZGZjYg==",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2021-07-15T23:18:16Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-07-15T23:18:16Z"
+    },
+    "message": "bpo-44184: Apply GH-26274 to the non-GC-type branch of subtype_dealloc (GH-27165) (GH-27174)\n\nThe non-GC-type branch of subtype_dealloc is using the type of an object after freeing in the same unsafe way as GH-26274 fixes. (I believe the old news entry covers this change well enough.)\r\n\r\nhttps://bugs.python.org/issue44184\r\n(cherry picked from commit 074e7659f208051b6b973f7fdb654dd22b93aaa2)\r\n\r\nCo-authored-by: T. Wouters <thomas@python.org>",
+    "tree": {
+      "sha": "c393d7a5cd6cc31b13806054d197815069542114",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/c393d7a5cd6cc31b13806054d197815069542114"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/6aa59c68dc7910c0675ad23c1f9d88edfb81dfcb",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJg8MI4CRBK7hj4Ov3rIwAAus8IAF8oUi5n/Q5HyF4UXtXsBTX+\nk9ADrHRXtcoFZcvhW3GZZB9x7fcKHraFqOSsXgyVCPdGFj1HLF67VJ1HcohUW8b/\nLPB83PwCdSqfSVhGo4Y6RgB/GrQAJEcN8D21Auc+spTpi7s7Wtg9QWpTnp8t/aDY\nOFOQNsBD8mrdDH+/BaBZII27KHdhQaN/8bbxpecTbx7wCpoaa89xBngaX/w9aw8W\nhN8YO0yrHcnQrVhrT4nILFhX5WzNWzAoA1HQs7jD2JigrWKL+WSRUHfyMb3I2VFf\nYOErFULxaacPPyO2RpWi+nz31E5K1vzhVGvG509fqHccfXhvK5zLYdcgb9BgukE=\n=l8vq\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree c393d7a5cd6cc31b13806054d197815069542114\nparent 356bdff1e952f2ab7fdebae855bd78b401b735c4\nauthor Miss Islington (bot) <31488909+miss-islington@users.noreply.github.com> 1626391096 -0700\ncommitter GitHub <noreply@github.com> 1626391096 +0200\n\nbpo-44184: Apply GH-26274 to the non-GC-type branch of subtype_dealloc (GH-27165) (GH-27174)\n\nThe non-GC-type branch of subtype_dealloc is using the type of an object after freeing in the same unsafe way as GH-26274 fixes. (I believe the old news entry covers this change well enough.)\r\n\r\nhttps://bugs.python.org/issue44184\r\n(cherry picked from commit 074e7659f208051b6b973f7fdb654dd22b93aaa2)\r\n\r\nCo-authored-by: T. Wouters <thomas@python.org>\r\n",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/6aa59c68dc7910c0675ad23c1f9d88edfb81dfcb",
+  "html_url": "https://github.com/python/cpython/commit/6aa59c68dc7910c0675ad23c1f9d88edfb81dfcb",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/6aa59c68dc7910c0675ad23c1f9d88edfb81dfcb/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "356bdff1e952f2ab7fdebae855bd78b401b735c4",
+      "url": "https://api.github.com/repos/python/cpython/commits/356bdff1e952f2ab7fdebae855bd78b401b735c4",
+      "html_url": "https://github.com/python/cpython/commit/356bdff1e952f2ab7fdebae855bd78b401b735c4"
+    }
+  ],
+  "stats": {
+    "total": 14,
+    "additions": 11,
+    "deletions": 3
+  },
+  "files": [
+    {
+      "sha": "5199c26639d9c67bc621c04aebe7eadfc2c579c4",
+      "filename": "Objects/typeobject.c",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 3,
+      "changes": 14,
+      "blob_url": "https://github.com/python/cpython/blob/6aa59c68dc7910c0675ad23c1f9d88edfb81dfcb/Objects%2Ftypeobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/6aa59c68dc7910c0675ad23c1f9d88edfb81dfcb/Objects%2Ftypeobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Ftypeobject.c?ref=6aa59c68dc7910c0675ad23c1f9d88edfb81dfcb",
+      "patch": "@@ -1344,14 +1344,22 @@ subtype_dealloc(PyObject *self)\n         /* Extract the type again; tp_del may have changed it */\n         type = Py_TYPE(self);\n \n+        // Don't read type memory after calling basedealloc() since basedealloc()\n+        // can deallocate the type and free its memory.\n+        int type_needs_decref = (type->tp_flags & Py_TPFLAGS_HEAPTYPE\n+                                 && !(base->tp_flags & Py_TPFLAGS_HEAPTYPE));\n+\n         /* Call the base tp_dealloc() */\n         assert(basedealloc);\n         basedealloc(self);\n \n-       /* Only decref if the base type is not already a heap allocated type.\n-          Otherwise, basedealloc should have decref'd it already */\n-        if (type->tp_flags & Py_TPFLAGS_HEAPTYPE && !(base->tp_flags & Py_TPFLAGS_HEAPTYPE))\n+        /* Can't reference self beyond this point. It's possible tp_del switched\n+           our type from a HEAPTYPE to a non-HEAPTYPE, so be careful about\n+           reference counting. Only decref if the base type is not already a heap\n+           allocated type. Otherwise, basedealloc should have decref'd it already */\n+        if (type_needs_decref) {\n             Py_DECREF(type);\n+        }\n \n         /* Done */\n         return;"
+    }
+  ]
+}

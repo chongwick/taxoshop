@@ -1,0 +1,149 @@
+{
+  "sha": "e4058d7cb115286c3c53e0a0be2a7b60af46e073",
+  "node_id": "C_kwDOBN0Z8doAKGU0MDU4ZDdjYjExNTI4NmMzYzUzZTBhMGJlMmE3YjYwYWY0NmUwNzM",
+  "commit": {
+    "author": {
+      "name": "Mark Shannon",
+      "email": "mark@hotpy.org",
+      "date": "2025-12-18T16:43:44Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2025-12-18T16:43:44Z"
+    },
+    "message": "GH-142513: Reimplement executor management (GH-142931)\n\n* Invalidating an executor does not cause arbitrary code to run\n* Executors are only freed at safe points",
+    "tree": {
+      "sha": "e44787d31c2c779386623028bd4e27dfb809b007",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/e44787d31c2c779386623028bd4e27dfb809b007"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/e4058d7cb115286c3c53e0a0be2a7b60af46e073",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJpRC9ACRC1aQ7uu5UhlAAAp0gQAILpTrH+U+PU9e1t2KUwetDH\nLdMHFBWnWgLspRTlS+hVsfAax6r1MApijKhcfeRhg/SHbNfdR0SZWV9noCrZScAR\njoP2/XrgdrkQIa6Q4obeQDVL2gzSg2N2CTqgjH8OnfkZaAOJtWAfOBW/4p16ZQ7M\n1pBqa+G1/NNrgVygSNtzzcdHDl/W01+e3JQaR5R1lsmKPKFyKbnhCrJeC1lzi6Fz\nTgPoZUSGrNXEPaeavX0boHl3NlOcrXJaPEAb20X8QLFEX5uQ+Q7/lrjh62OzVWv+\nsAyY/0OWUjY6k0esMpqUGt9GYSmuukJnZDmpnosxfQvYkIu3WEbShWTuSizdrI8W\nH0KNXxznUdc3eOPIJl/Ln+RTpVHmOvuDDq5dMNEJZHK8U4rAtgK0uwDpAnww7b1/\nSWB0vFSIqmCyRC/H6XrUhgLMl6RXMrf4N+Vri9Bjak174V+g+0ID0F9VzUQBg1te\nThRmBHFgtXw6x5hrPIdu6xbzWAdvEQBj4seW0BXmS4J+8EtMa0arF69+UYAU00ep\nujZYyc1xWJeZSB1kV/rGuJcr9V49Ic4dQM0+4QHgT4clPihtiGOgxvMILPHQVdAE\ndekb1LT6MsNHjspkkRzz8qzOgKgTjuHoEGuyiJxwGPUPFCNFgGexW753ChsPx60k\niFeznNwbQGQFaBTnM2dP\n=hRFm\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree e44787d31c2c779386623028bd4e27dfb809b007\nparent 14f0b5191ad1d749d2ba5810f4f4495ee5581ce9\nauthor Mark Shannon <mark@hotpy.org> 1766076224 +0000\ncommitter GitHub <noreply@github.com> 1766076224 +0000\n\nGH-142513: Reimplement executor management (GH-142931)\n\n* Invalidating an executor does not cause arbitrary code to run\n* Executors are only freed at safe points\n",
+      "verified_at": "2025-12-18T16:43:45Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/e4058d7cb115286c3c53e0a0be2a7b60af46e073",
+  "html_url": "https://github.com/python/cpython/commit/e4058d7cb115286c3c53e0a0be2a7b60af46e073",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/e4058d7cb115286c3c53e0a0be2a7b60af46e073/comments",
+  "author": {
+    "login": "markshannon",
+    "id": 9448417,
+    "node_id": "MDQ6VXNlcjk0NDg0MTc=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/9448417?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/markshannon",
+    "html_url": "https://github.com/markshannon",
+    "followers_url": "https://api.github.com/users/markshannon/followers",
+    "following_url": "https://api.github.com/users/markshannon/following{/other_user}",
+    "gists_url": "https://api.github.com/users/markshannon/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/markshannon/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/markshannon/subscriptions",
+    "organizations_url": "https://api.github.com/users/markshannon/orgs",
+    "repos_url": "https://api.github.com/users/markshannon/repos",
+    "events_url": "https://api.github.com/users/markshannon/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/markshannon/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "14f0b5191ad1d749d2ba5810f4f4495ee5581ce9",
+      "url": "https://api.github.com/repos/python/cpython/commits/14f0b5191ad1d749d2ba5810f4f4495ee5581ce9",
+      "html_url": "https://github.com/python/cpython/commit/14f0b5191ad1d749d2ba5810f4f4495ee5581ce9"
+    }
+  ],
+  "stats": {
+    "total": 196,
+    "additions": 90,
+    "deletions": 106
+  },
+  "files": [
+    {
+      "sha": "818c4f159591fe9047c481025c0e32af93266140",
+      "filename": "Include/internal/pycore_interp_structs.h",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 1,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Include%2Finternal%2Fpycore_interp_structs.h",
+      "raw_url": "https://github.com/python/cpython/raw/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Include%2Finternal%2Fpycore_interp_structs.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Finternal%2Fpycore_interp_structs.h?ref=e4058d7cb115286c3c53e0a0be2a7b60af46e073",
+      "patch": "@@ -947,7 +947,6 @@ struct _is {\n     struct _PyExecutorObject *executor_deletion_list_head;\n     struct _PyExecutorObject *cold_executor;\n     struct _PyExecutorObject *cold_dynamic_executor;\n-    int executor_deletion_list_remaining_capacity;\n     size_t executor_creation_counter;\n     _rare_events rare_events;\n     PyDict_WatchCallback builtins_dict_watcher;"
+    },
+    {
+      "sha": "3ee62f1728321d38abcede06b5cad47dfad584b3",
+      "filename": "Include/internal/pycore_optimizer.h",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 7,
+      "changes": 7,
+      "blob_url": "https://github.com/python/cpython/blob/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Include%2Finternal%2Fpycore_optimizer.h",
+      "raw_url": "https://github.com/python/cpython/raw/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Include%2Finternal%2Fpycore_optimizer.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Finternal%2Fpycore_optimizer.h?ref=e4058d7cb115286c3c53e0a0be2a7b60af46e073",
+      "patch": "@@ -25,7 +25,6 @@ typedef struct {\n     uint8_t opcode;\n     uint8_t oparg;\n     uint8_t valid;\n-    uint8_t linked;\n     uint8_t chain_depth;  // Must be big enough for MAX_CHAIN_DEPTH - 1.\n     bool warm;\n     int32_t index;           // Index of ENTER_EXECUTOR (if code isn't NULL, below).\n@@ -55,11 +54,6 @@ typedef struct _PyExecutorObject {\n     _PyExitData exits[1];\n } _PyExecutorObject;\n \n-/* If pending deletion list gets large enough, then scan,\n- * and free any executors that aren't executing\n- * i.e. any that aren't a thread's current_executor. */\n-#define EXECUTOR_DELETE_LIST_MAX 100\n-\n // Export for '_opcode' shared extension (JIT compiler).\n PyAPI_FUNC(_PyExecutorObject*) _Py_GetExecutor(PyCodeObject *code, int offset);\n \n@@ -80,7 +74,6 @@ PyAPI_FUNC(void) _Py_Executors_InvalidateCold(PyInterpreterState *interp);\n #else\n #  define _Py_Executors_InvalidateDependency(A, B, C) ((void)0)\n #  define _Py_Executors_InvalidateAll(A, B) ((void)0)\n-#  define _Py_Executors_InvalidateCold(A) ((void)0)\n \n #endif\n "
+    },
+    {
+      "sha": "88cc66e97f34240896eaa1521f6c72793f5853a2",
+      "filename": "Python/ceval_gil.c",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 0,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Python%2Fceval_gil.c",
+      "raw_url": "https://github.com/python/cpython/raw/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Python%2Fceval_gil.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fceval_gil.c?ref=e4058d7cb115286c3c53e0a0be2a7b60af46e073",
+      "patch": "@@ -1397,13 +1397,19 @@ _Py_HandlePending(PyThreadState *tstate)\n     if ((breaker & _PY_GC_SCHEDULED_BIT) != 0) {\n         _Py_unset_eval_breaker_bit(tstate, _PY_GC_SCHEDULED_BIT);\n         _Py_RunGC(tstate);\n+#ifdef _Py_TIER2\n+        _Py_ClearExecutorDeletionList(tstate->interp);\n+#endif\n     }\n \n+#ifdef _Py_TIER2\n     if ((breaker & _PY_EVAL_JIT_INVALIDATE_COLD_BIT) != 0) {\n         _Py_unset_eval_breaker_bit(tstate, _PY_EVAL_JIT_INVALIDATE_COLD_BIT);\n         _Py_Executors_InvalidateCold(tstate->interp);\n         tstate->interp->executor_creation_counter = JIT_CLEANUP_THRESHOLD;\n+        _Py_ClearExecutorDeletionList(tstate->interp);\n     }\n+#endif\n \n     /* GIL drop request */\n     if ((breaker & _PY_GIL_DROP_REQUEST_BIT) != 0) {"
+    },
+    {
+      "sha": "1e905850e3de6bffd85d0155eb9aa14847a71a59",
+      "filename": "Python/optimizer.c",
+      "status": "modified",
+      "additions": 84,
+      "deletions": 97,
+      "changes": 181,
+      "blob_url": "https://github.com/python/cpython/blob/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Python%2Foptimizer.c",
+      "raw_url": "https://github.com/python/cpython/raw/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Python%2Foptimizer.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Foptimizer.c?ref=e4058d7cb115286c3c53e0a0be2a7b60af46e073",
+      "patch": "@@ -246,8 +246,6 @@ get_oparg(PyObject *self, PyObject *Py_UNUSED(ignored))\n ///////////////////// Experimental UOp Optimizer /////////////////////\n \n static int executor_clear(PyObject *executor);\n-static void unlink_executor(_PyExecutorObject *executor);\n-\n \n void\n _PyExecutor_Free(_PyExecutorObject *self)\n@@ -258,63 +256,76 @@ _PyExecutor_Free(_PyExecutorObject *self)\n     PyObject_GC_Del(self);\n }\n \n+static void executor_invalidate(PyObject *op);\n+\n+static void\n+executor_clear_exits(_PyExecutorObject *executor)\n+{\n+    _PyExecutorObject *cold = _PyExecutor_GetColdExecutor();\n+    _PyExecutorObject *cold_dynamic = _PyExecutor_GetColdDynamicExecutor();\n+    for (uint32_t i = 0; i < executor->exit_count; i++) {\n+        _PyExitData *exit = &executor->exits[i];\n+        exit->temperature = initial_unreachable_backoff_counter();\n+        _PyExecutorObject *old = executor->exits[i].executor;\n+        exit->executor = exit->is_dynamic ? cold_dynamic : cold;\n+        Py_DECREF(old);\n+    }\n+}\n+\n+\n void\n _Py_ClearExecutorDeletionList(PyInterpreterState *interp)\n {\n+    if (interp->executor_deletion_list_head == NULL) {\n+        return;\n+    }\n     _PyRuntimeState *runtime = &_PyRuntime;\n     HEAD_LOCK(runtime);\n     PyThreadState* ts = PyInterpreterState_ThreadHead(interp);\n+    while (ts) {\n+        _PyExecutorObject *current = (_PyExecutorObject *)ts->current_executor;\n+        Py_XINCREF(current);\n+        ts = ts->next;\n+    }\n     HEAD_UNLOCK(runtime);\n+    _PyExecutorObject *keep_list = NULL;\n+    do {\n+        _PyExecutorObject *exec = interp->executor_deletion_list_head;\n+        interp->executor_deletion_list_head = exec->vm_data.links.next;\n+        if (Py_REFCNT(exec) == 0) {\n+            _PyExecutor_Free(exec);\n+        } else {\n+            exec->vm_data.links.next = keep_list;\n+            keep_list = exec;\n+        }\n+    } while (interp->executor_deletion_list_head != NULL);\n+    interp->executor_deletion_list_head = keep_list;\n+    HEAD_LOCK(runtime);\n+    ts = PyInterpreterState_ThreadHead(interp);\n     while (ts) {\n         _PyExecutorObject *current = (_PyExecutorObject *)ts->current_executor;\n         if (current != NULL) {\n-            /* Anything in this list will be unlinked, so we can reuse the\n-             * linked field as a reachability marker. */\n-            current->vm_data.linked = 1;\n+            _Py_DECREF_NO_DEALLOC((PyObject *)current);\n         }\n-        HEAD_LOCK(runtime);\n-        ts = PyThreadState_Next(ts);\n-        HEAD_UNLOCK(runtime);\n-    }\n-    _PyExecutorObject **prev_to_next_ptr = &interp->executor_deletion_list_head;\n-    _PyExecutorObject *exec = *prev_to_next_ptr;\n-    while (exec != NULL) {\n-        if (exec->vm_data.linked) {\n-            // This executor is currently executing\n-            exec->vm_data.linked = 0;\n-            prev_to_next_ptr = &exec->vm_data.links.next;\n-        }\n-        else {\n-            *prev_to_next_ptr = exec->vm_data.links.next;\n-            _PyExecutor_Free(exec);\n-        }\n-        exec = *prev_to_next_ptr;\n+        ts = ts->next;\n     }\n-    interp->executor_deletion_list_remaining_capacity = EXECUTOR_DELETE_LIST_MAX;\n+    HEAD_UNLOCK(runtime);\n }\n \n static void\n add_to_pending_deletion_list(_PyExecutorObject *self)\n {\n     PyInterpreterState *interp = PyInterpreterState_Get();\n+    self->vm_data.links.previous = NULL;\n     self->vm_data.links.next = interp->executor_deletion_list_head;\n     interp->executor_deletion_list_head = self;\n-    if (interp->executor_deletion_list_remaining_capacity > 0) {\n-        interp->executor_deletion_list_remaining_capacity--;\n-    }\n-    else {\n-        _Py_ClearExecutorDeletionList(interp);\n-    }\n }\n \n static void\n uop_dealloc(PyObject *op) {\n     _PyExecutorObject *self = _PyExecutorObject_CAST(op);\n-    _PyObject_GC_UNTRACK(self);\n+    executor_invalidate(op);\n     assert(self->vm_data.code == NULL);\n-    unlink_executor(self);\n-    // Once unlinked it becomes impossible to invalidate an executor, so do it here.\n-    self->vm_data.valid = 0;\n     add_to_pending_deletion_list(self);\n }\n \n@@ -1621,19 +1632,14 @@ link_executor(_PyExecutorObject *executor)\n         head->vm_data.links.previous = executor;\n         interp->executor_list_head = executor;\n     }\n-    executor->vm_data.linked = true;\n     /* executor_list_head must be first in list */\n     assert(interp->executor_list_head->vm_data.links.previous == NULL);\n }\n \n static void\n unlink_executor(_PyExecutorObject *executor)\n {\n-    if (!executor->vm_data.linked) {\n-        return;\n-    }\n     _PyExecutorLinkListNode *links = &executor->vm_data.links;\n-    assert(executor->vm_data.valid);\n     _PyExecutorObject *next = links->next;\n     _PyExecutorObject *prev = links->previous;\n     if (next != NULL) {\n@@ -1648,7 +1654,6 @@ unlink_executor(_PyExecutorObject *executor)\n         assert(interp->executor_list_head == executor);\n         interp->executor_list_head = next;\n     }\n-    executor->vm_data.linked = false;\n }\n \n /* This must be called by optimizers before using the executor */\n@@ -1662,61 +1667,47 @@ _Py_ExecutorInit(_PyExecutorObject *executor, const _PyBloomFilter *dependency_s\n     link_executor(executor);\n }\n \n-_PyExecutorObject *\n-_PyExecutor_GetColdExecutor(void)\n+static _PyExecutorObject *\n+make_cold_executor(uint16_t opcode)\n {\n-    PyInterpreterState *interp = _PyInterpreterState_GET();\n-    if (interp->cold_executor != NULL) {\n-        return interp->cold_executor;\n-    }\n     _PyExecutorObject *cold = allocate_executor(0, 1);\n     if (cold == NULL) {\n         Py_FatalError(\"Cannot allocate core JIT code\");\n     }\n-    ((_PyUOpInstruction *)cold->trace)->opcode = _COLD_EXIT_r00;\n-#ifdef _Py_JIT\n-    cold->jit_code = NULL;\n-    cold->jit_size = 0;\n+    ((_PyUOpInstruction *)cold->trace)->opcode = opcode;\n     // This is initialized to true so we can prevent the executor\n     // from being immediately detected as cold and invalidated.\n     cold->vm_data.warm = true;\n+#ifdef _Py_JIT\n+    cold->jit_code = NULL;\n+    cold->jit_size = 0;\n     if (_PyJIT_Compile(cold, cold->trace, 1)) {\n         Py_DECREF(cold);\n         Py_FatalError(\"Cannot allocate core JIT code\");\n     }\n #endif\n     _Py_SetImmortal((PyObject *)cold);\n-    interp->cold_executor = cold;\n     return cold;\n }\n \n _PyExecutorObject *\n-_PyExecutor_GetColdDynamicExecutor(void)\n+_PyExecutor_GetColdExecutor(void)\n {\n     PyInterpreterState *interp = _PyInterpreterState_GET();\n-    if (interp->cold_dynamic_executor != NULL) {\n-        assert(interp->cold_dynamic_executor->trace[0].opcode == _COLD_DYNAMIC_EXIT_r00);\n-        return interp->cold_dynamic_executor;\n-    }\n-    _PyExecutorObject *cold = allocate_executor(0, 1);\n-    if (cold == NULL) {\n-        Py_FatalError(\"Cannot allocate core JIT code\");\n+    if (interp->cold_executor == NULL) {\n+        return interp->cold_executor = make_cold_executor(_COLD_EXIT_r00);;\n     }\n-    ((_PyUOpInstruction *)cold->trace)->opcode = _COLD_DYNAMIC_EXIT_r00;\n-#ifdef _Py_JIT\n-    cold->jit_code = NULL;\n-    cold->jit_size = 0;\n-    // This is initialized to true so we can prevent the executor\n-    // from being immediately detected as cold and invalidated.\n-    cold->vm_data.warm = true;\n-    if (_PyJIT_Compile(cold, cold->trace, 1)) {\n-        Py_DECREF(cold);\n-        Py_FatalError(\"Cannot allocate core JIT code\");\n+    return interp->cold_executor;\n+}\n+\n+_PyExecutorObject *\n+_PyExecutor_GetColdDynamicExecutor(void)\n+{\n+    PyInterpreterState *interp = _PyInterpreterState_GET();\n+    if (interp->cold_dynamic_executor == NULL) {\n+        interp->cold_dynamic_executor = make_cold_executor(_COLD_DYNAMIC_EXIT_r00);\n     }\n-#endif\n-    _Py_SetImmortal((PyObject *)cold);\n-    interp->cold_dynamic_executor = cold;\n-    return cold;\n+    return interp->cold_dynamic_executor;\n }\n \n void\n@@ -1755,32 +1746,28 @@ _Py_ExecutorDetach(_PyExecutorObject *executor)\n     Py_DECREF(executor);\n }\n \n-static int\n-executor_clear(PyObject *op)\n+/* Executors can be invalidated at any time,\n+   even with a stop-the-world lock held.\n+   Consequently it must not run arbitrary code,\n+   including Py_DECREF with a non-executor. */\n+static void\n+executor_invalidate(PyObject *op)\n {\n     _PyExecutorObject *executor = _PyExecutorObject_CAST(op);\n     if (!executor->vm_data.valid) {\n-        return 0;\n+        return;\n     }\n-    assert(executor->vm_data.valid == 1);\n-    unlink_executor(executor);\n     executor->vm_data.valid = 0;\n-\n-    /* It is possible for an executor to form a reference\n-     * cycle with itself, so decref'ing a side exit could\n-     * free the executor unless we hold a strong reference to it\n-     */\n-    _PyExecutorObject *cold = _PyExecutor_GetColdExecutor();\n-    Py_INCREF(executor);\n-    for (uint32_t i = 0; i < executor->exit_count; i++) {\n-        executor->exits[i].temperature = initial_unreachable_backoff_counter();\n-        _PyExecutorObject *e = executor->exits[i].executor;\n-        executor->exits[i].executor = cold;\n-        Py_DECREF(e);\n-    }\n+    unlink_executor(executor);\n+    executor_clear_exits(executor);\n     _Py_ExecutorDetach(executor);\n-    Py_DECREF(executor);\n-    return 0;\n+    _PyObject_GC_UNTRACK(op);\n+}\n+\n+static int\n+executor_clear(PyObject *op)\n+{\n+    executor_invalidate(op);\n }\n \n void\n@@ -1805,7 +1792,7 @@ _Py_Executors_InvalidateDependency(PyInterpreterState *interp, void *obj, int is\n     if (invalidate == NULL) {\n         goto error;\n     }\n-    /* Clearing an executor can deallocate others, so we need to make a list of\n+    /* Clearing an executor can clear others, so we need to make a list of\n      * executors to invalidate first */\n     for (_PyExecutorObject *exec = interp->executor_list_head; exec != NULL;) {\n         assert(exec->vm_data.valid);\n@@ -1819,7 +1806,7 @@ _Py_Executors_InvalidateDependency(PyInterpreterState *interp, void *obj, int is\n     }\n     for (Py_ssize_t i = 0; i < PyList_GET_SIZE(invalidate); i++) {\n         PyObject *exec = PyList_GET_ITEM(invalidate, i);\n-        executor_clear(exec);\n+        executor_invalidate(exec);\n         if (is_invalidation) {\n             OPT_STAT_INC(executors_invalidated);\n         }\n@@ -1851,13 +1838,13 @@ _Py_Executors_InvalidateAll(PyInterpreterState *interp, int is_invalidation)\n {\n     while (interp->executor_list_head) {\n         _PyExecutorObject *executor = interp->executor_list_head;\n-        assert(executor->vm_data.valid == 1 && executor->vm_data.linked == 1);\n+        assert(executor->vm_data.valid);\n         if (executor->vm_data.code) {\n             // Clear the entire code object so its co_executors array be freed:\n             _PyCode_Clear_Executors(executor->vm_data.code);\n         }\n         else {\n-            executor_clear((PyObject *)executor);\n+            executor_invalidate((PyObject *)executor);\n         }\n         if (is_invalidation) {\n             OPT_STAT_INC(executors_invalidated);\n@@ -1892,7 +1879,7 @@ _Py_Executors_InvalidateCold(PyInterpreterState *interp)\n     }\n     for (Py_ssize_t i = 0; i < PyList_GET_SIZE(invalidate); i++) {\n         PyObject *exec = PyList_GET_ITEM(invalidate, i);\n-        executor_clear(exec);\n+        executor_invalidate(exec);\n     }\n     Py_DECREF(invalidate);\n     return;"
+    },
+    {
+      "sha": "7ea8ef91f107a9bfda468057ff3a604bf8c3b141",
+      "filename": "Python/pystate.c",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 1,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Python%2Fpystate.c",
+      "raw_url": "https://github.com/python/cpython/raw/e4058d7cb115286c3c53e0a0be2a7b60af46e073/Python%2Fpystate.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fpystate.c?ref=e4058d7cb115286c3c53e0a0be2a7b60af46e073",
+      "patch": "@@ -570,7 +570,6 @@ init_interpreter(PyInterpreterState *interp,\n     interp->compiling = false;\n     interp->executor_list_head = NULL;\n     interp->executor_deletion_list_head = NULL;\n-    interp->executor_deletion_list_remaining_capacity = 0;\n     interp->executor_creation_counter = JIT_CLEANUP_THRESHOLD;\n     if (interp != &runtime->_main_interpreter) {\n         /* Fix the self-referential, statically initialized fields. */"
+    }
+  ]
+}

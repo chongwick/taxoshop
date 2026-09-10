@@ -1,0 +1,101 @@
+{
+  "sha": "074e7659f208051b6b973f7fdb654dd22b93aaa2",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6MDc0ZTc2NTlmMjA4MDUxYjZiOTczZjdmZGI2NTRkZDIyYjkzYWFhMg==",
+  "commit": {
+    "author": {
+      "name": "T. Wouters",
+      "email": "thomas@python.org",
+      "date": "2021-07-15T22:40:57Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-07-15T22:40:57Z"
+    },
+    "message": "bpo-44184: Apply GH-26274 to the non-GC-type branch of subtype_dealloc (GH-27165)\n\nThe non-GC-type branch of subtype_dealloc is using the type of an object after freeing in the same unsafe way as GH-26274 fixes. (I believe the old news entry covers this change well enough.)\r\n\r\nhttps://bugs.python.org/issue44184",
+    "tree": {
+      "sha": "aacfbcb0a7c3a783f9263812e92ad194d7c0d4bf",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/aacfbcb0a7c3a783f9263812e92ad194d7c0d4bf"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/074e7659f208051b6b973f7fdb654dd22b93aaa2",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJg8Ll5CRBK7hj4Ov3rIwAAdUgIAFsd3a32AD591GuV8r6e6aXz\nFOZ2sH0wRm8hJNJP8KKjlDj9212PreXYXVAKtxKABc7FALk5dd1v4IJd271FEjfa\n7cJ7vVpgyqmyku37N5e1P9BOPz2Iov0jF1+NfIhPjQIB7loxb2QuxakjZ2GFw5V9\nfS63m4STM5IYri5CCGbmekY1Qd4nrDaeQ0uI2Fh9CQmUvHL40mFic9xNuhrbQWzo\nsvYoCL7rwpNIGT1Md04Qk1bgmMrg2ce1KYPOetRI3YUiL5eSnKUBhO+ZjXuvaa3M\n9xiohyo3gWnupy7SXZlvvaBK+gLC46HiM0ruix2KosiHyp4E41CknNVxRXjhC9E=\n=2v13\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree aacfbcb0a7c3a783f9263812e92ad194d7c0d4bf\nparent 82b218f36ce6ef910bda5af227a9fd5be613c94f\nauthor T. Wouters <thomas@python.org> 1626388857 +0200\ncommitter GitHub <noreply@github.com> 1626388857 +0200\n\nbpo-44184: Apply GH-26274 to the non-GC-type branch of subtype_dealloc (GH-27165)\n\nThe non-GC-type branch of subtype_dealloc is using the type of an object after freeing in the same unsafe way as GH-26274 fixes. (I believe the old news entry covers this change well enough.)\r\n\r\nhttps://bugs.python.org/issue44184\r\n",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/074e7659f208051b6b973f7fdb654dd22b93aaa2",
+  "html_url": "https://github.com/python/cpython/commit/074e7659f208051b6b973f7fdb654dd22b93aaa2",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/074e7659f208051b6b973f7fdb654dd22b93aaa2/comments",
+  "author": {
+    "login": "Yhg1s",
+    "id": 3949752,
+    "node_id": "MDQ6VXNlcjM5NDk3NTI=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/3949752?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/Yhg1s",
+    "html_url": "https://github.com/Yhg1s",
+    "followers_url": "https://api.github.com/users/Yhg1s/followers",
+    "following_url": "https://api.github.com/users/Yhg1s/following{/other_user}",
+    "gists_url": "https://api.github.com/users/Yhg1s/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/Yhg1s/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/Yhg1s/subscriptions",
+    "organizations_url": "https://api.github.com/users/Yhg1s/orgs",
+    "repos_url": "https://api.github.com/users/Yhg1s/repos",
+    "events_url": "https://api.github.com/users/Yhg1s/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/Yhg1s/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "82b218f36ce6ef910bda5af227a9fd5be613c94f",
+      "url": "https://api.github.com/repos/python/cpython/commits/82b218f36ce6ef910bda5af227a9fd5be613c94f",
+      "html_url": "https://github.com/python/cpython/commit/82b218f36ce6ef910bda5af227a9fd5be613c94f"
+    }
+  ],
+  "stats": {
+    "total": 14,
+    "additions": 11,
+    "deletions": 3
+  },
+  "files": [
+    {
+      "sha": "3331fee4252deed88465db1260be4909f63f7f21",
+      "filename": "Objects/typeobject.c",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 3,
+      "changes": 14,
+      "blob_url": "https://github.com/python/cpython/blob/074e7659f208051b6b973f7fdb654dd22b93aaa2/Objects%2Ftypeobject.c",
+      "raw_url": "https://github.com/python/cpython/raw/074e7659f208051b6b973f7fdb654dd22b93aaa2/Objects%2Ftypeobject.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Objects%2Ftypeobject.c?ref=074e7659f208051b6b973f7fdb654dd22b93aaa2",
+      "patch": "@@ -1368,14 +1368,22 @@ subtype_dealloc(PyObject *self)\n         /* Extract the type again; tp_del may have changed it */\n         type = Py_TYPE(self);\n \n+        // Don't read type memory after calling basedealloc() since basedealloc()\n+        // can deallocate the type and free its memory.\n+        int type_needs_decref = (type->tp_flags & Py_TPFLAGS_HEAPTYPE\n+                                 && !(base->tp_flags & Py_TPFLAGS_HEAPTYPE));\n+\n         /* Call the base tp_dealloc() */\n         assert(basedealloc);\n         basedealloc(self);\n \n-       /* Only decref if the base type is not already a heap allocated type.\n-          Otherwise, basedealloc should have decref'd it already */\n-        if (type->tp_flags & Py_TPFLAGS_HEAPTYPE && !(base->tp_flags & Py_TPFLAGS_HEAPTYPE))\n+        /* Can't reference self beyond this point. It's possible tp_del switched\n+           our type from a HEAPTYPE to a non-HEAPTYPE, so be careful about\n+           reference counting. Only decref if the base type is not already a heap\n+           allocated type. Otherwise, basedealloc should have decref'd it already */\n+        if (type_needs_decref) {\n             Py_DECREF(type);\n+        }\n \n         /* Done */\n         return;"
+    }
+  ]
+}

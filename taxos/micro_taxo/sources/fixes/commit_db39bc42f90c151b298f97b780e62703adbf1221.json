@@ -1,0 +1,101 @@
+{
+  "sha": "db39bc42f90c151b298f97b780e62703adbf1221",
+  "node_id": "C_kwDOBN0Z8doAKGRiMzliYzQyZjkwYzE1MWIyOThmOTdiNzgwZTYyNzAzYWRiZjEyMjE",
+  "commit": {
+    "author": {
+      "name": "Josh Brobst",
+      "email": "jbrobst@proton.me",
+      "date": "2024-07-05T06:39:48Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2024-07-05T06:39:48Z"
+    },
+    "message": "gh-121390: tracemalloc: Fix tracebacks memory leak (#121391)\n\nThe tracemalloc_tracebacks hash table has traceback keys and NULL\r\nvalues, but its destructors do not reflect this -- key_destroy_func is\r\nNULL while value_destroy_func is raw_free. Swap these to free the\r\ntraceback keys instead.",
+    "tree": {
+      "sha": "cc267e743fc2a547a8638e37389bb5fdda1918b7",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/cc267e743fc2a547a8638e37389bb5fdda1918b7"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/db39bc42f90c151b298f97b780e62703adbf1221",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJmh5U0CRC1aQ7uu5UhlAAAnU4QAGBjg1tP6zen7TelH5s3/wuG\ns+6KI0eQN4UqcENE7jP/1GmzVLq4DmCjb3PEAPZ/r6oR/mQfgOekVDw1xetRIeQk\ndIUtVnX4FROQpjP4/8AlZ0G8K4uaXvFe6maJgvbEzIVShX4dBgseHuOCeuBYaT7k\nXPOpxaZOkU/gPywEjQ1aLCqRRKztm4v3V8pCp4lyHntP4D3PPuFgk+cIvS/C7sAb\nvQIP7SHjxyFBQ9gQ9ITO0UY2DCah6hoUTAywMx2m7dKyG9N6eOcLnL4S4ORHE4ZE\n+5pRn5SJaQu2X9qAhVNEnXWyPXdWHNAE1erzIiE/32Iz6/sOrZ/UqgfNsaWmclpy\nIsDB6Cjh8rNZbvmtKBIUaWJrsRcyptMchTvKk2Ol3Rul4nyRiNkUjsI4OhPB0sa2\nGQxmbSkBw7QKgCk6bhRfzbk28m9WZlDakNeFoAQCILYq0MKfY0bz8VfobK39p88s\nLMtLPJp0zOHir4hBtIdWa8jf9ZWC2WtbuaUgbDE02pKVerKX8HfqGCO4wTAE2OAK\nY0weVF+ub8D3rALjeQGeacguuojZkJ2dS0cTIwdfBxSYGWdKpVtTinY2YOYTLqjp\nmiIY3PtGmXGaZEbRRuwBy9nQN9Bnk/vNCgQTSfX6O6ViayyMKG7BUW229In2URoq\nYId8QEi6ZjJSsuxEkf4V\n=S9Nv\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree cc267e743fc2a547a8638e37389bb5fdda1918b7\nparent cb688bab08559079d0ee9ffd841dd6eb11116181\nauthor Josh Brobst <jbrobst@proton.me> 1720161588 -0400\ncommitter GitHub <noreply@github.com> 1720161588 +0200\n\ngh-121390: tracemalloc: Fix tracebacks memory leak (#121391)\n\nThe tracemalloc_tracebacks hash table has traceback keys and NULL\r\nvalues, but its destructors do not reflect this -- key_destroy_func is\r\nNULL while value_destroy_func is raw_free. Swap these to free the\r\ntraceback keys instead.",
+      "verified_at": "2024-11-05T12:43:17Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/db39bc42f90c151b298f97b780e62703adbf1221",
+  "html_url": "https://github.com/python/cpython/commit/db39bc42f90c151b298f97b780e62703adbf1221",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/db39bc42f90c151b298f97b780e62703adbf1221/comments",
+  "author": {
+    "login": "jbrobst",
+    "id": 840422,
+    "node_id": "MDQ6VXNlcjg0MDQyMg==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/840422?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/jbrobst",
+    "html_url": "https://github.com/jbrobst",
+    "followers_url": "https://api.github.com/users/jbrobst/followers",
+    "following_url": "https://api.github.com/users/jbrobst/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jbrobst/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/jbrobst/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jbrobst/subscriptions",
+    "organizations_url": "https://api.github.com/users/jbrobst/orgs",
+    "repos_url": "https://api.github.com/users/jbrobst/repos",
+    "events_url": "https://api.github.com/users/jbrobst/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/jbrobst/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "cb688bab08559079d0ee9ffd841dd6eb11116181",
+      "url": "https://api.github.com/repos/python/cpython/commits/cb688bab08559079d0ee9ffd841dd6eb11116181",
+      "html_url": "https://github.com/python/cpython/commit/cb688bab08559079d0ee9ffd841dd6eb11116181"
+    }
+  ],
+  "stats": {
+    "total": 2,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "e58b60ddd5e484a9a29fc98e13b909b1ac077533",
+      "filename": "Python/tracemalloc.c",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/db39bc42f90c151b298f97b780e62703adbf1221/Python%2Ftracemalloc.c",
+      "raw_url": "https://github.com/python/cpython/raw/db39bc42f90c151b298f97b780e62703adbf1221/Python%2Ftracemalloc.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Ftracemalloc.c?ref=db39bc42f90c151b298f97b780e62703adbf1221",
+      "patch": "@@ -838,7 +838,7 @@ _PyTraceMalloc_Init(void)\n \n     tracemalloc_tracebacks = hashtable_new(hashtable_hash_traceback,\n                                            hashtable_compare_traceback,\n-                                           NULL, raw_free);\n+                                           raw_free, NULL);\n \n     tracemalloc_traces = tracemalloc_create_traces_table();\n     tracemalloc_domains = tracemalloc_create_domains_table();"
+    }
+  ]
+}

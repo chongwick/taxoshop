@@ -1,0 +1,101 @@
+{
+  "sha": "6702d2bf6edcd5b5415e17837383623b9d76a5b8",
+  "node_id": "C_kwDOBN0Z8doAKDY3MDJkMmJmNmVkY2Q1YjU0MTVlMTc4MzczODM2MjNiOWQ3NmE1Yjg",
+  "commit": {
+    "author": {
+      "name": "Victor Stinner",
+      "email": "vstinner@python.org",
+      "date": "2024-03-28T16:40:58Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2024-03-28T16:40:58Z"
+    },
+    "message": "gh-114331: Skip decimal test_maxcontext_exact_arith on s390x (#117326)",
+    "tree": {
+      "sha": "ac1b9ff72e6d5371404ecd2eb6f6ee2cb6585d48",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/ac1b9ff72e6d5371404ecd2eb6f6ee2cb6585d48"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/6702d2bf6edcd5b5415e17837383623b9d76a5b8",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJmBZ2aCRC1aQ7uu5UhlAAAcnIQACZwP5OkF4VTAmRY/B+VRwTT\nvZObXje+Z8mc2rIJ9lwGeHKiR21J2+0VT81uTTJAnV9t4/4VgKiZ+ZnvDAOHYZmu\nSvKja1Y8MV+SulhIznWctX+0NzQHEXfwwxi3fU/PfgIvw8bdnqwpCfGyn0nThVF3\naRe5AW5lYNkvuohoVEUpQoJwCsy0d7vyXblh4i3nZzJp+dOoQQEvVijC/97rwQPi\n8m4w/Hu9C4VcFFl9EgtPAIoH531cVnAw/5734SN+2QakZ5GwnCfFZNR3gwma0sT0\n46tYBNTCZ0/Lg8JfCNsh56aW08jp4iOAC1m6wi9nZ92UdUrym7l6yICeb7UudMwZ\nNd3NaJF1oSqSDPigKY2JseL59E/nPi2raajjVBzKewOWrG5frDNm3lk7rvQqobJr\nnXBo0u/EBA4kDIJW5iawZjl+2d8yqYQdync1lXjbxUq5VbH/rSHbbIQ1pq0TYDjD\nm6kOvDun75AkuE3FlKrMTZmXIupFqdObsHOLNs1svCP02moP2rHx2X2uBWiIgcRr\nHGHTr/21Qx20/LSWaOcKD7QV6EhWdhTplRSFV6Mov/fp6Js7U/SAC1gE3iOfX8E9\n7bybh5TxUHc5VKsE8YYKGR9jeUMnCceino0lu4qoHVu5Lb5a0Jwkb9P6k5Mjr0HT\njzg/lcYNkx9Wg4ikiDaB\n=+mPV\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree ac1b9ff72e6d5371404ecd2eb6f6ee2cb6585d48\nparent c1712ef066321c01bf09cba3f22fc474b5b8dfa7\nauthor Victor Stinner <vstinner@python.org> 1711644058 +0100\ncommitter GitHub <noreply@github.com> 1711644058 +0000\n\ngh-114331: Skip decimal test_maxcontext_exact_arith on s390x (#117326)\n\n",
+      "verified_at": "2024-11-05T16:30:24Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/6702d2bf6edcd5b5415e17837383623b9d76a5b8",
+  "html_url": "https://github.com/python/cpython/commit/6702d2bf6edcd5b5415e17837383623b9d76a5b8",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/6702d2bf6edcd5b5415e17837383623b9d76a5b8/comments",
+  "author": {
+    "login": "vstinner",
+    "id": 194129,
+    "node_id": "MDQ6VXNlcjE5NDEyOQ==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/194129?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/vstinner",
+    "html_url": "https://github.com/vstinner",
+    "followers_url": "https://api.github.com/users/vstinner/followers",
+    "following_url": "https://api.github.com/users/vstinner/following{/other_user}",
+    "gists_url": "https://api.github.com/users/vstinner/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/vstinner/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/vstinner/subscriptions",
+    "organizations_url": "https://api.github.com/users/vstinner/orgs",
+    "repos_url": "https://api.github.com/users/vstinner/repos",
+    "events_url": "https://api.github.com/users/vstinner/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/vstinner/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "c1712ef066321c01bf09cba3f22fc474b5b8dfa7",
+      "url": "https://api.github.com/repos/python/cpython/commits/c1712ef066321c01bf09cba3f22fc474b5b8dfa7",
+      "html_url": "https://github.com/python/cpython/commit/c1712ef066321c01bf09cba3f22fc474b5b8dfa7"
+    }
+  ],
+  "stats": {
+    "total": 6,
+    "additions": 5,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "05dcb25a7e5950437396aaf326cb7be6fa5858f2",
+      "filename": "Lib/test/test_decimal.py",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 1,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/6702d2bf6edcd5b5415e17837383623b9d76a5b8/Lib%2Ftest%2Ftest_decimal.py",
+      "raw_url": "https://github.com/python/cpython/raw/6702d2bf6edcd5b5415e17837383623b9d76a5b8/Lib%2Ftest%2Ftest_decimal.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_decimal.py?ref=6702d2bf6edcd5b5415e17837383623b9d76a5b8",
+      "patch": "@@ -38,7 +38,8 @@\n                           check_disallow_instantiation)\n from test.support import (TestFailed,\n                           run_with_locale, cpython_only,\n-                          darwin_malloc_err_warning, is_emscripten)\n+                          darwin_malloc_err_warning, is_emscripten,\n+                          skip_on_s390x)\n from test.support.import_helper import import_fresh_module\n from test.support import threading_helper\n from test.support import warnings_helper\n@@ -5650,6 +5651,9 @@ def __abs__(self):\n     @unittest.skipIf(check_sanitizer(address=True, memory=True),\n                      \"ASAN/MSAN sanitizer defaults to crashing \"\n                      \"instead of returning NULL for malloc failure.\")\n+    # gh-114331: The test allocates 784 271 641 GiB and mimalloc does not fail\n+    # to allocate it when using mimalloc on s390x.\n+    @skip_on_s390x\n     def test_maxcontext_exact_arith(self):\n \n         # Make sure that exact operations do not raise MemoryError due"
+    }
+  ]
+}

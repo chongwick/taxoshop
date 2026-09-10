@@ -1,0 +1,549 @@
+Using random seed: 3525797102
+0:00:00 load avg: 0.20 Run 1 test in parallel using 1 worker process
+0:00:29 load avg: 0.54 [1/1/1] test_capi worker non-zero exit code (Exit code 1)
+beginning 10 repetitions. Showing number of leaks (. for 0 or less, X for 10 or more)
+12345:67890
+test test_capi failed -- Traceback (most recent call last):
+  File "/home/shamil/oss/cpython/3.14/Lib/test/test_capi/test_getargs.py", line 1394, in test_gh_119213
+    rc, out, err = script_helper.assert_python_ok("-c", """if True:
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+        from test import support
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<19 lines>...
+        #assert rc == 0
+        ^^^^^^^^^^^^^^^
+        """)
+        ^^^^
+  File "/home/shamil/oss/cpython/3.14/Lib/test/support/script_helper.py", line 182, in assert_python_ok
+    return _assert_python(True, *args, **env_vars)
+  File "/home/shamil/oss/cpython/3.14/Lib/test/support/script_helper.py", line 167, in _assert_python
+    res.fail(cmd_line)
+    ~~~~~~~~^^^^^^^^^^
+  File "/home/shamil/oss/cpython/3.14/Lib/test/support/script_helper.py", line 80, in fail
+    raise AssertionError(f"Process return code is {exitcode}\n"
+    ...<10 lines>...
+                         f"---")
+AssertionError: Process return code is 1
+command line: ['/home/shamil/oss/cpython/3.14/python', '-X', 'faulthandler', '-I', '-c', "if True:\n            from test import support\n            script = '''if True:\n                import _testinternalcapi\n                _testinternalcapi.gh_119213_getargs(spam='eggs')\n                '''\n            config = dict(\n                allow_fork=False,\n                allow_exec=False,\n                allow_threads=True,\n                allow_daemon_threads=False,\n                use_main_obmalloc=False,\n                gil=2,\n                check_multi_interp_extensions=True,\n            )\n            rc = support.run_in_subinterp_with_config(script, **config)\n            assert rc == 0\n\n            # The crash is different if the interpreter was not destroyed first.\n            #interpid = _testinternalcapi.create_interpreter()\n            #rc = _testinternalcapi.exec_interpreter(interpid, script)\n            #assert rc == 0\n            "]
+
+stdout:
+---
+
+---
+
+stderr:
+---
+
+=================================================================
+==824725==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 225855 byte(s) in 1 object(s) allocated from:
+    #0 0x646b46d1649d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x646b472cfbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x646b4787b1b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x646b4787b1b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x646b4783889c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x646b478385fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #6 0x6df563f54fe6 in run_in_subinterp_with_config /home/shamil/oss/cpython/3.14/./Modules/_testinternalcapi.c:1853:27
+    #7 0x646b4726906a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #8 0x646b470e0aee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #9 0x646b475e5415 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:1619:35
+    #10 0x646b4758f95c in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #11 0x646b4758f95c in PyEval_EvalCode /home/shamil/oss/cpython/3.14/Python/ceval.c:857:21
+    #12 0x646b47897afd in run_mod /home/shamil/oss/cpython/3.14/Python/pythonrun.c:1459:19
+    #13 0x646b47892dc8 in _PyRun_StringFlagsWithName /home/shamil/oss/cpython/3.14/Python/pythonrun.c:1259:15
+    #14 0x646b47892dc8 in _PyRun_SimpleStringFlagsWithName /home/shamil/oss/cpython/3.14/Python/pythonrun.c:578:15
+    #15 0x646b47945850 in pymain_run_command /home/shamil/oss/cpython/3.14/Modules/main.c:261:11
+    #16 0x646b47945850 in pymain_run_python /home/shamil/oss/cpython/3.14/Modules/main.c:685:21
+    #17 0x646b47945850 in Py_RunMain /home/shamil/oss/cpython/3.14/Modules/main.c:775:5
+    #18 0x646b47946cb1 in pymain_main /home/shamil/oss/cpython/3.14/Modules/main.c:805:12
+    #19 0x646b47946f1b in Py_BytesMain /home/shamil/oss/cpython/3.14/Modules/main.c:829:12
+    #20 0x71f567c2a574 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #21 0x71f567c2a627 in __libc_start_main csu/../csu/libc-start.c:360:3
+    #22 0x646b46c727b4 in _start (/home/shamil/oss/cpython/3.14/python+0x8dc7b4) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+
+SUMMARY: AddressSanitizer: 225855 byte(s) leaked in 1 allocation(s).
+---
+
+[526 refs, 0 blocks]
+
+=================================================================
+==824714==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 30716280 byte(s) in 136 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22555fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #6 0x75655d1f3fe6 in run_in_subinterp_with_config /home/shamil/oss/cpython/3.14/./Modules/_testinternalcapi.c:1853:27
+    #7 0x5d3be1c8606a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #8 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #9 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #10 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #11 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #12 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #13 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #14 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #15 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #16 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #17 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #18 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #19 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #20 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #21 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #22 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #23 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #24 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #25 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #26 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #27 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #28 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #29 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #30 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+
+Direct leak of 1580985 byte(s) in 7 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22555fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #6 0x5d3be212529f in _PyXI_NewInterpreter /home/shamil/oss/cpython/3.14/Python/crossinterp.c:3204:23
+    #7 0x75655e31d425 in interp_create /home/shamil/oss/cpython/3.14/./Modules/_interpretersmodule.c:862:13
+    #8 0x5d3be1c8606a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #9 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #10 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #11 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #12 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #13 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #14 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #15 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #16 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #17 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #18 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #19 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #20 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #21 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #22 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #23 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #24 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #25 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #26 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #27 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #28 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #29 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #30 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+
+Direct leak of 903420 byte(s) in 4 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22555fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #6 0x5d3be212529f in _PyXI_NewInterpreter /home/shamil/oss/cpython/3.14/Python/crossinterp.c:3204:23
+    #7 0x75655e31d425 in interp_create /home/shamil/oss/cpython/3.14/./Modules/_interpretersmodule.c:862:13
+    #8 0x5d3be1c8606a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #9 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #10 0x5d3be2002415 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:1619:35
+    #11 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #12 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #13 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #14 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #15 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #16 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #17 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #18 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #19 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #20 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #21 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #22 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #23 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #24 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #25 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #26 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #27 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #28 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #29 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #30 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+
+Direct leak of 903420 byte(s) in 4 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22562ce in Py_NewInterpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2418:23
+    #6 0x75655e736be9 in run_in_subinterp /home/shamil/oss/cpython/3.14/./Modules/_testcapimodule.c:1215:16
+    #7 0x5d3be1c8608b in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:575:18
+    #8 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #9 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #10 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #11 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #12 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #13 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #14 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #15 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #16 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #17 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #18 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #19 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #20 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #21 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #22 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #23 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #24 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #25 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #26 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #27 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #28 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #29 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #30 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+
+Direct leak of 451710 byte(s) in 2 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22555fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #6 0x5d3be212529f in _PyXI_NewInterpreter /home/shamil/oss/cpython/3.14/Python/crossinterp.c:3204:23
+    #7 0x75655e31d425 in interp_create /home/shamil/oss/cpython/3.14/./Modules/_interpretersmodule.c:862:13
+    #8 0x5d3be1c8606a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #9 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #10 0x5d3be1fb9a7b in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:3227:35
+    #11 0x5d3be1b864e3 in _PyEval_EvalFrame /home/shamil/oss/cpython/3.14/./Include/internal/pycore_ceval.h:121:16
+    #12 0x5d3be1b864e3 in gen_send_ex2 /home/shamil/oss/cpython/3.14/Objects/genobject.c:259:24
+    #13 0x5d3be1b7eaa0 in gen_iternext /home/shamil/oss/cpython/3.14/Objects/genobject.c:634:9
+    #14 0x5d3be1fa2237 in builtin_next /home/shamil/oss/cpython/3.14/Python/bltinmodule.c:1681:11
+    #15 0x5d3be1fdd407 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2263:35
+    #16 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #17 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #18 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #19 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #20 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #21 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #22 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #23 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #24 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #25 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #26 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #27 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #28 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #29 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #30 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #31 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+
+Direct leak of 451710 byte(s) in 2 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22555fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #6 0x75655d1f3fe6 in run_in_subinterp_with_config /home/shamil/oss/cpython/3.14/./Modules/_testinternalcapi.c:1853:27
+    #7 0x5d3be1c8606a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #8 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #9 0x5d3be2002415 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:1619:35
+    #10 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #11 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #12 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #13 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #14 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #15 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #16 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #17 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #18 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #19 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #20 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #21 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #22 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #23 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #24 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #25 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #26 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #27 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #28 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #29 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #30 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+
+Direct leak of 225855 byte(s) in 1 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22555fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #6 0x5d3be212529f in _PyXI_NewInterpreter /home/shamil/oss/cpython/3.14/Python/crossinterp.c:3204:23
+    #7 0x75655e31d425 in interp_create /home/shamil/oss/cpython/3.14/./Modules/_interpretersmodule.c:862:13
+    #8 0x5d3be1c8606a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #9 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #10 0x5d3be1ffec62 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2959:35
+    #11 0x5d3be1b864e3 in _PyEval_EvalFrame /home/shamil/oss/cpython/3.14/./Include/internal/pycore_ceval.h:121:16
+    #12 0x5d3be1b864e3 in gen_send_ex2 /home/shamil/oss/cpython/3.14/Objects/genobject.c:259:24
+    #13 0x5d3be1b7eaa0 in gen_iternext /home/shamil/oss/cpython/3.14/Objects/genobject.c:634:9
+    #14 0x5d3be1fa2237 in builtin_next /home/shamil/oss/cpython/3.14/Python/bltinmodule.c:1681:11
+    #15 0x5d3be1fdd407 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2263:35
+    #16 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #17 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #18 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #19 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #20 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #21 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #22 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #23 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #24 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #25 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #26 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #27 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #28 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #29 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #30 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #31 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+
+Direct leak of 225855 byte(s) in 1 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22562ce in Py_NewInterpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2418:23
+    #6 0x75655e736a6c in test_current_tstate_matches /home/shamil/oss/cpython/3.14/./Modules/_testcapimodule.c:1175:31
+    #7 0x5d3be1afd19e in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #8 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #9 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #10 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #11 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #12 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #13 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #14 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #15 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #16 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #17 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #18 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #19 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #20 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #21 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #22 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #23 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #24 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #25 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #26 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #27 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #28 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #29 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #30 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+
+Direct leak of 225855 byte(s) in 1 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22562ce in Py_NewInterpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2418:23
+    #6 0x75655e736a6c in test_current_tstate_matches /home/shamil/oss/cpython/3.14/./Modules/_testcapimodule.c:1175:31
+    #7 0x5d3be1afd19e in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #8 0x5d3be2002415 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:1619:35
+    #9 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #10 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #11 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #12 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #13 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #14 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #15 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #16 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #17 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #18 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #19 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #20 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #21 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #22 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #23 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #24 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #25 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #26 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #27 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #28 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #29 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #30 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+
+Direct leak of 225855 byte(s) in 1 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22562ce in Py_NewInterpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2418:23
+    #6 0x75655e73b16b in test_atexit /home/shamil/oss/cpython/3.14/./Modules/_testcapimodule.c:2485:29
+    #7 0x5d3be1afd19e in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #8 0x5d3be2002415 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:1619:35
+    #9 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #10 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #11 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #12 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #13 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #14 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #15 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #16 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #17 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #18 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #19 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #20 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #21 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #22 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #23 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #24 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #25 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #26 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #27 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #28 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #29 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #30 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+
+Direct leak of 225855 byte(s) in 1 object(s) allocated from:
+    #0 0x5d3be173349d in calloc (/home/shamil/oss/cpython/3.14/python+0x98049d) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecbbf in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2869:24
+    #2 0x5d3be22981b2 in alloc_interpreter /home/shamil/oss/cpython/3.14/Python/pystate.c:570:17
+    #3 0x5d3be22981b2 in _PyInterpreterState_New /home/shamil/oss/cpython/3.14/Python/pystate.c:757:18
+    #4 0x5d3be225589c in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2313:14
+    #5 0x5d3be22562ce in Py_NewInterpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2418:23
+    #6 0x75655e736be9 in run_in_subinterp /home/shamil/oss/cpython/3.14/./Modules/_testcapimodule.c:1215:16
+    #7 0x5d3be1c8608b in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:575:18
+    #8 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #9 0x5d3be2002415 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:1619:35
+    #10 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #11 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #12 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #13 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #14 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #15 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #16 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #17 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #18 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #19 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #20 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #21 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #22 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #23 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #24 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #25 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #26 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #27 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #28 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #29 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #30 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+
+Indirect leak of 216348 byte(s) in 561 object(s) allocated from:
+    #0 0x5d3be17332c8 in malloc (/home/shamil/oss/cpython/3.14/python+0x9802c8) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecc53 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2872:24
+    #2 0x5d3be1ce9c7b in PyMem_RawMalloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:1000:12
+    #3 0x5d3be1ce9c7b in _PyMem_RawWcsdup /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:1089:21
+    #4 0x5d3be21d6b7e in _PyWideStringList_CopyEx /home/shamil/oss/cpython/3.14/Python/initconfig.c:712:20
+    #5 0x5d3be21dbfb2 in _PyWideStringList_Copy /home/shamil/oss/cpython/3.14/Python/initconfig.c:730:12
+    #6 0x5d3be21dbfb2 in _PyConfig_Copy /home/shamil/oss/cpython/3.14/Python/initconfig.c:1266:17
+    #7 0x5d3be2255aa5 in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2341:14
+    #8 0x5d3be22555fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #9 0x75655d1f3fe6 in run_in_subinterp_with_config /home/shamil/oss/cpython/3.14/./Modules/_testinternalcapi.c:1853:27
+    #10 0x5d3be1c8606a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #11 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #12 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #13 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #14 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #15 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #16 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #17 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #18 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #19 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #20 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #21 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #22 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #23 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #24 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #25 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #26 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #27 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #28 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #29 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #30 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #31 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+
+Indirect leak of 50952 byte(s) in 528 object(s) allocated from:
+    #0 0x5d3be17332c8 in malloc (/home/shamil/oss/cpython/3.14/python+0x9802c8) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecc53 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2872:24
+    #2 0x5d3be1ce9c7b in PyMem_RawMalloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:1000:12
+    #3 0x5d3be1ce9c7b in _PyMem_RawWcsdup /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:1089:21
+    #4 0x5d3be21db945 in PyConfig_SetString /home/shamil/oss/cpython/3.14/Python/initconfig.c:1157:16
+    #5 0x5d3be21dc0ec in _PyConfig_Copy /home/shamil/oss/cpython/3.14/Python/initconfig.c:1258:22
+    #6 0x5d3be2255aa5 in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2341:14
+    #7 0x5d3be22555fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #8 0x75655d1f3fe6 in run_in_subinterp_with_config /home/shamil/oss/cpython/3.14/./Modules/_testinternalcapi.c:1853:27
+    #9 0x5d3be1c8606a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #10 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #11 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #12 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #13 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #14 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #15 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #16 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #17 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #18 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #19 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #20 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #21 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #22 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #23 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #24 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #25 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #26 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #27 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #28 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #29 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #30 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+
+Indirect leak of 8448 byte(s) in 165 object(s) allocated from:
+    #0 0x5d3be17332c8 in malloc (/home/shamil/oss/cpython/3.14/python+0x9802c8) (BuildId: e755223303938e7d5a4c09583d9f23587802ede1)
+    #1 0x5d3be1cecc53 in _PyMem_DebugRawAlloc /home/shamil/oss/cpython/3.14/Objects/obmalloc.c:2872:24
+    #2 0x5d3be21d6a30 in _PyWideStringList_CopyEx /home/shamil/oss/cpython/3.14/Python/initconfig.c:700:22
+    #3 0x5d3be21dbfb2 in _PyWideStringList_Copy /home/shamil/oss/cpython/3.14/Python/initconfig.c:730:12
+    #4 0x5d3be21dbfb2 in _PyConfig_Copy /home/shamil/oss/cpython/3.14/Python/initconfig.c:1266:17
+    #5 0x5d3be2255aa5 in new_interpreter /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2341:14
+    #6 0x5d3be22555fa in Py_NewInterpreterFromConfig /home/shamil/oss/cpython/3.14/Python/pylifecycle.c:2409:12
+    #7 0x75655d1f3fe6 in run_in_subinterp_with_config /home/shamil/oss/cpython/3.14/./Modules/_testinternalcapi.c:1853:27
+    #8 0x5d3be1c8606a in cfunction_call /home/shamil/oss/cpython/3.14/Objects/methodobject.c:564:18
+    #9 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #10 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #11 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #12 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #13 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #14 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #15 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #16 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #17 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #18 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #19 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+    #20 0x5d3be1afdaee in _PyObject_MakeTpCall /home/shamil/oss/cpython/3.14/Objects/call.c:242:18
+    #21 0x5d3be1fbc011 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:4079:35
+    #22 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #23 0x5d3be1b0d0d3 in _PyObject_VectorcallTstate /home/shamil/oss/cpython/3.14/./Include/internal/pycore_call.h:169:11
+    #24 0x5d3be1b0944d in method_vectorcall /home/shamil/oss/cpython/3.14/Objects/classobject.c:95:18
+    #25 0x5d3be1affd5b in _PyVectorcall_Call /home/shamil/oss/cpython/3.14/Objects/call.c:273:16
+    #26 0x5d3be1fe0988 in _PyEval_EvalFrameDefault /home/shamil/oss/cpython/3.14/Python/generated_cases.c.h:2654:32
+    #27 0x5d3be1facdd1 in _PyEval_Vector /home/shamil/oss/cpython/3.14/Python/ceval.c:1965:12
+    #28 0x5d3be1afd58e in _PyObject_VectorcallDictTstate /home/shamil/oss/cpython/3.14/Objects/call.c:135:15
+    #29 0x5d3be1b0125d in _PyObject_Call_Prepend /home/shamil/oss/cpython/3.14/Objects/call.c:504:24
+    #30 0x5d3be1d78197 in call_method /home/shamil/oss/cpython/3.14/Objects/typeobject.c:2936:19
+
+SUMMARY: AddressSanitizer: 36412548 byte(s) leaked in 1414 allocation(s).
+
+== Tests result: FAILURE ==
+
+1 test failed:
+    test_capi
+
+Total duration: 29.1 sec
+Total tests: run=0
+Total test files: run=1/1 failed=1
+Result: FAILURE
+[0 refs, 0 blocks]

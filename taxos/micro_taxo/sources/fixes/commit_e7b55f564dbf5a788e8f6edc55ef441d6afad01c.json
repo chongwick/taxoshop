@@ -1,0 +1,269 @@
+{
+  "sha": "e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+  "node_id": "C_kwDOBN0Z8doAKGU3YjU1ZjU2NGRiZjVhNzg4ZThmNmVkYzU1ZWY0NDFkNmFmYWQwMWM",
+  "commit": {
+    "author": {
+      "name": "Mark Shannon",
+      "email": "mark@hotpy.org",
+      "date": "2025-08-01T15:26:07Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2025-08-01T15:26:07Z"
+    },
+    "message": "GH-136410: Faster side exits by using a cold exit stub (GH-136411)",
+    "tree": {
+      "sha": "e79e914c49d8fd075b510e822cbcf2329b18b933",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/e79e914c49d8fd075b510e822cbcf2329b18b933"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJojNyQCRC1aQ7uu5UhlAAAcc4QAJdsZ65XKdwkQRLPOqGzz8E3\nLeYv10k9C/qCnMg+/ZJe3ZCW0NMdAa0DnfV2cj4+TrFfKpVYFPYGRBiyMOrQ4MwL\nWdViFnGS+3jDKRoRp8jQM2XJrA3+aLccAiXXDMhX5DuZkrwmGqrgSLpcWmzUvMR6\n3PUE0PGVFwtu/6t8ZT2eAHViqcEu4ZJfPWc2QRfNamOAUdBf3nInl5UcWHHTWksY\najAFUKak0d6lKwu6RHpsET4QpdBmI/BhycE02jdwAFOfD3+nSt0Ld0cVo10ziRvw\n2aG0st937S3+qiGYfBZwDRCYr+V6sb93S9GjJc2G12w8A0GbV4y3q9J6o7lSS7tI\nT6Dt+c6oAzq3qDGilqelG+qzy1cf7pf1OuTLR4wPg22Gf3UiJO4RyBGOdUa/OgcU\nJyI13Yfu4cECYHubwjUHiSjWacLtWh9LPMzimBu8PGckxNNQc0ssvEaRfweX/v/R\nYFIKig3xLVMz1siPVTHSYgtj28WAytVusSMK02z4LxmzCsmIKrdoySwa2YJsmtZA\n+1Jd8LYEgN0Q8uWDItmeoxeNC40Knx0ux1K0unMqhhi86xMFnTWtAlSY5LUHo3Y6\nSpoXA6EhqJkJ7qiXLqaM/Gjf7/uuDsCPst9DgTMcEStTncmMtYumSAAzfgQIeq6i\nXJlzvj2WAxnRUKZu8SsW\n=+bNd\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree e79e914c49d8fd075b510e822cbcf2329b18b933\nparent 718e0c89ba0610bba048245028ac133bbf2d44c2\nauthor Mark Shannon <mark@hotpy.org> 1754061967 +0100\ncommitter GitHub <noreply@github.com> 1754061967 +0100\n\nGH-136410: Faster side exits by using a cold exit stub (GH-136411)\n\n",
+      "verified_at": "2025-08-01T15:26:08Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+  "html_url": "https://github.com/python/cpython/commit/e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/comments",
+  "author": {
+    "login": "markshannon",
+    "id": 9448417,
+    "node_id": "MDQ6VXNlcjk0NDg0MTc=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/9448417?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/markshannon",
+    "html_url": "https://github.com/markshannon",
+    "followers_url": "https://api.github.com/users/markshannon/followers",
+    "following_url": "https://api.github.com/users/markshannon/following{/other_user}",
+    "gists_url": "https://api.github.com/users/markshannon/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/markshannon/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/markshannon/subscriptions",
+    "organizations_url": "https://api.github.com/users/markshannon/orgs",
+    "repos_url": "https://api.github.com/users/markshannon/repos",
+    "events_url": "https://api.github.com/users/markshannon/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/markshannon/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "718e0c89ba0610bba048245028ac133bbf2d44c2",
+      "url": "https://api.github.com/repos/python/cpython/commits/718e0c89ba0610bba048245028ac133bbf2d44c2",
+      "html_url": "https://github.com/python/cpython/commit/718e0c89ba0610bba048245028ac133bbf2d44c2"
+    }
+  ],
+  "stats": {
+    "total": 654,
+    "additions": 387,
+    "deletions": 267
+  },
+  "files": [
+    {
+      "sha": "e13b2b373c47b1bb06dc907201d656e66cc5a4df",
+      "filename": "Include/cpython/pystate.h",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Fcpython%2Fpystate.h",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Fcpython%2Fpystate.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fcpython%2Fpystate.h?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -198,6 +198,9 @@ struct _ts {\n \n     PyObject *current_executor;\n \n+    /* Internal to the JIT */\n+    struct _PyExitData *jit_exit;\n+\n     uint64_t dict_global_version;\n \n     /* Used to store/retrieve `threading.local` keys/values for this thread */"
+    },
+    {
+      "sha": "758bf5447ee32a5c414bd2d35b811711b5c7ca7c",
+      "filename": "Include/internal/pycore_interp_structs.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Finternal%2Fpycore_interp_structs.h",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Finternal%2Fpycore_interp_structs.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Finternal%2Fpycore_interp_structs.h?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -943,6 +943,7 @@ struct _is {\n     bool jit;\n     struct _PyExecutorObject *executor_list_head;\n     struct _PyExecutorObject *executor_deletion_list_head;\n+    struct _PyExecutorObject *cold_executor;\n     int executor_deletion_list_remaining_capacity;\n     size_t trace_run_counter;\n     _rare_events rare_events;"
+    },
+    {
+      "sha": "1571e19a35032ede8a2f37e188a7c15f2ebc7f91",
+      "filename": "Include/internal/pycore_optimizer.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 1,
+      "changes": 15,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Finternal%2Fpycore_optimizer.h",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Finternal%2Fpycore_optimizer.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Finternal%2Fpycore_optimizer.h?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -67,8 +67,9 @@ typedef struct {\n #endif\n } _PyUOpInstruction;\n \n-typedef struct {\n+typedef struct _PyExitData {\n     uint32_t target;\n+    uint16_t index;\n     _Py_BackoffCounter temperature;\n     struct _PyExecutorObject *executor;\n } _PyExitData;\n@@ -354,6 +355,16 @@ PyAPI_FUNC(PyObject *) _Py_uop_symbols_test(PyObject *self, PyObject *ignored);\n \n PyAPI_FUNC(int) _PyOptimizer_Optimize(_PyInterpreterFrame *frame, _Py_CODEUNIT *start, _PyExecutorObject **exec_ptr, int chain_depth);\n \n+static inline _PyExecutorObject *_PyExecutor_FromExit(_PyExitData *exit)\n+{\n+    _PyExitData *exit0 = exit - exit->index;\n+    return (_PyExecutorObject *)(((char *)exit0) - offsetof(_PyExecutorObject, exits));\n+}\n+\n+extern _PyExecutorObject *_PyExecutor_GetColdExecutor(void);\n+\n+PyAPI_FUNC(void) _PyExecutor_ClearExit(_PyExitData *exit);\n+\n static inline int is_terminator(const _PyUOpInstruction *uop)\n {\n     int opcode = uop->opcode;\n@@ -363,6 +374,8 @@ static inline int is_terminator(const _PyUOpInstruction *uop)\n     );\n }\n \n+extern void _PyExecutor_Free(_PyExecutorObject *self);\n+\n PyAPI_FUNC(int) _PyDumpExecutors(FILE *out);\n #ifdef _Py_TIER2\n extern void _Py_ClearExecutorDeletionList(PyInterpreterState *interp);"
+    },
+    {
+      "sha": "684969a23c4d22dffc729231afc811eb231203e1",
+      "filename": "Include/internal/pycore_uop_ids.h",
+      "status": "modified",
+      "additions": 190,
+      "deletions": 189,
+      "changes": 379,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Finternal%2Fpycore_uop_ids.h",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Finternal%2Fpycore_uop_ids.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Finternal%2Fpycore_uop_ids.h?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -81,99 +81,100 @@ extern \"C\" {\n #define _CHECK_STACK_SPACE 357\n #define _CHECK_STACK_SPACE_OPERAND 358\n #define _CHECK_VALIDITY 359\n-#define _COMPARE_OP 360\n-#define _COMPARE_OP_FLOAT 361\n-#define _COMPARE_OP_INT 362\n-#define _COMPARE_OP_STR 363\n-#define _CONTAINS_OP 364\n-#define _CONTAINS_OP_DICT 365\n-#define _CONTAINS_OP_SET 366\n+#define _COLD_EXIT 360\n+#define _COMPARE_OP 361\n+#define _COMPARE_OP_FLOAT 362\n+#define _COMPARE_OP_INT 363\n+#define _COMPARE_OP_STR 364\n+#define _CONTAINS_OP 365\n+#define _CONTAINS_OP_DICT 366\n+#define _CONTAINS_OP_SET 367\n #define _CONVERT_VALUE CONVERT_VALUE\n-#define _COPY 367\n-#define _COPY_1 368\n-#define _COPY_2 369\n-#define _COPY_3 370\n+#define _COPY 368\n+#define _COPY_1 369\n+#define _COPY_2 370\n+#define _COPY_3 371\n #define _COPY_FREE_VARS COPY_FREE_VARS\n-#define _CREATE_INIT_FRAME 371\n+#define _CREATE_INIT_FRAME 372\n #define _DELETE_ATTR DELETE_ATTR\n #define _DELETE_DEREF DELETE_DEREF\n #define _DELETE_FAST DELETE_FAST\n #define _DELETE_GLOBAL DELETE_GLOBAL\n #define _DELETE_NAME DELETE_NAME\n #define _DELETE_SUBSCR DELETE_SUBSCR\n-#define _DEOPT 372\n+#define _DEOPT 373\n #define _DICT_MERGE DICT_MERGE\n #define _DICT_UPDATE DICT_UPDATE\n-#define _DO_CALL 373\n-#define _DO_CALL_FUNCTION_EX 374\n-#define _DO_CALL_KW 375\n+#define _DO_CALL 374\n+#define _DO_CALL_FUNCTION_EX 375\n+#define _DO_CALL_KW 376\n #define _END_FOR END_FOR\n #define _END_SEND END_SEND\n-#define _ERROR_POP_N 376\n+#define _ERROR_POP_N 377\n #define _EXIT_INIT_CHECK EXIT_INIT_CHECK\n-#define _EXPAND_METHOD 377\n-#define _EXPAND_METHOD_KW 378\n-#define _FATAL_ERROR 379\n+#define _EXPAND_METHOD 378\n+#define _EXPAND_METHOD_KW 379\n+#define _FATAL_ERROR 380\n #define _FORMAT_SIMPLE FORMAT_SIMPLE\n #define _FORMAT_WITH_SPEC FORMAT_WITH_SPEC\n-#define _FOR_ITER 380\n-#define _FOR_ITER_GEN_FRAME 381\n-#define _FOR_ITER_TIER_TWO 382\n+#define _FOR_ITER 381\n+#define _FOR_ITER_GEN_FRAME 382\n+#define _FOR_ITER_TIER_TWO 383\n #define _GET_AITER GET_AITER\n #define _GET_ANEXT GET_ANEXT\n #define _GET_AWAITABLE GET_AWAITABLE\n #define _GET_ITER GET_ITER\n #define _GET_LEN GET_LEN\n #define _GET_YIELD_FROM_ITER GET_YIELD_FROM_ITER\n-#define _GUARD_BINARY_OP_EXTEND 383\n-#define _GUARD_CALLABLE_ISINSTANCE 384\n-#define _GUARD_CALLABLE_LEN 385\n-#define _GUARD_CALLABLE_LIST_APPEND 386\n-#define _GUARD_CALLABLE_STR_1 387\n-#define _GUARD_CALLABLE_TUPLE_1 388\n-#define _GUARD_CALLABLE_TYPE_1 389\n-#define _GUARD_DORV_NO_DICT 390\n-#define _GUARD_DORV_VALUES_INST_ATTR_FROM_DICT 391\n-#define _GUARD_GLOBALS_VERSION 392\n-#define _GUARD_IS_FALSE_POP 393\n-#define _GUARD_IS_NONE_POP 394\n-#define _GUARD_IS_NOT_NONE_POP 395\n-#define _GUARD_IS_TRUE_POP 396\n-#define _GUARD_KEYS_VERSION 397\n-#define _GUARD_NOS_DICT 398\n-#define _GUARD_NOS_FLOAT 399\n-#define _GUARD_NOS_INT 400\n-#define _GUARD_NOS_LIST 401\n-#define _GUARD_NOS_NOT_NULL 402\n-#define _GUARD_NOS_NULL 403\n-#define _GUARD_NOS_OVERFLOWED 404\n-#define _GUARD_NOS_TUPLE 405\n-#define _GUARD_NOS_UNICODE 406\n-#define _GUARD_NOT_EXHAUSTED_LIST 407\n-#define _GUARD_NOT_EXHAUSTED_RANGE 408\n-#define _GUARD_NOT_EXHAUSTED_TUPLE 409\n-#define _GUARD_THIRD_NULL 410\n-#define _GUARD_TOS_ANY_SET 411\n-#define _GUARD_TOS_DICT 412\n-#define _GUARD_TOS_FLOAT 413\n-#define _GUARD_TOS_INT 414\n-#define _GUARD_TOS_LIST 415\n-#define _GUARD_TOS_OVERFLOWED 416\n-#define _GUARD_TOS_SLICE 417\n-#define _GUARD_TOS_TUPLE 418\n-#define _GUARD_TOS_UNICODE 419\n-#define _GUARD_TYPE_VERSION 420\n-#define _GUARD_TYPE_VERSION_AND_LOCK 421\n+#define _GUARD_BINARY_OP_EXTEND 384\n+#define _GUARD_CALLABLE_ISINSTANCE 385\n+#define _GUARD_CALLABLE_LEN 386\n+#define _GUARD_CALLABLE_LIST_APPEND 387\n+#define _GUARD_CALLABLE_STR_1 388\n+#define _GUARD_CALLABLE_TUPLE_1 389\n+#define _GUARD_CALLABLE_TYPE_1 390\n+#define _GUARD_DORV_NO_DICT 391\n+#define _GUARD_DORV_VALUES_INST_ATTR_FROM_DICT 392\n+#define _GUARD_GLOBALS_VERSION 393\n+#define _GUARD_IS_FALSE_POP 394\n+#define _GUARD_IS_NONE_POP 395\n+#define _GUARD_IS_NOT_NONE_POP 396\n+#define _GUARD_IS_TRUE_POP 397\n+#define _GUARD_KEYS_VERSION 398\n+#define _GUARD_NOS_DICT 399\n+#define _GUARD_NOS_FLOAT 400\n+#define _GUARD_NOS_INT 401\n+#define _GUARD_NOS_LIST 402\n+#define _GUARD_NOS_NOT_NULL 403\n+#define _GUARD_NOS_NULL 404\n+#define _GUARD_NOS_OVERFLOWED 405\n+#define _GUARD_NOS_TUPLE 406\n+#define _GUARD_NOS_UNICODE 407\n+#define _GUARD_NOT_EXHAUSTED_LIST 408\n+#define _GUARD_NOT_EXHAUSTED_RANGE 409\n+#define _GUARD_NOT_EXHAUSTED_TUPLE 410\n+#define _GUARD_THIRD_NULL 411\n+#define _GUARD_TOS_ANY_SET 412\n+#define _GUARD_TOS_DICT 413\n+#define _GUARD_TOS_FLOAT 414\n+#define _GUARD_TOS_INT 415\n+#define _GUARD_TOS_LIST 416\n+#define _GUARD_TOS_OVERFLOWED 417\n+#define _GUARD_TOS_SLICE 418\n+#define _GUARD_TOS_TUPLE 419\n+#define _GUARD_TOS_UNICODE 420\n+#define _GUARD_TYPE_VERSION 421\n+#define _GUARD_TYPE_VERSION_AND_LOCK 422\n #define _IMPORT_FROM IMPORT_FROM\n #define _IMPORT_NAME IMPORT_NAME\n-#define _INIT_CALL_BOUND_METHOD_EXACT_ARGS 422\n-#define _INIT_CALL_PY_EXACT_ARGS 423\n-#define _INIT_CALL_PY_EXACT_ARGS_0 424\n-#define _INIT_CALL_PY_EXACT_ARGS_1 425\n-#define _INIT_CALL_PY_EXACT_ARGS_2 426\n-#define _INIT_CALL_PY_EXACT_ARGS_3 427\n-#define _INIT_CALL_PY_EXACT_ARGS_4 428\n-#define _INSERT_NULL 429\n+#define _INIT_CALL_BOUND_METHOD_EXACT_ARGS 423\n+#define _INIT_CALL_PY_EXACT_ARGS 424\n+#define _INIT_CALL_PY_EXACT_ARGS_0 425\n+#define _INIT_CALL_PY_EXACT_ARGS_1 426\n+#define _INIT_CALL_PY_EXACT_ARGS_2 427\n+#define _INIT_CALL_PY_EXACT_ARGS_3 428\n+#define _INIT_CALL_PY_EXACT_ARGS_4 429\n+#define _INSERT_NULL 430\n #define _INSTRUMENTED_FOR_ITER INSTRUMENTED_FOR_ITER\n #define _INSTRUMENTED_INSTRUCTION INSTRUMENTED_INSTRUCTION\n #define _INSTRUMENTED_JUMP_FORWARD INSTRUMENTED_JUMP_FORWARD\n@@ -183,177 +184,177 @@ extern \"C\" {\n #define _INSTRUMENTED_POP_JUMP_IF_NONE INSTRUMENTED_POP_JUMP_IF_NONE\n #define _INSTRUMENTED_POP_JUMP_IF_NOT_NONE INSTRUMENTED_POP_JUMP_IF_NOT_NONE\n #define _INSTRUMENTED_POP_JUMP_IF_TRUE INSTRUMENTED_POP_JUMP_IF_TRUE\n-#define _IS_NONE 430\n+#define _IS_NONE 431\n #define _IS_OP IS_OP\n-#define _ITER_CHECK_LIST 431\n-#define _ITER_CHECK_RANGE 432\n-#define _ITER_CHECK_TUPLE 433\n-#define _ITER_JUMP_LIST 434\n-#define _ITER_JUMP_RANGE 435\n-#define _ITER_JUMP_TUPLE 436\n-#define _ITER_NEXT_LIST 437\n-#define _ITER_NEXT_LIST_TIER_TWO 438\n-#define _ITER_NEXT_RANGE 439\n-#define _ITER_NEXT_TUPLE 440\n-#define _JUMP_TO_TOP 441\n+#define _ITER_CHECK_LIST 432\n+#define _ITER_CHECK_RANGE 433\n+#define _ITER_CHECK_TUPLE 434\n+#define _ITER_JUMP_LIST 435\n+#define _ITER_JUMP_RANGE 436\n+#define _ITER_JUMP_TUPLE 437\n+#define _ITER_NEXT_LIST 438\n+#define _ITER_NEXT_LIST_TIER_TWO 439\n+#define _ITER_NEXT_RANGE 440\n+#define _ITER_NEXT_TUPLE 441\n+#define _JUMP_TO_TOP 442\n #define _LIST_APPEND LIST_APPEND\n #define _LIST_EXTEND LIST_EXTEND\n-#define _LOAD_ATTR 442\n-#define _LOAD_ATTR_CLASS 443\n+#define _LOAD_ATTR 443\n+#define _LOAD_ATTR_CLASS 444\n #define _LOAD_ATTR_GETATTRIBUTE_OVERRIDDEN LOAD_ATTR_GETATTRIBUTE_OVERRIDDEN\n-#define _LOAD_ATTR_INSTANCE_VALUE 444\n-#define _LOAD_ATTR_METHOD_LAZY_DICT 445\n-#define _LOAD_ATTR_METHOD_NO_DICT 446\n-#define _LOAD_ATTR_METHOD_WITH_VALUES 447\n-#define _LOAD_ATTR_MODULE 448\n-#define _LOAD_ATTR_NONDESCRIPTOR_NO_DICT 449\n-#define _LOAD_ATTR_NONDESCRIPTOR_WITH_VALUES 450\n-#define _LOAD_ATTR_PROPERTY_FRAME 451\n-#define _LOAD_ATTR_SLOT 452\n-#define _LOAD_ATTR_WITH_HINT 453\n+#define _LOAD_ATTR_INSTANCE_VALUE 445\n+#define _LOAD_ATTR_METHOD_LAZY_DICT 446\n+#define _LOAD_ATTR_METHOD_NO_DICT 447\n+#define _LOAD_ATTR_METHOD_WITH_VALUES 448\n+#define _LOAD_ATTR_MODULE 449\n+#define _LOAD_ATTR_NONDESCRIPTOR_NO_DICT 450\n+#define _LOAD_ATTR_NONDESCRIPTOR_WITH_VALUES 451\n+#define _LOAD_ATTR_PROPERTY_FRAME 452\n+#define _LOAD_ATTR_SLOT 453\n+#define _LOAD_ATTR_WITH_HINT 454\n #define _LOAD_BUILD_CLASS LOAD_BUILD_CLASS\n-#define _LOAD_BYTECODE 454\n+#define _LOAD_BYTECODE 455\n #define _LOAD_COMMON_CONSTANT LOAD_COMMON_CONSTANT\n #define _LOAD_CONST LOAD_CONST\n-#define _LOAD_CONST_INLINE 455\n-#define _LOAD_CONST_INLINE_BORROW 456\n-#define _LOAD_CONST_UNDER_INLINE 457\n-#define _LOAD_CONST_UNDER_INLINE_BORROW 458\n+#define _LOAD_CONST_INLINE 456\n+#define _LOAD_CONST_INLINE_BORROW 457\n+#define _LOAD_CONST_UNDER_INLINE 458\n+#define _LOAD_CONST_UNDER_INLINE_BORROW 459\n #define _LOAD_DEREF LOAD_DEREF\n-#define _LOAD_FAST 459\n-#define _LOAD_FAST_0 460\n-#define _LOAD_FAST_1 461\n-#define _LOAD_FAST_2 462\n-#define _LOAD_FAST_3 463\n-#define _LOAD_FAST_4 464\n-#define _LOAD_FAST_5 465\n-#define _LOAD_FAST_6 466\n-#define _LOAD_FAST_7 467\n+#define _LOAD_FAST 460\n+#define _LOAD_FAST_0 461\n+#define _LOAD_FAST_1 462\n+#define _LOAD_FAST_2 463\n+#define _LOAD_FAST_3 464\n+#define _LOAD_FAST_4 465\n+#define _LOAD_FAST_5 466\n+#define _LOAD_FAST_6 467\n+#define _LOAD_FAST_7 468\n #define _LOAD_FAST_AND_CLEAR LOAD_FAST_AND_CLEAR\n-#define _LOAD_FAST_BORROW 468\n-#define _LOAD_FAST_BORROW_0 469\n-#define _LOAD_FAST_BORROW_1 470\n-#define _LOAD_FAST_BORROW_2 471\n-#define _LOAD_FAST_BORROW_3 472\n-#define _LOAD_FAST_BORROW_4 473\n-#define _LOAD_FAST_BORROW_5 474\n-#define _LOAD_FAST_BORROW_6 475\n-#define _LOAD_FAST_BORROW_7 476\n+#define _LOAD_FAST_BORROW 469\n+#define _LOAD_FAST_BORROW_0 470\n+#define _LOAD_FAST_BORROW_1 471\n+#define _LOAD_FAST_BORROW_2 472\n+#define _LOAD_FAST_BORROW_3 473\n+#define _LOAD_FAST_BORROW_4 474\n+#define _LOAD_FAST_BORROW_5 475\n+#define _LOAD_FAST_BORROW_6 476\n+#define _LOAD_FAST_BORROW_7 477\n #define _LOAD_FAST_BORROW_LOAD_FAST_BORROW LOAD_FAST_BORROW_LOAD_FAST_BORROW\n #define _LOAD_FAST_CHECK LOAD_FAST_CHECK\n #define _LOAD_FAST_LOAD_FAST LOAD_FAST_LOAD_FAST\n #define _LOAD_FROM_DICT_OR_DEREF LOAD_FROM_DICT_OR_DEREF\n #define _LOAD_FROM_DICT_OR_GLOBALS LOAD_FROM_DICT_OR_GLOBALS\n-#define _LOAD_GLOBAL 477\n-#define _LOAD_GLOBAL_BUILTINS 478\n-#define _LOAD_GLOBAL_MODULE 479\n+#define _LOAD_GLOBAL 478\n+#define _LOAD_GLOBAL_BUILTINS 479\n+#define _LOAD_GLOBAL_MODULE 480\n #define _LOAD_LOCALS LOAD_LOCALS\n #define _LOAD_NAME LOAD_NAME\n-#define _LOAD_SMALL_INT 480\n-#define _LOAD_SMALL_INT_0 481\n-#define _LOAD_SMALL_INT_1 482\n-#define _LOAD_SMALL_INT_2 483\n-#define _LOAD_SMALL_INT_3 484\n-#define _LOAD_SPECIAL 485\n+#define _LOAD_SMALL_INT 481\n+#define _LOAD_SMALL_INT_0 482\n+#define _LOAD_SMALL_INT_1 483\n+#define _LOAD_SMALL_INT_2 484\n+#define _LOAD_SMALL_INT_3 485\n+#define _LOAD_SPECIAL 486\n #define _LOAD_SUPER_ATTR_ATTR LOAD_SUPER_ATTR_ATTR\n #define _LOAD_SUPER_ATTR_METHOD LOAD_SUPER_ATTR_METHOD\n-#define _MAKE_CALLARGS_A_TUPLE 486\n+#define _MAKE_CALLARGS_A_TUPLE 487\n #define _MAKE_CELL MAKE_CELL\n #define _MAKE_FUNCTION MAKE_FUNCTION\n-#define _MAKE_WARM 487\n+#define _MAKE_WARM 488\n #define _MAP_ADD MAP_ADD\n #define _MATCH_CLASS MATCH_CLASS\n #define _MATCH_KEYS MATCH_KEYS\n #define _MATCH_MAPPING MATCH_MAPPING\n #define _MATCH_SEQUENCE MATCH_SEQUENCE\n-#define _MAYBE_EXPAND_METHOD 488\n-#define _MAYBE_EXPAND_METHOD_KW 489\n-#define _MONITOR_CALL 490\n-#define _MONITOR_CALL_KW 491\n-#define _MONITOR_JUMP_BACKWARD 492\n-#define _MONITOR_RESUME 493\n+#define _MAYBE_EXPAND_METHOD 489\n+#define _MAYBE_EXPAND_METHOD_KW 490\n+#define _MONITOR_CALL 491\n+#define _MONITOR_CALL_KW 492\n+#define _MONITOR_JUMP_BACKWARD 493\n+#define _MONITOR_RESUME 494\n #define _NOP NOP\n-#define _POP_CALL 494\n-#define _POP_CALL_LOAD_CONST_INLINE_BORROW 495\n-#define _POP_CALL_ONE 496\n-#define _POP_CALL_ONE_LOAD_CONST_INLINE_BORROW 497\n-#define _POP_CALL_TWO 498\n-#define _POP_CALL_TWO_LOAD_CONST_INLINE_BORROW 499\n+#define _POP_CALL 495\n+#define _POP_CALL_LOAD_CONST_INLINE_BORROW 496\n+#define _POP_CALL_ONE 497\n+#define _POP_CALL_ONE_LOAD_CONST_INLINE_BORROW 498\n+#define _POP_CALL_TWO 499\n+#define _POP_CALL_TWO_LOAD_CONST_INLINE_BORROW 500\n #define _POP_EXCEPT POP_EXCEPT\n #define _POP_ITER POP_ITER\n-#define _POP_JUMP_IF_FALSE 500\n-#define _POP_JUMP_IF_TRUE 501\n+#define _POP_JUMP_IF_FALSE 501\n+#define _POP_JUMP_IF_TRUE 502\n #define _POP_TOP POP_TOP\n-#define _POP_TOP_FLOAT 502\n-#define _POP_TOP_INT 503\n-#define _POP_TOP_LOAD_CONST_INLINE 504\n-#define _POP_TOP_LOAD_CONST_INLINE_BORROW 505\n-#define _POP_TOP_NOP 506\n-#define _POP_TOP_UNICODE 507\n-#define _POP_TWO 508\n-#define _POP_TWO_LOAD_CONST_INLINE_BORROW 509\n+#define _POP_TOP_FLOAT 503\n+#define _POP_TOP_INT 504\n+#define _POP_TOP_LOAD_CONST_INLINE 505\n+#define _POP_TOP_LOAD_CONST_INLINE_BORROW 506\n+#define _POP_TOP_NOP 507\n+#define _POP_TOP_UNICODE 508\n+#define _POP_TWO 509\n+#define _POP_TWO_LOAD_CONST_INLINE_BORROW 510\n #define _PUSH_EXC_INFO PUSH_EXC_INFO\n-#define _PUSH_FRAME 510\n+#define _PUSH_FRAME 511\n #define _PUSH_NULL PUSH_NULL\n-#define _PUSH_NULL_CONDITIONAL 511\n-#define _PY_FRAME_GENERAL 512\n-#define _PY_FRAME_KW 513\n-#define _QUICKEN_RESUME 514\n-#define _REPLACE_WITH_TRUE 515\n+#define _PUSH_NULL_CONDITIONAL 512\n+#define _PY_FRAME_GENERAL 513\n+#define _PY_FRAME_KW 514\n+#define _QUICKEN_RESUME 515\n+#define _REPLACE_WITH_TRUE 516\n #define _RESUME_CHECK RESUME_CHECK\n #define _RETURN_GENERATOR RETURN_GENERATOR\n #define _RETURN_VALUE RETURN_VALUE\n-#define _SAVE_RETURN_OFFSET 516\n-#define _SEND 517\n-#define _SEND_GEN_FRAME 518\n+#define _SAVE_RETURN_OFFSET 517\n+#define _SEND 518\n+#define _SEND_GEN_FRAME 519\n #define _SETUP_ANNOTATIONS SETUP_ANNOTATIONS\n #define _SET_ADD SET_ADD\n #define _SET_FUNCTION_ATTRIBUTE SET_FUNCTION_ATTRIBUTE\n #define _SET_UPDATE SET_UPDATE\n-#define _START_EXECUTOR 519\n-#define _STORE_ATTR 520\n-#define _STORE_ATTR_INSTANCE_VALUE 521\n-#define _STORE_ATTR_SLOT 522\n-#define _STORE_ATTR_WITH_HINT 523\n+#define _START_EXECUTOR 520\n+#define _STORE_ATTR 521\n+#define _STORE_ATTR_INSTANCE_VALUE 522\n+#define _STORE_ATTR_SLOT 523\n+#define _STORE_ATTR_WITH_HINT 524\n #define _STORE_DEREF STORE_DEREF\n-#define _STORE_FAST 524\n-#define _STORE_FAST_0 525\n-#define _STORE_FAST_1 526\n-#define _STORE_FAST_2 527\n-#define _STORE_FAST_3 528\n-#define _STORE_FAST_4 529\n-#define _STORE_FAST_5 530\n-#define _STORE_FAST_6 531\n-#define _STORE_FAST_7 532\n+#define _STORE_FAST 525\n+#define _STORE_FAST_0 526\n+#define _STORE_FAST_1 527\n+#define _STORE_FAST_2 528\n+#define _STORE_FAST_3 529\n+#define _STORE_FAST_4 530\n+#define _STORE_FAST_5 531\n+#define _STORE_FAST_6 532\n+#define _STORE_FAST_7 533\n #define _STORE_FAST_LOAD_FAST STORE_FAST_LOAD_FAST\n #define _STORE_FAST_STORE_FAST STORE_FAST_STORE_FAST\n #define _STORE_GLOBAL STORE_GLOBAL\n #define _STORE_NAME STORE_NAME\n-#define _STORE_SLICE 533\n-#define _STORE_SUBSCR 534\n-#define _STORE_SUBSCR_DICT 535\n-#define _STORE_SUBSCR_LIST_INT 536\n-#define _SWAP 537\n-#define _SWAP_2 538\n-#define _SWAP_3 539\n-#define _TIER2_RESUME_CHECK 540\n-#define _TO_BOOL 541\n+#define _STORE_SLICE 534\n+#define _STORE_SUBSCR 535\n+#define _STORE_SUBSCR_DICT 536\n+#define _STORE_SUBSCR_LIST_INT 537\n+#define _SWAP 538\n+#define _SWAP_2 539\n+#define _SWAP_3 540\n+#define _TIER2_RESUME_CHECK 541\n+#define _TO_BOOL 542\n #define _TO_BOOL_BOOL TO_BOOL_BOOL\n #define _TO_BOOL_INT TO_BOOL_INT\n-#define _TO_BOOL_LIST 542\n+#define _TO_BOOL_LIST 543\n #define _TO_BOOL_NONE TO_BOOL_NONE\n-#define _TO_BOOL_STR 543\n+#define _TO_BOOL_STR 544\n #define _UNARY_INVERT UNARY_INVERT\n #define _UNARY_NEGATIVE UNARY_NEGATIVE\n #define _UNARY_NOT UNARY_NOT\n #define _UNPACK_EX UNPACK_EX\n-#define _UNPACK_SEQUENCE 544\n-#define _UNPACK_SEQUENCE_LIST 545\n-#define _UNPACK_SEQUENCE_TUPLE 546\n-#define _UNPACK_SEQUENCE_TWO_TUPLE 547\n+#define _UNPACK_SEQUENCE 545\n+#define _UNPACK_SEQUENCE_LIST 546\n+#define _UNPACK_SEQUENCE_TUPLE 547\n+#define _UNPACK_SEQUENCE_TWO_TUPLE 548\n #define _WITH_EXCEPT_START WITH_EXCEPT_START\n #define _YIELD_VALUE YIELD_VALUE\n-#define MAX_UOP_ID 547\n+#define MAX_UOP_ID 548\n \n #ifdef __cplusplus\n }"
+    },
+    {
+      "sha": "3348ce0f204f5aa500ddc6bb7cfcecf29e264cb9",
+      "filename": "Include/internal/pycore_uop_metadata.h",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 1,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Finternal%2Fpycore_uop_metadata.h",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Include%2Finternal%2Fpycore_uop_metadata.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Finternal%2Fpycore_uop_metadata.h?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -330,12 +330,13 @@ const uint16_t _PyUop_Flags[MAX_UOP_ID+1] = {\n     [_LOAD_CONST_UNDER_INLINE] = 0,\n     [_LOAD_CONST_UNDER_INLINE_BORROW] = 0,\n     [_CHECK_FUNCTION] = HAS_DEOPT_FLAG,\n-    [_START_EXECUTOR] = 0,\n+    [_START_EXECUTOR] = HAS_DEOPT_FLAG | HAS_ESCAPES_FLAG,\n     [_MAKE_WARM] = 0,\n     [_FATAL_ERROR] = 0,\n     [_DEOPT] = 0,\n     [_ERROR_POP_N] = HAS_ARG_FLAG,\n     [_TIER2_RESUME_CHECK] = HAS_DEOPT_FLAG,\n+    [_COLD_EXIT] = HAS_ESCAPES_FLAG,\n };\n \n const ReplicationRange _PyUop_Replication[MAX_UOP_ID+1] = {\n@@ -419,6 +420,7 @@ const char *const _PyOpcode_uop_name[MAX_UOP_ID+1] = {\n     [_CHECK_STACK_SPACE] = \"_CHECK_STACK_SPACE\",\n     [_CHECK_STACK_SPACE_OPERAND] = \"_CHECK_STACK_SPACE_OPERAND\",\n     [_CHECK_VALIDITY] = \"_CHECK_VALIDITY\",\n+    [_COLD_EXIT] = \"_COLD_EXIT\",\n     [_COMPARE_OP] = \"_COMPARE_OP\",\n     [_COMPARE_OP_FLOAT] = \"_COMPARE_OP_FLOAT\",\n     [_COMPARE_OP_INT] = \"_COMPARE_OP_INT\",\n@@ -1301,6 +1303,8 @@ int _PyUop_num_popped(int opcode, int oparg)\n             return 0;\n         case _TIER2_RESUME_CHECK:\n             return 0;\n+        case _COLD_EXIT:\n+            return 0;\n         default:\n             return -1;\n     }"
+    },
+    {
+      "sha": "cdc0a785c6d72e73e9d51a7e5feb32427e946f7b",
+      "filename": "Python/bytecodes.c",
+      "status": "modified",
+      "additions": 45,
+      "deletions": 29,
+      "changes": 74,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fbytecodes.c",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fbytecodes.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fbytecodes.c?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -2964,6 +2964,8 @@ dummy_func(\n                 else {\n                     this_instr[1].counter = initial_jump_backoff_counter();\n                     assert(tstate->current_executor == NULL);\n+                    assert(executor != tstate->interp->cold_executor);\n+                    tstate->jit_exit = NULL;\n                     GOTO_TIER_TWO(executor);\n                 }\n             }\n@@ -3028,6 +3030,8 @@ dummy_func(\n                 }\n                 DISPATCH_GOTO();\n             }\n+            assert(executor != tstate->interp->cold_executor);\n+            tstate->jit_exit = NULL;\n             GOTO_TIER_TWO(executor);\n             #else\n             Py_FatalError(\"ENTER_EXECUTOR is not supported in this build\");\n@@ -5238,9 +5242,8 @@ dummy_func(\n \n         tier2 op(_EXIT_TRACE, (exit_p/4 --)) {\n             _PyExitData *exit = (_PyExitData *)exit_p;\n-            PyCodeObject *code = _PyFrame_GetCode(frame);\n-            _Py_CODEUNIT *target = _PyFrame_GetBytecode(frame) + exit->target;\n         #if defined(Py_DEBUG) && !defined(_Py_JIT)\n+            _Py_CODEUNIT *target = _PyFrame_GetBytecode(frame) + exit->target;\n             OPT_HIST(trace_uop_execution_counter, trace_run_length_hist);\n             if (frame->lltrace >= 2) {\n                 printf(\"SIDE EXIT: [UOp \");\n@@ -5251,32 +5254,7 @@ dummy_func(\n                     _PyOpcode_OpName[target->op.code]);\n             }\n         #endif\n-            if (exit->executor && !exit->executor->vm_data.valid) {\n-                exit->temperature = initial_temperature_backoff_counter();\n-                Py_CLEAR(exit->executor);\n-            }\n-            if (exit->executor == NULL) {\n-                _Py_BackoffCounter temperature = exit->temperature;\n-                if (!backoff_counter_triggers(temperature)) {\n-                    exit->temperature = advance_backoff_counter(temperature);\n-                    GOTO_TIER_ONE(target);\n-                }\n-                _PyExecutorObject *executor;\n-                if (target->op.code == ENTER_EXECUTOR) {\n-                    executor = code->co_executors->executors[target->op.arg];\n-                    Py_INCREF(executor);\n-                }\n-                else {\n-                    int chain_depth = current_executor->vm_data.chain_depth + 1;\n-                    int optimized = _PyOptimizer_Optimize(frame, target, &executor, chain_depth);\n-                    if (optimized <= 0) {\n-                        exit->temperature = restart_backoff_counter(temperature);\n-                        GOTO_TIER_ONE(optimized < 0 ? NULL : target);\n-                    }\n-                    exit->temperature = initial_temperature_backoff_counter();\n-                }\n-                exit->executor = executor;\n-            }\n+            tstate->jit_exit = exit;\n             GOTO_TIER_TWO(exit->executor);\n         }\n \n@@ -5375,7 +5353,14 @@ dummy_func(\n #ifndef _Py_JIT\n             current_executor = (_PyExecutorObject*)executor;\n #endif\n-            assert(((_PyExecutorObject *)executor)->vm_data.valid);\n+            assert(tstate->jit_exit == NULL || tstate->jit_exit->executor == current_executor);\n+            tstate->current_executor = (PyObject *)executor;\n+            if (!current_executor->vm_data.valid) {\n+                assert(tstate->jit_exit->executor == current_executor);\n+                assert(tstate->current_executor == executor);\n+                _PyExecutor_ClearExit(tstate->jit_exit);\n+                DEOPT_IF(true);\n+            }\n         }\n \n         tier2 op(_MAKE_WARM, (--)) {\n@@ -5414,6 +5399,37 @@ dummy_func(\n             assert(tstate->tracing || eval_breaker == FT_ATOMIC_LOAD_UINTPTR_ACQUIRE(_PyFrame_GetCode(frame)->_co_instrumentation_version));\n         }\n \n+        tier2 op(_COLD_EXIT, ( -- )) {\n+            _PyExitData *exit = tstate->jit_exit;\n+            assert(exit != NULL);\n+            _Py_CODEUNIT *target = _PyFrame_GetBytecode(frame) + exit->target;\n+            _Py_BackoffCounter temperature = exit->temperature;\n+            if (!backoff_counter_triggers(temperature)) {\n+                exit->temperature = advance_backoff_counter(temperature);\n+                GOTO_TIER_ONE(target);\n+            }\n+            _PyExecutorObject *executor;\n+            if (target->op.code == ENTER_EXECUTOR) {\n+                PyCodeObject *code = _PyFrame_GetCode(frame);\n+                executor = code->co_executors->executors[target->op.arg];\n+                Py_INCREF(executor);\n+            }\n+            else {\n+                _PyExecutorObject *previous_executor = _PyExecutor_FromExit(exit);\n+                assert(tstate->current_executor == (PyObject *)previous_executor);\n+                int chain_depth = previous_executor->vm_data.chain_depth + 1;\n+                int optimized = _PyOptimizer_Optimize(frame, target, &executor, chain_depth);\n+                if (optimized <= 0) {\n+                    exit->temperature = restart_backoff_counter(temperature);\n+                    GOTO_TIER_ONE(optimized < 0 ? NULL : target);\n+                }\n+                exit->temperature = initial_temperature_backoff_counter();\n+            }\n+            assert(tstate->jit_exit == exit);\n+            exit->executor = executor;\n+            GOTO_TIER_TWO(exit->executor);\n+        }\n+\n         label(pop_2_error) {\n             stack_pointer -= 2;\n             assert(WITHIN_STACK_BOUNDS());"
+    },
+    {
+      "sha": "e1045808af93d895972db790b874f6bfae149fe4",
+      "filename": "Python/ceval.c",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fceval.c",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fceval.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fceval.c?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -1158,7 +1158,7 @@ _PyEval_EvalFrameDefault(PyThreadState *tstate, _PyInterpreterFrame *frame, int\n     uint64_t trace_uop_execution_counter = 0;\n #endif\n \n-    assert(next_uop->opcode == _START_EXECUTOR);\n+    assert(next_uop->opcode == _START_EXECUTOR || next_uop->opcode == _COLD_EXIT);\n tier2_dispatch:\n     for (;;) {\n         uopcode = next_uop->opcode;"
+    },
+    {
+      "sha": "9ebcefbcb858503b0fc324d8c84e4fa99bef4960",
+      "filename": "Python/ceval_macros.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 4,
+      "changes": 5,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fceval_macros.h",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fceval_macros.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fceval_macros.h?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -359,7 +359,6 @@ _PyFrame_SetStackPointer(frame, stack_pointer)\n do {                                                   \\\n     OPT_STAT_INC(traces_executed);                     \\\n     _PyExecutorObject *_executor = (EXECUTOR);         \\\n-    tstate->current_executor = (PyObject *)_executor;  \\\n     jit_func jitted = _executor->jit_code;             \\\n     /* Keep the shim frame alive via the executor: */  \\\n     Py_INCREF(_executor);                              \\\n@@ -378,9 +377,8 @@ do {                                                   \\\n do { \\\n     OPT_STAT_INC(traces_executed); \\\n     _PyExecutorObject *_executor = (EXECUTOR); \\\n-    tstate->current_executor = (PyObject *)_executor; \\\n     next_uop = _executor->trace; \\\n-    assert(next_uop->opcode == _START_EXECUTOR); \\\n+    assert(next_uop->opcode == _START_EXECUTOR || next_uop->opcode == _COLD_EXIT); \\\n     goto enter_tier_two; \\\n } while (0)\n #endif\n@@ -390,7 +388,6 @@ do { \\\n     {                                                                 \\\n         tstate->current_executor = NULL;                              \\\n         next_instr = (TARGET);                                        \\\n-        assert(tstate->current_executor == NULL);                     \\\n         OPT_HIST(trace_uop_execution_counter, trace_run_length_hist); \\\n         _PyFrame_SetStackPointer(frame, stack_pointer);               \\\n         stack_pointer = _PyFrame_GetStackPointer(frame);              \\"
+    },
+    {
+      "sha": "c10797e3d8b1b2733e25f208db2817a048843746",
+      "filename": "Python/executor_cases.c.h",
+      "status": "modified",
+      "additions": 51,
+      "deletions": 33,
+      "changes": 84,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fexecutor_cases.c.h",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fexecutor_cases.c.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fexecutor_cases.c.h?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -7113,9 +7113,8 @@\n         case _EXIT_TRACE: {\n             PyObject *exit_p = (PyObject *)CURRENT_OPERAND0();\n             _PyExitData *exit = (_PyExitData *)exit_p;\n-            PyCodeObject *code = _PyFrame_GetCode(frame);\n-            _Py_CODEUNIT *target = _PyFrame_GetBytecode(frame) + exit->target;\n             #if defined(Py_DEBUG) && !defined(_Py_JIT)\n+            _Py_CODEUNIT *target = _PyFrame_GetBytecode(frame) + exit->target;\n             OPT_HIST(trace_uop_execution_counter, trace_run_length_hist);\n             if (frame->lltrace >= 2) {\n                 _PyFrame_SetStackPointer(frame, stack_pointer);\n@@ -7128,36 +7127,7 @@\n                 stack_pointer = _PyFrame_GetStackPointer(frame);\n             }\n             #endif\n-            if (exit->executor && !exit->executor->vm_data.valid) {\n-                exit->temperature = initial_temperature_backoff_counter();\n-                _PyFrame_SetStackPointer(frame, stack_pointer);\n-                Py_CLEAR(exit->executor);\n-                stack_pointer = _PyFrame_GetStackPointer(frame);\n-            }\n-            if (exit->executor == NULL) {\n-                _Py_BackoffCounter temperature = exit->temperature;\n-                if (!backoff_counter_triggers(temperature)) {\n-                    exit->temperature = advance_backoff_counter(temperature);\n-                    GOTO_TIER_ONE(target);\n-                }\n-                _PyExecutorObject *executor;\n-                if (target->op.code == ENTER_EXECUTOR) {\n-                    executor = code->co_executors->executors[target->op.arg];\n-                    Py_INCREF(executor);\n-                }\n-                else {\n-                    int chain_depth = current_executor->vm_data.chain_depth + 1;\n-                    _PyFrame_SetStackPointer(frame, stack_pointer);\n-                    int optimized = _PyOptimizer_Optimize(frame, target, &executor, chain_depth);\n-                    stack_pointer = _PyFrame_GetStackPointer(frame);\n-                    if (optimized <= 0) {\n-                        exit->temperature = restart_backoff_counter(temperature);\n-                        GOTO_TIER_ONE(optimized < 0 ? NULL : target);\n-                    }\n-                    exit->temperature = initial_temperature_backoff_counter();\n-                }\n-                exit->executor = executor;\n-            }\n+            tstate->jit_exit = exit;\n             GOTO_TIER_TWO(exit->executor);\n             break;\n         }\n@@ -7438,7 +7408,19 @@\n             #ifndef _Py_JIT\n             current_executor = (_PyExecutorObject*)executor;\n             #endif\n-            assert(((_PyExecutorObject *)executor)->vm_data.valid);\n+            assert(tstate->jit_exit == NULL || tstate->jit_exit->executor == current_executor);\n+            tstate->current_executor = (PyObject *)executor;\n+            if (!current_executor->vm_data.valid) {\n+                assert(tstate->jit_exit->executor == current_executor);\n+                assert(tstate->current_executor == executor);\n+                _PyFrame_SetStackPointer(frame, stack_pointer);\n+                _PyExecutor_ClearExit(tstate->jit_exit);\n+                stack_pointer = _PyFrame_GetStackPointer(frame);\n+                if (true) {\n+                    UOP_STAT_INC(uopcode, miss);\n+                    JUMP_TO_JUMP_TARGET();\n+                }\n+            }\n             break;\n         }\n \n@@ -7487,4 +7469,40 @@\n             break;\n         }\n \n+        case _COLD_EXIT: {\n+            _PyExitData *exit = tstate->jit_exit;\n+            assert(exit != NULL);\n+            _Py_CODEUNIT *target = _PyFrame_GetBytecode(frame) + exit->target;\n+            _Py_BackoffCounter temperature = exit->temperature;\n+            if (!backoff_counter_triggers(temperature)) {\n+                exit->temperature = advance_backoff_counter(temperature);\n+                GOTO_TIER_ONE(target);\n+            }\n+            _PyExecutorObject *executor;\n+            if (target->op.code == ENTER_EXECUTOR) {\n+                PyCodeObject *code = _PyFrame_GetCode(frame);\n+                executor = code->co_executors->executors[target->op.arg];\n+                Py_INCREF(executor);\n+            }\n+            else {\n+                _PyFrame_SetStackPointer(frame, stack_pointer);\n+                _PyExecutorObject *previous_executor = _PyExecutor_FromExit(exit);\n+                stack_pointer = _PyFrame_GetStackPointer(frame);\n+                assert(tstate->current_executor == (PyObject *)previous_executor);\n+                int chain_depth = previous_executor->vm_data.chain_depth + 1;\n+                _PyFrame_SetStackPointer(frame, stack_pointer);\n+                int optimized = _PyOptimizer_Optimize(frame, target, &executor, chain_depth);\n+                stack_pointer = _PyFrame_GetStackPointer(frame);\n+                if (optimized <= 0) {\n+                    exit->temperature = restart_backoff_counter(temperature);\n+                    GOTO_TIER_ONE(optimized < 0 ? NULL : target);\n+                }\n+                exit->temperature = initial_temperature_backoff_counter();\n+            }\n+            assert(tstate->jit_exit == exit);\n+            exit->executor = executor;\n+            GOTO_TIER_TWO(exit->executor);\n+            break;\n+        }\n+\n #undef TIER_TWO"
+    },
+    {
+      "sha": "b83ab941ed2b70e2e2a1f09e42a8adbb0f8bdf43",
+      "filename": "Python/generated_cases.c.h",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fgenerated_cases.c.h",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fgenerated_cases.c.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fgenerated_cases.c.h?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -5595,6 +5595,8 @@\n                 }\n                 DISPATCH_GOTO();\n             }\n+            assert(executor != tstate->interp->cold_executor);\n+            tstate->jit_exit = NULL;\n             GOTO_TIER_TWO(executor);\n             #else\n             Py_FatalError(\"ENTER_EXECUTOR is not supported in this build\");\n@@ -7793,6 +7795,8 @@\n                         this_instr[1].counter = initial_jump_backoff_counter();\n                         stack_pointer = _PyFrame_GetStackPointer(frame);\n                         assert(tstate->current_executor == NULL);\n+                        assert(executor != tstate->interp->cold_executor);\n+                        tstate->jit_exit = NULL;\n                         GOTO_TIER_TWO(executor);\n                     }\n                 }"
+    },
+    {
+      "sha": "bd6a5e17a4164f0f27234b5d6c4d620df7136b01",
+      "filename": "Python/jit.c",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fjit.c",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fjit.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fjit.c?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -546,7 +546,7 @@ _PyJIT_Compile(_PyExecutorObject *executor, const _PyUOpInstruction trace[], siz\n     group->emit(code, data, executor, NULL, &state);\n     code += group->code_size;\n     data += group->data_size;\n-    assert(trace[0].opcode == _START_EXECUTOR);\n+    assert(trace[0].opcode == _START_EXECUTOR || trace[0].opcode == _COLD_EXIT);\n     for (size_t i = 0; i < length; i++) {\n         const _PyUOpInstruction *instruction = &trace[i];\n         group = &stencil_groups[instruction->opcode];"
+    },
+    {
+      "sha": "6a9b6824a531ac7539e63450de05be5ed6ea0c48",
+      "filename": "Python/optimizer.c",
+      "status": "modified",
+      "additions": 59,
+      "deletions": 6,
+      "changes": 65,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Foptimizer.c",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Foptimizer.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Foptimizer.c?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -205,8 +205,8 @@ static int executor_clear(PyObject *executor);\n static void unlink_executor(_PyExecutorObject *executor);\n \n \n-static void\n-free_executor(_PyExecutorObject *self)\n+void\n+_PyExecutor_Free(_PyExecutorObject *self)\n {\n #ifdef _Py_JIT\n     _PyJIT_Free(self);\n@@ -242,7 +242,7 @@ _Py_ClearExecutorDeletionList(PyInterpreterState *interp)\n         }\n         else {\n             *prev_to_next_ptr = exec->vm_data.links.next;\n-            free_executor(exec);\n+            _PyExecutor_Free(exec);\n         }\n         exec = *prev_to_next_ptr;\n     }\n@@ -1129,7 +1129,7 @@ sanity_check(_PyExecutorObject *executor)\n     }\n     bool ended = false;\n     uint32_t i = 0;\n-    CHECK(executor->trace[0].opcode == _START_EXECUTOR);\n+    CHECK(executor->trace[0].opcode == _START_EXECUTOR || executor->trace[0].opcode == _COLD_EXIT);\n     for (; i < executor->code_size; i++) {\n         const _PyUOpInstruction *inst = &executor->trace[i];\n         uint16_t opcode = inst->opcode;\n@@ -1182,9 +1182,11 @@ make_executor_from_uops(_PyUOpInstruction *buffer, int length, const _PyBloomFil\n     }\n \n     /* Initialize exits */\n+    _PyExecutorObject *cold = _PyExecutor_GetColdExecutor();\n     for (int i = 0; i < exit_count; i++) {\n-        executor->exits[i].executor = NULL;\n+        executor->exits[i].index = i;\n         executor->exits[i].temperature = initial_temperature_backoff_counter();\n+        executor->exits[i].executor = cold;\n     }\n     int next_exit = exit_count-1;\n     _PyUOpInstruction *dest = (_PyUOpInstruction *)&executor->trace[length];\n@@ -1462,6 +1464,46 @@ _Py_ExecutorInit(_PyExecutorObject *executor, const _PyBloomFilter *dependency_s\n     link_executor(executor);\n }\n \n+_PyExecutorObject *\n+_PyExecutor_GetColdExecutor(void)\n+{\n+    PyInterpreterState *interp = _PyInterpreterState_GET();\n+    if (interp->cold_executor != NULL) {\n+        return interp->cold_executor;\n+    }\n+    _PyExecutorObject *cold = allocate_executor(0, 1);\n+    if (cold == NULL) {\n+        Py_FatalError(\"Cannot allocate core JIT code\");\n+    }\n+    ((_PyUOpInstruction *)cold->trace)->opcode = _COLD_EXIT;\n+#ifdef _Py_JIT\n+    cold->jit_code = NULL;\n+    cold->jit_side_entry = NULL;\n+    cold->jit_size = 0;\n+    // This is initialized to true so we can prevent the executor\n+    // from being immediately detected as cold and invalidated.\n+    cold->vm_data.warm = true;\n+    if (_PyJIT_Compile(cold, cold->trace, 1)) {\n+        Py_DECREF(cold);\n+        Py_FatalError(\"Cannot allocate core JIT code\");\n+    }\n+#endif\n+    _Py_SetImmortal((PyObject *)cold);\n+    interp->cold_executor = cold;\n+    return cold;\n+}\n+\n+void\n+_PyExecutor_ClearExit(_PyExitData *exit)\n+{\n+    if (exit == NULL) {\n+        return;\n+    }\n+    _PyExecutorObject *old = exit->executor;\n+    exit->executor = _PyExecutor_GetColdExecutor();\n+    Py_DECREF(old);\n+}\n+\n /* Detaches the executor from the code object (if any) that\n  * holds a reference to it */\n void\n@@ -1492,14 +1534,18 @@ executor_clear(PyObject *op)\n     assert(executor->vm_data.valid == 1);\n     unlink_executor(executor);\n     executor->vm_data.valid = 0;\n+\n     /* It is possible for an executor to form a reference\n      * cycle with itself, so decref'ing a side exit could\n      * free the executor unless we hold a strong reference to it\n      */\n+    _PyExecutorObject *cold = _PyExecutor_GetColdExecutor();\n     Py_INCREF(executor);\n     for (uint32_t i = 0; i < executor->exit_count; i++) {\n         executor->exits[i].temperature = initial_unreachable_backoff_counter();\n-        Py_CLEAR(executor->exits[i].executor);\n+        _PyExecutorObject *e = executor->exits[i].executor;\n+        executor->exits[i].executor = cold;\n+        Py_DECREF(e);\n     }\n     _Py_ExecutorDetach(executor);\n     Py_DECREF(executor);\n@@ -1741,4 +1787,11 @@ _PyDumpExecutors(FILE *out)\n     return -1;\n }\n \n+void\n+_PyExecutor_Free(struct _PyExecutorObject *self)\n+{\n+    /* This should never be called */\n+    Py_UNREACHABLE();\n+}\n+\n #endif /* _Py_TIER2 */"
+    },
+    {
+      "sha": "6ec85a93f46b3e3d517ee47a54c21dbc5f919470",
+      "filename": "Python/optimizer_cases.c.h",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Foptimizer_cases.c.h",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Foptimizer_cases.c.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Foptimizer_cases.c.h?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -3206,3 +3206,7 @@\n             break;\n         }\n \n+        case _COLD_EXIT: {\n+            break;\n+        }\n+"
+    },
+    {
+      "sha": "c77868bc717daf2f78ed5bd7d2e582ea7e982992",
+      "filename": "Python/pystate.c",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 1,
+      "changes": 9,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fpystate.c",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Python%2Fpystate.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fpystate.c?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -815,7 +815,13 @@ interpreter_clear(PyInterpreterState *interp, PyThreadState *tstate)\n     /* Last garbage collection on this interpreter */\n     _PyGC_CollectNoFail(tstate);\n     _PyGC_Fini(interp);\n-\n+    struct _PyExecutorObject *cold = interp->cold_executor;\n+    if (cold != NULL) {\n+        interp->cold_executor = NULL;\n+        assert(cold->vm_data.valid);\n+        assert(cold->vm_data.warm);\n+        _PyExecutor_Free(cold);\n+    }\n     /* We don't clear sysdict and builtins until the end of this function.\n        Because clearing other attributes can execute arbitrary Python code\n        which requires sysdict and builtins. */\n@@ -1469,6 +1475,7 @@ init_threadstate(_PyThreadStateImpl *_tstate,\n     tstate->datastack_limit = NULL;\n     tstate->what_event = -1;\n     tstate->current_executor = NULL;\n+    tstate->jit_exit = NULL;\n     tstate->dict_global_version = 0;\n \n     _tstate->c_stack_soft_limit = UINTPTR_MAX;"
+    },
+    {
+      "sha": "7bbc44a08a0a989302ddd6a20f91062876739c66",
+      "filename": "Tools/jit/template.c",
+      "status": "modified",
+      "additions": 0,
+      "deletions": 1,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Tools%2Fjit%2Ftemplate.c",
+      "raw_url": "https://github.com/python/cpython/raw/e7b55f564dbf5a788e8f6edc55ef441d6afad01c/Tools%2Fjit%2Ftemplate.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Tools%2Fjit%2Ftemplate.c?ref=e7b55f564dbf5a788e8f6edc55ef441d6afad01c",
+      "patch": "@@ -51,7 +51,6 @@\n do {                                                                       \\\n     OPT_STAT_INC(traces_executed);                                         \\\n     _PyExecutorObject *_executor = (EXECUTOR);                             \\\n-    tstate->current_executor = (PyObject *)_executor;                      \\\n     jit_func_preserve_none jitted = _executor->jit_side_entry;             \\\n     __attribute__((musttail)) return jitted(frame, stack_pointer, tstate); \\\n } while (0)"
+    }
+  ]
+}

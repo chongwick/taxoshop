@@ -1,0 +1,108 @@
+{
+  "retrieved_at": "2026-09-10T13:10:00.970693+00:00",
+  "issue": {
+    "url": "https://api.github.com/repos/python/cpython/issues/153014",
+    "repository_url": "https://api.github.com/repos/python/cpython",
+    "labels_url": "https://api.github.com/repos/python/cpython/issues/153014/labels{/name}",
+    "comments_url": "https://api.github.com/repos/python/cpython/issues/153014/comments",
+    "events_url": "https://api.github.com/repos/python/cpython/issues/153014/events",
+    "html_url": "https://github.com/python/cpython/issues/153014",
+    "id": 4808566535,
+    "node_id": "I_kwDOBN0Z8c8AAAABHpznBw",
+    "number": 153014,
+    "title": "Data race on the GC debug flag (gc.set_debug/get_debug) in free-threading builds",
+    "user": {
+      "login": "tonghuaroot",
+      "id": 23011166,
+      "node_id": "MDQ6VXNlcjIzMDExMTY2",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23011166?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/tonghuaroot",
+      "html_url": "https://github.com/tonghuaroot",
+      "followers_url": "https://api.github.com/users/tonghuaroot/followers",
+      "following_url": "https://api.github.com/users/tonghuaroot/following{/other_user}",
+      "gists_url": "https://api.github.com/users/tonghuaroot/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/tonghuaroot/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/tonghuaroot/subscriptions",
+      "organizations_url": "https://api.github.com/users/tonghuaroot/orgs",
+      "repos_url": "https://api.github.com/users/tonghuaroot/repos",
+      "events_url": "https://api.github.com/users/tonghuaroot/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/tonghuaroot/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 536871770,
+        "node_id": "MDU6TGFiZWw1MzY4NzE3NzA=",
+        "url": "https://api.github.com/repos/python/cpython/labels/type-bug",
+        "name": "type-bug",
+        "color": "e99695",
+        "default": false,
+        "description": "An unexpected behavior, bug, or error"
+      },
+      {
+        "id": 4018672955,
+        "node_id": "LA_kwDOBN0Z8c7viBU7",
+        "url": "https://api.github.com/repos/python/cpython/labels/extension-modules",
+        "name": "extension-modules",
+        "color": "09fc59",
+        "default": false,
+        "description": "C modules in the Modules dir"
+      },
+      {
+        "id": 6140426713,
+        "node_id": "LA_kwDOBN0Z8c8AAAABbf952Q",
+        "url": "https://api.github.com/repos/python/cpython/labels/topic-free-threading",
+        "name": "topic-free-threading",
+        "color": "0052cc",
+        "default": false,
+        "description": ""
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignees": [],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2026-07-04T10:20:06Z",
+    "updated_at": "2026-07-04T11:32:35Z",
+    "closed_at": null,
+    "assignee": null,
+    "author_association": "CONTRIBUTOR",
+    "issue_field_values": [],
+    "type": null,
+    "active_lock_reason": null,
+    "sub_issues_summary": {
+      "total": 0,
+      "completed": 0,
+      "percent_completed": 0
+    },
+    "issue_dependencies_summary": {
+      "blocked_by": 0,
+      "total_blocked_by": 0,
+      "blocking": 0,
+      "total_blocking": 0
+    },
+    "body": "# Bug report\n\nIn a free-threading build (`--disable-gil`), the garbage collector debug flag\n`gcstate->debug` is read and written without synchronisation:\n\n- **Write**: `gc_set_debug_impl()` (`Modules/gcmodule.c`) does a plain\n  `gcstate->debug = flags`. Unlike `gc_set_threshold_impl()`, which runs its\n  free-threading branch under `_PyEval_StopTheWorld()`, `gc.set_debug()` takes\n  no lock and does not stop the world.\n- **Read**: `gc_get_debug_impl()` returns `gcstate->debug` directly, and the\n  collector in `Python/gc_free_threading.c` reads `gcstate->debug` /\n  `interp->gc.debug` in several places while walking the graph.\n\nSo one thread calling `gc.set_debug()` concurrently with another calling\n`gc.get_debug()` or triggering a collection is an unsynchronised read/write of\nthe same `int`. The flag is only an `int`, so the effect stays benign at the\nPython level, but it is undefined behaviour under C11 and ThreadSanitizer\nreports it as a data race.\n\nThis is the same class of issue already fixed for `sys` dlopenflags\n(gh-151644) and `gc.get_stats()` (gh-151646). `gc.enable()` / `gc.disable()`\nin the same file already access `gcstate->enabled` atomically; the debug flag\nwas missed.\n\n## ThreadSanitizer output\n\nBuilt with `./configure --with-thread-sanitizer --disable-gil` and stressed\nwith concurrent `gc.set_debug()` / `gc.get_debug()` plus a thread churning\ncyclic garbage so the collector runs:\n\n```\nWARNING: ThreadSanitizer: data race\n  Write of size 4 at 0x...6c by thread T2:\n    #0 gc_set_debug gcmodule.c.h:186\n  Previous write of size 4 at 0x...6c by thread T1:\n    #0 gc_set_debug gcmodule.c.h:186\n  Location is global '_PyRuntime'\n```\n\n## How to reproduce\n\n1. `./configure --with-thread-sanitizer --disable-gil && make`\n2. Run a script that starts a few threads calling `gc.set_debug(...)` /\n   `gc.get_debug()` in a loop, plus a thread that builds reference cycles and\n   calls `gc.collect()`.\n3. TSan reports the write/write race on `gcstate->debug`.\n\n## Suggested fix\n\nAccess the flag with `FT_ATOMIC_STORE_INT_RELAXED` / `FT_ATOMIC_LOAD_INT_RELAXED`\nin `gc_set_debug_impl()` / `gc_get_debug_impl()` and in the collector reads,\nmatching how `gcstate->enabled` and dlopenflags are already handled. Relaxed\nordering is correct for an independent `int` flag. These wrappers compile to a\nplain load/store in the default (GIL) build, so there is no change there.\n\n\n<!-- gh-linked-prs -->\n### Linked PRs\n* gh-153015\n<!-- /gh-linked-prs -->\n",
+    "closed_by": null,
+    "reactions": {
+      "url": "https://api.github.com/repos/python/cpython/issues/153014/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "timeline_url": "https://api.github.com/repos/python/cpython/issues/153014/timeline",
+    "performed_via_github_app": null,
+    "state_reason": null,
+    "pinned_comment": null
+  },
+  "comments": []
+}

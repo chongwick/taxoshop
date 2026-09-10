@@ -1,0 +1,101 @@
+{
+  "sha": "a9b6033179b64b985394ad351501089a6a94fc9d",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6YTliNjAzMzE3OWI2NGI5ODUzOTRhZDM1MTUwMTA4OWE2YTk0ZmM5ZA==",
+  "commit": {
+    "author": {
+      "name": "Ben Harper",
+      "email": "btharper1221@gmail.com",
+      "date": "2019-09-10T15:20:15Z"
+    },
+    "committer": {
+      "name": "T. Wouters",
+      "email": "thomas@python.org",
+      "date": "2019-09-10T15:20:15Z"
+    },
+    "message": "bpo-36253: Remove use after free reference in ctypes test suite (GH-12257)",
+    "tree": {
+      "sha": "9eb94eddcae546954d94b0e80987ff2c1f30f770",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/9eb94eddcae546954d94b0e80987ff2c1f30f770"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/a9b6033179b64b985394ad351501089a6a94fc9d",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/a9b6033179b64b985394ad351501089a6a94fc9d",
+  "html_url": "https://github.com/python/cpython/commit/a9b6033179b64b985394ad351501089a6a94fc9d",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/a9b6033179b64b985394ad351501089a6a94fc9d/comments",
+  "author": {
+    "login": "btharper",
+    "id": 820713,
+    "node_id": "MDQ6VXNlcjgyMDcxMw==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/820713?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/btharper",
+    "html_url": "https://github.com/btharper",
+    "followers_url": "https://api.github.com/users/btharper/followers",
+    "following_url": "https://api.github.com/users/btharper/following{/other_user}",
+    "gists_url": "https://api.github.com/users/btharper/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/btharper/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/btharper/subscriptions",
+    "organizations_url": "https://api.github.com/users/btharper/orgs",
+    "repos_url": "https://api.github.com/users/btharper/repos",
+    "events_url": "https://api.github.com/users/btharper/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/btharper/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "Yhg1s",
+    "id": 3949752,
+    "node_id": "MDQ6VXNlcjM5NDk3NTI=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/3949752?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/Yhg1s",
+    "html_url": "https://github.com/Yhg1s",
+    "followers_url": "https://api.github.com/users/Yhg1s/followers",
+    "following_url": "https://api.github.com/users/Yhg1s/following{/other_user}",
+    "gists_url": "https://api.github.com/users/Yhg1s/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/Yhg1s/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/Yhg1s/subscriptions",
+    "organizations_url": "https://api.github.com/users/Yhg1s/orgs",
+    "repos_url": "https://api.github.com/users/Yhg1s/repos",
+    "events_url": "https://api.github.com/users/Yhg1s/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/Yhg1s/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "912108891db52c2067889be1f4ce5713839807cd",
+      "url": "https://api.github.com/repos/python/cpython/commits/912108891db52c2067889be1f4ce5713839807cd",
+      "html_url": "https://github.com/python/cpython/commit/912108891db52c2067889be1f4ce5713839807cd"
+    }
+  ],
+  "stats": {
+    "total": 4,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    {
+      "sha": "c20951f4ce0016930de71c56b71b5621e4d1d227",
+      "filename": "Lib/ctypes/test/test_stringptr.py",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "blob_url": "https://github.com/python/cpython/blob/a9b6033179b64b985394ad351501089a6a94fc9d/Lib%2Fctypes%2Ftest%2Ftest_stringptr.py",
+      "raw_url": "https://github.com/python/cpython/raw/a9b6033179b64b985394ad351501089a6a94fc9d/Lib%2Fctypes%2Ftest%2Ftest_stringptr.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Fctypes%2Ftest%2Ftest_stringptr.py?ref=a9b6033179b64b985394ad351501089a6a94fc9d",
+      "patch": "@@ -70,8 +70,8 @@ def test_functions(self):\n         x = r[0], r[1], r[2], r[3], r[4]\n         self.assertEqual(x, (b\"c\", b\"d\", b\"e\", b\"f\", b\"\\000\"))\n         del buf\n-        # x1 will NOT be the same as x, usually:\n-        x1 = r[0], r[1], r[2], r[3], r[4]\n+        # Because r is a pointer to memory that is freed after deleting buf,\n+        # the pointer is hanging and using it would reference freed memory.\n \n if __name__ == '__main__':\n     unittest.main()"
+    }
+  ]
+}

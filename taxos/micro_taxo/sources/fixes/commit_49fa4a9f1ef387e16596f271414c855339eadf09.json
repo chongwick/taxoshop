@@ -1,0 +1,125 @@
+{
+  "sha": "49fa4a9f1ef387e16596f271414c855339eadf09",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6NDlmYTRhOWYxZWYzODdlMTY1OTZmMjcxNDE0Yzg1NTMzOWVhZGYwOQ==",
+  "commit": {
+    "author": {
+      "name": "Gregory P. Smith",
+      "email": "greg@krypto.org",
+      "date": "2018-11-09T01:55:07Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2018-11-09T01:55:07Z"
+    },
+    "message": "bpo-35193: Fix an off by one error in the RETURN_VALUE case. (GH-10418)\n\nFix an off by one error in the peephole optimizer when checking for unreachable code beyond a return.\r\n\r\nDo a bounds check within find_op so it can return before going past the end as a safety measure.\r\n\r\nhttps://github.com/python/cpython/commit/7db3c488335168993689ddae5914a28e16188447#diff-a33329ae6ae0bb295d742f0caf93c137\r\nintroduced this off by one error while fixing another one nearby.\r\n\r\nThis bug was shipped in all Python 3.6 and 3.7 releases.\r\n\r\nThe included unittest won't fail unless you do a clang msan build.",
+    "tree": {
+      "sha": "87c3064e9afd4029016660e977d4cccf9c4d4f70",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/87c3064e9afd4029016660e977d4cccf9c4d4f70"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/49fa4a9f1ef387e16596f271414c855339eadf09",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJb5Oj7CRBK7hj4Ov3rIwAAdHIIAKW/nsU2MGUMsXLmBbn2jI/h\nVxpsCqLlVtd+eIOUOwr/OlLfXmt4OlJ7WKOJzRoE6NFR+rALBGCwmSYn6lqkSfbe\n5O+OId0fXxQG4EBnJnFlWLmQ+/wScQ1nIzUcZl3OyzfvBelHN313aiM5zWEEvaQk\nUL0T3CiReNTxpJA1r+fpAd7ualJJTkzsf0ctxf1VrfK4HqgDxGWI6C8VyuMOH/H0\n/7Wtl7a7ZYxAm8RFV1Zv53iVsvzju9XYSjZGVZxzMsYYd9egFNJ9M8zcItse++BV\nCHUjKB76hYqqihE11A3CJpE5hP8QxQocEOgygO8g0KYBOQdwA3oxYiKmNlpKAWc=\n=Q8Fn\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 87c3064e9afd4029016660e977d4cccf9c4d4f70\nparent fd512d76456b65c529a5bc58d8cfe73e4a10de7a\nauthor Gregory P. Smith <greg@krypto.org> 1541728507 -0800\ncommitter GitHub <noreply@github.com> 1541728507 -0800\n\nbpo-35193: Fix an off by one error in the RETURN_VALUE case. (GH-10418)\n\nFix an off by one error in the peephole optimizer when checking for unreachable code beyond a return.\r\n\r\nDo a bounds check within find_op so it can return before going past the end as a safety measure.\r\n\r\nhttps://github.com/python/cpython/commit/7db3c488335168993689ddae5914a28e16188447#diff-a33329ae6ae0bb295d742f0caf93c137\r\nintroduced this off by one error while fixing another one nearby.\r\n\r\nThis bug was shipped in all Python 3.6 and 3.7 releases.\r\n\r\nThe included unittest won't fail unless you do a clang msan build.",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/49fa4a9f1ef387e16596f271414c855339eadf09",
+  "html_url": "https://github.com/python/cpython/commit/49fa4a9f1ef387e16596f271414c855339eadf09",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/49fa4a9f1ef387e16596f271414c855339eadf09/comments",
+  "author": {
+    "login": "gpshead",
+    "id": 68491,
+    "node_id": "MDQ6VXNlcjY4NDkx",
+    "avatar_url": "https://avatars.githubusercontent.com/u/68491?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/gpshead",
+    "html_url": "https://github.com/gpshead",
+    "followers_url": "https://api.github.com/users/gpshead/followers",
+    "following_url": "https://api.github.com/users/gpshead/following{/other_user}",
+    "gists_url": "https://api.github.com/users/gpshead/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/gpshead/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/gpshead/subscriptions",
+    "organizations_url": "https://api.github.com/users/gpshead/orgs",
+    "repos_url": "https://api.github.com/users/gpshead/repos",
+    "events_url": "https://api.github.com/users/gpshead/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/gpshead/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "fd512d76456b65c529a5bc58d8cfe73e4a10de7a",
+      "url": "https://api.github.com/repos/python/cpython/commits/fd512d76456b65c529a5bc58d8cfe73e4a10de7a",
+      "html_url": "https://github.com/python/cpython/commit/fd512d76456b65c529a5bc58d8cfe73e4a10de7a"
+    }
+  ],
+  "stats": {
+    "total": 44,
+    "additions": 34,
+    "deletions": 10
+  },
+  "files": [
+    {
+      "sha": "a086ef65b44a6c7cb767eb861bca50674eaf31d1",
+      "filename": "Lib/test/test_compile.py",
+      "status": "modified",
+      "additions": 19,
+      "deletions": 0,
+      "changes": 19,
+      "blob_url": "https://github.com/python/cpython/blob/49fa4a9f1ef387e16596f271414c855339eadf09/Lib%2Ftest%2Ftest_compile.py",
+      "raw_url": "https://github.com/python/cpython/raw/49fa4a9f1ef387e16596f271414c855339eadf09/Lib%2Ftest%2Ftest_compile.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_compile.py?ref=49fa4a9f1ef387e16596f271414c855339eadf09",
+      "patch": "@@ -1,3 +1,4 @@\n+import dis\n import math\n import os\n import unittest\n@@ -621,6 +622,24 @@ def check_same_constant(const):\n         self.check_constant(f1, frozenset({0}))\n         self.assertTrue(f1(0))\n \n+    # This is a regression test for a CPython specific peephole optimizer\n+    # implementation bug present in a few releases.  It's assertion verifies\n+    # that peephole optimization was actually done though that isn't an\n+    # indication of the bugs presence or not (crashing is).\n+    @support.cpython_only\n+    def test_peephole_opt_unreachable_code_array_access_in_bounds(self):\n+        \"\"\"Regression test for issue35193 when run under clang msan.\"\"\"\n+        def unused_code_at_end():\n+            return 3\n+            raise RuntimeError(\"unreachable\")\n+        # The above function definition will trigger the out of bounds\n+        # bug in the peephole optimizer as it scans opcodes past the\n+        # RETURN_VALUE opcode.  This does not always crash an interpreter.\n+        # When you build with the clang memory sanitizer it reliably aborts.\n+        self.assertEqual(\n+            'RETURN_VALUE',\n+            list(dis.get_instructions(unused_code_at_end))[-1].opname)\n+\n     def test_dont_merge_constants(self):\n         # Issue #25843: compile() must not merge constants which are equal\n         # but have a different type."
+    },
+    {
+      "sha": "dddebe16708086990b87d0713e45a857691230dc",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2018-11-08-15-00-58.bpo-35193.HzPS6R.rst",
+      "status": "added",
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/49fa4a9f1ef387e16596f271414c855339eadf09/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2018-11-08-15-00-58.bpo-35193.HzPS6R.rst",
+      "raw_url": "https://github.com/python/cpython/raw/49fa4a9f1ef387e16596f271414c855339eadf09/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2018-11-08-15-00-58.bpo-35193.HzPS6R.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2018-11-08-15-00-58.bpo-35193.HzPS6R.rst?ref=49fa4a9f1ef387e16596f271414c855339eadf09",
+      "patch": "@@ -0,0 +1,3 @@\n+Fix an off by one error in the bytecode peephole optimizer where it could read\n+bytes beyond the end of bounds of an array when removing unreachable code.\n+This bug was present in every release of Python 3.6 and 3.7 until now."
+    },
+    {
+      "sha": "77d134939f8de9fc28882ea6c08f6fbe44a13e52",
+      "filename": "Python/peephole.c",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 10,
+      "changes": 22,
+      "blob_url": "https://github.com/python/cpython/blob/49fa4a9f1ef387e16596f271414c855339eadf09/Python%2Fpeephole.c",
+      "raw_url": "https://github.com/python/cpython/raw/49fa4a9f1ef387e16596f271414c855339eadf09/Python%2Fpeephole.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Python%2Fpeephole.c?ref=49fa4a9f1ef387e16596f271414c855339eadf09",
+      "patch": "@@ -50,9 +50,9 @@ lastn_const_start(const _Py_CODEUNIT *codestr, Py_ssize_t i, Py_ssize_t n)\n \n /* Scans through EXTENDED ARGs, seeking the index of the effective opcode */\n static Py_ssize_t\n-find_op(const _Py_CODEUNIT *codestr, Py_ssize_t i)\n+find_op(const _Py_CODEUNIT *codestr, Py_ssize_t codelen, Py_ssize_t i)\n {\n-    while (_Py_OPCODE(codestr[i]) == EXTENDED_ARG) {\n+    while (i < codelen && _Py_OPCODE(codestr[i]) == EXTENDED_ARG) {\n         i++;\n     }\n     return i;\n@@ -128,8 +128,9 @@ copy_op_arg(_Py_CODEUNIT *codestr, Py_ssize_t i, unsigned char op,\n    Called with codestr pointing to the first LOAD_CONST.\n */\n static Py_ssize_t\n-fold_tuple_on_constants(_Py_CODEUNIT *codestr, Py_ssize_t c_start,\n-                        Py_ssize_t opcode_end, PyObject *consts, int n)\n+fold_tuple_on_constants(_Py_CODEUNIT *codestr, Py_ssize_t codelen,\n+                        Py_ssize_t c_start, Py_ssize_t opcode_end,\n+                        PyObject *consts, int n)\n {\n     /* Pre-conditions */\n     assert(PyList_CheckExact(consts));\n@@ -142,7 +143,7 @@ fold_tuple_on_constants(_Py_CODEUNIT *codestr, Py_ssize_t c_start,\n \n     for (Py_ssize_t i = 0, pos = c_start; i < n; i++, pos++) {\n         assert(pos < opcode_end);\n-        pos = find_op(codestr, pos);\n+        pos = find_op(codestr, codelen, pos);\n         assert(_Py_OPCODE(codestr[pos]) == LOAD_CONST);\n \n         unsigned int arg = get_arg(codestr, pos);\n@@ -265,7 +266,7 @@ PyCode_Optimize(PyObject *code, PyObject* consts, PyObject *names,\n         goto exitError;\n     assert(PyList_Check(consts));\n \n-    for (i=find_op(codestr, 0) ; i<codelen ; i=nexti) {\n+    for (i=find_op(codestr, codelen, 0) ; i<codelen ; i=nexti) {\n         opcode = _Py_OPCODE(codestr[i]);\n         op_start = i;\n         while (op_start >= 1 && _Py_OPCODE(codestr[op_start-1]) == EXTENDED_ARG) {\n@@ -303,7 +304,8 @@ PyCode_Optimize(PyObject *code, PyObject* consts, PyObject *names,\n                 if (j > 0 && lastlc >= j) {\n                     h = lastn_const_start(codestr, op_start, j);\n                     if (ISBASICBLOCK(blocks, h, op_start)) {\n-                        h = fold_tuple_on_constants(codestr, h, i+1, consts, j);\n+                        h = fold_tuple_on_constants(codestr, codelen,\n+                                                    h, i+1, consts, j);\n                         break;\n                     }\n                 }\n@@ -340,7 +342,7 @@ PyCode_Optimize(PyObject *code, PyObject* consts, PyObject *names,\n             case JUMP_IF_FALSE_OR_POP:\n             case JUMP_IF_TRUE_OR_POP:\n                 h = get_arg(codestr, i) / sizeof(_Py_CODEUNIT);\n-                tgt = find_op(codestr, h);\n+                tgt = find_op(codestr, codelen, h);\n \n                 j = _Py_OPCODE(codestr[tgt]);\n                 if (CONDITIONAL_JUMP(j)) {\n@@ -374,7 +376,7 @@ PyCode_Optimize(PyObject *code, PyObject* consts, PyObject *names,\n             case JUMP_FORWARD:\n             case JUMP_ABSOLUTE:\n                 h = GETJUMPTGT(codestr, i);\n-                tgt = find_op(codestr, h);\n+                tgt = find_op(codestr, codelen, h);\n                 /* Replace JUMP_* to a RETURN into just a RETURN */\n                 if (UNCONDITIONAL_JUMP(opcode) &&\n                     _Py_OPCODE(codestr[tgt]) == RETURN_VALUE) {\n@@ -417,7 +419,7 @@ PyCode_Optimize(PyObject *code, PyObject* consts, PyObject *names,\n                 }\n                 if (h > i + 1) {\n                     fill_nops(codestr, i + 1, h);\n-                    nexti = find_op(codestr, h);\n+                    nexti = find_op(codestr, codelen, h);\n                 }\n                 break;\n         }"
+    }
+  ]
+}

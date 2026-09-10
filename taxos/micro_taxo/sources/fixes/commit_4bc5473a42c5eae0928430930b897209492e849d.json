@@ -1,0 +1,113 @@
+{
+  "sha": "4bc5473a42c5eae0928430930b897209492e849d",
+  "node_id": "C_kwDOBN0Z8doAKDRiYzU0NzNhNDJjNWVhZTA5Mjg0MzA5MzBiODk3MjA5NDkyZTg0OWQ",
+  "commit": {
+    "author": {
+      "name": "Nikita Sobolev",
+      "email": "mail@sobolevn.me",
+      "date": "2021-10-22T21:57:24Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-10-22T21:57:24Z"
+    },
+    "message": "bpo-45574: fix warning about `print_escape` being unused (GH-29172)\n\n\n\nIt used to be like this:\r\n<img width=\"1232\" alt=\"Снимок экрана 2021-10-22 в 23 07 40\" src=\"https://user-images.githubusercontent.com/4660275/138516608-fef6ec01-a96a-40f4-81ef-52265b0f536b.png\">\r\n\r\nQuick `grep` tells that it is just used in one place under `Py_DEBUG`: https://github.com/python/cpython/blame/f6e8b80d20159596cf641305bad3a833bedd2f4f/Parser/tokenizer.c#L1047-L1051\r\n<img width=\"752\" alt=\"Снимок экрана 2021-10-22 в 23 08 09\" src=\"https://user-images.githubusercontent.com/4660275/138516684-ea503136-1e92-48a5-95bb-419e190d5866.png\">\r\n\r\nI am not sure, but it also looks like a private thing, it should not affect other users.\n\nAutomerge-Triggered-By: GH:pablogsal",
+    "tree": {
+      "sha": "6fee20dfd82473b991f8c6ae49bcab02f75dba5b",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/6fee20dfd82473b991f8c6ae49bcab02f75dba5b"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/4bc5473a42c5eae0928430930b897209492e849d",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhczPECRBK7hj4Ov3rIwAAJMkIADaS/NPiv2DJBN2X+ymqpVGh\n/bW1AAwNfCH8RgaoSS2bKWb/R+CWPiefPYn2E95MNwUZ3i4v23eF+wUgWV1CK3KA\n+JqN4wErp/8sCDJSxXTjRvLOxlGkzgffer2kYKfyJSAGDGc41s8Y6xNKiMwU9Fyt\n3kmnhufjdSIN87gb7j93WJUNxbxpbyvHTD1/Ma4Dlor/UfhBPtuDWs8p+wordsMt\n1Et1xPGifBNkG/tViPZO7H5aIOJR8DLo3JaLUrtF3dM/H9BjLCdHd1grX+x0YZRV\nDqQo3qzxS10GSVbRGLWqu2XxMx0ArrCGxA3wMMEKqJURW2rH99bwhmw5YNEB6ek=\n=HL9l\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 6fee20dfd82473b991f8c6ae49bcab02f75dba5b\nparent 423fa1c1817abfa8c3d1bc308ddbbd8f28b69d68\nauthor Nikita Sobolev <mail@sobolevn.me> 1634939844 +0300\ncommitter GitHub <noreply@github.com> 1634939844 -0700\n\nbpo-45574: fix warning about `print_escape` being unused (GH-29172)\n\n\n\nIt used to be like this:\r\n<img width=\"1232\" alt=\"Снимок экрана 2021-10-22 в 23 07 40\" src=\"https://user-images.githubusercontent.com/4660275/138516608-fef6ec01-a96a-40f4-81ef-52265b0f536b.png\">\r\n\r\nQuick `grep` tells that it is just used in one place under `Py_DEBUG`: https://github.com/python/cpython/blame/f6e8b80d20159596cf641305bad3a833bedd2f4f/Parser/tokenizer.c#L1047-L1051\r\n<img width=\"752\" alt=\"Снимок экрана 2021-10-22 в 23 08 09\" src=\"https://user-images.githubusercontent.com/4660275/138516684-ea503136-1e92-48a5-95bb-419e190d5866.png\">\r\n\r\nI am not sure, but it also looks like a private thing, it should not affect other users.\n\nAutomerge-Triggered-By: GH:pablogsal",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/4bc5473a42c5eae0928430930b897209492e849d",
+  "html_url": "https://github.com/python/cpython/commit/4bc5473a42c5eae0928430930b897209492e849d",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/4bc5473a42c5eae0928430930b897209492e849d/comments",
+  "author": {
+    "login": "sobolevn",
+    "id": 4660275,
+    "node_id": "MDQ6VXNlcjQ2NjAyNzU=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/4660275?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/sobolevn",
+    "html_url": "https://github.com/sobolevn",
+    "followers_url": "https://api.github.com/users/sobolevn/followers",
+    "following_url": "https://api.github.com/users/sobolevn/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sobolevn/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/sobolevn/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sobolevn/subscriptions",
+    "organizations_url": "https://api.github.com/users/sobolevn/orgs",
+    "repos_url": "https://api.github.com/users/sobolevn/repos",
+    "events_url": "https://api.github.com/users/sobolevn/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/sobolevn/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "423fa1c1817abfa8c3d1bc308ddbbd8f28b69d68",
+      "url": "https://api.github.com/repos/python/cpython/commits/423fa1c1817abfa8c3d1bc308ddbbd8f28b69d68",
+      "html_url": "https://github.com/python/cpython/commit/423fa1c1817abfa8c3d1bc308ddbbd8f28b69d68"
+    }
+  ],
+  "stats": {
+    "total": 3,
+    "additions": 3,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "b404d24473960cf37fcac945380306ece85324a4",
+      "filename": "Misc/NEWS.d/next/Library/2021-10-22-23-06-33.bpo-45574.svqA84.rst",
+      "status": "added",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "blob_url": "https://github.com/python/cpython/blob/4bc5473a42c5eae0928430930b897209492e849d/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-10-22-23-06-33.bpo-45574.svqA84.rst",
+      "raw_url": "https://github.com/python/cpython/raw/4bc5473a42c5eae0928430930b897209492e849d/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-10-22-23-06-33.bpo-45574.svqA84.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2021-10-22-23-06-33.bpo-45574.svqA84.rst?ref=4bc5473a42c5eae0928430930b897209492e849d",
+      "patch": "@@ -0,0 +1 @@\n+Fix warning about ``print_escape`` being unused."
+    },
+    {
+      "sha": "705da00463d1a7b402348aca21022e2237e3b1d9",
+      "filename": "Parser/tokenizer.c",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/4bc5473a42c5eae0928430930b897209492e849d/Parser%2Ftokenizer.c",
+      "raw_url": "https://github.com/python/cpython/raw/4bc5473a42c5eae0928430930b897209492e849d/Parser%2Ftokenizer.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Parser%2Ftokenizer.c?ref=4bc5473a42c5eae0928430930b897209492e849d",
+      "patch": "@@ -995,6 +995,7 @@ tok_underflow_file(struct tok_state *tok) {\n     return tok->done == E_OK;\n }\n \n+#if defined(Py_DEBUG)\n static void\n print_escape(FILE *f, const char *s, Py_ssize_t size)\n {\n@@ -1021,6 +1022,7 @@ print_escape(FILE *f, const char *s, Py_ssize_t size)\n     }\n     putc('\"', f);\n }\n+#endif\n \n /* Get next char, updating state; error code goes into tok->done */\n "
+    }
+  ]
+}

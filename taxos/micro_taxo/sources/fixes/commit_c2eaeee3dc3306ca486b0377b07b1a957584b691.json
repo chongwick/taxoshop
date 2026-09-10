@@ -1,0 +1,113 @@
+{
+  "sha": "c2eaeee3dc3306ca486b0377b07b1a957584b691",
+  "node_id": "C_kwDOBN0Z8doAKGMyZWFlZWUzZGMzMzA2Y2E0ODZiMDM3N2IwN2IxYTk1NzU4NGI2OTE",
+  "commit": {
+    "author": {
+      "name": "Serhiy Storchaka",
+      "email": "storchaka@gmail.com",
+      "date": "2025-04-28T14:56:10Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2025-04-28T14:56:10Z"
+    },
+    "message": "gh-132915: Try to detect a buffer overflow in fcntl() and ioctl() (GH-132919)\n\nSystemError is raised when buffer overflow is detected.\nThe stack and memory can already be corrupted, so treat this error as fatal.",
+    "tree": {
+      "sha": "fb03255d1fde51dc28d7a14405b6d5398976a62f",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/fb03255d1fde51dc28d7a14405b6d5398976a62f"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/c2eaeee3dc3306ca486b0377b07b1a957584b691",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJoD5cKCRC1aQ7uu5UhlAAAfNAQAHt4jyG/7c0g1qwEDb1eE500\nk/l6vIUyyXIwmumGkEs2CARYbMtDMrxBIdEPQYgfZ8GH7tUKhk2PqM+zKWrV34zA\nDB5E+i7gSz2k7xwyjUK3m299nfm7ujwGak50olx0ubZvY35IC5DhToQnkbLJ/bzy\npncUyctCkPRe3mS6H18ZqxOL/VOSvZb7c2yvvVksVIbkhmAUjNW1CF2UE1bB3a6k\nZViYp6RLbCqNBXvwTYI6x0LbYKyPnwwBjbG+lVgIQ84wBoqXRZE45ji2jpfOXfMa\nTHwVC2bnCieeipplWjKW5PW8meCOty39Vp8vLvRu+UaN0qr5O3mvkiJUEzsdb+Qr\n8btoQOjtFCrib8EOETiopi4DVfMcB1GD9znmKJZ+Ud390H8JR0D0oc43VZ1m9wri\nqtrvZF7gJETzwbTfdRFEyyPSqKFlz/q9uju0ixLxPUMWducEn4NiuVmEzhrBk3+n\n33PScjmkfULoYNQwji1idwaPm/J/4L+jxY9p2R+tfkeDXi74tG0clImX6xxkj4kz\nNgBbda1aR1vWET887Z5k9osk7jjqZrN516f/psIQaETB/goKTPAhzrNu6y/MwBCM\n25KN0P7lDkpw9uo9GYePPY7QGwmoZ66lr07Mzfuam1vFMlM0qz4iKvDXZr7cM2Le\nvnaOcr0ZMW6Qe4eg3vY/\n=WKW8\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree fb03255d1fde51dc28d7a14405b6d5398976a62f\nparent 0f84f6b334e4340798fb2ec4e1ca21ad838db339\nauthor Serhiy Storchaka <storchaka@gmail.com> 1745852170 +0300\ncommitter GitHub <noreply@github.com> 1745852170 +0300\n\ngh-132915: Try to detect a buffer overflow in fcntl() and ioctl() (GH-132919)\n\nSystemError is raised when buffer overflow is detected.\nThe stack and memory can already be corrupted, so treat this error as fatal.\n",
+      "verified_at": "2025-04-28T14:56:13Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/c2eaeee3dc3306ca486b0377b07b1a957584b691",
+  "html_url": "https://github.com/python/cpython/commit/c2eaeee3dc3306ca486b0377b07b1a957584b691",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/c2eaeee3dc3306ca486b0377b07b1a957584b691/comments",
+  "author": {
+    "login": "serhiy-storchaka",
+    "id": 3659035,
+    "node_id": "MDQ6VXNlcjM2NTkwMzU=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/3659035?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/serhiy-storchaka",
+    "html_url": "https://github.com/serhiy-storchaka",
+    "followers_url": "https://api.github.com/users/serhiy-storchaka/followers",
+    "following_url": "https://api.github.com/users/serhiy-storchaka/following{/other_user}",
+    "gists_url": "https://api.github.com/users/serhiy-storchaka/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/serhiy-storchaka/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/serhiy-storchaka/subscriptions",
+    "organizations_url": "https://api.github.com/users/serhiy-storchaka/orgs",
+    "repos_url": "https://api.github.com/users/serhiy-storchaka/repos",
+    "events_url": "https://api.github.com/users/serhiy-storchaka/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/serhiy-storchaka/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "0f84f6b334e4340798fb2ec4e1ca21ad838db339",
+      "url": "https://api.github.com/repos/python/cpython/commits/0f84f6b334e4340798fb2ec4e1ca21ad838db339",
+      "html_url": "https://github.com/python/cpython/commit/0f84f6b334e4340798fb2ec4e1ca21ad838db339"
+    }
+  ],
+  "stats": {
+    "total": 61,
+    "additions": 40,
+    "deletions": 21
+  },
+  "files": [
+    {
+      "sha": "95a7d9e9159d596b961a18d1aa9ec66efb66aec9",
+      "filename": "Misc/NEWS.d/next/Library/2025-04-25-12-55-06.gh-issue-132915.XuKCXn.rst",
+      "status": "added",
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/c2eaeee3dc3306ca486b0377b07b1a957584b691/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2025-04-25-12-55-06.gh-issue-132915.XuKCXn.rst",
+      "raw_url": "https://github.com/python/cpython/raw/c2eaeee3dc3306ca486b0377b07b1a957584b691/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2025-04-25-12-55-06.gh-issue-132915.XuKCXn.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FLibrary%2F2025-04-25-12-55-06.gh-issue-132915.XuKCXn.rst?ref=c2eaeee3dc3306ca486b0377b07b1a957584b691",
+      "patch": "@@ -0,0 +1,3 @@\n+:func:`fcntl.fcntl` and :func:`fcntl.ioctl` can now detect a buffer overflow\n+and raise :exc:`SystemError`. The stack and memory can be corrupted in such\n+case, so treat this error as fatal."
+    },
+    {
+      "sha": "ebcacd2fb0ece15bfe5e4e92bb52f94991c09425",
+      "filename": "Modules/fcntlmodule.c",
+      "status": "modified",
+      "additions": 37,
+      "deletions": 21,
+      "changes": 58,
+      "blob_url": "https://github.com/python/cpython/blob/c2eaeee3dc3306ca486b0377b07b1a957584b691/Modules%2Ffcntlmodule.c",
+      "raw_url": "https://github.com/python/cpython/raw/c2eaeee3dc3306ca486b0377b07b1a957584b691/Modules%2Ffcntlmodule.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Modules%2Ffcntlmodule.c?ref=c2eaeee3dc3306ca486b0377b07b1a957584b691",
+      "patch": "@@ -22,6 +22,10 @@\n #  include <stropts.h>            // I_FLUSHBAND\n #endif\n \n+#define GUARDSZ 8\n+// NUL followed by random bytes.\n+static const char guard[GUARDSZ] = \"\\x00\\xfa\\x69\\xc4\\x67\\xa3\\x6c\\x58\";\n+\n /*[clinic input]\n module fcntl\n [clinic start generated code]*/\n@@ -80,9 +84,10 @@ fcntl_fcntl_impl(PyObject *module, int fd, int code, PyObject *arg)\n         return PyLong_FromLong(ret);\n     }\n     if (PyUnicode_Check(arg) || PyObject_CheckBuffer(arg)) {\n-#define FCNTL_BUFSZ 1024\n         Py_buffer view;\n-        char buf[FCNTL_BUFSZ+1];  /* argument plus NUL byte */\n+#define FCNTL_BUFSZ 1024\n+        /* argument plus NUL byte plus guard to detect a buffer overflow */\n+        char buf[FCNTL_BUFSZ+GUARDSZ];\n \n         if (!PyArg_Parse(arg, \"s*\", &view)) {\n             return NULL;\n@@ -95,7 +100,7 @@ fcntl_fcntl_impl(PyObject *module, int fd, int code, PyObject *arg)\n             return NULL;\n         }\n         memcpy(buf, view.buf, len);\n-        buf[len] = '\\0';\n+        memcpy(buf + len, guard, GUARDSZ);\n         PyBuffer_Release(&view);\n \n         do {\n@@ -106,6 +111,10 @@ fcntl_fcntl_impl(PyObject *module, int fd, int code, PyObject *arg)\n         if (ret < 0) {\n             return !async_err ? PyErr_SetFromErrno(PyExc_OSError) : NULL;\n         }\n+        if (memcmp(buf + len, guard, GUARDSZ) != 0) {\n+            PyErr_SetString(PyExc_SystemError, \"buffer overflow\");\n+            return NULL;\n+        }\n         return PyBytes_FromStringAndSize(buf, len);\n #undef FCNTL_BUFSZ\n     }\n@@ -199,34 +208,37 @@ fcntl_ioctl_impl(PyObject *module, int fd, unsigned long code, PyObject *arg,\n     if (PyUnicode_Check(arg) || PyObject_CheckBuffer(arg)) {\n         Py_buffer view;\n #define IOCTL_BUFSZ 1024\n-        char buf[IOCTL_BUFSZ+1];  /* argument plus NUL byte */\n+        /* argument plus NUL byte plus guard to detect a buffer overflow */\n+        char buf[IOCTL_BUFSZ+GUARDSZ];\n         if (mutate_arg && !PyBytes_Check(arg) && !PyUnicode_Check(arg)) {\n             if (PyObject_GetBuffer(arg, &view, PyBUF_WRITABLE) == 0) {\n-                if (view.len <= IOCTL_BUFSZ) {\n-                    memcpy(buf, view.buf, view.len);\n-                    buf[view.len] = '\\0';\n-                    do {\n-                        Py_BEGIN_ALLOW_THREADS\n-                        ret = ioctl(fd, code, buf);\n-                        Py_END_ALLOW_THREADS\n-                    } while (ret == -1 && errno == EINTR && !(async_err = PyErr_CheckSignals()));\n-                    memcpy(view.buf, buf, view.len);\n-                }\n-                else {\n-                    do {\n-                        Py_BEGIN_ALLOW_THREADS\n-                        ret = ioctl(fd, code, view.buf);\n-                        Py_END_ALLOW_THREADS\n-                    } while (ret == -1 && errno == EINTR && !(async_err = PyErr_CheckSignals()));\n+                Py_ssize_t len = view.len;\n+                void *ptr = view.buf;\n+                if (len <= IOCTL_BUFSZ) {\n+                    memcpy(buf, ptr, len);\n+                    memcpy(buf + len, guard, GUARDSZ);\n+                    ptr = buf;\n                 }\n+                do {\n+                    Py_BEGIN_ALLOW_THREADS\n+                    ret = ioctl(fd, code, ptr);\n+                    Py_END_ALLOW_THREADS\n+                } while (ret == -1 && errno == EINTR && !(async_err = PyErr_CheckSignals()));\n                 if (ret < 0) {\n                     if (!async_err) {\n                         PyErr_SetFromErrno(PyExc_OSError);\n                     }\n                     PyBuffer_Release(&view);\n                     return NULL;\n                 }\n+                if (ptr == buf) {\n+                    memcpy(view.buf, buf, len);\n+                }\n                 PyBuffer_Release(&view);\n+                if (ptr == buf && memcmp(buf + len, guard, GUARDSZ) != 0) {\n+                    PyErr_SetString(PyExc_SystemError, \"buffer overflow\");\n+                    return NULL;\n+                }\n                 return PyLong_FromLong(ret);\n             }\n             if (!PyErr_ExceptionMatches(PyExc_BufferError)) {\n@@ -246,7 +258,7 @@ fcntl_ioctl_impl(PyObject *module, int fd, unsigned long code, PyObject *arg,\n             return NULL;\n         }\n         memcpy(buf, view.buf, len);\n-        buf[len] = '\\0';\n+        memcpy(buf + len, guard, GUARDSZ);\n         PyBuffer_Release(&view);\n \n         do {\n@@ -257,6 +269,10 @@ fcntl_ioctl_impl(PyObject *module, int fd, unsigned long code, PyObject *arg,\n         if (ret < 0) {\n             return !async_err ? PyErr_SetFromErrno(PyExc_OSError) : NULL;\n         }\n+        if (memcmp(buf + len, guard, GUARDSZ) != 0) {\n+            PyErr_SetString(PyExc_SystemError, \"buffer overflow\");\n+            return NULL;\n+        }\n         return PyBytes_FromStringAndSize(buf, len);\n #undef IOCTL_BUFSZ\n     }"
+    }
+  ]
+}

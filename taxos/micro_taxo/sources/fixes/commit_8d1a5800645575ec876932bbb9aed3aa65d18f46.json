@@ -1,0 +1,137 @@
+{
+  "sha": "8d1a5800645575ec876932bbb9aed3aa65d18f46",
+  "node_id": "C_kwDOBN0Z8doAKDhkMWE1ODAwNjQ1NTc1ZWM4NzY5MzJiYmI5YWVkM2FhNjVkMThmNDY",
+  "commit": {
+    "author": {
+      "name": "Pablo Galindo Salgado",
+      "email": "Pablogsal@gmail.com",
+      "date": "2021-11-28T21:23:39Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-11-28T21:23:39Z"
+    },
+    "message": "[3.10] bpo-42268: Fail the configure step if the selected compiler doesn't support memory sanitizer (GH-29806) (GH-29815)\n\n(cherry picked from commit e71c12efcddc1076d5367461a5b416092267aa77)\r\n\r\nCo-authored-by: Pablo Galindo Salgado <Pablogsal@gmail.com>",
+    "tree": {
+      "sha": "3f5b7489922267118f1138e0a6bbb00645c1df70",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/3f5b7489922267118f1138e0a6bbb00645c1df70"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/8d1a5800645575ec876932bbb9aed3aa65d18f46",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJho/NbCRBK7hj4Ov3rIwAAYDoIAD2h44ULa0V/6PUIadt1pW3I\nzFlTVwU6wsubkTpkMmWM94IPTSpTSHUC+vQlUEeJy4tsf9PB3pYsjbdU/0GUGobR\ncMxWoQr8Y+Y44TBtrLFTDh0EaRM56HC42yehxVNmULU6MSam912Xix0EEAMsfFwg\nNNJgC6Fp3th9X4DWCXILiO2CXjMR55MFlWz5KIaRztgc3/x+plbOxY7LPoWmJYaz\nUCcQ9uh0QwCu+2QzLGxf0pZxWfzb6P5n7yGMNyLkLROBWyj/npHzlhnyl6QJRPXx\neny6APUEuagjzMqTgSNNOTk8sax8dQ9KcCnGf5bQrNiCXRidGaAXOO5Rp9wwmAw=\n=7t5i\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 3f5b7489922267118f1138e0a6bbb00645c1df70\nparent 2c398a5acf85d1bbc5796f3385972d0759b90e54\nauthor Pablo Galindo Salgado <Pablogsal@gmail.com> 1638134619 +0000\ncommitter GitHub <noreply@github.com> 1638134619 +0000\n\n[3.10] bpo-42268: Fail the configure step if the selected compiler doesn't support memory sanitizer (GH-29806) (GH-29815)\n\n(cherry picked from commit e71c12efcddc1076d5367461a5b416092267aa77)\r\n\r\nCo-authored-by: Pablo Galindo Salgado <Pablogsal@gmail.com>",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/8d1a5800645575ec876932bbb9aed3aa65d18f46",
+  "html_url": "https://github.com/python/cpython/commit/8d1a5800645575ec876932bbb9aed3aa65d18f46",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/8d1a5800645575ec876932bbb9aed3aa65d18f46/comments",
+  "author": {
+    "login": "pablogsal",
+    "id": 11718525,
+    "node_id": "MDQ6VXNlcjExNzE4NTI1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/11718525?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/pablogsal",
+    "html_url": "https://github.com/pablogsal",
+    "followers_url": "https://api.github.com/users/pablogsal/followers",
+    "following_url": "https://api.github.com/users/pablogsal/following{/other_user}",
+    "gists_url": "https://api.github.com/users/pablogsal/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pablogsal/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pablogsal/subscriptions",
+    "organizations_url": "https://api.github.com/users/pablogsal/orgs",
+    "repos_url": "https://api.github.com/users/pablogsal/repos",
+    "events_url": "https://api.github.com/users/pablogsal/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pablogsal/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "2c398a5acf85d1bbc5796f3385972d0759b90e54",
+      "url": "https://api.github.com/repos/python/cpython/commits/2c398a5acf85d1bbc5796f3385972d0759b90e54",
+      "html_url": "https://github.com/python/cpython/commit/2c398a5acf85d1bbc5796f3385972d0759b90e54"
+    }
+  ],
+  "stats": {
+    "total": 106,
+    "additions": 63,
+    "deletions": 43
+  },
+  "files": [
+    {
+      "sha": "615bbb22ae2ebf94d395efed5780c2b79dd5c68f",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2021-11-26-22-31-22.bpo-42268.3wl-09.rst",
+      "status": "added",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/8d1a5800645575ec876932bbb9aed3aa65d18f46/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-11-26-22-31-22.bpo-42268.3wl-09.rst",
+      "raw_url": "https://github.com/python/cpython/raw/8d1a5800645575ec876932bbb9aed3aa65d18f46/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-11-26-22-31-22.bpo-42268.3wl-09.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2021-11-26-22-31-22.bpo-42268.3wl-09.rst?ref=8d1a5800645575ec876932bbb9aed3aa65d18f46",
+      "patch": "@@ -0,0 +1,2 @@\n+Fail the configure step if the selected compiler doesn't support memory\n+sanitizer. Patch by Pablo Galindo"
+    },
+    {
+      "sha": "2e7e0b7e0a75eed84a73bace34bd7e1d99f68b61",
+      "filename": "configure",
+      "status": "modified",
+      "additions": 58,
+      "deletions": 42,
+      "changes": 100,
+      "blob_url": "https://github.com/python/cpython/blob/8d1a5800645575ec876932bbb9aed3aa65d18f46/configure",
+      "raw_url": "https://github.com/python/cpython/raw/8d1a5800645575ec876932bbb9aed3aa65d18f46/configure",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/configure?ref=8d1a5800645575ec876932bbb9aed3aa65d18f46",
+      "patch": "@@ -9605,8 +9605,44 @@ if test \"${with_memory_sanitizer+set}\" = set; then :\n   withval=$with_memory_sanitizer;\n { $as_echo \"$as_me:${as_lineno-$LINENO}: result: $withval\" >&5\n $as_echo \"$withval\" >&6; }\n+{ $as_echo \"$as_me:${as_lineno-$LINENO}: checking whether C compiler accepts -fsanitize=memory\" >&5\n+$as_echo_n \"checking whether C compiler accepts -fsanitize=memory... \" >&6; }\n+if ${ax_cv_check_cflags___fsanitize_memory+:} false; then :\n+  $as_echo_n \"(cached) \" >&6\n+else\n+\n+  ax_check_save_flags=$CFLAGS\n+  CFLAGS=\"$CFLAGS  -fsanitize=memory\"\n+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext\n+/* end confdefs.h.  */\n+\n+int\n+main ()\n+{\n+\n+  ;\n+  return 0;\n+}\n+_ACEOF\n+if ac_fn_c_try_compile \"$LINENO\"; then :\n+  ax_cv_check_cflags___fsanitize_memory=yes\n+else\n+  ax_cv_check_cflags___fsanitize_memory=no\n+fi\n+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext\n+  CFLAGS=$ax_check_save_flags\n+fi\n+{ $as_echo \"$as_me:${as_lineno-$LINENO}: result: $ax_cv_check_cflags___fsanitize_memory\" >&5\n+$as_echo \"$ax_cv_check_cflags___fsanitize_memory\" >&6; }\n+if test \"x$ax_cv_check_cflags___fsanitize_memory\" = xyes; then :\n+\n BASECFLAGS=\"-fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer $BASECFLAGS\"\n LDFLAGS=\"-fsanitize=memory -fsanitize-memory-track-origins=2 $LDFLAGS\"\n+\n+else\n+  as_fn_error $? \"The selected compiler doesn't support memory sanitizer\" \"$LINENO\" 5\n+fi\n+\n # MSan works by controlling memory allocation, our own malloc interferes.\n with_pymalloc=\"no\"\n \n@@ -10120,13 +10156,15 @@ $as_echo \"no\" >&6; }\n fi\n rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext\n \n+# check for libuuid from util-linux\n save_LIBS=$LIBS\n-{ $as_echo \"$as_me:${as_lineno-$LINENO}: checking for library containing uuid_generate_time_safe\" >&5\n-$as_echo_n \"checking for library containing uuid_generate_time_safe... \" >&6; }\n-if ${ac_cv_search_uuid_generate_time_safe+:} false; then :\n+{ $as_echo \"$as_me:${as_lineno-$LINENO}: checking for uuid_generate_time in -luuid\" >&5\n+$as_echo_n \"checking for uuid_generate_time in -luuid... \" >&6; }\n+if ${ac_cv_lib_uuid_uuid_generate_time+:} false; then :\n   $as_echo_n \"(cached) \" >&6\n else\n-  ac_func_search_save_LIBS=$LIBS\n+  ac_check_lib_save_LIBS=$LIBS\n+LIBS=\"-luuid  $LIBS\"\n cat confdefs.h - <<_ACEOF >conftest.$ac_ext\n /* end confdefs.h.  */\n \n@@ -10136,61 +10174,39 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext\n #ifdef __cplusplus\n extern \"C\"\n #endif\n-char uuid_generate_time_safe ();\n+char uuid_generate_time ();\n int\n main ()\n {\n-return uuid_generate_time_safe ();\n+return uuid_generate_time ();\n   ;\n   return 0;\n }\n _ACEOF\n-for ac_lib in '' uuid; do\n-  if test -z \"$ac_lib\"; then\n-    ac_res=\"none required\"\n-  else\n-    ac_res=-l$ac_lib\n-    LIBS=\"-l$ac_lib  $ac_func_search_save_LIBS\"\n-  fi\n-  if ac_fn_c_try_link \"$LINENO\"; then :\n-  ac_cv_search_uuid_generate_time_safe=$ac_res\n-fi\n-rm -f core conftest.err conftest.$ac_objext \\\n-    conftest$ac_exeext\n-  if ${ac_cv_search_uuid_generate_time_safe+:} false; then :\n-  break\n-fi\n-done\n-if ${ac_cv_search_uuid_generate_time_safe+:} false; then :\n-\n+if ac_fn_c_try_link \"$LINENO\"; then :\n+  ac_cv_lib_uuid_uuid_generate_time=yes\n else\n-  ac_cv_search_uuid_generate_time_safe=no\n+  ac_cv_lib_uuid_uuid_generate_time=no\n fi\n-rm conftest.$ac_ext\n-LIBS=$ac_func_search_save_LIBS\n+rm -f core conftest.err conftest.$ac_objext \\\n+    conftest$ac_exeext conftest.$ac_ext\n+LIBS=$ac_check_lib_save_LIBS\n fi\n-{ $as_echo \"$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_uuid_generate_time_safe\" >&5\n-$as_echo \"$ac_cv_search_uuid_generate_time_safe\" >&6; }\n-ac_res=$ac_cv_search_uuid_generate_time_safe\n-if test \"$ac_res\" != no; then :\n-  test \"$ac_res\" = \"none required\" || LIBS=\"$ac_res $LIBS\"\n-\n-\n-$as_echo \"#define HAVE_LIBUUID 1\" >>confdefs.h\n-,\n-    { $as_echo \"$as_me:${as_lineno-$LINENO}: result: yes\" >&5\n-$as_echo \"yes\" >&6; }\n+{ $as_echo \"$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_uuid_uuid_generate_time\" >&5\n+$as_echo \"$ac_cv_lib_uuid_uuid_generate_time\" >&6; }\n+if test \"x$ac_cv_lib_uuid_uuid_generate_time\" = xyes; then :\n+  cat >>confdefs.h <<_ACEOF\n+#define HAVE_LIBUUID 1\n+_ACEOF\n \n-else\n-  { $as_echo \"$as_me:${as_lineno-$LINENO}: result: no\" >&5\n-$as_echo \"no\" >&6; }\n+  LIBS=\"-luuid $LIBS\"\n \n fi\n \n LIBS=$save_LIBS\n \n # AIX provides support for RFC4122 (uuid) in libc.a starting with AIX 6.1 (anno 2007)\n-# FreeBSD and OpenBSD provides support as well\n+# FreeBSD and OpenBSD provides support in libc as well.\n { $as_echo \"$as_me:${as_lineno-$LINENO}: checking for uuid_create\" >&5\n $as_echo_n \"checking for uuid_create... \" >&6; }\n cat confdefs.h - <<_ACEOF >conftest.$ac_ext"
+    },
+    {
+      "sha": "0c06914147854d807d654d8c00fad76e340ffdf8",
+      "filename": "configure.ac",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/8d1a5800645575ec876932bbb9aed3aa65d18f46/configure.ac",
+      "raw_url": "https://github.com/python/cpython/raw/8d1a5800645575ec876932bbb9aed3aa65d18f46/configure.ac",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/configure.ac?ref=8d1a5800645575ec876932bbb9aed3aa65d18f46",
+      "patch": "@@ -2583,8 +2583,10 @@ AC_ARG_WITH(memory_sanitizer,\n                            [enable MemorySanitizer allocation error detector, 'msan' (default is no)]),\n [\n AC_MSG_RESULT($withval)\n+AX_CHECK_COMPILE_FLAG([-fsanitize=memory],[\n BASECFLAGS=\"-fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer $BASECFLAGS\"\n LDFLAGS=\"-fsanitize=memory -fsanitize-memory-track-origins=2 $LDFLAGS\"\n+],[AC_MSG_ERROR([The selected compiler doesn't support memory sanitizer])])\n # MSan works by controlling memory allocation, our own malloc interferes.\n with_pymalloc=\"no\"\n ],"
+    },
+    {
+      "sha": "b97b8f8bf8b4ac3430141848cf1e14e69cc57542",
+      "filename": "pyconfig.h.in",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/8d1a5800645575ec876932bbb9aed3aa65d18f46/pyconfig.h.in",
+      "raw_url": "https://github.com/python/cpython/raw/8d1a5800645575ec876932bbb9aed3aa65d18f46/pyconfig.h.in",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/pyconfig.h.in?ref=8d1a5800645575ec876932bbb9aed3aa65d18f46",
+      "patch": "@@ -628,7 +628,7 @@\n /* Define to 1 if you have the <libutil.h> header file. */\n #undef HAVE_LIBUTIL_H\n \n-/* Define you have libuuid. */\n+/* Define to 1 if you have the `uuid' library (-luuid). */\n #undef HAVE_LIBUUID\n \n /* Define if you have the 'link' function. */"
+    }
+  ]
+}

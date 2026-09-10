@@ -1,0 +1,113 @@
+{
+  "sha": "ea2b76bdc5f97f49701213d105b8ec2387ea2fa5",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6ZWEyYjc2YmRjNWY5N2Y0OTcwMTIxM2QxMDViOGVjMjM4N2VhMmZhNQ==",
+  "commit": {
+    "author": {
+      "name": "Inada Naoki",
+      "email": "songofacandy@gmail.com",
+      "date": "2019-05-25T12:13:33Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2019-05-25T12:13:33Z"
+    },
+    "message": "bpo-27987: align PyGC_Head to alignof(long double) (GH-13335)",
+    "tree": {
+      "sha": "4d4e79d68e72b9740590b09e32024c1592ec736f",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/4d4e79d68e72b9740590b09e32024c1592ec736f"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/ea2b76bdc5f97f49701213d105b8ec2387ea2fa5",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJc6TFtCRBK7hj4Ov3rIwAAdHIIAAdXmH+8iF9pnn32Ro6HDg5K\nl4GSVGAIUBqIpr2qIWgOrKQXsiiKlZojYJf+Pfczey2ErnRHOCP+xJoH3+8IK8qL\nTVAfAWiP40jkyW/1Z2gitIgukJhETRqj7P2L4zZmjZjLLbaPqW7akrFugLnvds6d\nPR0tF+pwNZypQW6w4s43aAQaVZbefhw6rF6Qz4V1051LOeJ9JsYpTdg37MCjoDku\ntTNSt+rNLkYV/OBC7e3Z8bA/JDlkHmgv0Nq6BRP2swWZGyrjtg13qpFPJVe55dwz\nSU0gZB1UReAQlLxa6/mXICjeA55diiDNSO47yLFJhwX6wYopOnyWFJnnBexazes=\n=q/kg\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 4d4e79d68e72b9740590b09e32024c1592ec736f\nparent c70ab1cca0f43dbf3bad4acacd06a792cdbe03c8\nauthor Inada Naoki <songofacandy@gmail.com> 1558786413 +0900\ncommitter GitHub <noreply@github.com> 1558786413 +0900\n\nbpo-27987: align PyGC_Head to alignof(long double) (GH-13335)\n\n",
+      "verified_at": "2024-11-12T16:18:58Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/ea2b76bdc5f97f49701213d105b8ec2387ea2fa5",
+  "html_url": "https://github.com/python/cpython/commit/ea2b76bdc5f97f49701213d105b8ec2387ea2fa5",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/ea2b76bdc5f97f49701213d105b8ec2387ea2fa5/comments",
+  "author": {
+    "login": "methane",
+    "id": 199592,
+    "node_id": "MDQ6VXNlcjE5OTU5Mg==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/199592?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/methane",
+    "html_url": "https://github.com/methane",
+    "followers_url": "https://api.github.com/users/methane/followers",
+    "following_url": "https://api.github.com/users/methane/following{/other_user}",
+    "gists_url": "https://api.github.com/users/methane/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/methane/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/methane/subscriptions",
+    "organizations_url": "https://api.github.com/users/methane/orgs",
+    "repos_url": "https://api.github.com/users/methane/repos",
+    "events_url": "https://api.github.com/users/methane/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/methane/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "c70ab1cca0f43dbf3bad4acacd06a792cdbe03c8",
+      "url": "https://api.github.com/repos/python/cpython/commits/c70ab1cca0f43dbf3bad4acacd06a792cdbe03c8",
+      "html_url": "https://github.com/python/cpython/commit/c70ab1cca0f43dbf3bad4acacd06a792cdbe03c8"
+    }
+  ],
+  "stats": {
+    "total": 8,
+    "additions": 7,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "0436ba7899d9a8a3769ff4d228982439707254b0",
+      "filename": "Include/objimpl.h",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 1,
+      "changes": 6,
+      "blob_url": "https://github.com/python/cpython/blob/ea2b76bdc5f97f49701213d105b8ec2387ea2fa5/Include%2Fobjimpl.h",
+      "raw_url": "https://github.com/python/cpython/raw/ea2b76bdc5f97f49701213d105b8ec2387ea2fa5/Include%2Fobjimpl.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Fobjimpl.h?ref=ea2b76bdc5f97f49701213d105b8ec2387ea2fa5",
+      "patch": "@@ -255,7 +255,11 @@ typedef union _gc_head {\n         union _gc_head *gc_prev;\n         Py_ssize_t gc_refs;\n     } gc;\n-    double dummy;  /* force worst-case alignment */\n+    long double dummy;  /* force worst-case alignment */\n+    // malloc returns memory block aligned for any built-in types and\n+    // long double is the largest standard C type.\n+    // On amd64 linux, long double requires 16 byte alignment.\n+    // See bpo-27987 for more discussion.\n } PyGC_Head;\n \n extern PyGC_Head *_PyGC_generation0;"
+    },
+    {
+      "sha": "97ca37b262a1c4b3e801f935e96eacf95a79bbaa",
+      "filename": "Misc/NEWS.d/next/Core and Builtins/2019-05-15-18-28-43.bpo-27987.FaxuLy.rst",
+      "status": "added",
+      "additions": 2,
+      "deletions": 0,
+      "changes": 2,
+      "blob_url": "https://github.com/python/cpython/blob/ea2b76bdc5f97f49701213d105b8ec2387ea2fa5/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2019-05-15-18-28-43.bpo-27987.FaxuLy.rst",
+      "raw_url": "https://github.com/python/cpython/raw/ea2b76bdc5f97f49701213d105b8ec2387ea2fa5/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2019-05-15-18-28-43.bpo-27987.FaxuLy.rst",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Misc%2FNEWS.d%2Fnext%2FCore%20and%20Builtins%2F2019-05-15-18-28-43.bpo-27987.FaxuLy.rst?ref=ea2b76bdc5f97f49701213d105b8ec2387ea2fa5",
+      "patch": "@@ -0,0 +1,2 @@\n+``PyGC_Head`` structure is aligned to ``long double``.  This is needed to\n+GC-ed objects are aligned properly.  Patch by Inada Naoki."
+    }
+  ]
+}

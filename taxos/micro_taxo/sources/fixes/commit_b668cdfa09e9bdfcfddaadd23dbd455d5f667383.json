@@ -1,0 +1,93 @@
+{
+  "sha": "b668cdfa09e9bdfcfddaadd23dbd455d5f667383",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6YjY2OGNkZmEwOWU5YmRmY2ZkZGFhZGQyM2RiZDQ1NWQ1ZjY2NzM4Mw==",
+  "commit": {
+    "author": {
+      "name": "junyixie",
+      "email": "xiejunyi.arch@bytedance.com",
+      "date": "2021-09-14T18:31:50Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-09-14T18:31:50Z"
+    },
+    "message": "bpo-45196: prevent unittest crash on address sanitizer builds (GH-28331)",
+    "tree": {
+      "sha": "c5815c96710fe27a863684c2aa81a0c9140a30f5",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/c5815c96710fe27a863684c2aa81a0c9140a30f5"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/b668cdfa09e9bdfcfddaadd23dbd455d5f667383",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhQOqWCRBK7hj4Ov3rIwAAXdUIACN9w7VCEx7Ytj9/3BApZdOj\n5GpZ2RERd4Kmbi/P1rUC0xNSpiY+gzdwCcdg+kMe/7PkL7dUr77QwS5/yhuui3tS\n/6G5tMCEG5OnrV+7nB01UWTgZY1c9u1Tx6Wsw95txG/mRBrjomu/mgEeYraMU+kZ\nSV5DYne4IEOcQnQ3gTmHTkek0MXUnOoQXyejFl2AdDanC/vdV+ObauMbfWIioObQ\n0XDJdXa03h3Y2Hdrq1o5n5Inj6QSHUxJy56VbtaF1mSECXJ/q8TuPc8TOJDMb7sx\nmbQwUDDJurC8ctzgu2LLHpeVGpw8GmVKKbuvjz4PygLBG/U2bdZKDKFvIBViFpo=\n=PkaL\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree c5815c96710fe27a863684c2aa81a0c9140a30f5\nparent 024fda47d40b8cee77ac1cd3d31ee549edc11986\nauthor junyixie <xiejunyi.arch@bytedance.com> 1631644310 +0800\ncommitter GitHub <noreply@github.com> 1631644310 -0700\n\nbpo-45196: prevent unittest crash on address sanitizer builds (GH-28331)\n\n",
+      "verified_at": "2024-11-06T05:41:19Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/b668cdfa09e9bdfcfddaadd23dbd455d5f667383",
+  "html_url": "https://github.com/python/cpython/commit/b668cdfa09e9bdfcfddaadd23dbd455d5f667383",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/b668cdfa09e9bdfcfddaadd23dbd455d5f667383/comments",
+  "author": null,
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "024fda47d40b8cee77ac1cd3d31ee549edc11986",
+      "url": "https://api.github.com/repos/python/cpython/commits/024fda47d40b8cee77ac1cd3d31ee549edc11986",
+      "html_url": "https://github.com/python/cpython/commit/024fda47d40b8cee77ac1cd3d31ee549edc11986"
+    }
+  ],
+  "stats": {
+    "total": 23,
+    "additions": 20,
+    "deletions": 3
+  },
+  "files": [
+    {
+      "sha": "99263bb13b0d14988a491e88a9517b4a1847c2f0",
+      "filename": "Lib/test/test_decimal.py",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 0,
+      "changes": 13,
+      "blob_url": "https://github.com/python/cpython/blob/b668cdfa09e9bdfcfddaadd23dbd455d5f667383/Lib%2Ftest%2Ftest_decimal.py",
+      "raw_url": "https://github.com/python/cpython/raw/b668cdfa09e9bdfcfddaadd23dbd455d5f667383/Lib%2Ftest%2Ftest_decimal.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_decimal.py?ref=b668cdfa09e9bdfcfddaadd23dbd455d5f667383",
+      "patch": "@@ -43,6 +43,17 @@\n import random\n import inspect\n import threading\n+import sysconfig\n+_cflags = sysconfig.get_config_var('CFLAGS') or ''\n+_config_args = sysconfig.get_config_var('CONFIG_ARGS') or ''\n+MEMORY_SANITIZER = (\n+    '-fsanitize=memory' in _cflags or\n+    '--with-memory-sanitizer' in _config_args\n+)\n+\n+ADDRESS_SANITIZER = (\n+    '-fsanitize=address' in _cflags\n+)\n \n \n if sys.platform == 'darwin':\n@@ -5500,6 +5511,8 @@ def __abs__(self):\n     # Issue 41540:\n     @unittest.skipIf(sys.platform.startswith(\"aix\"),\n                      \"AIX: default ulimit: test is flaky because of extreme over-allocation\")\n+    @unittest.skipIf(MEMORY_SANITIZER or ADDRESS_SANITIZER, \"sanitizer defaults to crashing \"\n+                     \"instead of returning NULL for malloc failure.\")\n     def test_maxcontext_exact_arith(self):\n \n         # Make sure that exact operations do not raise MemoryError due"
+    },
+    {
+      "sha": "3619e749d1731e14e6268a1dca1224263e54f5d3",
+      "filename": "Lib/test/test_io.py",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 3,
+      "changes": 10,
+      "blob_url": "https://github.com/python/cpython/blob/b668cdfa09e9bdfcfddaadd23dbd455d5f667383/Lib%2Ftest%2Ftest_io.py",
+      "raw_url": "https://github.com/python/cpython/raw/b668cdfa09e9bdfcfddaadd23dbd455d5f667383/Lib%2Ftest%2Ftest_io.py",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Lib%2Ftest%2Ftest_io.py?ref=b668cdfa09e9bdfcfddaadd23dbd455d5f667383",
+      "patch": "@@ -73,6 +73,10 @@ class EmptyStruct(ctypes.Structure):\n     '--with-memory-sanitizer' in _config_args\n )\n \n+ADDRESS_SANITIZER = (\n+    '-fsanitize=address' in _cflags\n+)\n+\n # Does io.IOBase finalizer log the exception if the close() method fails?\n # The exception is ignored silently by default in release build.\n IOBASE_EMITS_UNRAISABLE = (hasattr(sys, \"gettotalrefcount\") or sys.flags.dev_mode)\n@@ -1546,7 +1550,7 @@ def test_truncate_on_read_only(self):\n class CBufferedReaderTest(BufferedReaderTest, SizeofTest):\n     tp = io.BufferedReader\n \n-    @unittest.skipIf(MEMORY_SANITIZER, \"MSan defaults to crashing \"\n+    @unittest.skipIf(MEMORY_SANITIZER or ADDRESS_SANITIZER, \"sanitizer defaults to crashing \"\n                      \"instead of returning NULL for malloc failure.\")\n     def test_constructor(self):\n         BufferedReaderTest.test_constructor(self)\n@@ -1911,7 +1915,7 @@ def test_slow_close_from_thread(self):\n class CBufferedWriterTest(BufferedWriterTest, SizeofTest):\n     tp = io.BufferedWriter\n \n-    @unittest.skipIf(MEMORY_SANITIZER, \"MSan defaults to crashing \"\n+    @unittest.skipIf(MEMORY_SANITIZER or ADDRESS_SANITIZER, \"sanitizer defaults to crashing \"\n                      \"instead of returning NULL for malloc failure.\")\n     def test_constructor(self):\n         BufferedWriterTest.test_constructor(self)\n@@ -2410,7 +2414,7 @@ def test_interleaved_readline_write(self):\n class CBufferedRandomTest(BufferedRandomTest, SizeofTest):\n     tp = io.BufferedRandom\n \n-    @unittest.skipIf(MEMORY_SANITIZER, \"MSan defaults to crashing \"\n+    @unittest.skipIf(MEMORY_SANITIZER or ADDRESS_SANITIZER, \"sanitizer defaults to crashing \"\n                      \"instead of returning NULL for malloc failure.\")\n     def test_constructor(self):\n         BufferedRandomTest.test_constructor(self)"
+    }
+  ]
+}

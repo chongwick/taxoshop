@@ -1,0 +1,101 @@
+{
+  "sha": "572ef747692055a270a9fbf8eeaf5c4a15c8e332",
+  "node_id": "MDY6Q29tbWl0ODE1OTg5NjE6NTcyZWY3NDc2OTIwNTVhMjcwYTlmYmY4ZWVhZjVjNGExNWM4ZTMzMg==",
+  "commit": {
+    "author": {
+      "name": "Miss Islington (bot)",
+      "email": "31488909+miss-islington@users.noreply.github.com",
+      "date": "2020-03-31T12:26:05Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2020-03-31T12:26:05Z"
+    },
+    "message": "bpo-39689: Do not use native packing for format \"?\" with standard size (GH-18969)\n\n(cherry picked from commit 472fc843ca816d65c12f9508ac762ca492165c45)\n\nCo-authored-by: Stefan Krah <skrah@bytereef.org>",
+    "tree": {
+      "sha": "6d230f98dd589684891301dd58b627135e4f3e0b",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/6d230f98dd589684891301dd58b627135e4f3e0b"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/572ef747692055a270a9fbf8eeaf5c4a15c8e332",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJegzbdCRBK7hj4Ov3rIwAAdHIIAAQXpJjzg2SVqA4KGYpBEVrl\nlvcKN8eU8WzsTJsZNW6W2H6a0Z23HE9omLEYZHiVeGVkTERlyz72jy2vit8KwPhp\nX54IjeAP9CFwlbO3Ky7BngeYOGZVZz9AI8peve84C6wzbFgmPDyMbMe+YlzrfaTK\nMYEJZij6aEH0ra6wx3ySl7X4ViUEajIoG90rsi4ls0j04A8RZv/YeUvM3QfR2KFN\nWDwbEzE1xvRvAL/KToqejPXk8ZlqYh1swwSN39lT6aoEChfQEFIT8BVq2QsmnweN\nnd5JwmoilhuTdYTUHUpfouIUJwG5omchbHsAKvDW+mYAOCgtzuHTgg/3QwGvTEE=\n=BOu7\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 6d230f98dd589684891301dd58b627135e4f3e0b\nparent 6a0ee60db4cee4a01bae1a2922d21a859e9ea2ed\nauthor Miss Islington (bot) <31488909+miss-islington@users.noreply.github.com> 1585657565 -0700\ncommitter GitHub <noreply@github.com> 1585657565 -0700\n\nbpo-39689: Do not use native packing for format \"?\" with standard size (GH-18969)\n\n(cherry picked from commit 472fc843ca816d65c12f9508ac762ca492165c45)\n\nCo-authored-by: Stefan Krah <skrah@bytereef.org>",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/572ef747692055a270a9fbf8eeaf5c4a15c8e332",
+  "html_url": "https://github.com/python/cpython/commit/572ef747692055a270a9fbf8eeaf5c4a15c8e332",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/572ef747692055a270a9fbf8eeaf5c4a15c8e332/comments",
+  "author": {
+    "login": "miss-islington",
+    "id": 31488909,
+    "node_id": "MDQ6VXNlcjMxNDg4OTA5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/31488909?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/miss-islington",
+    "html_url": "https://github.com/miss-islington",
+    "followers_url": "https://api.github.com/users/miss-islington/followers",
+    "following_url": "https://api.github.com/users/miss-islington/following{/other_user}",
+    "gists_url": "https://api.github.com/users/miss-islington/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/miss-islington/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/miss-islington/subscriptions",
+    "organizations_url": "https://api.github.com/users/miss-islington/orgs",
+    "repos_url": "https://api.github.com/users/miss-islington/repos",
+    "events_url": "https://api.github.com/users/miss-islington/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/miss-islington/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "6a0ee60db4cee4a01bae1a2922d21a859e9ea2ed",
+      "url": "https://api.github.com/repos/python/cpython/commits/6a0ee60db4cee4a01bae1a2922d21a859e9ea2ed",
+      "html_url": "https://github.com/python/cpython/commit/6a0ee60db4cee4a01bae1a2922d21a859e9ea2ed"
+    }
+  ],
+  "stats": {
+    "total": 3,
+    "additions": 3,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "1c917b7513f46724b523a3ddc47e99f0f0c8a89b",
+      "filename": "Modules/_struct.c",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "blob_url": "https://github.com/python/cpython/blob/572ef747692055a270a9fbf8eeaf5c4a15c8e332/Modules%2F_struct.c",
+      "raw_url": "https://github.com/python/cpython/raw/572ef747692055a270a9fbf8eeaf5c4a15c8e332/Modules%2F_struct.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Modules%2F_struct.c?ref=572ef747692055a270a9fbf8eeaf5c4a15c8e332",
+      "patch": "@@ -2365,6 +2365,9 @@ PyInit__struct(void)\n                        \"unknown\" float format */\n                     if (ptr->format == 'd' || ptr->format == 'f')\n                         break;\n+                    /* Skip _Bool, semantics are different for standard size */\n+                    if (ptr->format == '?')\n+                        break;\n                     ptr->pack = native->pack;\n                     ptr->unpack = native->unpack;\n                     break;"
+    }
+  ]
+}

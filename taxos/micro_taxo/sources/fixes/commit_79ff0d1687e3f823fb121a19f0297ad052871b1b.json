@@ -1,0 +1,101 @@
+{
+  "sha": "79ff0d1687e3f823fb121a19f0297ad052871b1b",
+  "node_id": "C_kwDOBN0Z8doAKDc5ZmYwZDE2ODdlM2Y4MjNmYjEyMWExOWYwMjk3YWQwNTI4NzFiMWI",
+  "commit": {
+    "author": {
+      "name": "Pablo Galindo Salgado",
+      "email": "Pablogsal@gmail.com",
+      "date": "2021-11-20T17:40:59Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2021-11-20T17:40:59Z"
+    },
+    "message": "bpo-45494: Fix error location in EOF tokenizer errors (GH-29108)",
+    "tree": {
+      "sha": "174a9ebeccda6a91cb0fec2aa2cc09dcc803d88c",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/174a9ebeccda6a91cb0fec2aa2cc09dcc803d88c"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/79ff0d1687e3f823fb121a19f0297ad052871b1b",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJhmTMrCRBK7hj4Ov3rIwAAAjcIAGSFEOJE2647c3jNTIM9jHcY\nL6QykNYkb1i9vrWISJywzgh3BMXeU7xUkKwJirRlOJOccsRiSYFtGB4BzEMCwifE\nHDQMRjKbTm+T8qYO/vmlqVsokMPGpmxT/ca0nx0AAvAS+Xa8XFS3CtBVoeulbtNO\nLa0uRbAAETOlAcmBR4un1wsQpEnqvoZxgNjIlFwkTnJ67nx0HxPpgr5mg/oPmgdB\nife8Eqi+gTT+BcFaVhKxq+DhMWP3LhtqmXei8Po/jLS4qju4d2Z96UAzhQy34MfQ\n1X2zSN+Ud59BJ8SsGu5Ug8W5CMiCo6TPe8dnrmXGsn9N+WUyPBO19JOqcZhnOxw=\n=CB/i\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 174a9ebeccda6a91cb0fec2aa2cc09dcc803d88c\nparent 48744db70ed519c1566c22bf123a0e1f5c69253f\nauthor Pablo Galindo Salgado <Pablogsal@gmail.com> 1637430059 +0000\ncommitter GitHub <noreply@github.com> 1637430059 +0000\n\nbpo-45494: Fix error location in EOF tokenizer errors (GH-29108)\n\n",
+      "verified_at": "2024-01-16T19:59:59Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/79ff0d1687e3f823fb121a19f0297ad052871b1b",
+  "html_url": "https://github.com/python/cpython/commit/79ff0d1687e3f823fb121a19f0297ad052871b1b",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/79ff0d1687e3f823fb121a19f0297ad052871b1b/comments",
+  "author": {
+    "login": "pablogsal",
+    "id": 11718525,
+    "node_id": "MDQ6VXNlcjExNzE4NTI1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/11718525?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/pablogsal",
+    "html_url": "https://github.com/pablogsal",
+    "followers_url": "https://api.github.com/users/pablogsal/followers",
+    "following_url": "https://api.github.com/users/pablogsal/following{/other_user}",
+    "gists_url": "https://api.github.com/users/pablogsal/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pablogsal/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pablogsal/subscriptions",
+    "organizations_url": "https://api.github.com/users/pablogsal/orgs",
+    "repos_url": "https://api.github.com/users/pablogsal/repos",
+    "events_url": "https://api.github.com/users/pablogsal/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pablogsal/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "48744db70ed519c1566c22bf123a0e1f5c69253f",
+      "url": "https://api.github.com/repos/python/cpython/commits/48744db70ed519c1566c22bf123a0e1f5c69253f",
+      "html_url": "https://github.com/python/cpython/commit/48744db70ed519c1566c22bf123a0e1f5c69253f"
+    }
+  ],
+  "stats": {
+    "total": 9,
+    "additions": 7,
+    "deletions": 2
+  },
+  "files": [
+    {
+      "sha": "b7607301890732e0d83ad06ea77267e678dd068e",
+      "filename": "Parser/pegen.c",
+      "status": "modified",
+      "additions": 7,
+      "deletions": 2,
+      "changes": 9,
+      "blob_url": "https://github.com/python/cpython/blob/79ff0d1687e3f823fb121a19f0297ad052871b1b/Parser%2Fpegen.c",
+      "raw_url": "https://github.com/python/cpython/raw/79ff0d1687e3f823fb121a19f0297ad052871b1b/Parser%2Fpegen.c",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Parser%2Fpegen.c?ref=79ff0d1687e3f823fb121a19f0297ad052871b1b",
+      "patch": "@@ -382,8 +382,12 @@ _PyPegen_raise_error(Parser *p, PyObject *errtype, const char *errmsg, ...)\n     Py_ssize_t col_offset;\n     Py_ssize_t end_col_offset = -1;\n     if (t->col_offset == -1) {\n-        col_offset = Py_SAFE_DOWNCAST(p->tok->cur - p->tok->buf,\n-                                      intptr_t, int);\n+        if (p->tok->cur == p->tok->buf) {\n+            col_offset = 0;\n+        } else {\n+            const char* start = p->tok->buf  ? p->tok->line_start : p->tok->buf;\n+            col_offset = Py_SAFE_DOWNCAST(p->tok->cur - start, intptr_t, int);\n+        }\n     } else {\n         col_offset = t->col_offset + 1;\n     }\n@@ -410,6 +414,7 @@ get_error_line(Parser *p, Py_ssize_t lineno)\n     assert(p->tok->fp == NULL || p->tok->fp == stdin);\n \n     char *cur_line = p->tok->fp_interactive ? p->tok->interactive_src_start : p->tok->str;\n+    assert(cur_line != NULL);\n \n     for (int i = 0; i < lineno - 1; i++) {\n         cur_line = strchr(cur_line, '\\n') + 1;"
+    }
+  ]
+}

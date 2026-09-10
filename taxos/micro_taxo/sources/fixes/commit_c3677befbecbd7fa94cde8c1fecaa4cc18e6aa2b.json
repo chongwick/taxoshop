@@ -1,0 +1,101 @@
+{
+  "sha": "c3677befbecbd7fa94cde8c1fecaa4cc18e6aa2b",
+  "node_id": "C_kwDOBN0Z8doAKGMzNjc3YmVmYmVjYmQ3ZmE5NGNkZThjMWZlY2FhNGNjMThlNmFhMmI",
+  "commit": {
+    "author": {
+      "name": "Yureka",
+      "email": "yuka@yuka.dev",
+      "date": "2024-06-30T09:40:40Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2024-06-30T09:40:40Z"
+    },
+    "message": "gh-119447: Fix build with _PY_SHORT_FLOAT_REPR == 0 (#121178)",
+    "tree": {
+      "sha": "8bbb07678ccb996e4b7135cc6752af58afa5e272",
+      "url": "https://api.github.com/repos/python/cpython/git/trees/8bbb07678ccb996e4b7135cc6752af58afa5e272"
+    },
+    "url": "https://api.github.com/repos/python/cpython/git/commits/c3677befbecbd7fa94cde8c1fecaa4cc18e6aa2b",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJmgSgYCRC1aQ7uu5UhlAAAHk4QABDwoU6h6n7nR0kagjgVbLeM\nGOZtT13/BRgAUwfaTuioMc6hM9wV/tonSQ4bovibrg6mXJcHatxXqs+c4oPnQD1I\nUnNX/PnFjjsWo0d2NU+d7/8hWVx91FXpKauuLNs3PeTelh0AcuclyJlC5T5wLJzJ\nk9b2cUZAoxrIaa9XAU9BBBmIT+pJpCx3ac4631HQX9eWxpeUgApuNX3c4veCk36q\noM25QdIZTwbTnAMdE4ILZysGxCuNomNVovAg1zdq+FJOshYrFTnLz7L0NrXuFkhn\nYZD1AVam61L5FiKYY8W9j2T3XmlhUifGoVyP1reOUpV2/1PQxdxP75anlAAFRLsw\nr7EOW/xhauu9ejN36Ej79Sf1oW6LK90vSeG36bfQfN6sVi30fz9zkb2zgNpgvA2S\np2WDzA+vk2PH098YIgsugybMr0r+Lty5KTQQmFCDLg5uHeki21Lk8wA/OhsejLJh\nsPz1V7Wm0LTyiVEqXNjD/PQ3wk+zLWqZg+uvV38P6DHvU3gAkbgzIEeWV1hmb1tt\nS7MPxBVKFRL/fc81H1jHHlLXNXTe43Wyz/O7vadvkJJWmtCwmU4DJJ2n+bhPZ1zW\nOcnnbnjKZPogRo711NdKx+teuLsQuuO+jVLbxnTCSUe3f8gB13nf2Mbviri9UKst\nDD6uypAc3Rwt6VP0WKYc\n=Wzh4\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 8bbb07678ccb996e4b7135cc6752af58afa5e272\nparent 48cd104b0cf05dad8958efa9cb9666c029ef9201\nauthor Yureka <yuka@yuka.dev> 1719740440 +0200\ncommitter GitHub <noreply@github.com> 1719740440 +0200\n\ngh-119447: Fix build with _PY_SHORT_FLOAT_REPR == 0 (#121178)\n\n",
+      "verified_at": "2024-11-05T12:43:17Z"
+    }
+  },
+  "url": "https://api.github.com/repos/python/cpython/commits/c3677befbecbd7fa94cde8c1fecaa4cc18e6aa2b",
+  "html_url": "https://github.com/python/cpython/commit/c3677befbecbd7fa94cde8c1fecaa4cc18e6aa2b",
+  "comments_url": "https://api.github.com/repos/python/cpython/commits/c3677befbecbd7fa94cde8c1fecaa4cc18e6aa2b/comments",
+  "author": {
+    "login": "yuyuyureka",
+    "id": 193895068,
+    "node_id": "U_kgDOC46anA",
+    "avatar_url": "https://avatars.githubusercontent.com/u/193895068?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/yuyuyureka",
+    "html_url": "https://github.com/yuyuyureka",
+    "followers_url": "https://api.github.com/users/yuyuyureka/followers",
+    "following_url": "https://api.github.com/users/yuyuyureka/following{/other_user}",
+    "gists_url": "https://api.github.com/users/yuyuyureka/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/yuyuyureka/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/yuyuyureka/subscriptions",
+    "organizations_url": "https://api.github.com/users/yuyuyureka/orgs",
+    "repos_url": "https://api.github.com/users/yuyuyureka/repos",
+    "events_url": "https://api.github.com/users/yuyuyureka/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/yuyuyureka/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "48cd104b0cf05dad8958efa9cb9666c029ef9201",
+      "url": "https://api.github.com/repos/python/cpython/commits/48cd104b0cf05dad8958efa9cb9666c029ef9201",
+      "html_url": "https://github.com/python/cpython/commit/48cd104b0cf05dad8958efa9cb9666c029ef9201"
+    }
+  ],
+  "stats": {
+    "total": 10,
+    "additions": 3,
+    "deletions": 7
+  },
+  "files": [
+    {
+      "sha": "e4222c5267d6bec25a2e0c954f731963f2b9ac1b",
+      "filename": "Include/internal/pycore_dtoa.h",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 7,
+      "changes": 10,
+      "blob_url": "https://github.com/python/cpython/blob/c3677befbecbd7fa94cde8c1fecaa4cc18e6aa2b/Include%2Finternal%2Fpycore_dtoa.h",
+      "raw_url": "https://github.com/python/cpython/raw/c3677befbecbd7fa94cde8c1fecaa4cc18e6aa2b/Include%2Finternal%2Fpycore_dtoa.h",
+      "contents_url": "https://api.github.com/repos/python/cpython/contents/Include%2Finternal%2Fpycore_dtoa.h?ref=c3677befbecbd7fa94cde8c1fecaa4cc18e6aa2b",
+      "patch": "@@ -11,8 +11,6 @@ extern \"C\" {\n #include \"pycore_pymath.h\"        // _PY_SHORT_FLOAT_REPR\n \n \n-#if _PY_SHORT_FLOAT_REPR == 1\n-\n typedef uint32_t ULong;\n \n struct\n@@ -22,15 +20,15 @@ Bigint {\n     ULong x[1];\n };\n \n-#ifdef Py_USING_MEMORY_DEBUGGER\n+#if defined(Py_USING_MEMORY_DEBUGGER) || _PY_SHORT_FLOAT_REPR == 0\n \n struct _dtoa_state {\n     int _not_used;\n };\n-#define _dtoa_interp_state_INIT(INTERP) \\\n+#define _dtoa_state_INIT(INTERP) \\\n     {0}\n \n-#else  // !Py_USING_MEMORY_DEBUGGER\n+#else  // !Py_USING_MEMORY_DEBUGGER && _PY_SHORT_FLOAT_REPR != 0\n \n /* The size of the Bigint freelist */\n #define Bigint_Kmax 7\n@@ -66,8 +64,6 @@ extern char* _Py_dg_dtoa(double d, int mode, int ndigits,\n                          int *decpt, int *sign, char **rve);\n extern void _Py_dg_freedtoa(char *s);\n \n-#endif // _PY_SHORT_FLOAT_REPR == 1\n-\n \n extern PyStatus _PyDtoa_Init(PyInterpreterState *interp);\n extern void _PyDtoa_Fini(PyInterpreterState *interp);"
+    }
+  ]
+}

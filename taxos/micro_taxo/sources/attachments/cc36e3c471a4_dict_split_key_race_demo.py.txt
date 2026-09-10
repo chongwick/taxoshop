@@ -1,0 +1,152 @@
+"""Reproducer for the gh-151593 split-key insert / type-version race.
+
+Run on a free-threaded (Py_GIL_DISABLED) build.  NO C changes required: this
+hits the real bug in the committed gh-151593 branch code.
+
+    ./python dict_split_key_race_demo.py [rounds] [nstoppers]
+
+What the bug is
+---------------
+gh-151593 moved ``_PyDict_SplitKeysInvalidated()`` (-> ``PyType_Modified()``,
+which bumps ``tp_version_tag``) to *after* ``UNLOCK_KEYS`` in
+``insert_split_key()`` to avoid a lock-order deadlock.  That opens a window: a
+thread can first-insert a new shared key, publish it, and another thread can
+observe the key and store/read an instance value for it *before* the type
+version is bumped.  A ``LOAD_ATTR_NONDESCRIPTOR_WITH_VALUES`` site (which only
+guards on the type version + inline-values valid bit, since gh-150490 deleted
+its ``_GUARD_KEYS_VERSION``) then returns the cached *class* attribute instead
+of the instance value that was just stored.
+
+Why it is built this way
+------------------------
+  * Free-threaded CPython gives each thread its OWN specialized bytecode copy
+    (TLBC).  So each WRITER thread must warm ITS OWN reader copy to
+    ``LOAD_ATTR_NONDESCRIPTOR_WITH_VALUES`` while the key is absent.  Warming in
+    another thread does nothing for this thread.
+  * The class attribute (``SENTINEL``) is a fresh ``type``: a non-descriptor with
+    a deferred refcount, which the free-threaded specializer requires.
+  * A fresh code object (via ``exec``) per round gives each round a clean site.
+  * The bare ``UNLOCK_KEYS -> PyType_Modified`` window is only a few ns.  The
+    "stopper" threads hammer a *separate* class's ``__abstractmethods__`` to hold
+    the per-interpreter ``TYPE_LOCK`` across a ``types_stop_world()``, delaying
+    the winner's bump so a loser can land inside the window.  (That is the same
+    contention that produced the original deadlock.)  With no stoppers the window
+    is effectively unhittable -- so the count of stale reads tracks the widening.
+
+Oracle: a writer stores ``obj.foo = <distinct value>`` then immediately reads it
+back through its own specialized site (store sequenced-before read, same thread).
+Reading the class SENTINEL back is an unambiguous correctness violation.
+"""
+
+import sys
+from threading import Barrier, Thread
+
+NROUNDS = int(sys.argv[1]) if len(sys.argv) > 1 else 2000
+NSTOPPERS = int(sys.argv[2]) if len(sys.argv) > 2 else 4
+NWRITERS = 4
+WARM = 8
+KEY = "foo"
+
+if not hasattr(sys, "_is_gil_enabled") or sys._is_gil_enabled():
+    sys.exit("needs a free-threaded build with the GIL disabled")
+
+
+def make_reader():
+    ns = {}
+    exec(
+        "def read(o):\n return o.%s\n" % KEY, ns
+    )  # fresh code object per round
+    return ns["read"]
+
+
+stop_all = [False]
+
+
+def stopper():
+    class Dummy:
+        pass
+
+    Dummy()
+    while not stop_all[0]:
+        try:
+            Dummy.__abstractmethods__ = frozenset()
+        except Exception:
+            pass
+
+
+box = {}
+bugs = []  # (round, tid, stored, read_back)
+
+
+def writer(tid):
+    for _ in range(NROUNDS):
+        box["start"].wait()
+        sentinel = box["sentinel"]
+        reader = box["reader"]
+        obj = box["objs"][tid]
+        val = box["vals"][tid]
+        # 1) warm THIS thread's own copy while KEY is absent -> NDV cached at V
+        for _ in range(WARM):
+            reader(obj)
+        box["race"].wait()
+        # 2) race: store, then read back through our own NDV site
+        setattr(obj, KEY, val)
+        got = reader(obj)
+        if got is sentinel:
+            bugs.append((box["round"], tid, val, got))
+        box["end"].wait()
+
+
+def main():
+    box["start"] = Barrier(NWRITERS + 1)
+    box["race"] = Barrier(NWRITERS)
+    box["end"] = Barrier(NWRITERS + 1)
+
+    stoppers = [Thread(target=stopper, daemon=True) for _ in range(NSTOPPERS)]
+    writers = [Thread(target=writer, args=(i,)) for i in range(NWRITERS)]
+    for t in stoppers + writers:
+        t.start()
+
+    for r in range(NROUNDS):
+        sentinel = type(
+            "SENTINEL_%d" % r, (), {}
+        )  # non-descriptor, deferred refcount
+        C = type("C", (), {KEY: sentinel})
+        box["round"] = r
+        box["sentinel"] = sentinel
+        box["reader"] = make_reader()
+        box["objs"] = [C() for _ in range(NWRITERS)]
+        box["vals"] = [["value-%d-%d" % (r, i)] for i in range(NWRITERS)]
+        box["start"].wait()
+        box["end"].wait()
+
+    stop_all[0] = True
+    for t in writers:
+        t.join()
+
+    print(
+        "rounds=%d writers=%d stoppers=%d -> stale reads = %d"
+        % (NROUNDS, NWRITERS, NSTOPPERS, len(bugs))
+    )
+    if bugs:
+        r, tid, stored, got = bugs[0]
+        print(
+            "  e.g. round %d writer %d stored %r but read back the class "
+            "attribute %r (stale type version)"
+            % (r, tid, stored, got.__name__)
+        )
+        print("RACE REPRODUCED (this is a bug)")
+        return 1
+    print(
+        "no stale reads observed "
+        + (
+            "(try more rounds / stoppers)"
+            if NSTOPPERS
+            else "(window not widened)"
+        )
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
