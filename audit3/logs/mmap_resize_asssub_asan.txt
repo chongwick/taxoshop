@@ -1,0 +1,26 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1==ERROR: AddressSanitizer: SEGV on unknown address 0xffffb0afcf90 (pc 0xffffb0b1aff0 bp 0xffffc8a9f3f0 sp 0xffffc8a9f2b0 T0)
+==1==The signal is caused by a WRITE memory access.
+    #0 0xffffb0b1aff0 in safe_byte_copy Modules/mmapmodule.c:406
+    #1 0xffffb0b1aff0 in mmap_ass_subscript_lock_held Modules/mmapmodule.c:1692
+    #2 0xffffb0b1aff0 in mmap_ass_subscript Modules/mmapmodule.c:1750
+    #3 0xaaaaaff297e0 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:12634
+    #4 0xaaaab07f488c in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #5 0xaaaab07f488c in _PyEval_Vector Python/ceval.c:2176
+    #6 0xaaaab07f488c in PyEval_EvalCode Python/ceval.c:681
+    #7 0xaaaab09f2c24 in run_mod Python/pythonrun.c:1509
+    #8 0xaaaab09f8a98 in _PyRun_String Python/pythonrun.c:1292
+    #9 0xaaaab09f8a98 in _PyRun_SimpleString Python/pythonrun.c:590
+    #10 0xaaaab0ac59e4 in pymain_run_command Modules/main.c:308
+    #11 0xaaaab0ac59e4 in pymain_run_python Modules/main.c:795
+    #12 0xaaaab0ac59e4 in Py_RunMain Modules/main.c:891
+    #13 0xaaaab0ac89a8 in pymain_main Modules/main.c:921
+    #14 0xaaaab0ac89a8 in Py_BytesMain Modules/main.c:945
+    #15 0xffffb37c84c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #16 0xffffb37c8594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #17 0xaaaaaff6be6c in _start (/src/cpython/python+0x183be6c) (BuildId: ecd9fe307bf593cacfad6f1b0c0e15cd4f176f75)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV Modules/mmapmodule.c:406 in safe_byte_copy
+==1==ABORTING

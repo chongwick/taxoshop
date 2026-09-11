@@ -1,0 +1,10 @@
+## hz
+HIT codec='hz' payload=b'~' rc=-6 :: SUMMARY: AddressSanitizer: heap-buffer-overflow Modules/cjkcodecs/_codecs_cn.c:417 in hz_decode
+   (512 cases, 1 hits)
+## gb2312
+   (512 cases, 0 hits)
+## gbk
+   (512 cases, 0 hits)
+## gb18030
+   (512 cases, 0 hits)
+## big5

@@ -1,0 +1,30 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1==ERROR: AddressSanitizer: SEGV on unknown address 0xffff80a1cf90 (pc 0xffff83771984 bp 0xffffe6c297a0 sp 0xffffe6c29660 T0)
+==1==The signal is caused by a WRITE memory access.
+    #0 0xffff83771984  (/lib/aarch64-linux-gnu/libc.so.6+0xa1984) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #1 0xffff80a3b100 in memcpy /usr/include/aarch64-linux-gnu/bits/string_fortified.h:29
+    #2 0xffff80a3b100 in safe_memcpy Modules/mmapmodule.c:397
+    #3 0xffff80a3b100 in mmap_ass_subscript_lock_held Modules/mmapmodule.c:1724
+    #4 0xffff80a3b100 in mmap_ass_subscript Modules/mmapmodule.c:1750
+    #5 0xaaaae90697e0 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:12634
+    #6 0xaaaae993488c in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #7 0xaaaae993488c in _PyEval_Vector Python/ceval.c:2176
+    #8 0xaaaae993488c in PyEval_EvalCode Python/ceval.c:681
+    #9 0xaaaae9b32c24 in run_mod Python/pythonrun.c:1509
+    #10 0xaaaae9b33aa8 in _PyRun_File Python/pythonrun.c:1332
+    #11 0xaaaae9b37d6c in _PyRun_SimpleFile Python/pythonrun.c:544
+    #12 0xaaaae9b3bb40 in _PyRun_AnyFile Python/pythonrun.c:92
+    #13 0xaaaae9c0667c in pymain_run_file_obj Modules/main.c:478
+    #14 0xaaaae9c0667c in pymain_run_file Modules/main.c:494
+    #15 0xaaaae9c0667c in pymain_run_python Modules/main.c:804
+    #16 0xaaaae9c0667c in Py_RunMain Modules/main.c:891
+    #17 0xaaaae9c089a8 in pymain_main Modules/main.c:921
+    #18 0xaaaae9c089a8 in Py_BytesMain Modules/main.c:945
+    #19 0xffff836f84c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #20 0xffff836f8594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #21 0xaaaae90abe6c in _start (/src/cpython/python+0x183be6c) (BuildId: ecd9fe307bf593cacfad6f1b0c0e15cd4f176f75)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (/lib/aarch64-linux-gnu/libc.so.6+0xa1984) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2) 
+==1==ABORTING

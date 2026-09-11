@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/audit/repro/repro_sqlite_blob_index_close.py", line 16, in <module>
+    blob[ClosingIndex()]
+    ~~~~^^^^^^^^^^^^^^^^
+IndexError: Blob index out of range
