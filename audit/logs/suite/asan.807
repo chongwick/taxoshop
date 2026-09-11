@@ -1,0 +1,50 @@
+=================================================================
+==807==ERROR: AddressSanitizer: requested allocation size 0x4000000000000021 (0x4000000000001028 after adjustments for alignment, red zones etc.) exceeds maximum supported size of 0x10000000000 (thread T0)
+    #0 0xffffa57076d0 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0xaaaaba3e81f8 in _PyBytes_FromSize Objects/bytesobject.c:121
+    #2 0xaaaaba40a3d4 in _PyBytes_FromSize Objects/bytesobject.c:107
+    #3 0xaaaaba40a3d4 in PyBytes_FromStringAndSize Objects/bytesobject.c:151
+    #4 0xaaaaba40a3d4 in byteswriter_resize Objects/bytesobject.c:3666
+    #5 0xaaaaba40a3d4 in byteswriter_create Objects/bytesobject.c:3712
+    #6 0xaaaabaea17a4 in _io__Buffered_read1_impl Modules/_io/bufferedio.c:1074
+    #7 0xaaaabaea17a4 in _io__Buffered_read1 Modules/_io/clinic/bufferedio.c.h:721
+    #8 0xaaaaba426320 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #9 0xaaaaba426320 in PyObject_Vectorcall Objects/call.c:327
+    #10 0xaaaabaa71bc8 in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:768
+    #11 0xaaaaba1a1de8 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906
+    #12 0xaaaabaa91a00 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #13 0xaaaabaa91a00 in _PyEval_Vector Python/ceval.c:2174
+    #14 0xaaaaba428dfc in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #15 0xaaaaba428dfc in _PyObject_VectorcallPrepend Objects/call.c:877
+    #16 0xaaaaba42c010 in _PyVectorcall_Call Objects/call.c:273
+    #17 0xaaaaba1a8968 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:2831
+    #18 0xaaaabaa91a00 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #19 0xaaaabaa91a00 in _PyEval_Vector Python/ceval.c:2174
+    #20 0xaaaaba42b830 in _PyObject_VectorcallDictTstate Objects/call.c:135
+    #21 0xaaaaba42bc30 in _PyObject_Call_Prepend Objects/call.c:504
+    #22 0xaaaaba7760f0 in call_method Objects/typeobject.c:3070
+    #23 0xaaaaba7760f0 in slot_tp_call Objects/typeobject.c:10877
+    #24 0xaaaaba424250 in _PyObject_MakeTpCall Objects/call.c:242
+    #25 0xaaaabaa715cc in _Py_VectorCall_StackRefSteal Python/ceval.c:726
+    #26 0xaaaaba1a286c in _PyEval_EvalFrameDefault Python/generated_cases.c.h:4559
+    #27 0xaaaabaa91a00 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #28 0xaaaabaa91a00 in _PyEval_Vector Python/ceval.c:2174
+    #29 0xaaaaba428dfc in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #30 0xaaaaba428dfc in _PyObject_VectorcallPrepend Objects/call.c:877
+    #31 0xaaaaba42c010 in _PyVectorcall_Call Objects/call.c:273
+    #32 0xaaaaba1a8968 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:2831
+    #33 0xaaaabaa91a00 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #34 0xaaaabaa91a00 in _PyEval_Vector Python/ceval.c:2174
+    #35 0xaaaaba42b830 in _PyObject_VectorcallDictTstate Objects/call.c:135
+    #36 0xaaaaba42bc30 in _PyObject_Call_Prepend Objects/call.c:504
+    #37 0xaaaaba7760f0 in call_method Objects/typeobject.c:3070
+    #38 0xaaaaba7760f0 in slot_tp_call Objects/typeobject.c:10877
+    #39 0xaaaaba424250 in _PyObject_MakeTpCall Objects/call.c:242
+    #40 0xaaaabaa715cc in _Py_VectorCall_StackRefSteal Python/ceval.c:726
+    #41 0xaaaaba1a286c in _PyEval_EvalFrameDefault Python/generated_cases.c.h:4559
+    #42 0xaaaabaa91a00 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #43 0xaaaabaa91a00 in _PyEval_Vector Python/ceval.c:2174
+
+==807==HINT: if you don't care about these errors you may set allocator_may_return_null=1
+SUMMARY: AddressSanitizer: allocation-size-too-big ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69 in malloc
+==807==ABORTING

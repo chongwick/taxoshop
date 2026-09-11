@@ -1,0 +1,111 @@
+=================================================================
+==1==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x5020000049d1 at pc 0xffff7c6df068 bp 0xffffef3ce070 sp 0xffffef3ce060
+READ of size 1 at 0x5020000049d1 thread T0
+    #0 0xffff7c6df064 in hz_decode Modules/cjkcodecs/_codecs_cn.c:417
+    #1 0xffff7c65426c in decoder_feed_buffer Modules/cjkcodecs/multibytecodec.c:921
+    #2 0xffff7c656238 in _multibytecodec_MultibyteIncrementalDecoder_decode_impl Modules/cjkcodecs/multibytecodec.c:1214
+    #3 0xffff7c656238 in _multibytecodec_MultibyteIncrementalDecoder_decode Modules/cjkcodecs/clinic/multibytecodec.c.h:395
+    #4 0xaaaad5196320 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #5 0xaaaad5196320 in PyObject_Vectorcall Objects/call.c:327
+    #6 0xaaaad57e1bc8 in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:768
+    #7 0xaaaad4f11de8 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906
+    #8 0xaaaad521ccfc in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #9 0xaaaad521ccfc in gen_send_ex2 Objects/genobject.c:283
+    #10 0xaaaad52298bc in gen_send_ex Objects/genobject.c:376
+    #11 0xaaaad52298bc in gen_iternext Objects/genobject.c:769
+    #12 0xaaaad529597c in list_extend_iter_lock_held Objects/listobject.c:1318
+    #13 0xaaaad529597c in _list_extend Objects/listobject.c:1507
+    #14 0xaaaad5296bec in list___init___impl Objects/listobject.c:3542
+    #15 0xaaaad5296bec in list_vectorcall Objects/listobject.c:3566
+    #16 0xaaaad5196320 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #17 0xaaaad5196320 in PyObject_Vectorcall Objects/call.c:327
+    #18 0xaaaad57e1bc8 in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:768
+    #19 0xaaaad4f11de8 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906
+    #20 0xaaaad5800b1c in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #21 0xaaaad5800b1c in _PyEval_Vector Python/ceval.c:2174
+    #22 0xaaaad5800b1c in PyEval_EvalCode Python/ceval.c:679
+    #23 0xaaaad59ffeb4 in run_mod Python/pythonrun.c:1509
+    #24 0xaaaad5a00d38 in _PyRun_File Python/pythonrun.c:1332
+    #25 0xaaaad5a04ffc in _PyRun_SimpleFile Python/pythonrun.c:544
+    #26 0xaaaad5a08dd0 in _PyRun_AnyFile Python/pythonrun.c:92
+    #27 0xaaaad5ad390c in pymain_run_file_obj Modules/main.c:478
+    #28 0xaaaad5ad390c in pymain_run_file Modules/main.c:494
+    #29 0xaaaad5ad390c in pymain_run_python Modules/main.c:804
+    #30 0xaaaad5ad390c in Py_RunMain Modules/main.c:891
+    #31 0xaaaad5ad5c38 in pymain_main Modules/main.c:921
+    #32 0xaaaad5ad5c38 in Py_BytesMain Modules/main.c:945
+    #33 0xffff7f4384c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #34 0xffff7f438594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #35 0xaaaad4f7beec in _start (/src/cpython/python+0x183beec) (BuildId: eba909a3db0adabacf151d7dc3081dda7999191a)
+
+0x5020000049d1 is located 0 bytes after 1-byte region [0x5020000049d0,0x5020000049d1)
+allocated by thread T0 here:
+    #0 0xffff7fdd76d0 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0xffff7c656090 in _multibytecodec_MultibyteIncrementalDecoder_decode_impl Modules/cjkcodecs/multibytecodec.c:1201
+    #2 0xffff7c656090 in _multibytecodec_MultibyteIncrementalDecoder_decode Modules/cjkcodecs/clinic/multibytecodec.c.h:395
+    #3 0xaaaad5196320 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #4 0xaaaad5196320 in PyObject_Vectorcall Objects/call.c:327
+    #5 0xaaaad57e1bc8 in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:768
+    #6 0xaaaad4f11de8 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906
+    #7 0xaaaad521ccfc in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #8 0xaaaad521ccfc in gen_send_ex2 Objects/genobject.c:283
+    #9 0xaaaad52298bc in gen_send_ex Objects/genobject.c:376
+    #10 0xaaaad52298bc in gen_iternext Objects/genobject.c:769
+    #11 0xaaaad529597c in list_extend_iter_lock_held Objects/listobject.c:1318
+    #12 0xaaaad529597c in _list_extend Objects/listobject.c:1507
+    #13 0xaaaad5296bec in list___init___impl Objects/listobject.c:3542
+    #14 0xaaaad5296bec in list_vectorcall Objects/listobject.c:3566
+    #15 0xaaaad5196320 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #16 0xaaaad5196320 in PyObject_Vectorcall Objects/call.c:327
+    #17 0xaaaad57e1bc8 in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:768
+    #18 0xaaaad4f11de8 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906
+    #19 0xaaaad5800b1c in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #20 0xaaaad5800b1c in _PyEval_Vector Python/ceval.c:2174
+    #21 0xaaaad5800b1c in PyEval_EvalCode Python/ceval.c:679
+    #22 0xaaaad59ffeb4 in run_mod Python/pythonrun.c:1509
+    #23 0xaaaad5a00d38 in _PyRun_File Python/pythonrun.c:1332
+    #24 0xaaaad5a04ffc in _PyRun_SimpleFile Python/pythonrun.c:544
+    #25 0xaaaad5a08dd0 in _PyRun_AnyFile Python/pythonrun.c:92
+    #26 0xaaaad5ad390c in pymain_run_file_obj Modules/main.c:478
+    #27 0xaaaad5ad390c in pymain_run_file Modules/main.c:494
+    #28 0xaaaad5ad390c in pymain_run_python Modules/main.c:804
+    #29 0xaaaad5ad390c in Py_RunMain Modules/main.c:891
+    #30 0xaaaad5ad5c38 in pymain_main Modules/main.c:921
+    #31 0xaaaad5ad5c38 in Py_BytesMain Modules/main.c:945
+    #32 0xffff7f4384c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #33 0xffff7f438594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #34 0xaaaad4f7beec in _start (/src/cpython/python+0x183beec) (BuildId: eba909a3db0adabacf151d7dc3081dda7999191a)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow Modules/cjkcodecs/_codecs_cn.c:417 in hz_decode
+Shadow bytes around the buggy address:
+  0x502000004700: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd
+  0x502000004780: fa fa fd fa fa fa fd fd fa fa fd fa fa fa fd fa
+  0x502000004800: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+  0x502000004880: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+  0x502000004900: fa fa fd fa fa fa fd fd fa fa fd fa fa fa fd fa
+=>0x502000004980: fa fa fd fa fa fa fd fa fa fa[01]fa fa fa fa fa
+  0x502000004a00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x502000004a80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x502000004b00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x502000004b80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x502000004c00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==1==ABORTING
