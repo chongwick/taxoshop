@@ -1,0 +1,141 @@
+Exception ignored while finalizing file <_io.BufferedReader>:
+Traceback (most recent call last):
+  File "/audit/repro/battery/s_readline.py", line 5, in readinto
+    tw.detach(); b[:3]=b"ab\n"; return 3
+    ~~~~~~~~~^^
+RuntimeError: reentrant call inside <_io.BufferedReader>
+=================================================================
+==1==ERROR: AddressSanitizer: heap-use-after-free on address 0x50f000038a20 at pc 0xaaaaaf3cf684 bp 0xffffe80e9200 sp 0xffffe80e91f0
+READ of size 8 at 0x50f000038a20 thread T0
+    #0 0xaaaaaf3cf680 in _bufferedreader_raw_read Modules/_io/bufferedio.c:1667
+    #1 0xaaaaaf3d45e0 in _io__Buffered_read1_impl Modules/_io/bufferedio.c:1080
+    #2 0xaaaaaf3d45e0 in _io__Buffered_read1 Modules/_io/clinic/bufferedio.c.h:721
+    #3 0xaaaaae959ad0 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #4 0xaaaaae959ad0 in PyObject_VectorcallMethod Objects/call.c:921
+    #5 0xaaaaaf3deb68 in PyObject_CallMethodOneArg Include/cpython/abstract.h:74
+    #6 0xaaaaaf3deb68 in buffer_callmethod_onearg Modules/_io/textio.c:792
+    #7 0xaaaaaf3f7118 in textiowrapper_read_chunk Modules/_io/textio.c:1996
+    #8 0xaaaaaf3fb328 in _textiowrapper_readline Modules/_io/textio.c:2307
+    #9 0xaaaaae9562a0 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #10 0xaaaaae9562a0 in PyObject_Vectorcall Objects/call.c:327
+    #11 0xaaaaaefa5938 in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:770
+    #12 0xaaaaae6d1d68 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906
+    #13 0xaaaaaefc488c in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #14 0xaaaaaefc488c in _PyEval_Vector Python/ceval.c:2176
+    #15 0xaaaaaefc488c in PyEval_EvalCode Python/ceval.c:681
+    #16 0xaaaaaf1c2c24 in run_mod Python/pythonrun.c:1509
+    #17 0xaaaaaf1c3aa8 in _PyRun_File Python/pythonrun.c:1332
+    #18 0xaaaaaf1c7d6c in _PyRun_SimpleFile Python/pythonrun.c:544
+    #19 0xaaaaaf1cbb40 in _PyRun_AnyFile Python/pythonrun.c:92
+    #20 0xaaaaaf29667c in pymain_run_file_obj Modules/main.c:478
+    #21 0xaaaaaf29667c in pymain_run_file Modules/main.c:494
+    #22 0xaaaaaf29667c in pymain_run_python Modules/main.c:804
+    #23 0xaaaaaf29667c in Py_RunMain Modules/main.c:891
+    #24 0xaaaaaf2989a8 in pymain_main Modules/main.c:921
+    #25 0xaaaaaf2989a8 in Py_BytesMain Modules/main.c:945
+    #26 0xffffa61c84c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #27 0xffffa61c8594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #28 0xaaaaae73be6c in _start (/src/cpython/python+0x183be6c) (BuildId: ecd9fe307bf593cacfad6f1b0c0e15cd4f176f75)
+
+0x50f000038a20 is located 64 bytes inside of 168-byte region [0x50f0000389e0,0x50f000038a88)
+freed by thread T0 here:
+    #0 0xffffa6b661b4 in free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:52
+    #1 0xaaaaaf3c06fc in buffered_dealloc Modules/_io/bufferedio.c:444
+    #2 0xaaaaaeb48820 in _Py_Dealloc Objects/object.c:3334
+    #3 0xaaaaae6ffe20 in Py_DECREF_MORTAL Include/internal/pycore_object.h:449
+    #4 0xaaaaae6ffe20 in PyStackRef_XCLOSE Include/internal/pycore_stackref.h:726
+    #5 0xaaaaae6ffe20 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:11163
+    #6 0xaaaaaefc5770 in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #7 0xaaaaaefc5770 in _PyEval_Vector Python/ceval.c:2176
+    #8 0xaaaaae959ad0 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #9 0xaaaaae959ad0 in PyObject_VectorcallMethod Objects/call.c:921
+    #10 0xaaaaaf3cf0f8 in PyObject_CallMethodOneArg Include/cpython/abstract.h:74
+    #11 0xaaaaaf3cf0f8 in _bufferedreader_raw_read Modules/_io/bufferedio.c:1640
+    #12 0xaaaaaf3d45e0 in _io__Buffered_read1_impl Modules/_io/bufferedio.c:1080
+    #13 0xaaaaaf3d45e0 in _io__Buffered_read1 Modules/_io/clinic/bufferedio.c.h:721
+    #14 0xaaaaae959ad0 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #15 0xaaaaae959ad0 in PyObject_VectorcallMethod Objects/call.c:921
+    #16 0xaaaaaf3deb68 in PyObject_CallMethodOneArg Include/cpython/abstract.h:74
+    #17 0xaaaaaf3deb68 in buffer_callmethod_onearg Modules/_io/textio.c:792
+    #18 0xaaaaaf3f7118 in textiowrapper_read_chunk Modules/_io/textio.c:1996
+    #19 0xaaaaaf3fb328 in _textiowrapper_readline Modules/_io/textio.c:2307
+    #20 0xaaaaae9562a0 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #21 0xaaaaae9562a0 in PyObject_Vectorcall Objects/call.c:327
+    #22 0xaaaaaefa5938 in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:770
+    #23 0xaaaaae6d1d68 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906
+    #24 0xaaaaaefc488c in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #25 0xaaaaaefc488c in _PyEval_Vector Python/ceval.c:2176
+    #26 0xaaaaaefc488c in PyEval_EvalCode Python/ceval.c:681
+    #27 0xaaaaaf1c2c24 in run_mod Python/pythonrun.c:1509
+    #28 0xaaaaaf1c3aa8 in _PyRun_File Python/pythonrun.c:1332
+    #29 0xaaaaaf1c7d6c in _PyRun_SimpleFile Python/pythonrun.c:544
+    #30 0xaaaaaf1cbb40 in _PyRun_AnyFile Python/pythonrun.c:92
+    #31 0xaaaaaf29667c in pymain_run_file_obj Modules/main.c:478
+    #32 0xaaaaaf29667c in pymain_run_file Modules/main.c:494
+    #33 0xaaaaaf29667c in pymain_run_python Modules/main.c:804
+    #34 0xaaaaaf29667c in Py_RunMain Modules/main.c:891
+    #35 0xaaaaaf2989a8 in pymain_main Modules/main.c:921
+    #36 0xaaaaaf2989a8 in Py_BytesMain Modules/main.c:945
+    #37 0xffffa61c84c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #38 0xffffa61c8594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #39 0xaaaaae73be6c in _start (/src/cpython/python+0x183be6c) (BuildId: ecd9fe307bf593cacfad6f1b0c0e15cd4f176f75)
+
+previously allocated by thread T0 here:
+    #0 0xffffa6b676d0 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0xaaaaaec634ec in _PyObject_MallocWithType Include/internal/pycore_object_alloc.h:46
+    #2 0xaaaaaec634ec in _PyType_AllocNoTrack Objects/typeobject.c:2498
+    #3 0xaaaaaec63b70 in PyType_GenericAlloc Objects/typeobject.c:2529
+    #4 0xaaaaaec69578 in type_call Objects/typeobject.c:2442
+    #5 0xaaaaae9541d0 in _PyObject_MakeTpCall Objects/call.c:242
+    #6 0xaaaaaefa5938 in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:770
+    #7 0xaaaaae6d1d68 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906
+    #8 0xaaaaaefc488c in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #9 0xaaaaaefc488c in _PyEval_Vector Python/ceval.c:2176
+    #10 0xaaaaaefc488c in PyEval_EvalCode Python/ceval.c:681
+    #11 0xaaaaaf1c2c24 in run_mod Python/pythonrun.c:1509
+    #12 0xaaaaaf1c3aa8 in _PyRun_File Python/pythonrun.c:1332
+    #13 0xaaaaaf1c7d6c in _PyRun_SimpleFile Python/pythonrun.c:544
+    #14 0xaaaaaf1cbb40 in _PyRun_AnyFile Python/pythonrun.c:92
+    #15 0xaaaaaf29667c in pymain_run_file_obj Modules/main.c:478
+    #16 0xaaaaaf29667c in pymain_run_file Modules/main.c:494
+    #17 0xaaaaaf29667c in pymain_run_python Modules/main.c:804
+    #18 0xaaaaaf29667c in Py_RunMain Modules/main.c:891
+    #19 0xaaaaaf2989a8 in pymain_main Modules/main.c:921
+    #20 0xaaaaaf2989a8 in Py_BytesMain Modules/main.c:945
+    #21 0xffffa61c84c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #22 0xffffa61c8594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #23 0xaaaaae73be6c in _start (/src/cpython/python+0x183be6c) (BuildId: ecd9fe307bf593cacfad6f1b0c0e15cd4f176f75)
+
+SUMMARY: AddressSanitizer: heap-use-after-free Modules/_io/bufferedio.c:1667 in _bufferedreader_raw_read
+Shadow bytes around the buggy address:
+  0x50f000038780: fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa fa
+  0x50f000038800: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x50f000038880: 00 00 00 00 00 fa fa fa fa fa fa fa fa fa 00 00
+  0x50f000038900: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x50f000038980: 00 00 00 fa fa fa fa fa fa fa fa fa fd fd fd fd
+=>0x50f000038a00: fd fd fd fd[fd]fd fd fd fd fd fd fd fd fd fd fd
+  0x50f000038a80: fd fa fa fa fa fa fa fa fa fa fd fd fd fd fd fd
+  0x50f000038b00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fa
+  0x50f000038b80: fa fa fa fa fa fa fa fa fd fd fd fd fd fd fd fd
+  0x50f000038c00: fd fd fd fd fd fd fd fd fd fd fd fd fd fa fa fa
+  0x50f000038c80: fa fa fa fa fa fa fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==1==ABORTING

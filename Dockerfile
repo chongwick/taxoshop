@@ -73,5 +73,19 @@ WORKDIR /src/cpython
 
 CMD ["./python"]
 
+FROM build-base AS vanilla
+
+ENV PYTHONMALLOC=malloc
+
+RUN CC=gcc CXX=g++ ./configure \
+        --prefix=/opt/python-vanilla \
+        --with-pydebug \
+        --without-ensurepip \
+    && make -j"$(nproc)"
+
+WORKDIR /src/cpython
+
+CMD ["./python"]
+
 # Keep the historical ASan/UBSan image as Docker's default build target.
 FROM asan-ubsan AS default
