@@ -189,4 +189,4 @@ Persistent cross-session state is also in the auto-memory
 7. Confirm on the ASan/UBSan image; save the log.
 8. Dup-check (upstream `gh` + `git log`).
 9. Write `findings/FINDING-00X-*.md`: parent `workflow-XXXX`, root cause with `file:line`,
-   minimal repro, full sanitizer output, scope, and duplicate analysis.
+   minimal repro, full sanitizer output, scope, and duplicate analysis. Describe relationship to macro-taxonomy pattern.
