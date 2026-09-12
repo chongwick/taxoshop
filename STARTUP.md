@@ -94,7 +94,7 @@ Last confirmed: `3.16.0a0`, HEAD `e5d4fa281c573b764b827f3defae260787024e43`.
 
 To (re)build the default ASan/UBSan target only if needed:
 ```bash
-cd /Users/danielchong/Repositories/taxoshop
+cd taxoshop
 docker build --target asan-ubsan -t taxoshop/cpython-asan-ubsan:current . 2>&1 | tee audit<N>/logs/docker-build.log
 ```
 
@@ -111,13 +111,13 @@ page (SEGV), e.g. after `resize()` shrinks/moves the mapping. Design repros acco
 Mount an audit dir into the container and run each repro in its own process (ASan aborts
 the whole process on the first error):
 ```bash
-docker run --rm -v /Users/danielchong/Repositories/taxoshop/audit<N>:/audit \
+docker run --rm -v /taxoshop/audit<N>:/audit \
   taxoshop/cpython-asan-ubsan:current \
   bash -c 'cd /src/cpython && ./python /audit/repro/<file>.py'
 ```
 Batch loop (isolated per file):
 ```bash
-docker run --rm -v /Users/danielchong/Repositories/taxoshop/audit<N>:/audit \
+docker run --rm -v /taxoshop/audit<N>:/audit \
   taxoshop/cpython-asan-ubsan:current bash -c '
   cd /src/cpython
   for f in /audit/repro/battery/t_*.py; do
