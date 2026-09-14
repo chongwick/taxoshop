@@ -1,0 +1,50 @@
+# Build CRuby with AddressSanitizer and UndefinedBehaviorSanitizer enabled.
+#
+# Example:
+#   docker build -f Dockerfile.cruby -t taxoshop/cruby-asan-ubsan:current .
+#   docker run --rm taxoshop/cruby-asan-ubsan:current /src/ruby/ruby -e 'puts :ok'
+FROM ubuntu:25.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+ARG RUBY_REF=master
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        autoconf \
+        bison \
+        build-essential \
+        ca-certificates \
+        clang \
+        git \
+        libclang-rt-20-dev \
+        libffi-dev \
+        libgdbm-dev \
+        libreadline-dev \
+        libssl-dev \
+        libyaml-dev \
+        llvm-20 \
+        pkg-config \
+        ruby \
+        zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /src
+
+RUN git clone --depth 1 --branch "${RUBY_REF}" https://github.com/ruby/ruby.git
+
+WORKDIR /src/ruby
+
+# A host Ruby generates headers (including id.h) needed by a source checkout.
+RUN ./autogen.sh \
+    && CC=clang \
+       CFLAGS='-fsanitize=address,undefined -fno-omit-frame-pointer -g' \
+       LDFLAGS='-fsanitize=address,undefined' \
+       ./configure --disable-install-doc --disable-install-rdoc \
+    && make -j1
+
+ENV ASAN_OPTIONS=detect_leaks=0:abort_on_error=1:symbolize=1
+ENV UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1
+ENV ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-20
+ENV LLVM_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-20
+
+CMD ["/src/ruby/ruby"]
