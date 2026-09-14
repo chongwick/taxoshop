@@ -1,0 +1,86 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load .dockerignore
+#1 transferring context: 82B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 3.12kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:24.04
+#3 ...
+
+#4 [auth] library/ubuntu:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:24.04
+#3 DONE 1.0s
+
+#5 [build-base 1/5] FROM docker.io/library/ubuntu:24.04@sha256:224a1869083a311ef3f13648a154ba79832fbef6364d31493642ca03082da254
+#5 CACHED
+
+#6 [build-base 2/5] RUN apt-get update     && apt-get install -y --no-install-recommends         build-essential         ca-certificates         clang         git         libbz2-dev         libclang-rt-18-dev         libffi-dev         libgdbm-compat-dev         libgdbm-dev         liblzma-dev         libncurses5-dev         libreadline-dev         libsqlite3-dev         libssl-dev         llvm         tk-dev         uuid-dev         xz-utils         zlib1g-dev     && rm -rf /var/lib/apt/lists/*
+#6 0.408 Get:1 http://ports.ubuntu.com/ubuntu-ports noble InRelease [256 kB]
+#6 0.622 Get:2 http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease [126 kB]
+#6 0.662 Err:1 http://ports.ubuntu.com/ubuntu-ports noble InRelease
+#6 0.662   At least one invalid signature was encountered.
+#6 0.675 Get:3 http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease [126 kB]
+#6 0.699 Err:2 http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease
+#6 0.699   At least one invalid signature was encountered.
+#6 0.730 Get:4 http://ports.ubuntu.com/ubuntu-ports noble-security InRelease [126 kB]
+#6 0.735 Err:3 http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease
+#6 0.735   At least one invalid signature was encountered.
+#6 0.780 Err:4 http://ports.ubuntu.com/ubuntu-ports noble-security InRelease
+#6 0.780   At least one invalid signature was encountered.
+#6 0.785 Reading package lists...
+#6 0.794 W: GPG error: http://ports.ubuntu.com/ubuntu-ports noble InRelease: At least one invalid signature was encountered.
+#6 0.794 E: The repository 'http://ports.ubuntu.com/ubuntu-ports noble InRelease' is not signed.
+#6 0.794 W: GPG error: http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease: At least one invalid signature was encountered.
+#6 0.794 E: The repository 'http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease' is not signed.
+#6 0.794 W: GPG error: http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease: At least one invalid signature was encountered.
+#6 0.794 E: The repository 'http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease' is not signed.
+#6 0.794 W: GPG error: http://ports.ubuntu.com/ubuntu-ports noble-security InRelease: At least one invalid signature was encountered.
+#6 0.794 E: The repository 'http://ports.ubuntu.com/ubuntu-ports noble-security InRelease' is not signed.
+#6 ERROR: process "/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends         build-essential         ca-certificates         clang         git         libbz2-dev         libclang-rt-18-dev         libffi-dev         libgdbm-compat-dev         libgdbm-dev         liblzma-dev         libncurses5-dev         libreadline-dev         libsqlite3-dev         libssl-dev         llvm         tk-dev         uuid-dev         xz-utils         zlib1g-dev     && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+------
+ > [build-base 2/5] RUN apt-get update     && apt-get install -y --no-install-recommends         build-essential         ca-certificates         clang         git         libbz2-dev         libclang-rt-18-dev         libffi-dev         libgdbm-compat-dev         libgdbm-dev         liblzma-dev         libncurses5-dev         libreadline-dev         libsqlite3-dev         libssl-dev         llvm         tk-dev         uuid-dev         xz-utils         zlib1g-dev     && rm -rf /var/lib/apt/lists/*:
+0.780   At least one invalid signature was encountered.
+0.785 Reading package lists...
+0.794 W: GPG error: http://ports.ubuntu.com/ubuntu-ports noble InRelease: At least one invalid signature was encountered.
+0.794 E: The repository 'http://ports.ubuntu.com/ubuntu-ports noble InRelease' is not signed.
+0.794 W: GPG error: http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease: At least one invalid signature was encountered.
+0.794 E: The repository 'http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease' is not signed.
+0.794 W: GPG error: http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease: At least one invalid signature was encountered.
+0.794 E: The repository 'http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease' is not signed.
+0.794 W: GPG error: http://ports.ubuntu.com/ubuntu-ports noble-security InRelease: At least one invalid signature was encountered.
+0.794 E: The repository 'http://ports.ubuntu.com/ubuntu-ports noble-security InRelease' is not signed.
+------
+Dockerfile:7
+--------------------
+   6 |     
+   7 | >>> RUN apt-get update \
+   8 | >>>     && apt-get install -y --no-install-recommends \
+   9 | >>>         build-essential \
+  10 | >>>         ca-certificates \
+  11 | >>>         clang \
+  12 | >>>         git \
+  13 | >>>         libbz2-dev \
+  14 | >>>         libclang-rt-18-dev \
+  15 | >>>         libffi-dev \
+  16 | >>>         libgdbm-compat-dev \
+  17 | >>>         libgdbm-dev \
+  18 | >>>         liblzma-dev \
+  19 | >>>         libncurses5-dev \
+  20 | >>>         libreadline-dev \
+  21 | >>>         libsqlite3-dev \
+  22 | >>>         libssl-dev \
+  23 | >>>         llvm \
+  24 | >>>         tk-dev \
+  25 | >>>         uuid-dev \
+  26 | >>>         xz-utils \
+  27 | >>>         zlib1g-dev \
+  28 | >>>     && rm -rf /var/lib/apt/lists/*
+  29 |     
+--------------------
+ERROR: failed to solve: process "/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends         build-essential         ca-certificates         clang         git         libbz2-dev         libclang-rt-18-dev         libffi-dev         libgdbm-compat-dev         libgdbm-dev         liblzma-dev         libncurses5-dev         libreadline-dev         libsqlite3-dev         libssl-dev         llvm         tk-dev         uuid-dev         xz-utils         zlib1g-dev     && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100

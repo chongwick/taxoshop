@@ -73,6 +73,29 @@ WORKDIR /src/cpython
 
 CMD ["./python"]
 
+# Free-threaded (--disable-gil) TSan build: required to observe the object-level /
+# process-global concurrency races (workflow-0077 / workflow-0081). The plain `tsan`
+# stage above keeps the GIL, which serializes those accesses and hides the races.
+FROM build-base AS tsan-ft
+
+ENV TSAN_OPTIONS=halt_on_error=1:second_deadlock_stack=1:history_size=7
+ENV TSAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
+ENV LLVM_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
+ENV PYTHONMALLOC=malloc
+# Free-threaded builds disable the GIL by default; make it explicit for repro clarity.
+ENV PYTHON_GIL=0
+
+RUN CC=clang CXX=clang++ ./configure \
+        --prefix=/opt/python-tsan-ft \
+        --with-thread-sanitizer \
+        --disable-gil \
+        --without-ensurepip \
+    && make -j"$(nproc)"
+
+WORKDIR /src/cpython
+
+CMD ["./python"]
+
 FROM build-base AS vanilla
 
 ENV PYTHONMALLOC=malloc

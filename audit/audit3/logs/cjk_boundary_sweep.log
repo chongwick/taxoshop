@@ -8,3 +8,37 @@ HIT codec='hz' payload=b'~' rc=-6 :: SUMMARY: AddressSanitizer: heap-buffer-over
 ## gb18030
    (512 cases, 0 hits)
 ## big5
+   (512 cases, 0 hits)
+## big5hkscs
+   (512 cases, 0 hits)
+## cp932
+   (512 cases, 0 hits)
+## shift_jis
+   (512 cases, 0 hits)
+## shift_jisx0213
+   (512 cases, 0 hits)
+## euc_jp
+   (512 cases, 0 hits)
+## euc_jisx0213
+   (512 cases, 0 hits)
+## euc_kr
+   (512 cases, 0 hits)
+## cp949
+   (512 cases, 0 hits)
+## johab
+   (512 cases, 0 hits)
+## iso2022_jp
+   (1280 cases, 0 hits)
+## iso2022_jp_1
+   (1280 cases, 0 hits)
+## iso2022_jp_2
+   (1280 cases, 0 hits)
+## iso2022_jp_3
+   (1280 cases, 0 hits)
+## iso2022_jp_ext
+   (1280 cases, 0 hits)
+## iso2022_kr
+   (1280 cases, 0 hits)
+
+=== SUMMARY ===
+'hz' b'~' :: SUMMARY: AddressSanitizer: heap-buffer-overflow Modules/cjkcodecs/_codecs_cn.c:417 in hz_decode

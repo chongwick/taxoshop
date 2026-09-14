@@ -42,6 +42,22 @@ rebuilt mid-session (8f847875 -> e5d4fa28). Findings reproduce on current HEAD.
 - ctypes Array ass_subscript reentrant __index__— SAFE (fixed-size arrays; can't resize)
 - _bufferedreader/_bufferedwriter raw read/write— SAFE (return length bounds-checked n in [0,len])
 - _elementtree element_[ass_]subscr slice      — SAFE/FIXED (gh-143200: slicelen computed after unpack)
+- array_ass_subscr slice (RHS iterable)        — SAFE (RHS must be an array; no user reentrancy; ob_exports checked)
+- CJK/all codec decode (20706 crafted/truncated probes) — no crash (framework REQUIRE_INBUF robust)
+- CJK/all incremental decoders byte-by-byte (6426 probes) — no crash (prior HZ finding fixed)
+- struct calcsize/pack_into overflow            — SAFE ("total struct size too long" guards)
+- _pickle batch_list_exact / batch_dict_exact  — SAFE (GetItemRef strong refs / INCREF key+value before save; size guard)
+- io.StringIO seek(2**62)+read pointer arith    — no UBSan report (gcc `-fsanitize=undefined` here doesn't flag OOB pointer *arithmetic*, only wraparound/real OOB access)
+
+## Sanitizer coverage note
+Build flags: `-fsanitize=address -fsanitize=undefined` (gcc). ASan catches real
+OOB read/write + UAF (confirmed: mmap SEGV). This UBSan config catches
+signed-overflow/shift/divide but NOT out-of-bounds pointer arithmetic that is never
+dereferenced. So target ASan-catchable bugs (actual OOB/UAF) and signed-int UB.
+
+## Scope exclusions
+- **ctypes**: excluded per user direction. (It is documented as intentionally
+  memory-unsafe; findings there are not meaningful.)
 
 ## Cross-reference corroboration
 The `__buffer__`-resize class was fixed for bytearray.extend (gh-153578) and the
