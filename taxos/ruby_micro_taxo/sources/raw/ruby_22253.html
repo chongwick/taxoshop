@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<title>Bug #22253: Clang UBSan reports NULL/0 memcpy for eval scope locals - Ruby - Ruby Issue Tracking System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="robots" content="nofollow">
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="RZ0W0VJji3-GU0aUb96HteX584y_JrgQVJwq9g7XZAw-hvONJoJMI8yIdPhcdOzZJI0OF3nTQ4jp5D2FBWIsMA" />
+<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon-0e291875.ico" />
+<link rel="stylesheet" href="/assets/jquery/jquery-ui-1.13.2-70e53573.css" media="all" />
+<link rel="stylesheet" href="/assets/tribute-5.1.3-c23a7bf2.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/application-e80f713f.css" media="all" />
+<link rel="stylesheet" href="/assets/dropdown-90f15d9b.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/responsive-f399c041.css" media="all" />
+<script type="importmap" data-turbo-track="reload">{
+  "imports": {
+    "@rails/request.js": "/assets/requestjs-64720317.js",
+    "application": "/assets/application-20c5ac24.js",
+    "@hotwired/stimulus": "/assets/stimulus.min-7ea3d58b.js",
+    "@hotwired/stimulus-loading": "/assets/stimulus-loading-25917588.js",
+    "turndown": "/assets/turndown-93630580.js",
+    "tablesort": "/assets/tablesort.min-8f8a27b3.js",
+    "tablesort.number": "/assets/tablesort.number.min-5c169183.js",
+    "chart.js": "/assets/chart.min-df84bc27.js",
+    "controllers/api_key_copy_controller": "/assets/controllers/api_key_copy_controller-75f835b3.js",
+    "controllers/application": "/assets/controllers/application-fab29967.js",
+    "controllers/clipboard_controller": "/assets/controllers/clipboard_controller-33f6e136.js",
+    "controllers/custom_field_default_value_controller": "/assets/controllers/custom_field_default_value_controller-8e4989aa.js",
+    "controllers/dropdown_controller": "/assets/controllers/dropdown_controller-9c4fc4bc.js",
+    "controllers/gantt/chart_controller": "/assets/controllers/gantt/chart_controller-c7840aff.js",
+    "controllers/gantt/column_controller": "/assets/controllers/gantt/column_controller-414fc5e5.js",
+    "controllers/gantt/options_controller": "/assets/controllers/gantt/options_controller-ac0d91d9.js",
+    "controllers/gantt/subjects_controller": "/assets/controllers/gantt/subjects_controller-f9af7aea.js",
+    "controllers": "/assets/controllers/index-dfefe98d.js",
+    "controllers/list_autofill_controller": "/assets/controllers/list_autofill_controller-5f013171.js",
+    "controllers/quote_reply_controller": "/assets/controllers/quote_reply_controller-3e6a21f7.js",
+    "controllers/reports/details_controller": "/assets/controllers/reports/details_controller-21eb4cbd.js",
+    "controllers/repositories/stats_controller": "/assets/controllers/repositories/stats_controller-d8c4e406.js",
+    "controllers/selection_indent_controller": "/assets/controllers/selection_indent_controller-01007880.js",
+    "controllers/sticky_issue_header_controller": "/assets/controllers/sticky_issue_header_controller-18502bbe.js",
+    "controllers/table_paste_controller": "/assets/controllers/table_paste_controller-961189c1.js",
+    "controllers/tablesort_controller": "/assets/controllers/tablesort_controller-0dce155e.js"
+  }
+}</script>
+<link rel="modulepreload" href="/assets/requestjs-64720317.js">
+<link rel="modulepreload" href="/assets/application-20c5ac24.js">
+<link rel="modulepreload" href="/assets/stimulus.min-7ea3d58b.js">
+<link rel="modulepreload" href="/assets/stimulus-loading-25917588.js">
+<link rel="modulepreload" href="/assets/turndown-93630580.js">
+<link rel="modulepreload" href="/assets/tablesort.min-8f8a27b3.js">
+<link rel="modulepreload" href="/assets/tablesort.number.min-5c169183.js">
+<link rel="modulepreload" href="/assets/controllers/api_key_copy_controller-75f835b3.js">
+<link rel="modulepreload" href="/assets/controllers/application-fab29967.js">
+<link rel="modulepreload" href="/assets/controllers/clipboard_controller-33f6e136.js">
+<link rel="modulepreload" href="/assets/controllers/custom_field_default_value_controller-8e4989aa.js">
+<link rel="modulepreload" href="/assets/controllers/dropdown_controller-9c4fc4bc.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/chart_controller-c7840aff.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/column_controller-414fc5e5.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/options_controller-ac0d91d9.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/subjects_controller-f9af7aea.js">
+<link rel="modulepreload" href="/assets/controllers/index-dfefe98d.js">
+<link rel="modulepreload" href="/assets/controllers/list_autofill_controller-5f013171.js">
+<link rel="modulepreload" href="/assets/controllers/quote_reply_controller-3e6a21f7.js">
+<link rel="modulepreload" href="/assets/controllers/reports/details_controller-21eb4cbd.js">
+<link rel="modulepreload" href="/assets/controllers/repositories/stats_controller-d8c4e406.js">
+<link rel="modulepreload" href="/assets/controllers/selection_indent_controller-01007880.js">
+<link rel="modulepreload" href="/assets/controllers/sticky_issue_header_controller-18502bbe.js">
+<link rel="modulepreload" href="/assets/controllers/table_paste_controller-961189c1.js">
+<link rel="modulepreload" href="/assets/controllers/tablesort_controller-0dce155e.js">
+<script type="module">import "application"</script>
+<script src="/assets/jquery-3.7.1-ui-1.13.3-3ca148b8.js"></script>
+<script src="/assets/rails-ujs-3de06f48.js"></script>
+<script src="/assets/tribute-5.1.3.min-6c16c47a.js"></script><script src="/assets/application-legacy-0ae45500.js"></script>
+<script src="/assets/responsive-73a80fb9.js"></script>
+<script>
+//<![CDATA[
+$(window).on('load', function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.I18n = rm.I18n || {};rm.I18n = Object.freeze({buttonCopy: 'Copy'});
+//]]>
+</script>
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.AutoComplete = rm.AutoComplete || {};rm.AutoComplete.dataSources = JSON.parse('{"issues":"/issues/auto_complete?project_id=ruby-master\u0026q=","wiki_pages":"/wiki_pages/auto_complete?project_id=ruby-master\u0026q="}');
+//]]>
+</script>
+<script src="/assets/plugin_assets/redmineup/consumer-93fb0400.js"></script><script src="/assets/plugin_assets/redmineup/select2-38d92c05.js"></script><script src="/assets/plugin_assets/redmineup/select2_helpers-a6bf2ef6.js"></script><script src="/assets/plugin_assets/redmineup/jquery.colorPicker.min-d7b3ec14.js"></script><link rel="stylesheet" href="/assets/plugin_assets/redmineup/redmineup-abd5d756.css" media="screen" /><script>
+//<![CDATA[
+window.redmineupWorkerUrl = "/assets/consumer_worker-cb8eaf94.js";
+//]]>
+</script>
+ 
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Ruby - Bug #22253: Clang UBSan reports NULL/0 memcpy for eval scope locals" href="https://bugs.ruby-lang.org/issues/22253.atom" />
+<script src="/assets/context_menu-40f5ee8f.js"></script><link rel="stylesheet" href="/assets/context_menu-75035743.css" media="screen" />  <link rel="stylesheet" href="/assets/plugin_assets/redmineup_tags/redmine_tags-d92b80fc.css" media="screen" />
+  <script src="/assets/plugin_assets/redmineup_tags/redmine_tags-b5ea2bad.js"></script>
+</head>
+<body class="theme-Ruby-lang project-ruby-master has-main-menu controller-issues action-show" data-text-formatting="common_mark">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+        <div class="flyout-menu__search">
+            <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-cf390680" method="get">
+            <input type="hidden" name="issues" value="1" autocomplete="off" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><span class="icon-label hidden">Search</span></label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<nav class="top-menu" id="top-menu">
+  <div class="general-menu">
+    <div class="top-menu__links">
+        <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a target="_blank" rel="noopener" class="help" href="https://www.redmine.org/guide">Help</a></li></ul>    </div>
+  </div>
+
+  <div class="profile-menu">
+    <div id="account" class="top-menu__links">
+        <ul><li><a class="login" href="/login">Sign in</a></li><li><a class="register" href="/account/register">Register</a></li></ul>    </div>
+  </div>
+</nav>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-d06ab75d" method="get">
+        <input type="hidden" name="scope" autocomplete="off" />
+        <input type="hidden" name="issues" value="1" autocomplete="off" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/ruby-master/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" data-auto-complete="true" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Ruby</span><div class="drdn-content"><div class="quick-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Ruby</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/ruby-master">Overview</a></li><li><a class="activity" href="/projects/ruby-master/activity">Activity</a></li><li><a class="roadmap" href="/projects/ruby-master/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/ruby-master/issues">Issues</a></li><li><a class="repository" href="/projects/ruby-master/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left icon-only" onclick="moveTabLeft(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+            </button>
+            <button class="tab-right icon-only" onclick="moveTabRight(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="collapsiblesidebar">
+  <script>
+//<![CDATA[
+$('#main.collapsiblesidebar').collapsibleSidebar();
+//]]>
+</script>
+    <div id="sidebar">
+          <div id="sidebar-switch-panel" style="visibility: hidden;">
+            <a id="sidebar-switch-button" class="" href="#">
+              <svg class="s20 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--chevrons-right"></use></svg></a>
+          </div>
+          <script>
+//<![CDATA[
+$('#sidebar-switch-panel').css('visibility', 'visible');
+//]]>
+</script>
+        <div id="sidebar-wrapper">
+            
+
+
+<h3>Custom queries</h3>
+<ul class="queries"><li><a class="query" data-disable-with="Backport 3.3" href="/projects/ruby-master/issues?query_id=300">Backport 3.3</a></li>
+<li><a class="query" title="" data-disable-with="Backport 3.4" href="/projects/ruby-master/issues?query_id=336">Backport 3.4</a></li>
+<li><a class="query" title="" data-disable-with="Backport 4.0" href="/projects/ruby-master/issues?query_id=379">Backport 4.0</a></li>
+<li><a class="query" data-disable-with="bugs: unassigned" href="/projects/ruby-master/issues?query_id=75">bugs: unassigned</a></li>
+<li><a class="query" data-disable-with="DevMeeting" href="/projects/ruby-master/issues?query_id=156">DevMeeting</a></li>
+<li><a class="query" data-disable-with="matz" href="/projects/ruby-master/issues?query_id=72">matz</a></li>
+<li><a class="query" data-disable-with="Open issues with attachment" href="/projects/ruby-master/issues?query_id=160">Open issues with attachment</a></li>
+<li><a class="query" title="" data-disable-with="Windows" href="/projects/ruby-master/issues?query_id=335">Windows</a></li></ul>
+
+
+
+
+
+          
+        </div>
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/22253" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<h2 class="inline-block">Bug #22253</h2><span class="badge badge-status-open">open</span>
+
+<div class="issue tracker-1 status-2 priority-4 priority-default details">
+
+  <div class="avatar-with-child">
+    <img alt="" title="Author: yqtian (Yongqiang Tian)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/388a7a7c9abf5bb06dd2053bcff4f5d1b066c16b261fbb2dc6f914099671165c?rating=PG&amp;size=100&amp;default=mm 2x" src="https://www.gravatar.com/avatar/388a7a7c9abf5bb06dd2053bcff4f5d1b066c16b261fbb2dc6f914099671165c?rating=PG&amp;size=50&amp;default=mm" />
+    <img alt="" title="Assignee: prism" class="group-avatar avatar avatar-child" src="/assets/group-7d1dd538.svg" width="22" height="22" />
+  </div>
+
+<div data-controller="sticky-issue-header">
+  <div class="subject" data-sticky-issue-header-target="original">
+    <div><h3>Clang UBSan reports NULL/0 memcpy for eval scope locals</h3></div>
+  </div>
+  <div id="sticky-issue-header" data-sticky-issue-header-target="stickyHeader" class="issue">
+    <span class="issue-heading">Bug #22253:</span>
+    <span class="subject">Clang UBSan reports NULL/0 memcpy for eval scope locals</span>
+  </div>
+</div>
+
+<div class="reaction">
+  <span class="reaction-button-wrapper" data-reaction-button-id="reaction_issue_22253"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/63560">yqtian (Yongqiang Tian)</a> <a title="08/20/2026 07:17 AM" href="/projects/ruby-master/activity?from=2026-08-20">26 days</a> ago.
+        Updated <a title="08/20/2026 07:28 AM" href="/projects/ruby-master/activity?from=2026-08-20">26 days</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Assigned</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="group" href="/groups/53036"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--group"></use></svg>prism</a></div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value">-</div></div></div><div class="splitcontentright"></div></div>
+<div class="splitcontent"><div class="splitcontentleft"><div class="string_cf cf_4 attribute"><div class="label"><span>ruby -v</span>:</div><div class="value">ruby 4.1.0dev (2026-08-20T02:56:29Z master ed0b427b4b) +PRISM [x86_64-linux]</div></div></div><div class="splitcontentright"><div class="string_cf cf_5 attribute"><div class="label"><span title="The advanced field for Branch maintainers.
+The comma-separated list of version and status which matches /\A(?&lt;branch&gt;\d\.\d(\.0)?: (UNKNOWN|REQUIRED|DONE|DONTNEED|WONTFIX))(, \g&lt;branch&gt;)*\z/" class="field-description">Backport</span>:</div><div class="value"><a href="https://github.com/ruby/ruby/wiki/How-To-Request-Backport" class="external">3.3: UNKNOWN, 3.4: UNKNOWN, 4.0: UNKNOWN</a></div></div></div></div>
+<a href="https://blade.ruby-lang.org/ruby-core/126448">[ruby-core:126448]</a> 
+</div>
+
+<hr />
+<div class="description" data-controller="quote-reply">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div id="issue_description_wiki" class="wiki" data-quote-reply-target="content">
+  <p>I found a normal Ruby eval path that passes a null source and zero length to<br>
+<code>memcpy</code> in Prism. Clang's <code>nonnull-attribute</code> sanitizer reports the call<br>
+because the effective glibc declaration marks the first two <code>memcpy</code> arguments<br>
+as nonnull.</p>
+<p>I have not observed a crash, output corruption, or an ordinary non-sanitized<br>
+failure. I am reporting this as a C correctness/toolchain-contract issue, not a<br>
+security issue.</p>
+<a name="Environment"></a>
+<h4 >Environment<a href="#Environment" class="wiki-anchor">&para;</a></h4>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code class="text syntaxhl" data-language="text">x86-64 Ubuntu
+Clang 18.1.3
+Ruby revision: ed0b427b4ba3c776c763d2673070e88372b2096a
+Relevant sanitizer: -fsanitize=nonnull-attribute
+Optimization: -O1
+</code></pre></div>
+<p>I also checked Ruby HEAD <code>4012a96bf084d035bf582d58c7dafb31f4762ac6</code><br>
+and the corresponding Prism HEAD<br>
+<code>3ea210b30108432b8b75b979872f4fa3c23acb7b</code>; the source site was unchanged.</p>
+<a name="Reproduction"></a>
+<h4 >Reproduction<a href="#Reproduction" class="wiki-anchor">&para;</a></h4>
+<p>I configured Ruby with Clang and the following flags:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code class="sh syntaxhl" data-language="sh"><span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">"-fsanitize=nonnull-attribute -fsanitize-recover=all -fno-omit-frame-pointer -g -O1"</span>
+<span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">"-fsanitize=nonnull-attribute -fsanitize-recover=all"</span>
+</code></pre></div>
+<p>Run with the instrumented Ruby:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code class="sh syntaxhl" data-language="sh"><span class="nv">UBSAN_OPTIONS</span><span class="o">=</span><span class="nv">print_stacktrace</span><span class="o">=</span>0:halt_on_error<span class="o">=</span>0:report_error_type<span class="o">=</span>1 <span class="se">\</span>
+  ./ruby <span class="nt">-e</span> <span class="s1">'1.times { _1; eval("") }'</span>
+</code></pre></div>
+<p>Clang reports:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code class="text syntaxhl" data-language="text">prism/prism.c:23015:35: runtime error: null pointer passed as argument 2,
+which is declared to never be null
+</code></pre></div>
+<p>The same report occurs with <code>_1</code> through <code>_9</code>, <code>binding.eval</code>,<br>
+<code>local_variables</code>, and an implicit-<code>it</code> variant.</p>
+<a name="Cause"></a>
+<h4 >Cause<a href="#Cause" class="wiki-anchor">&para;</a></h4>
+<p>CRuby constructs the eval scope-local array. A retained slot can have<br>
+<code>source == NULL</code> and <code>length == 0</code>. <code>pm_parser_init</code> then executes:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code class="c syntaxhl" data-language="c"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">source</span> <span class="o">=</span> <span class="n">pm_string_source</span><span class="p">(</span><span class="n">local</span><span class="p">);</span>
+<span class="kt">size_t</span> <span class="n">length</span> <span class="o">=</span> <span class="n">pm_string_length</span><span class="p">(</span><span class="n">local</span><span class="p">);</span>
+
+<span class="kt">uint8_t</span> <span class="o">*</span><span class="n">allocated</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">pm_arena_alloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">metadata_arena</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">memcpy</span><span class="p">(</span><span class="n">allocated</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>
+</code></pre></div>
+<p>A consumer-side guard removes the report:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code class="c syntaxhl" data-language="c"><span class="k">if</span> <span class="p">(</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="n">allocated</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>However, this crosses the CRuby/Prism integration boundary. An alternative is<br>
+for CRuby to compact or initialize every retained eval-scope local before<br>
+passing it to Prism.</p>
+<p>Is <code>{ source = NULL, length = 0 }</code> intended to be accepted as an empty<br>
+<code>pm_string_t</code>/scope-local representation here? If so, <code>pm_parser_init</code> could<br>
+handle it as a zero-length value. Otherwise, CRuby may need to guarantee a<br>
+nonnull source for every retained scope-local entry.</p>
+<a name="Validation"></a>
+<h4 >Validation<a href="#Validation" class="wiki-anchor">&para;</a></h4>
+<p>I built unmodified and guarded trees with identical Docker/compiler/configure<br>
+flags. The reproducer reports in the unmodified build and is clean in both<br>
+recover and <code>halt_on_error=1</code> modes after adding the guard.</p>
+<p>The same native test set passed in both builds, including 2,065 <code>btest</code> cases,<br>
+39 eval tests with 537 assertions, and the proc and syntax tests that exercise<br>
+this site. The guarded build preserved the behavior of the tested eval paths.</p>
+<p>I would be happy to prepare a patch after confirming whether the preferred<br>
+invariant belongs in CRuby's eval-scope producer or Prism's consumer.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+<div id="history" class="journals">
+
+<div class="tabs">
+  <ul>
+    <li><a id="tab-history" class="selected" onclick="showIssueHistory(&quot;history&quot;, this.href); return false;" href="/issues/22253?tab=history">History</a></li>
+    <li><a id="tab-properties" onclick="showIssueHistory(&quot;properties&quot;, this.href); return false;" href="/issues/22253?tab=properties">Property changes</a></li>
+  </ul>
+  <div class="tabs-buttons" style="display:none;">
+    <button class="tab-left icon-only" type="button" onclick="moveTabLeft(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+    </button>
+    <button class="tab-right icon-only" type="button" onclick="moveTabRight(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+    </button>
+  </div>
+</div>
+
+  <div id="tab-content-history" class="tab-content">
+  <div id="change-118598" class="journal has-details" data-controller="quote-reply">
+    <div id="note-1" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="mame (Yusuke Endoh)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/d500042051ca39cc7f8f80c6aca4a337015c3d357ef8547c499ca87d048ed325?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/d500042051ca39cc7f8f80c6aca4a337015c3d357ef8547c499ca87d048ed325?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/18">mame (Yusuke Endoh)</a> <a title="08/20/2026 07:28 AM" href="/projects/ruby-master/activity?from=2026-08-20">26 days</a> ago
+          <span id="journal-118598-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_118598"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/22253#note-1" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-1" class="journal-link">#1</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+          <ul class="journal-details">
+              <li><strong>Status</strong> changed from <i>Open</i> to <i>Assigned</i></li>
+              <li><strong>Assignee</strong> set to <i>prism</i></li>
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+  
+
+<script>
+//<![CDATA[
+showIssueHistory("history", this.href)
+//]]>
+</script>
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/22253" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats hide-when-print">Also available in:  <span><a class="pdf" rel="nofollow" href="/issues/22253.pdf">PDF</a></span>
+  <span><a class="atom" rel="nofollow" href="/issues/22253.atom">Atom</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+<div id="footer">
+    Powered by <a target="_blank" rel="noopener" href="https://www.redmine.org/">Redmine</a> &copy; 2006-2026 Jean-Philippe Lang
+</div>
+
+<div id="ajax-indicator" style="display:none;">
+  <span class="icon">
+    <svg class="s18 icon-svg svg-loader" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--loader"></use></svg><span class="icon-label">Loading...</span>
+  </span>
+</div>
+<div id="ajax-modal" style="display:none;"></div>
+<div id="icon-copy-source" style="display: none;"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--"></use></svg></div>
+
+</div>
+<script>
+//<![CDATA[
+setSelect2Filter('issue_tags', {"url":"/auto_completes/redmine_tags"});
+//]]>
+</script>
+
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<title>Bug #21304: heap-use-after-free of Array#hash via mutating hash method - Ruby - Ruby Issue Tracking System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="robots" content="nofollow">
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="xfMafddimXzbrEIZRZrLhqOsndXFYYSpQzGrhjQkdIELGcAylqxZkBnk4TKv2uCXKpqe7T_nluqrM7qvxBKTxA" />
+<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon-0e291875.ico" />
+<link rel="stylesheet" href="/assets/jquery/jquery-ui-1.13.2-70e53573.css" media="all" />
+<link rel="stylesheet" href="/assets/tribute-5.1.3-c23a7bf2.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/application-e80f713f.css" media="all" />
+<link rel="stylesheet" href="/assets/dropdown-90f15d9b.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/responsive-f399c041.css" media="all" />
+<script type="importmap" data-turbo-track="reload">{
+  "imports": {
+    "@rails/request.js": "/assets/requestjs-64720317.js",
+    "application": "/assets/application-20c5ac24.js",
+    "@hotwired/stimulus": "/assets/stimulus.min-7ea3d58b.js",
+    "@hotwired/stimulus-loading": "/assets/stimulus-loading-25917588.js",
+    "turndown": "/assets/turndown-93630580.js",
+    "tablesort": "/assets/tablesort.min-8f8a27b3.js",
+    "tablesort.number": "/assets/tablesort.number.min-5c169183.js",
+    "chart.js": "/assets/chart.min-df84bc27.js",
+    "controllers/api_key_copy_controller": "/assets/controllers/api_key_copy_controller-75f835b3.js",
+    "controllers/application": "/assets/controllers/application-fab29967.js",
+    "controllers/clipboard_controller": "/assets/controllers/clipboard_controller-33f6e136.js",
+    "controllers/custom_field_default_value_controller": "/assets/controllers/custom_field_default_value_controller-8e4989aa.js",
+    "controllers/dropdown_controller": "/assets/controllers/dropdown_controller-9c4fc4bc.js",
+    "controllers/gantt/chart_controller": "/assets/controllers/gantt/chart_controller-c7840aff.js",
+    "controllers/gantt/column_controller": "/assets/controllers/gantt/column_controller-414fc5e5.js",
+    "controllers/gantt/options_controller": "/assets/controllers/gantt/options_controller-ac0d91d9.js",
+    "controllers/gantt/subjects_controller": "/assets/controllers/gantt/subjects_controller-f9af7aea.js",
+    "controllers": "/assets/controllers/index-dfefe98d.js",
+    "controllers/list_autofill_controller": "/assets/controllers/list_autofill_controller-5f013171.js",
+    "controllers/quote_reply_controller": "/assets/controllers/quote_reply_controller-3e6a21f7.js",
+    "controllers/reports/details_controller": "/assets/controllers/reports/details_controller-21eb4cbd.js",
+    "controllers/repositories/stats_controller": "/assets/controllers/repositories/stats_controller-d8c4e406.js",
+    "controllers/selection_indent_controller": "/assets/controllers/selection_indent_controller-01007880.js",
+    "controllers/sticky_issue_header_controller": "/assets/controllers/sticky_issue_header_controller-18502bbe.js",
+    "controllers/table_paste_controller": "/assets/controllers/table_paste_controller-961189c1.js",
+    "controllers/tablesort_controller": "/assets/controllers/tablesort_controller-0dce155e.js"
+  }
+}</script>
+<link rel="modulepreload" href="/assets/requestjs-64720317.js">
+<link rel="modulepreload" href="/assets/application-20c5ac24.js">
+<link rel="modulepreload" href="/assets/stimulus.min-7ea3d58b.js">
+<link rel="modulepreload" href="/assets/stimulus-loading-25917588.js">
+<link rel="modulepreload" href="/assets/turndown-93630580.js">
+<link rel="modulepreload" href="/assets/tablesort.min-8f8a27b3.js">
+<link rel="modulepreload" href="/assets/tablesort.number.min-5c169183.js">
+<link rel="modulepreload" href="/assets/controllers/api_key_copy_controller-75f835b3.js">
+<link rel="modulepreload" href="/assets/controllers/application-fab29967.js">
+<link rel="modulepreload" href="/assets/controllers/clipboard_controller-33f6e136.js">
+<link rel="modulepreload" href="/assets/controllers/custom_field_default_value_controller-8e4989aa.js">
+<link rel="modulepreload" href="/assets/controllers/dropdown_controller-9c4fc4bc.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/chart_controller-c7840aff.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/column_controller-414fc5e5.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/options_controller-ac0d91d9.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/subjects_controller-f9af7aea.js">
+<link rel="modulepreload" href="/assets/controllers/index-dfefe98d.js">
+<link rel="modulepreload" href="/assets/controllers/list_autofill_controller-5f013171.js">
+<link rel="modulepreload" href="/assets/controllers/quote_reply_controller-3e6a21f7.js">
+<link rel="modulepreload" href="/assets/controllers/reports/details_controller-21eb4cbd.js">
+<link rel="modulepreload" href="/assets/controllers/repositories/stats_controller-d8c4e406.js">
+<link rel="modulepreload" href="/assets/controllers/selection_indent_controller-01007880.js">
+<link rel="modulepreload" href="/assets/controllers/sticky_issue_header_controller-18502bbe.js">
+<link rel="modulepreload" href="/assets/controllers/table_paste_controller-961189c1.js">
+<link rel="modulepreload" href="/assets/controllers/tablesort_controller-0dce155e.js">
+<script type="module">import "application"</script>
+<script src="/assets/jquery-3.7.1-ui-1.13.3-3ca148b8.js"></script>
+<script src="/assets/rails-ujs-3de06f48.js"></script>
+<script src="/assets/tribute-5.1.3.min-6c16c47a.js"></script><script src="/assets/application-legacy-0ae45500.js"></script>
+<script src="/assets/responsive-73a80fb9.js"></script>
+<script>
+//<![CDATA[
+$(window).on('load', function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.I18n = rm.I18n || {};rm.I18n = Object.freeze({buttonCopy: 'Copy'});
+//]]>
+</script>
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.AutoComplete = rm.AutoComplete || {};rm.AutoComplete.dataSources = JSON.parse('{"issues":"/issues/auto_complete?project_id=ruby-master\u0026q=","wiki_pages":"/wiki_pages/auto_complete?project_id=ruby-master\u0026q="}');
+//]]>
+</script>
+<script src="/assets/plugin_assets/redmineup/consumer-93fb0400.js"></script><script src="/assets/plugin_assets/redmineup/select2-38d92c05.js"></script><script src="/assets/plugin_assets/redmineup/select2_helpers-a6bf2ef6.js"></script><script src="/assets/plugin_assets/redmineup/jquery.colorPicker.min-d7b3ec14.js"></script><link rel="stylesheet" href="/assets/plugin_assets/redmineup/redmineup-abd5d756.css" media="screen" /><script>
+//<![CDATA[
+window.redmineupWorkerUrl = "/assets/consumer_worker-cb8eaf94.js";
+//]]>
+</script>
+ 
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Ruby - Bug #21304: heap-use-after-free of Array#hash via mutating hash method" href="https://bugs.ruby-lang.org/issues/21304.atom" />
+<script src="/assets/context_menu-40f5ee8f.js"></script><link rel="stylesheet" href="/assets/context_menu-75035743.css" media="screen" />  <link rel="stylesheet" href="/assets/plugin_assets/redmineup_tags/redmine_tags-d92b80fc.css" media="screen" />
+  <script src="/assets/plugin_assets/redmineup_tags/redmine_tags-b5ea2bad.js"></script>
+</head>
+<body class="theme-Ruby-lang project-ruby-master has-main-menu controller-issues action-show" data-text-formatting="common_mark">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+        <div class="flyout-menu__search">
+            <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-6edc9de3" method="get">
+            <input type="hidden" name="issues" value="1" autocomplete="off" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><span class="icon-label hidden">Search</span></label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<nav class="top-menu" id="top-menu">
+  <div class="general-menu">
+    <div class="top-menu__links">
+        <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a target="_blank" rel="noopener" class="help" href="https://www.redmine.org/guide">Help</a></li></ul>    </div>
+  </div>
+
+  <div class="profile-menu">
+    <div id="account" class="top-menu__links">
+        <ul><li><a class="login" href="/login">Sign in</a></li><li><a class="register" href="/account/register">Register</a></li></ul>    </div>
+  </div>
+</nav>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-0b37efb4" method="get">
+        <input type="hidden" name="scope" autocomplete="off" />
+        <input type="hidden" name="issues" value="1" autocomplete="off" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/ruby-master/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" data-auto-complete="true" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Ruby</span><div class="drdn-content"><div class="quick-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Ruby</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/ruby-master">Overview</a></li><li><a class="activity" href="/projects/ruby-master/activity">Activity</a></li><li><a class="roadmap" href="/projects/ruby-master/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/ruby-master/issues">Issues</a></li><li><a class="repository" href="/projects/ruby-master/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left icon-only" onclick="moveTabLeft(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+            </button>
+            <button class="tab-right icon-only" onclick="moveTabRight(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="collapsiblesidebar">
+  <script>
+//<![CDATA[
+$('#main.collapsiblesidebar').collapsibleSidebar();
+//]]>
+</script>
+    <div id="sidebar">
+          <div id="sidebar-switch-panel" style="visibility: hidden;">
+            <a id="sidebar-switch-button" class="" href="#">
+              <svg class="s20 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--chevrons-right"></use></svg></a>
+          </div>
+          <script>
+//<![CDATA[
+$('#sidebar-switch-panel').css('visibility', 'visible');
+//]]>
+</script>
+        <div id="sidebar-wrapper">
+            
+
+
+<h3>Custom queries</h3>
+<ul class="queries"><li><a class="query" data-disable-with="Backport 3.3" href="/projects/ruby-master/issues?query_id=300">Backport 3.3</a></li>
+<li><a class="query" title="" data-disable-with="Backport 3.4" href="/projects/ruby-master/issues?query_id=336">Backport 3.4</a></li>
+<li><a class="query" title="" data-disable-with="Backport 4.0" href="/projects/ruby-master/issues?query_id=379">Backport 4.0</a></li>
+<li><a class="query" data-disable-with="bugs: unassigned" href="/projects/ruby-master/issues?query_id=75">bugs: unassigned</a></li>
+<li><a class="query" data-disable-with="DevMeeting" href="/projects/ruby-master/issues?query_id=156">DevMeeting</a></li>
+<li><a class="query" data-disable-with="matz" href="/projects/ruby-master/issues?query_id=72">matz</a></li>
+<li><a class="query" data-disable-with="Open issues with attachment" href="/projects/ruby-master/issues?query_id=160">Open issues with attachment</a></li>
+<li><a class="query" title="" data-disable-with="Windows" href="/projects/ruby-master/issues?query_id=335">Windows</a></li></ul>
+
+
+
+
+
+          
+        </div>
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/21304" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<h2 class="inline-block">Bug #21304</h2><span class="badge badge-status-closed">closed</span>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="avatar-with-child">
+    <img alt="" title="Author: cyruscyliu (Qiang Liu)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/1d02d11a3cd5ac1be34ee4f9d1d80ad03d5b3f0c89f675843f19a0fc4b369589?rating=PG&amp;size=100&amp;default=mm 2x" src="https://www.gravatar.com/avatar/1d02d11a3cd5ac1be34ee4f9d1d80ad03d5b3f0c89f675843f19a0fc4b369589?rating=PG&amp;size=50&amp;default=mm" />
+    
+  </div>
+
+<div data-controller="sticky-issue-header">
+  <div class="subject" data-sticky-issue-header-target="original">
+    <div><h3>heap-use-after-free of Array#hash via mutating hash method</h3></div>
+  </div>
+  <div id="sticky-issue-header" data-sticky-issue-header-target="stickyHeader" class="issue">
+    <span class="issue-heading">Bug #21304:</span>
+    <span class="subject">heap-use-after-free of Array#hash via mutating hash method</span>
+  </div>
+</div>
+
+<div class="reaction">
+  <span class="reaction-button-wrapper" data-reaction-button-id="reaction_issue_21304"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/58034">cyruscyliu (Qiang Liu)</a> <a title="05/03/2025 01:14 PM" href="/projects/ruby-master/activity?from=2025-05-03">over 1 year</a> ago.
+        Updated <a title="05/05/2025 10:20 AM" href="/projects/ruby-master/activity?from=2025-05-05">over 1 year</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value">-</div></div></div><div class="splitcontentright"></div></div>
+<div class="splitcontent"><div class="splitcontentleft"><div class="string_cf cf_4 attribute"><div class="label"><span>ruby -v</span>:</div><div class="value">3.5.0</div></div></div><div class="splitcontentright"><div class="string_cf cf_5 attribute"><div class="label"><span title="The advanced field for Branch maintainers.
+The comma-separated list of version and status which matches /\A(?&lt;branch&gt;\d\.\d(\.0)?: (UNKNOWN|REQUIRED|DONE|DONTNEED|WONTFIX))(, \g&lt;branch&gt;)*\z/" class="field-description">Backport</span>:</div><div class="value"><a href="https://github.com/ruby/ruby/wiki/How-To-Request-Backport" class="external">3.2: UNKNOWN, 3.3: UNKNOWN, 3.4: UNKNOWN</a></div></div></div></div>
+<a href="https://blade.ruby-lang.org/ruby-core/121807">[ruby-core:121807]</a> 
+</div>
+
+<hr />
+<div class="description" data-controller="quote-reply">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div id="issue_description_wiki" class="wiki" data-quote-reply-target="content">
+  <p>Hi, we found a heap-use-after-free of Array#hash via mutating hash method. Here<br>
+is the PoC.</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code>class C
+    def hash()
+        puts $a
+        $a.push(*1..100000)
+        return 0
+    end
+end
+
+c = C.new
+$a = [c]
+$a.push(*1..10)
+$a.hash
+puts "!"
+puts $a
+</code></pre></div>
+<p>Calling Array#hash on an array containing an object whose hash method mutates<br>
+the array causes memory corruption. In this example, C#hash appends a large<br>
+number of elements to $a while Array#hash is iterating over it, leading to<br>
+inconsistent internal state and potentially a crash.</p>
+<p>To reproduce, compile the recent Ruby with ASAN, and run the PoC.</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code>$ git log | head -n3
+commit 36c64b3be83f17992137d63ffd0b94f90e24424a
+Author: John Hawthorn &lt;john@hawthorn.email&gt;
+Date:   Fri Apr 11 16:02:23 2025 -070
+
+$ ./ruby ../triaged/array_hash.rb
+`RubyGems' were not loaded.
+`error_highlight' was not loaded.
+`did_you_mean' was not loaded.
+`syntax_suggest' was not loaded.
+#&lt;C:0x000071c87a142f30&gt;
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+=================================================================
+==105169==ERROR: AddressSanitizer: heap-use-after-free on address 0x511000009c88 at pc 0x601bf620302b bp 0x7ffd48775e70 sp 0x7ffd48775e68
+READ of size 8 at 0x511000009c88 thread T0
+    #0 0x601bf620302a in rb_ary_hash_values /media/test/ruby/build/../array.c:5334:21
+    #1 0x601bf6193b3b in vm_call_cfunc_with_frame_ /media/test/ruby/build/../vm_insnhelper.c:3797:11
+    #2 0x601bf617c4e3 in vm_call_method_each_type /media/test/ruby/build/../vm_insnhelper.c:4775:16
+    #3 0x601bf617bfd3 in vm_call_method /media/test/ruby/build/../vm_insnhelper.c
+    #4 0x601bf61421d8 in vm_sendish /media/test/ruby/build/../vm_insnhelper.c:5972:15
+    #5 0x601bf61421d8 in vm_exec_core /media/test/ruby/build/../insns.def:899:11
+    #6 0x601bf613aa47 in rb_vm_exec /media/test/ruby/build/../vm.c
+    #7 0x601bf5e0cce0 in rb_ec_exec_node /media/test/ruby/build/../eval.c:281:9
+    #8 0x601bf5e0cce0 in ruby_run_node /media/test/ruby/build/../eval.c:319:30
+    #9 0x601bf5e083a0 in rb_main /media/test/ruby/build/../main.c:42:12
+    #10 0x601bf5e083a0 in main /media/test/ruby/build/../main.c:62:12
+    #11 0x71c87a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #12 0x71c87a629e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #13 0x601bf5d30d54 in _start (/media/test/ruby/build/ruby+0x148d54) (BuildId: 58c97094e0527fad484552e230da980d80ffa516)
+
+0x511000009c88 is located 8 bytes inside of 216-byte region [0x511000009c80,0x511000009d58)
+freed by thread T0 here:
+    #0 0x601bf5dcb37c in realloc (/media/test/ruby/build/ruby+0x1e337c) (BuildId: 58c97094e0527fad484552e230da980d80ffa516)
+    #1 0x601bf5e6dacb in rb_gc_impl_realloc /media/test/ruby/build/../gc/default/default.c:8330:5
+    #2 0x601bf5e4afd9 in ruby_sized_xrealloc2_body /media/test/ruby/build/../gc.c:4772:12
+    #3 0x601bf5e4afd9 in ruby_sized_xrealloc2 /media/test/ruby/build/../gc.c:4765:34
+    #4 0x601bf5e4afd9 in ruby_xrealloc2 /media/test/ruby/build/../gc.c:4778:12
+    #5 0x601bf61fad64 in ary_heap_realloc /media/test/ruby/build/../array.c:370:5
+    #6 0x601bf61fad64 in ary_resize_capa /media/test/ruby/build/../array.c:412:24
+    #7 0x601bf61fa51b in ary_double_capa /media/test/ruby/build/../array.c:461:5
+    #8 0x601bf61fa51b in ary_ensure_room_for_push /media/test/ruby/build/../array.c:620:9
+    #9 0x601bf6208ba7 in rb_ary_cat /media/test/ruby/build/../array.c:1399:24
+    #10 0x601bf6208ba7 in rb_ary_push_m /media/test/ruby/build/../array.c:1426:12
+    #11 0x601bf6193b3b in vm_call_cfunc_with_frame_ /media/test/ruby/build/../vm_insnhelper.c:3797:11
+    #12 0x601bf61421d8 in vm_sendish /media/test/ruby/build/../vm_insnhelper.c:5972:15
+    #13 0x601bf61421d8 in vm_exec_core /media/test/ruby/build/../insns.def:899:11
+    #14 0x601bf613aa47 in rb_vm_exec /media/test/ruby/build/../vm.c
+    #15 0x601bf61a58ed in vm_call0_body /media/test/ruby/build/../vm_eval.c:225:20
+    #16 0x601bf61603bb in vm_call0_cc /media/test/ruby/build/../vm_eval.c:101:12
+    #17 0x601bf61603bb in rb_funcallv_scope /media/test/ruby/build/../vm_eval.c:1047:16
+    #18 0x601bf6168471 in vm_catch_protect /media/test/ruby/build/../vm_eval.c:2612:15
+    #19 0x601bf60c98b5 in exec_recursive /media/test/ruby/build/../thread.c:5300:22
+    #20 0x601bf5e75fd3 in obj_any_hash /media/test/ruby/build/../hash.c:238:16
+    #21 0x601bf5e75cf2 in any_hash /media/test/ruby/build/../hash.c:207:16
+    #22 0x601bf5e7621f in rb_hash /media/test/ruby/build/../hash.c:269:21
+    #23 0x601bf6202fda in rb_ary_hash_values /media/test/ruby/build/../array.c:5334:13
+    #24 0x601bf6193b3b in vm_call_cfunc_with_frame_ /media/test/ruby/build/../vm_insnhelper.c:3797:11
+    #25 0x601bf617c4e3 in vm_call_method_each_type /media/test/ruby/build/../vm_insnhelper.c:4775:16
+    #26 0x601bf617bfd3 in vm_call_method /media/test/ruby/build/../vm_insnhelper.c
+    #27 0x601bf61421d8 in vm_sendish /media/test/ruby/build/../vm_insnhelper.c:5972:15
+    #28 0x601bf61421d8 in vm_exec_core /media/test/ruby/build/../insns.def:899:11
+    #29 0x601bf613aa47 in rb_vm_exec /media/test/ruby/build/../vm.c
+    #30 0x601bf5e0cce0 in rb_ec_exec_node /media/test/ruby/build/../eval.c:281:9
+    #31 0x601bf5e0cce0 in ruby_run_node /media/test/ruby/build/../eval.c:319:30
+    #32 0x601bf5e083a0 in rb_main /media/test/ruby/build/../main.c:42:12
+    #33 0x601bf5e083a0 in main /media/test/ruby/build/../main.c:62:12
+    #34 0x71c87a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+previously allocated by thread T0 here:
+    #0 0x601bf5dcaf8f in malloc (/media/test/ruby/build/ruby+0x1e2f8f) (BuildId: 58c97094e0527fad484552e230da980d80ffa516)
+    #1 0x601bf5e6cde5 in rb_gc_impl_malloc /media/test/ruby/build/../gc/default/default.c:8240:5
+    #2 0x601bf5e4ac51 in ruby_xmalloc2_body /media/test/ruby/build/../gc.c:4713:12
+    #3 0x601bf5e4ac51 in ruby_xmalloc2 /media/test/ruby/build/../gc.c:4707:34
+    #4 0x601bf61fae7f in ary_heap_alloc_buffer /media/test/ruby/build/../array.c:351:12
+    #5 0x601bf61fae7f in ary_resize_capa /media/test/ruby/build/../array.c:404:26
+    #6 0x601bf61fa51b in ary_double_capa /media/test/ruby/build/../array.c:461:5
+    #7 0x601bf61fa51b in ary_ensure_room_for_push /media/test/ruby/build/../array.c:620:9
+    #8 0x601bf6208ba7 in rb_ary_cat /media/test/ruby/build/../array.c:1399:24
+    #9 0x601bf6208ba7 in rb_ary_push_m /media/test/ruby/build/../array.c:1426:12
+    #10 0x601bf6193b3b in vm_call_cfunc_with_frame_ /media/test/ruby/build/../vm_insnhelper.c:3797:11
+    #11 0x601bf617c4e3 in vm_call_method_each_type /media/test/ruby/build/../vm_insnhelper.c:4775:16
+    #12 0x601bf617bfd3 in vm_call_method /media/test/ruby/build/../vm_insnhelper.c
+    #13 0x601bf61421d8 in vm_sendish /media/test/ruby/build/../vm_insnhelper.c:5972:15
+    #14 0x601bf61421d8 in vm_exec_core /media/test/ruby/build/../insns.def:899:11
+    #15 0x601bf613aa47 in rb_vm_exec /media/test/ruby/build/../vm.c
+    #16 0x601bf5e0cce0 in rb_ec_exec_node /media/test/ruby/build/../eval.c:281:9
+    #17 0x601bf5e0cce0 in ruby_run_node /media/test/ruby/build/../eval.c:319:30
+    #18 0x601bf5e083a0 in rb_main /media/test/ruby/build/../main.c:42:12
+    #19 0x601bf5e083a0 in main /media/test/ruby/build/../main.c:62:12
+    #20 0x71c87a629d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+SUMMARY: AddressSanitizer: heap-use-after-free /media/test/ruby/build/../array.c:5334:21 in rb_ary_hash_values
+Shadow bytes around the buggy address:
+  0x511000009a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x511000009a80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x511000009b00: fa fa fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x511000009b80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x511000009c00: 00 00 00 00 00 00 fa fa fa fa fa fa fa fa fa fa
+=&gt;0x511000009c80: fd[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x511000009d00: fd fd fd fd fd fd fd fd fd fd fd fa fa fa fa fa
+  0x511000009d80: fa fa fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x511000009e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x511000009e80: 00 00 00 00 00 00 00 00 fa fa fa fa fa fa fa fa
+  0x511000009f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==105169==ABORTING
+../triaged/array_hash.rb:12: [BUG] ASAN error
+ruby 3.5.0dev (2025-05-02T21:28:25Z master 36c64b3be8) +PRISM [x86_64-linux]
+
+-- Control frame information -----------------------------------------------
+c:0003 p:---- s:0011 e:000010 CFUNC  :hash
+c:0002 p:0044 s:0007 E:000e48 EVAL   ../triaged/array_hash.rb:12 [FINISH]
+c:0001 p:0000 s:0003 E:000540 DUMMY  [FINISH]
+
+-- Ruby level backtrace information ----------------------------------------
+../triaged/array_hash.rb:12:in '&lt;main&gt;'
+../triaged/array_hash.rb:12:in 'hash'
+
+-- Threading information ---------------------------------------------------
+Total ractor count: 1
+Ruby thread count for this ractor: 1
+
+-- C level backtrace information -------------------------------------------
+./ruby(___interceptor_backtrace) [0x601bf5d75006]
+/media/test/ruby/build/ruby(rb_print_backtrace+0x14) [0x601bf64c3337] /media/test/ruby/build/../vm_dump.c:839
+/media/test/ruby/build/ruby(rb_vm_bugreport) /media/test/ruby/build/../vm_dump.c:1171
+/media/test/ruby/build/ruby(rb_bug_without_die_internal+0x23c) [0x601bf641776c] /media/test/ruby/build/../error.c:1097
+/media/test/ruby/build/ruby(rb_bug_without_die+0x127) [0x601bf6417487] /media/test/ruby/build/../error.c:1106
+./ruby(0x601bf5deebc6) [0x601bf5deebc6]
+./ruby(0x601bf5dcfc9f) [0x601bf5dcfc9f]
+./ruby(0x601bf5dd2ce5) [0x601bf5dd2ce5]
+./ruby(__asan_report_load8) [0x601bf5dd3988]
+/media/test/ruby/build/ruby(rb_ary_hash_values+0xcb) [0x601bf620302b] /media/test/ruby/build/../array.c:5334
+/media/test/ruby/build/ruby(vm_cfp_consistent_p+0x0) [0x601bf6193b3c] ../vm_insnhelper.c:3797
+/media/test/ruby/build/ruby(vm_call_cfunc_with_frame_) ../vm_insnhelper.c:3799
+/media/test/ruby/build/ruby(vm_call_method_each_type+0x264) [0x601bf617c4e4] ../vm_insnhelper.c:4775
+./ruby(vm_call_method+0x2d4) [0x601bf617bfd4]
+/media/test/ruby/build/ruby(vm_sendish+0x1c8) [0x601bf61421d9] ../vm_insnhelper.c:5972
+/media/test/ruby/build/ruby(vm_exec_core) ../insns.def:899
+./ruby(vm_exec_loop+0x0) [0x601bf613aa48]
+/media/test/ruby/build/ruby(rb_vm_exec) /media/test/ruby/build/../vm.c:2621
+/media/test/ruby/build/ruby(rb_ec_exec_node+0x53) [0x601bf5e0cce1] /media/test/ruby/build/../eval.c:281
+/media/test/ruby/build/ruby(ruby_run_node) /media/test/ruby/build/../eval.c:319
+/media/test/ruby/build/ruby(rb_main+0x29) [0x601bf5e083a1] /media/test/ruby/build/../main.c:42
+/media/test/ruby/build/ruby(main) /media/test/ruby/build/../main.c:62
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_call_main+0x80) [0x71c87a629d90] ../sysdeps/nptl/libc_start_call_main.h:58
+/lib/x86_64-linux-gnu/libc.so.6(call_init+0x0) [0x71c87a629e40] ../csu/libc-start.c:392
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main_impl) ../csu/libc-start.c:379
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main) (null):0
+./ruby(_start) [0x601bf5d30d55]
+
+-- Other runtime information -----------------------------------------------
+
+* Loaded script: ../triaged/array_hash.rb
+
+* Loaded features:
+
+    0 enumerator.so
+    1 thread.rb
+    2 fiber.so
+    3 rational.so
+    4 complex.so
+    5 ruby2_keywords.rb
+    6 set.rb
+</code></pre></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+<div id="history" class="journals">
+
+<div class="tabs">
+  <ul>
+    <li><a id="tab-history" onclick="showIssueHistory(&quot;history&quot;, this.href); return false;" href="/issues/21304?tab=history">History</a></li>
+    <li><a id="tab-notes" class="selected" onclick="showIssueHistory(&quot;notes&quot;, this.href); return false;" href="/issues/21304?tab=notes">Notes</a></li>
+    <li><a id="tab-properties" onclick="showIssueHistory(&quot;properties&quot;, this.href); return false;" href="/issues/21304?tab=properties">Property changes</a></li>
+    <li><a id="tab-changesets" onclick="getRemoteTab(&#39;changesets&#39;, &#39;/issues/21304/tab/changesets&#39;, &#39;/issues/21304?tab=changesets&#39;); return false;" href="/issues/21304?tab=changesets">Associated revisions</a></li>
+  </ul>
+  <div class="tabs-buttons" style="display:none;">
+    <button class="tab-left icon-only" type="button" onclick="moveTabLeft(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+    </button>
+    <button class="tab-right icon-only" type="button" onclick="moveTabRight(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+    </button>
+  </div>
+</div>
+
+  <div id="tab-content-history" style="display:none" class="tab-content">
+  <div id="change-112874" class="journal has-notes" data-controller="quote-reply">
+    <div id="note-1" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="mame (Yusuke Endoh)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/d500042051ca39cc7f8f80c6aca4a337015c3d357ef8547c499ca87d048ed325?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/d500042051ca39cc7f8f80c6aca4a337015c3d357ef8547c499ca87d048ed325?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/18">mame (Yusuke Endoh)</a> <a title="05/03/2025 05:22 PM" href="/projects/ruby-master/activity?from=2025-05-03">over 1 year</a> ago
+          <span id="journal-112874-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_112874"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/21304#note-1" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-1" class="journal-link">#1</a>
+            <a class="journal-link" style="padding-right: 0.5em" href="https://blade.ruby-lang.org/ruby-core/121812">[ruby-core:121812]</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+        <div id="journal-112874-notes" class="wiki journal-note" data-quote-reply-target="content"><p>Thanks for the clear bug report! <a href="https://github.com/ruby/ruby/pull/13250" class="external">https://github.com/ruby/ruby/pull/13250</a></p></div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="change-112892" class="journal has-notes has-details" data-controller="quote-reply">
+    <div id="note-2" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="nobu (Nobuyoshi Nakada)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/8467cfe628277795bf5fdbc2144437874ea3a81a9391c7fb127f829e5686910d?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/8467cfe628277795bf5fdbc2144437874ea3a81a9391c7fb127f829e5686910d?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/4">nobu (Nobuyoshi Nakada)</a> <a title="05/05/2025 10:20 AM" href="/projects/ruby-master/activity?from=2025-05-05">over 1 year</a> ago
+          <span id="journal-112892-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_112892"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/21304#note-2" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-2" class="journal-link">#2</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+          <ul class="journal-details">
+              <li><strong>Status</strong> changed from <i>Open</i> to <i>Closed</i></li>
+          </ul>
+        <div id="journal-112892-notes" class="wiki journal-note" data-quote-reply-target="content"><p>Applied in changeset <a class="changeset" title="[Bug #21304] Reload length and pointer after `#hash` method The receiver can be modified during ..." href="/projects/ruby-master/repository/git/revisions/ce8f7da49e2fea995993b49aa7a26f7640c2e258">git|ce8f7da49e2fea995993b49aa7a26f7640c2e258</a>.</p>
+<hr>
+<p>[Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: heap-use-after-free of Array#hash via mutating hash method (Closed)" href="/issues/21304">#21304</a>] Reload length and pointer after <code>#hash</code> method</p>
+<p>The receiver can be modified during the method calls.</p></div>
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+  
+  
+  <div id="tab-content-changesets" style="display:none" class="tab-content"></div>
+
+<script>
+//<![CDATA[
+showIssueHistory("notes", this.href)
+//]]>
+</script>
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/21304" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats hide-when-print">Also available in:  <span><a class="pdf" rel="nofollow" href="/issues/21304.pdf">PDF</a></span>
+  <span><a class="atom" rel="nofollow" href="/issues/21304.atom">Atom</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+<div id="footer">
+    Powered by <a target="_blank" rel="noopener" href="https://www.redmine.org/">Redmine</a> &copy; 2006-2026 Jean-Philippe Lang
+</div>
+
+<div id="ajax-indicator" style="display:none;">
+  <span class="icon">
+    <svg class="s18 icon-svg svg-loader" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--loader"></use></svg><span class="icon-label">Loading...</span>
+  </span>
+</div>
+<div id="ajax-modal" style="display:none;"></div>
+<div id="icon-copy-source" style="display: none;"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--"></use></svg></div>
+
+</div>
+<script>
+//<![CDATA[
+setSelect2Filter('issue_tags', {"url":"/auto_completes/redmine_tags"});
+//]]>
+</script>
+
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<title>Bug #21461: Heap-buffer-overflow in Prism when encoding magic comment is invalid and assignment is incomplete - Ruby - Ruby Issue Tracking System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="robots" content="nofollow">
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="cXMzwYxVE3AF3RrxTeJoRwz7Sff9lVND8lsB2Simcr2YfN2kvcxcWUDWBhTUxR5APdXSt8S-sAxX9ObFPbc2NA" />
+<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon-0e291875.ico" />
+<link rel="stylesheet" href="/assets/jquery/jquery-ui-1.13.2-70e53573.css" media="all" />
+<link rel="stylesheet" href="/assets/tribute-5.1.3-c23a7bf2.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/application-e80f713f.css" media="all" />
+<link rel="stylesheet" href="/assets/dropdown-90f15d9b.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/responsive-f399c041.css" media="all" />
+<script type="importmap" data-turbo-track="reload">{
+  "imports": {
+    "@rails/request.js": "/assets/requestjs-64720317.js",
+    "application": "/assets/application-20c5ac24.js",
+    "@hotwired/stimulus": "/assets/stimulus.min-7ea3d58b.js",
+    "@hotwired/stimulus-loading": "/assets/stimulus-loading-25917588.js",
+    "turndown": "/assets/turndown-93630580.js",
+    "tablesort": "/assets/tablesort.min-8f8a27b3.js",
+    "tablesort.number": "/assets/tablesort.number.min-5c169183.js",
+    "chart.js": "/assets/chart.min-df84bc27.js",
+    "controllers/api_key_copy_controller": "/assets/controllers/api_key_copy_controller-75f835b3.js",
+    "controllers/application": "/assets/controllers/application-fab29967.js",
+    "controllers/clipboard_controller": "/assets/controllers/clipboard_controller-33f6e136.js",
+    "controllers/custom_field_default_value_controller": "/assets/controllers/custom_field_default_value_controller-8e4989aa.js",
+    "controllers/dropdown_controller": "/assets/controllers/dropdown_controller-9c4fc4bc.js",
+    "controllers/gantt/chart_controller": "/assets/controllers/gantt/chart_controller-c7840aff.js",
+    "controllers/gantt/column_controller": "/assets/controllers/gantt/column_controller-414fc5e5.js",
+    "controllers/gantt/options_controller": "/assets/controllers/gantt/options_controller-ac0d91d9.js",
+    "controllers/gantt/subjects_controller": "/assets/controllers/gantt/subjects_controller-f9af7aea.js",
+    "controllers": "/assets/controllers/index-dfefe98d.js",
+    "controllers/list_autofill_controller": "/assets/controllers/list_autofill_controller-5f013171.js",
+    "controllers/quote_reply_controller": "/assets/controllers/quote_reply_controller-3e6a21f7.js",
+    "controllers/reports/details_controller": "/assets/controllers/reports/details_controller-21eb4cbd.js",
+    "controllers/repositories/stats_controller": "/assets/controllers/repositories/stats_controller-d8c4e406.js",
+    "controllers/selection_indent_controller": "/assets/controllers/selection_indent_controller-01007880.js",
+    "controllers/sticky_issue_header_controller": "/assets/controllers/sticky_issue_header_controller-18502bbe.js",
+    "controllers/table_paste_controller": "/assets/controllers/table_paste_controller-961189c1.js",
+    "controllers/tablesort_controller": "/assets/controllers/tablesort_controller-0dce155e.js"
+  }
+}</script>
+<link rel="modulepreload" href="/assets/requestjs-64720317.js">
+<link rel="modulepreload" href="/assets/application-20c5ac24.js">
+<link rel="modulepreload" href="/assets/stimulus.min-7ea3d58b.js">
+<link rel="modulepreload" href="/assets/stimulus-loading-25917588.js">
+<link rel="modulepreload" href="/assets/turndown-93630580.js">
+<link rel="modulepreload" href="/assets/tablesort.min-8f8a27b3.js">
+<link rel="modulepreload" href="/assets/tablesort.number.min-5c169183.js">
+<link rel="modulepreload" href="/assets/controllers/api_key_copy_controller-75f835b3.js">
+<link rel="modulepreload" href="/assets/controllers/application-fab29967.js">
+<link rel="modulepreload" href="/assets/controllers/clipboard_controller-33f6e136.js">
+<link rel="modulepreload" href="/assets/controllers/custom_field_default_value_controller-8e4989aa.js">
+<link rel="modulepreload" href="/assets/controllers/dropdown_controller-9c4fc4bc.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/chart_controller-c7840aff.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/column_controller-414fc5e5.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/options_controller-ac0d91d9.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/subjects_controller-f9af7aea.js">
+<link rel="modulepreload" href="/assets/controllers/index-dfefe98d.js">
+<link rel="modulepreload" href="/assets/controllers/list_autofill_controller-5f013171.js">
+<link rel="modulepreload" href="/assets/controllers/quote_reply_controller-3e6a21f7.js">
+<link rel="modulepreload" href="/assets/controllers/reports/details_controller-21eb4cbd.js">
+<link rel="modulepreload" href="/assets/controllers/repositories/stats_controller-d8c4e406.js">
+<link rel="modulepreload" href="/assets/controllers/selection_indent_controller-01007880.js">
+<link rel="modulepreload" href="/assets/controllers/sticky_issue_header_controller-18502bbe.js">
+<link rel="modulepreload" href="/assets/controllers/table_paste_controller-961189c1.js">
+<link rel="modulepreload" href="/assets/controllers/tablesort_controller-0dce155e.js">
+<script type="module">import "application"</script>
+<script src="/assets/jquery-3.7.1-ui-1.13.3-3ca148b8.js"></script>
+<script src="/assets/rails-ujs-3de06f48.js"></script>
+<script src="/assets/tribute-5.1.3.min-6c16c47a.js"></script><script src="/assets/application-legacy-0ae45500.js"></script>
+<script src="/assets/responsive-73a80fb9.js"></script>
+<script>
+//<![CDATA[
+$(window).on('load', function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.I18n = rm.I18n || {};rm.I18n = Object.freeze({buttonCopy: 'Copy'});
+//]]>
+</script>
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.AutoComplete = rm.AutoComplete || {};rm.AutoComplete.dataSources = JSON.parse('{"issues":"/issues/auto_complete?project_id=ruby-master\u0026q=","wiki_pages":"/wiki_pages/auto_complete?project_id=ruby-master\u0026q="}');
+//]]>
+</script>
+<script src="/assets/plugin_assets/redmineup/consumer-93fb0400.js"></script><script src="/assets/plugin_assets/redmineup/select2-38d92c05.js"></script><script src="/assets/plugin_assets/redmineup/select2_helpers-a6bf2ef6.js"></script><script src="/assets/plugin_assets/redmineup/jquery.colorPicker.min-d7b3ec14.js"></script><link rel="stylesheet" href="/assets/plugin_assets/redmineup/redmineup-abd5d756.css" media="screen" /><script>
+//<![CDATA[
+window.redmineupWorkerUrl = "/assets/consumer_worker-cb8eaf94.js";
+//]]>
+</script>
+ 
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Ruby - Bug #21461: Heap-buffer-overflow in Prism when encoding magic comment is invalid and assignment is incomplete" href="https://bugs.ruby-lang.org/issues/21461.atom" />
+<script src="/assets/context_menu-40f5ee8f.js"></script><link rel="stylesheet" href="/assets/context_menu-75035743.css" media="screen" />  <link rel="stylesheet" href="/assets/plugin_assets/redmineup_tags/redmine_tags-d92b80fc.css" media="screen" />
+  <script src="/assets/plugin_assets/redmineup_tags/redmine_tags-b5ea2bad.js"></script>
+</head>
+<body class="theme-Ruby-lang project-ruby-master has-main-menu controller-issues action-show" data-text-formatting="common_mark">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+        <div class="flyout-menu__search">
+            <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-52e370e6" method="get">
+            <input type="hidden" name="issues" value="1" autocomplete="off" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><span class="icon-label hidden">Search</span></label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<nav class="top-menu" id="top-menu">
+  <div class="general-menu">
+    <div class="top-menu__links">
+        <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a target="_blank" rel="noopener" class="help" href="https://www.redmine.org/guide">Help</a></li></ul>    </div>
+  </div>
+
+  <div class="profile-menu">
+    <div id="account" class="top-menu__links">
+        <ul><li><a class="login" href="/login">Sign in</a></li><li><a class="register" href="/account/register">Register</a></li></ul>    </div>
+  </div>
+</nav>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-529bb7b6" method="get">
+        <input type="hidden" name="scope" autocomplete="off" />
+        <input type="hidden" name="issues" value="1" autocomplete="off" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/ruby-master/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" data-auto-complete="true" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Ruby</span><div class="drdn-content"><div class="quick-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Ruby</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/ruby-master">Overview</a></li><li><a class="activity" href="/projects/ruby-master/activity">Activity</a></li><li><a class="roadmap" href="/projects/ruby-master/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/ruby-master/issues">Issues</a></li><li><a class="repository" href="/projects/ruby-master/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left icon-only" onclick="moveTabLeft(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+            </button>
+            <button class="tab-right icon-only" onclick="moveTabRight(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="collapsiblesidebar">
+  <script>
+//<![CDATA[
+$('#main.collapsiblesidebar').collapsibleSidebar();
+//]]>
+</script>
+    <div id="sidebar">
+          <div id="sidebar-switch-panel" style="visibility: hidden;">
+            <a id="sidebar-switch-button" class="" href="#">
+              <svg class="s20 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--chevrons-right"></use></svg></a>
+          </div>
+          <script>
+//<![CDATA[
+$('#sidebar-switch-panel').css('visibility', 'visible');
+//]]>
+</script>
+        <div id="sidebar-wrapper">
+            
+
+
+<h3>Custom queries</h3>
+<ul class="queries"><li><a class="query" data-disable-with="Backport 3.3" href="/projects/ruby-master/issues?query_id=300">Backport 3.3</a></li>
+<li><a class="query" title="" data-disable-with="Backport 3.4" href="/projects/ruby-master/issues?query_id=336">Backport 3.4</a></li>
+<li><a class="query" title="" data-disable-with="Backport 4.0" href="/projects/ruby-master/issues?query_id=379">Backport 4.0</a></li>
+<li><a class="query" data-disable-with="bugs: unassigned" href="/projects/ruby-master/issues?query_id=75">bugs: unassigned</a></li>
+<li><a class="query" data-disable-with="DevMeeting" href="/projects/ruby-master/issues?query_id=156">DevMeeting</a></li>
+<li><a class="query" data-disable-with="matz" href="/projects/ruby-master/issues?query_id=72">matz</a></li>
+<li><a class="query" data-disable-with="Open issues with attachment" href="/projects/ruby-master/issues?query_id=160">Open issues with attachment</a></li>
+<li><a class="query" title="" data-disable-with="Windows" href="/projects/ruby-master/issues?query_id=335">Windows</a></li></ul>
+
+
+
+
+
+          
+        </div>
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/21461" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<h2 class="inline-block">Bug #21461</h2><span class="badge badge-status-closed">closed</span>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="avatar-with-child">
+    <img alt="" title="Author: bendrissou (Bachir Bendrissou)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/3af4ae30fb0b2320a4edd41b690249f563062a863da0269b184373006317e413?rating=PG&amp;size=100&amp;default=mm 2x" src="https://www.gravatar.com/avatar/3af4ae30fb0b2320a4edd41b690249f563062a863da0269b184373006317e413?rating=PG&amp;size=50&amp;default=mm" />
+    <img alt="" title="Assignee: prism" class="group-avatar avatar avatar-child" src="/assets/group-7d1dd538.svg" width="22" height="22" />
+  </div>
+
+<div data-controller="sticky-issue-header">
+  <div class="subject" data-sticky-issue-header-target="original">
+    <div><h3>Heap-buffer-overflow in Prism when encoding magic comment is invalid and assignment is incomplete</h3></div>
+  </div>
+  <div id="sticky-issue-header" data-sticky-issue-header-target="stickyHeader" class="issue">
+    <span class="issue-heading">Bug #21461:</span>
+    <span class="subject">Heap-buffer-overflow in Prism when encoding magic comment is invalid and assignment is incomplete</span>
+  </div>
+</div>
+
+<div class="reaction">
+  <span class="reaction-button-wrapper" data-reaction-button-id="reaction_issue_21461"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/54960">bendrissou (Bachir Bendrissou)</a> <a title="06/30/2025 11:34 AM" href="/projects/ruby-master/activity?from=2025-06-30">about 1 year</a> ago.
+        Updated <a title="07/17/2025 07:01 PM" href="/projects/ruby-master/activity?from=2025-07-17">about 1 year</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="group" href="/groups/53036"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--group"></use></svg>prism</a></div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value">-</div></div></div><div class="splitcontentright"></div></div>
+<div class="splitcontent"><div class="splitcontentleft"><div class="string_cf cf_4 attribute"><div class="label"><span>ruby -v</span>:</div><div class="value">3.5.0</div></div></div><div class="splitcontentright"><div class="string_cf cf_5 attribute"><div class="label"><span title="The advanced field for Branch maintainers.
+The comma-separated list of version and status which matches /\A(?&lt;branch&gt;\d\.\d(\.0)?: (UNKNOWN|REQUIRED|DONE|DONTNEED|WONTFIX))(, \g&lt;branch&gt;)*\z/" class="field-description">Backport</span>:</div><div class="value"><a href="https://github.com/ruby/ruby/wiki/How-To-Request-Backport" class="external">3.2: UNKNOWN, 3.3: UNKNOWN, 3.4: UNKNOWN</a></div></div></div></div>
+<a href="https://blade.ruby-lang.org/ruby-core/122625">[ruby-core:122625]</a> 
+</div>
+
+<hr />
+<div class="description" data-controller="quote-reply">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div id="issue_description_wiki" class="wiki" data-quote-reply-target="content">
+  <a name="Description"></a>
+<h3 >Description<a href="#Description" class="wiki-anchor">&para;</a></h3>
+<p>An AddressSanitizer (ASan) heap-buffer-overflow occurs in Ruby when:</p>
+<ol>
+<li>
+<p>The file contains an invalid magic encoding comment, and</p>
+</li>
+<li>
+<p>A line with incomplete assignment (e.g. missing right-hand side).</p>
+</li>
+</ol>
+<p>This leads to a crash in pm_parse_errors_format_sort, caused by prism_compile.c accessing a freed or uninitialized memory region.</p>
+<a name="Input"></a>
+<h3 >Input<a href="#Input" class="wiki-anchor">&para;</a></h3>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code># -*- coding: abc -*-
+
+$a = 
+</code></pre></div>
+<a name="Expected-output"></a>
+<h3 >Expected output<a href="#Expected-output" class="wiki-anchor">&para;</a></h3>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code>unknown or invalid encoding in the magic comment (ArgumentError)
+</code></pre></div>
+<a name="ASAN-output"></a>
+<h3 >ASAN output<a href="#ASAN-output" class="wiki-anchor">&para;</a></h3>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code>=================================================================
+==719525==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60300002af88 at pc 0x559137d4f16a bp 0x7ffd85551fe0 sp 0x7ffd85551fd0
+WRITE of size 8 at 0x60300002af88 thread T0
+    #0 0x559137d4f169 in pm_parse_errors_format_sort ../prism_compile.c:10620
+    #1 0x559137d4f169 in pm_parse_errors_format ../prism_compile.c:10687
+    #2 0x559137e08753 in pm_parse_process_error ../prism_compile.c:10999
+    #3 0x559137e08753 in pm_parse_process ../prism_compile.c:11105
+    #4 0x559137e7811d in pm_parse_file ../prism_compile.c:11391
+    #5 0x559137960743 in prism_script ../ruby.c:2236
+    #6 0x559137960743 in process_options ../ruby.c:2563
+    #7 0x55913796228f in ruby_process_options ../ruby.c:3199
+    #8 0x5591376a2406 in ruby_options ../eval.c:117
+    #9 0x5591376937fe in rb_main ../main.c:42
+    #10 0x5591376937fe in main ../main.c:62
+    #11 0x7f69beed2082 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x24082)
+    #12 0x559137694dcd in _start (/home/program/build/ruby+0x15cdcd)
+
+0x60300002af88 is located 0 bytes to the right of 24-byte region [0x60300002af70,0x60300002af88)
+allocated by thread T0 here:
+    #0 0x7f69bf427a06 in __interceptor_calloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:153
+    #1 0x5591377119bd in calloc1 ../gc/default/default.c:1490
+    #2 0x5591377119bd in rb_gc_impl_calloc ../gc/default/default.c:8162
+    #3 0x5591377119bd in ruby_xcalloc_body ../gc.c:5327
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow ../prism_compile.c:10620 in pm_parse_errors_format_sort
+Shadow bytes around the buggy address:
+  0x0c067fffd5a0: 00 00 00 00 fa fa 00 00 00 fa fa fa 00 00 00 fa
+  0x0c067fffd5b0: fa fa fd fd fd fa fa fa 00 00 00 fa fa fa 00 00
+  0x0c067fffd5c0: 00 fa fa fa 00 00 00 fa fa fa 00 00 00 00 fa fa
+  0x0c067fffd5d0: 00 00 00 00 fa fa 00 00 00 00 fa fa fd fd fd fd
+  0x0c067fffd5e0: fa fa 00 00 00 fa fa fa 00 00 00 00 fa fa 00 00
+=&gt;0x0c067fffd5f0: 00[fa]fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fffd600: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fffd610: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fffd620: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fffd630: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fffd640: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==719525==ABORTING
+input.rb: [BUG] ASAN error
+ruby 3.5.0dev (2025-06-11T18:07:43Z master 970813d982) +PRISM [x86_64-linux]
+
+-- Control frame information -----------------------------------------------
+c:0001 p:0000 s:0003 E:000720 DUMMY  [FINISH]
+
+
+-- Threading information ---------------------------------------------------
+Total ractor count: 1
+Ruby thread count for this ractor: 1
+
+-- C level backtrace information -------------------------------------------
+/lib/x86_64-linux-gnu/libasan.so.5(__interceptor_backtrace+0x40) [0x7f69bf386d40] ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4022
+/home/program/build/ruby(rb_print_backtrace+0x11) [0x559137fceda9] ../vm_dump.c:843
+/home/program/build/ruby(rb_vm_bugreport) ../vm_dump.c:1175
+/home/program/build/ruby(rb_bug_without_die_internal+0xc3) [0x559137efa4b6] ../error.c:1097
+/home/program/build/ruby(rb_bug_without_die) ../error.c:1106
+/lib/x86_64-linux-gnu/libasan.so.5(0x7f69bf44fe58) [0x7f69bf44fe58]
+/lib/x86_64-linux-gnu/libasan.so.5(0x7f69bf43152c) [0x7f69bf43152c]
+/lib/x86_64-linux-gnu/libasan.so.5(0x7f69bf430fa3) [0x7f69bf430fa3]
+/lib/x86_64-linux-gnu/libasan.so.5(0x7f69bf43238e) [0x7f69bf43238e]
+/home/program/build/ruby(pm_parse_errors_format_sort+0x12) [0x559137d4f16a] ../prism_compile.c:10620
+/home/program/build/ruby(pm_parse_errors_format) ../prism_compile.c:10687
+/home/program/build/ruby(pm_parse_process_error+0x84) [0x559137e08754] ../prism_compile.c:10999
+/home/program/build/ruby(pm_parse_process) ../prism_compile.c:11105
+/home/program/build/ruby(rbimpl_intern_const+0x0) [0x559137e7811e] ../prism_compile.c:11391
+/home/program/build/ruby(pm_parse_file) ../prism_compile.c:11396
+/home/program/build/ruby(prism_script+0xa4) [0x559137960744] ../ruby.c:2236
+/home/program/build/ruby(process_options) ../ruby.c:2563
+/home/program/build/ruby(ruby_process_options+0x3f0) [0x559137962290] ../ruby.c:3199
+/home/program/build/ruby(ruby_options+0x2a7) [0x5591376a2407] ../eval.c:117
+/home/program/build/ruby(rb_main+0x19) [0x5591376937ff] ../main.c:42
+/home/program/build/ruby(main) ../main.c:62
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf3) [0x7f69beed2083]
+/home/program/build/ruby(_start) [0x559137694dce]
+
+-- Other runtime information -----------------------------------------------
+
+* Loaded script: input.rb
+
+* Loaded features:
+
+    0 enumerator.so
+    1 thread.rb
+    2 fiber.so
+    3 rational.so
+    4 complex.so
+    5 ruby2_keywords.rb
+    6 set.rb
+</code></pre></div>
+<a name="Environment"></a>
+<h3 >Environment<a href="#Environment" class="wiki-anchor">&para;</a></h3>
+<p>Ruby version: ruby 3.5.0dev (2025-06-11 commit 970813d982) +PRISM</p>
+<p>Platform: x86_64-linux</p>
+<p>Built from source</p>
+<p>Parser backend: Prism (default)</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+<div id="history" class="journals">
+
+<div class="tabs">
+  <ul>
+    <li><a id="tab-history" onclick="showIssueHistory(&quot;history&quot;, this.href); return false;" href="/issues/21461?tab=history">History</a></li>
+    <li><a id="tab-notes" class="selected" onclick="showIssueHistory(&quot;notes&quot;, this.href); return false;" href="/issues/21461?tab=notes">Notes</a></li>
+    <li><a id="tab-properties" onclick="showIssueHistory(&quot;properties&quot;, this.href); return false;" href="/issues/21461?tab=properties">Property changes</a></li>
+    <li><a id="tab-changesets" onclick="getRemoteTab(&#39;changesets&#39;, &#39;/issues/21461/tab/changesets&#39;, &#39;/issues/21461?tab=changesets&#39;); return false;" href="/issues/21461?tab=changesets">Associated revisions</a></li>
+  </ul>
+  <div class="tabs-buttons" style="display:none;">
+    <button class="tab-left icon-only" type="button" onclick="moveTabLeft(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+    </button>
+    <button class="tab-right icon-only" type="button" onclick="moveTabRight(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+    </button>
+  </div>
+</div>
+
+  <div id="tab-content-history" style="display:none" class="tab-content">
+  <div id="change-113908" class="journal has-details" data-controller="quote-reply">
+    <div id="note-1" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="byroot (Jean Boussier)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/e7cf4037eeecf34a286d2e2c79a22a60be65901a18ea4f3e695bc8377aa9ad36?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/e7cf4037eeecf34a286d2e2c79a22a60be65901a18ea4f3e695bc8377aa9ad36?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/7941">byroot (Jean Boussier)</a> <a title="07/01/2025 06:38 AM" href="/projects/ruby-master/activity?from=2025-07-01">about 1 year</a> ago
+          <span id="journal-113908-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_113908"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/21461#note-1" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-1" class="journal-link">#1</a>
+            <a class="journal-link" style="padding-right: 0.5em" href="https://blade.ruby-lang.org/ruby-core/122635">[ruby-core:122635]</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+          <ul class="journal-details">
+              <li><strong>Assignee</strong> set to <i>prism</i></li>
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div id="change-114092" class="journal has-notes has-details" data-controller="quote-reply">
+    <div id="note-2" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="tenderlovemaking (Aaron Patterson)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/3187f2efbc2cab0dfc0233905e33b73546c4bc84bb37529d9852864c119b1fa8?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/3187f2efbc2cab0dfc0233905e33b73546c4bc84bb37529d9852864c119b1fa8?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/73">tenderlovemaking (Aaron Patterson)</a> <a title="07/17/2025 07:01 PM" href="/projects/ruby-master/activity?from=2025-07-17">about 1 year</a> ago
+          <span id="journal-114092-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_114092"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/21461#note-2" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-2" class="journal-link">#2</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+          <ul class="journal-details">
+              <li><strong>Status</strong> changed from <i>Open</i> to <i>Closed</i></li>
+          </ul>
+        <div id="journal-114092-notes" class="wiki journal-note" data-quote-reply-target="content"><p>Applied in changeset <a class="changeset" title="Fix linked list iteration when displaying errors When a script has problem with the magic commen..." href="/projects/ruby-master/repository/git/revisions/dabdd81d178ed91ca0feb0875ce0df927df0f3fb">git|dabdd81d178ed91ca0feb0875ce0df927df0f3fb</a>.</p>
+<hr>
+<p>Fix linked list iteration when displaying errors</p>
+<p>When a script has problem with the magic comment encoding, we only<br>
+display that error.  However, if there are other syntax errors in the<br>
+file, the error linked list could contain multiple items.  This lead to<br>
+an inconsistency in the "size" field of the linked list, and the actual<br>
+items in the linked list.  In other words, the linked list had more than<br>
+one item, but the size field was one.</p>
+<p>The error display routine would only allocate <code>size</code> items, but<br>
+iterating the linked list would overrun the array.  This commit changes<br>
+the iterator to compare the current node to the "finish" node in the<br>
+linked list, no longer assuming the linked list ends with NULL.</p>
+<p>[Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Heap-buffer-overflow in Prism when encoding magic comment is invalid and assignment is incomplete (Closed)" href="/issues/21461">#21461</a>]</p></div>
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+  
+  
+  <div id="tab-content-changesets" style="display:none" class="tab-content"></div>
+
+<script>
+//<![CDATA[
+showIssueHistory("notes", this.href)
+//]]>
+</script>
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/21461" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats hide-when-print">Also available in:  <span><a class="pdf" rel="nofollow" href="/issues/21461.pdf">PDF</a></span>
+  <span><a class="atom" rel="nofollow" href="/issues/21461.atom">Atom</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+<div id="footer">
+    Powered by <a target="_blank" rel="noopener" href="https://www.redmine.org/">Redmine</a> &copy; 2006-2026 Jean-Philippe Lang
+</div>
+
+<div id="ajax-indicator" style="display:none;">
+  <span class="icon">
+    <svg class="s18 icon-svg svg-loader" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--loader"></use></svg><span class="icon-label">Loading...</span>
+  </span>
+</div>
+<div id="ajax-modal" style="display:none;"></div>
+<div id="icon-copy-source" style="display: none;"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--"></use></svg></div>
+
+</div>
+<script>
+//<![CDATA[
+setSelect2Filter('issue_tags', {"url":"/auto_completes/redmine_tags"});
+//]]>
+</script>
+
+</body>
+</html>

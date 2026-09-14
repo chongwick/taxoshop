@@ -20,7 +20,7 @@ under sanitizers, and report the ones that are new and confirmed.
 | [`taxos/workflow_signatures/`](taxos/workflow_signatures) | Clustering data. `clusters.json` maps each family → summary + known issue numbers; `gh_*.json` is one signature per known GitHub issue. |
 | [`taxos/micro_taxo/`](taxos/micro_taxo) | Per-issue write-ups (`gh_NNNNN.md`) and source material. |
 | [`tally_bugs.py`](tally_bugs.py) | Ranks the pattern families by how many known issues cluster to them. |
-| `generate_*.py` | Generators that produced the taxonomy (`generate_macro_taxonomy.py`, `generate_reports.py`, `generate_workflow_signatures.py`). |
+| `generate_*.py` | Generators that produced the taxonomy, including `generate_reports.py` for CPython GitHub evidence and `generate_ruby_reports.py` for CRuby Redmine evidence. |
 | [`Dockerfile`](Dockerfile) | Multi-stage build of CPython (`origin/main`) with ASan+UBSan (`asan-ubsan`, the default target) and ThreadSanitizer (`tsan`). |
 | [`Dockerfile.cruby`](Dockerfile.cruby) | Standalone CRuby build with Clang ASan+UBSan enabled. |
 | `cpython/` | Full CPython checkout — read the interpreter source here. |

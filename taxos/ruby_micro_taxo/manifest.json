@@ -1,0 +1,172 @@
+[
+  {
+    "number": 14357,
+    "title": "thread_safe tests suite segfaults",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "+ rspec -Ilib spec\nRandomized with seed 62008\n............./builddir/build/BUILD/thread_safe-0.3.6/usr/share/gems/gems/thread_safe-0.3.6/spec/support/threadsafe_test.rb:44: [BUG] Segmentation fault at 0x000000000000000c\nruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-linux]\n-- Control frame information -----------------------------------------------\nc:0011 p:0009 s:0073 e:000070 METHOD /builddir/build/BUILD/thread_safe-0.3.6/usr/share/gems/gems/thread_safe-0.3.6/spec/support/threadsafe_test.rb:"
+    },
+    "source_sha256": "96bcc1439a9df4bc8ee1f3795766c9d4e35f6bb632d90297e40583219e02d1a1"
+  },
+  {
+    "number": 15165,
+    "title": "heap-use-after-free (READ of size 8) in obj_free (gc.c:2266)",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "generating encdb.h                                                                                                                                                                                                                                                                                                                                                                                                                [523/4506]\n=================================================================\n==616"
+    },
+    "source_sha256": "7dbba013ac91de3df7c1f5199fc51bef1bcd14cdb02767ad69408a9662980325"
+  },
+  {
+    "number": 16105,
+    "title": "heap-use-after-free in String#sub!",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "=================================================================\n==65063==ERROR: AddressSanitizer: heap-use-after-free on address 0x604000095850 at pc 0x55a9c2dda9c1 bp 0x7ffc5a735af0 sp 0x7ffc5a735ae8\nREAD of size 35 at 0x604000095850 thread T0\n    #0 0x55a9c2dda9c0 in rb_str_sub_bang /home/jtruba/rubies/ruby-trunk/string.c:5110\n    #1 0x55a9c2e9b7b2 in call_cfunc_m1 /home/jtruba/rubies/ruby-trunk/vm_insnhelper.c:2034\n    #2 0x55a9c2e9d642 in vm_call_cfunc_with_frame /home/jtruba/rubies/ruby-t"
+    },
+    "source_sha256": "b0e6a537d383f82f955051897bd607cc44b4ae0a85b3a7d8b1852893b20038d8"
+  },
+  {
+    "number": 18001,
+    "title": "AddressSanitizer finding heap-buffer-overflow in iseq_peephole_optimize",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "#! /usr/bin/env ruby\n\nrequire \"coverage\"\nCoverage.start\n\nSTDERR.puts \"before require\"\nrequire_relative \"foo\"\nSTDERR.puts \"after require\""
+    },
+    "source_sha256": "59c1abc517e3ef7a7e6cc0efc820d2e9b3c877005a2e425eb9bc73b5fd46d5a5"
+  },
+  {
+    "number": 19761,
+    "title": "AddressSanitizer fails with Thread and Process",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "==62870==ERROR: AddressSanitizer failed to deallocate 0x8000 (32768) bytes at address 0x62d00000a400\nAddressSanitizer: CHECK failed: sanitizer_posix.cpp:61 \"((\"unable to unmap\" && 0)) != (0)\" (0x0, 0x0) (tid=857549)\n    <empty stack>\n\nAssertion Failed: ../debug/vm_core.h:1853:rb_current_execution_context:!expect_ec || ec != NULL\nruby 3.3.0dev (2023-07-08T02:54:37Z tmp 0083edc3a0) [x86_64-darwin22]\n\n-- Crash Report log information --------------------------------------------\n   See Crash Report l"
+    },
+    "source_sha256": "7e76cfb17dd6fb21a77e6caece1caba051a3e8f0138152ecea235954e25e8a53"
+  },
+  {
+    "number": 19994,
+    "title": "Seemingly require causes segfault??",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "require 'test/unit'\nrequire 'active_record'\n\nActiveRecord::Base.establish_connection adapter: \"sqlite3\", database: \":memory:\""
+    },
+    "source_sha256": "dcc1a2f3bb29ef48c663a140d90cbd4f7c6f0bd1c6e4bc856ba39e12eaaaceb8"
+  },
+  {
+    "number": 20398,
+    "title": "heap-buffer-overflow in numeric literal parsing",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "[1/1] TestRubyLiteral#test_integer=================================================================\n    ==484771==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x5060001ab1fc at pc 0x5597fe21d8e1 bp 0x7ffdc6fb0a50 sp 0x7ffdc6fb0210\n    READ of size 61 at 0x5060001ab1fc thread T0\n        #0 0x5597fe21d8e0 in strlen.part.0 /home/kj/llvm-project/compiler-rt/lib/asan/../sanitizer_common/sanitizer_common_interceptors.inc:391:5\n        #1 0x5597fe6b2feb in ruby_strdup /home/kj/ruby/build/.."
+    },
+    "source_sha256": "de0052ce7a03737ca2f285b1017388613e298e17c675e8c3bc48a0097f785f73"
+  },
+  {
+    "number": 20402,
+    "title": "Double-free in TestIseqLoad#test_stressful_roundtrip",
+    "diagnostic_source_record": false,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "2/9] TestIseqLoad#test_stressful_roundtrip = 7.26 s\n  1) Failure:\nTestIseqLoad#test_stressful_roundtrip [/home/kj/ruby/test/-ext-/iseq_load/test_iseq_load.rb:20]:\npid 172821 killed by SIGSEGV (signal 11) (core dumped)\n| -:10: [BUG] Segmentation fault at 0x0000000000000018\n| ruby 3.4.0dev (2024-03-28T23:13:25Z master 02d40b6c17) [x86_64-linux]\n|\n| -- Control frame information -----------------------------------------------\n| c:0005 p:---- s:0023 e:000022 CFUNC  :iseq_load\n| c:0004 p:0037 s:0018 e"
+    },
+    "source_sha256": "6ddb01dd149ddfa82be888a437f05a9f477b45b948f36e2316e66150cb077040"
+  },
+  {
+    "number": 20921,
+    "title": "Use-after-free in constant cache",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "==36540==ERROR: AddressSanitizer: heap-use-after-free on address 0x606000049528 at pc 0x000102f3ceac bp 0x00016d607a70 sp 0x00016d607a68\nREAD of size 8 at 0x606000049528 thread T0\n    #0 0x102f3cea8 in do_hash st.c:321\n    #1 0x102f3ddd0 in rb_st_insert st.c:1132\n    #2 0x103140700 in vm_track_constant_cache vm_insnhelper.c:6345\n    #3 0x1030b91d8 in vm_ic_track_const_chain vm_insnhelper.c:6356\n    #4 0x1030b8cf8 in rb_vm_opt_getconstant_path vm_insnhelper.c:6424\n    #5 0x1030bc1e0 in vm_exec_co"
+    },
+    "source_sha256": "5197781f775928e7042b3f6a42a69a3f007641f315c7c9fe3fe0fb7bbf086683"
+  },
+  {
+    "number": 21304,
+    "title": "heap-use-after-free of Array#hash via mutating hash method",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "class C\n    def hash()\n        puts $a\n        $a.push(*1..100000)\n        return 0\n    end\nend\n\nc = C.new\n$a = [c]\n$a.push(*1..10)\n$a.hash\nputs \"!\"\nputs $a"
+    },
+    "source_sha256": "a29619dd55203333f8a863c29bfd496cee6c9eed7f06fd8e3a2a5c4cdab88aa2"
+  },
+  {
+    "number": 21332,
+    "title": "heap-use-after-free caused by mutating the set",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "$ git log | head -n4\ncommit a6435befa76c2ae0525147f934bd9cd1914ffb8a\nAuthor: Jean Boussier <jean.boussier@gmail.com>\nDate:   Mon May 12 11:02:17 2025 +0200\n$ ./ruby triaged/set_delete_if.rb\n`RubyGems' were not loaded.\n`error_highlight' was not loaded.\n`did_you_mean' was not loaded.\n`syntax_suggest' was not loaded.\n=================================================================\n==229421==ERROR: AddressSanitizer: heap-use-after-free on address 0x511000009dd0 at pc 0x632e6e7fc01d bp 0x7fffb8fd717"
+    },
+    "source_sha256": "30ecf724fb25022a03985cca64aadad07ec5de4f215dcbd2e5078efac4dfc985"
+  },
+  {
+    "number": 21333,
+    "title": "heap-use-after-free caused by rehash during update",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "$ git log | head -n4\ncommit a6435befa76c2ae0525147f934bd9cd1914ffb8a\nAuthor: Jean Boussier <jean.boussier@gmail.com>\nDate:   Mon May 12 11:02:17 2025 +0200\n$ ./ruby triaged/hash_update.rb\n`RubyGems' were not loaded.\n`error_highlight' was not loaded.\n`did_you_mean' was not loaded.\n`syntax_suggest' was not loaded.\n=================================================================\n==227694==ERROR: AddressSanitizer: heap-use-after-free on address 0x52f00000e410 at pc 0x64f4179fa0d5 bp 0x7ffec17cce10 "
+    },
+    "source_sha256": "6b314a25a052890d5539f81ce5454318329522083516bad420d9f88a1b974f8a"
+  },
+  {
+    "number": 21461,
+    "title": "Heap-buffer-overflow in Prism when encoding magic comment is invalid and assignment is incomplete",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "=================================================================\n==719525==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60300002af88 at pc 0x559137d4f16a bp 0x7ffd85551fe0 sp 0x7ffd85551fd0\nWRITE of size 8 at 0x60300002af88 thread T0\n    #0 0x559137d4f169 in pm_parse_errors_format_sort ../prism_compile.c:10620\n    #1 0x559137d4f169 in pm_parse_errors_format ../prism_compile.c:10687\n    #2 0x559137e08753 in pm_parse_process_error ../prism_compile.c:10999\n    #3 0x559137e08753 in pm"
+    },
+    "source_sha256": "b4290c6d111703c9f6d2b00b67027b45dac26050205a08e1929412837d0458f6"
+  },
+  {
+    "number": 21613,
+    "title": "TestGc#test_exception_in_finalizer_procs and TestGc#test_exception_in_finalizer_method fail with ASAN",
+    "diagnostic_source_record": false,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "1) Failure:\n  TestGc#test_exception_in_finalizer_procs [/home/runner/work/ruby-dev-builder/ruby-dev-builder/test/ruby/test_gc.rb:828]:\n  pid 40237 exit 0.\n  \n  1. [1/2] Assertion for \"stdout\"\n     | <[\"c1\", \"c2\"]> expected but was\n     | <[\"c1\"]>.\n  \n    2) Failure:\n  TestGc#test_exception_in_finalizer_method [/home/runner/work/ruby-dev-builder/ruby-dev-builder/test/ruby/test_gc.rb:848]:\n  pid 40260 exit 0.\n  \n  1. [1/2] Assertion for \"stdout\"\n     | <[\"c1\", \"c2\"]> expected but was\n     | <[\"c1\""
+    },
+    "source_sha256": "fbd1063225ae003388b8f50e535a71584ae5a987238bb772e88a0ebd744d9f40"
+  },
+  {
+    "number": 22196,
+    "title": "Heap-use-after-free in `fiber_switch` with transfer-terminated async tasks on 3.4.10",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "ruby 3.4.10 (2026-06-30 revision 2b0b7728dc) +PRISM [aarch64-linux]"
+    },
+    "source_sha256": "fcf04eba08680effb214e3eea696c7604abe2113822a005694e20da8b11db83b"
+  },
+  {
+    "number": 22253,
+    "title": "Clang UBSan reports NULL/0 memcpy for eval scope locals",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "x86-64 Ubuntu\nClang 18.1.3\nRuby revision: ed0b427b4ba3c776c763d2673070e88372b2096a\nRelevant sanitizer: -fsanitize=nonnull-attribute\nOptimization: -O1"
+    },
+    "source_sha256": "1c60f50232c072882c385790979977d83188c3acee180878f78ab8c4a49dcb28"
+  },
+  {
+    "number": 22254,
+    "title": "[Prism] Clang UBSan reports NULL/0 memcpy while serializing empty strings",
+    "diagnostic_source_record": true,
+    "poc": {
+      "kind": "embedded_code",
+      "evidence": "x86-64 Ubuntu\nClang 18.1.3\nRuby revision: ed0b427b4ba3c776c763d2673070e88372b2096a\nRelevant sanitizer: -fsanitize=nonnull-attribute\nOptimization: -O1"
+    },
+    "source_sha256": "da19a403e94d85987dad2db63c7e3b6b1e0f052b56831b7f784eaa7f53210c78"
+  }
+]

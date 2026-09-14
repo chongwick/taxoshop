@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<title>Bug #20921: Use-after-free in constant cache - Ruby - Ruby Issue Tracking System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="robots" content="nofollow">
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="QEc0MTmxAEMgaKvdgubVxQQkWoyAqcikTZm-G42QXnwBMsihwhAw-1K8pHqI8b0I-ZR-ZAZIJ9CEUTNlmAoJ2w" />
+<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon-0e291875.ico" />
+<link rel="stylesheet" href="/assets/jquery/jquery-ui-1.13.2-70e53573.css" media="all" />
+<link rel="stylesheet" href="/assets/tribute-5.1.3-c23a7bf2.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/application-e80f713f.css" media="all" />
+<link rel="stylesheet" href="/assets/dropdown-90f15d9b.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/responsive-f399c041.css" media="all" />
+<script type="importmap" data-turbo-track="reload">{
+  "imports": {
+    "@rails/request.js": "/assets/requestjs-64720317.js",
+    "application": "/assets/application-20c5ac24.js",
+    "@hotwired/stimulus": "/assets/stimulus.min-7ea3d58b.js",
+    "@hotwired/stimulus-loading": "/assets/stimulus-loading-25917588.js",
+    "turndown": "/assets/turndown-93630580.js",
+    "tablesort": "/assets/tablesort.min-8f8a27b3.js",
+    "tablesort.number": "/assets/tablesort.number.min-5c169183.js",
+    "chart.js": "/assets/chart.min-df84bc27.js",
+    "controllers/api_key_copy_controller": "/assets/controllers/api_key_copy_controller-75f835b3.js",
+    "controllers/application": "/assets/controllers/application-fab29967.js",
+    "controllers/clipboard_controller": "/assets/controllers/clipboard_controller-33f6e136.js",
+    "controllers/custom_field_default_value_controller": "/assets/controllers/custom_field_default_value_controller-8e4989aa.js",
+    "controllers/dropdown_controller": "/assets/controllers/dropdown_controller-9c4fc4bc.js",
+    "controllers/gantt/chart_controller": "/assets/controllers/gantt/chart_controller-c7840aff.js",
+    "controllers/gantt/column_controller": "/assets/controllers/gantt/column_controller-414fc5e5.js",
+    "controllers/gantt/options_controller": "/assets/controllers/gantt/options_controller-ac0d91d9.js",
+    "controllers/gantt/subjects_controller": "/assets/controllers/gantt/subjects_controller-f9af7aea.js",
+    "controllers": "/assets/controllers/index-dfefe98d.js",
+    "controllers/list_autofill_controller": "/assets/controllers/list_autofill_controller-5f013171.js",
+    "controllers/quote_reply_controller": "/assets/controllers/quote_reply_controller-3e6a21f7.js",
+    "controllers/reports/details_controller": "/assets/controllers/reports/details_controller-21eb4cbd.js",
+    "controllers/repositories/stats_controller": "/assets/controllers/repositories/stats_controller-d8c4e406.js",
+    "controllers/selection_indent_controller": "/assets/controllers/selection_indent_controller-01007880.js",
+    "controllers/sticky_issue_header_controller": "/assets/controllers/sticky_issue_header_controller-18502bbe.js",
+    "controllers/table_paste_controller": "/assets/controllers/table_paste_controller-961189c1.js",
+    "controllers/tablesort_controller": "/assets/controllers/tablesort_controller-0dce155e.js"
+  }
+}</script>
+<link rel="modulepreload" href="/assets/requestjs-64720317.js">
+<link rel="modulepreload" href="/assets/application-20c5ac24.js">
+<link rel="modulepreload" href="/assets/stimulus.min-7ea3d58b.js">
+<link rel="modulepreload" href="/assets/stimulus-loading-25917588.js">
+<link rel="modulepreload" href="/assets/turndown-93630580.js">
+<link rel="modulepreload" href="/assets/tablesort.min-8f8a27b3.js">
+<link rel="modulepreload" href="/assets/tablesort.number.min-5c169183.js">
+<link rel="modulepreload" href="/assets/controllers/api_key_copy_controller-75f835b3.js">
+<link rel="modulepreload" href="/assets/controllers/application-fab29967.js">
+<link rel="modulepreload" href="/assets/controllers/clipboard_controller-33f6e136.js">
+<link rel="modulepreload" href="/assets/controllers/custom_field_default_value_controller-8e4989aa.js">
+<link rel="modulepreload" href="/assets/controllers/dropdown_controller-9c4fc4bc.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/chart_controller-c7840aff.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/column_controller-414fc5e5.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/options_controller-ac0d91d9.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/subjects_controller-f9af7aea.js">
+<link rel="modulepreload" href="/assets/controllers/index-dfefe98d.js">
+<link rel="modulepreload" href="/assets/controllers/list_autofill_controller-5f013171.js">
+<link rel="modulepreload" href="/assets/controllers/quote_reply_controller-3e6a21f7.js">
+<link rel="modulepreload" href="/assets/controllers/reports/details_controller-21eb4cbd.js">
+<link rel="modulepreload" href="/assets/controllers/repositories/stats_controller-d8c4e406.js">
+<link rel="modulepreload" href="/assets/controllers/selection_indent_controller-01007880.js">
+<link rel="modulepreload" href="/assets/controllers/sticky_issue_header_controller-18502bbe.js">
+<link rel="modulepreload" href="/assets/controllers/table_paste_controller-961189c1.js">
+<link rel="modulepreload" href="/assets/controllers/tablesort_controller-0dce155e.js">
+<script type="module">import "application"</script>
+<script src="/assets/jquery-3.7.1-ui-1.13.3-3ca148b8.js"></script>
+<script src="/assets/rails-ujs-3de06f48.js"></script>
+<script src="/assets/tribute-5.1.3.min-6c16c47a.js"></script><script src="/assets/application-legacy-0ae45500.js"></script>
+<script src="/assets/responsive-73a80fb9.js"></script>
+<script>
+//<![CDATA[
+$(window).on('load', function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.I18n = rm.I18n || {};rm.I18n = Object.freeze({buttonCopy: 'Copy'});
+//]]>
+</script>
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.AutoComplete = rm.AutoComplete || {};rm.AutoComplete.dataSources = JSON.parse('{"issues":"/issues/auto_complete?project_id=ruby-master\u0026q=","wiki_pages":"/wiki_pages/auto_complete?project_id=ruby-master\u0026q="}');
+//]]>
+</script>
+<script src="/assets/plugin_assets/redmineup/consumer-93fb0400.js"></script><script src="/assets/plugin_assets/redmineup/select2-38d92c05.js"></script><script src="/assets/plugin_assets/redmineup/select2_helpers-a6bf2ef6.js"></script><script src="/assets/plugin_assets/redmineup/jquery.colorPicker.min-d7b3ec14.js"></script><link rel="stylesheet" href="/assets/plugin_assets/redmineup/redmineup-abd5d756.css" media="screen" /><script>
+//<![CDATA[
+window.redmineupWorkerUrl = "/assets/consumer_worker-cb8eaf94.js";
+//]]>
+</script>
+ 
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Ruby - Bug #20921: Use-after-free in constant cache" href="https://bugs.ruby-lang.org/issues/20921.atom" />
+<script src="/assets/context_menu-40f5ee8f.js"></script><link rel="stylesheet" href="/assets/context_menu-75035743.css" media="screen" />  <link rel="stylesheet" href="/assets/plugin_assets/redmineup_tags/redmine_tags-d92b80fc.css" media="screen" />
+  <script src="/assets/plugin_assets/redmineup_tags/redmine_tags-b5ea2bad.js"></script>
+</head>
+<body class="theme-Ruby-lang project-ruby-master has-main-menu controller-issues action-show" data-text-formatting="common_mark">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+        <div class="flyout-menu__search">
+            <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-37fcf0d0" method="get">
+            <input type="hidden" name="issues" value="1" autocomplete="off" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><span class="icon-label hidden">Search</span></label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<nav class="top-menu" id="top-menu">
+  <div class="general-menu">
+    <div class="top-menu__links">
+        <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a target="_blank" rel="noopener" class="help" href="https://www.redmine.org/guide">Help</a></li></ul>    </div>
+  </div>
+
+  <div class="profile-menu">
+    <div id="account" class="top-menu__links">
+        <ul><li><a class="login" href="/login">Sign in</a></li><li><a class="register" href="/account/register">Register</a></li></ul>    </div>
+  </div>
+</nav>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-a9c00e22" method="get">
+        <input type="hidden" name="scope" autocomplete="off" />
+        <input type="hidden" name="issues" value="1" autocomplete="off" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/ruby-master/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" data-auto-complete="true" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Ruby</span><div class="drdn-content"><div class="quick-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Ruby</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/ruby-master">Overview</a></li><li><a class="activity" href="/projects/ruby-master/activity">Activity</a></li><li><a class="roadmap" href="/projects/ruby-master/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/ruby-master/issues">Issues</a></li><li><a class="repository" href="/projects/ruby-master/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left icon-only" onclick="moveTabLeft(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+            </button>
+            <button class="tab-right icon-only" onclick="moveTabRight(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="collapsiblesidebar">
+  <script>
+//<![CDATA[
+$('#main.collapsiblesidebar').collapsibleSidebar();
+//]]>
+</script>
+    <div id="sidebar">
+          <div id="sidebar-switch-panel" style="visibility: hidden;">
+            <a id="sidebar-switch-button" class="" href="#">
+              <svg class="s20 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--chevrons-right"></use></svg></a>
+          </div>
+          <script>
+//<![CDATA[
+$('#sidebar-switch-panel').css('visibility', 'visible');
+//]]>
+</script>
+        <div id="sidebar-wrapper">
+            
+
+
+<h3>Custom queries</h3>
+<ul class="queries"><li><a class="query" data-disable-with="Backport 3.3" href="/projects/ruby-master/issues?query_id=300">Backport 3.3</a></li>
+<li><a class="query" title="" data-disable-with="Backport 3.4" href="/projects/ruby-master/issues?query_id=336">Backport 3.4</a></li>
+<li><a class="query" title="" data-disable-with="Backport 4.0" href="/projects/ruby-master/issues?query_id=379">Backport 4.0</a></li>
+<li><a class="query" data-disable-with="bugs: unassigned" href="/projects/ruby-master/issues?query_id=75">bugs: unassigned</a></li>
+<li><a class="query" data-disable-with="DevMeeting" href="/projects/ruby-master/issues?query_id=156">DevMeeting</a></li>
+<li><a class="query" data-disable-with="matz" href="/projects/ruby-master/issues?query_id=72">matz</a></li>
+<li><a class="query" data-disable-with="Open issues with attachment" href="/projects/ruby-master/issues?query_id=160">Open issues with attachment</a></li>
+<li><a class="query" title="" data-disable-with="Windows" href="/projects/ruby-master/issues?query_id=335">Windows</a></li></ul>
+
+
+
+
+
+          
+        </div>
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20921" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<h2 class="inline-block">Bug #20921</h2><span class="badge badge-status-closed">closed</span>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="avatar-with-child">
+    <img alt="" title="Author: peterzhu2118 (Peter Zhu)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/deb9a1931270598882bd633675b174b0bb6565177cf202acdf471f7c1f383c49?rating=PG&amp;size=100&amp;default=mm 2x" src="https://www.gravatar.com/avatar/deb9a1931270598882bd633675b174b0bb6565177cf202acdf471f7c1f383c49?rating=PG&amp;size=50&amp;default=mm" />
+    
+  </div>
+
+<div data-controller="sticky-issue-header">
+  <div class="subject" data-sticky-issue-header-target="original">
+    <div><h3>Use-after-free in constant cache</h3></div>
+  </div>
+  <div id="sticky-issue-header" data-sticky-issue-header-target="stickyHeader" class="issue">
+    <span class="issue-heading">Bug #20921:</span>
+    <span class="subject">Use-after-free in constant cache</span>
+  </div>
+</div>
+
+<div class="reaction">
+  <span class="reaction-button-wrapper" data-reaction-button-id="reaction_issue_20921"><span class="icon reaction-button readonly has-reactions" title="mdalessio (Mike Dalessio)"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg><span class="icon-label">1</span></span></span>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/42491">peterzhu2118 (Peter Zhu)</a> <a title="11/28/2024 07:25 PM" href="/projects/ruby-master/activity?from=2024-11-28">almost 2 years</a> ago.
+        Updated <a title="01/15/2025 01:52 AM" href="/projects/ruby-master/activity?from=2025-01-15">over 1 year</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value">-</div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value">-</div></div></div><div class="splitcontentright"></div></div>
+<div class="splitcontent"><div class="splitcontentleft"><div class="string_cf cf_4 attribute"><div class="label"><span>ruby -v</span>:</div><div class="value"></div></div></div><div class="splitcontentright"><div class="string_cf cf_5 attribute"><div class="label"><span title="The advanced field for Branch maintainers.
+The comma-separated list of version and status which matches /\A(?&lt;branch&gt;\d\.\d(\.0)?: (UNKNOWN|REQUIRED|DONE|DONTNEED|WONTFIX))(, \g&lt;branch&gt;)*\z/" class="field-description">Backport</span>:</div><div class="value"><a href="https://github.com/ruby/ruby/wiki/How-To-Request-Backport" class="external">3.1: DONTNEED, 3.2: DONE, 3.3: DONE</a></div></div></div></div>
+<a href="https://blade.ruby-lang.org/ruby-core/120048">[ruby-core:120048]</a> 
+</div>
+
+<hr />
+<div class="description" data-controller="quote-reply">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div id="issue_description_wiki" class="wiki" data-quote-reply-target="content">
+  <p>GitHub PR: <a href="https://github.com/ruby/ruby/pull/12203" class="external">https://github.com/ruby/ruby/pull/12203</a></p>
+<p>When we create a cache entry for a constant, the following sequence of events could happen:</p>
+<ul>
+<li>vm_track_constant_cache is called to insert a constant cache.</li>
+<li>In vm_track_constant_cache, we first look up the ST table for the ID of the constant. Assume the ST table exists because another iseq also holds a cache entry for this ID.</li>
+<li>We then insert into this ST table with the iseq_inline_constant_cache.</li>
+<li>However, while inserting into this ST table, it allocates memory, which could trigger a GC. Assume that it does trigger a GC.</li>
+<li>The GC frees the one and only other iseq that holds a cache entry for this ID.</li>
+<li>In remove_from_constant_cache, it will appear that the ST table is now empty because there are no more iseq with cache entries for this ID, so we free the ST table.</li>
+<li>We complete GC and continue our st_insert. However, this ST table has been freed so we now have a use-after-free.</li>
+</ul>
+<p>This issue is very hard to reproduce, because it requires that the GC runs at a very specific time. However, we can make it show up by applying this patch which runs GC right before the st_insert to mimic the st_insert triggering a GC:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code class="diff syntaxhl" data-language="diff"><span class="gh">diff --git a/vm_insnhelper.c b/vm_insnhelper.c
+index 3cb23f06f0..a93998136a 100644
+</span><span class="gd">--- a/vm_insnhelper.c
+</span><span class="gi">+++ b/vm_insnhelper.c
+</span><span class="p">@@ -6338,6 +6338,10 @@</span> vm_track_constant_cache(ID id, void *ic)
+        rb_id_table_insert(const_cache, id, (VALUE)ics);
+    }
+<span class="err">
+</span><span class="gi">+    if (id == rb_intern("MyConstant")) rb_gc();
++
+</span>    st_insert(ics, (st_data_t) ic, (st_data_t) Qtrue);
+}
+</code></pre></div>
+<p>And if we run this script:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code class="ruby syntaxhl" data-language="ruby"><span class="no">Object</span><span class="p">.</span><span class="nf">const_set</span><span class="p">(</span><span class="s2">"MyConstant"</span><span class="p">,</span> <span class="s2">"Hello!"</span><span class="p">)</span>
+
+<span class="n">my_proc</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">"-&gt; { MyConstant }"</span><span class="p">)</span>
+<span class="n">my_proc</span><span class="p">.</span><span class="nf">call</span>
+
+<span class="n">my_proc</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">"-&gt; { MyConstant }"</span><span class="p">)</span>
+<span class="n">my_proc</span><span class="p">.</span><span class="nf">call</span>
+</code></pre></div>
+<p>We can see that ASAN outputs a use-after-free error:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code>==36540==ERROR: AddressSanitizer: heap-use-after-free on address 0x606000049528 at pc 0x000102f3ceac bp 0x00016d607a70 sp 0x00016d607a68
+READ of size 8 at 0x606000049528 thread T0
+    #0 0x102f3cea8 in do_hash st.c:321
+    #1 0x102f3ddd0 in rb_st_insert st.c:1132
+    #2 0x103140700 in vm_track_constant_cache vm_insnhelper.c:6345
+    #3 0x1030b91d8 in vm_ic_track_const_chain vm_insnhelper.c:6356
+    #4 0x1030b8cf8 in rb_vm_opt_getconstant_path vm_insnhelper.c:6424
+    #5 0x1030bc1e0 in vm_exec_core insns.def:263
+    #6 0x1030b55fc in rb_vm_exec vm.c:2585
+    #7 0x1030fe0ac in rb_iseq_eval_main vm.c:2851
+    #8 0x102a82588 in rb_ec_exec_node eval.c:281
+    #9 0x102a81fe0 in ruby_run_node eval.c:319
+    #10 0x1027f3db4 in rb_main main.c:43
+    #11 0x1027f3bd4 in main main.c:68
+    #12 0x183900270  (&lt;unknown module&gt;)
+
+0x606000049528 is located 8 bytes inside of 56-byte region [0x606000049520,0x606000049558)
+freed by thread T0 here:
+    #0 0x104174d40 in free+0x98 (libclang_rt.asan_osx_dynamic.dylib:arm64e+0x54d40)
+    #1 0x102ada89c in rb_gc_impl_free default.c:8183
+    #2 0x102ada7dc in ruby_sized_xfree gc.c:4507
+    #3 0x102ac4d34 in ruby_xfree gc.c:4518
+    #4 0x102f3cb34 in rb_st_free_table st.c:663
+    #5 0x102bd52d8 in remove_from_constant_cache iseq.c:119
+    #6 0x102bbe2cc in iseq_clear_ic_references iseq.c:153
+    #7 0x102bbd2a0 in rb_iseq_free iseq.c:166
+    #8 0x102b32ed0 in rb_imemo_free imemo.c:564
+    #9 0x102ac4b44 in rb_gc_obj_free gc.c:1407
+    #10 0x102af4290 in gc_sweep_plane default.c:3546
+    #11 0x102af3bdc in gc_sweep_page default.c:3634
+    #12 0x102aeb140 in gc_sweep_step default.c:3906
+    #13 0x102aeadf0 in gc_sweep_rest default.c:3978
+    #14 0x102ae4714 in gc_sweep default.c:4155
+    #15 0x102af8474 in gc_start default.c:6484
+    #16 0x102afbe30 in garbage_collect default.c:6363
+    #17 0x102ad37f0 in rb_gc_impl_start default.c:6816
+    #18 0x102ad3634 in rb_gc gc.c:3624
+    #19 0x1031406ec in vm_track_constant_cache vm_insnhelper.c:6342
+    #20 0x1030b91d8 in vm_ic_track_const_chain vm_insnhelper.c:6356
+    #21 0x1030b8cf8 in rb_vm_opt_getconstant_path vm_insnhelper.c:6424
+    #22 0x1030bc1e0 in vm_exec_core insns.def:263
+    #23 0x1030b55fc in rb_vm_exec vm.c:2585
+    #24 0x1030fe0ac in rb_iseq_eval_main vm.c:2851
+    #25 0x102a82588 in rb_ec_exec_node eval.c:281
+    #26 0x102a81fe0 in ruby_run_node eval.c:319
+    #27 0x1027f3db4 in rb_main main.c:43
+    #28 0x1027f3bd4 in main main.c:68
+    #29 0x183900270  (&lt;unknown module&gt;)
+
+previously allocated by thread T0 here:
+    #0 0x104174c04 in malloc+0x94 (libclang_rt.asan_osx_dynamic.dylib:arm64e+0x54c04)
+    #1 0x102ada0ec in rb_gc_impl_malloc default.c:8198
+    #2 0x102acee44 in ruby_xmalloc gc.c:4438
+    #3 0x102f3c85c in rb_st_init_table_with_size st.c:571
+    #4 0x102f3c900 in rb_st_init_table st.c:600
+    #5 0x102f3c920 in rb_st_init_numtable st.c:608
+    #6 0x103140698 in vm_track_constant_cache vm_insnhelper.c:6337
+    #7 0x1030b91d8 in vm_ic_track_const_chain vm_insnhelper.c:6356
+    #8 0x1030b8cf8 in rb_vm_opt_getconstant_path vm_insnhelper.c:6424
+    #9 0x1030bc1e0 in vm_exec_core insns.def:263
+    #10 0x1030b55fc in rb_vm_exec vm.c:2585
+    #11 0x1030fe0ac in rb_iseq_eval_main vm.c:2851
+    #12 0x102a82588 in rb_ec_exec_node eval.c:281
+    #13 0x102a81fe0 in ruby_run_node eval.c:319
+    #14 0x1027f3db4 in rb_main main.c:43
+    #15 0x1027f3bd4 in main main.c:68
+    #16 0x183900270  (&lt;unknown module&gt;)
+</code></pre></div>
+<p>This commit fixes this bug by adding a inserting_constant_cache_id field to the VM, which stores the ID that is currently being inserted and, in remove_from_constant_cache, we don't free the ST table for ID equal to this one.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+<div id="history" class="journals">
+
+<div class="tabs">
+  <ul>
+    <li><a id="tab-history" onclick="showIssueHistory(&quot;history&quot;, this.href); return false;" href="/issues/20921?tab=history">History</a></li>
+    <li><a id="tab-notes" class="selected" onclick="showIssueHistory(&quot;notes&quot;, this.href); return false;" href="/issues/20921?tab=notes">Notes</a></li>
+    <li><a id="tab-properties" onclick="showIssueHistory(&quot;properties&quot;, this.href); return false;" href="/issues/20921?tab=properties">Property changes</a></li>
+    <li><a id="tab-changesets" onclick="getRemoteTab(&#39;changesets&#39;, &#39;/issues/20921/tab/changesets&#39;, &#39;/issues/20921?tab=changesets&#39;); return false;" href="/issues/20921?tab=changesets">Associated revisions</a></li>
+  </ul>
+  <div class="tabs-buttons" style="display:none;">
+    <button class="tab-left icon-only" type="button" onclick="moveTabLeft(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+    </button>
+    <button class="tab-right icon-only" type="button" onclick="moveTabRight(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+    </button>
+  </div>
+</div>
+
+  <div id="tab-content-history" style="display:none" class="tab-content">
+  <div id="change-110795" class="journal has-notes has-details" data-controller="quote-reply">
+    <div id="note-1" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="peterzhu2118 (Peter Zhu)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/deb9a1931270598882bd633675b174b0bb6565177cf202acdf471f7c1f383c49?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/deb9a1931270598882bd633675b174b0bb6565177cf202acdf471f7c1f383c49?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/42491">peterzhu2118 (Peter Zhu)</a> <a title="11/29/2024 03:46 PM" href="/projects/ruby-master/activity?from=2024-11-29">almost 2 years</a> ago
+          <span id="journal-110795-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_110795"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20921#note-1" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-1" class="journal-link">#1</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+          <ul class="journal-details">
+              <li><strong>Status</strong> changed from <i>Open</i> to <i>Closed</i></li>
+          </ul>
+        <div id="journal-110795-notes" class="wiki journal-note" data-quote-reply-target="content"><p>Applied in changeset <a class="changeset" title="Fix use-after-free in constant cache [Bug #20921] When we create a cache entry for a constant, ..." href="/projects/ruby-master/repository/git/revisions/f65a6c090c229de1665af49f2e51fc1d6397ab72">git|f65a6c090c229de1665af49f2e51fc1d6397ab72</a>.</p>
+<hr>
+<p>Fix use-after-free in constant cache</p>
+<p>[Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Use-after-free in constant cache (Closed)" href="/issues/20921">#20921</a>]</p>
+<p>When we create a cache entry for a constant, the following sequence of<br>
+events could happen:</p>
+<ul>
+<li>vm_track_constant_cache is called to insert a constant cache.</li>
+<li>In vm_track_constant_cache, we first look up the ST table for the ID<br>
+of the constant. Assume the ST table exists because another iseq also<br>
+holds a cache entry for this ID.</li>
+<li>We then insert into this ST table with the iseq_inline_constant_cache.</li>
+<li>However, while inserting into this ST table, it allocates memory, which<br>
+could trigger a GC. Assume that it does trigger a GC.</li>
+<li>The GC frees the one and only other iseq that holds a cache entry for<br>
+this ID.</li>
+<li>In remove_from_constant_cache, it will appear that the ST table is now<br>
+empty because there are no more iseq with cache entries for this ID, so<br>
+we free the ST table.</li>
+<li>We complete GC and continue our st_insert. However, this ST table has<br>
+been freed so we now have a use-after-free.</li>
+</ul>
+<p>This issue is very hard to reproduce, because it requires that the GC runs<br>
+at a very specific time. However, we can make it show up by applying this<br>
+patch which runs GC right before the st_insert to mimic the st_insert<br>
+triggering a GC:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code>diff --git a/vm_insnhelper.c b/vm_insnhelper.c
+index 3cb23f06f0..a93998136a 100644
+--- a/vm_insnhelper.c
++++ b/vm_insnhelper.c
+@@ -6338,6 +6338,10 @@ vm_track_constant_cache(ID id, void *ic)
+        rb_id_table_insert(const_cache, id, (VALUE)ics);
+    }
+
++    if (id == rb_intern("MyConstant")) rb_gc();
++
+    st_insert(ics, (st_data_t) ic, (st_data_t) Qtrue);
+}
+</code></pre></div>
+<p>And if we run this script:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code>Object.const_set("MyConstant", "Hello!")
+
+my_proc = eval("-&gt; { MyConstant }")
+my_proc.call
+
+my_proc = eval("-&gt; { MyConstant }")
+my_proc.call
+</code></pre></div>
+<p>We can see that ASAN outputs a use-after-free error:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code>==36540==ERROR: AddressSanitizer: heap-use-after-free on address 0x606000049528 at pc 0x000102f3ceac bp 0x00016d607a70 sp 0x00016d607a68
+READ of size 8 at 0x606000049528 thread T0
+    #0 0x102f3cea8 in do_hash st.c:321
+    #1 0x102f3ddd0 in rb_st_insert st.c:1132
+    #2 0x103140700 in vm_track_constant_cache vm_insnhelper.c:6345
+    #3 0x1030b91d8 in vm_ic_track_const_chain vm_insnhelper.c:6356
+    #4 0x1030b8cf8 in rb_vm_opt_getconstant_path vm_insnhelper.c:6424
+    #5 0x1030bc1e0 in vm_exec_core insns.def:263
+    #6 0x1030b55fc in rb_vm_exec vm.c:2585
+    #7 0x1030fe0ac in rb_iseq_eval_main vm.c:2851
+    #8 0x102a82588 in rb_ec_exec_node eval.c:281
+    #9 0x102a81fe0 in ruby_run_node eval.c:319
+    #10 0x1027f3db4 in rb_main main.c:43
+    #11 0x1027f3bd4 in main main.c:68
+    #12 0x183900270  (&lt;unknown module&gt;)
+
+0x606000049528 is located 8 bytes inside of 56-byte region [0x606000049520,0x606000049558)
+freed by thread T0 here:
+    #0 0x104174d40 in free+0x98 (libclang_rt.asan_osx_dynamic.dylib:arm64e+0x54d40)
+    #1 0x102ada89c in rb_gc_impl_free default.c:8183
+    #2 0x102ada7dc in ruby_sized_xfree gc.c:4507
+    #3 0x102ac4d34 in ruby_xfree gc.c:4518
+    #4 0x102f3cb34 in rb_st_free_table st.c:663
+    #5 0x102bd52d8 in remove_from_constant_cache iseq.c:119
+    #6 0x102bbe2cc in iseq_clear_ic_references iseq.c:153
+    #7 0x102bbd2a0 in rb_iseq_free iseq.c:166
+    #8 0x102b32ed0 in rb_imemo_free imemo.c:564
+    #9 0x102ac4b44 in rb_gc_obj_free gc.c:1407
+    #10 0x102af4290 in gc_sweep_plane default.c:3546
+    #11 0x102af3bdc in gc_sweep_page default.c:3634
+    #12 0x102aeb140 in gc_sweep_step default.c:3906
+    #13 0x102aeadf0 in gc_sweep_rest default.c:3978
+    #14 0x102ae4714 in gc_sweep default.c:4155
+    #15 0x102af8474 in gc_start default.c:6484
+    #16 0x102afbe30 in garbage_collect default.c:6363
+    #17 0x102ad37f0 in rb_gc_impl_start default.c:6816
+    #18 0x102ad3634 in rb_gc gc.c:3624
+    #19 0x1031406ec in vm_track_constant_cache vm_insnhelper.c:6342
+    #20 0x1030b91d8 in vm_ic_track_const_chain vm_insnhelper.c:6356
+    #21 0x1030b8cf8 in rb_vm_opt_getconstant_path vm_insnhelper.c:6424
+    #22 0x1030bc1e0 in vm_exec_core insns.def:263
+    #23 0x1030b55fc in rb_vm_exec vm.c:2585
+    #24 0x1030fe0ac in rb_iseq_eval_main vm.c:2851
+    #25 0x102a82588 in rb_ec_exec_node eval.c:281
+    #26 0x102a81fe0 in ruby_run_node eval.c:319
+    #27 0x1027f3db4 in rb_main main.c:43
+    #28 0x1027f3bd4 in main main.c:68
+    #29 0x183900270  (&lt;unknown module&gt;)
+
+previously allocated by thread T0 here:
+    #0 0x104174c04 in malloc+0x94 (libclang_rt.asan_osx_dynamic.dylib:arm64e+0x54c04)
+    #1 0x102ada0ec in rb_gc_impl_malloc default.c:8198
+    #2 0x102acee44 in ruby_xmalloc gc.c:4438
+    #3 0x102f3c85c in rb_st_init_table_with_size st.c:571
+    #4 0x102f3c900 in rb_st_init_table st.c:600
+    #5 0x102f3c920 in rb_st_init_numtable st.c:608
+    #6 0x103140698 in vm_track_constant_cache vm_insnhelper.c:6337
+    #7 0x1030b91d8 in vm_ic_track_const_chain vm_insnhelper.c:6356
+    #8 0x1030b8cf8 in rb_vm_opt_getconstant_path vm_insnhelper.c:6424
+    #9 0x1030bc1e0 in vm_exec_core insns.def:263
+    #10 0x1030b55fc in rb_vm_exec vm.c:2585
+    #11 0x1030fe0ac in rb_iseq_eval_main vm.c:2851
+    #12 0x102a82588 in rb_ec_exec_node eval.c:281
+    #13 0x102a81fe0 in ruby_run_node eval.c:319
+    #14 0x1027f3db4 in rb_main main.c:43
+    #15 0x1027f3bd4 in main main.c:68
+    #16 0x183900270  (&lt;unknown module&gt;)
+</code></pre></div>
+<p>This commit fixes this bug by adding a inserting_constant_cache_id field<br>
+to the VM, which stores the ID that is currently being inserted and, in<br>
+remove_from_constant_cache, we don't free the ST table for ID equal to<br>
+this one.</p>
+<p>Co-Authored-By: Alan Wu <a href="mailto:alanwu@ruby-lang.org" class="email">alanwu@ruby-lang.org</a></p></div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="change-111014" class="journal has-notes has-details" data-controller="quote-reply">
+    <div id="note-2" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="nagachika (Tomoyuki Chikanaga)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/472f498d187ca62c2d2dc10ac5ed7b692fee9531fa177dcf6b9ec323d61126fb?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/472f498d187ca62c2d2dc10ac5ed7b692fee9531fa177dcf6b9ec323d61126fb?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/404">nagachika (Tomoyuki Chikanaga)</a> <a title="12/15/2024 07:15 AM" href="/projects/ruby-master/activity?from=2024-12-15">over 1 year</a> ago
+          <span id="journal-111014-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_111014"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20921#note-2" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-2" class="journal-link">#2</a>
+            <a class="journal-link" style="padding-right: 0.5em" href="https://blade.ruby-lang.org/ruby-core/120246">[ruby-core:120246]</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+          <ul class="journal-details">
+              <li><strong>Backport</strong> changed from <i>3.1: DONTNEED, 3.2: REQUIRED, 3.3: REQUIRED</i> to <i>3.1: DONTNEED, 3.2: DONE, 3.3: REQUIRED</i></li>
+          </ul>
+        <div id="journal-111014-notes" class="wiki journal-note" data-quote-reply-target="content"><p>ruby_3_2 <a class="changeset" title="merge revision(s) f65a6c090c229de1665af49f2e51fc1d6397ab72: [Backport #20921]         Fix use-af..." href="/projects/ruby-master/repository/git/revisions/d78e1a413333bae4e70e662ac7eceb378b2a5369">d78e1a413333bae4e70e662ac7eceb378b2a5369</a> merged revision(s) <a class="changeset" title="Fix use-after-free in constant cache [Bug #20921] When we create a cache entry for a constant, ..." href="/projects/ruby-master/repository/git/revisions/f65a6c090c229de1665af49f2e51fc1d6397ab72">f65a6c090c229de1665af49f2e51fc1d6397ab72</a>.</p></div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="change-111508" class="journal has-notes has-details" data-controller="quote-reply">
+    <div id="note-3" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="k0kubun (Takashi Kokubun)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/6b9976877af5a241c498da4ece3519a112cb8f83f095ff33a68715def4294ae6?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/6b9976877af5a241c498da4ece3519a112cb8f83f095ff33a68715def4294ae6?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/10073">k0kubun (Takashi Kokubun)</a> <a title="01/15/2025 01:52 AM" href="/projects/ruby-master/activity?from=2025-01-15">over 1 year</a> ago
+          <span id="journal-111508-private_notes" class=""></span>
+          <span title="01/15/2025 01:53 AM by k0kubun (Takashi Kokubun)" class="update-info">· Edited</span>
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_111508"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20921#note-3" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-3" class="journal-link">#3</a>
+            <a class="journal-link" style="padding-right: 0.5em" href="https://blade.ruby-lang.org/ruby-core/120685">[ruby-core:120685]</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+          <ul class="journal-details">
+              <li><strong>Backport</strong> changed from <i>3.1: DONTNEED, 3.2: DONE, 3.3: REQUIRED</i> to <i>3.1: DONTNEED, 3.2: DONE, 3.3: DONE</i></li>
+          </ul>
+        <div id="journal-111508-notes" class="wiki journal-note" data-quote-reply-target="content"><p>ruby_3_3 <a class="changeset" title="merge revision(s) f65a6c090c229de1665af49f2e51fc1d6397ab72: [Backport #20921]         Fix use-af..." href="/projects/ruby-master/repository/git/revisions/1b1c6e67588ef417847d36f4f4017bd18157a1d2">1b1c6e67588ef417847d36f4f4017bd18157a1d2</a> merged revision(s) <a class="changeset" title="Fix use-after-free in constant cache [Bug #20921] When we create a cache entry for a constant, ..." href="/projects/ruby-master/repository/git/revisions/f65a6c090c229de1665af49f2e51fc1d6397ab72">f65a6c090c229de1665af49f2e51fc1d6397ab72</a>.</p></div>
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+  
+  
+  <div id="tab-content-changesets" style="display:none" class="tab-content"></div>
+
+<script>
+//<![CDATA[
+showIssueHistory("notes", this.href)
+//]]>
+</script>
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20921" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats hide-when-print">Also available in:  <span><a class="pdf" rel="nofollow" href="/issues/20921.pdf">PDF</a></span>
+  <span><a class="atom" rel="nofollow" href="/issues/20921.atom">Atom</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+<div id="footer">
+    Powered by <a target="_blank" rel="noopener" href="https://www.redmine.org/">Redmine</a> &copy; 2006-2026 Jean-Philippe Lang
+</div>
+
+<div id="ajax-indicator" style="display:none;">
+  <span class="icon">
+    <svg class="s18 icon-svg svg-loader" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--loader"></use></svg><span class="icon-label">Loading...</span>
+  </span>
+</div>
+<div id="ajax-modal" style="display:none;"></div>
+<div id="icon-copy-source" style="display: none;"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--"></use></svg></div>
+
+</div>
+<script>
+//<![CDATA[
+setSelect2Filter('issue_tags', {"url":"/auto_completes/redmine_tags"});
+//]]>
+</script>
+
+</body>
+</html>

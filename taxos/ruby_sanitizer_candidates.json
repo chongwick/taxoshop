@@ -1,0 +1,25 @@
+{
+  "source": "Ruby Redmine sanitizer candidate set supplied for PoC verification",
+  "issues": [
+    {"number": 14357, "finding": "ASan heap-use-after-free"},
+    {"number": 15165, "finding": "ASan heap-use-after-free"},
+    {"number": 16105, "finding": "ASan heap-use-after-free"},
+    {"number": 18001, "finding": "ASan heap-buffer-overflow"},
+    {"number": 19761, "finding": "ASan runtime failure"},
+    {"number": 19994, "finding": "ASan use-after-poison"},
+    {"number": 20398, "finding": "ASan heap-buffer-overflow"},
+    {"number": 20402, "finding": "ASan-enabled double-free"},
+    {"number": 20921, "finding": "ASan heap-use-after-free"},
+    {"number": 21304, "finding": "ASan heap-use-after-free"},
+    {"number": 21332, "finding": "ASan heap-use-after-free"},
+    {"number": 21333, "finding": "ASan heap-use-after-free"},
+    {"number": 21443, "finding": "ASan heap-use-after-free backport"},
+    {"number": 21461, "finding": "ASan heap-buffer-overflow"},
+    {"number": 21613, "finding": "ASan-only GC test failure"},
+    {"number": 21997, "finding": "ASan DEADLYSIGNAL"},
+    {"number": 22101, "finding": "ASan heap-use-after-free"},
+    {"number": 22196, "finding": "ASan heap-use-after-free"},
+    {"number": 22253, "finding": "UBSan nonnull-attribute violation"},
+    {"number": 22254, "finding": "UBSan nonnull-attribute violation"}
+  ]
+}

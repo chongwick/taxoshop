@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<title>Bug #20402: Double-free in TestIseqLoad#test_stressful_roundtrip - Ruby - Ruby Issue Tracking System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="robots" content="nofollow">
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="6MXbjCzr7q_R5WDpK1NWC93Qdk8MZNG3gJWoL95BhaPzBsulrsXBHB9PerWyYQR1z8IuDFaih0Jxu1iYT9dHpw" />
+<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon-0e291875.ico" />
+<link rel="stylesheet" href="/assets/jquery/jquery-ui-1.13.2-70e53573.css" media="all" />
+<link rel="stylesheet" href="/assets/tribute-5.1.3-c23a7bf2.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/application-e80f713f.css" media="all" />
+<link rel="stylesheet" href="/assets/dropdown-90f15d9b.css" media="all" />
+<link rel="stylesheet" href="/assets/themes/ruby-lang/responsive-f399c041.css" media="all" />
+<script type="importmap" data-turbo-track="reload">{
+  "imports": {
+    "@rails/request.js": "/assets/requestjs-64720317.js",
+    "application": "/assets/application-20c5ac24.js",
+    "@hotwired/stimulus": "/assets/stimulus.min-7ea3d58b.js",
+    "@hotwired/stimulus-loading": "/assets/stimulus-loading-25917588.js",
+    "turndown": "/assets/turndown-93630580.js",
+    "tablesort": "/assets/tablesort.min-8f8a27b3.js",
+    "tablesort.number": "/assets/tablesort.number.min-5c169183.js",
+    "chart.js": "/assets/chart.min-df84bc27.js",
+    "controllers/api_key_copy_controller": "/assets/controllers/api_key_copy_controller-75f835b3.js",
+    "controllers/application": "/assets/controllers/application-fab29967.js",
+    "controllers/clipboard_controller": "/assets/controllers/clipboard_controller-33f6e136.js",
+    "controllers/custom_field_default_value_controller": "/assets/controllers/custom_field_default_value_controller-8e4989aa.js",
+    "controllers/dropdown_controller": "/assets/controllers/dropdown_controller-9c4fc4bc.js",
+    "controllers/gantt/chart_controller": "/assets/controllers/gantt/chart_controller-c7840aff.js",
+    "controllers/gantt/column_controller": "/assets/controllers/gantt/column_controller-414fc5e5.js",
+    "controllers/gantt/options_controller": "/assets/controllers/gantt/options_controller-ac0d91d9.js",
+    "controllers/gantt/subjects_controller": "/assets/controllers/gantt/subjects_controller-f9af7aea.js",
+    "controllers": "/assets/controllers/index-dfefe98d.js",
+    "controllers/list_autofill_controller": "/assets/controllers/list_autofill_controller-5f013171.js",
+    "controllers/quote_reply_controller": "/assets/controllers/quote_reply_controller-3e6a21f7.js",
+    "controllers/reports/details_controller": "/assets/controllers/reports/details_controller-21eb4cbd.js",
+    "controllers/repositories/stats_controller": "/assets/controllers/repositories/stats_controller-d8c4e406.js",
+    "controllers/selection_indent_controller": "/assets/controllers/selection_indent_controller-01007880.js",
+    "controllers/sticky_issue_header_controller": "/assets/controllers/sticky_issue_header_controller-18502bbe.js",
+    "controllers/table_paste_controller": "/assets/controllers/table_paste_controller-961189c1.js",
+    "controllers/tablesort_controller": "/assets/controllers/tablesort_controller-0dce155e.js"
+  }
+}</script>
+<link rel="modulepreload" href="/assets/requestjs-64720317.js">
+<link rel="modulepreload" href="/assets/application-20c5ac24.js">
+<link rel="modulepreload" href="/assets/stimulus.min-7ea3d58b.js">
+<link rel="modulepreload" href="/assets/stimulus-loading-25917588.js">
+<link rel="modulepreload" href="/assets/turndown-93630580.js">
+<link rel="modulepreload" href="/assets/tablesort.min-8f8a27b3.js">
+<link rel="modulepreload" href="/assets/tablesort.number.min-5c169183.js">
+<link rel="modulepreload" href="/assets/controllers/api_key_copy_controller-75f835b3.js">
+<link rel="modulepreload" href="/assets/controllers/application-fab29967.js">
+<link rel="modulepreload" href="/assets/controllers/clipboard_controller-33f6e136.js">
+<link rel="modulepreload" href="/assets/controllers/custom_field_default_value_controller-8e4989aa.js">
+<link rel="modulepreload" href="/assets/controllers/dropdown_controller-9c4fc4bc.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/chart_controller-c7840aff.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/column_controller-414fc5e5.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/options_controller-ac0d91d9.js">
+<link rel="modulepreload" href="/assets/controllers/gantt/subjects_controller-f9af7aea.js">
+<link rel="modulepreload" href="/assets/controllers/index-dfefe98d.js">
+<link rel="modulepreload" href="/assets/controllers/list_autofill_controller-5f013171.js">
+<link rel="modulepreload" href="/assets/controllers/quote_reply_controller-3e6a21f7.js">
+<link rel="modulepreload" href="/assets/controllers/reports/details_controller-21eb4cbd.js">
+<link rel="modulepreload" href="/assets/controllers/repositories/stats_controller-d8c4e406.js">
+<link rel="modulepreload" href="/assets/controllers/selection_indent_controller-01007880.js">
+<link rel="modulepreload" href="/assets/controllers/sticky_issue_header_controller-18502bbe.js">
+<link rel="modulepreload" href="/assets/controllers/table_paste_controller-961189c1.js">
+<link rel="modulepreload" href="/assets/controllers/tablesort_controller-0dce155e.js">
+<script type="module">import "application"</script>
+<script src="/assets/jquery-3.7.1-ui-1.13.3-3ca148b8.js"></script>
+<script src="/assets/rails-ujs-3de06f48.js"></script>
+<script src="/assets/tribute-5.1.3.min-6c16c47a.js"></script><script src="/assets/application-legacy-0ae45500.js"></script>
+<script src="/assets/responsive-73a80fb9.js"></script>
+<script>
+//<![CDATA[
+$(window).on('load', function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.I18n = rm.I18n || {};rm.I18n = Object.freeze({buttonCopy: 'Copy'});
+//]]>
+</script>
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.AutoComplete = rm.AutoComplete || {};rm.AutoComplete.dataSources = JSON.parse('{"issues":"/issues/auto_complete?project_id=ruby-master\u0026q=","wiki_pages":"/wiki_pages/auto_complete?project_id=ruby-master\u0026q="}');
+//]]>
+</script>
+<script src="/assets/plugin_assets/redmineup/consumer-93fb0400.js"></script><script src="/assets/plugin_assets/redmineup/select2-38d92c05.js"></script><script src="/assets/plugin_assets/redmineup/select2_helpers-a6bf2ef6.js"></script><script src="/assets/plugin_assets/redmineup/jquery.colorPicker.min-d7b3ec14.js"></script><link rel="stylesheet" href="/assets/plugin_assets/redmineup/redmineup-abd5d756.css" media="screen" /><script>
+//<![CDATA[
+window.redmineupWorkerUrl = "/assets/consumer_worker-cb8eaf94.js";
+//]]>
+</script>
+ 
+<!-- page specific tags -->
+    <link rel="alternate" type="application/atom+xml" title="Ruby - Bug #20402: Double-free in TestIseqLoad#test_stressful_roundtrip" href="https://bugs.ruby-lang.org/issues/20402.atom" />
+<script src="/assets/context_menu-40f5ee8f.js"></script><link rel="stylesheet" href="/assets/context_menu-75035743.css" media="screen" />  <link rel="stylesheet" href="/assets/plugin_assets/redmineup_tags/redmine_tags-d92b80fc.css" media="screen" />
+  <script src="/assets/plugin_assets/redmineup_tags/redmine_tags-b5ea2bad.js"></script>
+</head>
+<body class="theme-Ruby-lang project-ruby-master has-main-menu controller-issues action-show" data-text-formatting="common_mark">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+        <div class="flyout-menu__search">
+            <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-7b362cd4" method="get">
+            <input type="hidden" name="issues" value="1" autocomplete="off" />
+            <label class="search-magnifier search-magnifier--flyout" for="flyout-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><span class="icon-label hidden">Search</span></label>
+            <input type="text" name="q" id="flyout-search" class="small js-search-input" placeholder="Search" />
+</form>        </div>
+
+
+        <h3>Project</h3>
+        <span class="js-project-menu"></span>
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+<nav class="top-menu" id="top-menu">
+  <div class="general-menu">
+    <div class="top-menu__links">
+        <ul><li><a class="home" href="/">Home</a></li><li><a class="projects" href="/projects">Projects</a></li><li><a target="_blank" rel="noopener" class="help" href="https://www.redmine.org/guide">Help</a></li></ul>    </div>
+  </div>
+
+  <div class="profile-menu">
+    <div id="account" class="top-menu__links">
+        <ul><li><a class="login" href="/login">Sign in</a></li><li><a class="register" href="/account/register">Register</a></li></ul>    </div>
+  </div>
+</nav>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+    <div id="quick-search">
+        <form action="/projects/ruby-master/search" accept-charset="UTF-8" name="form-948a124c" method="get">
+        <input type="hidden" name="scope" autocomplete="off" />
+        <input type="hidden" name="issues" value="1" autocomplete="off" />
+        <label for='q'>
+          <a accesskey="4" href="/projects/ruby-master/search">Search</a>:
+        </label>
+        <input type="text" name="q" id="q" size="20" class="small" accesskey="f" data-auto-complete="true" />
+</form>        <div id="project-jump" class="drdn"><span class="drdn-trigger">Ruby</span><div class="drdn-content"><div class="quick-search"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--search"></use></svg><input type="text" name="q" id="projects-quick-search" value="" class="autocomplete" data-automcomplete-url="/projects/autocomplete.js?jump=issues" autocomplete="off" /></div><div class="drdn-items projects selection"></div><div class="drdn-items all-projects selection"><a href="/projects?jump=issues">All Projects</a></div></div></div>
+    </div>
+
+    <h1><span class="current-project">Ruby</span></h1>
+
+    <div id="main-menu" class="tabs">
+        <ul><li><a class="overview" href="/projects/ruby-master">Overview</a></li><li><a class="activity" href="/projects/ruby-master/activity">Activity</a></li><li><a class="roadmap" href="/projects/ruby-master/roadmap">Roadmap</a></li><li><a class="issues selected" href="/projects/ruby-master/issues">Issues</a></li><li><a class="repository" href="/projects/ruby-master/repository">Repository</a></li></ul>
+        <div class="tabs-buttons" style="display:none;">
+            <button class="tab-left icon-only" onclick="moveTabLeft(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+            </button>
+            <button class="tab-right icon-only" onclick="moveTabRight(this); return false;">
+              <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="collapsiblesidebar">
+  <script>
+//<![CDATA[
+$('#main.collapsiblesidebar').collapsibleSidebar();
+//]]>
+</script>
+    <div id="sidebar">
+          <div id="sidebar-switch-panel" style="visibility: hidden;">
+            <a id="sidebar-switch-button" class="" href="#">
+              <svg class="s20 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--chevrons-right"></use></svg></a>
+          </div>
+          <script>
+//<![CDATA[
+$('#sidebar-switch-panel').css('visibility', 'visible');
+//]]>
+</script>
+        <div id="sidebar-wrapper">
+            
+
+
+<h3>Custom queries</h3>
+<ul class="queries"><li><a class="query" data-disable-with="Backport 3.3" href="/projects/ruby-master/issues?query_id=300">Backport 3.3</a></li>
+<li><a class="query" title="" data-disable-with="Backport 3.4" href="/projects/ruby-master/issues?query_id=336">Backport 3.4</a></li>
+<li><a class="query" title="" data-disable-with="Backport 4.0" href="/projects/ruby-master/issues?query_id=379">Backport 4.0</a></li>
+<li><a class="query" data-disable-with="bugs: unassigned" href="/projects/ruby-master/issues?query_id=75">bugs: unassigned</a></li>
+<li><a class="query" data-disable-with="DevMeeting" href="/projects/ruby-master/issues?query_id=156">DevMeeting</a></li>
+<li><a class="query" data-disable-with="matz" href="/projects/ruby-master/issues?query_id=72">matz</a></li>
+<li><a class="query" data-disable-with="Open issues with attachment" href="/projects/ruby-master/issues?query_id=160">Open issues with attachment</a></li>
+<li><a class="query" title="" data-disable-with="Windows" href="/projects/ruby-master/issues?query_id=335">Windows</a></li></ul>
+
+
+
+
+
+          
+        </div>
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20402" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<h2 class="inline-block">Bug #20402</h2><span class="badge badge-status-closed">closed</span>
+
+<div class="issue tracker-1 status-5 priority-4 priority-default closed details">
+
+  <div class="avatar-with-child">
+    <img alt="" title="Author: kjtsanaktsidis (KJ Tsanaktsidis)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/a47167959f5a27ee3cc02a187a9b777646be020bc022aabd6b5078b14cd25e1b?rating=PG&amp;size=100&amp;default=mm 2x" src="https://www.gravatar.com/avatar/a47167959f5a27ee3cc02a187a9b777646be020bc022aabd6b5078b14cd25e1b?rating=PG&amp;size=50&amp;default=mm" />
+    <img alt="" title="Assignee: kjtsanaktsidis (KJ Tsanaktsidis)" class="gravatar avatar avatar-child" srcset="https://www.gravatar.com/avatar/a47167959f5a27ee3cc02a187a9b777646be020bc022aabd6b5078b14cd25e1b?rating=PG&amp;size=44&amp;default=mm 2x" src="https://www.gravatar.com/avatar/a47167959f5a27ee3cc02a187a9b777646be020bc022aabd6b5078b14cd25e1b?rating=PG&amp;size=22&amp;default=mm" />
+  </div>
+
+<div data-controller="sticky-issue-header">
+  <div class="subject" data-sticky-issue-header-target="original">
+    <div><h3>Double-free in TestIseqLoad#test_stressful_roundtrip</h3></div>
+  </div>
+  <div id="sticky-issue-header" data-sticky-issue-header-target="stickyHeader" class="issue">
+    <span class="issue-heading">Bug #20402:</span>
+    <span class="subject">Double-free in TestIseqLoad#test_stressful_roundtrip</span>
+  </div>
+</div>
+
+<div class="reaction">
+  <span class="reaction-button-wrapper" data-reaction-button-id="reaction_issue_20402"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span>
+</div>
+        <p class="author">
+        Added by <a class="user active" href="/users/10173">kjtsanaktsidis (KJ Tsanaktsidis)</a> <a title="03/30/2024 01:57 AM" href="/projects/ruby-master/activity?from=2024-03-30">over 2 years</a> ago.
+        Updated <a title="03/31/2024 09:33 AM" href="/projects/ruby-master/activity?from=2024-03-31">over 2 years</a> ago.
+        </p>
+
+<div class="attributes">
+<div class="splitcontent"><div class="splitcontentleft"><div class="status attribute"><div class="label">Status:</div><div class="value">Closed</div></div><div class="assigned-to attribute"><div class="label">Assignee:</div><div class="value"><a class="user active" href="/users/10173">kjtsanaktsidis (KJ Tsanaktsidis)</a></div></div><div class="fixed-version attribute"><div class="label">Target version:</div><div class="value">-</div></div></div><div class="splitcontentright"></div></div>
+<div class="splitcontent"><div class="splitcontentleft"><div class="string_cf cf_4 attribute"><div class="label"><span>ruby -v</span>:</div><div class="value"></div></div></div><div class="splitcontentright"><div class="string_cf cf_5 attribute"><div class="label"><span title="The advanced field for Branch maintainers.
+The comma-separated list of version and status which matches /\A(?&lt;branch&gt;\d\.\d(\.0)?: (UNKNOWN|REQUIRED|DONE|DONTNEED|WONTFIX))(, \g&lt;branch&gt;)*\z/" class="field-description">Backport</span>:</div><div class="value"><a href="https://github.com/ruby/ruby/wiki/How-To-Request-Backport" class="external">3.0: UNKNOWN, 3.1: UNKNOWN, 3.2: UNKNOWN, 3.3: UNKNOWN</a></div></div></div></div>
+<a href="https://blade.ruby-lang.org/ruby-core/117380">[ruby-core:117380]</a> 
+</div>
+
+<hr />
+<div class="description" data-controller="quote-reply">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div id="issue_description_wiki" class="wiki" data-quote-reply-target="content">
+  <p>With ASAN enabled, the TestIseqLoad#test_stressful_roundtrip fails with the following output:</p>
+<div class="pre-wrapper" data-controller="clipboard"><a class="copy-pre-content-link icon-only" title="Copy" data-action="clipboard#copyPre"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-pre-content"></use></svg></a><pre data-clipboard-target="pre"><code>2/9] TestIseqLoad#test_stressful_roundtrip = 7.26 s
+  1) Failure:
+TestIseqLoad#test_stressful_roundtrip [/home/kj/ruby/test/-ext-/iseq_load/test_iseq_load.rb:20]:
+pid 172821 killed by SIGSEGV (signal 11) (core dumped)
+| -:10: [BUG] Segmentation fault at 0x0000000000000018
+| ruby 3.4.0dev (2024-03-28T23:13:25Z master 02d40b6c17) [x86_64-linux]
+|
+| -- Control frame information -----------------------------------------------
+| c:0005 p:---- s:0023 e:000022 CFUNC  :iseq_load
+| c:0004 p:0037 s:0018 e:000017 METHOD -:10
+| c:0003 p:0005 s:0010 e:000009 METHOD -:16
+| c:0002 p:0054 s:0006 e:000005 EVAL   -:26 [FINISH]
+| c:0001 p:0000 s:0003 E:000540 DUMMY  [FINISH]
+|
+| -- Ruby level backtrace information ----------------------------------------
+| -:26:in '&lt;main&gt;'
+| -:16:in 'test_bug8543'
+| -:10:in 'assert_iseq_roundtrip'
+| -:10:in 'iseq_load'
+|
+| -- Threading information ---------------------------------------------------
+| Total ractor count: 1
+| Ruby thread count for this ractor: 1
+|
+| -- Machine register context ------------------------------------------------
+|  RIP: 0x0000556b3dc84a08 RBP: 0x00007ffeff1f6d40 RSP: 0x00007ffeff1f6c10
+|  RAX: 0x0000000000000003 RBX: 0x0000000000000000 RCX: 0x00000fe916945e7a
+|  RDX: 0x0000000000000001 RDI: 0x0000000000000018 RSI: 0x0000000000000000
+|   R8: 0x00000000003ba300  R9: 0x0000000000000000 R10: 0x00000a4a000000b7
+|  R11: 0x0000000000000000 R12: 0x000051b000016c80 R13: 0x00007f48b4a2f3b0
+|  R14: 0x00007f48d283bb80 R15: 0x00000fe91a507760 EFL: 0x0000000000010246
+|
+| -- C level backtrace information -------------------------------------------
+| /home/kj/ruby/build/ruby(___interceptor_backtrace+0x39) [0x556b3d8cf379] /home/kj/llvm-project/compiler-rt/lib/asan/../sanitizer_common/sanitizer_common_interceptors.inc:4358
+| /home/kj/ruby/build/ruby(rb_print_backtrace+0x14) [0x556b3ddef67c] /home/kj/ruby/build/../vm_dump.c:820
+| /home/kj/ruby/build/ruby(rb_vm_bugreport) /home/kj/ruby/build/../vm_dump.c:1151
+| /home/kj/ruby/build/ruby(rb_bug_for_fatal_signal+0x2db) [0x556b3e0190fb] /home/kj/ruby/build/../error.c:1087
+| /home/kj/ruby/build/ruby(sigsegv+0x184) [0x556b3dc78ca4] /home/kj/ruby/build/../signal.c:926
+| /lib64/libc.so.6(__restore_rt+0x0) [0x7f48d46429a0] /usr/src/debug/glibc-2.38-16.fc39.x86_64/signal/sigaction.c:34
+| /home/kj/ruby/build/ruby(rb_st_free_table+0x18) [0x556b3dc84a08] /home/kj/ruby/build/../st.c:661
+| /home/kj/ruby/build/ruby(finalize_deferred_heap_pages+0x224) [0x556b3d9dd0b4] /home/kj/ruby/build/../gc.c:4128
+| /home/kj/ruby/build/ruby(gc_finalize_deferred+0x97) [0x556b3d9d7127] /home/kj/ruby/build/../gc.c:4195
+| /home/kj/ruby/build/ruby(rb_postponed_job_flush+0x501) [0x556b3ddfde81] /home/kj/ruby/build/../vm_trace.c:1849
+| /home/kj/ruby/build/ruby(rb_threadptr_execute_interrupts+0x35d) [0x556b3dce9ddd] /home/kj/ruby/build/../thread.c:2464
+| /home/kj/ruby/build/ruby(rb_vm_pop_frame+0x18d) [0x556b3dd5b0dd] ../vm_core.h:2103
+| /home/kj/ruby/build/ruby(vm_call_cfunc_with_frame_+0x392) [0x556b3ddc6d72] ../vm_insnhelper.c:3529
+| /home/kj/ruby/build/ruby(vm_call_method_each_type+0x2a6) [0x556b3ddae576] ../vm_insnhelper.c:4470
+| /home/kj/ruby/build/ruby(vm_call_method+0x2a2) [0x556b3ddadb22]
+| /home/kj/ruby/build/ruby(vm_sendish+0xec7) [0x556b3dd63687]
+| /home/kj/ruby/build/ruby(vm_exec_core+0x68fc) [0x556b3dd6cf4c] ../insns.def:891
+| /home/kj/ruby/build/ruby(rb_vm_exec+0x350) [0x556b3dd64520] /home/kj/ruby/build/../vm.c:2552
+| /home/kj/ruby/build/ruby(rb_ec_exec_node+0x264) [0x556b3d9b5844] /home/kj/ruby/build/../eval.c:282
+| /home/kj/ruby/build/ruby(ruby_run_node+0x6e) [0x556b3d9b552e] /home/kj/ruby/build/../eval.c:320
+| /home/kj/ruby/build/ruby(rb_main+0x29) [0x556b3d9b0981] /home/kj/ruby/build/../main.c:40
+| /home/kj/ruby/build/ruby(main) /home/kj/ruby/build/../main.c:59
+| /lib64/libc.so.6(__libc_start_call_main+0x7a) [0x7f48d462c14a] ../sysdeps/nptl/libc_start_call_main.h:58
+| /lib64/libc.so.6(__libc_start_main_alias_2+0x8b) [0x7f48d462c20b] ../csu/libc-start.c:360
+| [0x556b3d87ee05]
+</code></pre></div>
+<p>Reversing execution with <code>rr</code> reveals that <code>DATA_PTR(labels_wrapper) = 0</code> in <code>iseq_build_from_ary_body</code> (<a href="https://github.com/ruby/ruby/blob/cdb8d208c919bbc72b3b07d24c118d3a4af95d11/compile.c#L11320" class="external">https://github.com/ruby/ruby/blob/cdb8d208c919bbc72b3b07d24c118d3a4af95d11/compile.c#L11320</a>) is being executed after <code>labels_wrapper</code> is collected. We need to protect <code>lables_wrapper</code> with an RB_GC_GUARD.</p>
+  </div>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations" class="">
+  <div class="contextual">
+</div>
+
+<p>
+  <strong>Related issues</strong>
+  <span class="issues-stat"><span class="badge badge-issues-count"><a href="/issues?issue_id=20387&amp;set_filter=true&amp;status_id=%2A">1</a></span> (<span class="open"><a href="/issues?issue_id=20387&amp;set_filter=true&amp;status_id=o">1 open</a></span> &#8212; <span class="closed">0 closed</span>)</span>
+</p>
+
+<form data-cm-url="/issues/context_menu" action="/issues/20402" accept-charset="UTF-8" name="form-e61430fe" method="post"><input type="hidden" name="authenticity_token" value="Xje64JoG5GnarpFgef_jYVJWsUkidrz1kR6bKyorPVpF9KrJGCjL2hQEizzgzbEfQETpCniw6gBgMGucu73_Xg" autocomplete="off" />
+  <div class="relation-issues-wrapper">
+    <table class="list issues odd-even"><tr id="relation-3791" class="issue hascontextmenu issue tracker-5 status-2 priority-4 priority-default rel-relates"><td class="checkbox"><input type="checkbox" name="ids[]" value="20387" /></td><td class="subject">Related to Ruby - <a class="issue tracker-5 status-2 priority-4 priority-default" href="/issues/20387">Misc #20387</a>: Meta-ticket for ASAN support</td><td class="status">Assigned</td><td class="assigned_to"><a class="user active" href="/users/10173">kjtsanaktsidis (KJ Tsanaktsidis)</a></td><td class="buttons"><a title="Actions" class="icon-only icon-actions js-contextmenu " href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></a></td></tr></table>
+  </div>
+</form>
+<form class="new_relation" id="new-relation-form" style="display: none;" action="/issues/20402/relations" accept-charset="UTF-8" data-remote="true" name="new-relation-form-78ae6d28" method="post">
+<p><select onchange="setPredecessorFieldsVisibility();" name="relation[relation_type]" id="relation_relation_type"><option selected="selected" value="relates">Related to</option>
+<option value="duplicates">Is duplicate of</option>
+<option value="duplicated">Has duplicate</option>
+<option value="blocks">Blocks</option>
+<option value="blocked">Blocked by</option>
+<option value="precedes">Precedes</option>
+<option value="follows">Follows</option>
+<option value="copied_to">Copied to</option>
+<option value="copied_from">Copied from</option></select>
+Issue #<input value="" size="10" type="text" name="relation[issue_to_id]" id="relation_issue_to_id" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input size="3" type="text" name="relation[delay]" id="relation_delay" /> days
+</span>
+<input type="submit" name="commit" value="Add" data-disable-with="Add" />
+<a href="#" onclick="$(&quot;#new-relation-form&quot;).hide();; return false;">Cancel</a>
+<em class="info">Multiple values allowed (comma separated).</em>
+</p>
+
+<script>
+//<![CDATA[
+multipleAutocompleteField('relation_issue_to_id', '/issues/auto_complete?issue_id=20402&project_id=ruby-master&scope=all')
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+</div>
+</div>
+
+
+
+<div id="history" class="journals">
+
+<div class="tabs">
+  <ul>
+    <li><a id="tab-history" onclick="showIssueHistory(&quot;history&quot;, this.href); return false;" href="/issues/20402?tab=history">History</a></li>
+    <li><a id="tab-notes" class="selected" onclick="showIssueHistory(&quot;notes&quot;, this.href); return false;" href="/issues/20402?tab=notes">Notes</a></li>
+    <li><a id="tab-properties" onclick="showIssueHistory(&quot;properties&quot;, this.href); return false;" href="/issues/20402?tab=properties">Property changes</a></li>
+    <li><a id="tab-changesets" onclick="getRemoteTab(&#39;changesets&#39;, &#39;/issues/20402/tab/changesets&#39;, &#39;/issues/20402?tab=changesets&#39;); return false;" href="/issues/20402?tab=changesets">Associated revisions</a></li>
+  </ul>
+  <div class="tabs-buttons" style="display:none;">
+    <button class="tab-left icon-only" type="button" onclick="moveTabLeft(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-left"></use></svg>
+    </button>
+    <button class="tab-right icon-only" type="button" onclick="moveTabRight(this);">
+      <svg class="s18 icon-svg icon-rtl" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--angle-right"></use></svg>
+    </button>
+  </div>
+</div>
+
+  <div id="tab-content-history" style="display:none" class="tab-content">
+  <div id="change-107540" class="journal has-notes" data-controller="quote-reply">
+    <div id="note-1" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="kjtsanaktsidis (KJ Tsanaktsidis)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/a47167959f5a27ee3cc02a187a9b777646be020bc022aabd6b5078b14cd25e1b?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/a47167959f5a27ee3cc02a187a9b777646be020bc022aabd6b5078b14cd25e1b?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/10173">kjtsanaktsidis (KJ Tsanaktsidis)</a> <a title="03/30/2024 02:02 AM" href="/projects/ruby-master/activity?from=2024-03-30">over 2 years</a> ago
+          <span id="journal-107540-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_107540"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20402#note-1" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-1" class="journal-link">#1</a>
+            <a class="journal-link" style="padding-right: 0.5em" href="https://blade.ruby-lang.org/ruby-core/117381">[ruby-core:117381]</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+        <div id="journal-107540-notes" class="wiki journal-note" data-quote-reply-target="content"><p><a href="https://github.com/ruby/ruby/pull/10408" class="external">https://github.com/ruby/ruby/pull/10408</a> should fix this</p></div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="change-107542" class="journal has-details" data-controller="quote-reply">
+    <div id="note-2" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="kjtsanaktsidis (KJ Tsanaktsidis)" class="gravatar avatar" srcset="https://www.gravatar.com/avatar/a47167959f5a27ee3cc02a187a9b777646be020bc022aabd6b5078b14cd25e1b?rating=PG&amp;size=48&amp;default=mm 2x" src="https://www.gravatar.com/avatar/a47167959f5a27ee3cc02a187a9b777646be020bc022aabd6b5078b14cd25e1b?rating=PG&amp;size=24&amp;default=mm" />
+          Updated by <a class="user active" href="/users/10173">kjtsanaktsidis (KJ Tsanaktsidis)</a> <a title="03/30/2024 02:02 AM" href="/projects/ruby-master/activity?from=2024-03-30">over 2 years</a> ago
+          <span id="journal-107542-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_107542"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20402#note-2" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-2" class="journal-link">#2</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+          <ul class="journal-details">
+              <li><strong>Related to</strong> <i><a class="issue tracker-5 status-2 priority-4 priority-default" href="/issues/20387">Misc #20387</a>: Meta-ticket for ASAN support</i> added</li>
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div id="change-107544" class="journal has-notes has-details" data-controller="quote-reply">
+    <div id="note-3" class="note">
+      <h4 class="journal-header">
+        <span class="journal-info">
+          <img alt="" title="" class="anonymous-avatar avatar" src="/assets/anonymous-836e6542.png" width="24" height="24" />
+          Updated by Anonymous <a title="03/31/2024 09:33 AM" href="/projects/ruby-master/activity?from=2024-03-31">over 2 years</a> ago
+          <span id="journal-107544-private_notes" class=""></span>
+          
+        </span>
+        <span class="journal-meta">
+          <span class="journal-actions">
+            <span class="reaction-button-wrapper" data-reaction-button-id="reaction_journal_107544"><span class="icon reaction-button readonly"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--thumb-up"></use></svg></span></span><span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items"><a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20402#note-3" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a></div></div></span>
+          </span>
+          <a href="#note-3" class="journal-link">#3</a>
+        </span>
+      </h4>
+      <div class="journal-content">
+          <ul class="journal-details">
+              <li><strong>Status</strong> changed from <i>Open</i> to <i>Closed</i></li>
+          </ul>
+        <div id="journal-107544-notes" class="wiki journal-note" data-quote-reply-target="content"><p>Applied in changeset <a class="changeset" title="Add missing RB_GC_GUARDs related to DATA_PTR I discovered the problem in `compile.c` from a fail..." href="/projects/ruby-master/repository/git/revisions/9d0a5148ae062a0481a4a18fbeb9cfd01dc10428">git|9d0a5148ae062a0481a4a18fbeb9cfd01dc10428</a>.</p>
+<hr>
+<p>Add missing RB_GC_GUARDs related to DATA_PTR</p>
+<p>I discovered the problem in <code>compile.c</code> from a failing<br>
+TestIseqLoad#test_stressful_roundtrip test with ASAN enabled. The other<br>
+two changes in array.c and string.c I found by auditing similar usages<br>
+of DATA_PTR in the codebase.</p>
+<p>[Bug <a class="issue tracker-1 status-5 priority-4 priority-default closed" title="Bug: Double-free in TestIseqLoad#test_stressful_roundtrip (Closed)" href="/issues/20402">#20402</a>]</p></div>
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+  
+  
+  <div id="tab-content-changesets" style="display:none" class="tab-content"></div>
+
+<script>
+//<![CDATA[
+showIssueHistory("notes", this.href)
+//]]>
+</script>
+
+</div>
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+<span class="drdn"><span class="drdn-trigger"><span class="icon-only icon-actions" title="Actions"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--3-bullets"></use></svg><span class="icon-label">Actions</span></span></span><div class="drdn-content"><div class="drdn-items">
+  <a class="icon icon-copy-link" data-clipboard-text="https://bugs.ruby-lang.org/issues/20402" data-controller="clipboard" data-action="clipboard#copyText" href="#"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--copy-link"></use></svg><span class="icon-label">Copy link</span></a>
+  
+</div></div></span></div>
+
+
+<div style="clear: both;"></div>
+
+
+<p class="other-formats hide-when-print">Also available in:  <span><a class="pdf" rel="nofollow" href="/issues/20402.pdf">PDF</a></span>
+  <span><a class="atom" rel="nofollow" href="/issues/20402.atom">Atom</a></span>
+</p>
+
+
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+<div id="footer">
+    Powered by <a target="_blank" rel="noopener" href="https://www.redmine.org/">Redmine</a> &copy; 2006-2026 Jean-Philippe Lang
+</div>
+
+<div id="ajax-indicator" style="display:none;">
+  <span class="icon">
+    <svg class="s18 icon-svg svg-loader" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--loader"></use></svg><span class="icon-label">Loading...</span>
+  </span>
+</div>
+<div id="ajax-modal" style="display:none;"></div>
+<div id="icon-copy-source" style="display: none;"><svg class="s18 icon-svg" aria-hidden="true"><use href="/assets/icons-0476c1d7.svg#icon--"></use></svg></div>
+
+</div>
+<script>
+//<![CDATA[
+setSelect2Filter('issue_tags', {"url":"/auto_completes/redmine_tags"});
+//]]>
+</script>
+
+</body>
+</html>
