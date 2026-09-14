@@ -22,6 +22,7 @@ under sanitizers, and report the ones that are new and confirmed.
 | [`tally_bugs.py`](tally_bugs.py) | Ranks the pattern families by how many known issues cluster to them. |
 | `generate_*.py` | Generators that produced the taxonomy (`generate_macro_taxonomy.py`, `generate_reports.py`, `generate_workflow_signatures.py`). |
 | [`Dockerfile`](Dockerfile) | Multi-stage build of CPython (`origin/main`) with ASan+UBSan (`asan-ubsan`, the default target) and ThreadSanitizer (`tsan`). |
+| [`Dockerfile.mruby`](Dockerfile.mruby) | Standalone mruby build with Clang ASan+UBSan enabled. |
 | `cpython/` | Full CPython checkout — read the interpreter source here. |
 | `audit<N>/` | One workspace per audit iteration: `NOTES.md`, `findings/`, `logs/`, `repro/`. |
 
@@ -52,6 +53,15 @@ docker run --rm -v "$PWD/audit4:/audit" taxoshop/cpython-asan-ubsan:current \
 
 A clean run prints your final output; a confirmed bug prints an `AddressSanitizer:` /
 `UndefinedBehaviorSanitizer:` block and aborts.
+
+### mruby ASan/UBSan image
+
+```bash
+docker build -f Dockerfile.mruby -t taxoshop/mruby-asan-ubsan:current .
+docker run --rm taxoshop/mruby-asan-ubsan:current /src/mruby/build/host/bin/mruby -e '1 + 1 == 2 or exit 1'
+```
+
+Pass `--build-arg MRUBY_REF=<tag-or-branch>` to select a specific mruby revision.
 
 ## The sanitizer build (essentials)
 
