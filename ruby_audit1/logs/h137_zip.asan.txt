@@ -1,0 +1,12 @@
+==7==ERROR: AddressSanitizer: heap-buffer-overflow on address 0xfd0fb4ceba40 at pc 0xaaaac354ce64 bp 0xfffff214c450 sp 0xfffff214c448
+READ of size 8 at 0xfd0fb4ceba40 thread T0
+    #0 0xaaaac354ce60 in RARRAY_AREF /src/ruby/./internal/array.h:153:11
+    #1 0xaaaac354ce60 in rb_ary_zip /src/ruby/array.c:4850:30
+    #2 0xaaaac344ca20 in vm_call_cfunc_with_frame_ /src/ruby/./vm_insnhelper.c:3904:11
+    #3 0xaaaac3415734 in vm_call_method_each_type /src/ruby/./vm_insnhelper.c:4896:16
+    #4 0xaaaac34149a4 in vm_call_method /src/ruby/./vm_insnhelper.c
+    #5 0xaaaac33b5bc8 in vm_sendish /src/ruby/./vm_insnhelper.c:6283:15
+    #6 0xaaaac33b5bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #7 0xaaaac33a1304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #8 0xaaaac2da53fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #9 0xaaaac2da51c8 in ruby_run_node /src/ruby/eval.c:337:30

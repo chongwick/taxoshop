@@ -1,0 +1,26 @@
+Modules/_sqlite/cursor.c:383:32: runtime error: member access within null pointer of type 'struct pysqlite_Statement'
+    #0 0xffff9a6d5148 in _pysqlite_fetch_one_row Modules/_sqlite/cursor.c:383
+    #1 0xffff9a6d5148 in pysqlite_cursor_iternext Modules/_sqlite/cursor.c:1155
+    #2 0xffff9a6d6148 in pysqlite_cursor_fetchone_impl Modules/_sqlite/cursor.c:1206
+    #3 0xffff9a6d6148 in pysqlite_cursor_fetchone Modules/_sqlite/clinic/cursor.c.h:169
+    #4 0xaaaacd7462a0 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144
+    #5 0xaaaacd7462a0 in PyObject_Vectorcall Objects/call.c:327
+    #6 0xaaaacdd95938 in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:770
+    #7 0xaaaacd4c1d68 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906
+    #8 0xaaaacddb488c in _PyEval_EvalFrame Include/internal/pycore_ceval.h:122
+    #9 0xaaaacddb488c in _PyEval_Vector Python/ceval.c:2176
+    #10 0xaaaacddb488c in PyEval_EvalCode Python/ceval.c:681
+    #11 0xaaaacdfb2c24 in run_mod Python/pythonrun.c:1509
+    #12 0xaaaacdfb3aa8 in _PyRun_File Python/pythonrun.c:1332
+    #13 0xaaaacdfb7d6c in _PyRun_SimpleFile Python/pythonrun.c:544
+    #14 0xaaaacdfbbb40 in _PyRun_AnyFile Python/pythonrun.c:92
+    #15 0xaaaace08667c in pymain_run_file_obj Modules/main.c:478
+    #16 0xaaaace08667c in pymain_run_file Modules/main.c:494
+    #17 0xaaaace08667c in pymain_run_python Modules/main.c:804
+    #18 0xaaaace08667c in Py_RunMain Modules/main.c:891
+    #19 0xaaaace0889a8 in pymain_main Modules/main.c:921
+    #20 0xaaaace0889a8 in Py_BytesMain Modules/main.c:945
+    #21 0xffff9d5684c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #22 0xffff9d568594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 27027b96e5b8c475fc327aa445bea1c71d37b4e2)
+    #23 0xaaaacd52be6c in _start (/src/cpython/python+0x183be6c) (BuildId: ecd9fe307bf593cacfad6f1b0c0e15cd4f176f75)
+

@@ -1,0 +1,46 @@
+==35==ERROR: AddressSanitizer: heap-use-after-free on address 0xfe0f897f6904 at pc 0xaaaab725bcdc bp 0xffffcbcafec0 sp 0xffffcbcaf6b0
+READ of size 4 at 0xfe0f897f6904 thread T0
+    #0 0xaaaab725bcd8 in __asan_memcpy (/src/ruby/ruby+0x7fbcd8) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+    #1 0xaaaab7a78df0 in memcpy /usr/include/aarch64-linux-gnu/bits/string_fortified.h:29:10
+    #2 0xaaaab7a78df0 in ruby_nonempty_memcpy /src/ruby/./include/ruby/internal/memory.h:735:16
+    #3 0xaaaab7a78df0 in bary_unpack_internal /src/ruby/bignum.c:1179:13
+    #4 0xaaaab7a755b4 in rb_integer_unpack /src/ruby/bignum.c:3753:12
+    #5 0xaaaab74e7de4 in pack_unpack_internal /src/ruby/pack.c:1415:23
+    #6 0xaaaab78acfe8 in vm_exec_core /src/ruby/insns.def:1750:11
+    #7 0xaaaab78a1304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #8 0xaaaab72a53fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #9 0xaaaab72a51c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #10 0xaaaab72a0bcc in rb_main /src/ruby/./main.c:42:12
+    #11 0xaaaab72a0bcc in main /src/ruby/./main.c:62:12
+    #12 0xffff8a3522d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #13 0xffff8a3523b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #14 0xaaaab71b9e6c in _start (/src/ruby/ruby+0x759e6c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+
+0xfe0f897f6904 is located 4 bytes inside of 4001-byte region [0xfe0f897f6900,0xfe0f897f78a1)
+freed by thread T0 here:
+    #0 0xaaaab725debc in free (/src/ruby/ruby+0x7fdebc) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+    #1 0xaaaab72fb9ec in rb_gc_impl_free /src/ruby/./gc/default/default.c:11212:9
+    #2 0xaaaab72fb9ec in ruby_xfree_sized /src/ruby/gc.c:6295:13
+    #3 0xaaaab7734500 in str_discard /src/ruby/string.c:2840:9
+    #4 0xaaaab7745bb8 in rb_str_clear /src/ruby/string.c:6678:5
+    #5 0xaaaab794ca20 in vm_call_cfunc_with_frame_ /src/ruby/./vm_insnhelper.c:3904:11
+    #6 0xaaaab7915734 in vm_call_method_each_type /src/ruby/./vm_insnhelper.c:4896:16
+    #7 0xaaaab79149a4 in vm_call_method /src/ruby/./vm_insnhelper.c
+    #8 0xaaaab78b5bc8 in vm_sendish /src/ruby/./vm_insnhelper.c:6283:15
+    #9 0xaaaab78b5bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #10 0xaaaab78a1304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #11 0xaaaab7984d80 in invoke_iseq_block_from_c /src/ruby/vm.c:1893:12
+    #12 0xaaaab7984d80 in invoke_block_from_c_bh /src/ruby/vm.c:1907:20
+    #13 0xaaaab78e67b4 in vm_yield_with_cref /src/ruby/vm.c:1950:12
+    #14 0xaaaab78e67b4 in vm_yield /src/ruby/vm.c:1958:12
+    #15 0xaaaab78e67b4 in rb_yield_0 /src/ruby/./vm_eval.c:1368:12
+    #16 0xaaaab78e6920 in rb_yield /src/ruby/./vm_eval.c
+    #17 0xaaaab74e7db4 in pack_unpack_internal /src/ruby/pack.c:1416:17
+    #18 0xaaaab78acfe8 in vm_exec_core /src/ruby/insns.def:1750:11
+    #19 0xaaaab78a1304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #20 0xaaaab72a53fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #21 0xaaaab72a51c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #22 0xaaaab72a0bcc in rb_main /src/ruby/./main.c:42:12
+    #23 0xaaaab72a0bcc in main /src/ruby/./main.c:62:12
+    #24 0xffff8a3522d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #25 0xffff8a3523b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)

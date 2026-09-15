@@ -1,0 +1,2 @@
+bash: line 1:     7 Segmentation fault      ./python /audit/repro/t_sqlite_fetch_min.py
+exit=139
