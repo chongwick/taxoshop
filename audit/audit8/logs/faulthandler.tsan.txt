@@ -1,0 +1,8 @@
+Fatal Python error: PyMutex_Unlock: unlocking mutex that is not locked
+Python runtime state: initialized
+
+Stack (most recent call first):
+  File "/audit/repro/tsan/t_0077s8_faulthandler.py", line 12 in rearm
+  File "/src/cpython/Lib/threading.py", line 1160 in run
+  File "/src/cpython/Lib/threading.py", line 1218 in _bootstrap_inner
+  File "/src/cpython/Lib/threading.py", line 1180 in _bootstrap
