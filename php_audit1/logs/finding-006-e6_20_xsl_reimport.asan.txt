@@ -1,0 +1,124 @@
+=================================================================
+==10==ERROR: AddressSanitizer: heap-use-after-free on address 0xffff82e1c230 at pc 0x00000049e96c bp 0xffffc6446340 sp 0xffffc6445b28
+READ of size 2 at 0xffff82e1c230 thread T0
+
+Warning: XSLTProcessor::transformToXml(): XPath: unknown precompiled operation 1493172283 in /audit/repro/battery6/e6_20_xsl_reimport_in_callback.php on line 32
+    #0 0x49e968 in strlen (/src/php-src/sapi/cli/php+0x49e968)
+    #1 0x4f25d44 in xbuf_format_converter /src/php-src/main/spprintf.c:526:16
+    #2 0x4f1ec00 in php_printf_to_smart_string /src/php-src/main/spprintf.c:767:2
+    #3 0x6544a5c in zend_vspprintf /src/php-src/Zend/zend.c:298:2
+    #4 0x76c0b4 in php_libxml_internal_error_handler_ex /src/php-src/ext/libxml/libxml.c:693:15
+    #5 0x76bee4 in php_libxml_error_handler_va /src/php-src/ext/libxml/libxml.c:736:2
+    #6 0x460a3d0 in xsl_libxslt_error_handler /src/php-src/ext/xsl/php_xsl.c:259:3
+    #7 0xffff8a2cb140 in xsltTransformError (/lib/aarch64-linux-gnu/libxslt.so.1+0xb140)
+    #8 0xffff8a2e3c60 in xsltValueOf (/lib/aarch64-linux-gnu/libxslt.so.1+0x23c60)
+    #9 0xffff8a2e8228  (/lib/aarch64-linux-gnu/libxslt.so.1+0x28228)
+    #10 0xffff8a2ec0e0 in xsltForEach (/lib/aarch64-linux-gnu/libxslt.so.1+0x2c0e0)
+    #11 0xffff8a2e8490  (/lib/aarch64-linux-gnu/libxslt.so.1+0x28490)
+    #12 0xffff8a2ea810  (/lib/aarch64-linux-gnu/libxslt.so.1+0x2a810)
+    #13 0xffff8a2eb050 in xsltProcessOneNode (/lib/aarch64-linux-gnu/libxslt.so.1+0x2b050)
+    #14 0xffff8a2ec708  (/lib/aarch64-linux-gnu/libxslt.so.1+0x2c708)
+    #15 0x4613508 in php_xsl_apply_stylesheet /src/php-src/ext/xsl/xsltprocessor.c:406:13
+    #16 0x46149a8 in zim_XSLTProcessor_transformToXml /src/php-src/ext/xsl/xsltprocessor.c:533:12
+    #17 0x5b48d50 in ZEND_DO_FCALL_SPEC_RETVAL_USED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2152:4
+    #18 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #19 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #20 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #21 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #22 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #23 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #24 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #25 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #26 0xffff8a0a73fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #27 0xffff8a0a74d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+    #28 0x48e06c in _start (/src/php-src/sapi/cli/php+0x48e06c)
+
+0xffff82e1c230 is located 0 bytes inside of 14-byte region [0xffff82e1c230,0xffff82e1c23e)
+freed by thread T0 here:
+    #0 0x4fdc2c in free (/src/php-src/sapi/cli/php+0x4fdc2c)
+    #1 0xffff8abc271c in xmlFreeDoc (/lib/aarch64-linux-gnu/libxml2.so.2+0x6271c)
+    #2 0xffff8a2d0e00 in xsltFreeStylesheet (/lib/aarch64-linux-gnu/libxslt.so.1+0x10e00)
+    #3 0x4606b10 in xsl_free_sheet /src/php-src/ext/xsl/php_xsl.c:69:3
+    #4 0x461004c in zim_XSLTProcessor_importStylesheet /src/php-src/ext/xsl/xsltprocessor.c:278:2
+    #5 0x5b44c58 in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2017:4
+    #6 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #7 0x58b0d6c in zend_call_function /src/php-src/Zend/zend_execute_API.c:1038:3
+    #8 0x10b2f38 in php_dom_xpath_callback_dispatch /src/php-src/ext/dom/xpath_callbacks.c:431:3
+    #9 0x10b08f8 in php_dom_xpath_callbacks_call_php_ns /src/php-src/ext/dom/xpath_callbacks.c:496:11
+    #10 0x460c508 in xsl_ext_function_php /src/php-src/ext/xsl/xsltprocessor.c:97:3
+    #11 0x460c538 in xsl_ext_function_object_php /src/php-src/ext/xsl/xsltprocessor.c:110:2
+    #12 0xffff8ac1ab20  (/lib/aarch64-linux-gnu/libxml2.so.2+0xbab20)
+    #13 0xffff8ac1a9e8  (/lib/aarch64-linux-gnu/libxml2.so.2+0xba9e8)
+    #14 0xffff8ac1e108  (/lib/aarch64-linux-gnu/libxml2.so.2+0xbe108)
+    #15 0xffff8ac1e5f0 in xmlXPathCompiledEval (/lib/aarch64-linux-gnu/libxml2.so.2+0xbe5f0)
+    #16 0xffff8a2e3b48 in xsltValueOf (/lib/aarch64-linux-gnu/libxslt.so.1+0x23b48)
+    #17 0xffff8a2e8490  (/lib/aarch64-linux-gnu/libxslt.so.1+0x28490)
+    #18 0xffff8a2ec0e0 in xsltForEach (/lib/aarch64-linux-gnu/libxslt.so.1+0x2c0e0)
+    #19 0xffff8a2e8490  (/lib/aarch64-linux-gnu/libxslt.so.1+0x28490)
+    #20 0xffff8a2ea810  (/lib/aarch64-linux-gnu/libxslt.so.1+0x2a810)
+    #21 0xffff8a2eb050 in xsltProcessOneNode (/lib/aarch64-linux-gnu/libxslt.so.1+0x2b050)
+    #22 0xffff8a2ec708  (/lib/aarch64-linux-gnu/libxslt.so.1+0x2c708)
+    #23 0x4613508 in php_xsl_apply_stylesheet /src/php-src/ext/xsl/xsltprocessor.c:406:13
+    #24 0x46149a8 in zim_XSLTProcessor_transformToXml /src/php-src/ext/xsl/xsltprocessor.c:533:12
+    #25 0x5b48d50 in ZEND_DO_FCALL_SPEC_RETVAL_USED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2152:4
+    #26 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #27 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #28 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #29 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+
+previously allocated by thread T0 here:
+    #0 0x4fde8c in malloc (/src/php-src/sapi/cli/php+0x4fde8c)
+    #1 0xffff8ac4201c in xmlStrdup (/lib/aarch64-linux-gnu/libxml2.so.2+0xe201c)
+    #2 0xffff8abcf6bc in xmlCopyDoc (/lib/aarch64-linux-gnu/libxml2.so.2+0x6f6bc)
+    #3 0x10703e4 in dom_clone_node /src/php-src/ext/dom/php_dom.c:2653:10
+    #4 0x102d50c in dom_objects_store_clone_obj /src/php-src/ext/dom/php_dom.c:660:29
+    #5 0x460de30 in zim_XSLTProcessor_importStylesheet /src/php-src/ext/xsl/xsltprocessor.c:207:23
+    #6 0x5b44c58 in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2017:4
+    #7 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #8 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #9 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #10 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #11 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #12 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #13 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #14 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #15 0xffff8a0a73fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #16 0xffff8a0a74d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+    #17 0x48e06c in _start (/src/php-src/sapi/cli/php+0x48e06c)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/src/php-src/sapi/cli/php+0x49e968) in strlen
+Shadow bytes around the buggy address:
+  0x200ff05c37f0: fa fa fd fa fa fa fd fd fa fa 00 00 fa fa fd fa
+  0x200ff05c3800: fa fa 00 00 fa fa fd fa fa fa fd fd fa fa 00 fa
+  0x200ff05c3810: fa fa 00 fa fa fa 00 00 fa fa fd fd fa fa fd fa
+  0x200ff05c3820: fa fa fd fd fa fa 00 fa fa fa 00 00 fa fa 00 fa
+  0x200ff05c3830: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+=>0x200ff05c3840: fa fa fd fd fa fa[fd]fd fa fa fd fa fa fa 00 06
+  0x200ff05c3850: fa fa 07 fa fa fa 04 fa fa fa 04 fa fa fa fd fa
+  0x200ff05c3860: fa fa fd fa fa fa fd fa fa fa fd fd fa fa fd fa
+  0x200ff05c3870: fa fa 04 fa fa fa fd fd fa fa fd fd fa fa fd fd
+  0x200ff05c3880: fa fa fd fd fa fa fd fa fa fa 00 06 fa fa 04 fa
+  0x200ff05c3890: fa fa fd fa fa fa fd fd fa fa fd fd fa fa fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==10==ABORTING
+bash: line 3:     9 Aborted                 timeout 60 /src/php-src/sapi/cli/php /audit/repro/battery6/e6_20_xsl_reimport_in_callback.php
+EXIT=134

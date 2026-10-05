@@ -1,0 +1,110 @@
+=================================================================
+==1==ERROR: AddressSanitizer: heap-use-after-free on address 0xffff7ceb4410 at pc 0x000006441edc bp 0xffffdbe45170 sp 0xffffdbe45168
+READ of size 1 at 0xffff7ceb4410 thread T0
+    #0 0x6441ed8 in zval_get_type /src/php-src/Zend/zend_types.h:685:18
+    #1 0x6478f18 in zend_compare /src/php-src/Zend/zend_operators.c:2378:11
+    #2 0x63eb100 in zend_std_compare_objects /src/php-src/Zend/zend_object_handlers.c:2283:26
+    #3 0x647bf10 in zend_compare /src/php-src/Zend/zend_operators.c:2477:13
+    #4 0x3e40348 in fast_equal_check_function /src/php-src/Zend/zend_operators.h:935:9
+    #5 0x3dd8254 in _php_search_array /src/php-src/ext/standard/array.c:1651:9
+    #6 0x3dd3ae4 in zflf_in_array_2 /src/php-src/ext/standard/array.c:1704:2
+    #7 0x5ebdd4c in ZEND_FRAMELESS_ICALL_2_SPEC_HANDLER /src/php-src/Zend/zend_vm_execute.h:3899:3
+    #8 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #9 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #10 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #11 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #12 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #13 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #14 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #15 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #16 0xffff863573fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #17 0xffff863574d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+    #18 0x48e06c in _start (/src/php-src/sapi/cli/php+0x48e06c)
+
+0xffff7ceb4410 is located 16 bytes inside of 32776-byte region [0xffff7ceb4400,0xffff7cebc408)
+freed by thread T0 here:
+    #0 0x4fdc2c in free (/src/php-src/sapi/cli/php+0x4fdc2c)
+    #1 0x552d670 in __zend_free /src/php-src/Zend/zend_alloc.c:3671:2
+    #2 0x5537044 in _efree /src/php-src/Zend/zend_alloc.c:2888:3
+    #3 0x6096d48 in zend_array_destroy /src/php-src/Zend/zend_hash.c:1878:2
+    #4 0x6510268 in rc_dtor_func /src/php-src/Zend/zend_variables.c:56:2
+    #5 0x5f5b8bc in zend_assign_to_variable /src/php-src/Zend/zend_execute.h:184:4
+    #6 0x59baa38 in ZEND_ASSIGN_SPEC_VAR_CONST_RETVAL_UNUSED_HANDLER /src/php-src/Zend/zend_vm_execute.h:25473:11
+    #7 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #8 0x58b0d6c in zend_call_function /src/php-src/Zend/zend_execute_API.c:1038:3
+    #9 0x58b7134 in zend_call_known_function_ex /src/php-src/Zend/zend_execute_API.c:1136:23
+    #10 0x63f4870 in zend_call_known_function /src/php-src/Zend/zend_API.h:870:2
+    #11 0x63f4818 in zend_call_known_instance_method /src/php-src/Zend/zend_API.h:898:2
+    #12 0x63ae794 in zend_call_known_instance_method_with_0_params /src/php-src/Zend/zend_API.h:904:2
+    #13 0x63f1144 in zend_std_cast_object_tostring /src/php-src/Zend/zend_object_handlers.c:2589:5
+    #14 0x63eaa78 in zend_std_compare_objects /src/php-src/Zend/zend_object_handlers.c:2269:7
+    #15 0x647bf10 in zend_compare /src/php-src/Zend/zend_operators.c:2477:13
+    #16 0x3e40348 in fast_equal_check_function /src/php-src/Zend/zend_operators.h:935:9
+    #17 0x3dd8254 in _php_search_array /src/php-src/ext/standard/array.c:1651:9
+    #18 0x3dd3ae4 in zflf_in_array_2 /src/php-src/ext/standard/array.c:1704:2
+    #19 0x5ebdd4c in ZEND_FRAMELESS_ICALL_2_SPEC_HANDLER /src/php-src/Zend/zend_vm_execute.h:3899:3
+    #20 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #21 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #22 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #23 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #24 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #25 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #26 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #27 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #28 0xffff863573fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #29 0xffff863574d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+
+previously allocated by thread T0 here:
+    #0 0x4fde8c in malloc (/src/php-src/sapi/cli/php+0x4fde8c)
+    #1 0x5537948 in __zend_malloc /src/php-src/Zend/zend_alloc.c:3643:14
+    #2 0x5536dd4 in _emalloc /src/php-src/Zend/zend_alloc.c:2878:10
+    #3 0x605f76c in zend_hash_real_init_packed_ex /src/php-src/Zend/zend_hash.c:157:10
+    #4 0x606170c in zend_hash_real_init_packed /src/php-src/Zend/zend_hash.c:333:2
+    #5 0x3e977f4 in zif_array_map /src/php-src/ext/standard/array.c:7048:4
+    #6 0x5d5b9e0 in ZEND_DO_ICALL_SPEC_RETVAL_USED_HANDLER /src/php-src/Zend/zend_vm_execute.h:1393:2
+    #7 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #8 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #9 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #10 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #11 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #12 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #13 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #14 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #15 0xffff863573fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #16 0xffff863574d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+    #17 0x48e06c in _start (/src/php-src/sapi/cli/php+0x48e06c)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /src/php-src/Zend/zend_types.h:685:18 in zval_get_type
+Shadow bytes around the buggy address:
+  0x200fef9d6830: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200fef9d6840: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200fef9d6850: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200fef9d6860: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200fef9d6870: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x200fef9d6880: fd fd[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x200fef9d6890: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x200fef9d68a0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x200fef9d68b0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x200fef9d68c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x200fef9d68d0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==1==ABORTING

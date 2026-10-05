@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Generate abstract bug workflows and cluster equivalent workflows with Codex.
 
-The script reads each detailed Markdown report under ``taxos/micro_taxo`` in a
-read-only Codex thread.  Codex returns a compact, product-agnostic workflow and
-either selects an existing workflow cluster or requests a new one.  Progress is
-persisted after every report, so an interrupted run is safe to resume.
+The script reads each detailed Markdown report under a selected micro-taxonomy
+corpus in a read-only Codex thread. Codex returns a compact, product-agnostic
+workflow and either selects an existing workflow cluster or requests a new one.
+Progress is persisted after every report, so an interrupted run is safe to resume.
 
 Requires Python 3.10+ and ``pip install openai-codex``.  Codex must already be
 authenticated on the machine that runs this script.
@@ -17,15 +17,29 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from openai_codex import Codex, CodexConfig, Sandbox
-
-
 REPOSITORY = Path(__file__).resolve().parent
 REPORTS = REPOSITORY / "taxos" / "micro_taxo"
 OUTPUT = REPOSITORY / "taxos" / "workflow_signatures"
 SIGNATURES = OUTPUT
 CLUSTERS_PATH = OUTPUT / "clusters.json"
 REPORT_NUMBER = re.compile(r"gh_(\d+)\.md$")
+
+CORPORA = {
+    "cpython": {
+        "reports": REPOSITORY / "taxos" / "micro_taxo",
+        "output": REPOSITORY / "taxos" / "workflow_signatures",
+        "report_pattern": re.compile(r"gh_(\d+)\.md$"),
+        "report_glob": "gh_*.md",
+        "signature_prefix": "gh",
+    },
+    "ruby": {
+        "reports": REPOSITORY / "taxos" / "ruby_micro_taxo",
+        "output": REPOSITORY / "taxos" / "ruby_workflow_signatures",
+        "report_pattern": re.compile(r"ruby_(\d+)\.md$"),
+        "report_glob": "ruby_*.md",
+        "signature_prefix": "ruby",
+    },
+}
 
 OUTPUT_SCHEMA = {
     "type": "object",
@@ -61,12 +75,24 @@ OUTPUT_SCHEMA = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--corpus", choices=CORPORA, default="cpython", help="micro-taxonomy corpus to process (default: cpython)")
     parser.add_argument("--model", default="gpt-5.6-luna", help="Codex model to use")
     parser.add_argument("--limit", type=int, help="process at most this many unprocessed reports")
     parser.add_argument("--only", nargs="+", type=int, metavar="ISSUE", help="process only these issue numbers")
     parser.add_argument("--force", action="store_true", help="regenerate signatures that already exist")
     parser.add_argument("--dry-run", action="store_true", help="show which reports would be processed")
     return parser.parse_args()
+
+
+def configure_corpus(name: str) -> None:
+    """Select isolated report and signature paths for one source corpus."""
+    global REPORTS, OUTPUT, SIGNATURES, CLUSTERS_PATH, REPORT_NUMBER
+    corpus = CORPORA[name]
+    REPORTS = corpus["reports"]
+    OUTPUT = corpus["output"]
+    SIGNATURES = OUTPUT
+    CLUSTERS_PATH = OUTPUT / "clusters.json"
+    REPORT_NUMBER = corpus["report_pattern"]
 
 
 def load_clusters() -> dict[str, Any]:
@@ -93,7 +119,8 @@ def issue_number(path: Path) -> int:
 
 
 def reports_to_process(args: argparse.Namespace) -> list[Path]:
-    reports = sorted(REPORTS.glob("gh_*.md"), key=issue_number)
+    corpus = CORPORA[args.corpus]
+    reports = sorted(REPORTS.glob(corpus["report_glob"]), key=issue_number)
     if args.only:
         requested = set(args.only)
         reports = [path for path in reports if issue_number(path) in requested]
@@ -102,7 +129,8 @@ def reports_to_process(args: argparse.Namespace) -> list[Path]:
         if missing:
             raise ValueError(f"No rendered report for issue(s): {', '.join(map(str, sorted(missing)))}")
     if not args.force:
-        reports = [path for path in reports if not (SIGNATURES / f"gh_{issue_number(path)}.json").exists()]
+        prefix = corpus["signature_prefix"]
+        reports = [path for path in reports if not (SIGNATURES / f"{prefix}_{issue_number(path)}.json").exists()]
     return reports[: args.limit] if args.limit else reports
 
 
@@ -198,6 +226,7 @@ def record_signature(state: dict[str, Any], number: int, signature: dict[str, An
 
 def main() -> int:
     args = parse_args()
+    configure_corpus(args.corpus)
     state = load_clusters()
     reports = reports_to_process(args)
     if args.dry_run:
@@ -207,6 +236,11 @@ def main() -> int:
         print("No reports require workflow signatures.")
         return 0
 
+    try:
+        from openai_codex import Codex, CodexConfig, Sandbox
+    except ImportError as exc:
+        raise RuntimeError("Install openai-codex before generating signatures: pip install openai-codex") from exc
+
     with Codex(CodexConfig(cwd=str(REPOSITORY))) as codex:
         for report in reports:
             number = issue_number(report)
@@ -215,7 +249,8 @@ def main() -> int:
                 result = thread.run(prompt_for(report, state), output_schema=OUTPUT_SCHEMA)
                 signature = parse_response(result.final_response, set(state["clusters"]))
                 record = record_signature(state, number, signature, args.model)
-                write_json(SIGNATURES / f"gh_{number}.json", record)
+                prefix = CORPORA[args.corpus]["signature_prefix"]
+                write_json(SIGNATURES / f"{prefix}_{number}.json", record)
                 write_json(CLUSTERS_PATH, state)
                 print(f"#{number} → {record['cluster_id']}: {record['summary']}", flush=True)
             except Exception as exc:

@@ -21,8 +21,11 @@ under sanitizers, and report the ones that are new and confirmed.
 | [`taxos/micro_taxo/`](taxos/micro_taxo) | Per-issue write-ups (`gh_NNNNN.md`) and source material. |
 | [`tally_bugs.py`](tally_bugs.py) | Ranks the pattern families by how many known issues cluster to them. |
 | `generate_*.py` | Generators that produced the taxonomy, including `generate_reports.py` for CPython GitHub evidence and `generate_ruby_reports.py` for CRuby Redmine evidence. |
+| `generate_workflow_signatures.py` | Creates abstract workflow signatures for either corpus; use `--corpus ruby` for the CRuby micro-taxonomy. |
+| `generate_macro_taxonomy.py` | Creates macro-taxonomy entries from a corpus's workflow clusters; use `--corpus ruby` for CRuby. |
 | [`Dockerfile`](Dockerfile) | Multi-stage build of CPython (`origin/main`) with ASan+UBSan (`asan-ubsan`, the default target) and ThreadSanitizer (`tsan`). |
 | [`Dockerfile.cruby`](Dockerfile.cruby) | Standalone CRuby build with Clang ASan+UBSan enabled. |
+| [`Dockerfile.php`](Dockerfile.php) | Standalone PHP CLI build with Clang ASan+UBSan enabled. |
 | `cpython/` | Full CPython checkout — read the interpreter source here. |
 | `audit<N>/` | One workspace per audit iteration: `NOTES.md`, `findings/`, `logs/`, `repro/`. |
 
@@ -62,6 +65,15 @@ docker run --rm taxoshop/cruby-asan-ubsan:current /src/ruby/ruby -e 'puts :ok'
 ```
 
 Pass `--build-arg RUBY_REF=<tag-or-branch>` to select a specific Ruby revision.
+
+### PHP ASan/UBSan image
+
+```bash
+docker build -f Dockerfile.php -t taxoshop/php-asan-ubsan:current .
+docker run --rm taxoshop/php-asan-ubsan:current /src/php-src/sapi/cli/php -v
+```
+
+Pass `--build-arg PHP_REF=<tag-or-branch>` to select a specific PHP revision.
 
 ## The sanitizer build (essentials)
 

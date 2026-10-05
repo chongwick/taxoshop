@@ -1,0 +1,329 @@
+siphash.c:427:17: runtime error: load of misaligned address 0xaaaac205c6a4 for type 'uint64_t' (aka 'unsigned long'), which requires 8 byte alignment
+0xaaaac205c6a4: note: pointer points here
+  6e 6f 70 00 67 65 74 6c  6f 63 61 6c 00 73 65 74  6c 6f 63 61 6c 00 67 65  74 62 6c 6f 63 6b 70 61
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior siphash.c:427:17 
+siphash.c:462:32: runtime error: load of misaligned address 0xaaaac205c6be for type 'uint32_t' (aka 'unsigned int'), which requires 4 byte alignment
+0xaaaac205c6be: note: pointer points here
+ 6c 6f 63 6b 70 61  72 61 6d 00 73 65 74 62  6c 6f 63 6b 70 61 72 61  6d 00 67 65 74 62 6c 6f  63 6b
+             ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior siphash.c:462:32 
+st.c:2076:51: runtime error: assumption of 8 byte alignment for pointer of type 'const char *' failed
+0xfbffa91900b9: note: address is 1 aligned, misalignment offset is 1 bytes
+ 65 6e 63  2f 65 6e 63 64 62 2e 73  6f 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior st.c:2076:51 
+st.c:2076:36: runtime error: load of misaligned address 0xfbffa91900b9 for type 'st_index_t' (aka 'unsigned long'), which requires 8 byte alignment
+0xfbffa91900b9: note: pointer points here
+ 65 6e 63  2f 65 6e 63 64 62 2e 73  6f 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior st.c:2076:36 
+st.c:2092:38: runtime error: assumption of 8 byte alignment for pointer of type 'const char *' failed
+0xfbffa91900b9: note: address is 1 aligned, misalignment offset is 1 bytes
+ 65 6e 63  2f 65 6e 63 64 62 2e 73  6f 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior st.c:2092:38 
+compile.c:13613:13: runtime error: member access within misaligned address 0xfc6fab2e0d44 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e0d44: note: pointer points here
+  02 00 00 00 03 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 01 00 00 00  0e 00 00 00 10 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:13613:13 
+include/ruby/internal/gc.h:685:5: runtime error: store to misaligned address 0xfc6fab2e0d4c for type 'VALUE' (aka 'unsigned long'), which requires 8 byte alignment
+0xfc6fab2e0d4c: note: pointer points here
+  00 00 00 00 00 00 00 00  00 00 00 00 01 00 00 00  0e 00 00 00 10 00 00 00  00 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior include/ruby/internal/gc.h:685:5 
+compile.c:3089:20: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 be be be be  be be be be be be be be  be be be be be be be be  be be be be be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3089:20 
+compile.c:3089:20: runtime error: store to misaligned address 0xfc6fab2e3cf4 for type 'enum rb_catch_type', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 be be be be  be be be be be be be be  be be be be be be be be  be be be be be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3089:20 
+compile.c:3092:20: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be be be be be  be be be be be be be be  be be be be be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3092:20 
+compile.c:3092:20: runtime error: store to misaligned address 0xfc6fab2e3d04 for type 'unsigned int', which requires 8 byte alignment
+0xfc6fab2e3d04: note: pointer points here
+  be be be be be be be be  be be be be be be be be  be be be be be be be be  be be be be be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3092:20 
+compile.c:3095:20: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be be be be be  be be be be 00 00 00 00  be be be be be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3095:20 
+compile.c:3096:20: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be be be be be  be be be be 00 00 00 00  1d 00 00 00 be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3096:20 
+compile.c:3096:20: runtime error: store to misaligned address 0xfc6fab2e3cfc for type 'rb_iseq_t *' (aka 'struct rb_iseq_struct *'), which requires 8 byte alignment
+0xfc6fab2e3cfc: note: pointer points here
+  be be be be be be be be  be be be be 00 00 00 00  1d 00 00 00 be be be be  be be be be be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3096:20 
+compile.c:3097:13: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3097:13 
+compile.c:3097:13: runtime error: load of misaligned address 0xfc6fab2e3cfc for type 'rb_iseq_t *' (aka 'struct rb_iseq_struct *'), which requires 8 byte alignment
+0xfc6fab2e3cfc: note: pointer points here
+  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 be be be be  be be be be be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3097:13 
+compile.c:3102:24: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3102:24 
+compile.c:3102:24: runtime error: store to misaligned address 0xfc6fab2e3d0c for type 'unsigned int', which requires 8 byte alignment
+0xfc6fab2e3d0c: note: pointer points here
+  1d 00 00 00 be be be be  be be be be be be be be  be be be be be be be be  be be be be be be be be
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3102:24 
+compile.c:3103:24: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3103:24 
+compile.c:3106:28: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3106:28 
+compile.c:3106:28: runtime error: load of misaligned address 0xfc6fab2e3cf4 for type 'enum rb_catch_type', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3106:28 
+compile.c:3107:28: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3107:28 
+compile.c:3107:28: runtime error: load of misaligned address 0xfc6fab2e3cf4 for type 'enum rb_catch_type', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3107:28 
+compile.c:3108:28: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3108:28 
+compile.c:3108:28: runtime error: load of misaligned address 0xfc6fab2e3cf4 for type 'enum rb_catch_type', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3108:28 
+compile.c:3110:28: runtime error: member access within misaligned address 0xfc6fab2e3d14 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3d14: note: pointer points here
+  00 00 00 00 0d 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 1d 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:3110:28 
+compile.c:1656:20: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'const struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:1656:20 
+compile.c:1656:20: runtime error: load of misaligned address 0xfc6fab2e3cf4 for type 'const enum rb_catch_type', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:1656:20 
+compile.c:1657:23: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'const struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:1657:23 
+compile.c:1657:23: runtime error: load of misaligned address 0xfc6fab2e3cf4 for type 'const enum rb_catch_type', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:1657:23 
+compile.c:1658:23: runtime error: member access within misaligned address 0xfc6fab2e3cf4 for type 'const struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:1658:23 
+compile.c:1658:23: runtime error: load of misaligned address 0xfc6fab2e3cf4 for type 'const enum rb_catch_type', which requires 8 byte alignment
+0xfc6fab2e3cf4: note: pointer points here
+  02 00 00 00 0b 00 00 00  be be be be 00 00 00 00  00 00 00 00 00 00 00 00  1d 00 00 00 00 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior compile.c:1658:23 
+iseq.c:470:28: runtime error: member access within misaligned address 0xfc6fab2e0d44 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e0d44: note: pointer points here
+  02 00 00 00 03 00 00 00  00 00 00 00 60 18 12 a9  ff fb 00 00 01 00 00 00  0e 00 00 00 10 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior iseq.c:470:28 
+iseq.c:470:28: runtime error: load of misaligned address 0xfc6fab2e0d4c for type 'rb_iseq_t *' (aka 'struct rb_iseq_struct *'), which requires 8 byte alignment
+0xfc6fab2e0d4c: note: pointer points here
+  00 00 00 00 60 18 12 a9  ff fb 00 00 01 00 00 00  0e 00 00 00 10 00 00 00  00 00 00 00 03 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior iseq.c:470:28 
+iseq.c:471:21: runtime error: member access within misaligned address 0xfc6fab2e0d44 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e0d44: note: pointer points here
+  02 00 00 00 03 00 00 00  00 00 00 00 60 18 12 a9  ff fb 00 00 01 00 00 00  0e 00 00 00 10 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior iseq.c:471:21 
+iseq.c:471:21: runtime error: load of misaligned address 0xfc6fab2e0d4c for type 'rb_iseq_t *' (aka 'struct rb_iseq_struct *'), which requires 8 byte alignment
+0xfc6fab2e0d4c: note: pointer points here
+  00 00 00 00 60 18 12 a9  ff fb 00 00 01 00 00 00  0e 00 00 00 10 00 00 00  00 00 00 00 03 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior iseq.c:471:21 
+iseq.c:471:21: runtime error: member access within misaligned address 0xfc6fab2e0d44 for type 'struct iseq_catch_table_entry', which requires 8 byte alignment
+0xfc6fab2e0d44: note: pointer points here
+  02 00 00 00 03 00 00 00  00 00 00 00 60 18 12 a9  ff fb 00 00 01 00 00 00  0e 00 00 00 10 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior iseq.c:471:21 
+iseq.c:471:21: runtime error: load of misaligned address 0xfc6fab2e0d4c for type 'rb_iseq_t *' (aka 'struct rb_iseq_struct *'), which requires 8 byte alignment
+0xfc6fab2e0d4c: note: pointer points here
+  00 00 00 00 60 18 12 a9  ff fb 00 00 01 00 00 00  0e 00 00 00 10 00 00 00  00 00 00 00 03 00 00 00
+              ^ 
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior iseq.c:471:21 
+=================================================================
+==7==ERROR: AddressSanitizer: heap-use-after-free on address 0xfe9fab2e6203 at pc 0xaaaac1845e48 bp 0xffffed8b0df0 sp 0xffffed8b0de8
+READ of size 1 at 0xfe9fab2e6203 thread T0
+    #0 0xaaaac1845e44 in transcode_restartable0 /src/ruby/transcode.c:592:36
+    #1 0xaaaac1841658 in transcode_restartable /src/ruby/transcode.c:828:12
+    #2 0xaaaac183fd88 in rb_transcoding_convert /src/ruby/transcode.c:864:12
+    #3 0xaaaac183fd88 in trans_sweep /src/ruby/transcode.c:1191:37
+    #4 0xaaaac183fd88 in rb_trans_conv /src/ruby/transcode.c:1281:28
+    #5 0xaaaac1824c40 in rb_econv_convert0 /src/ruby/transcode.c:1400:15
+    #6 0xaaaac1824c40 in rb_econv_convert /src/ruby/transcode.c:1508:11
+    #7 0xaaaac1831668 in transcode_loop /src/ruby/transcode.c:2417:11
+    #8 0xaaaac1831668 in str_transcode0 /src/ruby/transcode.c:2877:5
+    #9 0xaaaac185bc54 in str_transcode /src/ruby/transcode.c:2907:12
+    #10 0xaaaac18357ac in str_encode /src/ruby/transcode.c:2973:18
+    #11 0xaaaac194ca20 in vm_call_cfunc_with_frame_ /src/ruby/./vm_insnhelper.c:3904:11
+    #12 0xaaaac1915734 in vm_call_method_each_type /src/ruby/./vm_insnhelper.c:4896:16
+    #13 0xaaaac19149a4 in vm_call_method /src/ruby/./vm_insnhelper.c
+    #14 0xaaaac18b5bc8 in vm_sendish /src/ruby/./vm_insnhelper.c:6283:15
+    #15 0xaaaac18b5bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #16 0xaaaac18a1304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #17 0xaaaac12a53fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #18 0xaaaac12a51c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #19 0xaaaac12a0bcc in rb_main /src/ruby/./main.c:42:12
+    #20 0xaaaac12a0bcc in main /src/ruby/./main.c:62:12
+    #21 0xffffabe622d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #22 0xffffabe623b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #23 0xaaaac11b9e6c in _start (/src/ruby/ruby+0x759e6c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+
+0xfe9fab2e6203 is located 3 bytes inside of 24001-byte region [0xfe9fab2e6200,0xfe9fab2ebfc1)
+freed by thread T0 here:
+    #0 0xaaaac125debc in free (/src/ruby/ruby+0x7fdebc) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+    #1 0xaaaac12fb9ec in rb_gc_impl_free /src/ruby/./gc/default/default.c:11212:9
+    #2 0xaaaac12fb9ec in ruby_xfree_sized /src/ruby/gc.c:6295:13
+    #3 0xaaaac1734500 in str_discard /src/ruby/string.c:2840:9
+    #4 0xaaaac1733ce8 in rb_str_replace /src/ruby/string.c:6658:5
+    #5 0xaaaac194ca20 in vm_call_cfunc_with_frame_ /src/ruby/./vm_insnhelper.c:3904:11
+    #6 0xaaaac1915734 in vm_call_method_each_type /src/ruby/./vm_insnhelper.c:4896:16
+    #7 0xaaaac19149a4 in vm_call_method /src/ruby/./vm_insnhelper.c
+    #8 0xaaaac18b5bc8 in vm_sendish /src/ruby/./vm_insnhelper.c:6283:15
+    #9 0xaaaac18b5bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #10 0xaaaac18a1304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #11 0xaaaac18fa8cc in invoke_iseq_block_from_c /src/ruby/vm.c:1893:12
+    #12 0xaaaac18fa8cc in invoke_block_from_c_proc /src/ruby/vm.c:1995:16
+    #13 0xaaaac18fa8cc in vm_invoke_proc /src/ruby/vm.c:2026:12
+    #14 0xaaaac14f06e8 in rb_proc_call_kw /src/ruby/proc.c:1729:12
+    #15 0xaaaac185a678 in proc_fallback /src/ruby/transcode.c:2340:12
+    #16 0xaaaac185aaf4 in transcode_loop_fallback_try /src/ruby/transcode.c:2366:17
+    #17 0xaaaac12a9010 in rb_protect /src/ruby/eval.c:1154:18
+    #18 0xaaaac1831760 in transcode_loop /src/ruby/transcode.c:2433:15
+    #19 0xaaaac1831760 in str_transcode0 /src/ruby/transcode.c:2877:5
+    #20 0xaaaac185bc54 in str_transcode /src/ruby/transcode.c:2907:12
+    #21 0xaaaac18357ac in str_encode /src/ruby/transcode.c:2973:18
+    #22 0xaaaac194ca20 in vm_call_cfunc_with_frame_ /src/ruby/./vm_insnhelper.c:3904:11
+    #23 0xaaaac1915734 in vm_call_method_each_type /src/ruby/./vm_insnhelper.c:4896:16
+    #24 0xaaaac19149a4 in vm_call_method /src/ruby/./vm_insnhelper.c
+    #25 0xaaaac18b5bc8 in vm_sendish /src/ruby/./vm_insnhelper.c:6283:15
+    #26 0xaaaac18b5bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #27 0xaaaac18a1304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #28 0xaaaac12a53fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #29 0xaaaac12a51c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #30 0xaaaac12a0bcc in rb_main /src/ruby/./main.c:42:12
+    #31 0xaaaac12a0bcc in main /src/ruby/./main.c:62:12
+    #32 0xffffabe622d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #33 0xffffabe623b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #34 0xaaaac11b9e6c in _start (/src/ruby/ruby+0x759e6c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+
+previously allocated by thread T0 here:
+    #0 0xaaaac125e150 in malloc (/src/ruby/ruby+0x7fe150) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+    #1 0xaaaac1369170 in rb_gc_impl_malloc /src/ruby/./gc/default/default.c:11227:5
+    #2 0xaaaac12fc020 in ruby_xmalloc_body /src/ruby/gc.c:6157:12
+    #3 0xaaaac12fc020 in ruby_xmalloc /src/ruby/gc.c:6139:34
+    #4 0xaaaac12fc020 in rb_xmalloc_mul_add_mul /src/ruby/gc.c:6334:12
+    #5 0xaaaac1714274 in str_enc_new /src/ruby/string.c:1103:13
+    #6 0xaaaac171f9d4 in rb_str_times /src/ruby/string.c:2654:12
+    #7 0xaaaac194ca20 in vm_call_cfunc_with_frame_ /src/ruby/./vm_insnhelper.c:3904:11
+    #8 0xaaaac1915734 in vm_call_method_each_type /src/ruby/./vm_insnhelper.c:4896:16
+    #9 0xaaaac19149a4 in vm_call_method /src/ruby/./vm_insnhelper.c
+    #10 0xaaaac18b5bc8 in vm_sendish /src/ruby/./vm_insnhelper.c:6283:15
+    #11 0xaaaac18b5bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #12 0xaaaac18a1304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #13 0xaaaac12a53fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #14 0xaaaac12a51c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #15 0xaaaac12a0bcc in rb_main /src/ruby/./main.c:42:12
+    #16 0xaaaac12a0bcc in main /src/ruby/./main.c:62:12
+    #17 0xffffabe622d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #18 0xffffabe623b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #19 0xaaaac11b9e6c in _start (/src/ruby/ruby+0x759e6c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /src/ruby/transcode.c:592:36 in transcode_restartable0
+Shadow bytes around the buggy address:
+  0xfe9fab2e5f80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0xfe9fab2e6000: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0xfe9fab2e6080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0xfe9fab2e6100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0xfe9fab2e6180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0xfe9fab2e6200:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0xfe9fab2e6280: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0xfe9fab2e6300: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0xfe9fab2e6380: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0xfe9fab2e6400: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0xfe9fab2e6480: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==7==ABORTING
+/audit/repro/battery18/encode_fallback_uaf.rb:20: [BUG] ASAN error
+ruby 4.1.0dev (2026-09-14T14:12:22Z master c4e06b4e30) +PRISM [aarch64-linux]
+
+-- Control frame information -----------------------------------------------
+c:0003 p:---- s:0016 e:000015 l:y b:0001 r:(nil) CFUNC  :encode
+c:0002 p:0033 s:0010 E:001410 l:n b:---- r:(nil) EVAL   /audit/repro/battery18/encode_fallback_uaf.rb:20 [FINISH]
+c:0001 p:0000 s:0003 E:001670 l:y b:---- r:(nil) DUMMY  [FINISH]
+
+-- Ruby level backtrace information ----------------------------------------
+/audit/repro/battery18/encode_fallback_uaf.rb:20:in '<main>'
+/audit/repro/battery18/encode_fallback_uaf.rb:20:in 'encode'
+
+-- Threading information ---------------------------------------------------
+Total ractor count: 1
+Ruby thread count for this ractor: 1
+
+-- C level backtrace information -------------------------------------------
+AddressSanitizer: nested bug in the same thread, aborting.

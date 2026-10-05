@@ -1,0 +1,105 @@
+=================================================================
+==1==ERROR: AddressSanitizer: heap-use-after-free on address 0xffffa0a4f838 at pc 0x000000cd9170 bp 0xfffff3f96090 sp 0xfffff3f96088
+READ of size 4 at 0xffffa0a4f838 thread T0
+    #0 0xcd916c in php_pcre_replace_array /src/php-src/ext/pcre/php_pcre.c:2099:36
+    #1 0xcd8bf4 in php_replace_in_subject /src/php-src/ext/pcre/php_pcre.c:2166:12
+    #2 0xcbd1c4 in _preg_replace_common /src/php-src/ext/pcre/php_pcre.c:2290:12
+    #3 0xcbcd4c in zflf_preg_replace_3 /src/php-src/ext/pcre/php_pcre.c:2388:2
+    #4 0x5ec3018 in ZEND_FRAMELESS_ICALL_3_SPEC_HANDLER /src/php-src/Zend/zend_vm_execute.h:3969:3
+    #5 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #6 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #7 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #8 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #9 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #10 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #11 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #12 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #13 0xffffa73073fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #14 0xffffa73074d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+    #15 0x48e06c in _start (/src/php-src/sapi/cli/php+0x48e06c)
+
+0xffffa0a4f838 is located 24 bytes inside of 56-byte region [0xffffa0a4f820,0xffffa0a4f858)
+freed by thread T0 here:
+    #0 0x4fdc2c in free (/src/php-src/sapi/cli/php+0x4fdc2c)
+    #1 0x552d670 in __zend_free /src/php-src/Zend/zend_alloc.c:3671:2
+    #2 0x5537044 in _efree /src/php-src/Zend/zend_alloc.c:2888:3
+    #3 0x6096d6c in zend_array_destroy /src/php-src/Zend/zend_hash.c:1881:2
+    #4 0x6510268 in rc_dtor_func /src/php-src/Zend/zend_variables.c:56:2
+    #5 0x5f5b8bc in zend_assign_to_variable /src/php-src/Zend/zend_execute.h:184:4
+    #6 0x59baa38 in ZEND_ASSIGN_SPEC_VAR_CONST_RETVAL_UNUSED_HANDLER /src/php-src/Zend/zend_vm_execute.h:25473:11
+    #7 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #8 0x58b0d6c in zend_call_function /src/php-src/Zend/zend_execute_API.c:1038:3
+    #9 0x58b7134 in zend_call_known_function_ex /src/php-src/Zend/zend_execute_API.c:1136:23
+    #10 0x63f4870 in zend_call_known_function /src/php-src/Zend/zend_API.h:870:2
+    #11 0x63f4818 in zend_call_known_instance_method /src/php-src/Zend/zend_API.h:898:2
+    #12 0x63ae794 in zend_call_known_instance_method_with_0_params /src/php-src/Zend/zend_API.h:904:2
+    #13 0x63f1144 in zend_std_cast_object_tostring /src/php-src/Zend/zend_object_handlers.c:2589:5
+    #14 0x64541f4 in __zval_get_string_func /src/php-src/Zend/zend_operators.c:1154:8
+    #15 0x6453778 in zval_get_string_func /src/php-src/Zend/zend_operators.c:1175:9
+    #16 0xcd1160 in zval_get_tmp_string /src/php-src/Zend/zend_operators.h:355:17
+    #17 0xcd94b8 in php_pcre_replace_array /src/php-src/ext/pcre/php_pcre.c:2107:26
+    #18 0xcd8bf4 in php_replace_in_subject /src/php-src/ext/pcre/php_pcre.c:2166:12
+    #19 0xcbd1c4 in _preg_replace_common /src/php-src/ext/pcre/php_pcre.c:2290:12
+    #20 0xcbcd4c in zflf_preg_replace_3 /src/php-src/ext/pcre/php_pcre.c:2388:2
+    #21 0x5ec3018 in ZEND_FRAMELESS_ICALL_3_SPEC_HANDLER /src/php-src/Zend/zend_vm_execute.h:3969:3
+    #22 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #23 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #24 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #25 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #26 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #27 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #28 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #29 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+
+previously allocated by thread T0 here:
+    #0 0x4fde8c in malloc (/src/php-src/sapi/cli/php+0x4fde8c)
+    #1 0x5537948 in __zend_malloc /src/php-src/Zend/zend_alloc.c:3643:14
+    #2 0x5536dd4 in _emalloc /src/php-src/Zend/zend_alloc.c:2878:10
+    #3 0x6074ee0 in zend_array_dup /src/php-src/Zend/zend_hash.c:2462:2
+    #4 0x59fb698 in ZEND_ASSIGN_DIM_SPEC_CV_UNUSED_OP_DATA_TMP_HANDLER /src/php-src/Zend/zend_vm_execute.h:49015:3
+    #5 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #6 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #7 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #8 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #9 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #10 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #11 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #12 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #13 0xffffa73073fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #14 0xffffa73074d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+    #15 0x48e06c in _start (/src/php-src/sapi/cli/php+0x48e06c)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /src/php-src/ext/pcre/php_pcre.c:2099:36 in php_pcre_replace_array
+Shadow bytes around the buggy address:
+  0x200ff4149eb0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200ff4149ec0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200ff4149ed0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200ff4149ee0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200ff4149ef0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x200ff4149f00: fa fa fa fa fd fd fd[fd]fd fd fd fa fa fa fa fa
+  0x200ff4149f10: 00 00 00 00 00 00 00 fa fa fa fa fa fd fd fd fd
+  0x200ff4149f20: fd fd fd fd fa fa fa fa fd fd fd fd fd fd fd fd
+  0x200ff4149f30: fa fa fa fa fd fd fd fd fd fd fd fa fa fa fa fa
+  0x200ff4149f40: 00 00 00 00 00 00 00 fa fa fa fa fa 00 00 00 00
+  0x200ff4149f50: 00 00 00 00 fa fa fa fa 00 00 00 00 00 00 00 fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==1==ABORTING

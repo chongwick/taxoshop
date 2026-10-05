@@ -1,0 +1,15 @@
+
+Deprecated: Method PDO::sqliteCreateCollation() is deprecated since 8.5, use Pdo\Sqlite::createCollation() instead in /audit/repro/battery7/e7_06_collation_closecursor.php on line 8
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==7==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000000000000 bp 0xffffe64c9040 sp 0xffffe64c9020 T0)
+==7==Hint: pc points to the zero page.
+==7==The signal is caused by a READ memory access.
+==7==Hint: address points to the zero page.
+    #0 0x0  (<unknown module>)
+LLVMSymbolizer: error reading file: No such file or directory
+    #1 0xffffade2578c  (linux-vdso.so.1+0x78c)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (<unknown module>) 
+==7==ABORTING

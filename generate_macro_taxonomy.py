@@ -17,15 +17,31 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from openai_codex import Codex, CodexConfig, Sandbox
-
-
 REPOSITORY = Path(__file__).resolve().parent
 REPORTS = REPOSITORY / "taxos" / "micro_taxo"
 WORKFLOWS = REPOSITORY / "taxos" / "workflow_signatures" / "clusters.json"
 OUTPUT = REPOSITORY / "taxos" / "macro_taxo"
 INDEX = OUTPUT / "index.json"
+REPORT_PREFIX = "gh"
+REPORT_LINK_DIR = "micro_taxo"
 CLUSTER_ID = re.compile(r"workflow-\d{4}$")
+
+CORPORA = {
+    "cpython": {
+        "reports": REPOSITORY / "taxos" / "micro_taxo",
+        "workflows": REPOSITORY / "taxos" / "workflow_signatures" / "clusters.json",
+        "output": REPOSITORY / "taxos" / "macro_taxo",
+        "report_prefix": "gh",
+        "report_link_dir": "micro_taxo",
+    },
+    "ruby": {
+        "reports": REPOSITORY / "taxos" / "ruby_micro_taxo",
+        "workflows": REPOSITORY / "taxos" / "ruby_workflow_signatures" / "clusters.json",
+        "output": REPOSITORY / "taxos" / "ruby_macro_taxo",
+        "report_prefix": "ruby",
+        "report_link_dir": "ruby_micro_taxo",
+    },
+}
 
 OUTPUT_SCHEMA = {
     "type": "object",
@@ -76,6 +92,7 @@ OUTPUT_SCHEMA = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--corpus", choices=CORPORA, default="cpython", help="micro-taxonomy corpus to process (default: cpython)")
     parser.add_argument("--model", default="gpt-5.6-luna", help="Codex model to use")
     parser.add_argument("--limit", type=int, help="process at most this many pending clusters")
     parser.add_argument("--only", nargs="+", metavar="CLUSTER", help="process only these workflow IDs")
@@ -84,7 +101,24 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def configure_corpus(name: str) -> None:
+    """Select independent report, workflow, and macro-taxonomy paths."""
+    global REPORTS, WORKFLOWS, OUTPUT, INDEX, REPORT_PREFIX, REPORT_LINK_DIR
+    corpus = CORPORA[name]
+    REPORTS = corpus["reports"]
+    WORKFLOWS = corpus["workflows"]
+    OUTPUT = corpus["output"]
+    INDEX = OUTPUT / "index.json"
+    REPORT_PREFIX = corpus["report_prefix"]
+    REPORT_LINK_DIR = corpus["report_link_dir"]
+
+
 def read_clusters() -> dict[str, dict[str, Any]]:
+    if not WORKFLOWS.exists():
+        raise FileNotFoundError(
+            f"Workflow clusters are missing: {WORKFLOWS}. "
+            "Run generate_workflow_signatures.py with the same --corpus first."
+        )
     data = json.loads(WORKFLOWS.read_text())
     clusters = data.get("clusters")
     if data.get("schema_version") != 1 or not isinstance(clusters, dict):
@@ -113,7 +147,7 @@ def pending_clusters(args: argparse.Namespace, clusters: dict[str, dict[str, Any
 def report_paths(issues: list[int]) -> list[str]:
     paths = []
     for issue in issues:
-        path = REPORTS / f"gh_{issue}.md"
+        path = REPORTS / f"{REPORT_PREFIX}_{issue}.md"
         if not path.exists():
             raise FileNotFoundError(f"Cluster report is missing: {path}")
         paths.append(str(path.relative_to(REPOSITORY)))
@@ -137,7 +171,7 @@ Read every full detailed bug analysis below before answering. Do not edit files.
 Determine what actually generalizes across these reports. The reports are the
 evidence; the workflow hypothesis may be incomplete or overly narrow. Produce a
 useful, technically precise pattern, not a list of symptoms and not a restatement
-of project-specific code. Remove CPython-specific names, APIs, types, test names,
+of project-specific code. Remove project-specific names, APIs, types, test names,
 file names, issue numbers, and implementation identifiers wherever a general term
 can express the same mechanism.
 
@@ -187,7 +221,7 @@ def markdown(entry: dict[str, Any]) -> str:
     lines.extend(f"{index}. {item}" for index, item in enumerate(entry["search_strategy"], 1))
     lines.extend(["", "## Evidence", ""])
     for item in sorted(entry["evidence"], key=lambda value: value["issue"]):
-        lines.append(f"- [#{item['issue']}](../micro_taxo/gh_{item['issue']}.md): {item['supports']}")
+        lines.append(f"- [#{item['issue']}](../{REPORT_LINK_DIR}/{REPORT_PREFIX}_{item['issue']}.md): {item['supports']}")
     return "\n".join(lines) + "\n"
 
 
@@ -206,7 +240,12 @@ def rebuild_index() -> None:
 
 def main() -> int:
     args = parse_args()
-    clusters = read_clusters()
+    configure_corpus(args.corpus)
+    try:
+        clusters = read_clusters()
+    except FileNotFoundError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
     selected = pending_clusters(args, clusters)
     if args.dry_run:
         print("Would process:", ", ".join(cluster_id for cluster_id, _ in selected) or "none")
@@ -215,6 +254,11 @@ def main() -> int:
         rebuild_index()
         print("No macro-taxonomy entries require generation.")
         return 0
+
+    try:
+        from openai_codex import Codex, CodexConfig, Sandbox
+    except ImportError as exc:
+        raise RuntimeError("Install openai-codex before generating macro entries: pip install openai-codex") from exc
 
     with Codex(CodexConfig(cwd=str(REPOSITORY))) as codex:
         for cluster_id, cluster in selected:

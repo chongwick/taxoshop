@@ -1,0 +1,109 @@
+
+Warning: DOMXPath::evaluate(): xmlXPathCompOpEval: function string not found in /audit/repro/battery6/e6_10_xpath_reconstruct_in_callback.php on line 21
+
+Warning: DOMXPath::evaluate(): Unregistered function in /audit/repro/battery6/e6_10_xpath_reconstruct_in_callback.php on line 21
+=================================================================
+==10==ERROR: AddressSanitizer: heap-use-after-free on address 0xffff90201c48 at pc 0x0000010bdbf0 bp 0xffffd20a5cb0 sp 0xffffd20a5ca8
+WRITE of size 8 at 0xffff90201c48 thread T0
+    #0 0x10bdbec in php_xpath_eval /src/php-src/ext/dom/xpath.c:330:13
+    #1 0x10c0354 in zim_DOMXPath_evaluate /src/php-src/ext/dom/xpath.c:449:2
+    #2 0x5b48d50 in ZEND_DO_FCALL_SPEC_RETVAL_USED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2152:4
+    #3 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #4 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #5 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #6 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #7 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #8 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #9 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #10 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #11 0xffff98d673fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #12 0xffff98d674d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+    #13 0x48e06c in _start (/src/php-src/sapi/cli/php+0x48e06c)
+
+0xffff90201c48 is located 8 bytes inside of 376-byte region [0xffff90201c40,0xffff90201db8)
+freed by thread T0 here:
+    #0 0x4fdc2c in free (/src/php-src/sapi/cli/php+0x4fdc2c)
+    #1 0x10ba59c in dom_xpath_construct /src/php-src/ext/dom/xpath.c:178:3
+    #2 0x10b9570 in zim_DOMXPath___construct /src/php-src/ext/dom/xpath.c:199:2
+    #3 0x5b44c58 in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2017:4
+    #4 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #5 0x58b0d6c in zend_call_function /src/php-src/Zend/zend_execute_API.c:1038:3
+    #6 0x10b2f38 in php_dom_xpath_callback_dispatch /src/php-src/ext/dom/xpath_callbacks.c:431:3
+    #7 0x10b08f8 in php_dom_xpath_callbacks_call_php_ns /src/php-src/ext/dom/xpath_callbacks.c:496:11
+    #8 0x10c50a8 in dom_xpath_ext_function_php /src/php-src/ext/dom/xpath.c:127:3
+    #9 0x10c4fcc in dom_xpath_ext_function_object_php /src/php-src/ext/dom/xpath.c:140:2
+    #10 0xffff998dab20  (/lib/aarch64-linux-gnu/libxml2.so.2+0xbab20)
+    #11 0xffff998da9e8  (/lib/aarch64-linux-gnu/libxml2.so.2+0xba9e8)
+    #12 0xffff998dabb8  (/lib/aarch64-linux-gnu/libxml2.so.2+0xbabb8)
+    #13 0xffff998daa50  (/lib/aarch64-linux-gnu/libxml2.so.2+0xbaa50)
+    #14 0xffff998da9e8  (/lib/aarch64-linux-gnu/libxml2.so.2+0xba9e8)
+    #15 0xffff998deeec  (/lib/aarch64-linux-gnu/libxml2.so.2+0xbeeec)
+    #16 0xffff998d9c3c in xmlXPathEvalExpression (/lib/aarch64-linux-gnu/libxml2.so.2+0xb9c3c)
+    #17 0x10bdb3c in php_xpath_eval /src/php-src/ext/dom/xpath.c:329:32
+    #18 0x10c0354 in zim_DOMXPath_evaluate /src/php-src/ext/dom/xpath.c:449:2
+    #19 0x5b48d50 in ZEND_DO_FCALL_SPEC_RETVAL_USED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2152:4
+    #20 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #21 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #22 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #23 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #24 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #25 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #26 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #27 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #28 0xffff98d673fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #29 0xffff98d674d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+
+previously allocated by thread T0 here:
+    #0 0x4fde8c in malloc (/src/php-src/sapi/cli/php+0x4fde8c)
+    #1 0xffff998d05f4 in xmlXPathNewContext (/lib/aarch64-linux-gnu/libxml2.so.2+0xb05f4)
+    #2 0x10ba144 in dom_xpath_construct /src/php-src/ext/dom/xpath.c:168:27
+    #3 0x10b9570 in zim_DOMXPath___construct /src/php-src/ext/dom/xpath.c:199:2
+    #4 0x5b44c58 in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2017:4
+    #5 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #6 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #7 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #8 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #9 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #10 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #11 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #12 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #13 0xffff98d673fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #14 0xffff98d674d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+    #15 0x48e06c in _start (/src/php-src/sapi/cli/php+0x48e06c)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /src/php-src/ext/dom/xpath.c:330:13 in php_xpath_eval
+Shadow bytes around the buggy address:
+  0x200ff2040330: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200ff2040340: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x200ff2040350: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x200ff2040360: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x200ff2040370: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fa
+=>0x200ff2040380: fa fa fa fa fa fa fa fa fd[fd]fd fd fd fd fd fd
+  0x200ff2040390: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x200ff20403a0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x200ff20403b0: fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa fa
+  0x200ff20403c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x200ff20403d0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==10==ABORTING
+EXIT=134
+bash: line 3:     9 Aborted                 timeout 60 /src/php-src/sapi/cli/php /audit/repro/battery6/e6_10_xpath_reconstruct_in_callback.php

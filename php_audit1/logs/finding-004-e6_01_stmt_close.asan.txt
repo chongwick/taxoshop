@@ -1,0 +1,11 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==10==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000063 (pc 0xffffb38c12b4 bp 0xffffd96e9d70 sp 0xffffd96e9d70 T0)
+==10==The signal is caused by a READ memory access.
+==10==Hint: address points to the zero page.
+    #0 0xffffb38c12b4 in sqlite3ApiExit (/lib/aarch64-linux-gnu/libsqlite3.so.0+0x912b4)
+    #1 0xffffb3911fb0 in sqlite3_step (/lib/aarch64-linux-gnu/libsqlite3.so.0+0xe1fb0)
+    #2 0xd0c7e8 in zim_SQLite3Stmt_execute /src/php-src/ext/sqlite3/sqlite3.c:1901:16
+    #3 0x5b48d50 in ZEND_DO_FCALL_SPEC_RETVAL_USED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2152:4
+    #4 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #5 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2

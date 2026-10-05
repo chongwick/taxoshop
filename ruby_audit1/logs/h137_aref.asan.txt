@@ -1,0 +1,22 @@
+==7==ERROR: AddressSanitizer: heap-buffer-overflow on address 0xfd0fa02f1660 at pc 0xaaaab9f2d1d4 bp 0xffffd55c95b0 sp 0xffffd55c95a8
+READ of size 8 at 0xfd0fa02f1660 thread T0
+    #0 0xaaaab9f2d1d0 in ary_make_partial_step /src/ruby/array.c:1303:9
+    #1 0xaaaab9f2d1d0 in rb_ary_aref1 /src/ruby/array.c:1947:16
+    #2 0xaaaab9da1aec in vm_opt_aref /src/ruby/./vm_insnhelper.c:7224:20
+    #3 0xaaaab9da1aec in vm_exec_core /src/ruby/insns.def:1603:11
+    #4 0xaaaab9d91304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #5 0xaaaab97953fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #6 0xaaaab97951c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #7 0xaaaab9790bcc in rb_main /src/ruby/./main.c:42:12
+    #8 0xaaaab9790bcc in main /src/ruby/./main.c:62:12
+    #9 0xffffa0e022d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #10 0xffffa0e023b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #11 0xaaaab96a9e6c in _start (/src/ruby/ruby+0x759e6c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+
+Address 0xfd0fa02f1660 is a wild pointer inside of access range of size 0x000000000008.
+SUMMARY: AddressSanitizer: heap-buffer-overflow /src/ruby/array.c:1303:9 in ary_make_partial_step
+Shadow bytes around the buggy address:
+  0xfd0fa02f1380: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0xfd0fa02f1400: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0xfd0fa02f1480: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0xfd0fa02f1500: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa

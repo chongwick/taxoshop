@@ -1,0 +1,1 @@
+<?php foreach(["HZ","UTF-7","UTF7-IMAP","ISO-2022-JP","ISO-2022-JP-MS","ISO-2022-KR","EUC-JP-2004","GB18030","BIG-5","SJIS-mac","CP50220"] as $e){ @mb_convert_encoding("\x1b\x24\x42\x21\x21\x1b\x28\x42 test \xff\xfe", "UTF-8", $e); } echo "ok\n";

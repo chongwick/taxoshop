@@ -1,0 +1,27 @@
+
+Warning: ZipArchive::close(): Invalid argument in /audit/repro/battery6/e6_70_zip_close_in_progress_cb.php on line 15
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==10==ERROR: AddressSanitizer: SEGV on unknown address 0x0000608000b6 (pc 0xffff9590c958 bp 0xffffc92ce320 sp 0xffffc92ce320 T0)
+==10==The signal is caused by a READ memory access.
+    #0 0xffff9590c958 in zip_close (/lib/aarch64-linux-gnu/libzip.so.4+0xc958)
+    #1 0x46e5a04 in php_zipobj_close /src/php-src/ext/zip/php_zip.c:650:13
+    #2 0x46e92bc in zim_ZipArchive_close /src/php-src/ext/zip/php_zip.c:1715:2
+    #3 0x5b48d50 in ZEND_DO_FCALL_SPEC_RETVAL_USED_HANDLER /src/php-src/Zend/zend_vm_execute.h:2152:4
+    #4 0x5916d98 in execute_ex /src/php-src/Zend/zend_vm_execute.h:110551:12
+    #5 0x5919010 in zend_execute /src/php-src/Zend/zend_vm_execute.h:115989:2
+    #6 0x656733c in zend_execute_script /src/php-src/Zend/zend.c:1977:3
+    #7 0x4e4e2e0 in php_execute_script_ex /src/php-src/main/main.c:2589:13
+    #8 0x4e4f358 in php_execute_script /src/php-src/main/main.c:2629:9
+    #9 0x657a078 in do_cli /src/php-src/sapi/cli/php_cli.c:933:5
+    #10 0x6574b2c in do_php_cli /src/php-src/sapi/cli/php_cli.c:1346:18
+    #11 0x6573020 in main /src/php-src/sapi/cli/php_cli_main.c:18:9
+    #12 0xffff957473fc  (/lib/aarch64-linux-gnu/libc.so.6+0x273fc)
+    #13 0xffff957474d4 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274d4)
+    #14 0x48e06c in _start (/src/php-src/sapi/cli/php+0x48e06c)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (/lib/aarch64-linux-gnu/libzip.so.4+0xc958) in zip_close
+==10==ABORTING
+EXIT=134
+bash: line 3:     9 Aborted                 timeout 60 /src/php-src/sapi/cli/php /audit/repro/battery6/e6_70_zip_close_in_progress_cb.php

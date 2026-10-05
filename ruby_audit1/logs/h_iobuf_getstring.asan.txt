@@ -1,0 +1,109 @@
+`RubyGems' were not loaded.
+`RubyGems' were not loaded.
+/audit/repro/h_iobuf_getstring_uaf.rb:15: warning: IO::Buffer is experimental and both the Ruby and C interface may change in the future!
+=================================================================
+==7==ERROR: AddressSanitizer: heap-use-after-free on address 0xfc5f80231c80 at pc 0xaaaaaf5cbcdc bp 0xffffd0046560 sp 0xffffd0045d50
+READ of size 32 at 0xfc5f80231c80 thread T0
+    #0 0xaaaaaf5cbcd8 in __asan_memcpy (/src/ruby/ruby+0x7fbcd8) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+    #1 0xaaaaafa842c0 in memcpy /usr/include/aarch64-linux-gnu/bits/string_fortified.h:29:10
+    #2 0xaaaaafa842c0 in ruby_nonempty_memcpy /src/ruby/./include/ruby/internal/memory.h:735:16
+    #3 0xaaaaafa842c0 in str_enc_new /src/ruby/string.c:1109:9
+    #4 0xaaaaaf787fa4 in io_buffer_get_string /src/ruby/io_buffer.c:3276:12
+    #9 0xaaaaafc25bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #10 0xaaaaafc11304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #11 0xaaaaaf6153fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #12 0xaaaaaf6151c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #13 0xaaaaaf610bcc in rb_main /src/ruby/./main.c:42:12
+    #14 0xaaaaaf610bcc in main /src/ruby/./main.c:62:12
+    #15 0xffff80da22d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #16 0xffff80da23b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #17 0xaaaaaf529e6c in _start (/src/ruby/ruby+0x759e6c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+0xfc5f80231c80 is located 0 bytes inside of 64-byte region [0xfc5f80231c80,0xfc5f80231cc0)
+freed by thread T0 here:
+    #0 0xaaaaaf5ce530 in realloc (/src/ruby/ruby+0x7fe530) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+    #1 0xaaaaaf780e28 in rb_io_buffer_resize /src/ruby/io_buffer.c:2203:22
+    #2 0xaaaaaf786368 in io_buffer_resize /src/ruby/io_buffer.c:2249:5
+    #7 0xaaaaafc25bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #8 0xaaaaafc11304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #9 0xaaaaafceb76c in vm_call0_body /src/ruby/./vm_eval.c:225:20
+    #10 0xaaaaafc52d10 in vm_call0_cc /src/ruby/./vm_eval.c:101:12
+    #11 0xaaaaafc53c34 in rb_vm_call0 /src/ruby/./vm_eval.c:61:12
+    #12 0xaaaaafc53c34 in rb_vm_call_kw /src/ruby/./vm_eval.c:327:12
+    #13 0xaaaaafc53c34 in rb_check_funcall_default_kw /src/ruby/./vm_eval.c:717:12
+    #14 0xaaaaaf841fa0 in convert_type_with_id /src/ruby/object.c:3303:15
+    #15 0xaaaaaf841dc8 in rb_convert_type_with_id /src/ruby/object.c:3347:9
+    #16 0xaaaaafa8f5d4 in rb_str_to_str /src/ruby/string.c:1818:12
+    #17 0xaaaaafa8f5d4 in rb_string_value /src/ruby/string.c:2872:13
+    #18 0xaaaaaffbe208 in name_for_encoding /src/ruby/encoding.c:296:18
+    #19 0xaaaaaffbe208 in str_find_encindex /src/ruby/encoding.c:312:33
+    #20 0xaaaaaffbdfd8 in rb_find_encoding /src/ruby/encoding.c:345:11
+    #21 0xaaaaaf787f24 in io_buffer_get_string /src/ruby/io_buffer.c:3266:20
+    #26 0xaaaaafc25bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #27 0xaaaaafc11304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #28 0xaaaaaf6153fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #29 0xaaaaaf6151c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #30 0xaaaaaf610bcc in rb_main /src/ruby/./main.c:42:12
+    #31 0xaaaaaf610bcc in main /src/ruby/./main.c:62:12
+    #32 0xffff80da22d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #33 0xffff80da23b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #34 0xaaaaaf529e6c in _start (/src/ruby/ruby+0x759e6c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+previously allocated by thread T0 here:
+    #0 0xaaaaaf5ce31c in calloc (/src/ruby/ruby+0x7fe31c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+    #1 0xaaaaaf77bf74 in io_buffer_initialize /src/ruby/io_buffer.c:216:20
+    #2 0xaaaaaf77ccfc in rb_io_buffer_initialize /src/ruby/io_buffer.c:1076:5
+    #7 0xaaaaafc25bc8 in vm_exec_core /src/ruby/insns.def:912:11
+    #8 0xaaaaafc11304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #9 0xaaaaaf6153fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #10 0xaaaaaf6151c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #11 0xaaaaaf610bcc in rb_main /src/ruby/./main.c:42:12
+    #12 0xaaaaaf610bcc in main /src/ruby/./main.c:62:12
+    #13 0xffff80da22d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #14 0xffff80da23b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #15 0xaaaaaf529e6c in _start (/src/ruby/ruby+0x759e6c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+SUMMARY: AddressSanitizer: heap-use-after-free (/src/ruby/ruby+0x7fbcd8) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49) in __asan_memcpy
+Shadow bytes around the buggy address:
+  0xfc5f80231a00: 00 00 00 00 fa fa fa fa 00 00 00 00 00 00 00 00
+  0xfc5f80231a80: fa fa fa fa 00 00 00 00 00 00 00 00 fa fa fa fa
+  0xfc5f80231b00: 00 00 00 00 00 00 00 00 fa fa fa fa 00 00 00 00
+  0xfc5f80231b80: 00 00 01 fa fa fa fa fa fd fd fd fd fd fd fd fd
+  0xfc5f80231c00: fa fa fa fa 00 00 00 00 00 00 01 fa fa fa fa fa
+=>0xfc5f80231c80:[fd]fd fd fd fd fd fd fd fa fa fa fa 00 00 00 00
+  0xfc5f80231d00: 00 00 00 00 fa fa fa fa 00 00 00 00 00 00 01 fa
+  0xfc5f80231d80: fa fa fa fa 00 00 00 00 00 00 00 00 fa fa fa fa
+  0xfc5f80231e00: 00 00 00 00 00 00 01 fa fa fa fa fa 00 00 00 00
+  0xfc5f80231e80: 00 00 01 fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0xfc5f80231f00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==7==ABORTING
+/audit/repro/h_iobuf_getstring_uaf.rb:25: [BUG] ASAN error
+ruby 4.1.0dev (2026-09-14T14:12:22Z master c4e06b4e30) +PRISM [aarch64-linux]
+-- Control frame information -----------------------------------------------
+c:0003 p:---- s:0015 e:000014 l:y b:0001 r:(nil) CFUNC  :get_string
+c:0002 p:0048 s:0008 E:0009e0 l:n b:---- r:(nil) EVAL   /audit/repro/h_iobuf_getstring_uaf.rb:25 [FINISH]
+c:0001 p:0000 s:0003 E:001ae0 l:y b:---- r:(nil) DUMMY  [FINISH]
+-- Ruby level backtrace information ----------------------------------------
+/audit/repro/h_iobuf_getstring_uaf.rb:25:in '<main>'
+/audit/repro/h_iobuf_getstring_uaf.rb:25:in 'get_string'
+-- Threading information ---------------------------------------------------
+Total ractor count: 1
+Ruby thread count for this ractor: 1
+-- C level backtrace information -------------------------------------------
+AddressSanitizer: nested bug in the same thread, aborting.

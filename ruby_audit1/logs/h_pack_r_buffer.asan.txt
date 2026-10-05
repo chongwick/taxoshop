@@ -1,0 +1,62 @@
+=================================================================
+==7==ERROR: AddressSanitizer: use-after-poison on address 0xfbffa9ee4dc8 at pc 0xaaaacb32735c bp 0xffffce6b94f0 sp 0xffffce6b94e8
+WRITE of size 1 at 0xfbffa9ee4dc8 thread T0
+    #0 0xaaaacb327358 in bary_pack /src/ruby/bignum.c:911:24
+    #1 0xaaaacb32535c in rb_integer_pack /src/ruby/bignum.c:3673:12
+    #2 0xaaaacad8f4a4 in pack_pack /src/ruby/pack.c:800:28
+    #3 0xaaaacb156d00 in vm_opt_newarray_pack_buffer /src/ruby/./vm_insnhelper.c:6632:16
+    #4 0xaaaacb163930 in vm_exec_core /src/ruby/insns.def:1088:15
+    #5 0xaaaacb151304 in rb_vm_exec /src/ruby/vm.c:2885:22
+    #6 0xaaaacab553fc in rb_ec_exec_node /src/ruby/eval.c:299:9
+    #7 0xaaaacab551c8 in ruby_run_node /src/ruby/eval.c:337:30
+    #8 0xaaaacab50bcc in rb_main /src/ruby/./main.c:42:12
+    #9 0xaaaacab50bcc in main /src/ruby/./main.c:62:12
+    #10 0xffffacbb22d8  (/lib/aarch64-linux-gnu/libc.so.6+0x222d8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #11 0xffffacbb23b8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x223b8) (BuildId: 399cf29a11ad91a5d31f063a4869f3535e7a4b7a)
+    #12 0xaaaacaa69e6c in _start (/src/ruby/ruby+0x759e6c) (BuildId: 91b089bc9c075c9e13ee37ff4ac1fe7455287c49)
+Address 0xfbffa9ee4dc8 is a wild pointer inside of access range of size 0x000000000001.
+SUMMARY: AddressSanitizer: use-after-poison /src/ruby/bignum.c:911:24 in bary_pack
+Shadow bytes around the buggy address:
+  0xfbffa9ee4b00: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0xfbffa9ee4b80: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0xfbffa9ee4c00: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0xfbffa9ee4c80: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0xfbffa9ee4d00: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+=>0xfbffa9ee4d80: f7 f7 f7 f7 f7 f7 f7 f7 f7[f7]f7 f7 f7 f7 f7 f7
+  0xfbffa9ee4e00: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0xfbffa9ee4e80: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0xfbffa9ee4f00: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0xfbffa9ee4f80: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0xfbffa9ee5000: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==7==ABORTING
+/audit/repro/battery20/p02_pack_r_buffer.rb:9: [BUG] ASAN error
+ruby 4.1.0dev (2026-09-14T14:12:22Z master c4e06b4e30) +PRISM [aarch64-linux]
+-- Control frame information -----------------------------------------------
+c:0002 p:0043 s:0011 E:000ac0 l:n b:---- r:(nil) EVAL   /audit/repro/battery20/p02_pack_r_buffer.rb:9 [FINISH]
+c:0001 p:0000 s:0003 E:001c40 l:y b:---- r:(nil) DUMMY  [FINISH]
+-- Ruby level backtrace information ----------------------------------------
+/audit/repro/battery20/p02_pack_r_buffer.rb:9:in '<main>'
+-- Threading information ---------------------------------------------------
+Total ractor count: 1
+Ruby thread count for this ractor: 1
+-- C level backtrace information -------------------------------------------
+AddressSanitizer: nested bug in the same thread, aborting.

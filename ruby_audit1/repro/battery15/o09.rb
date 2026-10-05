@@ -1,0 +1,1 @@
+begin; "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff".unpack("w"); rescue Exception; end; puts 'ok'
