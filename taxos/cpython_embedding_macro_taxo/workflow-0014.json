@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0014",
+  "issues": [
+    80434,
+    88350,
+    108253,
+    114106,
+    115243,
+    120289,
+    120298,
+    130555,
+    140496,
+    140551,
+    142555,
+    142557,
+    142558,
+    142559,
+    142560,
+    142594,
+    142637,
+    142663,
+    142664,
+    142665,
+    142731,
+    142732,
+    142734,
+    142782,
+    142783,
+    142828,
+    142829,
+    142830,
+    142831,
+    142882,
+    142883,
+    142884,
+    143004,
+    143007,
+    143008,
+    143195,
+    143196,
+    143197,
+    143198,
+    143200,
+    143308,
+    143309,
+    143310,
+    143375,
+    143378,
+    143379,
+    143380,
+    143543,
+    143544,
+    143545,
+    143546,
+    143635,
+    143637,
+    143638,
+    143639,
+    143662,
+    144128,
+    144281,
+    144475,
+    144922,
+    146011,
+    148382,
+    148625,
+    151046,
+    151403,
+    154189
+  ],
+  "workflow_hypothesis": "Reentrant mutation invalidates backing storage before continued container access",
+  "pattern": "Stale native state across user-controlled or lifetime-changing execution",
+  "description": "Native code retains a borrowed/interior pointer or cached structural state from a mutable or refcounted object across an operation that may invoke arbitrary code or trigger destruction; that execution can invalidate the retained state before native code resumes.",
+  "precondition": "An implementation has retained non-owning access to object memory, a buffer, a cached entry, or structural metadata whose lifetime, address, length, or ownership can change.",
+  "critical_operation": "The implementation performs or resumes work using that retained state while executing an operation that can run callbacks, protocol methods, comparisons, conversions, finalizers, or another lifetime-changing action.",
+  "interference": "The invoked code or lifecycle transition clears, resizes, closes, detaches, replaces, deallocates, or otherwise invalidates the retained object or storage.",
+  "invalid_assumption": "The resumed code assumes that the prior pointer, cached reference, capacity, bounds, cache entry, or optional subobject is still live and describes the current state.",
+  "failure": "Continued access dereferences freed or null memory, or uses obsolete bounds or layout, producing use-after-free, null dereference, out-of-bounds access, invalid write, or a process crash.",
+  "search_strategy": [
+    "Audit every borrowed or interior pointer, cached object reference, and cached size retained across a call that can execute application code or decref an object.",
+    "Treat conversions, comparisons, hashing, iteration, representation, callbacks, and property access as reentrancy points; reacquire and validate state after each one.",
+    "After destruction-capable cleanup or reference release, prove that no subsequent read uses the released object's metadata or an alias into it.",
+    "For mutable buffers and tables, prevent structural mutation while a raw view is live, or revalidate the view, length, and owner identity before resuming.",
+    "Test each callback boundary with code that clears, resizes, closes, detaches, replaces, or drops the last reference to the object being operated on.",
+    "Audit optional owned subobjects after callback-capable operations and handle their absence rather than assuming a non-null pointer."
+  ],
+  "evidence": [
+    {
+      "issue": 80434,
+      "supports": "An interior pointer was accessed after its backing buffer owner had been released."
+    },
+    {
+      "issue": 88350,
+      "supports": "A deallocation path freed an object and then read metadata from that freed object."
+    },
+    {
+      "issue": 108253,
+      "supports": "A cache retained a stale borrowed pointer after the cached object's version or lifetime changed."
+    },
+    {
+      "issue": 114106,
+      "supports": "A cached value was consumed after it had been freed."
+    },
+    {
+      "issue": 115243,
+      "supports": "Concurrent mutation during a search could free the current element unless it was kept alive."
+    },
+    {
+      "issue": 120289,
+      "supports": "A profiling context could be freed while later code still used its pointer."
+    },
+    {
+      "issue": 120298,
+      "supports": "Container comparison could continue after callback-capable element comparison invalidated relied-on state."
+    },
+    {
+      "issue": 130555,
+      "supports": "Destruction during clearing could reentrantly mutate the same mapping and invalidate its active state."
+    },
+    {
+      "issue": 140496,
+      "supports": "A stale value reached a reference-count operation after being freed."
+    },
+    {
+      "issue": 140551,
+      "supports": "Lookup callbacks could clear a mapping while lookup code still relied on its previous table state."
+    },
+    {
+      "issue": 142555,
+      "supports": "Index conversion could reenter and remove backing storage before assignment resumed."
+    },
+    {
+      "issue": 142557,
+      "supports": "Formatting callback execution could mutate a mutable byte buffer while formatting retained its storage."
+    },
+    {
+      "issue": 142558,
+      "supports": "Search helpers retained raw mutable-buffer storage across index conversion; resize or clear made it stale."
+    },
+    {
+      "issue": 142559,
+      "supports": "A conversion callback cleared a byte buffer after its raw pointer had been captured."
+    },
+    {
+      "issue": 142560,
+      "supports": "Multiple buffer-search paths exposed the same stale raw-storage hazard across conversion callbacks."
+    },
+    {
+      "issue": 142594,
+      "supports": "A callback during close could detach an owned subobject before later code dereferenced it."
+    },
+    {
+      "issue": 142637,
+      "supports": "Equality lookup could clear an ordered mapping while deletion or movement retained table pointers."
+    },
+    {
+      "issue": 142663,
+      "supports": "Comparison invoked unpacking code that could resize or release a buffer while iteration retained its pointer."
+    },
+    {
+      "issue": 142664,
+      "supports": "Hashing could execute code that released the view whose state hashing continued to use."
+    },
+    {
+      "issue": 142665,
+      "supports": "Slice-bound conversion could release underlying storage after a subview had captured it."
+    },
+    {
+      "issue": 142731,
+      "supports": "Attribute-related lookup could invoke hashing that mutated lifetime-sensitive state before the outer operation resumed."
+    },
+    {
+      "issue": 142732,
+      "supports": "Iterator advancement could reenter and invalidate iterator-owned state used by the outer iterator."
+    },
+    {
+      "issue": 142734,
+      "supports": "Copying an ordered mapping invoked item retrieval that could mutate the mapping while copy state was retained."
+    },
+    {
+      "issue": 142782,
+      "supports": "Cache-key comparison could clear a cache while lookup retained cache-entry state."
+    },
+    {
+      "issue": 142783,
+      "supports": "Weak-reference release invalidated cache state that subsequent code still assumed was present."
+    },
+    {
+      "issue": 142828,
+      "supports": "Callback-capable equality testing could mutate registration storage during unregister processing."
+    },
+    {
+      "issue": 142829,
+      "supports": "Context comparison could invoke code that changed the context state being compared."
+    },
+    {
+      "issue": 142830,
+      "supports": "A callback result conversion could alter callback-managed state while native callback handling retained it."
+    },
+    {
+      "issue": 142831,
+      "supports": "Mapping iteration could invoke encoding code that mutated the mapping while iteration state remained active."
+    },
+    {
+      "issue": 142882,
+      "supports": "Index conversion during extension could invalidate array storage before assignment used it."
+    },
+    {
+      "issue": 142883,
+      "supports": "Multiplier conversion could reenter and remove array storage before repetition resumed."
+    },
+    {
+      "issue": 142884,
+      "supports": "A writer callback could alter an array during output while output code retained its storage."
+    },
+    {
+      "issue": 143004,
+      "supports": "Arithmetic callback execution could mutate a counter-like mapping during update processing."
+    },
+    {
+      "issue": 143007,
+      "supports": "Integer conversion during seeking could detach or alter stream state before it was dereferenced."
+    },
+    {
+      "issue": 143008,
+      "supports": "Reentrant flushing could detach stream state during truncation before later use."
+    },
+    {
+      "issue": 143195,
+      "supports": "Length retrieval could run code that invalidated a byte buffer during hexadecimal conversion."
+    },
+    {
+      "issue": 143196,
+      "supports": "Arithmetic callback execution could invalidate an indentation cache while cached bounds were used."
+    },
+    {
+      "issue": 143197,
+      "supports": "State restoration invoked arithmetic that could invalidate retained iterator state."
+    },
+    {
+      "issue": 143198,
+      "supports": "Parameter iteration could reenter and invalidate cursor-cache state before reuse."
+    },
+    {
+      "issue": 143200,
+      "supports": "Subscription operations could reenter and remove element storage before continued access."
+    },
+    {
+      "issue": 143308,
+      "supports": "A callback and truth conversion could mutate serialization state while a buffer was retained."
+    },
+    {
+      "issue": 143309,
+      "supports": "Mapping key or value iteration could reenter and invalidate parsing state."
+    },
+    {
+      "issue": 143310,
+      "supports": "String conversion could reenter and detach interpreter-side object state before conversion resumed."
+    },
+    {
+      "issue": 143375,
+      "supports": "Seeking could trigger close and leave later stream code with a null owned buffer."
+    },
+    {
+      "issue": 143378,
+      "supports": "Buffer acquisition could invoke code that closed the output object while write processing continued."
+    },
+    {
+      "issue": 143379,
+      "supports": "Truth conversion could reenter and invalidate packing state before native packing resumed."
+    },
+    {
+      "issue": 143380,
+      "supports": "Sequence-length evaluation could reenter and invalidate statement or connection state before execution continued."
+    },
+    {
+      "issue": 143543,
+      "supports": "Key comparison could reenter and invalidate grouping iterator state while it was being used."
+    },
+    {
+      "issue": 143544,
+      "supports": "Error-construction callback execution could invalidate decoder state before error handling resumed."
+    },
+    {
+      "issue": 143545,
+      "supports": "External-timer conversion could reenter and free profiling context state still in use."
+    },
+    {
+      "issue": 143546,
+      "supports": "Equality comparison could reenter and structurally alter a set while intersection code retained its layout assumptions."
+    },
+    {
+      "issue": 143635,
+      "supports": "Representation lookup could invoke code that changed type-related state while representation retained it."
+    },
+    {
+      "issue": 143637,
+      "supports": "Index conversion could clear ancillary-data storage while parsing retained its bounds and pointer."
+    },
+    {
+      "issue": 143638,
+      "supports": "Deserialization assignment could invoke code that mutated state while build processing retained references."
+    },
+    {
+      "issue": 143639,
+      "supports": "Key hashing during deserialization could reenter and invalidate set-assignment state."
+    },
+    {
+      "issue": 143662,
+      "supports": "A text-conversion callback could close a connection while row-fetch code still relied on it."
+    },
+    {
+      "issue": 144128,
+      "supports": "Index callbacks could invalidate state retained by the enclosing native operation."
+    },
+    {
+      "issue": 144281,
+      "supports": "Shared backing storage could become invalid during buffer assignment, leaving an invalid write target."
+    },
+    {
+      "issue": 144475,
+      "supports": "Representation processing retained state whose lifetime or bounds could be invalidated during nested execution."
+    },
+    {
+      "issue": 144922,
+      "supports": "A write callback could mutate an array while output code retained a pointer into its storage."
+    },
+    {
+      "issue": 146011,
+      "supports": "A child object retained a pointer to parent-owned state after the parent was explicitly destroyed."
+    },
+    {
+      "issue": 148382,
+      "supports": "A borrowed reference survived execution of application code and was subsequently used after release."
+    },
+    {
+      "issue": 148625,
+      "supports": "Iterator advancement accessed element state after mutation or destruction invalidated it."
+    },
+    {
+      "issue": 151046,
+      "supports": "A callback received a temporary view that could outlive the buffer that owned its memory."
+    },
+    {
+      "issue": 151403,
+      "supports": "Path conversion could mutate argument storage while native process-launch code retained pointers into it."
+    },
+    {
+      "issue": 154189,
+      "supports": "Representation of a partially applied callable used state after its owning object or referenced data was freed."
+    }
+  ],
+  "scope_note": "The shared rule is broader than index or slice conversion and broader than container backing arrays. It covers any native operation that retains non-owning state across callback-capable execution or destruction, including caches, contexts, iterators, streams, and parent-owned subobjects. A few reports demonstrate direct post-destruction stale access rather than reentrant mutation, so reentrancy is a common invalidation route, not a required precondition.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:01:18.357530+00:00"
+}

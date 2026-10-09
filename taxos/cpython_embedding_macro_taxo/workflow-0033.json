@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0033",
+  "issues": [
+    100086
+  ],
+  "workflow_hypothesis": "Extended diagnostic text exceeds fixed display capacity",
+  "pattern": "Unchecked downstream truncation after expanding a fixed-format diagnostic field",
+  "description": "Adding variable-length metadata to a diagnostic component can exceed a fixed-width formatter later in the rendering path, silently publishing a truncated description.",
+  "precondition": "A user-visible diagnostic header combines existing variable-length identity metadata with a build-information component that is rendered through a fixed-capacity formatting path.",
+  "critical_operation": "Extend the build-information component with generated descriptors for additional configuration choices.",
+  "interference": "The downstream formatter retains its fixed output limit and truncates the expanded component while constructing the displayed header.",
+  "invalid_assumption": "Assume that allocating or budgeting more storage for the component is sufficient without validating every downstream display limit against the complete worst-case header.",
+  "failure": "Users receive an incomplete, potentially misleading diagnostic description because trailing build metadata is cut off.",
+  "search_strategy": [
+    "Trace each expanded diagnostic field through every formatter and display path, and compare their capacities with the full worst-case output.",
+    "Search for fixed-width format specifiers, fixed-size buffers, and explicit truncation around version, banner, and build-information rendering.",
+    "Construct worst-case combinations of variable identity data and optional configuration descriptors, then assert that displayed output is complete.",
+    "When increasing a metadata field's storage budget, audit downstream copies and composed headers for independent size limits."
+  ],
+  "evidence": [
+    {
+      "issue": 100086,
+      "supports": "Adding build-configuration descriptors to a version diagnostic caused the displayed header to truncate the new information because a downstream formatting limit remained fixed; the accepted resolution moved the details to a dedicated test-reporting output."
+    }
+  ],
+  "scope_note": "Singleton cluster: scoped to diagnostic text whose expanded component is later rendered through a fixed-capacity formatting path.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:31:29.478984+00:00"
+}

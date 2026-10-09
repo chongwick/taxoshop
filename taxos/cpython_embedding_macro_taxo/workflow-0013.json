@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0013",
+  "issues": [
+    79374,
+    140497
+  ],
+  "workflow_hypothesis": "Empty instruction sequence causes boundary-overrun during execution",
+  "pattern": "End-of-instruction-stream cursor decoded as an instruction",
+  "description": "An instruction-processing consumer dereferences or decodes at the logical end of an instruction buffer without first proving that a complete instruction remains.",
+  "precondition": "An optimizer or executor reaches an instruction-stream cursor equal to the stream length, either after a terminal instruction or for an empty stream.",
+  "critical_operation": "The consumer fetches or decodes an instruction at that cursor.",
+  "interference": "An end-of-stream position is passed into the instruction-decoding path.",
+  "invalid_assumption": "A cursor at the logical endpoint identifies readable instruction storage.",
+  "failure": "The consumer reads beyond the instruction buffer and can abort or crash.",
+  "search_strategy": [
+    "Audit every instruction fetch or decode to require that the cursor and full instruction width are within the buffer before dereference.",
+    "Trace optimizer scan cursors and control-flow targets to ensure an endpoint cursor is not passed to an instruction decoder.",
+    "Test instruction processing when a terminal instruction is the final entry and when the instruction stream is empty, using memory sanitizers.",
+    "Validate externally constructible or mutable executable objects before execution so an empty or undersized instruction stream is rejected or safely handled."
+  ],
+  "evidence": [
+    {
+      "issue": 79374,
+      "supports": "An optimization scan passed an index equal to the instruction-buffer length into a helper that dereferenced it before checking the bound, producing an out-of-bounds read after a terminal instruction."
+    },
+    {
+      "issue": 140497,
+      "supports": "Executing an executable object whose instruction sequence had been replaced with an empty buffer caused the evaluator to read a fixed-width instruction immediately past the allocation boundary."
+    }
+  ],
+  "scope_note": "The reports cover distinct ways an endpoint cursor arises—normal optimization of a terminal stream and execution of a malformed empty stream. The shared pattern is the unchecked consumer-side decode at that endpoint, not a claim that all malformed streams are accepted by all construction paths.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T13:55:12.997680+00:00"
+}

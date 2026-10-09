@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0003",
+  "issues": [
+    65128,
+    95635,
+    96735
+  ],
+  "workflow_hypothesis": "Negative signed value is shifted before packed-state encoding",
+  "pattern": "Undefined behavior from left-shifting values in signed integer types before establishing an unsigned bit representation",
+  "description": "A signed value is left-shifted to form a bit-positioned representation even though valid inputs can make the operand negative or the shifted result unrepresentable in the signed type.",
+  "precondition": "A bit-positioning operation accepts a value that may be negative or whose required high-order bits exceed the positive range of its signed intermediate type.",
+  "critical_operation": "The implementation left-shifts that value while it is still a signed integer, rather than first converting it to an appropriately sized unsigned type.",
+  "interference": "A negative operand or an otherwise nonnegative operand with an unrepresentable shifted result reaches the signed shift.",
+  "invalid_assumption": "The code assumes signed shifting yields the intended raw bit pattern and that a later conversion or wrapping behavior makes the preceding shift safe.",
+  "failure": "The shift has undefined behavior and sanitizer-instrumented ordinary execution emits a runtime diagnostic.",
+  "search_strategy": [
+    "Audit left shifts in signed integer expressions that construct bit-positioned values.",
+    "Check whether each signed left-shift operand can be negative on any valid path.",
+    "Check whether the maximum shifted value fits in the signed result type, including use of its top bit.",
+    "Require conversion to a suitably wide unsigned type before shifting values intended as bit patterns.",
+    "Exercise startup, build, test, and binary-decoding paths with undefined-behavior shift instrumentation enabled."
+  ],
+  "evidence": [
+    {
+      "issue": 65128,
+      "supports": "Demonstrates repeated diagnostics for left shifts of negative signed values; the recorded fix converts negative values to an unsigned size type before shifting."
+    },
+    {
+      "issue": 95635,
+      "supports": "Demonstrates an ordinary execution path reaching a nonnegative signed left shift whose result cannot be represented in its signed type."
+    },
+    {
+      "issue": 96735,
+      "supports": "Demonstrates binary-value assembly reaching a nonnegative signed left shift whose result cannot be represented, with sanitizer instrumentation exposing the undefined behavior."
+    }
+  ],
+  "scope_note": "The shared mechanism is unsafe signed left shifting, not specifically packed state encoding: the reports cover both negative operands and nonnegative operands whose shifted results exceed the signed range, and do not establish one common higher-level data structure or API.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T13:45:20.614630+00:00"
+}

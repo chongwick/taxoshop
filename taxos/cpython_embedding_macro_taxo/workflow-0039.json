@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0039",
+  "issues": [
+    103718
+  ],
+  "workflow_hypothesis": "Retained parser-state pointer survives input-buffer replacement",
+  "pattern": "Incomplete rebasing of retained pointers when replacing a parser input buffer",
+  "description": "A stateful parser retains direct pointers into a mutable input buffer across a stack of parsing modes. Buffer growth or replacement must preserve every live intra-buffer reference independently of the mode's current classification.",
+  "precondition": "Parsing an unfinished, potentially nested construct leaves one or more active state records holding pointers into the current input buffer; such records may have changed mode while still retaining those pointers.",
+  "critical_operation": "The parser grows, reallocates, or replaces the input buffer, invalidating the old allocation.",
+  "interference": "The relocation protocol snapshots and restores only records selected by their current mode, or is omitted on a buffer-replacement path, so a pointer-bearing record is skipped.",
+  "invalid_assumption": "Current mode classification reliably identifies every state record that owns a pointer into the buffer, and all input-buffer transitions preserve such references.",
+  "failure": "Later parsing or diagnostic construction dereferences an unrebased pointer into freed storage, causing a heap use-after-free and process termination.",
+  "search_strategy": [
+    "Find every input-buffer reallocation, free, and replacement; require all live intra-buffer pointers to be converted to offsets before invalidation and rebuilt afterward.",
+    "Audit every parser-state stack record for fields that point into the input buffer, regardless of its current mode tag.",
+    "Verify that every buffer-transition branch uses the same snapshot-and-restore protocol, including direct replacement paths.",
+    "Exercise unterminated nested and multiline constructs whose active state changes mode before buffer growth or replacement, then trigger error reporting."
+  ],
+  "evidence": [
+    {
+      "issue": 103718,
+      "supports": "An unfinished interpolated construct retained input-buffer pointers across nested modes; both reallocation and direct replacement left pointers stale when updates were selectively applied or skipped, and later syntax-error handling read freed memory."
+    }
+  ],
+  "scope_note": "Singleton cluster. The evidence establishes this pattern for a parser mode stack and input-buffer transitions; it does not establish that unrelated pointer caches follow the same failure mode.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:36:29.796147+00:00"
+}

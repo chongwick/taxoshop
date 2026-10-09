@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0019",
+  "issues": [
+    86863
+  ],
+  "workflow_hypothesis": "Repeated ownership-count corruption causes invalid release of shared singleton",
+  "pattern": "Compatibility-guard inversion selects borrowed singleton as owned temporary",
+  "description": "A reversed compatibility guard can select a conversion path whose shared-object ownership contract does not match its cleanup logic, causing silent reference-count erosion of a static or cached singleton.",
+  "precondition": "A mispolarized compatibility conditional enables an ownership-sensitive conversion branch on a runtime where a narrowly triggered conversion result is a borrowed reference to a shared singleton.",
+  "critical_operation": "The conversion stores that shared singleton in a temporary result that is later handled by generic cleanup.",
+  "interference": "Repeated executions operate on the same process-wide static or cached object, so each erroneous release accumulates against one shared ownership count.",
+  "invalid_assumption": "Cleanup assumes the temporary holds an independently owned reference, although the selected conversion path supplied only a borrowed reference.",
+  "failure": "After repeated decrements, later destruction attempts to deallocate the static or cached singleton as heap storage, producing an invalid free and process termination.",
+  "search_strategy": [
+    "Audit compatibility and version conditionals that select branches with different reference-ownership contracts; verify their polarity on every supported runtime.",
+    "Trace ownership of values returned from edge-case conversion branches, especially when they may be interned, cached, or static singletons.",
+    "Verify that every cleanup release is paired with a proven owned-reference acquisition on all conditional paths.",
+    "Stress narrowly selected conversion branches in loops and monitor ownership counts of shared results.",
+    "Inspect shutdown and garbage-collection paths for static or cached objects that could reach ordinary heap deallocation after reference-count corruption."
+  ],
+  "evidence": [
+    {
+      "issue": 86863,
+      "supports": "A reversed compatibility guard selected a branch that treated a borrowed cached singleton obtained during a subclassed ambiguous-time conversion as an owned temporary; repeated calls decremented its count, and final cleanup attempted to free the static object."
+    }
+  ],
+  "scope_note": "Singleton cluster: the evidence supports this pattern for compatibility-selected conversion code with mismatched borrowed-versus-owned reference semantics; it does not establish that all conditional branches or all shared-object cleanup failures have this cause.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:11:07.818601+00:00"
+}

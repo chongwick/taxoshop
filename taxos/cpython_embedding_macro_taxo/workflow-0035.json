@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0035",
+  "issues": [
+    100795
+  ],
+  "workflow_hypothesis": "Failed native lookup leaves ambiguous output for erroneous cleanup",
+  "pattern": "Failure-status output pointer is treated as owned cleanup state",
+  "description": "A wrapper must make ownership depend on the native call's success status, not merely on whether its result-output pointer is non-null after a failed call.",
+  "precondition": "A native result-producing routine reports failure, while the postcondition for its output pointer on failure is unspecified or does not guarantee a valid caller-owned null value.",
+  "critical_operation": "The wrapper routes the failure through shared cleanup that conditionally releases a result pointer.",
+  "interference": "A failing implementation leaves a non-null, stale, or otherwise non-owned value in the output pointer after internally handling partial results.",
+  "invalid_assumption": "The cleanup path assumes that a non-null output pointer proves successful ownership transfer, despite the failing status.",
+  "failure": "Cleanup releases storage not owned by the caller, potentially double-freeing or corrupting allocator state and causing a later process crash instead of a recoverable error.",
+  "search_strategy": [
+    "Audit native calls with result-output pointers and verify the documented output-pointer state for every failure return.",
+    "Require cleanup ownership checks to be gated by an explicit successful-status or ownership flag, not pointer non-nullness alone.",
+    "Inspect shared error labels that release result pointers after a call whose status indicates failure.",
+    "Test wrappers against failing implementations that overwrite output pointers before returning an error.",
+    "Review error paths for native routines that may internally discard partial results before returning failure."
+  ],
+  "evidence": [
+    {
+      "issue": 100795,
+      "supports": "The report identifies a wrapper cleanup path that released a non-null result pointer after a failed native lookup; the proposed mitigation clears that pointer on failure to prevent an unexpected release, described as a potential double free with delayed, difficult-to-reproduce crashes. It also notes that the exact failure-output contract was unders"
+    }
+  ],
+  "scope_note": "Singleton cluster. This pattern is limited to native interfaces whose failure-path output-pointer ownership is absent, ambiguous, or unreliable; the report discusses the triggering implementation as possible rather than conclusively reproducing it.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:35:54.754407+00:00"
+}

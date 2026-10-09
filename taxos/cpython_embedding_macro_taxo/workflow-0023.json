@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0023",
+  "issues": [
+    89571,
+    89657,
+    113602,
+    139751,
+    140593
+  ],
+  "workflow_hypothesis": "Error recovery dereferences missing diagnostic source data",
+  "pattern": "Pending-error paths must preserve the existing error and still execute required cleanup.",
+  "description": "Failure-path control flow mishandles an already-pending or newly-raised error: it either continues into competing diagnostic work or exits before releasing owned intermediate state.",
+  "precondition": "An operation processing invalid input or a failing callback has allocated intermediate data or recorded an error.",
+  "critical_operation": "The operation enters recovery, diagnostic construction, or callback/error-return handling.",
+  "interference": "A pending error is ignored, replaced, or causes an early return that bypasses the normal failure cleanup path.",
+  "invalid_assumption": "The path assumes it may construct another diagnostic despite an existing error, or that an error-triggered early exit needs no cleanup.",
+  "failure": "The process aborts or dereferences invalid diagnostic state, or owned intermediate data leaks while the intended error is reported.",
+  "search_strategy": [
+    "Trace every pending-error and callback-failure branch to the common cleanup path before it returns.",
+    "Reject parser recovery or optional-parse paths that continue after a child has recorded an error.",
+    "Guard diagnostic construction and replacement so an existing error is preserved rather than overwritten.",
+    "Audit diagnostic source-location construction for absent or mutated source buffers after recovery.",
+    "Run malformed-input and failing-callback cases under assertion and leak detectors."
+  ],
+  "evidence": [
+    {
+      "issue": 89571,
+      "supports": "A lexical error was superseded during a later parse pass, leading structural diagnostic reporting to dereference unavailable source data and crash."
+    },
+    {
+      "issue": 89657,
+      "supports": "Optional parsing treated a tokenizer failure as successful and continued into diagnostic handling; the fix propagated the error state and corrected error-source handling."
+    },
+    {
+      "issue": 113602,
+      "supports": "A parser diagnostic attempted to overwrite an existing error and triggered an assertion; the fix stopped diagnostic construction when an error was already pending."
+    },
+    {
+      "issue": 139751,
+      "supports": "An invalid invocation returned an error while parser-created intermediate data was leaked; the report supplies no confirmed fix and also contains a separately identified unrelated reproducer."
+    },
+    {
+      "issue": 140593,
+      "supports": "A callback encountered a pending error and returned before its shared cleanup, leaking caller-owned intermediate data; routing that branch through cleanup fixed it."
+    }
+  ],
+  "scope_note": "The shared pattern is error-path invariant handling, not parser recovery alone. Diagnostic replacement/source-state crashes are evidenced by three reports; cleanup bypass and leaks are evidenced by two. One leak report has no confirmed root cause, so the pattern does not claim a common allocation mechanism.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:13:57.051669+00:00"
+}

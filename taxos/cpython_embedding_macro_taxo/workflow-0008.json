@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0008",
+  "issues": [
+    73069,
+    113956,
+    116912,
+    128013,
+    128050,
+    128100,
+    128130,
+    128133,
+    128137,
+    128144,
+    128212,
+    129701,
+    129824,
+    130019,
+    130091,
+    130421,
+    130605,
+    130977,
+    132886,
+    133473,
+    140138,
+    140257,
+    140260,
+    140263,
+    142717,
+    143756,
+    144356,
+    145272,
+    145933,
+    149142,
+    150191,
+    150284,
+    151277,
+    151722,
+    152741,
+    153014,
+    153201,
+    153852,
+    153908,
+    153928,
+    154043,
+    154044,
+    154130,
+    154535,
+    154756,
+    154821
+  ],
+  "workflow_hypothesis": "Concurrent unsynchronized access to shared byte storage",
+  "pattern": "Unsynchronized concurrent access to shared runtime state",
+  "description": "Concurrent execution accesses shared object, interpreter, extension, iterator, cache, lifecycle, or resource state without a synchronization protocol that covers all conflicting operations.",
+  "precondition": "The same mutable state, including state mutated lazily or during initialization, teardown, iteration, or caching, is reachable from multiple threads.",
+  "critical_operation": "A thread reads, writes, initializes, advances, clears, or releases that shared state.",
+  "interference": "Another thread concurrently performs a conflicting access to the same state without a common lock, atomic protocol, or lifetime handoff.",
+  "invalid_assumption": "The implementation assumes that prior serialization, apparent read-only use, one-time initialization, or independent callers prevents overlap or makes ordinary field access safe.",
+  "failure": "The conflicting accesses constitute a data race with undefined behavior; race instrumentation reports it, and some cases produce corrupted state, leaks, double release, crashes, or invalid results.",
+  "search_strategy": [
+    "Audit shared fields read or written after releasing global or object-level serialization.",
+    "Require lazy cache and one-time initialization paths to use an atomic publication or a lock.",
+    "Check iterator advance, close, clear, and destruction paths for concurrent ownership and lifetime handoff.",
+    "Review extension and foreign-library callbacks for shared mutable context, configuration, and resource state.",
+    "Test concurrent getters, setters, initialization, finalization, and iteration under race detection."
+  ],
+  "evidence": [
+    {
+      "issue": 73069,
+      "supports": "Concurrent iteration, cached metadata creation, and resource closure accessed shared iterator and entry state without sufficient coordination."
+    },
+    {
+      "issue": 113956,
+      "supports": "Allocation-related object state required thread-affine initialization to avoid concurrent unsafe state changes."
+    },
+    {
+      "issue": 116912,
+      "supports": "Concurrent access to a shared operating-system resource handle produced a race report."
+    },
+    {
+      "issue": 128013,
+      "supports": "Concurrent lazy creation and publication of a text representation raced with access to the same object state."
+    },
+    {
+      "issue": 128050,
+      "supports": "Concurrent readers and writers of callable dispatch metadata raced during invocation."
+    },
+    {
+      "issue": 128100,
+      "supports": "Attribute access and concurrent dictionary setup conflicted on shared object state."
+    },
+    {
+      "issue": 128130,
+      "supports": "Concurrent evaluation raced on a shared runtime signal-status field."
+    },
+    {
+      "issue": 128133,
+      "supports": "Concurrent hash caching performed an ordinary read and write of the same shared field."
+    },
+    {
+      "issue": 128137,
+      "supports": "Concurrent interning mutated shared text-object or intern-table state without complete synchronization."
+    },
+    {
+      "issue": 128144,
+      "supports": "Concurrent member retrieval and replacement conflicted on a shared object reference field."
+    },
+    {
+      "issue": 128212,
+      "supports": "A representation update raced with a consistency check reading the same text-object state."
+    },
+    {
+      "issue": 129701,
+      "supports": "Concurrent intern-table operations exposed unsynchronized shared interning state."
+    },
+    {
+      "issue": 129824,
+      "supports": "Subinterpreter concurrency exercises exposed races in shared interpreter-related state."
+    },
+    {
+      "issue": 130019,
+      "supports": "Concurrent type allocation accessed shared allocation-related state without adequate synchronization."
+    },
+    {
+      "issue": 130091,
+      "supports": "Thread-local-storage deletion raced with thread attachment over shared lifecycle state."
+    },
+    {
+      "issue": 130421,
+      "supports": "Concurrent extension use exposed races across reference, allocation, construction, operation, and interpreter-initialization state."
+    },
+    {
+      "issue": 130605,
+      "supports": "Concurrent executor activity exposed a race in thread-acquisition state."
+    },
+    {
+      "issue": 130977,
+      "supports": "Concurrent buffer export, release, and shared container access lacked a complete publication and lifetime protocol."
+    },
+    {
+      "issue": 132886,
+      "supports": "Even with global serialization enabled, operations releasing it allowed a shared resource handle to race."
+    },
+    {
+      "issue": 133473,
+      "supports": "Concurrent queue activity triggered a race report on shared synchronization-related state."
+    },
+    {
+      "issue": 140138,
+      "supports": "Daemon-thread shutdown overlapped with shared runtime state changes."
+    },
+    {
+      "issue": 140257,
+      "supports": "Finalization and a concurrently active daemon thread raced over interpreter lifecycle state."
+    },
+    {
+      "issue": 140260,
+      "supports": "Concurrent interpreter/module initialization raced while publishing shared module state."
+    },
+    {
+      "issue": 140263,
+      "supports": "A two-thread locking exercise exposed an unsynchronized conflicting access."
+    },
+    {
+      "issue": 142717,
+      "supports": "Concurrent execution in generated code caused a race that manifested as an invalid memory access."
+    },
+    {
+      "issue": 143756,
+      "supports": "Concurrent foreign-library binding operations raced on shared binding or library state."
+    },
+    {
+      "issue": 144356,
+      "supports": "Iterator metadata was read and updated concurrently without a sufficient atomic protocol."
+    },
+    {
+      "issue": 145272,
+      "supports": "Concurrent replacement and use of function metadata raced on shared function state."
+    },
+    {
+      "issue": 145933,
+      "supports": "Concurrent cryptographic-library use exposed a shared-state race."
+    },
+    {
+      "issue": 149142,
+      "supports": "Shared arithmetic-context flags were mutated non-atomically while concurrently accessed."
+    },
+    {
+      "issue": 150191,
+      "supports": "Concurrent callback-related cryptographic processing raced over shared data consumed by a foreign routine."
+    },
+    {
+      "issue": 150284,
+      "supports": "Concurrent thread-list traversal and thread attachment exposed shared interpreter-state races."
+    },
+    {
+      "issue": 151277,
+      "supports": "A concurrent callback scenario reproduced a race in shared data passed to a foreign routine."
+    },
+    {
+      "issue": 151722,
+      "supports": "Readers observed a mapping while its construction and resizing still mutated shared storage."
+    },
+    {
+      "issue": 152741,
+      "supports": "Inspection of thread exception state raced with concurrent thread attachment."
+    },
+    {
+      "issue": 153014,
+      "supports": "A configuration getter and setter concurrently read and wrote a shared debug flag."
+    },
+    {
+      "issue": 153201,
+      "supports": "Concurrent cryptographic test activity exposed shared memory races observable by race detection."
+    },
+    {
+      "issue": 153852,
+      "supports": "A collection of minimal concurrent reproducers documented recurring unsynchronized shared-state accesses in free-threaded execution."
+    },
+    {
+      "issue": 153908,
+      "supports": "A representation operation plainly read iterator state while another thread could update it."
+    },
+    {
+      "issue": 153928,
+      "supports": "Concurrent text-object operations raced on shared representation and lifetime state, including a crash manifestation."
+    },
+    {
+      "issue": 154043,
+      "supports": "Concurrent advancement of one iterator raced on its current-object field and could double release it."
+    },
+    {
+      "issue": 154044,
+      "supports": "Concurrent lazy name-cache initialization raced and could leak a losing cached value."
+    },
+    {
+      "issue": 154130,
+      "supports": "Sharing an iterator across threads allowed concurrent state updates and duplicate release of its referenced container."
+    },
+    {
+      "issue": 154535,
+      "supports": "Concurrent iterator advancement corrupted a shared cursor and could crash."
+    },
+    {
+      "issue": 154756,
+      "supports": "Concurrent sorting accessed mutable sequence state without a protocol preventing conflicting operations."
+    },
+    {
+      "issue": 154821,
+      "supports": "Concurrent reads and updates of function naming metadata raced on shared fields."
+    }
+  ],
+  "scope_note": "This pattern is broader than shared byte storage: the evidence covers any shared mutable runtime state. It does not claim that all concurrent use is unsafe; it applies when conflicting accesses lack a common synchronization, atomic-publication, or lifetime-management protocol.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T13:52:07.191227+00:00"
+}

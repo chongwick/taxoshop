@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0006",
+  "issues": [
+    72111
+  ],
+  "workflow_hypothesis": "Externally removed installation causes unchecked missing metadata to crash recovery",
+  "pattern": "Missing installation records after external removal crash recovery repackaging",
+  "description": "A recovery path repackages an installed component from its installation records without handling a missing-record result after those records have been removed.",
+  "precondition": "A system-managed component is installed and its recovery path relies on installation records to reconstruct a package.",
+  "critical_operation": "The recovery path locates the component's installation records and repackages the recorded files.",
+  "interference": "An elevated external uninstaller removes the system-managed component's files and installation records.",
+  "invalid_assumption": "The repackaging step assumes record lookup always returns an iterable result.",
+  "failure": "The recovery operation aborts with an iteration-related type error when the missing-record result is consumed.",
+  "search_strategy": [
+    "Check every installation-record lookup used by recovery or repackaging code for an explicit missing-result branch.",
+    "Trace elevated uninstall paths to determine whether they can remove files owned by another system manager.",
+    "Verify that recovery code distinguishes absent installation metadata from an empty record collection.",
+    "Exercise reconstruction after deleting a managed component's metadata and confirm it returns a contextual recovery error rather than consuming the missing value."
+  ],
+  "evidence": [
+    {
+      "issue": 72111,
+      "supports": "An elevated uninstaller removed a system-managed component; a downstream, distribution-customized recovery repackaging path received no records and attempted to iterate the missing result, producing a type error."
+    }
+  ],
+  "scope_note": "Singleton evidence. The report specifically involves externally removing a system-managed component and a downstream-customized recovery path; it does not establish behavior for ordinary uninstall or all recovery mechanisms.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T13:49:30.153594+00:00"
+}

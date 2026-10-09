@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0027",
+  "issues": [
+    94404,
+    116259
+  ],
+  "workflow_hypothesis": "Nonportable configuration generation emits an invalid script",
+  "pattern": "Nonportable text-editor directives in configuration generation",
+  "description": "A configuration generator uses a line-oriented text transformation to splice generated multi-line content into an output artifact, but relies on editor syntax or invocation behavior that is not consistently supported. If the directive is rejected or left unprocessed, generated editing text can reach the shell or output artifact as executable syntax, causing configuration to abort.",
+  "precondition": "A configuration or build-generation step must insert dynamically generated multi-line content into a generated configuration artifact.",
+  "critical_operation": "The generator invokes a line-oriented text transformation using a generated multi-line editing directive.",
+  "interference": "The intended text transformation is not successfully consumed because the available tool rejects the directive or the directive is otherwise emitted without being processed.",
+  "invalid_assumption": "The generator assumes that its multi-line editing syntax and execution path are portable and will always transform the directive into artifact content.",
+  "failure": "Configuration generation aborts with an editor error or with shell command/syntax errors from residual editing directives.",
+  "search_strategy": [
+    "Check every generated multi-line editor expression against each supported implementation of the selected text-processing tool.",
+    "Check that generated editor programs are passed to the intended processor rather than appended or evaluated as shell input.",
+    "Check configuration-generation error paths for unprocessed editor directives in generated artifacts.",
+    "Check generated configuration scripts for line-address or editor-command text that is not valid shell syntax.",
+    "Check tool-discovery and invocation code for a clear failure when the required transformation capability is unavailable."
+  ],
+  "evidence": [
+    {
+      "issue": 94404,
+      "supports": "A generated multi-line insertion directive worked with one text-editor implementation but was rejected by another, stopping configuration generation; replacing it with a more portable file-read insertion avoided the incompatibility."
+    },
+    {
+      "issue": 116259,
+      "supports": "Configuration created a generated shell script containing an unprocessed line-address editing directive, which the shell attempted to execute and then rejected as malformed syntax."
+    }
+  ],
+  "scope_note": "The shared evidence is a configuration-generation portability failure around unprocessed multi-line text-editing directives. Only one report establishes a specific cross-implementation editor incompatibility; the other establishes the residual-directive shell failure but does not conclusively identify its underlying tool failure.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:20:25.488668+00:00"
+}

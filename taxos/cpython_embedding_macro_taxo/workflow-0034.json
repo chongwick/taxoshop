@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0034",
+  "issues": [
+    100773,
+    113190,
+    113576,
+    113591
+  ],
+  "workflow_hypothesis": "Stale shared extension state reused after repeated runtime teardown",
+  "pattern": "Escaped managed-object references across runtime or ownership lifetimes",
+  "description": "Managed objects or their metadata are retained outside the state that owns them, so later cleanup, reinitialization, or a foreign finalizer can act on references whose lifetime has ended.",
+  "precondition": "An extension, embedding layer, or foreign-runtime bridge retains managed-object references in persistent state or exposes them to another owner beyond their originating runtime, interpreter, or collector lifetime.",
+  "critical_operation": "The owning runtime tears down state, reinitializes, or runs finalization and releases objects that the retained references still designate.",
+  "interference": "Persistent extension state or a foreign finalizer subsequently reads, copies, decrements, or frees a retained reference after its owner has reclaimed it; alternatively, cleanup is suppressed to avoid that outcome.",
+  "invalid_assumption": "A managed-object pointer remains valid and may be released by retained or foreign state after the owning runtime or ownership domain has ended.",
+  "failure": "Cleanup suppression leaves allocations reachable as leaks; otherwise stale-reference use produces use-after-free, invalid or double free, memory corruption, or a crash.",
+  "search_strategy": [
+    "Audit process-global and static state for managed-object pointers, type metadata, and caches; bind each to its owning runtime or interpreter instance.",
+    "Verify every extension and embedding teardown path releases owned managed objects and nulls persistent references before runtime destruction.",
+    "Exercise initialize–use/import–finalize–reinitialize cycles under address and leak sanitizers.",
+    "Review foreign-runtime finalizers and callbacks to ensure they use the owning runtime's lifetime and release protocol rather than directly freeing or decrementing shared objects.",
+    "Flag cleanup exemptions that preserve managed objects across shutdown; replace them with explicit teardown and reconstruction on the next initialization."
+  ],
+  "evidence": [
+    {
+      "issue": 100773,
+      "supports": "Shows persistent extension state retaining allocation across runtime shutdown, with conversion from shared state to instance-associated state used to address teardown leakage."
+    },
+    {
+      "issue": 113190,
+      "supports": "Shows that retaining runtime-created objects across finalization causes leaks when cleanup is withheld, while freeing them makes stale references after reinitialization use-after-free hazards."
+    },
+    {
+      "issue": 113576,
+      "supports": "Provides a sequential initialize/finalize/reinitialize reproducer where an extension retained state from a prior runtime and later copied freed storage; isolating extension state per interpreter resolves the newer branches."
+    },
+    {
+      "issue": 113591,
+      "supports": "Shows a foreign runtime's finalizer releasing an object through the wrong ownership/lifetime path, producing a crash; the analysis identifies illegal retained references or destruction in the bridge rather than collector scheduling."
+    }
+  ],
+  "scope_note": "The common mechanism is lifetime and ownership escape of managed objects, not teardown alone. One report concerns a foreign-runtime bridge rather than repeated runtime initialization, and the leak reports may be benign process-lifetime retention unless the retained state is reused or cleanup is made strict.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:33:31.813998+00:00"
+}

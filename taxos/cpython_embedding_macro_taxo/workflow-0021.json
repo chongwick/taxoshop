@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0021",
+  "issues": [
+    89363,
+    94064,
+    140493
+  ],
+  "workflow_hypothesis": "Forked child leaks inherited resources from vanished threads",
+  "pattern": "Sanitizer-instrumented fork/thread lifecycle state is unsafe to treat as normal child state",
+  "description": "Forking a sanitizer-instrumented process while threads are active can leave the child with instrumentation and runtime state for threads that no longer exist, making subsequent thread lifecycle or shutdown behavior unreliable.",
+  "precondition": "An address/leak-sanitized process has active threads or thread-related runtime allocations when it enters a fork-sensitive lifecycle path.",
+  "critical_operation": "Create a child from that process and, before the child terminates, initialize another thread or run normal child shutdown.",
+  "interference": "Only the forking thread survives in the child, while inherited thread stacks, allocations, and sanitizer synchronization or registration state remain associated with vanished threads.",
+  "invalid_assumption": "The child can safely create threads and perform ordinary shutdown/leak checking as though inherited per-thread state were live, valid, and reclaimable.",
+  "failure": "Sanitizer runtime coordination can hang, or leak detection can report residual shutdown allocations and force an otherwise functional child to exit unsuccessfully.",
+  "search_strategy": [
+    "Find forks reachable while non-caller threads are still live, and require thread quiescence or an alternate child-creation path.",
+    "Inspect post-fork child code for thread creation before exec or termination, and verify sanitizer-runtime compatibility.",
+    "Trace ownership and cleanup of inherited thread stacks, handles, locks, and sanitizer metadata in forked children.",
+    "Run fork-and-thread stress cases with leak detection enabled, and separate shutdown-only reports from allocations that grow per operation.",
+    "Check sanitizer-build child exit statuses independently from functional test results."
+  ],
+  "evidence": [
+    {
+      "issue": 89363,
+      "supports": "Address-sanitized process and concurrency tests intermittently hung during thread creation; debugging located a race in the sanitizer's thread-registration path, and affected tests were skipped as an external sanitizer problem."
+    },
+    {
+      "issue": 94064,
+      "supports": "Leak-sanitizer reports for thread-related lock allocations caused a forked child expected to exit successfully to exit with status 1; the discussion also distinguishes shutdown-only leaks from recurring operational leaks."
+    },
+    {
+      "issue": 140493,
+      "supports": "A direct reproducer forked while worker threads were alive, and the report explains that only the forking thread survives while other threads' stacks remain without cleanup, producing leak-sanitizer findings."
+    }
+  ],
+  "scope_note": "The direct orphaned-thread-state mechanism is established by the multithreaded-fork report. The other reports support the broader boundary: sanitizer-instrumented thread/process lifecycle paths can hang or convert shutdown diagnostics into failures; they do not establish that every reported shutdown leak has the same cause.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:14:28.709156+00:00"
+}

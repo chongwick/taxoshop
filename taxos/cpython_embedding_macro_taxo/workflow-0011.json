@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0011",
+  "issues": [
+    77808
+  ],
+  "workflow_hypothesis": "Intermittent invalid memory access during heterogeneous numeric comparison",
+  "pattern": "Intermittent crash during repeated cross-representation equality comparison on 32-bit builds",
+  "description": "A runtime repeatedly performs equality checks in both operand orders between a complex-valued representation and several other numeric representations; on affected 32-bit builds, the comparison path can fault nondeterministically.",
+  "precondition": "A workload iterates over multiple numeric representations and compares each with a complex-valued value in both operand orders.",
+  "critical_operation": "Dispatch and execute cross-representation equality comparison for each operand pair.",
+  "interference": "The workload runs on affected 32-bit Linux environments, where the same test can intermittently fail and then pass when rerun.",
+  "invalid_assumption": "The comparison implementation assumes every selected cross-representation equality path is safe and repeatable under the affected 32-bit execution environment.",
+  "failure": "An invalid native-memory access causes a segmentation fault and terminates the process.",
+  "search_strategy": [
+    "Inspect bidirectional mixed-type equality dispatch for representation pairs that can reach different implementation paths.",
+    "Check native comparison implementations for pointer, reference, and temporary-object lifetime assumptions that differ on 32-bit targets.",
+    "Exercise repeated mixed-representation equality comparisons on supported 32-bit architectures and record intermittent faults.",
+    "Audit comparison error and fallback paths to ensure they cannot leave invalid state for a subsequent comparison."
+  ],
+  "evidence": [
+    {
+      "issue": 77808,
+      "supports": "A loop comparing a complex-valued value with several numeric representations in both orders intermittently segfaulted on multiple 32-bit Linux builders; rerunning the same test could pass. The report identifies no confirmed root cause or sanitizer diagnosis."
+    }
+  ],
+  "scope_note": "Singleton cluster. The evidence supports an intermittent 32-bit mixed-comparison crash pattern, but does not identify the specific representation pair, native mechanism, or a confirmed root cause.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T13:53:41.825916+00:00"
+}

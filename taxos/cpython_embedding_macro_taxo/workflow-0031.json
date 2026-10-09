@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0031",
+  "issues": [
+    98249
+  ],
+  "workflow_hypothesis": "Unverified interpreter selection breaks cross-compilation build generation",
+  "pattern": "Cross-build configuration can embed an unavailable or version-incompatible host interpreter command into generated rules for host-side generation.",
+  "description": "Validate configured host-side tool commands, including required version compatibility, before propagating them into generated build rules.",
+  "precondition": "A cross-build requires a host-side interpreter for generation, while the host lacks the matching versioned interpreter and may provide only a differently versioned command.",
+  "critical_operation": "Configuration records a host-interpreter command and emits it into build rules used for host-side generation.",
+  "interference": "The generated rule invokes an unversioned interpreter command that the build shell cannot locate.",
+  "invalid_assumption": "A command selected or recorded during configuration is both executable in the build environment and suitable for the required interpreter version.",
+  "failure": "The host-side generation step fails with an executable-not-found error, terminating the build.",
+  "search_strategy": [
+    "Check every configured host-side tool command with an executable lookup before writing it into generated build rules.",
+    "Check that a host interpreter selected for cross-build generation has the required version, not merely a compatible command name.",
+    "Trace generated host-side generation rules to ensure they invoke the validated configured tool rather than a fallback command.",
+    "Fail configuration with a clear diagnostic when no suitable host-side interpreter is available."
+  ],
+  "evidence": [
+    {
+      "issue": 98249,
+      "supports": "A cross-build generated a host-side generation rule using an unversioned interpreter command; the shell could not find it, and the report identified absence of the required matching host interpreter version as the relevant environment constraint."
+    }
+  ],
+  "scope_note": "Singleton cluster: this pattern is limited to configuration-generated host-interpreter commands used during cross-build generation; the report does not establish behavior for other build tools or fallback mechanisms.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:29:03.180474+00:00"
+}

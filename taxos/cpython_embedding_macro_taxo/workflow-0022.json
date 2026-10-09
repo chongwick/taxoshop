@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0022",
+  "issues": [
+    89391
+  ],
+  "workflow_hypothesis": "Native-width parsing overruns narrower fixed-width storage",
+  "pattern": "Parser format-unit destination-width mismatch overwrites adjacent storage",
+  "description": "A variadic argument parser writes a value according to the native C type implied by its format unit, while the caller supplies a fixed-width destination whose storage may be narrower on some platforms.",
+  "precondition": "A parser format unit denotes a native integer type whose width can exceed that of the fixed-width object passed as its output destination.",
+  "critical_operation": "Parse the input directly into that fixed-width destination through the variadic parser interface.",
+  "interference": "The parser performs a native-width store that extends past the destination object into adjacent stack storage.",
+  "invalid_assumption": "Assuming that a fixed-width integer is interchangeable with the native type required by a parser format unit, regardless of platform-specific type widths.",
+  "failure": "A stack buffer overflow corrupts adjacent memory and is exposed as a sanitizer-detected crash.",
+  "search_strategy": [
+    "Audit every variadic parser call and verify that each output pointer has exactly the native C type required by its format unit.",
+    "Flag parser format units for native-width integers when their destinations use fixed-width integer typedefs.",
+    "Check platform builds where native unsigned long or long differs in width from the intended fixed-width field.",
+    "Require parsing into the documented native destination type, followed by an explicit checked or intentional conversion to fixed-width storage."
+  ],
+  "evidence": [
+    {
+      "issue": 89391,
+      "supports": "A native unsigned-integer parser format wrote into a narrower fixed-width destination, producing a sanitizer-reproducible stack buffer overflow; the repair used native parser destinations and explicit casts when assigning to fixed-width fields."
+    }
+  ],
+  "scope_note": "Singleton cluster. The evidence supports mismatches between variadic parser format-unit destination types and fixed-width integer objects; it does not establish a general rule for unrelated conversion interfaces.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:14:54.917471+00:00"
+}

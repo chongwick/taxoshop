@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0036",
+  "issues": [
+    101180,
+    127971
+  ],
+  "workflow_hypothesis": "Insufficient lookahead causes out-of-bounds read during character-sequence encoding",
+  "pattern": "Unchecked speculative lookahead at a character-sequence boundary",
+  "description": "Text-processing code performs a lookahead read while selecting a multi-unit representation or applying a search heuristic, without ensuring that the next element is within the supplied sequence.",
+  "precondition": "A character-sequence operation reaches its final available element or invokes a lookahead-capable helper with only the current element available.",
+  "critical_operation": "The operation speculatively examines the following element to choose an encoding or determine a search skip.",
+  "interference": "The lookahead path runs when no following in-bounds element exists.",
+  "invalid_assumption": "The implementation assumes the next-element address is readable without independently validating the sequence boundary or providing sufficient probe storage.",
+  "failure": "An out-of-bounds read occurs, detected by memory-safety instrumentation or potentially causing a crash or undefined behavior.",
+  "search_strategy": [
+    "Find next-element indexing or pointer lookahead in character-processing loops and verify the next position is in bounds before dereference.",
+    "Find callbacks or helpers passed only a current-element address and verify their maximum lookahead fits the supplied buffer.",
+    "Test failed-match and multi-element-mapping paths at the final input position under address-safety instrumentation."
+  ],
+  "evidence": [
+    {
+      "issue": 101180,
+      "supports": "An encoding designation probe could inspect a second character despite receiving storage for only the current character; supplying a two-element buffer prevented the out-of-bounds read."
+    },
+    {
+      "issue": 127971,
+      "supports": "String-search skip logic inspected the element after the final viable match position; adding an explicit boundary check prevented the one-past-end read."
+    }
+  ],
+  "scope_note": "The shared mechanism is boundary-unsafe speculative lookahead in character-sequence processing; the reports differ in whether the lookahead supports encoding selection or search skipping.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:36:38.921967+00:00"
+}

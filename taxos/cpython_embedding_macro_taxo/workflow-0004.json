@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0004",
+  "issues": [
+    66234
+  ],
+  "workflow_hypothesis": "Truncated mapped backing store causes fatal later access",
+  "pattern": "External truncation of an open memory-mapped file-backed store leaves mapped accesses beyond the shortened backing file vulnerable to fatal process termination.",
+  "description": "A file-backed store retains an open, potentially memory-mapped view of its backing file while another actor can replace or truncate that file.",
+  "precondition": "A file-backed store is open with a mapping or equivalent direct access to its backing file, and the backing file can be truncated externally without closing the store.",
+  "critical_operation": "A later store operation reads or updates data through the retained backing-file access.",
+  "interference": "An external actor truncates the backing file after the store has been opened.",
+  "invalid_assumption": "The operation assumes the retained mapped layout remains backed and valid at its original extent despite external truncation.",
+  "failure": "Accessing the invalidated backing range causes a fatal library error or hardware fault that terminates the process instead of reporting a recoverable storage error.",
+  "search_strategy": [
+    "Check every file-backed mapping operation for backing-file size or identity changes made after the mapping was established.",
+    "Check update, lookup, enumeration, and maintenance paths for direct mapped reads after external truncation can occur.",
+    "Check whether externally mutable backing files are protected by locking, ownership constraints, or explicit reopen-and-validate logic.",
+    "Check fatal-error and signal paths from storage dependencies to ensure damaged backing data is surfaced as a recoverable error where supported.",
+    "Check configuration paths that enable memory-mapped I/O for a documented crash-tolerance tradeoff and safe fallback behavior."
+  ],
+  "evidence": [
+    {
+      "issue": 66234,
+      "supports": "An open file-backed store was externally truncated, then a subsequent write caused a fatal read error or bus error; disabling memory-mapped I/O was observed to prevent the crash, though the proposed mitigation was later reverted."
+    }
+  ],
+  "scope_note": "Singleton cluster. This pattern is limited to externally truncated open file-backed stores whose retained direct or memory-mapped access can outlive the backing file's original extent; the report does not establish behavior for other backing-file mutations or all storage libraries.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T13:46:03.195671+00:00"
+}

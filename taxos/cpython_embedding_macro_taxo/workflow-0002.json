@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0002",
+  "issues": [
+    57894
+  ],
+  "workflow_hypothesis": "Unescaped substitution marker breaks display rendering",
+  "pattern": "Unescaped literal marker in template-enabled display text",
+  "description": "A display-text field supports runtime template substitution but receives a literal substitution marker that is not escaped.",
+  "precondition": "A caller supplies display text to an interface whose help or presentation strings undergo percent-style template expansion.",
+  "critical_operation": "The interface renders the text by applying its substitution formatter with presentation parameters.",
+  "interference": "The supplied text contains a single percent marker intended for literal display, followed by text that the formatter parses as an invalid conversion.",
+  "invalid_assumption": "The caller assumes the display text is rendered verbatim rather than interpreted as a template, and does not escape the literal marker.",
+  "failure": "Formatting raises an invalid-conversion error and prevents the display text from being rendered.",
+  "search_strategy": [
+    "Check every template-enabled display-text input for literal percent markers that are not escaped.",
+    "Trace help and presentation rendering paths for late percent-style formatting of caller-supplied strings.",
+    "Verify that documentation for substitution-capable text fields states the literal-marker escape sequence.",
+    "Add rendering tests with literal percent markers followed by ordinary text."
+  ],
+  "evidence": [
+    {
+      "issue": 57894,
+      "supports": "A help-text value containing a literal single percent marker was later percent-formatted during rendering, causing an unsupported-format-character error; escaping it as a doubled marker rendered the intended literal character."
+    }
+  ],
+  "scope_note": "Singleton cluster: this pattern is limited to percent-style expansion of display/help text and does not establish behavior for other template syntaxes or arbitrary user-input fields.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T13:43:19.331680+00:00"
+}

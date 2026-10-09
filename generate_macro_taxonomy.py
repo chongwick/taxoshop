@@ -97,6 +97,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--limit", type=int, help="process at most this many pending clusters")
     parser.add_argument("--only", nargs="+", metavar="CLUSTER", help="process only these workflow IDs")
     parser.add_argument("--force", action="store_true", help="regenerate entries that already exist")
+    parser.add_argument("--workflows", type=Path, help="workflow-cluster JSON to read instead of the corpus default")
+    parser.add_argument("--output", type=Path, help="macro-taxonomy directory instead of the corpus default")
     parser.add_argument("--dry-run", action="store_true", help="show the clusters that would be processed")
     return parser.parse_args()
 
@@ -241,6 +243,12 @@ def rebuild_index() -> None:
 def main() -> int:
     args = parse_args()
     configure_corpus(args.corpus)
+    global WORKFLOWS, OUTPUT, INDEX
+    if args.workflows:
+        WORKFLOWS = args.workflows.resolve()
+    if args.output:
+        OUTPUT = args.output.resolve()
+        INDEX = OUTPUT / "index.json"
     try:
         clusters = read_clusters()
     except FileNotFoundError as exc:

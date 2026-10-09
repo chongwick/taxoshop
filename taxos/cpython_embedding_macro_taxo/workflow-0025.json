@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0025",
+  "issues": [
+    93619
+  ],
+  "workflow_hypothesis": "Link-time optimization produces an out-of-range branch",
+  "pattern": "Target-specific LTO code generation exceeds a branch encoding range",
+  "description": "An LTO-enabled build on a target architecture produces assembly whose branch displacement cannot be encoded, causing the toolchain to reject an intermediate executable.",
+  "precondition": "A build enables link-time optimization on a target/toolchain combination that encounters a branch-range limitation.",
+  "critical_operation": "The toolchain performs LTO code generation while linking an intermediate executable.",
+  "interference": "Generated assembly contains a branch whose target is outside the encodable range.",
+  "invalid_assumption": "The build assumes the target toolchain can complete LTO code generation for this executable without violating branch-encoding constraints.",
+  "failure": "The assembler rejects the out-of-range branch; the LTO wrapper and linker then fail, aborting the build.",
+  "search_strategy": [
+    "Check whether link-time optimization is enabled for targets with known branch-range or code-layout limitations.",
+    "Rebuild the failing link without link-time optimization to isolate toolchain-generated code from source-level failures.",
+    "Inspect LTO-generated assembly and assembler diagnostics for out-of-range branch instructions.",
+    "Verify that the compiler, assembler, and linker versions support LTO on the affected target architecture.",
+    "Add a target-specific build probe for successful LTO linking of a representative large intermediate executable."
+  ],
+  "evidence": [
+    {
+      "issue": 93619,
+      "supports": "An LTO-enabled build on a 64-bit target fails while linking an intermediate executable because the assembler reports a branch out of range; removing LTO makes the build succeed."
+    }
+  ],
+  "scope_note": "Singleton cluster. The report supports an LTO-dependent, target-toolchain branch-range failure, but does not establish a particular optimization pass, layout algorithm, or source-code cause.",
+  "model": "gpt-5.6-terra",
+  "generated_at": "2026-10-07T14:18:10.174629+00:00"
+}
