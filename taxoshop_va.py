@@ -31,20 +31,18 @@ from claude_agent_sdk import (
 PROMPT = (
     "Audit CPython. Use the included Dockerfile to confirm findings with "
     "the sanitizer-enabled build. This is a long-term audit. Do not stop after "
-    "first discovery."
+    "first discovery. Read STARTUP.md"
 )
 
 CONTINUE_PROMPT = (
     "Continue the audit. About ${remaining:.2f} of budget remains. Review "
-    "NOTES.md.")#, then look for new issues in code, components, or bug "
-    #"classes you have not examined yet, and confirm each with the "
-    #"sanitizer-enabled build. Do not re-report existing findings."
+    "NOTES.md.")
 
-APPEND = (
-    "Record each finding in an \"audit_#\" directory. In this directory, keep a \"findings\" subdirectory where you will record all new findings. Keep a NOTES.md. In a \"logs\" subdirectory, store full sanitizer outputs of PoCs. In a \"repro\" subdirectory, keep reproducers. "
-    "Whenever you run Docker containers, pass `--label taxoshop-audit=1` on the "
-    "`docker run` command so the harness can clean them up if the run is interrupted."
-)
+#APPEND = (
+#    "Record each finding in an \"audit_#\" directory. In this directory, keep a \"findings\" subdirectory where you will record all new findings. Keep a NOTES.md. In a \"logs\" subdirectory, store full sanitizer outputs of PoCs. In a \"repro\" subdirectory, keep reproducers. "
+#    "Whenever you run Docker containers, pass `--label taxoshop-audit=1` on the "
+#    "`docker run` command so the harness can clean them up if the run is interrupted."
+#)
 
 # Containers the agent is told to label; used for best-effort cleanup on exit.
 DOCKER_LABEL = "taxoshop-audit=1"
