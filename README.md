@@ -1,106 +1,192 @@
-# taxoshop — CPython sanitizer pattern audit
+# taxoshop
 
-A workbench for finding memory-safety and undefined-behavior bugs in CPython by matching
-its code against a **taxonomy of recurring defect patterns**, then confirming each
-candidate on an AddressSanitizer/UndefinedBehaviorSanitizer build of the interpreter.
+Taxoshop is a research workbench for taxonomy-guided runtime audits. It collects
+known CPython issues, extracts recurring failure workflows, and turns them into
+pattern descriptions and search strategies for finding new bugs. Docker builds
+provide instrumented CPython, CRuby, and PHP runtimes for checking candidates.
 
-The idea: past CPython bugs cluster into a small number of *families* (e.g. "reentrant
-user code invalidates native state before later use"). Each family has a write-up with a
-concrete **search strategy**. We use those to look for *new* instances, reproduce them
-under sanitizers, and report the ones that are new and confirmed.
+The checked-in taxonomy is CPython-focused: **363 issue workflows grouped into
+116 pattern families**. It covers memory safety, undefined behavior, concurrency,
+ownership, and related runtime and tooling failures. The current grouping is a
+manually constrained hybrid partition, with the original top five memberships and
+IDs restored; rerunning automatic clustering does not reproduce that curation.
 
-> **New here?** Read [`STARTUP.md`](STARTUP.md) — it has the full repo tour, the sanitizer
-> build, run commands, and an ordered startup checklist.
+## Repository map
 
-## What's in this repo
+| Path | Purpose |
+| --- | --- |
+| [`taxos/bugs.txt`](taxos/bugs.txt) | Input list of CPython GitHub issues. |
+| [`taxos/micro_taxo/`](taxos/micro_taxo/) | Per-issue Markdown reports and cached source evidence under `sources/`. |
+| [`taxos/workflow_signatures/`](taxos/workflow_signatures/) | Per-issue JSON signatures, authoritative `clusters.json`, and clustering artifacts. |
+| [`taxos/macro_taxo/index.md`](taxos/macro_taxo/index.md) | Human-readable catalog of pattern families; each family has Markdown and JSON descriptions. |
+| [`generate_reports.py`](generate_reports.py) | Fetches GitHub issues, comments, attachments, and linked fixes, then renders reports. |
+| [`generate_workflow_signatures.py`](generate_workflow_signatures.py) | Generates signatures with Codex, clusters CPU embeddings, and reviews memberships with Codex. |
+| [`generate_macro_taxonomy.py`](generate_macro_taxonomy.py) | Generates pattern descriptions and an index from workflow clusters and issue evidence. |
+| [`tally_bugs.py`](tally_bugs.py) | Prints the 20 largest families by saved signature membership. |
+| [`Dockerfile`](Dockerfile) | CPython ASan/UBSan, TSan, free-threaded TSan, and debug build targets. |
+| [`Dockerfile.cruby`](Dockerfile.cruby), [`Dockerfile.php`](Dockerfile.php) | CRuby and PHP ASan/UBSan builds. |
+| [`taxoshop_va.py`](taxoshop_va.py) | Experimental budgeted audit runner using the Claude Agent SDK. |
+| [`STARTUP.md`](STARTUP.md) | Detailed CPython audit procedure and workspace conventions. |
 
-| Path | What it is |
-|------|------------|
-| [`taxos/macro_taxo/`](taxos/macro_taxo) | The **pattern write-ups**, fitted to 116 manually constrained hybrid clusters (the original top five memberships and IDs are restored exactly). Each: precondition, critical operation, interference, invalid assumption, failure, scope, **search strategy**, evidence, and archived source-family links. Start here. |
-| [`taxos/macro_taxo_before_hybrid/`](taxos/macro_taxo_before_hybrid) | The original 163 macro entries and their original IDs. Historical audit references refer to this taxonomy. |
-| [`taxos/workflow_signatures/`](taxos/workflow_signatures) | Clustering data. `clusters.json` maps each family → summary + known issue numbers; `gh_*.json` is one signature per known GitHub issue. |
-| [`taxos/micro_taxo/`](taxos/micro_taxo) | Per-issue write-ups (`gh_NNNNN.md`) and source material. |
-| [`tally_bugs.py`](tally_bugs.py) | Ranks the pattern families by how many known issues cluster to them. |
-| `generate_*.py` | Generators that produced the taxonomy, including `generate_reports.py` for CPython GitHub evidence and `generate_ruby_reports.py` for CRuby Redmine evidence. |
-| `generate_workflow_signatures.py` | Generates CPython workflow signatures, clusters CPU embeddings, then reviews every member with Luna. `--recluster-only` reuses saved signatures. |
-| `fit_macro_taxonomy.py` | Fits archived macro descriptions to the fixed hybrid membership in a staging directory, with evidence validation and source-family provenance. |
-| `generate_macro_taxonomy.py` | Creates macro-taxonomy entries from a corpus's workflow clusters; use `--corpus ruby` for CRuby. |
-| [`Dockerfile`](Dockerfile) | Multi-stage build of CPython (`origin/main`) with ASan+UBSan (`asan-ubsan`, the default target) and ThreadSanitizer (`tsan`). |
-| [`Dockerfile.cruby`](Dockerfile.cruby) | Standalone CRuby build with Clang ASan+UBSan enabled. |
-| [`Dockerfile.php`](Dockerfile.php) | Standalone PHP CLI build with Clang ASan+UBSan enabled. |
-| `cpython/` | Full CPython checkout — read the interpreter source here. |
-| `audit<N>/` | One workspace per audit iteration: `NOTES.md`, `findings/`, `logs/`, `repro/`. |
+Runtime source checkouts and `audit<N>/` workspaces are not included. Some paths,
+version stamps, and historical references in `STARTUP.md` describe earlier local
+workspaces rather than files in this checkout.
 
-## Quick start
+## Explore the taxonomy
+
+Run commands from the repository root. Reading the reports requires no setup;
+ranking families uses only the Python standard library:
 
 ```bash
-# 1. See which pattern families are highest-yield
 python3 tally_bugs.py
-
-# 2. Read the top families you'll target
-$EDITOR taxos/macro_taxo/workflow-0080.md   # callback reentrancy invalidates active native state
-$EDITOR taxos/macro_taxo/workflow-0064.md   # ownership across isolated-context lifecycles
-$EDITOR taxos/macro_taxo/workflow-0014.md   # stale borrowed handles after invalidation
-
-# 3. Reuse the sanitizer image if it exists (the build is slow); otherwise build it
-docker images | grep -iE "cpython|asan"
-# build only if missing:
-docker build --target asan-ubsan -t taxoshop/cpython-asan-ubsan:current .
-
-# 4. Verify what the image contains
-docker run --rm taxoshop/cpython-asan-ubsan:current \
-  bash -c './python -V; cd /src/cpython && git rev-parse HEAD'
-
-# 5. Run a reproducer under sanitizers (own dir mounted at /audit)
-docker run --rm -v "$PWD/audit4:/audit" taxoshop/cpython-asan-ubsan:current \
-  bash -c 'cd /src/cpython && ./python /audit/repro/textio_detach_uaf.py'
 ```
 
-A clean run prints your final output; a confirmed bug prints an `AddressSanitizer:` /
-`UndefinedBehaviorSanitizer:` block and aborts.
+Start with the [pattern index](taxos/macro_taxo/index.md), then read a family's
+precondition, critical operation, interference, invalid assumption, failure,
+search strategy, and evidence. For example:
 
-### CRuby ASan/UBSan image
+- [workflow-0014](taxos/macro_taxo/workflow-0014.md): borrowed or derived handles used after their owners or backing storage are invalidated.
+- [workflow-0080](taxos/macro_taxo/workflow-0080.md): callback reentrancy invalidating native state.
+- [workflow-0137](taxos/macro_taxo/workflow-0137.md): reentrant user code invalidating state before later use.
+
+The issue numbers in each family connect back to `micro_taxo/gh_<issue>.md` and
+`workflow_signatures/gh_<issue>.json`. Family sizes count known examples; they do
+not measure the likelihood of finding a new bug.
+
+## Build and run instrumented runtimes
+
+Docker and network access are required to build the images. Source is fetched
+inside each build, so a host checkout is not needed to run an interpreter.
+
+### CPython
+
+```bash
+docker build --target asan-ubsan -t taxoshop/cpython-asan-ubsan:current .
+docker run --rm taxoshop/cpython-asan-ubsan:current ./python -V
+docker run --rm taxoshop/cpython-asan-ubsan:current git rev-parse HEAD
+```
+
+Reuse an existing image when appropriate, but record its revision. Docker may
+cache the source-fetch layer; use `--no-cache` when deliberately refreshing the
+upstream checkout. The default reference is `origin/main`. `CPYTHON_REF` must
+resolve within the fetched main-branch history, whose depth is controlled by
+`CPYTHON_HISTORY_DEPTH` (default `5000`).
+
+| Target | Configuration |
+| --- | --- |
+| `asan-ubsan` | GCC, AddressSanitizer and UndefinedBehaviorSanitizer, without pymalloc. |
+| `tsan` | Clang ThreadSanitizer with the GIL enabled. |
+| `tsan-ft` | Clang ThreadSanitizer with `--disable-gil` and `PYTHON_GIL=0`. |
+| `vanilla` | GCC debug build with `--with-pydebug`, without sanitizers. |
+| `default` | Alias of `asan-ubsan`, selected when `--target` is omitted. |
+
+All targets use `/src/cpython` as the working directory. Pass `./python` explicitly
+when running the ASan/UBSan image. Its environment sets `PYTHONMALLOC=malloc`,
+disables leak detection, and halts on ASan/UBSan errors with symbolized output.
+
+For example, after placing a reproducer at `audit1/repro/candidate.py`:
+
+```bash
+mkdir -p audit1/findings audit1/logs audit1/repro
+docker run --rm -v "$PWD/audit1:/audit" \
+  taxoshop/cpython-asan-ubsan:current ./python /audit/repro/candidate.py \
+  > audit1/logs/candidate.txt 2>&1
+```
+
+Run reproducers in separate processes and retain full output. A crash alone is
+not sanitizer confirmation; inspect the diagnostic and establish its root cause.
+
+### CRuby and PHP
 
 ```bash
 docker build -f Dockerfile.cruby -t taxoshop/cruby-asan-ubsan:current .
 docker run --rm taxoshop/cruby-asan-ubsan:current /src/ruby/ruby -e 'puts :ok'
-```
 
-Pass `--build-arg RUBY_REF=<tag-or-branch>` to select a specific Ruby revision.
-
-### PHP ASan/UBSan image
-
-```bash
 docker build -f Dockerfile.php -t taxoshop/php-asan-ubsan:current .
 docker run --rm taxoshop/php-asan-ubsan:current /src/php-src/sapi/cli/php -v
 ```
 
-Pass `--build-arg PHP_REF=<tag-or-branch>` to select a specific PHP revision.
+Both default to `master`; select a branch or tag with `--build-arg RUBY_REF=...`
+or `--build-arg PHP_REF=...`. PHP disables Zend's allocator with `USE_ZEND_ALLOC=0`
+so allocations are visible to ASan. These Dockerfiles complement the CPython
+corpus; Ruby and PHP taxonomies are not bundled.
 
-## The sanitizer build (essentials)
+## Regenerate taxonomy artifacts
 
-- Default target **`asan-ubsan`**: `--with-address-sanitizer
-  --with-undefined-behavior-sanitizer --without-pymalloc`, `PYTHONMALLOC=malloc`.
-  Interpreter at `/src/cpython/python`.
-- Because `PYTHONMALLOC=malloc`, heap allocations go through `malloc`, so ASan **catches
-  heap UAF/OOB** in normal Python objects. ASan does **not** poison `mmap()` pages — mmap
-  OOB only faults when it hits an unmapped page (e.g. after `resize()`).
+The generation scripts require Python 3.10+. Evidence collection uses the `gh`
+CLI authenticated for GitHub and `curl` for attachments. Signature and macro
+entry generation require an authenticated Codex installation and `openai-codex`;
+embedding clustering also requires `sentence-transformers` and scikit-learn.
+There is no pinned dependency manifest in this repository.
 
-## Working rules
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install openai-codex sentence-transformers scikit-learn
 
-- **No `ctypes`** in reproducers — bugs must be reachable through ordinary Python.
-- Only report issues that are **new and sanitizer-confirmed**. Check open/closed CPython
-  issues (`gh issue list`/`gh search issues`) and `git log --grep` first.
-- This is a **long-running** effort: keep running notes in `audit<N>/NOTES.md` (including
-  the map of modules already verified hardened, so they aren't re-audited).
-- We **audit and report only** — we do not modify CPython source from here
-  (see `cpython/.claude/CLAUDE.md` for CPython's AI-tools policy).
+# Preview pending work without model calls or clustering.
+python generate_workflow_signatures.py --dry-run
+python generate_macro_taxonomy.py --dry-run
+```
 
-## Findings
+The pipeline is:
 
-Each confirmed bug is written up in `audit<N>/findings/FINDING-00X-<slug>.md` with its
-parent pattern (`workflow-XXXX`), root cause (`file:line`), a minimal reproducer, the full
-sanitizer output, scope, and a duplicate analysis. Latest:
+```text
+bugs.txt → micro_taxo reports → workflow signatures → clusters → macro_taxo patterns
+```
 
-- `audit4/findings/FINDING-001-textio-detach-uaf.md` — heap use-after-free in
-  `io.TextIOWrapper`'s read path via a reentrant `detach()` (pattern `workflow-0137`).
+To run it, the following commands fetch evidence, invoke models, and write artifacts:
+
+```bash
+python generate_reports.py
+python generate_workflow_signatures.py
+python generate_macro_taxonomy.py
+```
+
+`generate_reports.py` runs all stages by default, or accepts `--sources`,
+`--attachments`, `--fixes`, and `--render` to select stages. Signature generation
+supports `--only`, `--limit`, and `--force`; these restrict generation only.
+Clustering and membership review always consider all saved signatures.
+`--recluster-only` skips generation, and `--restart-review` rebuilds clustering
+and review instead of resuming matching checkpoints. The embedding model
+downloads on first use.
+
+Both model-driven generators accept `--model`. Macro generation also accepts
+`--only`, `--limit`, `--force`, `--workflows`, and `--output`. Its `--corpus ruby`
+option expects separately supplied Ruby reports and clusters; the included
+signature generator processes CPython only.
+
+Regeneration can replace curated memberships and descriptions. Preserve the
+current artifacts before reclustering; the scripts do not implement the manual
+constraints recorded in the checked-in index.
+
+## Audit workflow and runner status
+
+Follow the procedure in [`STARTUP.md`](STARTUP.md): use ordinary Python
+reproducers without `ctypes`, confirm candidates under sanitizers, and check
+upstream issues and prior findings for duplicates before reporting. Keep each
+audit's notes, findings, full logs, and reproducers together:
+
+```text
+audit<N>/
+├── NOTES.md
+├── findings/
+├── logs/
+└── repro/
+```
+
+Record the parent pattern ID, runtime revision, root cause, minimal reproducer,
+sanitizer output, and duplicate analysis for each confirmed finding.
+
+`taxoshop_va.py` is an experimental unattended runner with a CPython-specific
+prompt. It uses `claude-agent-sdk` and `anyio`, accepts a repository path plus
+`--budget` (default `$20`), `--model`, and `--timeout-hours` (default `8`), and
+writes timestamped JSONL logs in the launch directory. It resumes sessions until
+a budget, timeout, stall, error, or round limit ends the run.
+
+**The runner currently needs repair before use:** `make_options()` references
+`APPEND`, but its definition is commented out, causing a `NameError` when the
+first round starts. It also configures `bypassPermissions`, so any future run
+should use an environment intended for unattended execution. Cleanup only
+removes containers labeled `taxoshop-audit=1`; the instruction to apply that label
+is in the commented-out block.

@@ -159,7 +159,7 @@ async def audit(*, repo, budget, model, log, state):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("repo", type=Path)
-    p.add_argument("--budget", type=float, default=10.0)
+    p.add_argument("--budget", type=float, default=20.0)
     p.add_argument("--model", default="claude-opus-4-8", help="defaults to 4.8")
     p.add_argument("--timeout-hours", type=float, default=8.0,
                    help="wall-clock safety net in case the run hangs")
