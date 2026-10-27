@@ -1,47 +1,44 @@
-# Concurrent access to mutable shared state without effective synchronization or lifetime protection
+# Invalid lexer/tokenizer buffer offsets produce pointer-index overflow
 
-A shared pointer, descriptor, dispatch value, buffer, object field, or external-library state is accessed concurrently while another path can change or invalidate it.
+Lexer/tokenizer buffer-position arithmetic can form invalid pointer offsets during stateful or continued input processing.
 
 ## Precondition
 
-An active operation reads, follows, or uses mutable shared state whose value or backing storage can be replaced, modified, freed, reinitialized, or cleaned up concurrently.
+Valid input is processed through a lexer/tokenizer path that tracks positions across continuation, newline, or buffer-state transitions.
 
 ## Critical operation
 
-The operation loads or uses that state across a period during which its validity, contents, or ownership must remain stable.
+Lexer/tokenizer code adds a calculated offset to a buffer base to obtain a character pointer or indexed position.
 
 ## Interference
 
-Another thread or lifecycle path concurrently mutates, replaces, reallocates, closes, detaches, reinitializes, or frees the state; the apparent runtime guard is absent, one-sided, or suspended across the native operation.
+Position handling supplies an invalid or overflowing offset to that pointer calculation.
 
 ## Invalid assumption
 
-The operation assumes the shared value remains consistently observable and alive for the whole access, and that an apparent lock or borrowed reference provides sufficient protection.
+The calculated offset is representable and remains within the buffer's valid address range.
 
 ## Failure
 
-The overlap produces a data race or inconsistent observation; depending on the state, it can cause altered dispatch, stale or dangling references, use-after-free, heap corruption, external-library failure, or a crash.
+Undefined-behavior instrumentation reports pointer-index overflow while processing input, but execution continues successfully.
 
 ## Scope
 
-The shared pattern is broader than resource handles: it covers per-object fields, dispatch metadata, borrowed references, exported buffers, process-global state, and external-library state. Some reports are sanitizer-only or behaviorally benign, while others are memory-unsafe; the common defect is missing effective coordination and/or lifetime protection. It does not imply that every concurrent read is unsafe when immutable state, atomic publication, or a complete lifetime protocol is present.
+This singleton report supports a lexer/tokenizer buffer-offset pattern. Its reproductions differ in trigger context, so the evidence does not establish that all multiline input or all buffer transitions are affected.
 
 ## Search strategy
 
-1. Check every shared mutable pointer, descriptor, dispatch slot, buffer address, object field, and process-global state for concurrent readers and writers.
-2. Trace whether close, detach, resize, replacement, reinitialization, cleanup, or configuration paths can overlap an active operation and invalidate what it uses.
-3. Verify that one effective mutex or atomic protocol covers both sides of each access and remains effective across native calls and released-lock regions.
-4. Check borrowed references and exported views for lifetime guarantees lasting through the entire read or use.
-5. Exercise concurrent use with lifecycle, reconfiguration, shutdown, and external-library calls under thread and address sanitizers.
+1. Inspect lexer and tokenizer pointer arithmetic fed by continuation, newline, or buffer-state variables.
+2. Trace offset provenance across buffer transitions, including signed/unsigned conversions and sentinel values.
+3. Check that derived buffer positions are range-validated before pointer arithmetic or indexing.
+4. Exercise both interactive continued input and lexer-buffer test paths under undefined-behavior instrumentation.
 
 ## Evidence
 
-- [#116912](../micro_taxo/gh_116912.md): A native descriptor field is written by close or detach while another thread reads it during an operation outside the usual interpreter lock, producing a sanitizer-reported race.
-- [#128050](../micro_taxo/gh_128050.md): A dispatch pointer is lazily changed during a call while other threads read it, showing that even a seemingly benign fast-path mutation is still an unsynchronized shared-state race.
-- [#128100](../micro_taxo/gh_128100.md): A shared object-storage pointer is read while another path replaces the storage; a borrowed reference can then outlive the replaced storage and become use-after-free.
-- [#128144](../micro_taxo/gh_128144.md): An object field has an atomic writer but a non-atomic reader, demonstrating that one-sided atomicity does not make concurrent access race-free.
-- [#132886](../micro_taxo/gh_132886.md): The same native descriptor race occurs where the runtime lock had been assumed to provide safety, requiring coordinated atomic reads and writes across build configurations.
-- [#143756](../micro_taxo/gh_143756.md): Concurrent operations access shared external-library and object state; a method-level critical section is ineffective across a released region, so the native operation needs an explicit mutex covering its full critical sequence.
-- [#144567](../micro_taxo/gh_144567.md): Concurrent mutation of process-global locale state frees or replaces storage while another thread decodes the returned pointer, causing heap use-after-free and a crash.
-- [#145933](../micro_taxo/gh_145933.md): Worker operations race external-library cleanup during process exit, using library-global state after it has been freed.
-- [#154524](../micro_taxo/gh_154524.md): A buffer pointer is read while resizing reallocates and frees its backing storage; synchronization alone is insufficient without a lifetime rule for live exports.
+- [#113720](../micro_taxo/gh_113720.md): The report shows pointer-index overflow during valid continued interactive input and later at lexer-buffer locations during a successful test run; both reproduce diagnostics without an interpreter crash.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0048](../macro_taxo_before_hybrid/workflow-0048.md)

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 93619,
+  "cluster_id": "workflow-0026",
+  "workflow": [
+    "A large software build enables whole-program link-time optimization on a target architecture with limited branch reach.",
+    "The optimization and code-generation pipeline combines code into a layout where a branch target falls outside the instruction encoding's permitted range.",
+    "The assembler or linker rejects the generated machine code instead of producing the executable.",
+    "The build aborts during an intermediate executable's creation, while disabling link-time optimization allows the build to complete."
+  ],
+  "summary": "Link-time optimization produces an out-of-range branch",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:00:53.363710+00:00"
+}

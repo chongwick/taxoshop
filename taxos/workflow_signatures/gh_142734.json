@@ -9,7 +9,6 @@
     "It dereferences the invalidated entry, causing a use-after-free crash instead of reporting that the container changed during copying."
   ],
   "summary": "Reentrant container mutation invalidates copy traversal state",
-  "decision_reason": "The failure workflow materially matches reentrant mutation invalidating storage held by an ongoing container operation, which then continues through the invalidated state.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:09:46.311648+00:00"
 }

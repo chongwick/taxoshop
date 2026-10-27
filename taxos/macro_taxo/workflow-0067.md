@@ -1,39 +1,45 @@
-# A short-lived build-time helper retains allocations owned by initialized runtime configuration, so leak checking converts completed generation into a failed‌‍‌‍
+# Static special instances are exposed to collector traversal despite lacking the ordinary object layout.
 
-A short-lived build-time helper retains allocations owned by initialized runtime configuration, so leak checking converts completed generation into a failed build.
+A collector-traversable type is also used for immutable or static special instances whose storage omits fields required by ordinary collectible objects.
 
 ## Precondition
 
-A build-time executable initializes runtime configuration whose scalar, list, registration, or other nested fields can allocate independently.
+A type is shared by ordinary heap objects and special static instances that lack header metadata or reference fields expected by collectible objects.
 
 ## Critical operation
 
-The helper performs its generation task and then destroys the configuration through an incomplete cleanup path.
+The garbage collector dispatches the type's traversal routine for one of those special instances during collection or cleanup.
 
 ## Interference
 
-Leak-detection instrumentation inspects allocations still reachable or outstanding when the helper exits and treats them as leaks.
+The traversal reads layout-dependent fields at offsets valid for ordinary heap objects but outside the special instance's valid storage.
 
 ## Invalid assumption
 
-Releasing the outer configuration object, or relying on the process being short-lived, is assumed to release or harmlessly discard all allocations owned by its nested state.
+Type-level traversal eligibility is treated as proof that every instance has the complete collectible-object layout and can be traversed identically.
 
 ## Failure
 
-The helper exits nonzero after leak reporting, causing the build target to fail even though generation produced its intended output.
+The traversal performs an out-of-bounds read in static storage, triggering a memory-safety failure and aborting the process.
 
 ## Scope
 
-The shared pattern is incomplete cleanup of sanitizer-visible state in short-lived build helpers. The reports do not establish that every allocation in the older sanitizer report had the same configuration-specific root cause, so the pattern should not be generalized to all build-time leaks.
+Both reports evidence the same incident, so this pattern is limited to traversal-capable types with compact static special instances mistakenly exposed to the collector. They do not establish a rule for all static records or all layout mismatches.
 
 ## Search strategy
 
-1. Find build-time executables that initialize runtime or configuration state and trace their exit cleanup.
-2. For every owned configuration field, verify that cleanup releases both the field value and any nested list elements, arrays, or registration storage.
-3. Search sanitizer-enabled build commands for helpers whose leak-checking exit status is propagated to the build system.
-4. Compare each allocation API used during configuration setup with the matching deallocator on every success and failure path.
+1. Inspect every traversal-enabled type for static, immutable, or immortal instances sharing that type.
+2. Verify that each instance reaching traversal has every header and reference field the routine accesses.
+3. Trace collector admission checks to ensure noncollectible special instances are excluded before traversal.
+4. Run memory-safety instrumentation through collection and cleanup paths that may encounter static instances.
 
 ## Evidence
 
-- [#121847](../micro_taxo/gh_121847.md): A sanitizer-enabled build helper completed generation but reported outstanding allocations at process exit and failed the build; later investigation also connected the affected newer configuration path to missing deep cleanup, while noting that older-version leaks could include separate runtime allocations.
-- [#138756](../micro_taxo/gh_138756.md): A build-time helper allocated configuration strings and related state, but its free routine released only the enclosing object and omitted owned members; leak detection then caused the generation target to fail until deep cleanup was added.
+- [#118074](../micro_taxo/gh_118074.md): The fix excludes statically stored special instances from collection because the shared traversal routine otherwise reads beyond their object storage.
+- [#118113](../micro_taxo/gh_118113.md): The sanitizer trace shows cleanup-time traversal reading before a static instance whose storage lacks the metadata expected by ordinary collectible objects; the report was identified as a duplicate.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0057](../macro_taxo_before_hybrid/workflow-0057.md)

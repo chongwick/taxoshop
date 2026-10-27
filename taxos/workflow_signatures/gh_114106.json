@@ -10,7 +10,6 @@
     "The lookup accesses freed storage, causing memory corruption or process termination."
   ],
   "summary": "Stale cached value reused after invalidation bypass",
-  "decision_reason": "The underlying failure is materially the same as a retained pointer outliving its owner: a cached pointer remains reachable after the referenced value is released, then a later operation dereferences freed storage.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:13:43.077816+00:00"
 }

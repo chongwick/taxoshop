@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0009",
+  "issues": [
+    73331,
+    77813
+  ],
+  "workflow_hypothesis": "Post-overflow validation of signed output-size arithmetic is defeated by optimization",
+  "pattern": "Signed overflow in derived safety values defeats validation or bounded operation",
+  "description": "A system derives a safety-critical size, duration, or deadline from large externally influenced quantities using bounded signed arithmetic. In one mechanism, overflow is checked only after multiplication or addition; in another, individually valid timeout operands are added to a current timestamp without checking the derived sum. Signed-overflow undefined behavior or an unrepresentable result then defeats validation or bounded operation.",
+  "precondition": "A large or maximum-range input is accepted as valid on its own and participates in signed multiplication or addition to form a derived output size, absolute deadline, or similar operational value; the arithmetic does not guarantee defined overflow handling.",
+  "critical_operation": "The implementation performs the signed arithmetic before establishing that the complete derived value is representable, either by calculating a product or accumulated size and checking afterward, or by adding a relative duration to a current clock value.",
+  "interference": "Signed overflow is undefined under the applicable compilation assumptions, allowing an optimizing compiler to remove or invalidate post-operation checks; where no such check exists, the raw overflow directly corrupts the derived value.",
+  "invalid_assumption": "A standalone limit on an input, or inspection of the wrapped result after signed arithmetic, is treated as proof that the derived size or deadline is safe and representable.",
+  "failure": "Overflow is not handled as a controlled validation failure: an invalid size can reach allocation or copying and crash, while an invalid deadline can trigger undefined-behavior diagnostics or incorrect bounded-wait behavior.",
+  "search_strategy": [
+    "Find calculations that derive output sizes, durations, deadlines, or buffer capacities by multiplying or adding signed lengths, counts, timestamps, or timeouts.",
+    "Check whether operand limits are validated independently without proving that the complete derived arithmetic remains representable.",
+    "Identify overflow checks that inspect a signed result only after the multiplication or addition, including reverse-arithmetic and wrapped-result comparisons.",
+    "Trace derived values into allocation, copying, wait, retry, or deadline logic and verify that overflow is prevented before arithmetic or handled with checked, saturating, or otherwise defined operations.",
+    "Check whether retrying waits construct absolute deadlines by adding a relative timeout to the current clock and whether the addition clamps or rejects overflow."
+  ],
+  "evidence": [
+    {
+      "issue": 73331,
+      "supports": "The report shows signed multiplication and accumulated addition for text-output sizes, with overflow checks performed afterward through division or prior-size comparisons. It documents compiler optimization invalidating those checks when signed wraparound was not guaranteed, allowing bad sizes to reach string or buffer operations and cause crashes."
+    },
+    {
+      "issue": 77813,
+      "supports": "The report shows a maximum-valid nonnegative timeout being added to a nonzero monotonic timestamp in signed arithmetic, producing sanitizer-detected overflow. The remediation uses checked or clamping addition and deadline helpers, confirming that standalone timeout validation did not prove the absolute deadline representable."
+    }
+  ],
+  "scope_note": "This mixed cluster supports a shared pattern of unsafe signed arithmetic in derived safety values, but the reports demonstrate two distinct mechanisms: post-operation checks defeated by undefined-overflow optimization for output sizes, and unchecked construction of an absolute deadline from otherwise valid timeout and clock values. It does not establish that every signed arithmetic check is compiler-vulnerable or that all failures are crashes.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:11:52.766120+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0009",
+    "workflow-0012"
+  ],
+  "adaptation_fingerprint": "f5d03d12ef0bd78b8c117422a9f0799ffd9ae536dcde50840676e57e5c67e316",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

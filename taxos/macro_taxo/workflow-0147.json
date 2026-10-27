@@ -2,29 +2,54 @@
   "schema_version": 1,
   "cluster_id": "workflow-0147",
   "issues": [
-    144280
+    86863,
+    135637,
+    140634
   ],
-  "workflow_hypothesis": "Missing symbolic-value category causes optimizer crash",
-  "pattern": "A symbolic optimizer represents predicate results as a distinct value category, but a truthiness-analysis dispatch omits that category; the fallback then readsる",
-  "description": "A symbolic optimizer represents predicate results as a distinct value category, but a truthiness-analysis dispatch omits that category; the fallback then reads representation-specific state that is invalid for predicate values, causing a crash instead of returning an unknown or boolean truthiness result.",
-  "precondition": "The optimizer can construct symbolic values for predicate results and later analyze their truthiness through category-based dispatch.",
-  "critical_operation": "Dispatch truthiness analysis according to the symbolic value's category.",
-  "interference": "The predicate-result category is missing from the dispatch cases, so processing falls through to logic intended for a different symbolic representation.",
-  "invalid_assumption": "Every value reaching the fallback path has the representation fields and invariants expected by that path.",
-  "failure": "Truthiness analysis dereferences invalid state and terminates with a memory-access crash instead of conservatively reporting unknown truthiness or the predicate's known boolean result.",
+  "workflow_hypothesis": "Borrowed field retained without ownership increment becomes dangling",
+  "pattern": "Ownership or representation invariants fail across managed-object boundaries",
+  "description": "A runtime boundary propagates a field, object handle, raw storage reference, or object representation without preserving the ownership and validity invariants required by later consumers. The shared pattern covers both incorrect reference accounting and stale or externally corrupted state that survives into deferred use.",
+  "precondition": "Code obtains a borrowed, newly created, cached, or raw handle, or accepts a managed object whose lifetime and representation invariants are not independently secured before storing or forwarding it.",
+  "critical_operation": "A conversion or aggregate builder applies the wrong ownership convention, a cleanup path releases a newly created value too early, a retained pointer outlives its backing storage, or unsafe memory writes corrupt a live object's metadata.",
+  "interference": "The source or backing storage is freed, reference counts are over-decremented, or object metadata becomes invalid while the result, cache, pointer, or object remains reachable; later cleanup, finalization, metadata lookup, or serialization consumes that invalid state.",
+  "invalid_assumption": "The code assumes a borrowed value is owned, a newly returned value is safely borrowed, a retained pointer remains backed by live storage, or a managed object's header remains valid without explicitly acquiring ownership, preserving storage, or validating representation invariants.",
+  "failure": "Later decrement, dereference, metadata access, or free operates on invalid ownership, freed storage, or corrupted representation, causing reference-count corruption, invalid free, use-after-free, heap out-of-bounds access, fatal crashes, or process termination.",
   "search_strategy": [
-    "Enumerate every symbolic-value category and verify that truthiness-analysis dispatch handles each category explicitly.",
-    "Trace newly added symbolic categories through all category switches, including diagnostic or printing paths.",
-    "Inspect fallback branches for representation-specific field access and verify their preconditions against every possible category.",
-    "Add tests covering unknown and constant predicate results before and after truthiness analysis."
+    "Audit every conversion, reconstruction, reduction, cache, and aggregate-building boundary for borrowed or newly created values whose actual ownership differs from the cleanup convention.",
+    "Trace retained object pointers, field references, views, and raw storage addresses through source release, cache cleanup, finalization, mutation, and serialization; require an explicit lifetime guarantee.",
+    "Check every reference-stealing, decrementing, or ownership-transferring path against the provenance of each value, including compatibility, subclass, descriptor, exceptional, and repeated-conversion branches.",
+    "Inspect consumers of externally mutable or raw object representations and verify type, header, pointer, reference, and ownership invariants before deferred metadata access or dereference.",
+    "Exercise repeated construction and destruction, source teardown, finalization, and malformed-representation cases to distinguish over-release from stale-storage or corrupted-state failures."
   ],
   "evidence": [
     {
-      "issue": 144280,
-      "supports": "The report shows a distinct symbolic predicate result reaching truthiness analysis, an omitted dispatch case, and a resulting invalid dereference; the fix adds the missing category handling and tests both unknown and constant predicate truthiness."
+      "issue": 86863,
+      "supports": "A compatibility-selected conversion path repeatedly decremented a shared value that had not been transferred with ownership, eventually causing finalization to free non-heap storage."
+    },
+    {
+      "issue": 135637,
+      "supports": "External writes corrupted live-object metadata, including during deferred access, and later metadata processing dereferenced the invalid representation and crashed."
+    },
+    {
+      "issue": 140634,
+      "supports": "An aggregate reconstruction path used a reference-stealing convention for a borrowed field, so repeated destruction over-decremented the field and corrupted allocator or reference-count state."
     }
   ],
-  "scope_note": "This is a cautiously scoped pattern from a singleton report: it applies to category-dispatched symbolic analysis when a newly introduced predicate-result category is omitted, without claiming that all missing dispatch cases fail through the same fallback or produce the same crash.",
+  "scope_note": "Membership was manually restricted to the evidence listed below. This mixed cluster includes ownership-accounting mismatches, premature release, stale freed storage, and deliberately corrupted live-object metadata. The common boundary is an unchecked lifetime or representation contract. Leaked ownership, stale access, and invalid object layout remain distinct mechanisms requiring different checks.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:33:53.859968+00:00"
+  "generated_at": "2026-10-10T19:25:57.758208+00:00",
+  "adaptation_method": "manual_subset_after_restoration",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014",
+    "workflow-0019",
+    "workflow-0084"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern",
+    "scope_note"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.333852+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

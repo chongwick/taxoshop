@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0138",
+  "issues": [
+    139748,
+    139751,
+    139988,
+    140306,
+    140398,
+    140406,
+    140517,
+    140530,
+    140593,
+    140939,
+    141044,
+    142917,
+    144069,
+    147998,
+    148484
+  ],
+  "workflow_hypothesis": "Error path omits cleanup of partially acquired temporary values",
+  "pattern": "Error-path cleanup of partially acquired state is incomplete or misdirected",
+  "description": "Native operations acquire temporary references, builder state, auxiliary allocations, or external-resource state before all fallible work completes. Confirmed cases omit cleanup on exceptional exits; related cases misconfigure cleanup controls, lose the resource through variable shadowing, or rely on a failure sentinel that does not describe partial external state.",
+  "precondition": "An operation owns intermediate state before later input validation, iteration, conversion, callback execution, initialization, resource creation, or multi-input consistency checks have finished.",
+  "critical_operation": "The operation continues processing or invokes another fallible stage, then routes failure through an early return, error label, destructor, rollback path, or cleanup helper.",
+  "interference": "The failing path bypasses release, releases only a subset of acquired state, or selects the wrong cleanup behavior through missing initialization, shadowed bindings, inverted conditions, incorrect flag composition, or a callee that may allocate before returning failure.",
+  "invalid_assumption": "The implementation assumes every failure reaches complete cleanup and that a null or failure result, cleanup metadata, control flags, or later ownership handoff accurately represents all state acquired so far.",
+  "failure": "Owned direct or indirect allocations remain live after failure, so repeated failing operations accumulate memory and leak detectors report unreclaimed state. Separately, incorrect cleanup state can leave teardown unable to identify the resource or can create stale/double-release risk; those are distinct from the confirmed ownership leaks.",
+  "search_strategy": [
+    "Trace every acquired reference, temporary, builder, auxiliary allocation, and external-resource state through validation, iteration, conversion, callback, initialization, and allocation-failure exits; require release or explicit ownership transfer on each path.",
+    "Inspect multi-input and strict-consistency loops for partially acquired values when exhaustion or another error occurs, and verify that all earlier values are released before returning.",
+    "Audit cleanup predicates, flag combinations, and conditional branches for inverted release decisions or operators that disable required cleanup.",
+    "Verify that cleanup-relevant fields are initialized before fallible creation calls and that shared error cleanup sees the original resource binding rather than a shadowed variable.",
+    "Separate confirmed local ownership leaks from upstream or unconfirmed sanitizer reports, and test repeated failures for retained allocations while checking stale-handle and double-release behavior independently."
+  ],
+  "evidence": [
+    {
+      "issue": 139748,
+      "supports": "Generated argument-conversion wrappers acquired owned converted values, then later argument conversion failed before the implementation cleanup ran, leaking the acquired value."
+    },
+    {
+      "issue": 139751,
+      "supports": "One reproducer reports an allocation leak after invalid input, but the report has no confirmed fix and later includes an unrelated reproducer; it supports only a cautiously bounded failure-path leak observation."
+    },
+    {
+      "issue": 139988,
+      "supports": "A builder accumulated owned state and its contents, then an input-addition failure returned without finalizing the builder."
+    },
+    {
+      "issue": 140306,
+      "supports": "Several cleanup-control defects caused leaks: a missing error-path free, inverted release logic, and incorrectly combined cleanup flags. These are control-selection variants of the broader cleanup failure, not stale-state evidence."
+    },
+    {
+      "issue": 140398,
+      "supports": "Conversion created owned values before an audit hook could fail, and audit-error returns omitted release of those values."
+    },
+    {
+      "issue": 140406,
+      "supports": "A method result was owned before type validation, and rejecting the result type returned without releasing it."
+    },
+    {
+      "issue": 140517,
+      "supports": "A multi-item iterator path retained already acquired temporary references when strict validation detected exhaustion or another error before processing completed."
+    },
+    {
+      "issue": 140530,
+      "supports": "Error construction produced an owned intermediate before a type check failed, and the jump to shared error handling did not release it."
+    },
+    {
+      "issue": 140593,
+      "supports": "A parser callback path owned an auxiliary allocation, but a preexisting error took a direct return instead of the common finalization path."
+    },
+    {
+      "issue": 140939,
+      "supports": "Formatting acquired a temporary value before buffer growth could fail, and that preparation failure skipped its release."
+    },
+    {
+      "issue": 141044,
+      "supports": "The report contains sanitizer-reported direct and indirect leaks after a threading lifecycle sequence, but does not establish the ownership path or a confirmed fix; it is a boundary case rather than proof of the partial-acquisition mechanism."
+    },
+    {
+      "issue": 142917,
+      "supports": "A recursion-related sanitizer report was not reproducible and received no confirmed root-cause analysis or fix; it supports only the need to distinguish unconfirmed leak reports from established cleanup defects."
+    },
+    {
+      "issue": 144069,
+      "supports": "An external resource-opening call was reported to leak internal allocations when creation failed, while discussion noted that the failure returned no usable handle and that the suspected leak may be upstream; it bounds the pattern around partially initialized external state without proving a local ownership defect."
+    },
+    {
+      "issue": 147998,
+      "supports": "A resource binding declared inside a branch shadowed the binding used by shared error cleanup, so the acquired resource became invisible to the cleanup path."
+    },
+    {
+      "issue": 148484,
+      "supports": "An iterator was acquired before typecode validation and later initialization steps, and several error returns omitted releasing it; subsequent fixes added cleanup to those exits."
+    }
+  ],
+  "scope_note": "The confirmed majority establishes an error-path ownership/cleanup pattern, including the workflow-hypothesized partial multi-input acquisition case. The cluster also contains cleanup-control and binding-state variants, which must not be conflated with use of stale or freed state. Reports 139751, 141044, 142917, and 144069 are weaker boundary evidence: they contain sanitizer leak observations without a confirmed local root cause or fix, and 144069 may be an upstream external-library issue.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:25:14.729051+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0065",
+    "workflow-0089",
+    "workflow-0091",
+    "workflow-0094",
+    "workflow-0144"
+  ],
+  "adaptation_fingerprint": "29fceb19bec113c9932f7d78144ec523ba711906b24b12c712618e7d5e3b0c88",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

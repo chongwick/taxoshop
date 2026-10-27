@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0017",
+  "issues": [
+    85863,
+    125318,
+    140471,
+    142595,
+    142781,
+    143005,
+    143376,
+    143636
+  ],
+  "workflow_hypothesis": "Heterogeneous sequence element misinterpreted as a different record type",
+  "pattern": "Unchecked representation assumptions across dynamic boundaries",
+  "description": "Low-level code treats flexible or dynamically obtained values as a specific internal representation, or applies replacement type metadata to existing storage, without proving layout compatibility.",
+  "precondition": "A routine accepts heterogeneous records, partial protocol implementations, malformed metadata, dynamically returned objects, or fixed-size storage whose type metadata may change, while later operations require a specific representation or layout.",
+  "critical_operation": "The routine performs an unchecked cast, representation-specific field or length access, state copy, formatting operation, indexed write, or type replacement without validating the concrete type and required layout compatibility.",
+  "interference": "Collection refactoring, duck typing, malformed values, re-entrant constructors, replaceable factories, cache methods, attribute lookups, or mutable type metadata admit an incompatible object or alter the interpreted layout while the underlying storage remains unchanged.",
+  "invalid_assumption": "Sequence membership, partial interface conformance, dynamic-operation provenance, nominal field role, or current type metadata is incorrectly treated as proof of the exact object layout, field type, size, or allocation compatibility required by the access.",
+  "failure": "The operation reads or writes outside the actual object or allocation, or dereferences an invalid internal pointer, causing undefined behavior, heap or global buffer overflow, segmentation fault, or sanitizer-detected process termination instead of safe rejection.",
+  "search_strategy": [
+    "Trace every producer and dynamic boundary feeding low-level consumers, and verify exact or layout-compatible runtime validation before representation-specific access.",
+    "Inspect heterogeneous sequence builders and refactored collection paths for wrapper or alternate records that are cast or indexed uniformly.",
+    "Audit duck-typed objects, re-entrant constructors, factories, caches, and attribute lookups for incompatible results reaching unchecked native casts or state copies.",
+    "Review mutable type-replacement paths for fixed-size or contiguous storage and verify length, allocation size, element width, and representation compatibility before indexed or bulk access.",
+    "Check malformed metadata and formatting paths for string-, length-, or layout-specific operations that assume nominal field roles imply valid concrete values."
+  ],
+  "evidence": [
+    {
+      "issue": 85863,
+      "supports": "A collection path admitted wrapper records into a sequence consumed as expression records, and representation-specific metadata access on a wrapper crossed its actual layout."
+    },
+    {
+      "issue": 125318,
+      "supports": "A native fast path accepted a custom object with only partial temporal behavior and read fields belonging to the concrete internal temporal representation, creating an out-of-bounds read risk."
+    },
+    {
+      "issue": 140471,
+      "supports": "Malformed field metadata containing a non-string value reached string-specific warning formatting and length access, producing a global buffer overflow."
+    },
+    {
+      "issue": 142595,
+      "supports": "A replaceable type-producing call returned a non-type object that initialization cast and dereferenced as an internal type representation, causing a heap overflow."
+    },
+    {
+      "issue": 142781,
+      "supports": "A replaceable cache operation returned an incompatible object that construction treated as the requested internal instance before accessing and updating its state."
+    },
+    {
+      "issue": 143005,
+      "supports": "Runtime type replacement changed the layout used for later array writes without matching the original fixed allocation's length, size, and element representation."
+    },
+    {
+      "issue": 143376,
+      "supports": "A dynamically supplied identifier attribute returned a small incompatible object that a decoder treated as a larger internal structure, causing a heap buffer overflow."
+    },
+    {
+      "issue": 143636,
+      "supports": "A re-entrant constructor returned a nonconforming object that replacement logic treated as the expected namespace representation before copying internal state."
+    }
+  ],
+  "scope_note": "The cluster supports a common unchecked-representation pattern but contains two distinct mechanisms: seven reports involve incompatible or malformed values crossing dynamic or flexible input boundaries, while one involves compatible-layout validation being omitted during type replacement of fixed-size storage. The pattern does not imply ownership leakage or stale/freed-state use.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:12:41.878406+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0017",
+    "workflow-0129",
+    "workflow-0136"
+  ],
+  "adaptation_fingerprint": "12b23ce3b4ac8c142d136d939b032fd7dc588b6842979d56294b9b64e2299351",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0059",
+  "issues": [
+    114083,
+    121637
+  ],
+  "workflow_hypothesis": "Optimization-pass ordering leaves redundant control-flow edge",
+  "pattern": "Compiler optimization can precede a dependent convergence or legality check, leaving downstream invariants to process transformed or incomplete state",
+  "description": "A compiler performs optimization before all checks that depend on the original structure or on fully propagated control flow. In one mechanism, reordered control-flow rewrites leave redundant edges before cleanup converges; in another, optimization removes an invalid context-sensitive construct before its legality check runs. Both expose downstream assertions that assume the relevant state is already normalized and validated.",
+  "precondition": "The compiler input contains either interacting control-flow transformations whose results depend on pass ordering, or a context-sensitive construct located in code eligible for compile-time elimination, while convergence or legality checks are deferred to a later phase.",
+  "critical_operation": "Run optimization before completing the dependent control-flow cleanup or validating the construct's contextual legality.",
+  "interference": "Optimization either changes successor relationships after an earlier edge transformation or removes the source construct that would have triggered a recoverable validation error, leaving later compilation with stale control-flow assumptions or metadata derived from the original structure.",
+  "invalid_assumption": "A later phase assumes that optimization has reached a fixed point and that all remaining relevant constructs have already passed their contextual validity checks.",
+  "failure": "Compilation reaches an internal assertion or equivalent unrecoverable failure instead of converging successfully or reporting the appropriate source-level error.",
+  "search_strategy": [
+    "Trace whether optimization can rewrite control-flow successors after jump threading, edge redirection, or redundant-edge cleanup has already inspected them.",
+    "Check whether bounded cleanup or invariant checks can run before repeated CFG rewrites reach a fixed point.",
+    "Find context-sensitive constructs whose legality is checked only after optimization or during code generation.",
+    "Verify whether dead-code elimination can erase the construct that would have produced a syntax or semantic error while leaving related scope or feature metadata for later phases.",
+    "Inspect downstream assertions for assumptions that transformed code is both normalized and context-valid without an earlier check that optimization cannot bypass."
+  ],
+  "evidence": [
+    {
+      "issue": 114083,
+      "supports": "The report shows that constant-dependent branch folding and jump threading in the same phase can observe different successor states; the later fold leaves a redundant jump, and the internal no-redundant-jump check fails until folding is separated and cleanup tracks changes."
+    },
+    {
+      "issue": 121637,
+      "supports": "The report shows that optimization can remove invalid asynchronous constructs before deferred context validation, after which later compilation asserts on the presumed-valid scope instead of raising a syntax error; moving validation earlier restores the source-level diagnostic."
+    }
+  ],
+  "scope_note": "This is a mixed-cluster umbrella pattern, not a claim that both reports share one narrow implementation mechanism. One report concerns non-converged CFG rewrites and redundant edges; the other concerns optimization bypassing semantic validation of context-sensitive constructs. The shared generalization is that optimization runs ahead of a dependent check whose assumptions are no longer guaranteed.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:16:38.025157+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0051",
+    "workflow-0066"
+  ],
+  "adaptation_fingerprint": "725328b0930ab18a15d55649a5720048a31ea8013715e9ef0b273aafa926fef9",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

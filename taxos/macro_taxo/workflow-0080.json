@@ -131,5 +131,11 @@
   ],
   "scope_note": "The shared mechanism is callback-driven re-entrancy, broader than embedded-container cleanup: callbacks arise from hashing, equality, conversion, iteration, formatting, I/O, serialization, and destruction. Some reports invalidate object lifetime, while others invalidate buffers, cached sizes, representation, or iteration state without immediate deallocation; the common boundary is continued use of unprotected state after arbitrary user code.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T18:55:59.576450+00:00"
+  "generated_at": "2026-09-10T18:55:59.576450+00:00",
+  "adaptation_method": "manual_restore_exact_original",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0080"
+  ],
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

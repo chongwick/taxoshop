@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0064",
+  "issues": [
+    100773,
+    111339,
+    113055,
+    113190,
+    113576,
+    113591,
+    116510,
+    140301,
+    140404,
+    141372,
+    144172
+  ],
+  "workflow_hypothesis": "Cross-context shared state outlives its owner",
+  "pattern": "Lifecycle ownership diverges across reusable isolated contexts",
+  "description": "Reusable runtimes mix context-owned resources with process-global, legacy, or externally shared state. Teardown either omits owned auxiliary allocations or invalidates state still retained by another user, producing leaks or stale-state memory faults.",
+  "precondition": "Multiple runtime contexts, repeated initialization, or external runtimes share objects, metadata, allocators, caches, or references whose ownership and lifetime are not explicitly associated with one context.",
+  "critical_operation": "A context is initialized, reused, finalized, or destroyed, and its teardown releases context-owned state or skips cleanup for auxiliary resources created during initialization.",
+  "interference": "Other contexts, process-global legacy state, extensions, tracing structures, or external runtimes retain references to released state; separate cleanup paths also leave owned allocations reachable.",
+  "invalid_assumption": "Teardown is assumed to reclaim all relevant state automatically, or shared and legacy state is assumed to remain valid across context destruction without explicit ownership, cleanup, or lifetime coordination.",
+  "failure": "The result is cumulative leaks and memory growth when cleanup is omitted, or invalid reads, assertions, use-after-free, bad frees, and crashes when surviving references outlive their backing state.",
+  "search_strategy": [
+    "Trace every context-initialization allocation and reference to matching cleanup or an explicit ownership transfer on normal, failure, and teardown paths.",
+    "Search static, process-global, cached, interned, and legacy extension state for references to context-owned objects, metadata, allocators, or bookkeeping.",
+    "Exercise repeated initialization, subcontext destruction, and restart sequences while checking for both per-cycle leaks and reuse of stale state.",
+    "Inspect teardown ordering across contexts and external runtimes; verify shared objects remain alive until every retaining user releases them.",
+    "Audit tracing, callbacks, caches, and exported handles for invalidation or lifetime coordination before their owning context is destroyed."
+  ],
+  "evidence": [
+    {
+      "issue": 100773,
+      "supports": "Embedding and finalization left allocations behind, with analysis linking residual growth to extensions not fully associating state and cleanup with each runtime lifecycle."
+    },
+    {
+      "issue": 111339,
+      "supports": "A second runtime initialization reused metadata and interned keys surviving prior finalization, causing invalid object state and assertions during type setup."
+    },
+    {
+      "issue": 113055,
+      "supports": "Context destruction omitted allocator arenas and indexing structures allocated for that context, producing retained memory across repeated lifecycle cycles."
+    },
+    {
+      "issue": 113190,
+      "supports": "Shutdown skipped cleanup for globally retained deduplicated values, causing leaks across restart and exposing hazards when later cleanup invalidates external references."
+    },
+    {
+      "issue": 113576,
+      "supports": "Repeated embedded-runtime teardown left shared allocator state crossing lifetimes, leading to use-after-free and invalid-free reports when later contexts reused it."
+    },
+    {
+      "issue": 113591,
+      "supports": "Objects shared between two language runtimes were reclaimed by one side while the other still used them, demonstrating uncoordinated external ownership and lifetime."
+    },
+    {
+      "issue": 116510,
+      "supports": "Legacy extension state shared objects and bookkeeping between subcontexts; destroying one freed GC or interned-string state still used by another."
+    },
+    {
+      "issue": 140301,
+      "supports": "Subcontext creation copied configuration and related auxiliary data, but destruction omitted its cleanup, causing direct and indirect leaks per repeated cycle."
+    },
+    {
+      "issue": 140404,
+      "supports": "Single-phase module initialization placed types, dictionaries, callables, and related objects in process-global state without a subcontext cleanup boundary, so they leaked."
+    },
+    {
+      "issue": 141372,
+      "supports": "An alternate monitoring setup allocated a singleton-like object during profiling setup without a corresponding release, yielding a direct lifecycle leak."
+    },
+    {
+      "issue": 144172,
+      "supports": "Tracing retained pointers to strings created in a destroyed subcontext, then dereferenced them during later cleanup, causing heap use-after-free."
+    }
+  ],
+  "scope_note": "This is a mixed cluster. Six reports primarily show omitted cleanup or process-global retention causing leaks; five show stale or prematurely freed state used by another context or runtime. The umbrella is lifecycle ownership mismatch, not a claim that every leak becomes a use-after-free or that all shared state is invalid.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T20:00:00.487509+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014",
+    "workflow-0034",
+    "workflow-0045",
+    "workflow-0046",
+    "workflow-0094"
+  ],
+  "adaptation_fingerprint": "9a011b18e6023faed87aad277896918d1297af0ef8df55e732e5c91effef75f7",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

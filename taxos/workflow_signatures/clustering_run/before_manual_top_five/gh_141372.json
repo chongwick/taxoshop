@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 141372,
+  "cluster_id": "workflow-0064",
+  "workflow": [
+    "A component initializes against a process-wide sentinel supplied by a replaceable global provider.",
+    "A caller substitutes the provider with a user-created object whose sentinel is ordinary heap-owned state rather than the expected permanent singleton.",
+    "Initialization retains associated state under the assumption that the standard singleton lifetime rules apply.",
+    "Normal teardown omits releasing that state, leaving the allocation reachable only to leak detection.",
+    "Leak detection reports memory growth after an otherwise successful initialization and shutdown."
+  ],
+  "summary": "Substituted global sentinel leaves retained initialization state unreleased",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:00:52.011747+00:00"
+}

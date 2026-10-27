@@ -9,7 +9,6 @@
     "The out-of-bounds access triggers a global buffer overflow and process termination instead of a recoverable validation error."
   ],
   "summary": "Malformed metadata type confusion causes out-of-bounds text access",
-  "decision_reason": "The failure is materially the same as heterogeneous record misinterpretation: an object of the wrong representation is accepted where a specific record type is expected, its layout is interpreted incorrectly, and an out-of-bounds access results. The symptom and surrounding parsing context differ, so",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:47:08.467640+00:00"
 }

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0045",
+  "issues": [
+    113055,
+    140301
+  ],
+  "workflow_hypothesis": "Per-context allocator storage leaks across repeated teardown cycles",
+  "pattern": "Reusable isolated execution contexts allocate auxiliary state during initialization, but teardown releases only the primary execution state and omits some owned",
+  "description": "Reusable isolated execution contexts allocate auxiliary state during initialization, but teardown releases only the primary execution state and omits some owned allocations such as allocator backing storage, lookup metadata, or copied configuration data.",
+  "precondition": "A host repeatedly creates and destroys isolated execution contexts whose initialization allocates auxiliary memory associated with each context.",
+  "critical_operation": "The context is torn down and its ordinary execution state and context record are released.",
+  "interference": "The teardown path does not invoke the corresponding cleanup for every auxiliary allocation made during initialization.",
+  "invalid_assumption": "Releasing the main context state, or relying on process termination or allocator reuse, is assumed to reclaim all context-owned memory automatically.",
+  "failure": "Each create-destroy cycle retains some context-associated allocations, producing cumulative memory growth and leak-detector failures.",
+  "search_strategy": [
+    "Trace every allocation performed during context initialization and verify a matching release in every teardown path.",
+    "Check whether allocator backing stores, metadata tables, copied configuration, and dynamically duplicated strings outlive the context record.",
+    "Compare normal teardown with partial-initialization and initialization-failure cleanup for omitted ownership transfers or cleanup calls.",
+    "Run repeated create-destroy cycles under a leak detector and confirm retained bytes do not increase per cycle."
+  ],
+  "evidence": [
+    {
+      "issue": 113055,
+      "supports": "Repeated runtime or execution-context initialization allocated allocator backing arenas and auxiliary indexing structures that were not released during finalization, causing memory growth across cycles."
+    },
+    {
+      "issue": 140301,
+      "supports": "Repeated isolated-context creation copied configuration strings and lists whose cleanup was omitted before context deletion, producing direct and indirect leaks."
+    }
+  ],
+  "scope_note": "The reports support incomplete teardown of context-owned auxiliary resources, not a rule about one specific allocator or configuration type. They do not establish that every retained allocation is isolated per context or that all memory growth is necessarily linear.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:37:51.014036+00:00"
+}

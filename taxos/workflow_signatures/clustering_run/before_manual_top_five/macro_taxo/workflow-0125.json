@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0125",
+  "issues": [
+    119447,
+    140159,
+    143640
+  ],
+  "workflow_hypothesis": "Feature-guard mismatch exposes unavailable interface member",
+  "pattern": "Availability detection and consumer guards do not match the exact interface entity they expose",
+  "description": "Conditional build logic enables a consumer of an optional interface based on a coarse feature marker or a capability probe, while the exact type, member, or declaration is controlled by a narrower condition in the project or target headers. The reports include both guard drift within conditional declarations and probes whose assumptions differ from final compiler target settings.",
+  "precondition": "An optional type, structure member, or function declaration is available only under specific build features, header versions, or target/API settings, while related consumer code is controlled by a separate capability condition.",
+  "critical_operation": "A refactor, generated descriptor, or feature-enabled implementation references the optional entity using a broader guard or a configure-time result that was not validated with the exact final headers, target settings, and declaration conditions.",
+  "interference": "The selected build omits the project-defined type, uses external headers without the newer structure member, or suppresses the function declaration for the final target/API level even though the consumer condition remains enabled.",
+  "invalid_assumption": "A broad feature macro or successful capability probe is assumed to prove that the specific referenced entity is defined in the compilation unit, although provider and consumer availability conditions are not equivalent.",
+  "failure": "Compilation stops on an undefined type, missing structure member, or undeclared function; dependent metadata or array declarations may then emit cascading diagnostics instead of the unsupported interface being omitted or a fallback being selected.",
+  "search_strategy": [
+    "Trace every optional type, structure-member, and function reference to the exact guard or probe that establishes its availability.",
+    "Compare consumer guards with the provider's declaration guards, including per-member header conditions rather than only the enclosing feature marker.",
+    "Verify that configure-time capability checks use the same compiler, target/API settings, headers, and declaration form as the final compilation.",
+    "Search generated tables, descriptors, shared declarations, and feature-enabled implementations for references protected only by a coarse capability macro.",
+    "Build with disabled project features, older or minimal external headers, and lower target/API settings to confirm unsupported entities are omitted or replaced by a fallback."
+  ],
+  "evidence": [
+    {
+      "issue": 119447,
+      "supports": "A refactor made a shared reference to a project-defined runtime state type unconditional while the type remained absent when a numeric build feature disabled its implementation; the failing configuration exposed the guard mismatch."
+    },
+    {
+      "issue": 140159,
+      "supports": "A descriptor table was enabled by the availability of a broader platform interface even though a newer member of its structure was absent from supported system headers, producing a missing-member error and incomplete-array follow-on diagnostics."
+    },
+    {
+      "issue": 143640,
+      "supports": "A configure-time function check reported success under assumptions that did not match the final target/API-level header conditions, so the guarded call compiled without a declaration and failed under implicit-declaration errors."
+    }
+  ],
+  "scope_note": "This mixed cluster supports the umbrella rule that availability evidence must match the exact consumer entity and final compilation context. Two reports show conditional-guard drift for project-defined or external structure entities; the third shows a probe-versus-final-target mismatch for a function declaration. They should not be reduced to one specific guard style or to external headers alone.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:24:00.573071+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0059",
+    "workflow-0140"
+  ],
+  "adaptation_fingerprint": "983ae469e454eb9564c22f61a8f7a553c511f7f7195274b3e286907952c3e8cb",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

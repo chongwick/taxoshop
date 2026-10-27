@@ -9,7 +9,6 @@
     "Serialization later inspects the dangling field and performs a use-after-free read, terminating the process."
   ],
   "summary": "Borrowed reference incorrectly transferred into compound state",
-  "decision_reason": "The failure is materially the same retained-reference-after-release workflow: an existing owner retains a reference after another container incorrectly releases the referenced object, and later access dereferences freed storage.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:54:12.828833+00:00"
 }

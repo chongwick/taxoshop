@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 152741,
+  "cluster_id": "workflow-0126",
+  "workflow": [
+    "A worker begins attaching and publishes its execution-state record to a shared registry before all identity fields are initialized.",
+    "A concurrent observer traverses the registry and reads the worker’s identity field while the attaching worker writes it.",
+    "The unsynchronized read and write form a data race, producing inconsistent state or sanitizer-reported failure instead of safe observation.",
+    "The failure affects ordinary concurrent inspection until publication is delayed or the field access is synchronized."
+  ],
+  "summary": "Concurrent observation of partially initialized published state",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:41:39.130006+00:00"
+}

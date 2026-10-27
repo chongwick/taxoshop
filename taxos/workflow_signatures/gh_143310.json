@@ -9,7 +9,6 @@
     "The invalid element access dereferences a null or stale pointer, terminating the process instead of handling the mutation safely."
   ],
   "summary": "Reentrant sequence mutation causes invalid later element access",
-  "decision_reason": "The failure workflow is materially the same as reentrant conversion invalidating a backing resource before the outer operation’s later use: user-controlled conversion mutates the object being processed, the outer operation fails to revalidate or stabilize its state, and a subsequent access crashes.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:19:33.578746+00:00"
 }

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0091",
+  "issues": [
+    139751,
+    139988,
+    140398,
+    140406,
+    140530,
+    140593,
+    140939,
+    142917,
+    147998,
+    148484
+  ],
+  "workflow_hypothesis": "Exceptional parse failure omits cleanup and leaks an intermediate allocation",
+  "pattern": "Error-path ownership loss in native operations",
+  "description": "An operation owns temporary state while processing input or invoking validation-dependent work, then an exceptional exit fails to discharge that ownership.",
+  "precondition": "The operation acquires an owned intermediate, temporary, iterator, builder, callback result, or converted value before all later validation and failure-prone steps have completed.",
+  "critical_operation": "It parses, converts, builds, formats, invokes a callback, or performs another fallible step and routes failure through an error return or cleanup label.",
+  "interference": "Invalid input or type, a rejecting callback or audit hook, a preexisting exception, or an allocation/preparation failure interrupts the normal success sequence after the owned state exists.",
+  "invalid_assumption": "The implementation assumes every failure path reaches complete cleanup and that the cleanup code still refers to the acquired resource; an early return or variable shadowing can invalidate either assumption.",
+  "failure": "The operation reports its recoverable error but leaves the intermediate ownership live, so repeated calls or process-exit leak checking reports a direct, indirect, or reference leak.",
+  "search_strategy": [
+    "Trace every owned allocation or reference from acquisition through each validation, callback, conversion, and allocation-failure exit; require cleanup on every path.",
+    "Inspect error labels and early returns after temporary-state creation; verify that each path releases all resources acquired in the current scope.",
+    "Check for inner-scope declarations that shadow resource variables used by shared cleanup or error labels.",
+    "Exercise invalid arguments, rejecting callbacks or hooks, preexisting exceptions, and simulated allocation failures immediately after each intermediate is created."
+  ],
+  "evidence": [
+    {
+      "issue": 139751,
+      "supports": "A parsing operation decodes an intermediate value before rejecting an invalid argument; the error return leaves that decoded allocation unreclaimed. The report also contains a separate unrelated reproducer, so only the parser case supports this mechanism."
+    },
+    {
+      "issue": 139988,
+      "supports": "A builder creates owned container state and accumulates values before rejecting a nonconforming argument; failure returned without finalizing the builder, leaking the builder and its contents."
+    },
+    {
+      "issue": 140398,
+      "supports": "Several conversion paths create an owned converted value before an audit hook can fail; the audit-error returns omitted release of that converted value."
+    },
+    {
+      "issue": 140406,
+      "supports": "A method result is owned before its type is validated; rejecting the wrong result type raises an error without releasing the returned object."
+    },
+    {
+      "issue": 140530,
+      "supports": "Constructing an error-related intermediate produces a mortal nonconforming value; the type-check failure jumps to a shared error path without releasing that value."
+    },
+    {
+      "issue": 140593,
+      "supports": "A parser callback path owns a content-model allocation, but an already-set error takes a direct return instead of the common finalization path, leaving the model allocated."
+    },
+    {
+      "issue": 140939,
+      "supports": "Formatting creates a temporary value before a buffer-growth operation can fail; that preparation failure jumps to the general error path without releasing the temporary."
+    },
+    {
+      "issue": 142917,
+      "supports": "The report records a sanitizer leak after an exceptional recursion-related test, but provides no confirmed ownership path, fix, or reproducible root cause; it supports only that such reports need separate validation."
+    },
+    {
+      "issue": 147998,
+      "supports": "A resource created in an inner branch is shadowed by a new declaration, so the later error cleanup sees a different binding and cannot release the resource."
+    },
+    {
+      "issue": 148484,
+      "supports": "An iterator is acquired before typecode validation and several later initialization steps; invalid typecode and other failures return without releasing it, and the fix adds cleanup to those exits."
+    }
+  ],
+  "scope_note": "The shared pattern is an error-path ownership/cleanup defect in resource-managing native code, not specifically a text parser defect. Nine reports establish this mechanism; the recursion-related report has an unconfirmed, unreproducible cause and is retained as a boundary case rather than generalized evidence.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:02:57.284647+00:00"
+}

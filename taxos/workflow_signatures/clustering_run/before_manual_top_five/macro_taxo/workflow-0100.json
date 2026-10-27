@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0100",
+  "issues": [
+    116912,
+    128050,
+    128100,
+    128130,
+    128144,
+    130605,
+    130977,
+    131325,
+    132886,
+    140263,
+    140608,
+    142717,
+    143756,
+    144567,
+    145036,
+    145272,
+    146270,
+    149142,
+    149816,
+    150191,
+    151277,
+    153014,
+    153852,
+    153908,
+    153981,
+    154524,
+    154756,
+    154821
+  ],
+  "workflow_hypothesis": "Concurrent unsynchronized access to shared mutable state",
+  "pattern": "Concurrent unsynchronized access to shared mutable execution or native state",
+  "description": "Multiple threads or asynchronous operations access one mutable record, context, container, pointer, buffer, or native state without a complete protocol covering conflicting accesses, state transitions, and required lifetime or cleanup ownership.",
+  "precondition": "Shared mutable execution or native state is reachable by concurrent readers, writers, resetters, consumers, native calls, or cleanup paths.",
+  "critical_operation": "An operation reads, updates, publishes, consumes, validates, dereferences, or cleans up shared state while requiring coherent contents, stable lifetime, or exclusive ownership.",
+  "interference": "Another operation concurrently writes, resets, replaces, resizes, clears, reinitializes, enters the same native context, or releases related state without the same effective synchronization, atomic publication, lifetime rule, or ownership protocol.",
+  "invalid_assumption": "A runtime guard, timing delay, one-sided atomicity, prior bounds check, borrowed reference, partial critical section, isolation boundary, or presumed exclusive cleanup is assumed to serialize all relevant accesses and preserve state or ownership.",
+  "failure": "The overlap can produce a sanitizer-reported race, lost or contradictory state, invalid intermediate observations, out-of-bounds access, stale or freed-state use, double release, corruption, native-library failure, or a crash.",
+  "search_strategy": [
+    "Search for shared mutable records, flags, pointers, containers, buffers, descriptors, registries, and native contexts reached by multiple threads; identify every reader, writer, resetter, and cleanup path.",
+    "Check that all related reads, writes, check-and-update sequences, and dependent fields use one complete synchronization or atomic-publication protocol, including test, debug, and representation paths.",
+    "Trace borrowed references, exported buffers, replaceable objects, resized storage, and native allocations to verify stable lifetime through the full use and exclusive or reference-counted cleanup.",
+    "Check whether locks or runtime guards are suspended or released during native calls, polling, callbacks, or blocking regions while the shared state remains in use.",
+    "Stress concurrent initialization, reconfiguration, reset, mutation, handoff, invocation, shutdown, and cleanup under race and memory-safety instrumentation."
+  ],
+  "evidence": [
+    {
+      "issue": 116912,
+      "supports": "A shared native descriptor field is written by close or detachment while another thread reads it during an operation outside the usual runtime lock, directly supporting an unsynchronized mutable-state race."
+    },
+    {
+      "issue": 128050,
+      "supports": "A lazily changed dispatch value is mutated during one call while concurrent calls read it, showing that fast-path publication or fallback changes still require a safe shared-state protocol."
+    },
+    {
+      "issue": 128100,
+      "supports": "A shared object-storage reference can be replaced while another operation reads through a borrowed reference, supporting the distinction between a data race and lifetime failure after replacement."
+    },
+    {
+      "issue": 128130,
+      "supports": "One concurrent evaluation records pending interrupt state while another evaluation resets the same process-wide marker during setup, so unsynchronized reset loses state."
+    },
+    {
+      "issue": 128144,
+      "supports": "Atomic publication on the writer side is paired with a plain reader, demonstrating that one-sided atomicity does not make a shared field access safe."
+    },
+    {
+      "issue": 130605,
+      "supports": "Concurrent executor activity reads configuration-related state while another thread updates it, requiring coordinated atomic access rather than ordinary loads and stores."
+    },
+    {
+      "issue": 130977,
+      "supports": "Independent aliases to one mutable byte storage perform concurrent reads and writes, directly supporting the shared-storage race mechanism."
+    },
+    {
+      "issue": 131325,
+      "supports": "A reusable buffer is handed to an asynchronous consumer before sequencing establishes exclusive use, allowing a later producer fill to overlap transmission of the earlier view."
+    },
+    {
+      "issue": 132886,
+      "supports": "A native descriptor race persists where the runtime lock was assumed to serialize access, supporting the need for coordinated access across configurations."
+    },
+    {
+      "issue": 140263,
+      "supports": "A worker atomically updates shared lock-state bits while a checker reads them non-atomically after sleep-based polling; timing does not synchronize the inspection."
+    },
+    {
+      "issue": 140608,
+      "supports": "Concurrent native handshake paths can both reach cleanup for the same allocation, supporting a distinct shared-lifetime and cleanup-ownership failure that manifests as double release."
+    },
+    {
+      "issue": 142717,
+      "supports": "Concurrent compound operations on one shared sequence mutate transient representation while other threads access it, causing invalid state and a memory-safety failure."
+    },
+    {
+      "issue": 143756,
+      "supports": "A runtime-level critical section is suspended across a released native region, allowing overlapping operations on one external context; full-operation serialization is required."
+    },
+    {
+      "issue": 144567,
+      "supports": "Concurrent process-wide locale changes replace and free returned storage while another thread decodes it, producing use-after-free from stale or freed state."
+    },
+    {
+      "issue": 145036,
+      "supports": "A lock-free inspection reads capacity and representation while concurrent resize or clear changes related metadata and storage, showing that atomic scalar reads do not stabilize the whole representation."
+    },
+    {
+      "issue": 145272,
+      "supports": "A replaceable reference field is read concurrently with replacement, requiring coordinated load or exchange and lifetime protection."
+    },
+    {
+      "issue": 146270,
+      "supports": "A check for absent state occurs outside the synchronized update, so concurrent deletion can report success more than once; this is a lost-linearization state error rather than necessarily freed-memory use."
+    },
+    {
+      "issue": 149142,
+      "supports": "Concurrent status and trap operations perform unsynchronized flag read-modify-write and clearing on one shared numeric context, requiring one common coordination protocol."
+    },
+    {
+      "issue": 149816,
+      "supports": "A reader validates an index, then concurrent reinitialization changes it before dereference, causing out-of-bounds access through check/use invalidation."
+    },
+    {
+      "issue": 150191,
+      "supports": "Multiple handshakes reuse one mutable native context whose internal state is not safe for overlap, producing an independent library-state race."
+    },
+    {
+      "issue": 151277,
+      "supports": "A comparison reads mutable external-library string storage while another operation replaces it, and library-internal synchronization does not cover both access paths."
+    },
+    {
+      "issue": 153014,
+      "supports": "A configuration or debug flag is written plainly while readers access it concurrently outside a stop-the-world region, supporting a value-benign but real synchronization defect."
+    },
+    {
+      "issue": 153852,
+      "supports": "Residual free-threading findings span shared caches, lists, sockets, instrumentation, registries, and finalization, supporting the broad umbrella while showing varied outcomes."
+    },
+    {
+      "issue": 153908,
+      "supports": "Representation reads a fast-path scalar or slow-path pointer plainly while writers update or replace it atomically or under a critical section, causing a race and possible stale-object use."
+    },
+    {
+      "issue": 153981,
+      "supports": "A representation path borrows a replaceable counter object while another path swaps and releases it, supporting the stale or freed-state lifetime submechanism."
+    },
+    {
+      "issue": 154524,
+      "supports": "A buffer pointer is read while resizing reallocates its backing storage, requiring both access synchronization and a lifetime rule for live exports."
+    },
+    {
+      "issue": 154756,
+      "supports": "An in-place ordering operation writes sequence slots while other threads iterate, supporting concurrent structural mutation versus read-only traversal."
+    },
+    {
+      "issue": 154821,
+      "supports": "Several related reference fields are read, replaced, or cleared during invocation, so partial synchronization leaves cross-field ownership and state transitions racy."
+    }
+  ],
+  "scope_note": "This umbrella covers unsynchronized shared-state access. Members differ: ordinary or partially atomic races lose state; replacement, resizing, or reinitialization invalidates borrowed state; cleanup races can release an allocation twice. A matching audit must identify the actual access, lifetime, or ownership mechanism rather than treating all races alike.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:22:25.002751+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0056",
+    "workflow-0075",
+    "workflow-0077",
+    "workflow-0081",
+    "workflow-0095",
+    "workflow-0107",
+    "workflow-0150",
+    "workflow-0152",
+    "workflow-0157",
+    "workflow-0158"
+  ],
+  "adaptation_fingerprint": "094c4ade1e68ca5a6e0ef3a2f37ffb068f301100d3b9171849af4bae810a47aa",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "scope_note"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.325551+00:00"
+}

@@ -1,38 +1,48 @@
-# An optimizing runtime promotes a mutable attribute load into an embedded constant and specializes subsequent execution on the observed value, but fails to bind该
+# Availability detection and consumer guards do not match the exact interface entity they expose
 
-An optimizing runtime promotes a mutable attribute load into an embedded constant and specializes subsequent execution on the observed value, but fails to bind that promotion to the attribute's invalidation mechanism.
+Conditional build logic enables a consumer of an optional interface based on a coarse feature marker or a capability probe, while the exact type, member, or declaration is controlled by a narrower condition in the project or target headers. The reports include both guard drift within conditional declarations and probes whose assumptions differ from final compiler target settings.
 
 ## Precondition
 
-A mutable attribute is read by optimized code, and the optimizer can replace the lookup with a cached constant while specializing later operations for the constant's observed exact type.
+An optional type, structure member, or function declaration is available only under specific build features, header versions, or target/API settings, while related consumer code is controlled by a separate capability condition.
 
 ## Critical operation
 
-The optimizer embeds the attribute value and emits type-specialized execution without registering a dependency that invalidates the optimization when the owning object's attribute changes.
+A refactor, generated descriptor, or feature-enabled implementation references the optional entity using a broader guard or a configure-time result that was not validated with the exact final headers, target settings, and declaration conditions.
 
 ## Interference
 
-The attribute is reassigned while the optimized code remains active, potentially changing both its value and exact type.
+The selected build omits the project-defined type, uses external headers without the newer structure member, or suppresses the function declaration for the final target/API level even though the consumer condition remains enabled.
 
 ## Invalid assumption
 
-The embedded constant and its original type guarantee remain valid after the mutable attribute has been changed.
+A broad feature macro or successful capability probe is assumed to prove that the specific referenced entity is defined in the compilation unit, although provider and consumer availability conditions are not equivalent.
 
 ## Failure
 
-Execution reaches the specialized operation with the replacement value, causing a type assertion or equivalent hard termination instead of invalidating, deoptimizing, or reloading the attribute.
+Compilation stops on an undefined type, missing structure member, or undeclared function; dependent metadata or array declarations may then emit cascading diagnostics instead of the unsupported interface being omitted or a fallback being selected.
 
 ## Scope
 
-This is a singleton cluster, so the pattern is scoped to optimized mutable-attribute promotion and its invalidation dependency; the report does not establish that all stale caches or all specialization failures share this mechanism.
+This mixed cluster supports the umbrella rule that availability evidence must match the exact consumer entity and final compilation context. Two reports show conditional-guard drift for project-defined or external structure entities; the third shows a probe-versus-final-target mismatch for a function declaration. They should not be reduced to one specific guard style or to external headers alone.
 
 ## Search strategy
 
-1. Check every optimization that turns a mutable attribute lookup into an embedded constant for an explicit invalidation dependency on the owning object or type.
-2. Trace attribute writes against all cached-load and specialization guards to verify that each write can invalidate active optimized code.
-3. Inspect specialized operations consuming promoted attribute values for a guard, deoptimization path, or reload when the cached value is stale.
-4. Review concurrent or re-entrant mutation scenarios where an attribute can change while optimized code is executing.
+1. Trace every optional type, structure-member, and function reference to the exact guard or probe that establishes its availability.
+2. Compare consumer guards with the provider's declaration guards, including per-member header conditions rather than only the enclosing feature marker.
+3. Verify that configure-time capability checks use the same compiler, target/API settings, headers, and declaration form as the final compilation.
+4. Search generated tables, descriptors, shared declarations, and feature-enabled implementations for references protected only by a coarse capability macro.
+5. Build with disabled project features, older or minimal external headers, and lower target/API settings to confirm unsupported entities are omitted or replaced by a fallback.
 
 ## Evidence
 
-- [#142276](../micro_taxo/gh_142276.md): A mutable class attribute was read repeatedly while another execution path reassigned it; the optimizer had promoted the load to a constant without a corresponding type watcher, leaving stale specialized code that terminated on an exact-type assertion.
+- [#119447](../micro_taxo/gh_119447.md): A refactor made a shared reference to a project-defined runtime state type unconditional while the type remained absent when a numeric build feature disabled its implementation; the failing configuration exposed the guard mismatch.
+- [#140159](../micro_taxo/gh_140159.md): A descriptor table was enabled by the availability of a broader platform interface even though a newer member of its structure was absent from supported system headers, producing a missing-member error and incomplete-array follow-on diagnostics.
+- [#143640](../micro_taxo/gh_143640.md): A configure-time function check reported success under assumptions that did not match the final target/API-level header conditions, so the guarded call compiled without a declaration and failed under implicit-declaration errors.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0059](../macro_taxo_before_hybrid/workflow-0059.md)
+- [workflow-0140](../macro_taxo_before_hybrid/workflow-0140.md)

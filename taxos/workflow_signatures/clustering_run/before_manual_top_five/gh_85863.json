@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 85863,
+  "cluster_id": "workflow-0017",
+  "workflow": [
+    "A parser refactor changes recursive argument collection to an iterative sequence-building helper.",
+    "The helper receives a heterogeneous sequence containing wrapper records and assumes its elements are expression records.",
+    "It interprets the final wrapper as an expression and reads fields at offsets that do not belong to that object.",
+    "The invalid field access becomes a heap buffer overflow, causing sanitizer-detected process termination instead of successful parsing."
+  ],
+  "summary": "Heterogeneous sequence element misinterpreted as a different record type",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:57:14.068569+00:00"
+}

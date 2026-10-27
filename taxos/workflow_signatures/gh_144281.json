@@ -9,7 +9,6 @@
     "The write reaches invalid mapped storage and terminates the process instead of returning a recoverable invalid-buffer error."
   ],
   "summary": "Retained view writes through released mapped storage",
-  "decision_reason": "The failure workflow materially matches retained-pointer use after the owning buffer storage is released; the differing mapped-resource details and write operation do not change the core lifetime violation.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:30:18.484298+00:00"
 }

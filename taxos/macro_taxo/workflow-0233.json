@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0233",
+  "issues": [
+    146452
+  ],
+  "workflow_hypothesis": "Concurrent diagnostic traversal dereferences released execution state",
+  "pattern": "Concurrent traversal uses runtime-owned records without stable references or teardown exclusion",
+  "description": "A diagnostic or serialization traversal reads shared runtime state while another execution context can mutate, release, or destroy that state. Because the traversal does not establish a stable snapshot, ownership, or exclusion interval, references obtained during traversal may be invalidated before later fields or values are processed.",
+  "precondition": "A worker traverses interpreter-managed records or container-owned entries whose lifetime and contents can be changed by another thread, and the traversal retains borrowed or otherwise non-owning access across multiple operations.",
+  "critical_operation": "The traversal obtains a record, entry, iterator position, or associated metadata and proceeds toward formatting, reference acquisition, or serialization without first holding the synchronization or ownership needed to stabilize the traversed state.",
+  "interference": "Another thread concurrently mutates the container or tears down the execution context, releasing, replacing, or destroying the state that the traversal observed.",
+  "invalid_assumption": "The observed record or borrowed entry will remain valid until the traversal finishes using it, even though no stable snapshot, ownership transfer, critical section, global interpreter lock, or stop-the-world boundary covers the observation-to-use interval.",
+  "failure": "Later traversal accesses read freed or otherwise invalid runtime state, causing a process-terminating segmentation fault or memory-safety failure instead of a safe concurrent-modification or teardown outcome.",
+  "search_strategy": [
+    "Inspect diagnostic, serialization, and inspection traversals of shared runtime state for borrowed records or entries that are used after the retrieval step.",
+    "Verify that record traversal is enclosed by an appropriate lock, interpreter-state attachment, global runtime lock, stop-the-world barrier, or equivalent stable-snapshot mechanism.",
+    "Trace concurrent mutation and teardown paths for entry removal, replacement, interpreter destruction, execution-record release, and metadata reclamation during traversal.",
+    "Check every observation-to-use interval, including formatting and reference acquisition, for a race between reading a non-owning handle and making it owned or consuming its fields.",
+    "Distinguish container mutation races from execution-context teardown races and confirm that each has a matching lifetime and synchronization guarantee."
+  ],
+  "evidence": [
+    {
+      "issue": 146452,
+      "supports": "A serializer retrieved borrowed mapping entries and attempted to retain or process them while another thread could remove or replace those entries; enclosing retrieval and retention in a critical section prevents invalidation."
+    }
+  ],
+  "scope_note": "Membership was manually restricted to the evidence listed below. Two mechanisms share an unstable traversal boundary: runtime-record teardown during diagnostic collection, and container mutation between borrowed-entry retrieval and ownership acquisition. Apply this pattern only where a traversal lacks the exclusion, snapshot, or lifetime protection required by the observed reference.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:40:40.681799+00:00",
+  "adaptation_method": "manual_subset_after_restoration",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014",
+    "workflow-0154"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern",
+    "scope_note"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.350177+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+}

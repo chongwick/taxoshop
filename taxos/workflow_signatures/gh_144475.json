@@ -9,7 +9,6 @@
     "A later access reads beyond the released storage, causing a heap-buffer-overflow instead of completing safely."
   ],
   "summary": "Reentrant mutation invalidates borrowed container storage during iteration.",
-  "decision_reason": "The failure is materially the same as retained-pointer use after owner release: the operation keeps a borrowed reference to storage, reentrant user code replaces and releases that storage, and subsequent access uses the stale reference.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:31:37.052172+00:00"
 }

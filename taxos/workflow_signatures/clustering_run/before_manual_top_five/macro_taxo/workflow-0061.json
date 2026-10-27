@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0061",
+  "issues": [
+    86434,
+    114453,
+    116891,
+    150467
+  ],
+  "workflow_hypothesis": "Profiling instrumentation breaks configuration probes and causes a misleading incomplete-type build failure",
+  "pattern": "Instrumentation compatibility failures contaminate configuration probes or target linkage",
+  "description": "Optional profiling, sanitizer, or similar instrumentation is integrated without validating its compatibility with the selected compiler, runtime, platform, and other instrumentation modes.",
+  "precondition": "An instrumentation mode is enabled and its flags or support libraries are propagated into configure-time probes or production link commands.",
+  "critical_operation": "Compile, execute, or link instrumented programs while using their results or assembled inputs to determine capabilities or produce the target.",
+  "interference": "The instrumentation may be rejected by the compiler, make probe executables unloadable or crash because runtime support is missing, conflict with another instrumentation mode, or introduce support-library symbols incompatible with the target's runtime linkage.",
+  "invalid_assumption": "A failed instrumented probe is treated as a genuine negative capability result, or instrumentation support is assumed compatible with the selected toolchain and runtime linkage.",
+  "failure": "Configuration records false feature or dependency settings and may fail later with an unrelated incomplete-type error; alternatively, the instrumented target fails directly at link time with unresolved runtime, library, exception, allocation, or initialization symbols.",
+  "search_strategy": [
+    "Trace optional instrumentation flags and support libraries into every configure-time compile, link, and run probe.",
+    "Check that probe failures distinguish compiler rejection, loader or startup failure, and missing instrumentation runtime from genuine capability absence.",
+    "Verify that enabled instrumentation modes are mutually compatible and that their runtime and support-library requirements match the target's platform and runtime linkage.",
+    "Inspect conditional configuration outputs and later type consumers for false negatives caused by failed instrumented probes.",
+    "Compare instrumented link inputs with the selected runtime-library convention and audit unresolved symbols by originating library."
+  ],
+  "evidence": [
+    {
+      "issue": 86434,
+      "supports": "The report shows compiler-specific sanitizer flags being added before compiler support was checked; incompatible flags then caused a later capability probe to fail, leading to a misleading configuration result until an upfront flag validation was added."
+    },
+    {
+      "issue": 114453,
+      "supports": "The report shows profiling flags producing executables that failed at startup because a required process-environment symbol was unavailable; configure misclassified those probe failures, and the resulting false settings surfaced later as an incomplete conditional type used by value."
+    },
+    {
+      "issue": 116891,
+      "supports": "The report shows thread-sanitizer configuration producing a false library-capability result because the compiler runtime support package was missing; the report also records that incompatible sanitizer combinations should be rejected explicitly."
+    },
+    {
+      "issue": 150467,
+      "supports": "The report shows an instrumented Windows target failing at link time because instrumentation support libraries and the selected runtime objects required incompatible runtime, C-library, exception, allocation, and initialization symbols."
+    }
+  ],
+  "scope_note": "The shared pattern is failure to validate instrumentation compatibility before relying on instrumented probes or links. Issues 86434, 114453, and 116891 primarily demonstrate configuration contamination by compiler or runtime incompatibility, with differing downstream diagnostics; issue 150467 demonstrates the related direct link-time incompatibility. The reports do not establish one universal instrumentation mode, platform, failure phase, or required remediation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:16:57.512257+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0018",
+    "workflow-0052",
+    "workflow-0160"
+  ],
+  "adaptation_fingerprint": "6a10c62d4bcc163420a8523d2d6bea7f3da2adbf096adb2bc4a0ea1a57aafad6",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

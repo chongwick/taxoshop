@@ -1,39 +1,46 @@
-# Unchecked or externally mutable runtime metadata violates a representation invariant, allowing later low-level consumers to crash when they use the value as its
+# Sanitizer exposure of nonportable fault injection and signature-unsafe callback dispatch
 
-A structured runtime state or metadata field is accepted or modified without enforcing its required representation. Later execution uses that field through an operation that assumes the invariant, so an incompatible value reaches low-level object or memory handling and crashes instead of producing a recoverable validation error.
+Low-level failure tests or dispatch paths rely on operations that are undefined in the language or ABI: deliberate invalid accesses or arithmetic to provoke faults, and calls through generic function-pointer interfaces whose signatures do not exactly match the target. With sanitizer instrumentation active or restored, these paths are diagnosed before their intended signal handling or callback behavior can be observed.
 
 ## Precondition
 
-Runtime state or metadata contains fields with required representation invariants, and callers can supply or mutate those fields without complete validation.
+A low-level path deliberately fabricates a fault with undefined operations, or stores and invokes callbacks through a generic interface without preserving an exactly compatible function signature; sanitizer checks are active or disabled around the path.
 
 ## Critical operation
 
-A later execution path consumes the field using a specialized operation that requires the expected representation, such as mapping access or object-reference handling.
+Execute the deliberate fault path or perform the indirect callback dispatch while sanitizer instrumentation is active or has been re-enabled.
 
 ## Interference
 
-Validation is incomplete, or the supportedness boundary permits direct mutation that bypasses invariant-preserving construction.
+The sanitizer intercepts the fabricated invalid operation or reports the incompatible indirect call, and may abort before the expected fault signal, supervised process termination, or callback result completes.
 
 ## Invalid assumption
 
-The downstream consumer assumes the field still has its required representation because the earlier state-construction or mutation path did not establish that invariant.
+The implementation assumes that undefined operations will reliably produce the desired platform-level fault and that callbacks with merely similar argument layouts are interchangeable through a generic function-pointer interface.
 
 ## Failure
 
-The incompatible value is processed by low-level runtime code, causing invalid object or memory access and a process crash rather than a recoverable type or state error.
+Execution or the associated test fails with sanitizer diagnostics or an unexpected abort instead of validating the intended fault-handling or callback-dispatch behavior.
 
 ## Scope
 
-The reports share the invariant-bypass-to-low-level-crash mechanism, but differ in boundary: one is a missing validation check in a state-restoration path, while the other is unsupported direct mutation of runtime metadata. The pattern therefore covers both incomplete validation and explicitly unsupported invariant-breaking mutation, not all malformed input generally.
+The reports support one umbrella pattern with two distinct mechanisms: sanitizer interception of intentional process-failure injection, and sanitizer-visible undefined behavior in callback dispatch or fault-trigger code. They do not establish that every sanitizer failure involves both mechanisms or that all generic callback storage is invalid; the callback hazard concerns invocation through a mismatched function type.
 
 ## Search strategy
 
-1. Check every state-restoration or deserialization field for validation of optional values before storing them.
-2. Trace metadata fields from mutation or replacement APIs to consumers and verify that each consumer's representation assumptions are enforced.
-3. Search for low-level lookups, reference operations, or pointer-dependent access performed without a local type or invariant check.
-4. Check whether public mutation APIs can create internally inconsistent structured objects that later execution treats as trusted state.
+1. Find tests or low-level routines that provoke faults with null reads, division by zero, invalid shifts, or other undefined operations, and replace them with explicit platform-appropriate signaling where possible.
+2. Trace sanitizer-suppression annotations around fault injection and determine whether enabling instrumentation changes the observable signal, exit status, or supervisor result.
+3. Check every indirect callback call and registration boundary for exact agreement of return and parameter types, including generated dispatch code and casts through generic function-pointer types.
+4. Add signature-specific wrappers or generator-time checks for heterogeneous callback families, and verify sanitizer-enabled execution of each dispatch path.
 
 ## Evidence
 
-- [#140590](../micro_taxo/gh_140590.md): A missing check on an optional mapping-valued state field allowed a non-mapping value to be stored; later mapping-oriented processing could reach invalid low-level access and crash.
-- [#140776](../micro_taxo/gh_140776.md): Direct replacement of a code object's metadata with a value of the wrong representation broke an internal invariant; later function construction treated the metadata as valid and crashed during low-level object handling.
+- [#93981](../micro_taxo/gh_93981.md): A supervised worker-recovery test deliberately caused fatal memory faults; AddressSanitizer intercepted the resulting invalid access and aborted the worker with a fatal-signal report, so the test did not observe the ordinary worker-failure behavior.
+- [#133157](../micro_taxo/gh_133157.md): Removing undefined-behavior suppression exposed deliberate null-read and divide-by-zero fault fabrication plus indirect callback calls with incompatible signatures; the changes replaced synthetic faults with explicit signaling, removed an unnecessary null-read path, and introduced signature-aware dispatch handling.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0026](../macro_taxo_before_hybrid/workflow-0026.md)
+- [workflow-0082](../macro_taxo_before_hybrid/workflow-0082.md)

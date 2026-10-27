@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0073",
+  "issues": [
+    115378,
+    120378,
+    122431,
+    140462
+  ],
+  "workflow_hypothesis": "Unchecked oversized geometry causes downstream arithmetic corruption and crash",
+  "pattern": "Unchecked numeric values cross native boundaries without semantic or size validation",
+  "description": "An interface accepts a numerically representable value without validating its semantic validity or the downstream component’s effective limits. Native code then treats the value as a live handle, valid count, or safe geometry parameter, allowing invalid memory access or arithmetic corruption instead of a recoverable argument error.",
+  "precondition": "A caller supplies an invalid identifier or count, or an extreme coordinate or dimension that is representable at the interface but invalid or unsupported by downstream native code.",
+  "critical_operation": "The interface forwards the converted value to a native routine without checking liveness, sign, semantic range, representability, or the callee’s effective geometry limits.",
+  "interference": "The downstream routine interprets the value as a pointer-like handle and dereferences it, uses an invalid count in indexing or memory arithmetic, or uses extreme geometry in narrower conversions and internal layout or address calculations.",
+  "invalid_assumption": "Successful type conversion or surface-level representability is assumed to prove that the value is semantically valid and safe for the downstream implementation to process.",
+  "failure": "The dependency may dereference an invalid address, access memory out of bounds, or corrupt internal arithmetic state, terminating the process instead of returning a controlled value, range, or bounds error.",
+  "search_strategy": [
+    "Check native-boundary identifiers and pointer-like numeric arguments for liveness and semantic validation before forwarding them.",
+    "Check counts, lengths, and offsets for sign, minimum-value, overflow, and indexing validation before native memory operations.",
+    "Check geometry wrappers for explicit validation against the downstream component’s actual coordinate and dimension limits, including narrower internal types.",
+    "Trace extreme numeric inputs through native conversions and arithmetic to verify that invalid addresses, overflow, and out-of-bounds access become recoverable errors.",
+    "Check that type conversion and integer representability are not being treated as evidence of operational validity or safe dependency behavior."
+  ],
+  "evidence": [
+    {
+      "issue": 115378,
+      "supports": "A caller-controlled thread identifier is converted successfully and passed to native lookup code, which casts it to a pointer-like internal handle and dereferences it without validating that it denotes a valid thread, causing a segmentation fault."
+    },
+    {
+      "issue": 120378,
+      "supports": "Large resize dimensions were accepted as ordinary integers even though the lower-level terminal implementation used narrower dimensions; the resulting overflow corrupted internal state and later screen activity crashed, so the interface was changed to reject values outside the narrower range."
+    },
+    {
+      "issue": 122431,
+      "supports": "Negative and minimum signed count values reached native history-processing code without semantic validation; the dependency used them in memory-related processing and could access out-of-bounds memory, so negative values were changed to produce a recoverable value error."
+    },
+    {
+      "issue": 140462,
+      "supports": "An extreme window coordinate was forwarded unchanged to a lower-level geometry implementation that failed to reject it before internal processing; the resulting invalid address computation caused a segmentation fault rather than a bounds error."
+    }
+  ],
+  "scope_note": "This is a hybrid umbrella pattern covering two related but distinct native-boundary failures: invalid identifiers or counts reaching code that assumes semantic validity, and extreme geometry reaching a dependency whose internal representation or arithmetic cannot safely handle it. The reports do not establish one universal downstream fault or that every case can be prevented solely by changing the wrapper; they support checking both interface validation and dependency behavior.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:18:35.468602+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0053",
+    "workflow-0061"
+  ],
+  "adaptation_fingerprint": "6b28b40d0d72e9a1a1b9e1c101c23581874e473d17bb470dd3d1cfca004b87dd",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.315250+00:00"
+}

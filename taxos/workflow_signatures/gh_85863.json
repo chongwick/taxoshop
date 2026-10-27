@@ -9,7 +9,6 @@
     "The invalid field access becomes a heap buffer overflow, causing sanitizer-detected process termination instead of successful parsing."
   ],
   "summary": "Heterogeneous sequence element misinterpreted as a different record type",
-  "decision_reason": "Distinct failure workflow: the bug is an invalid type interpretation within a heterogeneous sequence that causes an out-of-bounds field read. Existing clusters cover different mechanisms such as boundary scanning, stale state, freed storage, alignment, or arithmetic errors.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T14:57:14.068569+00:00"
 }

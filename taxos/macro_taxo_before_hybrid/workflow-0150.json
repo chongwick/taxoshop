@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0150",
+  "issues": [
+    145036,
+    151722
+  ],
+  "workflow_hypothesis": "Concurrent container mutation races with size inspection",
+  "pattern": "unserialized inspection of a concurrently changing container",
+  "description": "A lock-free inspection path reads container metadata or backing storage while the container is still being built or concurrently resized, cleared, or otherwise structurally modified.",
+  "precondition": "A container can become visible to another thread before construction is complete, or can be structurally mutated concurrently with readers in a free-threaded execution model.",
+  "critical_operation": "A reader performs a size, memory-footprint, representation, hash, or similar inspection by directly reading internal counters or walking backing storage without synchronizing the complete representation.",
+  "interference": "The writer changes the inspected counter, capacity, table, or backing-storage pointer, including reallocating or clearing storage, while the reader accesses related state.",
+  "invalid_assumption": "Treating the container as immutable or stable based on its public type or intended steady-state semantics—and making only an individual scalar read atomic—is assumed to make the whole inspection safe, even though publication may precede initialization and related metadata and storage are not protected together.",
+  "failure": "The access is a data race and may yield transient or inconsistent observations, sanitizer reports, or invalid storage access and a crash; for an object intended to be immutable, readers may also observe construction-time contents.",
+  "search_strategy": [
+    "Check whether every read-only size, footprint, representation, or hash path is synchronized with concurrent structural mutation.",
+    "Trace object publication and reachability to verify that no partially initialized container can be discovered by another thread.",
+    "Audit lock-free readers for coupled reads of counters, capacity, table pointers, and backing arrays whose updates are not protected by one common protocol.",
+    "Check resize, clear, and empty-state transitions for writes that race with inspection reads or can invalidate a storage pointer after it is observed."
+  ],
+  "evidence": [
+    {
+      "issue": 145036,
+      "supports": "A footprint query atomically read a capacity field while concurrent append/pop operations updated capacity during resize and clearing; the unsynchronized field access triggered a ThreadSanitizer race, and an attempted direct capacity lookup could dereference cleared storage."
+    },
+    {
+      "issue": 151722,
+      "supports": "A supposedly immutable mapping was discoverable while construction was still inserting and resizing entries; concurrent length, representation, and hash reads accessed counters and the entry table without synchronization, producing races and observations of a changing object."
+    }
+  ],
+  "scope_note": "The reports support a pattern about concurrent inspection during construction or structural mutation, especially in free-threaded runtimes. They do not show that every lock-free read is unsafe: safety can hold after publication is complete when the representation is genuinely immutable, or when the read protocol and publication mechanism protect all related state.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:35:23.408046+00:00"
+}

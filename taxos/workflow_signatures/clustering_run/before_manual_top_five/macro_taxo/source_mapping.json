@@ -1,0 +1,2117 @@
+{
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "target_taxonomy": "macro_taxo",
+  "mapping": [
+    {
+      "source_cluster_id": "workflow-0001",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0001",
+          "issues": [
+            54726
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0002",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0002",
+          "issues": [
+            57894
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0003",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0030",
+          "issues": [
+            65128,
+            95635,
+            96735
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0004",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0215",
+          "issues": [
+            66234
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0005",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0005",
+          "issues": [
+            71757,
+            81319,
+            127563,
+            146196
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0006",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0210",
+          "issues": [
+            72111
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0007",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0114",
+          "issues": [
+            72174,
+            139269,
+            139834
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0008",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0008",
+          "issues": [
+            73069,
+            153928,
+            154043
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0009",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0009",
+          "issues": [
+            73331
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0010",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0010",
+          "issues": [
+            75554,
+            77756
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0011",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0011",
+          "issues": [
+            77808
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0012",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0009",
+          "issues": [
+            77813
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0013",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0013",
+          "issues": [
+            79374,
+            140497
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0014",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0014",
+          "issues": [
+            88350,
+            103718,
+            139210
+          ]
+        },
+        {
+          "cluster_id": "workflow-0046",
+          "issues": [
+            96572,
+            101975,
+            108253,
+            114106
+          ]
+        },
+        {
+          "cluster_id": "workflow-0062",
+          "issues": [
+            115243,
+            120289,
+            120298,
+            142557,
+            142558,
+            142560,
+            142664,
+            142830,
+            143004,
+            143197,
+            143309,
+            143547,
+            144475,
+            148382,
+            151403
+          ]
+        },
+        {
+          "cluster_id": "workflow-0064",
+          "issues": [
+            113591,
+            116510,
+            144172
+          ]
+        },
+        {
+          "cluster_id": "workflow-0097",
+          "issues": [
+            124878,
+            140138
+          ]
+        },
+        {
+          "cluster_id": "workflow-0147",
+          "issues": [
+            135636,
+            140651,
+            142783
+          ]
+        },
+        {
+          "cluster_id": "workflow-0215",
+          "issues": [
+            80434,
+            139400,
+            142665,
+            144281,
+            146011,
+            151046
+          ]
+        },
+        {
+          "cluster_id": "workflow-0218",
+          "issues": [
+            144833
+          ]
+        },
+        {
+          "cluster_id": "workflow-0233",
+          "issues": [
+            140815
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0015",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0226",
+          "issues": [
+            83870
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0016",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0001",
+          "issues": [
+            83957
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0017",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0017",
+          "issues": [
+            85863,
+            125318,
+            140471
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0018",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0061",
+          "issues": [
+            86434
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0019",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0147",
+          "issues": [
+            86863,
+            140634
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0020",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0021",
+          "issues": [
+            89359,
+            114331
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0021",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0022",
+          "issues": [
+            89363
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0022",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0166",
+          "issues": [
+            89391
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0023",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0024",
+          "issues": [
+            89571,
+            89657
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0024",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0025",
+          "issues": [
+            89737
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0025",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0026",
+          "issues": [
+            93619
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0026",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0104",
+          "issues": [
+            93981
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0027",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0028",
+          "issues": [
+            94064,
+            140493
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0028",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0029",
+          "issues": [
+            94404,
+            116259
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0029",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0033",
+          "issues": [
+            96569,
+            96678,
+            144759
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0030",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0034",
+          "issues": [
+            96714
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0031",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0029",
+          "issues": [
+            98249
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0032",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0036",
+          "issues": [
+            99974,
+            99975,
+            121112
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0033",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0037",
+          "issues": [
+            100086
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0034",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0044",
+          "issues": [
+            104791
+          ]
+        },
+        {
+          "cluster_id": "workflow-0064",
+          "issues": [
+            100773,
+            111339,
+            113576,
+            140404
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0035",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0223",
+          "issues": [
+            100795
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0036",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0040",
+          "issues": [
+            101180,
+            127971
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0037",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0042",
+          "issues": [
+            102509,
+            106914
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0038",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0044",
+          "issues": [
+            104472
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0039",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0045",
+          "issues": [
+            106012
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0040",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0047",
+          "issues": [
+            109128
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0041",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0001",
+          "issues": [
+            109580
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0042",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0049",
+          "issues": [
+            110097,
+            143442,
+            150966
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0043",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0050",
+          "issues": [
+            111178,
+            132097,
+            134457,
+            156762
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0044",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0052",
+          "issues": [
+            111942,
+            140650,
+            141307
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0045",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0064",
+          "issues": [
+            113055,
+            140301
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0046",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0064",
+          "issues": [
+            113190
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0047",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0024",
+          "issues": [
+            113602
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0048",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0056",
+          "issues": [
+            113720
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0049",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0057",
+          "issues": [
+            113956,
+            128137,
+            129701
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0050",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0058",
+          "issues": [
+            114050,
+            140492,
+            144169
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0051",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0059",
+          "issues": [
+            114083
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0052",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0061",
+          "issues": [
+            114453,
+            116891
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0053",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0073",
+          "issues": [
+            115378,
+            122431
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0054",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0042",
+          "issues": [
+            116550
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0055",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0042",
+          "issues": [
+            116886
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0056",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0097",
+          "issues": [
+            145933
+          ]
+        },
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            116912,
+            128050,
+            128100,
+            128144,
+            132886,
+            143756,
+            144567,
+            154524
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0057",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0067",
+          "issues": [
+            118074,
+            118113
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0058",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0074",
+          "issues": [
+            118729
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0059",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0125",
+          "issues": [
+            119447,
+            140159
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0060",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0046",
+          "issues": [
+            119462,
+            140496
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0061",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0073",
+          "issues": [
+            120378,
+            140462
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0062",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0074",
+          "issues": [
+            120696
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0063",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0075",
+          "issues": [
+            121065
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0064",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0076",
+          "issues": [
+            121275
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0065",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0079",
+          "issues": [
+            121390
+          ]
+        },
+        {
+          "cluster_id": "workflow-0138",
+          "issues": [
+            140306
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0066",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0059",
+          "issues": [
+            121637
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0067",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0079",
+          "issues": [
+            121847,
+            138756
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0068",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0080",
+          "issues": [
+            122026
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0069",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0081",
+          "issues": [
+            122136
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0070",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0083",
+          "issues": [
+            124001
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0071",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0084",
+          "issues": [
+            124378
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0072",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0087",
+          "issues": [
+            125515
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0073",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0088",
+          "issues": [
+            126445
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0074",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0090",
+          "issues": [
+            128013,
+            128133,
+            128212,
+            130421,
+            153201,
+            154044
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0075",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            128130
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0076",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0094",
+          "issues": [
+            129019
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0077",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0095",
+          "issues": [
+            129824,
+            140260,
+            150284
+          ]
+        },
+        {
+          "cluster_id": "workflow-0097",
+          "issues": [
+            130091,
+            140257,
+            154822
+          ]
+        },
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            130605,
+            153014,
+            153852
+          ]
+        },
+        {
+          "cluster_id": "workflow-0105",
+          "issues": [
+            133473
+          ]
+        },
+        {
+          "cluster_id": "workflow-0126",
+          "issues": [
+            152741
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0078",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0096",
+          "issues": [
+            129838
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0079",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0057",
+          "issues": [
+            130019
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0080",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0062",
+          "issues": [
+            130555,
+            140551,
+            142555,
+            142559,
+            142594,
+            142637,
+            142663,
+            142731,
+            142732,
+            142734,
+            142782,
+            142828,
+            142829,
+            142831,
+            142882,
+            142884,
+            143196,
+            143379,
+            143543,
+            143546,
+            143635,
+            143639
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0081",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            130977,
+            131325,
+            142717,
+            149142,
+            151277,
+            153908,
+            154756
+          ]
+        },
+        {
+          "cluster_id": "workflow-0105",
+          "issues": [
+            144356
+          ]
+        },
+        {
+          "cluster_id": "workflow-0126",
+          "issues": [
+            132869
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0082",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0104",
+          "issues": [
+            133157
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0083",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0044",
+          "issues": [
+            135618
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0084",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0147",
+          "issues": [
+            135637
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0085",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0109",
+          "issues": [
+            135774,
+            140332,
+            148850
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0086",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0110",
+          "issues": [
+            135830
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0087",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0111",
+          "issues": [
+            136872
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0088",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0112",
+          "issues": [
+            139116,
+            151593
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0089",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0118",
+          "issues": [
+            139540,
+            139749
+          ]
+        },
+        {
+          "cluster_id": "workflow-0138",
+          "issues": [
+            139748,
+            140517
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0090",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0118",
+          "issues": [
+            139750,
+            139827,
+            142985
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0091",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0138",
+          "issues": [
+            139751,
+            139988,
+            140398,
+            140406,
+            140530,
+            140593,
+            140939,
+            142917,
+            147998,
+            148484
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0092",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0120",
+          "issues": [
+            139951
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0093",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0207",
+          "issues": [
+            140067,
+            144067
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0094",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0064",
+          "issues": [
+            141372
+          ]
+        },
+        {
+          "cluster_id": "workflow-0079",
+          "issues": [
+            140120,
+            140272,
+            140442,
+            140474,
+            145204
+          ]
+        },
+        {
+          "cluster_id": "workflow-0118",
+          "issues": [
+            142476
+          ]
+        },
+        {
+          "cluster_id": "workflow-0138",
+          "issues": [
+            141044
+          ]
+        },
+        {
+          "cluster_id": "workflow-0168",
+          "issues": [
+            141542
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0095",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            140263
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0096",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0127",
+          "issues": [
+            140267
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0097",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0129",
+          "issues": [
+            140354
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0098",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0132",
+          "issues": [
+            140408
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0099",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0174",
+          "issues": [
+            140409
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0100",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0188",
+          "issues": [
+            140410
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0101",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0135",
+          "issues": [
+            140431
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0102",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0140",
+          "issues": [
+            140564,
+            141390
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0103",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0024",
+          "issues": [
+            140576
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0104",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0140",
+          "issues": [
+            140776
+          ]
+        },
+        {
+          "cluster_id": "workflow-0163",
+          "issues": [
+            140590
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0105",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0162",
+          "issues": [
+            140594
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0107",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            140608
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0108",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0156",
+          "issues": [
+            140631
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0109",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0149",
+          "issues": [
+            140652
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0110",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0150",
+          "issues": [
+            140750
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0111",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0151",
+          "issues": [
+            140751
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0112",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0215",
+          "issues": [
+            140777
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0113",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0153",
+          "issues": [
+            140798
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0114",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0166",
+          "issues": [
+            140802
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0115",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0156",
+          "issues": [
+            140860
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0116",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0036",
+          "issues": [
+            140935,
+            142736,
+            143430
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0117",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0158",
+          "issues": [
+            140936
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0118",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0188",
+          "issues": [
+            141311,
+            142787
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0119",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0193",
+          "issues": [
+            141312,
+            143006
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0120",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0188",
+          "issues": [
+            141314
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0121",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0165",
+          "issues": [
+            141336
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0122",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0166",
+          "issues": [
+            141338,
+            144206
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0123",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0169",
+          "issues": [
+            141621
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0124",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0158",
+          "issues": [
+            141648
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0125",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0158",
+          "issues": [
+            142276
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0126",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0172",
+          "issues": [
+            142448
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0127",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0210",
+          "issues": [
+            142451,
+            144163
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0128",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0153",
+          "issues": [
+            142556
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0129",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0017",
+          "issues": [
+            142595,
+            142781,
+            143376,
+            143636
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0130",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0179",
+          "issues": [
+            142629
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0131",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0180",
+          "issues": [
+            142661
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0132",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0172",
+          "issues": [
+            142718
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0133",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0052",
+          "issues": [
+            142737
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0134",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0158",
+          "issues": [
+            142883
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0135",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0166",
+          "issues": [
+            143003
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0136",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0017",
+          "issues": [
+            143005
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0137",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0062",
+          "issues": [
+            143007,
+            143008,
+            143195,
+            143198,
+            143200,
+            143236,
+            143308,
+            143310,
+            143375,
+            143378,
+            143380,
+            143544,
+            143545,
+            143637,
+            143638,
+            143662,
+            144128,
+            144922,
+            148625,
+            154189
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0138",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0166",
+          "issues": [
+            143377
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0139",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0200",
+          "issues": [
+            143424
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0140",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0125",
+          "issues": [
+            143640
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0141",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0205",
+          "issues": [
+            143750
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0142",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0206",
+          "issues": [
+            143751
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0143",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0168",
+          "issues": [
+            144068
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0144",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0138",
+          "issues": [
+            144069
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0145",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0210",
+          "issues": [
+            144100
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0146",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0044",
+          "issues": [
+            144199
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0147",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0214",
+          "issues": [
+            144280
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0148",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0216",
+          "issues": [
+            144282
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0149",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0223",
+          "issues": [
+            144984
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0150",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            145036
+          ]
+        },
+        {
+          "cluster_id": "workflow-0126",
+          "issues": [
+            151722
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0151",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0221",
+          "issues": [
+            145199
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0152",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            145272,
+            146270,
+            153981,
+            154821
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0153",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0223",
+          "issues": [
+            145301
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0154",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0233",
+          "issues": [
+            146452
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0155",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0226",
+          "issues": [
+            148286,
+            154667
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0156",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0158",
+          "issues": [
+            148716
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0157",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            149816
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0158",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0100",
+          "issues": [
+            150191
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0159",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0232",
+          "issues": [
+            150195
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0160",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0061",
+          "issues": [
+            150467
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0161",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0079",
+          "issues": [
+            150536
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0162",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0239",
+          "issues": [
+            153809
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0163",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0008",
+          "issues": [
+            154130
+          ]
+        }
+      ]
+    },
+    {
+      "source_cluster_id": "workflow-0164",
+      "destinations": [
+        {
+          "cluster_id": "workflow-0105",
+          "issues": [
+            154535
+          ]
+        }
+      ]
+    }
+  ]
+}

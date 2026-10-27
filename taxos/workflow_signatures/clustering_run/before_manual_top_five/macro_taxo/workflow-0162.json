@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0162",
+  "issues": [
+    140594
+  ],
+  "workflow_hypothesis": "Zero-length input offset causes boundary-underflow read",
+  "pattern": "Incremental byte-reader boundary checks use a string-derived offset that can remain zero after embedded-NUL input",
+  "description": "An incremental byte reader derives its progress offset from NUL-terminated string length, then examines the preceding buffer element to detect a record delimiter. When embedded NUL data makes the derived length zero, the preceding-element access becomes invalid and subsequent reads may reuse the same write position.",
+  "precondition": "A buffered reader accepts byte input that may contain an embedded NUL before the expected record delimiter and tracks the amount of valid data using NUL-terminated string length.",
+  "critical_operation": "The reader evaluates a preceding buffer element, equivalent to buffer[offset - 1], as part of deciding whether to continue reading.",
+  "interference": "The length operation stops at the embedded NUL, so the computed offset can be zero or shorter than the bytes physically read; the offset then fails to advance despite additional buffered input.",
+  "invalid_assumption": "The code assumes the offset is positive whenever the preceding-element check executes and that a string-derived length accounts for every byte obtained by the read.",
+  "failure": "The preceding-element access reads outside the valid buffer range, producing undefined behavior. If execution continues undetected, the unchanged offset can cause a later read to overwrite earlier input, resulting in lost or incorrectly processed data.",
+  "search_strategy": [
+    "Search incremental buffered readers for preceding-element expressions such as buffer[length - 1] without an explicit positive-length guard.",
+    "Check whether NUL-terminated string-length functions measure data returned by byte-oriented reads that can contain embedded NUL values.",
+    "Trace the write offset after an input chunk begins with or contains NUL and verify that every subsequent read advances within the valid buffer.",
+    "Verify that delimiter checks are performed only after establishing that the computed length is nonzero.",
+    "Add tests with leading and embedded NUL bytes followed by additional records or delimiters, checking both memory safety and preservation of later input."
+  ],
+  "evidence": [
+    {
+      "issue": 140594,
+      "supports": "The report shows that embedded NUL input makes string-length accounting return zero, after which the reader accesses the buffer at offset minus one. It also demonstrates that the undefined read can be detected directly or can leave the offset unchanged so a later read overwrites previously read bytes and changes which data is processed."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern supported by one report. It applies to incremental byte readers that combine NUL-terminated length accounting with unguarded preceding-element checks; it does not establish a general policy for truncating or preserving embedded-NUL data, only the boundary-safety requirement and the resulting overwrite risk.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:36:02.746001+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0105"
+  ],
+  "adaptation_fingerprint": "e8dc9654b9394b4f36b722cb061103af0a05d867d3a68c6a533c8b3b646c8c0b",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0044",
+  "issues": [
+    104472,
+    104791,
+    135618,
+    144199
+  ],
+  "workflow_hypothesis": "Expected runtime leak aborts sanitizer-instrumented build validation",
+  "pattern": "Sanitizer leak checking aborts otherwise successful short-lived runtime or build subprocesses",
+  "description": "Short-lived runtime and build helpers can complete their functional work yet fail at process exit when leak-detecting instrumentation observes residual runtime or instrumentation state, or when subprocess setup removes the configuration that suppresses known residual allocations.",
+  "precondition": "A test or build invokes a short-lived runtime subprocess under leak-detecting sanitizer instrumentation; the subprocess may initialize runtime state, use profiling instrumentation, or intentionally replace its inherited environment.",
+  "critical_operation": "The subprocess performs its validation, generation, or startup work and then enters process shutdown, where runtime finalization, instrumentation exit handlers, and the sanitizer leak check run.",
+  "interference": "The leak check can run with sanitizer suppression settings removed by environment isolation, before multi-phase runtime initialization/finalization has reclaimed all allocations, after an abbreviated exit path, or after profiling shutdown has allocated bookkeeping state.",
+  "invalid_assumption": "Functional success and ordinary subprocess termination are assumed to imply leak-clean shutdown, and environment isolation or instrumentation-specific exit behavior is assumed not to affect sanitizer leak-detection semantics.",
+  "failure": "LeakSanitizer reports residual direct or indirect allocations as fatal, the subprocess returns failure, and the enclosing test or build validation target aborts even though the component checks or artifact-generation work completed.",
+  "search_strategy": [
+    "Inspect short-lived subprocesses and build helpers that run with leak-detecting sanitizers and verify whether their exit status is determined by process-exit leak reports.",
+    "Trace all runtime and instrumentation allocations made during initialization, validation, profiling, and exit handlers to confirm they are reclaimed before leak checking.",
+    "Check tests that launch children with an empty or replaced environment for removal of sanitizer options, suppression files, preload settings, or related configuration.",
+    "Compare normal, abbreviated, explicit, EOF, and profiler-enabled exit paths to ensure shutdown ordering is equivalent before sanitizer reporting.",
+    "Run build-time generators with sanitizer and profiling instrumentation together and distinguish runtime leaks from profiling-runtime exit bookkeeping."
+  ],
+  "evidence": [
+    {
+      "issue": 104472,
+      "supports": "An empty-environment subprocess removed sanitizer configuration that normally suppressed known runtime allocations; leak detection then made the otherwise successful test fail, leading to a sanitizer-specific skip."
+    },
+    {
+      "issue": 104791,
+      "supports": "Sanitizer leak detection failed during build-time module validation after the checks themselves completed, with the report attributed to incomplete multi-phase runtime initialization and finalization."
+    },
+    {
+      "issue": 135618,
+      "supports": "Immediate runtime exit exposed startup-created metadata allocations, while the same report also records sanitizer-enabled build helpers failing at exit because profiling bookkeeping remained allocated."
+    },
+    {
+      "issue": 144199,
+      "supports": "A sanitizer- and profiling-instrumented build helper completed generation work but failed when exit-time profiling bookkeeping was reported as direct and indirect leaks, causing the enclosing profile build to stop."
+    }
+  ],
+  "scope_note": "This is a mixed umbrella pattern. The reports share a fatal process-exit leak result masking successful functional work, but the mechanisms differ: lost sanitizer configuration, incomplete runtime teardown or abbreviated exit, and profiling-runtime shutdown bookkeeping. It does not conflate leaked ownership with stale or freed-state use, and it does not establish that every sanitizer leak or every instrumented subprocess has this failure mode.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:14:23.635970+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0034",
+    "workflow-0038",
+    "workflow-0083",
+    "workflow-0146"
+  ],
+  "adaptation_fingerprint": "672a3395b064d66db0ca7dfc678e72a1223a21738da5aa81ee078ab2a1940b65",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

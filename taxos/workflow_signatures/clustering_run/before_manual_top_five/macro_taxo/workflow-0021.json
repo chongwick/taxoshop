@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0021",
+  "issues": [
+    89359,
+    114331
+  ],
+  "workflow_hypothesis": "Instrumented allocation failure aborts instead of returning a recoverable error",
+  "pattern": "Extreme-allocation tests assume environment-independent recoverable failure.",
+  "description": "Tests that probe infeasible allocations depend on allocator and diagnostic configurations preserving the same recoverable failure semantics.",
+  "precondition": "A test intentionally requests an infeasible allocation and expects the operation to report failure through the normal recoverable path.",
+  "critical_operation": "The computation performs the extreme request and relies on the active runtime and allocator to reject it in a form the test can inspect.",
+  "interference": "Diagnostic instrumentation can turn allocation failure into a fatal abort, while an allocator may accept virtual address space and defer failure until memory is touched, allowing the operating system to kill the process.",
+  "invalid_assumption": "The test assumes every supported allocator, platform, and instrumented configuration rejects the request promptly and consistently as a recoverable error.",
+  "failure": "The process aborts or is killed before the expected failure result can be checked, so the test itself becomes unreliable across environments.",
+  "search_strategy": [
+    "Inspect tests that provoke infeasible allocations and verify that the expected failure mode is explicit and deterministic.",
+    "Compare allocator, platform, overcommit, and diagnostic-build behavior before asserting recoverable allocation failure.",
+    "Check whether an accepted large allocation is later materialized or written, allowing deferred failure to become process-wide OOM termination.",
+    "Verify that fatal diagnostic configurations and platforms with different allocation semantics are skipped, isolated, or tested through subprocess outcomes."
+  ],
+  "evidence": [
+    {
+      "issue": 89359,
+      "supports": "The report shows that memory and address instrumentation abort on allocation failure instead of returning a recoverable failure, so extreme-allocation tests must account for fatal diagnostic semantics."
+    },
+    {
+      "issue": 114331,
+      "supports": "The report shows that one allocator accepts an enormous virtual allocation and the process is later killed on use, while another allocator rejects it; the test therefore relied on non-portable allocation timing and semantics."
+    }
+  ],
+  "scope_note": "This two-report pattern covers one shared test-design mismatch with two distinct mechanisms: fatal diagnostic handling and deferred allocator or operating-system failure. It does not claim that all environments fail through the same mechanism.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:51:39.885939+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0020"
+  ],
+  "adaptation_fingerprint": "82d7ceda5d76f0b1f8c99a328a946c7ba9e98510372503356d3793c7e6da0cd7",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

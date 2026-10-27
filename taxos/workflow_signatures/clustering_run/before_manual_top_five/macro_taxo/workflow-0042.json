@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0042",
+  "issues": [
+    102509,
+    106914,
+    116550,
+    116886
+  ],
+  "workflow_hypothesis": "Uninitialized unused numeric storage is read before neutralizing arithmetic",
+  "pattern": "Consumers read storage whose initialization is implicit, partial, or omitted, relying on later arithmetic or platform guarantees to make the read harmless",
+  "description": "A low-level consumer accesses payload, auxiliary conversion state, or platform-populated metadata whose definedness is not guaranteed for every field or value path; the access may be numerically harmless or operationally expected to succeed, but it remains observable as an indeterminate read under memory instrumentation.",
+  "precondition": "A producer leaves nominally unused numeric storage, conversion metadata, or platform-dependent record fields uninitialized or insufficiently defined on a path later consumed by another routine.",
+  "critical_operation": "A conversion, parsing, sizing, layout, or file-processing routine reads the storage without first guarding the relevant zero/empty case or establishing that each consumed field has been initialized.",
+  "interference": "Memory-safety instrumentation tracks the indeterminate state through arithmetic, status checks, pointer or boundary decisions, or metadata calculations, and may terminate the operation even when the resulting numeric value would be neutral or the platform call normally succeeds.",
+  "invalid_assumption": "The consumer assumes that a nominal zero value, successful native conversion, or platform metadata helper implicitly makes every later-read unit or field defined and safe to inspect.",
+  "failure": "Instrumented execution reports a use of an uninitialized value and may abort conversion, decoding, build-time processing, or file handling before the intended result is produced.",
+  "search_strategy": [
+    "Check every payload unit, auxiliary output, and metadata field consumed by a downstream helper for a definite write on all value, success, and platform-specific paths.",
+    "Inspect zero/empty numeric conversions for unconditional reads of nominally unused storage before guarding the zero case.",
+    "Audit native conversion boundaries for status, end-position, and error-state reads whose definedness is not guaranteed on successful conversions.",
+    "Verify that platform-specific metadata population routines initialize the complete record before consumers use fields in size, layout, or bound calculations.",
+    "Run representative conversion and file-processing paths under uninitialized-memory instrumentation and distinguish real partial initialization from sanitizer or environment modeling defects."
+  ],
+  "evidence": [
+    {
+      "issue": 102509,
+      "supports": "A zero-magnitude numeric object can retain an uninitialized payload unit, and a conversion helper reads it before multiplying by zero; memory instrumentation reports the access, and explicit initialization was proposed and merged."
+    },
+    {
+      "issue": 106914,
+      "supports": "The report independently confirms the same payload-definedness defect in compact numeric conversion and identifies the zero-size case as the source of the uninitialized read; it was closed as a duplicate of the related report."
+    },
+    {
+      "issue": 116550,
+      "supports": "A valid numeric-decoding path reads conversion-related status or boundary state after a native conversion, while discussion leaves open whether the state is unset by the library or exposed by incomplete sanitizer support; this supports the narrower boundary-definedness form of the pattern."
+    },
+    {
+      "issue": 116886,
+      "supports": "A file-processing utility consumed fields of a platform-populated metadata record that remained indeterminate under memory instrumentation; zeroing the record was a workaround, although later discussion attributed the observed CI failure primarily to the sanitizer environment or container."
+    }
+  ],
+  "scope_note": "This mixed cluster supports an umbrella pattern about consumers relying on implicit definedness, with two mechanisms: direct reads of nominally unused numeric payload storage, and reads of auxiliary or platform-produced state that may be only partially initialized or imperfectly modeled by the sanitizer environment. The reports do not establish that every case is an application defect, and they do not concern leaked ownership or stale/freed state.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:13:59.912440+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0037",
+    "workflow-0054",
+    "workflow-0055"
+  ],
+  "adaptation_fingerprint": "ced173c2e0655165ee6a81fb8d7acd52a379e1d33d2dd3409ef55ca3b4373889",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

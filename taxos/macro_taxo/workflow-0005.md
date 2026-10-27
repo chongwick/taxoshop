@@ -39,3 +39,9 @@ The shared mechanism is broader than null pointers: empty representations can yi
 - [#81319](../micro_taxo/gh_81319.md): A zero-argument calling path allowed a null argument array to flow into an unconditional copy, and the sanitizer reported the null source pointer despite a zero copy length.
 - [#127563](../micro_taxo/gh_127563.md): An empty internal representation caused a derived typed pointer to be invalid or misaligned before an unconditional zero-sized copy; the report explicitly notes that pointer formation itself can be undefined even without a read.
 - [#146196](../micro_taxo/gh_146196.md): A caller supplied a null character pointer with length zero, and the function reached a copy and pointer-processing path until an explicit zero-length early return was added.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0005](../macro_taxo_before_hybrid/workflow-0005.md)

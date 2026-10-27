@@ -2,30 +2,46 @@
   "schema_version": 1,
   "cluster_id": "workflow-0109",
   "issues": [
-    140652
+    135774,
+    140332,
+    148850
   ],
-  "workflow_hypothesis": "Unchecked enumeration of retained inactive resource entries",
-  "pattern": "An enumeration walks a registry containing inactive tombstones while sizing output only for active entries.",
-  "description": "A retained registry entry becomes inactive by losing its backing resource, but enumeration still traverses the retained entry set while sizing results from the active-resource count.",
-  "precondition": "A resource registry retains entries after resources are closed, destroyed, or released, representing inactive entries with no backing resource while maintaining a count of active resources.",
-  "critical_operation": "An enumeration allocates result storage from the active-resource count and traverses the registry, reading backing-resource fields for each retained entry.",
-  "interference": "A resource lifecycle operation marks an entry inactive without removing it from the registry traversal structure.",
-  "invalid_assumption": "The enumeration assumes every retained registry entry still has a backing resource and that the active count equals the number of entries it will process.",
-  "failure": "The enumeration dereferences a null backing-resource pointer and can also write beyond storage sized for active entries, producing a process-terminating memory-safety failure instead of returning the active-resource list.",
+  "workflow_hypothesis": "Partial instrumentation causes a false-positive uninitialized read during startup",
+  "pattern": "Sanitized code consumes data initialized across an uninstrumented library or system-call boundary",
+  "description": "A memory-sanitized component reads data whose real bytes are initialized, but whose sanitizer shadow metadata was not propagated across an uninstrumented boundary.",
+  "precondition": "A program enables uninitialized-memory instrumentation while relying on a library or low-level data source that is not instrumented compatibly.",
+  "critical_operation": "Instrumented code scans, compares, hashes, or otherwise reads the returned buffer or string-like value.",
+  "interference": "The boundary initializes or fills the actual storage without updating the instrumentation metadata, or metadata from the producing component is unavailable.",
+  "invalid_assumption": "The sanitizer's shadow state is assumed to accurately represent the data's real initialization state across every call, library, and system interface.",
+  "failure": "The sanitizer reports a fatal use of uninitialized memory during a valid operation, producing a false positive until the producer is instrumented or the boundary explicitly marks the data initialized.",
   "search_strategy": [
-    "Inspect registry enumerators for retained entries whose backing-resource pointer may be null.",
-    "Compare the allocation count with the number of entries actually traversed, including inactive or tombstoned entries.",
-    "Trace close, destroy, and release paths to determine whether they remove entries or only clear their backing-resource pointers.",
-    "Check every dereference of a registry entry's backing resource for an explicit active-entry guard.",
-    "Verify that the returned count is incremented only for entries actually emitted into the output buffer."
+    "Check every library and runtime dependency on a sanitized link path for compatible sanitizer instrumentation.",
+    "Inspect system-call and foreign-function boundaries for buffers whose sanitizer initialization metadata is not explicitly propagated.",
+    "Trace every reported read of a valid buffer back to its producer and compare actual writes with shadow-metadata updates.",
+    "Add a targeted test that consumes data returned by each uninstrumented boundary under the sanitizer and verify whether explicit metadata marking is required."
   ],
   "evidence": [
     {
-      "issue": 140652,
-      "supports": "The report reproduces a crash after resource closure and the fix skips retained entries with null backing resources while counting and emitting only active entries; added coverage also confirms closed and destroyed entries are excluded from enumeration."
+      "issue": 135774,
+      "supports": "A valid startup key created through code linked from an unsanitized prebuilt runtime was later hashed by instrumented code, exposing missing shadow metadata as an uninitialized read."
+    },
+    {
+      "issue": 140332,
+      "supports": "A sanitized extension passed data through an unsanitized cryptographic library, whose comparison path triggered an apparent uninitialized read because the external library was not built with matching instrumentation."
+    },
+    {
+      "issue": 148850,
+      "supports": "A system call filled a buffer without sanitizer metadata updates; a later instrumented search treated the valid returned bytes as uninitialized until the buffer was explicitly unpoisoned."
     }
   ],
-  "scope_note": "This is a singleton cluster: the pattern is scoped to registries that retain inactive entries during lifecycle transitions and enumerate them through a backing-resource pointer.",
+  "scope_note": "The reports support a pattern specific to shadow-metadata sanitizers such as MSan at uninstrumented library, runtime, or syscall boundaries. They do not establish that every uninitialized-memory report is a false positive or that all boundary crossings require the same repair.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:11:53.976589+00:00"
+  "generated_at": "2026-09-10T18:59:08.097057+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0085"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

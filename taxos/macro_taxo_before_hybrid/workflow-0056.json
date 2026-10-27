@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0056",
+  "issues": [
+    116912,
+    128050,
+    128100,
+    128144,
+    132886,
+    143756,
+    144567,
+    145933,
+    154524
+  ],
+  "workflow_hypothesis": "Unsynchronized resource-handle mutation during concurrent use",
+  "pattern": "Concurrent access to mutable shared state without effective synchronization or lifetime protection",
+  "description": "A shared pointer, descriptor, dispatch value, buffer, object field, or external-library state is accessed concurrently while another path can change or invalidate it.",
+  "precondition": "An active operation reads, follows, or uses mutable shared state whose value or backing storage can be replaced, modified, freed, reinitialized, or cleaned up concurrently.",
+  "critical_operation": "The operation loads or uses that state across a period during which its validity, contents, or ownership must remain stable.",
+  "interference": "Another thread or lifecycle path concurrently mutates, replaces, reallocates, closes, detaches, reinitializes, or frees the state; the apparent runtime guard is absent, one-sided, or suspended across the native operation.",
+  "invalid_assumption": "The operation assumes the shared value remains consistently observable and alive for the whole access, and that an apparent lock or borrowed reference provides sufficient protection.",
+  "failure": "The overlap produces a data race or inconsistent observation; depending on the state, it can cause altered dispatch, stale or dangling references, use-after-free, heap corruption, external-library failure, or a crash.",
+  "search_strategy": [
+    "Check every shared mutable pointer, descriptor, dispatch slot, buffer address, object field, and process-global state for concurrent readers and writers.",
+    "Trace whether close, detach, resize, replacement, reinitialization, cleanup, or configuration paths can overlap an active operation and invalidate what it uses.",
+    "Verify that one effective mutex or atomic protocol covers both sides of each access and remains effective across native calls and released-lock regions.",
+    "Check borrowed references and exported views for lifetime guarantees lasting through the entire read or use.",
+    "Exercise concurrent use with lifecycle, reconfiguration, shutdown, and external-library calls under thread and address sanitizers."
+  ],
+  "evidence": [
+    {
+      "issue": 116912,
+      "supports": "A native descriptor field is written by close or detach while another thread reads it during an operation outside the usual interpreter lock, producing a sanitizer-reported race."
+    },
+    {
+      "issue": 128050,
+      "supports": "A dispatch pointer is lazily changed during a call while other threads read it, showing that even a seemingly benign fast-path mutation is still an unsynchronized shared-state race."
+    },
+    {
+      "issue": 128100,
+      "supports": "A shared object-storage pointer is read while another path replaces the storage; a borrowed reference can then outlive the replaced storage and become use-after-free."
+    },
+    {
+      "issue": 128144,
+      "supports": "An object field has an atomic writer but a non-atomic reader, demonstrating that one-sided atomicity does not make concurrent access race-free."
+    },
+    {
+      "issue": 132886,
+      "supports": "The same native descriptor race occurs where the runtime lock had been assumed to provide safety, requiring coordinated atomic reads and writes across build configurations."
+    },
+    {
+      "issue": 143756,
+      "supports": "Concurrent operations access shared external-library and object state; a method-level critical section is ineffective across a released region, so the native operation needs an explicit mutex covering its full critical sequence."
+    },
+    {
+      "issue": 144567,
+      "supports": "Concurrent mutation of process-global locale state frees or replaces storage while another thread decodes the returned pointer, causing heap use-after-free and a crash."
+    },
+    {
+      "issue": 145933,
+      "supports": "Worker operations race external-library cleanup during process exit, using library-global state after it has been freed."
+    },
+    {
+      "issue": 154524,
+      "supports": "A buffer pointer is read while resizing reallocates and frees its backing storage; synchronization alone is insufficient without a lifetime rule for live exports."
+    }
+  ],
+  "scope_note": "The shared pattern is broader than resource handles: it covers per-object fields, dispatch metadata, borrowed references, exported buffers, process-global state, and external-library state. Some reports are sanitizer-only or behaviorally benign, while others are memory-unsafe; the common defect is missing effective coordination and/or lifetime protection. It does not imply that every concurrent read is unsafe when immutable state, atomic publication, or a complete lifetime protocol is present.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:43:16.836891+00:00"
+}

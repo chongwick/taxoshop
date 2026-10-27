@@ -9,7 +9,6 @@
     "The operation accesses inconsistent or invalidated table state and terminates instead of safely handling the reentrant mutation."
   ],
   "summary": "Reentrant container mutation invalidates an active lookup",
-  "decision_reason": "The failure workflow is materially the same as re-entrant cleanup invalidating container storage during an ongoing operation: user code mutates the same container, then the original operation continues with stale internal-state assumptions. The callback occurs during lookup rather than cleanup, but상",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:49:33.535706+00:00"
 }

@@ -1,0 +1,1118 @@
+{
+  "schema_version": 1,
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "entries": [
+    {
+      "cluster_id": "workflow-0001",
+      "pattern": "Runtime execution state crosses thread or process boundaries without revalidation, causing identity or lifetime failures",
+      "issues": [
+        54726,
+        83957,
+        109580
+      ],
+      "file": "workflow-0001.json"
+    },
+    {
+      "cluster_id": "workflow-0002",
+      "pattern": "Literal reserved marker in display text is misinterpreted as a formatting directive",
+      "issues": [
+        57894
+      ],
+      "file": "workflow-0002.json"
+    },
+    {
+      "cluster_id": "workflow-0005",
+      "pattern": "Zero-count memory transfer through absent or invalid storage",
+      "issues": [
+        71757,
+        81319,
+        127563,
+        146196
+      ],
+      "file": "workflow-0005.json"
+    },
+    {
+      "cluster_id": "workflow-0008",
+      "pattern": "Concurrent consumers of a shared iterator race traversal-state updates with backing-state ownership or cleanup.",
+      "issues": [
+        73069,
+        153928,
+        154043,
+        154130
+      ],
+      "file": "workflow-0008.json"
+    },
+    {
+      "cluster_id": "workflow-0009",
+      "pattern": "Signed overflow in derived safety values defeats validation or bounded operation",
+      "issues": [
+        73331,
+        77813
+      ],
+      "file": "workflow-0009.json"
+    },
+    {
+      "cluster_id": "workflow-0010",
+      "pattern": "Unchecked floating-point demotion before representability validation",
+      "issues": [
+        75554,
+        77756
+      ],
+      "file": "workflow-0010.json"
+    },
+    {
+      "cluster_id": "workflow-0011",
+      "pattern": "Heterogeneous numeric equality comparisons can expose an intermittent platform-sensitive memory-safety defect.",
+      "issues": [
+        77808
+      ],
+      "file": "workflow-0011.json"
+    },
+    {
+      "cluster_id": "workflow-0013",
+      "pattern": "Bounded instruction-stream consumers dereference an instruction after reaching the stream boundary because end-of-sequence validation is missing or bypassed.",
+      "issues": [
+        79374,
+        140497
+      ],
+      "file": "workflow-0013.json"
+    },
+    {
+      "cluster_id": "workflow-0014",
+      "pattern": "Stale non-owning aliases across owner release or storage replacement",
+      "issues": [
+        88350,
+        103718,
+        139210
+      ],
+      "file": "workflow-0014.json"
+    },
+    {
+      "cluster_id": "workflow-0017",
+      "pattern": "Unchecked representation assumptions across dynamic boundaries",
+      "issues": [
+        85863,
+        125318,
+        140471,
+        142595,
+        142781,
+        143005,
+        143376,
+        143636
+      ],
+      "file": "workflow-0017.json"
+    },
+    {
+      "cluster_id": "workflow-0021",
+      "pattern": "Extreme-allocation tests assume environment-independent recoverable failure.",
+      "issues": [
+        89359,
+        114331
+      ],
+      "file": "workflow-0021.json"
+    },
+    {
+      "cluster_id": "workflow-0022",
+      "pattern": "Forked child thread creation can deadlock in non-fork-safe runtime instrumentation.",
+      "issues": [
+        89363
+      ],
+      "file": "workflow-0022.json"
+    },
+    {
+      "cluster_id": "workflow-0024",
+      "pattern": "Layered parser error paths continue after lower-level failure state becomes invalid",
+      "issues": [
+        89571,
+        89657,
+        113602,
+        140576
+      ],
+      "file": "workflow-0024.json"
+    },
+    {
+      "cluster_id": "workflow-0025",
+      "pattern": "Generated derived-class callables resolve inherited deferred annotations in the wrong namespace.",
+      "issues": [
+        89737
+      ],
+      "file": "workflow-0025.json"
+    },
+    {
+      "cluster_id": "workflow-0026",
+      "pattern": "Large whole-program link-time optimization on an architecture with limited branch displacement is applied to a sufficiently large codebase.",
+      "issues": [
+        93619
+      ],
+      "file": "workflow-0026.json"
+    },
+    {
+      "cluster_id": "workflow-0028",
+      "pattern": "Forked child inherits live process/thread state that ordinary shutdown cannot reclaim under leak detection",
+      "issues": [
+        94064,
+        140493
+      ],
+      "file": "workflow-0028.json"
+    },
+    {
+      "cluster_id": "workflow-0029",
+      "pattern": "Generated configuration scripts trust unvalidated external tool commands or dialects.",
+      "issues": [
+        94404,
+        98249,
+        116259
+      ],
+      "file": "workflow-0029.json"
+    },
+    {
+      "cluster_id": "workflow-0030",
+      "pattern": "Signed left shifts used to construct packed or bit-oriented values can trigger undefined behavior before the intended representation is finalized.",
+      "issues": [
+        65128,
+        95635,
+        96735
+      ],
+      "file": "workflow-0030.json"
+    },
+    {
+      "cluster_id": "workflow-0033",
+      "pattern": "Optional or uninitialized pointer state is converted with pointer arithmetic before its null/absence state is handled.",
+      "issues": [
+        96569,
+        96678,
+        144759
+      ],
+      "file": "workflow-0033.json"
+    },
+    {
+      "cluster_id": "workflow-0034",
+      "pattern": "Instrumented allocation crosses a custom allocator’s ownership-probe boundary.",
+      "issues": [
+        96714
+      ],
+      "file": "workflow-0034.json"
+    },
+    {
+      "cluster_id": "workflow-0036",
+      "pattern": "Malformed compact location metadata reaches unchecked or assertion-only decoders",
+      "issues": [
+        99974,
+        99975,
+        121112,
+        140935,
+        142736,
+        143430
+      ],
+      "file": "workflow-0036.json"
+    },
+    {
+      "cluster_id": "workflow-0037",
+      "pattern": "Expanding a bounded diagnostic without worst-case length accounting can truncate existing information.",
+      "issues": [
+        100086
+      ],
+      "file": "workflow-0037.json"
+    },
+    {
+      "cluster_id": "workflow-0040",
+      "pattern": "Boundary-unsafe speculative lookahead in text processing.",
+      "issues": [
+        101180,
+        127971
+      ],
+      "file": "workflow-0040.json"
+    },
+    {
+      "cluster_id": "workflow-0042",
+      "pattern": "Consumers read storage whose initialization is implicit, partial, or omitted, relying on later arithmetic or platform guarantees to make the read harmless",
+      "issues": [
+        102509,
+        106914,
+        116550,
+        116886
+      ],
+      "file": "workflow-0042.json"
+    },
+    {
+      "cluster_id": "workflow-0044",
+      "pattern": "Sanitizer leak checking aborts otherwise successful short-lived runtime or build subprocesses",
+      "issues": [
+        104472,
+        104791,
+        135618,
+        144199
+      ],
+      "file": "workflow-0044.json"
+    },
+    {
+      "cluster_id": "workflow-0045",
+      "pattern": "Pre-dispatch validation assumes current metadata on immutable executable artifacts",
+      "issues": [
+        106012
+      ],
+      "file": "workflow-0045.json"
+    },
+    {
+      "cluster_id": "workflow-0046",
+      "pattern": "Auxiliary lifetime or version metadata remains apparently valid after the object, backing mapping, or hierarchy state it describes has changed.",
+      "issues": [
+        96572,
+        101975,
+        108253,
+        114106,
+        119462,
+        140496
+      ],
+      "file": "workflow-0046.json"
+    },
+    {
+      "cluster_id": "workflow-0047",
+      "pattern": "A test-suite environment-integrity check detects a process-wide environment mutation left behind by executed test or support code.",
+      "issues": [
+        109128
+      ],
+      "file": "workflow-0047.json"
+    },
+    {
+      "cluster_id": "workflow-0049",
+      "pattern": "Fixed wall-clock test budgets can make asynchronous behavior flaky when scheduling or instrumentation delays progress.",
+      "issues": [
+        110097,
+        143442,
+        150966
+      ],
+      "file": "workflow-0049.json"
+    },
+    {
+      "cluster_id": "workflow-0050",
+      "pattern": "Incompatible function prototype at an indirect callback or slot boundary hidden by type erasure, casts, or dispatch metadata",
+      "issues": [
+        111178,
+        132097,
+        134457,
+        156762
+      ],
+      "file": "workflow-0050.json"
+    },
+    {
+      "cluster_id": "workflow-0052",
+      "pattern": "Unchecked failure results contaminate downstream processing and error-recovery paths",
+      "issues": [
+        111942,
+        140650,
+        141307,
+        142737
+      ],
+      "file": "workflow-0052.json"
+    },
+    {
+      "cluster_id": "workflow-0056",
+      "pattern": "Invalid lexer/tokenizer buffer offsets produce pointer-index overflow",
+      "issues": [
+        113720
+      ],
+      "file": "workflow-0056.json"
+    },
+    {
+      "cluster_id": "workflow-0057",
+      "pattern": "Concurrent non-atomic mutation or initialization of concurrency-visible object metadata races with ownership and lifecycle inspection",
+      "issues": [
+        113956,
+        128137,
+        129701,
+        130019
+      ],
+      "file": "workflow-0057.json"
+    },
+    {
+      "cluster_id": "workflow-0058",
+      "pattern": "Unsafe typed diagnostic formatting on exceptional paths",
+      "issues": [
+        114050,
+        140492,
+        144169
+      ],
+      "file": "workflow-0058.json"
+    },
+    {
+      "cluster_id": "workflow-0059",
+      "pattern": "Compiler optimization can precede a dependent convergence or legality check, leaving downstream invariants to process transformed or incomplete state",
+      "issues": [
+        114083,
+        121637
+      ],
+      "file": "workflow-0059.json"
+    },
+    {
+      "cluster_id": "workflow-0061",
+      "pattern": "Instrumentation compatibility failures contaminate configuration probes or target linkage",
+      "issues": [
+        86434,
+        114453,
+        116891,
+        150467
+      ],
+      "file": "workflow-0061.json"
+    },
+    {
+      "cluster_id": "workflow-0062",
+      "pattern": "Reentrant invalidation of retained native state during user-code boundaries.",
+      "issues": [
+        115243,
+        120289,
+        120298,
+        130555,
+        140551,
+        142555,
+        142557,
+        142558,
+        142559,
+        142560,
+        142594,
+        142637,
+        142663,
+        142664,
+        142731,
+        142732,
+        142734,
+        142782,
+        142828,
+        142829,
+        142830,
+        142831,
+        142882,
+        142884,
+        143004,
+        143007,
+        143008,
+        143195,
+        143196,
+        143197,
+        143198,
+        143200,
+        143236,
+        143308,
+        143309,
+        143310,
+        143375,
+        143378,
+        143379,
+        143380,
+        143543,
+        143544,
+        143545,
+        143546,
+        143547,
+        143635,
+        143637,
+        143638,
+        143639,
+        143662,
+        144128,
+        144475,
+        144922,
+        148382,
+        148625,
+        151403,
+        154189
+      ],
+      "file": "workflow-0062.json"
+    },
+    {
+      "cluster_id": "workflow-0064",
+      "pattern": "Lifecycle ownership diverges across reusable isolated contexts",
+      "issues": [
+        100773,
+        111339,
+        113055,
+        113190,
+        113576,
+        113591,
+        116510,
+        140301,
+        140404,
+        141372,
+        144172
+      ],
+      "file": "workflow-0064.json"
+    },
+    {
+      "cluster_id": "workflow-0067",
+      "pattern": "Static special instances are exposed to collector traversal despite lacking the ordinary object layout.",
+      "issues": [
+        118074,
+        118113
+      ],
+      "file": "workflow-0067.json"
+    },
+    {
+      "cluster_id": "workflow-0073",
+      "pattern": "Unchecked numeric values cross native boundaries without semantic or size validation",
+      "issues": [
+        115378,
+        120378,
+        122431,
+        140462
+      ],
+      "file": "workflow-0073.json"
+    },
+    {
+      "cluster_id": "workflow-0074",
+      "pattern": "Instrumented fatal diagnostics break termination progress",
+      "issues": [
+        118729,
+        120696
+      ],
+      "file": "workflow-0074.json"
+    },
+    {
+      "cluster_id": "workflow-0075",
+      "pattern": "Concurrent asynchronous notifications reenter mutable callbacks without a nesting guard",
+      "issues": [
+        121065
+      ],
+      "file": "workflow-0075.json"
+    },
+    {
+      "cluster_id": "workflow-0076",
+      "pattern": "Unrestricted address discovery selects a protocol family unsupported by the runtime",
+      "issues": [
+        121275
+      ],
+      "file": "workflow-0076.json"
+    },
+    {
+      "cluster_id": "workflow-0079",
+      "pattern": "Ownership-bound cleanup paths fail to reclaim direct or nested allocations",
+      "issues": [
+        121390,
+        121847,
+        138756,
+        140120,
+        140272,
+        140442,
+        140474,
+        145204,
+        150536
+      ],
+      "file": "workflow-0079.json"
+    },
+    {
+      "cluster_id": "workflow-0080",
+      "pattern": "A nested-interpolation tokenizer updates delimiter-depth state for a closing delimiter before validating that the delimiter has a matching opener, allowing a-;",
+      "issues": [
+        122026
+      ],
+      "file": "workflow-0080.json"
+    },
+    {
+      "cluster_id": "workflow-0081",
+      "pattern": "A capacity-sensitive I/O test derives its workload from a reported external-buffer size and uses that single estimate to trigger backpressure.",
+      "issues": [
+        122136
+      ],
+      "file": "workflow-0081.json"
+    },
+    {
+      "cluster_id": "workflow-0083",
+      "pattern": "A fixed-size alternate signal stack is allocated without validating worst-case signal-handler stack usage; signal-path execution can corrupt the heap-backedっ",
+      "issues": [
+        124001
+      ],
+      "file": "workflow-0083.json"
+    },
+    {
+      "cluster_id": "workflow-0084",
+      "pattern": "Dependency contract drift makes compatibility tests stale",
+      "issues": [
+        124378
+      ],
+      "file": "workflow-0084.json"
+    },
+    {
+      "cluster_id": "workflow-0087",
+      "pattern": "Generated control flow retains unreachable operations after termination or configuration folding",
+      "issues": [
+        125515
+      ],
+      "file": "workflow-0087.json"
+    },
+    {
+      "cluster_id": "workflow-0088",
+      "pattern": "Parallel instrumented tests expose environment-sensitive subprocess failures",
+      "issues": [
+        126445
+      ],
+      "file": "workflow-0088.json"
+    },
+    {
+      "cluster_id": "workflow-0090",
+      "pattern": "Unsynchronized lazy initialization of shared derived state",
+      "issues": [
+        128013,
+        128133,
+        128212,
+        130421,
+        153201,
+        154044
+      ],
+      "file": "workflow-0090.json"
+    },
+    {
+      "cluster_id": "workflow-0094",
+      "pattern": "Include-path ordering selects stale external configuration over the current generated header",
+      "issues": [
+        129019
+      ],
+      "file": "workflow-0094.json"
+    },
+    {
+      "cluster_id": "workflow-0095",
+      "pattern": "Concurrent execution accesses process-wide state without a complete initialization, mutation, or lifetime protocol",
+      "issues": [
+        129824,
+        140260,
+        150284
+      ],
+      "file": "workflow-0095.json"
+    },
+    {
+      "cluster_id": "workflow-0096",
+      "pattern": "Independent compiler-capability checks redefine the same configuration symbol",
+      "issues": [
+        129838
+      ],
+      "file": "workflow-0096.json"
+    },
+    {
+      "cluster_id": "workflow-0097",
+      "pattern": "Shutdown/finalization races with residual worker activity on shared runtime or dependency state",
+      "issues": [
+        124878,
+        130091,
+        140138,
+        140257,
+        145933,
+        154822
+      ],
+      "file": "workflow-0097.json"
+    },
+    {
+      "cluster_id": "workflow-0100",
+      "pattern": "Concurrent unsynchronized access to shared mutable execution or native state",
+      "issues": [
+        116912,
+        128050,
+        128100,
+        128130,
+        128144,
+        130605,
+        130977,
+        131325,
+        132886,
+        140263,
+        140608,
+        142717,
+        143756,
+        144567,
+        145036,
+        145272,
+        146270,
+        149142,
+        149816,
+        150191,
+        151277,
+        153014,
+        153852,
+        153908,
+        153981,
+        154524,
+        154756,
+        154821
+      ],
+      "file": "workflow-0100.json"
+    },
+    {
+      "cluster_id": "workflow-0104",
+      "pattern": "Sanitizer exposure of nonportable fault injection and signature-unsafe callback dispatch",
+      "issues": [
+        93981,
+        133157
+      ],
+      "file": "workflow-0104.json"
+    },
+    {
+      "cluster_id": "workflow-0105",
+      "pattern": "Concurrent operations access coupled shared state without synchronizing the complete state transition",
+      "issues": [
+        133473,
+        144356,
+        154535
+      ],
+      "file": "workflow-0105.json"
+    },
+    {
+      "cluster_id": "workflow-0109",
+      "pattern": "Sanitized code consumes data initialized across an uninstrumented library or system-call boundary",
+      "issues": [
+        135774,
+        140332,
+        148850
+      ],
+      "file": "workflow-0109.json"
+    },
+    {
+      "cluster_id": "workflow-0110",
+      "pattern": "A deep-recursion test runs under a memory-safety instrumentation mode that its skip guard does not recognize.",
+      "issues": [
+        135830
+      ],
+      "file": "workflow-0110.json"
+    },
+    {
+      "cluster_id": "workflow-0111",
+      "pattern": "An instrumentation or diagnostic mode unconditionally replaces an explicitly selected compatible subordinate configuration with its own default.",
+      "issues": [
+        136872
+      ],
+      "file": "workflow-0111.json"
+    },
+    {
+      "cluster_id": "workflow-0112",
+      "pattern": "A quiescence deadlock caused by acquiring or invoking broader coordination while holding a contended narrow lock.",
+      "issues": [
+        139116,
+        151593
+      ],
+      "file": "workflow-0112.json"
+    },
+    {
+      "cluster_id": "workflow-0114",
+      "pattern": "Using raw storage or an address with insufficient alignment for a stricter-aligned typed object or access",
+      "issues": [
+        72174,
+        139269,
+        139834
+      ],
+      "file": "workflow-0114.json"
+    },
+    {
+      "cluster_id": "workflow-0118",
+      "pattern": "Generated optimized state has mismatched ownership across lifecycle handoffs",
+      "issues": [
+        139540,
+        139749,
+        139750,
+        139827,
+        142476,
+        142985
+      ],
+      "file": "workflow-0118.json"
+    },
+    {
+      "cluster_id": "workflow-0120",
+      "pattern": "Unnecessary tracking of immutable acyclic containers increases garbage-collection work",
+      "issues": [
+        139951
+      ],
+      "file": "workflow-0120.json"
+    },
+    {
+      "cluster_id": "workflow-0125",
+      "pattern": "Availability detection and consumer guards do not match the exact interface entity they expose",
+      "issues": [
+        119447,
+        140159,
+        143640
+      ],
+      "file": "workflow-0125.json"
+    },
+    {
+      "cluster_id": "workflow-0126",
+      "pattern": "Concurrent readers observe shared state before initialization or structural mutation is complete",
+      "issues": [
+        132869,
+        151722,
+        152741
+      ],
+      "file": "workflow-0126.json"
+    },
+    {
+      "cluster_id": "workflow-0127",
+      "pattern": "Shutdown validation mistakes process-scoped blocked daemon workers for synchronously reclaimable threads",
+      "issues": [
+        140267
+      ],
+      "file": "workflow-0127.json"
+    },
+    {
+      "cluster_id": "workflow-0129",
+      "pattern": "Unsupported target accepted for optional code generation until artifact generation fails",
+      "issues": [
+        140354
+      ],
+      "file": "workflow-0129.json"
+    },
+    {
+      "cluster_id": "workflow-0132",
+      "pattern": "Null string storage crosses a foreign-function boundary that requires a valid buffer",
+      "issues": [
+        140408
+      ],
+      "file": "workflow-0132.json"
+    },
+    {
+      "cluster_id": "workflow-0135",
+      "pattern": "Collector traversal reaches objects published before their fields are initialized",
+      "issues": [
+        140431
+      ],
+      "file": "workflow-0135.json"
+    },
+    {
+      "cluster_id": "workflow-0138",
+      "pattern": "Error-path cleanup of partially acquired state is incomplete or misdirected",
+      "issues": [
+        139748,
+        139751,
+        139988,
+        140306,
+        140398,
+        140406,
+        140517,
+        140530,
+        140593,
+        140939,
+        141044,
+        142917,
+        144069,
+        147998,
+        148484
+      ],
+      "file": "workflow-0138.json"
+    },
+    {
+      "cluster_id": "workflow-0140",
+      "pattern": "Externally tampered executable representations bypass invariant enforcement and reach trusted runtime consumers",
+      "issues": [
+        140564,
+        140776,
+        141390
+      ],
+      "file": "workflow-0140.json"
+    },
+    {
+      "cluster_id": "workflow-0147",
+      "pattern": "Ownership or representation invariants fail across managed-object boundaries",
+      "issues": [
+        86863,
+        135636,
+        135637,
+        140634,
+        140651,
+        142783
+      ],
+      "file": "workflow-0147.json"
+    },
+    {
+      "cluster_id": "workflow-0149",
+      "pattern": "An enumeration walks a registry containing inactive tombstones while sizing output only for active entries.",
+      "issues": [
+        140652
+      ],
+      "file": "workflow-0149.json"
+    },
+    {
+      "cluster_id": "workflow-0150",
+      "pattern": "A low-level structured-data encoder accepts an unvalidated initial nesting level that is inconsistent with its formatting-cache contents.",
+      "issues": [
+        140750
+      ],
+      "file": "workflow-0150.json"
+    },
+    {
+      "cluster_id": "workflow-0151",
+      "pattern": "A legacy global-registration path is invoked for a component created with an incompatible managed state layout.",
+      "issues": [
+        140751
+      ],
+      "file": "workflow-0151.json"
+    },
+    {
+      "cluster_id": "workflow-0153",
+      "pattern": "Reentrant finalization changes teardown-owned reachability before cleanup completes",
+      "issues": [
+        140798,
+        142556
+      ],
+      "file": "workflow-0153.json"
+    },
+    {
+      "cluster_id": "workflow-0156",
+      "pattern": "Teardown-ordering retains callback-connected module runtime graphs",
+      "issues": [
+        140631,
+        140860
+      ],
+      "file": "workflow-0156.json"
+    },
+    {
+      "cluster_id": "workflow-0158",
+      "pattern": "Optimized runtime state remains usable after its assumptions require invalidation",
+      "issues": [
+        140936,
+        141648,
+        142276,
+        142883,
+        148716
+      ],
+      "file": "workflow-0158.json"
+    },
+    {
+      "cluster_id": "workflow-0162",
+      "pattern": "Incremental byte-reader boundary checks use a string-derived offset that can remain zero after embedded-NUL input",
+      "issues": [
+        140594
+      ],
+      "file": "workflow-0162.json"
+    },
+    {
+      "cluster_id": "workflow-0163",
+      "pattern": "Incomplete validation of representation-sensitive restored state enables later low-level crash",
+      "issues": [
+        140590
+      ],
+      "file": "workflow-0163.json"
+    },
+    {
+      "cluster_id": "workflow-0165",
+      "pattern": "A callback-driven streaming decoder underestimates output capacity when recovery both emits replacement text and resumes from an earlier input position.",
+      "issues": [
+        141336
+      ],
+      "file": "workflow-0165.json"
+    },
+    {
+      "cluster_id": "workflow-0166",
+      "pattern": "Unchecked size, width, and position metadata drives native writes beyond allocated storage",
+      "issues": [
+        89391,
+        140802,
+        141338,
+        143003,
+        143377,
+        144206
+      ],
+      "file": "workflow-0166.json"
+    },
+    {
+      "cluster_id": "workflow-0168",
+      "pattern": "Auxiliary per-thread tracing state is omitted from an alternate thread-teardown path",
+      "issues": [
+        141542,
+        144068
+      ],
+      "file": "workflow-0168.json"
+    },
+    {
+      "cluster_id": "workflow-0169",
+      "pattern": "Toolchain and instrumentation combinations leave a generated-code target unusable during bootstrap",
+      "issues": [
+        141621
+      ],
+      "file": "workflow-0169.json"
+    },
+    {
+      "cluster_id": "workflow-0172",
+      "pattern": "Optimized execution crosses an instrumentation, exceptional-transfer, or fallback boundary without synchronizing speculative stack state",
+      "issues": [
+        142448,
+        142718
+      ],
+      "file": "workflow-0172.json"
+    },
+    {
+      "cluster_id": "workflow-0174",
+      "pattern": "Native consumers trust extension-controlled results without validating their extent or shape",
+      "issues": [
+        140409,
+        140607,
+        142554
+      ],
+      "file": "workflow-0174.json"
+    },
+    {
+      "cluster_id": "workflow-0179",
+      "pattern": "Diagnostic metadata lookup uses an instruction representation outside the table index domain",
+      "issues": [
+        142629
+      ],
+      "file": "workflow-0179.json"
+    },
+    {
+      "cluster_id": "workflow-0180",
+      "pattern": "A low-level instruction record is constructed with an operation whose contract disallows an operand, but the record carries a nonzero operand value.",
+      "issues": [
+        142661
+      ],
+      "file": "workflow-0180.json"
+    },
+    {
+      "cluster_id": "workflow-0188",
+      "pattern": "Empty-result operations leak invalid metadata into nonempty validation or access paths",
+      "issues": [
+        140410,
+        141311,
+        141314,
+        142787
+      ],
+      "file": "workflow-0188.json"
+    },
+    {
+      "cluster_id": "workflow-0193",
+      "pattern": "Unchecked dynamic values enter integer-specialized paths without representation validation",
+      "issues": [
+        141312,
+        143006
+      ],
+      "file": "workflow-0193.json"
+    },
+    {
+      "cluster_id": "workflow-0200",
+      "pattern": "Lock-handoff assertions assume a held state that concurrent release can already change",
+      "issues": [
+        143424
+      ],
+      "file": "workflow-0200.json"
+    },
+    {
+      "cluster_id": "workflow-0205",
+      "pattern": "Uninstrumented dependency synchronization produces misleading sanitizer race reports",
+      "issues": [
+        143750
+      ],
+      "file": "workflow-0205.json"
+    },
+    {
+      "cluster_id": "workflow-0206",
+      "pattern": "Trace-size configuration exceeds generated-code metadata capacity",
+      "issues": [
+        143751
+      ],
+      "file": "workflow-0206.json"
+    },
+    {
+      "cluster_id": "workflow-0207",
+      "pattern": "Resource ownership is lost when initialization or replacement overwrites the only cleanup handle for an earlier allocation.",
+      "issues": [
+        140067,
+        144067
+      ],
+      "file": "workflow-0207.json"
+    },
+    {
+      "cluster_id": "workflow-0210",
+      "pattern": "Unchecked consumption of absent or inconsistent metadata resolution results",
+      "issues": [
+        72111,
+        142451,
+        144100,
+        144163
+      ],
+      "file": "workflow-0210.json"
+    },
+    {
+      "cluster_id": "workflow-0214",
+      "pattern": "Truthiness dispatch omits a symbolic value category and reads an incompatible representation",
+      "issues": [
+        144280
+      ],
+      "file": "workflow-0214.json"
+    },
+    {
+      "cluster_id": "workflow-0215",
+      "pattern": "Retained derived state or mapped-buffer access reaches storage after its owner or backing resource becomes invalid",
+      "issues": [
+        66234,
+        80434,
+        139400,
+        140777,
+        142665,
+        144281,
+        146011,
+        151046
+      ],
+      "file": "workflow-0215.json"
+    },
+    {
+      "cluster_id": "workflow-0216",
+      "pattern": "Unvalidated mutation of an executable instruction stream exposes a metadata-only placeholder to instruction dispatch.",
+      "issues": [
+        144282
+      ],
+      "file": "workflow-0216.json"
+    },
+    {
+      "cluster_id": "workflow-0218",
+      "pattern": "Initialization-failure reporting combines premature wrapper destruction with context retrieval through an incompatible object pointer.",
+      "issues": [
+        144833
+      ],
+      "file": "workflow-0218.json"
+    },
+    {
+      "cluster_id": "workflow-0221",
+      "pattern": "Instrumented capability probes can hang during platform/runtime startup before application code executes.",
+      "issues": [
+        145199
+      ],
+      "file": "workflow-0221.json"
+    },
+    {
+      "cluster_id": "workflow-0223",
+      "pattern": "Failure cleanup acts on ownership or destructor state that was not established by the failed operation",
+      "issues": [
+        100795,
+        144984,
+        145301
+      ],
+      "file": "workflow-0223.json"
+    },
+    {
+      "cluster_id": "workflow-0226",
+      "pattern": "Unchecked boundary state reaches representation- or arithmetic-sensitive low-level operations",
+      "issues": [
+        83870,
+        148286,
+        154667
+      ],
+      "file": "workflow-0226.json"
+    },
+    {
+      "cluster_id": "workflow-0232",
+      "pattern": "Fixed-depth recursion boundary tests become stale when build-time instrumentation or hardening changes effective recursion capacity.",
+      "issues": [
+        150195
+      ],
+      "file": "workflow-0232.json"
+    },
+    {
+      "cluster_id": "workflow-0233",
+      "pattern": "Concurrent traversal uses runtime-owned records without stable references or teardown exclusion",
+      "issues": [
+        140815,
+        146452
+      ],
+      "file": "workflow-0233.json"
+    },
+    {
+      "cluster_id": "workflow-0239",
+      "pattern": "A logically dead object remains collector-visible across interruptible destruction",
+      "issues": [
+        153809
+      ],
+      "file": "workflow-0239.json"
+    }
+  ]
+}

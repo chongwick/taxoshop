@@ -10,7 +10,6 @@
     "The stale access causes a use-after-free crash instead of completing the comparison safely."
   ],
   "summary": "Reentrant comparison invalidates an object before resumed use",
-  "decision_reason": "The failure workflow is materially the same: user-controlled conversion or comparison code invalidates a backing object during an outer operation, which resumes and uses the stale object without revalidation.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:36:59.483849+00:00"
 }

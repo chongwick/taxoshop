@@ -9,7 +9,6 @@
     "The access dereferences freed memory and can terminate the process."
   ],
   "summary": "Reentrant callback releases active context before outer operation resumes",
-  "decision_reason": "The failure is materially the same as retained-pointer use-after-free: an active operation retains a pointer into storage, reentrant code releases the owning storage, and the outer operation later dereferences the stale pointer.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:19:46.274772+00:00"
 }

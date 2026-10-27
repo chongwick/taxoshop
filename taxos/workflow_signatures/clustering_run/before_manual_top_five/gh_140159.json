@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 140159,
+  "cluster_id": "workflow-0125",
+  "workflow": [
+    "A build condition enables an optional group of interface fields when a coarse feature marker is present.",
+    "The target’s system headers define that marker but lack one newer member of the associated data structure.",
+    "Generated binding code references the unavailable member without a narrower availability guard.",
+    "Compilation fails with a missing-member error instead of omitting the unsupported field or reporting the compatibility mismatch."
+  ],
+  "summary": "Feature-guard mismatch exposes unavailable interface member",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:41:55.072417+00:00"
+}

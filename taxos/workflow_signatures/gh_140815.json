@@ -9,7 +9,6 @@
     "The read accesses freed memory and terminates the process instead of safely handling the invalid record."
   ],
   "summary": "Concurrent diagnostic traversal dereferences released execution state",
-  "decision_reason": "The underlying failure is materially the same as retained-pointer use-after-free: a diagnostic path retains a reference to execution storage after its owner releases it, then dereferences that storage. The concurrency and traceback symptoms differ, but the core lifetime violation matches.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:56:54.796513+00:00"
 }

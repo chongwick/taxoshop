@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 144172,
+  "cluster_id": "workflow-0064",
+  "workflow": [
+    "A global allocation-tracking subsystem records non-owning pointers to metadata strings created inside an isolated execution context.",
+    "The context is destroyed and releases those strings while the tracker still retains their pointers.",
+    "Later allocation processing or tracker cleanup compares, dereferences, or releases the retained pointers as though they were still valid.",
+    "The access reaches freed memory and terminates the process with a use-after-free failure."
+  ],
+  "summary": "Retained metadata pointers outlive isolated-context teardown",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:29:09.313254+00:00"
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0147",
+  "issues": [
+    86863,
+    135636,
+    135637,
+    140634,
+    140651,
+    142783
+  ],
+  "workflow_hypothesis": "Borrowed field retained without ownership increment becomes dangling",
+  "pattern": "Ownership or representation invariants fail across managed-object boundaries",
+  "description": "A runtime boundary propagates a field, object handle, raw storage reference, or object representation without preserving the ownership and validity invariants required by later consumers. The shared pattern covers both incorrect reference accounting and stale or externally corrupted state that survives into deferred use.",
+  "precondition": "Code obtains a borrowed, newly created, cached, or raw handle, or accepts a managed object whose lifetime and representation invariants are not independently secured before storing or forwarding it.",
+  "critical_operation": "A conversion or aggregate builder applies the wrong ownership convention, a cleanup path releases a newly created value too early, a retained pointer outlives its backing storage, or unsafe memory writes corrupt a live object's metadata.",
+  "interference": "The source or backing storage is freed, reference counts are over-decremented, or object metadata becomes invalid while the result, cache, pointer, or object remains reachable; later cleanup, finalization, metadata lookup, or serialization consumes that invalid state.",
+  "invalid_assumption": "The code assumes a borrowed value is owned, a newly returned value is safely borrowed, a retained pointer remains backed by live storage, or a managed object's header remains valid without explicitly acquiring ownership, preserving storage, or validating representation invariants.",
+  "failure": "Later decrement, dereference, metadata access, or free operates on invalid ownership, freed storage, or corrupted representation, causing reference-count corruption, invalid free, use-after-free, heap out-of-bounds access, fatal crashes, or process termination.",
+  "search_strategy": [
+    "Audit every conversion, reconstruction, reduction, cache, and aggregate-building boundary for borrowed or newly created values whose actual ownership differs from the cleanup convention.",
+    "Trace retained object pointers, field references, views, and raw storage addresses through source release, cache cleanup, finalization, mutation, and serialization; require an explicit lifetime guarantee.",
+    "Check every reference-stealing, decrementing, or ownership-transferring path against the provenance of each value, including compatibility, subclass, descriptor, exceptional, and repeated-conversion branches.",
+    "Inspect consumers of externally mutable or raw object representations and verify type, header, pointer, reference, and ownership invariants before deferred metadata access or dereference.",
+    "Exercise repeated construction and destruction, source teardown, finalization, and malformed-representation cases to distinguish over-release from stale-storage or corrupted-state failures."
+  ],
+  "evidence": [
+    {
+      "issue": 86863,
+      "supports": "A compatibility-selected conversion path repeatedly decremented a shared value that had not been transferred with ownership, eventually causing finalization to free non-heap storage."
+    },
+    {
+      "issue": 135636,
+      "supports": "External corruption changed a live object's header, after which a later reference increment read the already invalid object representation and triggered a heap use-after-free."
+    },
+    {
+      "issue": 135637,
+      "supports": "External writes corrupted live-object metadata, including during deferred access, and later metadata processing dereferenced the invalid representation and crashed."
+    },
+    {
+      "issue": 140634,
+      "supports": "An aggregate reconstruction path used a reference-stealing convention for a borrowed field, so repeated destruction over-decremented the field and corrupted allocator or reference-count state."
+    },
+    {
+      "issue": 140651,
+      "supports": "A reconstruction result retained a pointer to a value whose storage was released during cleanup, and later serialization read the freed object header."
+    },
+    {
+      "issue": 142783,
+      "supports": "An accessor treated a newly created result as borrowed and decremented it immediately, freeing it before subsequent cache operations used it."
+    }
+  ],
+  "scope_note": "This mixed cluster includes ownership-accounting mismatches, premature release, stale freed storage, and deliberately corrupted live-object metadata. The common boundary is an unchecked lifetime or representation contract. Leaked ownership, stale access, and invalid object layout remain distinct mechanisms requiring different checks.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:25:57.758208+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014",
+    "workflow-0019",
+    "workflow-0084"
+  ],
+  "adaptation_fingerprint": "842b37dbb6fd5f63eca69d17a28ad79a4fa9c4b441d799e4785f282f1feff98f",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern",
+    "scope_note"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.333852+00:00"
+}

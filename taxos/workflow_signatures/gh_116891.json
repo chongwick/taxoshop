@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": 116891,
-  "cluster_id": "workflow-0052",
+  "cluster_id": "workflow-0061",
   "workflow": [
     "A user enables optional compiler instrumentation during build configuration without installing its required runtime support.",
     "Configuration probes compile and run small test programs with the instrumentation enabled.",
@@ -9,7 +9,6 @@
     "Configuration aborts with a misleading capability or dependency error instead of identifying the missing instrumentation support."
   ],
   "summary": "Missing instrumentation runtime misreported as unrelated configuration failure",
-  "decision_reason": "The failure workflow materially matches the existing cluster: enabling instrumentation causes configuration probes to fail, and the probe failure is misinterpreted as an unrelated capability problem.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:17:04.479560+00:00"
 }

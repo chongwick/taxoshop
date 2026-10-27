@@ -1,43 +1,44 @@
-# Process-global runtime or extension state retains interpreter-owned objects or metadata across interpreter teardown and reuse
+# Instrumented allocation crosses a custom allocator’s ownership-probe boundary.
 
-Interpreter lifecycle bugs occur when object-bearing state is shared at process scope instead of being owned by each interpreter instance and cleaned up with it.
+A memory-instrumented runtime frees storage through a custom allocator whose ownership probe cannot safely classify the instrumented pointer, causing an invalid metadata read during early initialization.
 
 ## Precondition
 
-An embeddable runtime can create, destroy, and later recreate interpreter instances or subinterpreters, while a built-in or extension component stores interpreter-owned references, type metadata, caches, allocator state, or similar state in process-global or static storage without complete lifecycle ownership.
+A runtime combines whole-program memory instrumentation with a custom allocator that classifies freed pointers by inspecting allocator-specific address or metadata state.
 
 ## Critical operation
 
-The runtime initializes or imports the component, uses its objects or types, then finalizes the interpreter and later initializes another interpreter or destroys a subinterpreter.
+Early initialization grows an internal mapping or container and releases its previous storage through the custom deallocation path.
 
 ## Interference
 
-Finalization releases interpreter-scoped objects such as strings, dictionaries, module state, or allocator resources while the shared state remains populated and is later reused or repopulated.
+Instrumentation changes the allocation environment or pointer layout, so the released pointer does not satisfy the custom allocator’s assumptions for safe ownership classification.
 
 ## Invalid assumption
 
-Process-global state is assumed to remain valid across interpreter lifetimes, or interpreter finalization is assumed to discover and release every reference held by legacy shared state.
+The deallocator assumes every pointer reaching its classification routine belongs to its own metadata domain and can be probed before being redirected or rejected.
 
 ## Failure
 
-References and allocations survive teardown, producing leaks or cumulative memory growth; when stale state is reused, the result can be invalid reads, invalid frees, assertions, or crashes.
+The ownership probe reads outside valid heap storage; instrumentation reports a heap-buffer-overflow and aborts the helper, causing the surrounding build command to fail.
 
 ## Scope
 
-The reports include both cumulative per-cycle leaks and one-time residual allocations, as well as stale-state memory-safety failures. The shared pattern is specifically object-bearing or validity-dependent process-global state crossing an interpreter lifecycle; it does not imply that every sanitizer leak is caused by repeated initialization or that all process-global state is invalid.
+This singleton supports an initialization-time interaction between memory instrumentation and custom allocator ownership probing. It does not establish that every allocator or instrumentation configuration is incompatible, nor that the downstream build command is the underlying defect.
 
 ## Search strategy
 
-1. Search for static or process-global variables that store object references, type metadata, caches, or allocator state.
-2. Trace initialization and finalization paths to verify that every component-owned reference is associated with one interpreter and released before that interpreter is destroyed.
-3. Exercise initialization/finalization twice and subinterpreter creation/destruction under leak and memory-safety instrumentation.
-4. Inspect reusable built-in or extension types for metadata dictionaries, interned names, and other fields that survive teardown but reference interpreter-owned objects.
-5. Verify that extension initialization provides explicit per-instance state and an explicit teardown path for all owned resources.
+1. Trace custom deallocation ownership probes and verify that every metadata read is valid for instrumented and non-instrumented pointers.
+2. Inspect early initialization for container growth that frees storage before allocator and instrumentation compatibility is established.
+3. Compare allocation and deallocation domains, including pointer-layout and ownership-classification assumptions, across instrumented builds.
+4. Exercise the first initialization-time resize under instrumentation and verify that foreign pointers are rejected without dereferencing invalid metadata.
 
 ## Evidence
 
-- [#100773](../micro_taxo/gh_100773.md): Repeatedly initializing and finalizing an embedded runtime exposed residual allocations; the analysis distinguishes one-time process-lifetime allocations from allocations recreated on each initialization and identifies incomplete migration of extensions to lifecycle-associated state as the relevant mechanism.
-- [#104791](../micro_taxo/gh_104791.md): Leak detection during module checking was attributed to unresolved initialization and finalization work, with the implicated allocation originating from runtime activity that was not fully reclaimed by the lifecycle.
-- [#111339](../micro_taxo/gh_111339.md): A static type retained metadata after finalization; a name owned by the finalized interpreter was invalidated, and the next initialization reused that stale metadata, causing an assertion or crash.
-- [#113576](../micro_taxo/gh_113576.md): Importing an extension during two initialization/finalization cycles caused stale shared state to be accessed after teardown, yielding leaks and use-after-free or invalid-free reports; isolating the extension state per interpreter resolved the issue in newer versions.
-- [#140404](../micro_taxo/gh_140404.md): Loading a single-phase extension in a subinterpreter leaked module-created types, dictionaries, callable objects, and related allocations because process-global state had no cleanup operation tied to subinterpreter destruction.
+- [#96714](../micro_taxo/gh_96714.md): The report shows address instrumentation enabled across the runtime, an initialization-time mapping resize, custom deallocation, an ownership probe reading a wild pointer outside valid heap storage, instrumentation aborting the helper, and the build failing on that command.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0030](../macro_taxo_before_hybrid/workflow-0030.md)

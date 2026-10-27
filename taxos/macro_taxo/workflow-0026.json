@@ -2,29 +2,36 @@
   "schema_version": 1,
   "cluster_id": "workflow-0026",
   "issues": [
-    93981
+    93619
   ],
-  "workflow_hypothesis": "Sanitizer handling of deliberate worker crash breaks failure-recovery testing",
-  "pattern": "Sanitizer interception of deliberate worker-failure injection invalidates process-supervision tests",
-  "description": "A process-pool recovery test deliberately crashes a worker during task handling, but sanitizer instrumentation intercepts the fault and terminates the worker through its own diagnostic path, so the supervisor/test harness observes sanitizer failure output instead of the intended worker-death condition.",
-  "precondition": "A recovery test runs under memory-safety instrumentation and intentionally triggers a fatal memory signal inside a worker while decoding or executing a task.",
-  "critical_operation": "The worker performs the injected crash and the pool supervisor classifies the resulting process termination as a worker failure.",
-  "interference": "The sanitizer intercepts the injected fault, emits a sanitizer fatal-error report, and aborts through instrumentation before the termination follows the test's expected observable path.",
-  "invalid_assumption": "The test assumes that deliberate fatal signals have the same process-level behavior and observable diagnostics under sanitizer instrumentation as they do in an ordinary runtime.",
-  "failure": "The recovery test is reported as failed or produces unexpected sanitizer diagnostics instead of validating the intended worker-failure handling.",
+  "workflow_hypothesis": "Link-time optimization produces an out-of-range branch",
+  "pattern": "Large whole-program link-time optimization on an architecture with limited branch displacement is applied to a sufficiently large codebase.",
+  "description": "Global optimization and code generation create a final layout in which a direct branch target is farther away than the target architecture's instruction encoding permits.",
+  "precondition": "A large build enables link-time or whole-program optimization on a target architecture with range-limited direct branches.",
+  "critical_operation": "The link-time compiler combines, optimizes, and lays out code before emitting machine instructions for an intermediate executable.",
+  "interference": "Global code placement and expansion increase the distance between a branch instruction and its target beyond the encodable displacement.",
+  "invalid_assumption": "The code-generation pipeline assumes each emitted direct branch will remain in range, or that the assembler/linker will automatically provide a long-branch alternative or relaxation.",
+  "failure": "The assembler rejects the generated instruction with an out-of-range branch diagnostic, causing link-time compilation and the build of the intermediate executable to abort; disabling link-time optimization avoids the failure path.",
   "search_strategy": [
-    "Find worker or subprocess tests that deliberately trigger fatal signals or invalid memory accesses, and inspect whether sanitizer-enabled runs are accounted for.",
-    "Trace how the supervisor distinguishes expected worker death from sanitizer-generated aborts and diagnostic output.",
-    "Search for crash-injection tests executed under memory-safety sanitizers without a runtime or test-harness guard.",
-    "Check whether assertions depend on exact process-exit behavior, signal status, or absence of sanitizer output when testing worker recovery."
+    "Search architecture-specific branch emission and relaxation logic for direct branches that lack a long-range fallback after whole-program layout.",
+    "Check code-generation assumptions that branch targets remain within encoding range after global optimization, partitioning, or section reordering.",
+    "Inspect linker and assembler support for relaxing or rewriting out-of-range branches in link-time-generated code.",
+    "Exercise large link-time-optimized builds on architectures with limited branch reach, comparing the same build with link-time optimization disabled."
   ],
   "evidence": [
     {
-      "issue": 93981,
-      "supports": "A sanitizer-instrumented process-pool test intentionally triggered fatal memory faults during task decoding and worker function execution; the runtime emitted an AddressSanitizer fatal-signal report and aborted, and the affected recovery tests were reported as failed."
+      "issue": 93619,
+      "supports": "A large optimized build on a range-limited architecture failed during link-time compilation because the assembler reported an out-of-range branch; the same build succeeded when link-time optimization was removed."
     }
   ],
-  "scope_note": "This cluster contains one report, so the pattern is scoped to deliberate fatal-fault injection in supervised worker or subprocess recovery tests under sanitizer instrumentation; it does not establish that all sanitizer failures or all worker crashes behave this way.",
+  "scope_note": "This is a singleton report, so the pattern is scoped to toolchain failures where whole-program code placement exposes an architecture-specific branch-range limit; it does not establish that all link-time optimization failures or all out-of-range branches have this cause.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T17:49:36.439241+00:00"
+  "generated_at": "2026-09-10T17:49:14.699383+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0025"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 121275,
+  "cluster_id": "workflow-0076",
+  "workflow": [
+    "A build or environment disables an optional network protocol family.",
+    "A server setup performs endpoint discovery without restricting results to supported protocol families.",
+    "Discovery returns an endpoint using the disabled family.",
+    "The setup attempts to bind using that unsupported family and fails with a low-level family error instead of selecting a supported family."
+  ],
+  "summary": "Unsupported protocol-family result causes server binding failure",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:21:53.354078+00:00"
+}

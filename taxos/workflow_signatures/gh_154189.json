@@ -9,7 +9,6 @@
     "A later access dereferences the stale pointers, causing use-after-free instead of completing safely."
   ],
   "summary": "Reentrant mutation invalidates cached internal state",
-  "decision_reason": "The underlying workflow materially matches reentrant callback code detaching or releasing a backing resource before the outer operation uses it again; the specific object, callback, and state types are implementation details.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:44:52.537163+00:00"
 }

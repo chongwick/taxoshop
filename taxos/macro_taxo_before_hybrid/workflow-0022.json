@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0022",
+  "issues": [
+    89391
+  ],
+  "workflow_hypothesis": "Native-width parsing overruns narrower fixed-width storage",
+  "pattern": "Format-driven native-width parsing into narrower fixed-width storage",
+  "description": "A format-based argument parser writes an integer using the width of a native type into a destination object declared with a fixed-width integer type.",
+  "precondition": "A parser accepts a format specification and caller-provided destination pointers, and a native integer type named by the format can be wider than the fixed-width destination on some supported ABI.",
+  "critical_operation": "The parser stores the parsed value according to the format unit's native integer width at the destination address.",
+  "interference": "The destination object is narrower than the width used by the parser, so the store extends beyond the object's bounds into adjacent memory.",
+  "invalid_assumption": "Code assumes that matching numeric range or apparent integer compatibility makes a native-width format unit safe for a fixed-width integer object.",
+  "failure": "The out-of-bounds store corrupts adjacent stack memory and can be detected as a stack-buffer-overflow or cause later process termination.",
+  "search_strategy": [
+    "Inspect every format-driven integer parse and compare each format unit's documented native storage width with the exact destination object's type and size.",
+    "Search for fixed-width integer objects passed by address to parsers whose format units name native short, int, long, or long-long types.",
+    "Review code on ABIs where native integer widths differ, and verify that each parser destination is either the exact native type or parsed through a width-matched temporary.",
+    "Check sanitizer reports and stack layouts around parser calls for writes larger than the declared destination object."
+  ],
+  "evidence": [
+    {
+      "issue": 89391,
+      "supports": "The report attributes the stack overflow to a native-width unsigned-integer format unit receiving a pointer to a narrower fixed-width integer object; the parser consequently wrote past that object, and the fix changed both the destination declarations and format units to width-compatible types."
+    }
+  ],
+  "scope_note": "This cluster contains one report, so the pattern is scoped to format-driven integer parsers whose native-width storage contract is violated by fixed-width destinations; it does not establish that every parser or every integer conversion has this failure mode.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:47:30.909419+00:00"
+}

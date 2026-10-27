@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": 143751,
-  "cluster_id": "workflow-0142",
+  "cluster_id": "workflow-0206",
   "workflow": [
     "A tracing optimizer is configured to accept traces larger than the generated-code subsystem can safely support.",
     "Execution records and compiles an unusually long trace, reaching an internal machine-code size or representation limit.",
@@ -10,7 +10,6 @@
     "The invalid metadata access triggers an assertion or segmentation fault instead of safely rejecting or shortening the trace."
   ],
   "summary": "Oversized optimized trace corrupts generated-code metadata during cleanup",
-  "decision_reason": "No existing cluster captures the specific sequence of oversized trace generation exceeding a machine-code limit, followed by inconsistent executable metadata and a cleanup-time failure. The issue is distinct from generic stale optimized state, optimizer ordering, or invalid instruction metadata.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:26:16.467887+00:00"
 }

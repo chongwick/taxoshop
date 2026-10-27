@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0022",
+  "issues": [
+    89363
+  ],
+  "workflow_hypothesis": "Forked child deadlocks on an inherited runtime mutex during worker creation",
+  "pattern": "Forked child thread creation can deadlock in non-fork-safe runtime instrumentation.",
+  "description": "A multithreaded process is forked under runtime instrumentation, and the child later creates a thread whose startup path enters instrumentation bookkeeping that was not safely reinitialized after the fork.",
+  "precondition": "A multithreaded process uses an allocator, sanitizer, or instrumentation runtime with internal synchronization and can fork while that runtime has active thread bookkeeping.",
+  "critical_operation": "The forked child creates a worker or thread, invoking the runtime's thread-start, registration, or stack-initialization path.",
+  "interference": "The child retains synchronization or registration state from the parent, while the execution context that could complete or release that state is absent or unable to make progress in the child.",
+  "invalid_assumption": "Forking is assumed to leave runtime instrumentation state valid for subsequent child-side thread creation.",
+  "failure": "Child thread creation waits indefinitely in runtime initialization, causing queue, process, or executor operations to hang until timeout.",
+  "search_strategy": [
+    "Inspect fork paths for child-side worker or thread creation under allocator, sanitizer, or instrumentation builds.",
+    "Trace runtime hooks invoked by child thread startup, including registration, stack discovery, and allocation bookkeeping.",
+    "Check every internal lock or completion flag crossing the fork boundary for ownership by a thread that will not exist in the child.",
+    "Verify whether child-side runtime state is reinitialized or whether affected operations are isolated under non-fork-safe instrumentation.",
+    "Reproduce fork-and-thread workflows with sanitizer instrumentation and capture stacks for both the blocked creator and the runtime bookkeeping path."
+  ],
+  "evidence": [
+    {
+      "issue": 89363,
+      "supports": "Address-instrumented fork workflows intermittently hang when child-side thread creation waits in the instrumentation interceptor for registration while another path is blocked on an internal allocator mutex, supporting inherited non-fork-safe runtime synchronization as the shared mechanism."
+    }
+  ],
+  "scope_note": "Singleton cluster: the pattern is scoped to fork-like duplication of multithreaded processes followed by child thread creation under address-sanitizer-style runtime instrumentation. It does not establish the same failure for ordinary application locks, non-fork process starts, or uninstrumented builds.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:51:55.019012+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0021"
+  ],
+  "adaptation_fingerprint": "151daac549c014a23e375e8ccd0ed6b5991d1eef222da9a79564f4c814b1c023",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

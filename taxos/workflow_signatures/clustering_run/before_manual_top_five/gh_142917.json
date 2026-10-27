@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 142917,
+  "cluster_id": "workflow-0138",
+  "workflow": [
+    "A recursive or short-lived worker operation allocates auxiliary runtime state while processing cyclic input or initializing thread-related state.",
+    "The operation reaches its expected recursion-limit or worker-exit path without an immediate functional failure.",
+    "Cleanup for that exceptional or terminating path omits releasing one directly owned allocation.",
+    "Leak-detection instrumentation checks process shutdown and reports the unreclaimed allocation, causing the run to fail despite the operation otherwise completing."
+  ],
+  "summary": "Exceptional or worker-exit cleanup omits one owned allocation",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:14:26.275731+00:00"
+}

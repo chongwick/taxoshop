@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 143546,
+  "cluster_id": "workflow-0062",
+  "workflow": [
+    "A container operation scans entries while retaining pointers and a count for its backing storage, then invokes user-defined comparison behavior.",
+    "The callback re-enters and mutates the same container, clearing or resizing its storage and changing the recorded count.",
+    "The original operation resumes with stale pointer and count assumptions and continues scanning beyond the valid allocation.",
+    "An out-of-bounds read causes a heap-buffer-overflow and process termination instead of safe reentrant handling."
+  ],
+  "summary": "Reentrant container mutation invalidates active storage traversal",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:23:04.148074+00:00"
+}

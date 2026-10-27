@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0002",
+  "issues": [
+    57894
+  ],
+  "workflow_hypothesis": "Unescaped substitution marker breaks display rendering",
+  "pattern": "Literal reserved marker in display text is misinterpreted as a formatting directive",
+  "description": "An interface accepts display text containing literal caller content but later processes that text as a substitution template during rendering.",
+  "precondition": "A caller supplies display text containing a reserved substitution marker without the escaping required by the formatting syntax.",
+  "critical_operation": "The rendering path applies substitution expansion to the supplied display text.",
+  "interference": "The reserved marker is parsed as the start of a substitution directive instead of remaining literal display content.",
+  "invalid_assumption": "The implementation assumes display text is valid template text, or that callers will escape literal reserved markers themselves.",
+  "failure": "Rendering raises a formatting error and fails to display the intended text.",
+  "search_strategy": [
+    "Inspect display-text rendering paths for implicit formatting or substitution of caller-controlled strings.",
+    "Check whether reserved syntax characters in supplied display text are escaped before template expansion.",
+    "Trace malformed or incomplete substitution-directive errors back to the original display-text boundary.",
+    "Verify documentation and validation distinguish literal display text from substitution templates."
+  ],
+  "evidence": [
+    {
+      "issue": 57894,
+      "supports": "The report shows that a literal percent marker in supplied help text is later processed by percent-style substitution, interpreted as an invalid directive, and rejected; escaping the marker produces the intended literal output."
+    }
+  ],
+  "scope_note": "This is a singleton pattern, scoped to display interfaces that intentionally apply substitution formatting during rendering; it does not generalize to display paths without template interpretation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:11:08.161193+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0002"
+  ],
+  "adaptation_fingerprint": "053c55a13a3ce3115a0395f79222dc9b222a1b0efa37d6f3aa81c815e00f6149",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

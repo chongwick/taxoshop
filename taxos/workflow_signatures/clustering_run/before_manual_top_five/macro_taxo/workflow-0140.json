@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0140",
+  "issues": [
+    140564,
+    140776,
+    141390
+  ],
+  "workflow_hypothesis": "Unchecked executable metadata type causes later invalid dereference",
+  "pattern": "Externally tampered executable representations bypass invariant enforcement and reach trusted runtime consumers",
+  "description": "A low-level executable representation is altered through independently editable metadata, instruction, or associated-descriptor fields. Because the altered representation is accepted without complete cross-field or type validation, later validation or execution reaches invariant-dependent internals and fails fatally.",
+  "precondition": "A caller can replace or reconstruct executable metadata or instruction-related fields independently, including values whose types, counts, or relationships are not inherently constrained by construction.",
+  "critical_operation": "The altered executable representation is accepted and later passed to internal validation, execution, or runtime-object construction without comprehensive validation of its coupled metadata and representation invariants.",
+  "interference": "Metadata counts, instruction structure, captured-variable descriptors, or constant entries no longer match the executable's remaining layout or required object representation; in one mechanism, structural inconsistency reaches internal checks, while in another, an incompatible value reaches a low-level object-reference operation.",
+  "invalid_assumption": "Downstream runtime code assumes that an accepted executable representation already satisfies its cross-field layout and type invariants, including assuming that metadata entries are valid managed objects when constructing runtime state.",
+  "failure": "The malformed representation produces an internal error or assertion failure, or is dereferenced as though valid and causes a segmentation fault, instead of being rejected as a recoverable invalid executable.",
+  "search_strategy": [
+    "Check replacement, cloning, or reconstruction paths that allow executable metadata, instruction streams, or associated descriptors to be edited independently.",
+    "Check that argument, variable, capture, and instruction metadata are cross-validated against one another before internal validation or execution.",
+    "Check consumers of executable metadata for local type and representation checks before reference counting, mapping, or other pointer-dependent operations.",
+    "Check assertions and internal-error paths for malformed executable representations and verify that invalid combinations are converted into recoverable rejection where feasible.",
+    "Distinguish structural invariant failures from incompatible metadata-type failures when reviewing executable-object hardening and crash handling."
+  ],
+  "evidence": [
+    {
+      "issue": 140564,
+      "supports": "Changing coupled executable parameter-count metadata to inconsistent extreme values caused the internal validator to report an internal error rather than safely rejecting the malformed representation."
+    },
+    {
+      "issue": 140776,
+      "supports": "Replacing executable constant metadata with values of an incompatible representation was accepted; later runtime construction treated an entry as a valid managed object and crashed during low-level reference handling."
+    },
+    {
+      "issue": 141390,
+      "supports": "Adding captured-variable metadata and an instruction prefix without preserving their required relationship caused execution to hit an internal assertion about the executable's closure metadata."
+    }
+  ],
+  "scope_note": "These reports concern deliberately altered low-level executable representations. Structural inconsistencies reach internal assertions, while incompatible metadata types reach invalid dereferences. This scope does not establish that all malformed executables can be validated or that ordinary construction exposes these failures.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:25:26.553415+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0102",
+    "workflow-0104"
+  ],
+  "adaptation_fingerprint": "e127d888d23241e6dc7e451d2c4615428538683c85c0f7a05e90169a3d639f8e",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "scope_note"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.333121+00:00"
+}

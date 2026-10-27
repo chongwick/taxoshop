@@ -1,38 +1,46 @@
-# Externally controlled execution-position updates accept the exact lower boundary of a resumable function, allowing resume-time state initialization to treat a “
+# Using raw storage or an address with insufficient alignment for a stricter-aligned typed object or access
 
-A singleton pattern in which a tracing/debugging control changes a resumable function’s source position to its first source boundary, validation accidentally accepts that boundary, and resumption enters layout-sensitive state initialization.
+Code uses storage whose guaranteed alignment is weaker than the alignment required by the type being placed or accessed, including addresses shifted within otherwise valid storage.
 
 ## Precondition
 
-A tracing, debugging, or equivalent control path can assign a resumable function’s execution position, and the position validator rejects only values strictly before the function’s first source position.
+An allocator, byte buffer, generated-code region, or derived address does not guarantee the alignment required by a typed object or typed load/store.
 
 ## Critical operation
 
-The control path sets the execution position to exactly the first source position and then resumes execution, causing the runtime to derive and initialize an execution-record layout from that position.
+Place the object there or convert the address to a pointer for the stricter-aligned type and perform a typed read or write.
 
 ## Interference
 
-A strict-less-than boundary check admits the exact lower-bound value even though it is not a valid resumable instruction location.
+Allocator guarantees, packed or byte-oriented layouts, and address offsets can leave the effective address misaligned even when the surrounding storage is valid and large enough.
 
 ## Invalid assumption
 
-The resume path assumes every position accepted by validation denotes a normal instruction location whose derived execution state fits the already allocated heap object.
+Treating raw byte accessibility, allocation success, object size, or tolerance on a particular processor as evidence that typed alignment requirements are satisfied.
 
 ## Failure
 
-State initialization writes beyond the heap object allocated for the smaller layout, producing a heap-buffer-overflow instead of returning a recoverable invalid-position error.
+The operation has undefined behavior and may be diagnosed by alignment sanitizers, miscompiled under compiler alignment assumptions, or cause a runtime fault.
 
 ## Scope
 
-This cluster contains one report, so the pattern is scoped to runtimes with externally mutable execution positions and resumable execution records; it does not establish that all tracing or debugging position changes have this failure mode.
+The cluster supports a general raw-storage alignment mismatch pattern, not only allocator-backed object placement. The two JIT reports are closely related manifestations of unaligned typed memory access, while the allocator report demonstrates the same contract failure at object allocation; the pattern does not claim that every unaligned byte operation is invalid.
 
 ## Search strategy
 
-1. Inspect every externally writable instruction or source-position setter for an explicit equality check at the first valid boundary.
-2. Compare position-validation predicates with the downstream source-position-to-instruction and execution-layout mappings, looking for strict-versus-inclusive bound mismatches.
-3. Trace accepted boundary positions through resume and state-initialization paths, and verify that allocation sizes are computed from the same layout metadata used by the writes.
-4. Add boundary-focused tests that assign positions immediately before, exactly at, and immediately after the first source position, including resumable and suspended executions.
+1. Check every custom or pool allocator against the maximum alignment required by objects it may serve.
+2. Check every typed pointer cast from byte storage or an arbitrary address for a proven alignment guarantee.
+3. Check pointer arithmetic and packed layouts to ensure offsets preserve the target type's alignment.
+4. Replace alignment-sensitive raw-memory loads and stores with an alignment-safe representation or byte-copy operation when alignment is not guaranteed.
 
 ## Evidence
 
-- [#140802](../micro_taxo/gh_140802.md): The report shows a tracing callback assigning the first source line, a strict lower-bound check accepting it, resume-time frame initialization using the invalid position, and an AddressSanitizer heap write immediately past a smaller heap allocation.
+- [#72174](../micro_taxo/gh_72174.md): A pool allocator supplied weaker alignment than required by a structure containing a stricter-aligned member, producing sanitizer-reported misaligned member access and motivating a stronger allocator alignment.
+- [#139269](../micro_taxo/gh_139269.md): Typed reads and writes through casts targeted byte-oriented locations at unaligned offsets; sanitizers reported misaligned accesses and the fix used alignment-agnostic byte copies.
+- [#139834](../micro_taxo/gh_139834.md): The same class of unaligned typed JIT accesses was observed during ordinary execution, with sanitizer reports preceding a segmentation fault in generated-code execution.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0007](../macro_taxo_before_hybrid/workflow-0007.md)

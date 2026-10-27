@@ -1,0 +1,474 @@
+{
+  "revised_at": "2026-10-11T18:45:32.124184+00:00",
+  "method": "Restore exact original top five; retain residual hybrid memberships except split workflow-0100 by original source families.",
+  "ranking_constraint": [
+    "workflow-0014",
+    "workflow-0080",
+    "workflow-0137",
+    "workflow-0077",
+    "workflow-0091"
+  ],
+  "provenance": {
+    "workflow-0001": {
+      "previous_hybrid_cluster": "workflow-0001",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0002": {
+      "previous_hybrid_cluster": "workflow-0002",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0005": {
+      "previous_hybrid_cluster": "workflow-0005",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0008": {
+      "previous_hybrid_cluster": "workflow-0008",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0009": {
+      "previous_hybrid_cluster": "workflow-0009",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0010": {
+      "previous_hybrid_cluster": "workflow-0010",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0011": {
+      "previous_hybrid_cluster": "workflow-0011",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0013": {
+      "previous_hybrid_cluster": "workflow-0013",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0017": {
+      "previous_hybrid_cluster": "workflow-0017",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0021": {
+      "previous_hybrid_cluster": "workflow-0021",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0022": {
+      "previous_hybrid_cluster": "workflow-0022",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0024": {
+      "previous_hybrid_cluster": "workflow-0024",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0025": {
+      "previous_hybrid_cluster": "workflow-0025",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0026": {
+      "previous_hybrid_cluster": "workflow-0026",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0028": {
+      "previous_hybrid_cluster": "workflow-0028",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0029": {
+      "previous_hybrid_cluster": "workflow-0029",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0030": {
+      "previous_hybrid_cluster": "workflow-0030",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0033": {
+      "previous_hybrid_cluster": "workflow-0033",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0034": {
+      "previous_hybrid_cluster": "workflow-0034",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0036": {
+      "previous_hybrid_cluster": "workflow-0036",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0037": {
+      "previous_hybrid_cluster": "workflow-0037",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0040": {
+      "previous_hybrid_cluster": "workflow-0040",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0042": {
+      "previous_hybrid_cluster": "workflow-0042",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0044": {
+      "previous_hybrid_cluster": "workflow-0044",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0045": {
+      "previous_hybrid_cluster": "workflow-0045",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0046": {
+      "previous_hybrid_cluster": "workflow-0046",
+      "method": "manual_subset_after_restoration"
+    },
+    "workflow-0047": {
+      "previous_hybrid_cluster": "workflow-0047",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0049": {
+      "previous_hybrid_cluster": "workflow-0049",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0050": {
+      "previous_hybrid_cluster": "workflow-0050",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0052": {
+      "previous_hybrid_cluster": "workflow-0052",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0056": {
+      "previous_hybrid_cluster": "workflow-0056",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0057": {
+      "previous_hybrid_cluster": "workflow-0057",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0058": {
+      "previous_hybrid_cluster": "workflow-0058",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0059": {
+      "previous_hybrid_cluster": "workflow-0059",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0061": {
+      "previous_hybrid_cluster": "workflow-0061",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0064": {
+      "previous_hybrid_cluster": "workflow-0064",
+      "method": "manual_subset_after_restoration"
+    },
+    "workflow-0067": {
+      "previous_hybrid_cluster": "workflow-0067",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0073": {
+      "previous_hybrid_cluster": "workflow-0073",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0074": {
+      "previous_hybrid_cluster": "workflow-0074",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0075": {
+      "previous_hybrid_cluster": "workflow-0075",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0076": {
+      "previous_hybrid_cluster": "workflow-0076",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0079": {
+      "previous_hybrid_cluster": "workflow-0079",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0240": {
+      "previous_hybrid_cluster": "workflow-0080",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0081": {
+      "previous_hybrid_cluster": "workflow-0081",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0083": {
+      "previous_hybrid_cluster": "workflow-0083",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0084": {
+      "previous_hybrid_cluster": "workflow-0084",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0087": {
+      "previous_hybrid_cluster": "workflow-0087",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0088": {
+      "previous_hybrid_cluster": "workflow-0088",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0090": {
+      "previous_hybrid_cluster": "workflow-0090",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0094": {
+      "previous_hybrid_cluster": "workflow-0094",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0096": {
+      "previous_hybrid_cluster": "workflow-0096",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0097": {
+      "previous_hybrid_cluster": "workflow-0097",
+      "method": "manual_subset_after_restoration"
+    },
+    "workflow-0100": {
+      "previous_hybrid_cluster": "workflow-0100",
+      "method": "manual_split_by_original_family"
+    },
+    "workflow-0241": {
+      "previous_hybrid_cluster": "workflow-0100",
+      "method": "manual_split_by_original_family"
+    },
+    "workflow-0242": {
+      "previous_hybrid_cluster": "workflow-0100",
+      "method": "manual_split_by_original_family"
+    },
+    "workflow-0243": {
+      "previous_hybrid_cluster": "workflow-0100",
+      "method": "manual_split_by_original_family"
+    },
+    "workflow-0244": {
+      "previous_hybrid_cluster": "workflow-0100",
+      "method": "manual_split_by_original_family"
+    },
+    "workflow-0245": {
+      "previous_hybrid_cluster": "workflow-0100",
+      "method": "manual_split_by_original_family"
+    },
+    "workflow-0246": {
+      "previous_hybrid_cluster": "workflow-0100",
+      "method": "manual_split_by_original_family"
+    },
+    "workflow-0247": {
+      "previous_hybrid_cluster": "workflow-0100",
+      "method": "manual_split_by_original_family"
+    },
+    "workflow-0248": {
+      "previous_hybrid_cluster": "workflow-0100",
+      "method": "manual_split_by_original_family"
+    },
+    "workflow-0104": {
+      "previous_hybrid_cluster": "workflow-0104",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0105": {
+      "previous_hybrid_cluster": "workflow-0105",
+      "method": "manual_subset_after_restoration"
+    },
+    "workflow-0109": {
+      "previous_hybrid_cluster": "workflow-0109",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0110": {
+      "previous_hybrid_cluster": "workflow-0110",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0111": {
+      "previous_hybrid_cluster": "workflow-0111",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0112": {
+      "previous_hybrid_cluster": "workflow-0112",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0114": {
+      "previous_hybrid_cluster": "workflow-0114",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0118": {
+      "previous_hybrid_cluster": "workflow-0118",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0120": {
+      "previous_hybrid_cluster": "workflow-0120",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0125": {
+      "previous_hybrid_cluster": "workflow-0125",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0126": {
+      "previous_hybrid_cluster": "workflow-0126",
+      "method": "manual_subset_after_restoration"
+    },
+    "workflow-0127": {
+      "previous_hybrid_cluster": "workflow-0127",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0129": {
+      "previous_hybrid_cluster": "workflow-0129",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0132": {
+      "previous_hybrid_cluster": "workflow-0132",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0135": {
+      "previous_hybrid_cluster": "workflow-0135",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0138": {
+      "previous_hybrid_cluster": "workflow-0138",
+      "method": "manual_subset_after_restoration"
+    },
+    "workflow-0140": {
+      "previous_hybrid_cluster": "workflow-0140",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0147": {
+      "previous_hybrid_cluster": "workflow-0147",
+      "method": "manual_subset_after_restoration"
+    },
+    "workflow-0149": {
+      "previous_hybrid_cluster": "workflow-0149",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0150": {
+      "previous_hybrid_cluster": "workflow-0150",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0151": {
+      "previous_hybrid_cluster": "workflow-0151",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0153": {
+      "previous_hybrid_cluster": "workflow-0153",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0156": {
+      "previous_hybrid_cluster": "workflow-0156",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0158": {
+      "previous_hybrid_cluster": "workflow-0158",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0162": {
+      "previous_hybrid_cluster": "workflow-0162",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0163": {
+      "previous_hybrid_cluster": "workflow-0163",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0165": {
+      "previous_hybrid_cluster": "workflow-0165",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0166": {
+      "previous_hybrid_cluster": "workflow-0166",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0168": {
+      "previous_hybrid_cluster": "workflow-0168",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0169": {
+      "previous_hybrid_cluster": "workflow-0169",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0172": {
+      "previous_hybrid_cluster": "workflow-0172",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0174": {
+      "previous_hybrid_cluster": "workflow-0174",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0179": {
+      "previous_hybrid_cluster": "workflow-0179",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0180": {
+      "previous_hybrid_cluster": "workflow-0180",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0188": {
+      "previous_hybrid_cluster": "workflow-0188",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0193": {
+      "previous_hybrid_cluster": "workflow-0193",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0200": {
+      "previous_hybrid_cluster": "workflow-0200",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0205": {
+      "previous_hybrid_cluster": "workflow-0205",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0206": {
+      "previous_hybrid_cluster": "workflow-0206",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0207": {
+      "previous_hybrid_cluster": "workflow-0207",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0210": {
+      "previous_hybrid_cluster": "workflow-0210",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0214": {
+      "previous_hybrid_cluster": "workflow-0214",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0215": {
+      "previous_hybrid_cluster": "workflow-0215",
+      "method": "manual_subset_after_restoration"
+    },
+    "workflow-0216": {
+      "previous_hybrid_cluster": "workflow-0216",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0221": {
+      "previous_hybrid_cluster": "workflow-0221",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0223": {
+      "previous_hybrid_cluster": "workflow-0223",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0226": {
+      "previous_hybrid_cluster": "workflow-0226",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0232": {
+      "previous_hybrid_cluster": "workflow-0232",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0233": {
+      "previous_hybrid_cluster": "workflow-0233",
+      "method": "manual_subset_after_restoration"
+    },
+    "workflow-0239": {
+      "previous_hybrid_cluster": "workflow-0239",
+      "method": "retained_hybrid_membership"
+    },
+    "workflow-0014": {
+      "method": "manual_restore_exact_original"
+    },
+    "workflow-0080": {
+      "method": "manual_restore_exact_original"
+    },
+    "workflow-0137": {
+      "method": "manual_restore_exact_original"
+    },
+    "workflow-0077": {
+      "method": "manual_restore_exact_original"
+    },
+    "workflow-0091": {
+      "method": "manual_restore_exact_original"
+    }
+  },
+  "prior_snapshot": "clustering_run/before_manual_top_five",
+  "luna_review_applies_to": "clustering_run/before_manual_top_five/clusters.json"
+}

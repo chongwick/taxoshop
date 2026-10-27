@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0168",
+  "issues": [
+    141542,
+    144068
+  ],
+  "workflow_hypothesis": "Worker teardown omits cleanup of private tracing state",
+  "pattern": "Auxiliary per-thread tracing state is omitted from an alternate thread-teardown path",
+  "description": "Optimized or instrumented execution allocates private per-thread auxiliary state, but termination through an abandoned-thread or shutdown cleanup path releases only the ordinary thread state. The auxiliary allocation remains unreclaimed and is reported as a leak.",
+  "precondition": "A thread enters optimized or tracing execution that lazily allocates private auxiliary state, and the thread may terminate through shutdown or another path that bypasses its normal completion cleanup.",
+  "critical_operation": "The runtime clears or deletes the thread's ordinary state while the auxiliary tracing or optimization state remains separately managed.",
+  "interference": "The alternate teardown path omits the subsystem-specific release required for the auxiliary per-thread allocation.",
+  "invalid_assumption": "The implementation assumes that clearing or deleting ordinary thread state, or ending the hosting runtime, automatically releases every allocation created for that thread.",
+  "failure": "The auxiliary per-thread allocation remains live after thread or runtime termination, and leak detection reports a direct memory leak instead of clean shutdown.",
+  "search_strategy": [
+    "Trace every per-thread allocation made by optimization, tracing, or profiling code to an explicit release on normal exit and abandoned-thread teardown paths.",
+    "Compare ordinary thread-exit cleanup with shutdown cleanup for resources stored outside the generic thread-state structure.",
+    "Inspect thread-state clear and delete routines for subsystem-specific auxiliary pointers, buffers, and destructors that generic teardown does not invoke.",
+    "Add a leak-detection test that abandons an actively optimized or instrumented thread during shutdown and verifies that all private auxiliary state is released."
+  ],
+  "evidence": [
+    {
+      "issue": 141542,
+      "supports": "The report shows optimized thread execution allocating private tracing-related state and ending with a sanitizer-reported direct leak, establishing the missing cleanup symptom on a daemon-thread termination path."
+    },
+    {
+      "issue": 144068,
+      "supports": "The report explicitly connects an abandoned daemon thread with leaked private optimization tracing state during runtime shutdown and documents that adding the subsystem-specific release to thread-state clearing removes the leak."
+    }
+  ],
+  "scope_note": "Both reports support the same ownership-cleanup omission for private per-thread state during non-normal thread termination. The evidence does not establish that every thread leak involves optimization or tracing, nor that normal thread completion always leaks; the distinguishing boundary is the alternate shutdown or abandonment cleanup path.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:36:55.209053+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0094",
+    "workflow-0143"
+  ],
+  "adaptation_fingerprint": "1c66e6ff09930f39d7a1de889c18d79ad948e17cae2599460b78a457a913c4d5",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

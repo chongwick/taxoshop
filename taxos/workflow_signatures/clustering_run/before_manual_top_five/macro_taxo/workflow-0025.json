@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0025",
+  "issues": [
+    89737
+  ],
+  "workflow_hypothesis": "Cross-module inherited annotations resolved in the wrong namespace",
+  "pattern": "Generated derived-class callables resolve inherited deferred annotations in the wrong namespace.",
+  "description": "Cross-module class transformation can detach inherited deferred annotations from their defining namespace, so later resolution of the derived class or generated initializer sees missing or shadowed names.",
+  "precondition": "A base class exposes deferred textual annotations, and a transformation generates or reuses a derived-class initializer across a module boundary.",
+  "critical_operation": "The transformation copies inherited annotation text into generated callable metadata or resolves it using the derived class's module globals instead of preserving the defining context.",
+  "interference": "Later type-hint evaluation lacks imports from the defining module or finds same-named objects in the derived module.",
+  "invalid_assumption": "The namespace used to build the derived class or callable is sufficient to resolve inherited annotation text.",
+  "failure": "Annotation resolution fails or silently reconstructs inherited annotations as incorrect types.",
+  "search_strategy": [
+    "Trace transformations that copy deferred annotation strings across class or module boundaries, and verify that definition-time namespace provenance is preserved.",
+    "Inspect generated or reused callable metadata and confirm its resolution namespace comes from the annotation's defining context.",
+    "Search base and derived modules for same-named symbols, then test whether inherited deferred references resolve to the defining symbols.",
+    "Exercise inherited annotations with absent imports, shadowed names, generated initializers, and reused initializers across separate modules.",
+    "Verify annotation resolution for both the transformed class and its initializer."
+  ],
+  "evidence": [
+    {
+      "issue": 89737,
+      "supports": "The report shows that transformed derived classes inherited textual annotations from another module, while generated or reused initializers resolved them with unsuitable globals; missing or shadowing names caused failure or incorrect results."
+    }
+  ],
+  "scope_note": "This singleton pattern is scoped to class-generation or transformation workflows that propagate deferred annotations across module boundaries; it does not claim that all annotation-resolution failures have this cause.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:52:22.998662+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0024"
+  ],
+  "adaptation_fingerprint": "c5b40f8d5e504e3abcde687290bb8722250cc9e8e383a3766932e2794db20224",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

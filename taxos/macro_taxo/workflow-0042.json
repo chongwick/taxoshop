@@ -2,39 +2,54 @@
   "schema_version": 1,
   "cluster_id": "workflow-0042",
   "issues": [
-    110097,
-    143442,
-    150966
+    102509,
+    106914,
+    116550,
+    116886
   ],
-  "workflow_hypothesis": "Load-sensitive fixed-timeout expectation failure",
-  "pattern": "Fixed wall-clock test budgets can make asynchronous behavior flaky when scheduling or instrumentation delays progress.",
-  "description": "Fixed wall-clock test budgets can make asynchronous behavior flaky when scheduling or instrumentation delays progress.",
-  "precondition": "A test starts asynchronous work and uses a short fixed timeout or fixed-duration polling window before checking intermediate results or final output.",
-  "critical_operation": "The test waits for early completion, readiness, or observable output, then proceeds to assertions or deliberately triggers termination when that time budget expires.",
-  "interference": "System load, parallel execution, process-launch latency, or runtime instrumentation delays worker startup and progress beyond the test's fixed wall-clock window.",
-  "invalid_assumption": "The expected milestone or output must be observable within that fixed duration regardless of execution environment.",
-  "failure": "The test observes no or only partial results, times out, or terminates the target before its expected output is available, and reports a failure even though the asynchronous operation may still be behaving correctly.",
+  "workflow_hypothesis": "Uninitialized unused numeric storage is read before neutralizing arithmetic",
+  "pattern": "Consumers read storage whose initialization is implicit, partial, or omitted, relying on later arithmetic or platform guarantees to make the read harmless",
+  "description": "A low-level consumer accesses payload, auxiliary conversion state, or platform-populated metadata whose definedness is not guaranteed for every field or value path; the access may be numerically harmless or operationally expected to succeed, but it remains observable as an indeterminate read under memory instrumentation.",
+  "precondition": "A producer leaves nominally unused numeric storage, conversion metadata, or platform-dependent record fields uninitialized or insufficiently defined on a path later consumed by another routine.",
+  "critical_operation": "A conversion, parsing, sizing, layout, or file-processing routine reads the storage without first guarding the relevant zero/empty case or establishing that each consumed field has been initialized.",
+  "interference": "Memory-safety instrumentation tracks the indeterminate state through arithmetic, status checks, pointer or boundary decisions, or metadata calculations, and may terminate the operation even when the resulting numeric value would be neutral or the platform call normally succeeds.",
+  "invalid_assumption": "The consumer assumes that a nominal zero value, successful native conversion, or platform metadata helper implicitly makes every later-read unit or field defined and safe to inspect.",
+  "failure": "Instrumented execution reports a use of an uninitialized value and may abort conversion, decoding, build-time processing, or file handling before the intended result is produced.",
   "search_strategy": [
-    "Inspect tests for hard-coded short timeouts around asynchronous startup, readiness, completion, or result collection.",
-    "Check for fixed sleep durations or bounded polling loops followed by assertions about output, result counts, or process state.",
-    "Look for test cleanup or quit logic that fires after elapsed time rather than after an explicit completion/readiness signal.",
-    "Verify that sanitizer, tracing, parallel, and heavily loaded environments can extend the operation beyond the test's timing assumptions."
+    "Check every payload unit, auxiliary output, and metadata field consumed by a downstream helper for a definite write on all value, success, and platform-specific paths.",
+    "Inspect zero/empty numeric conversions for unconditional reads of nominally unused storage before guarding the zero case.",
+    "Audit native conversion boundaries for status, end-position, and error-state reads whose definedness is not guaranteed on successful conversions.",
+    "Verify that platform-specific metadata population routines initialize the complete record before consumers use fields in size, layout, or bound calculations.",
+    "Run representative conversion and file-processing paths under uninitialized-memory instrumentation and distinguish real partial initialization from sanitizer or environment modeling defects."
   ],
   "evidence": [
     {
-      "issue": 110097,
-      "supports": "A concurrent result test expected immediately completable work to produce two results before a fixed deadline, but loaded systems delayed worker launch so the deadline yielded zero or one result."
+      "issue": 102509,
+      "supports": "A zero-magnitude numeric object can retain an uninitialized payload unit, and a conversion helper reads it before multiplying by zero; memory instrumentation reports the access, and explicit initialization was proposed and merged."
     },
     {
-      "issue": 143442,
-      "supports": "A readiness wait used a fixed short timeout, and runtime instrumentation plus parallel execution delayed startup enough to cause a readiness timeout."
+      "issue": 106914,
+      "supports": "The report independently confirms the same payload-definedness defect in compact numeric conversion and identifies the zero-size case as the source of the uninitialized read; it was closed as a duplicate of the related report."
     },
     {
-      "issue": 150966,
-      "supports": "A live subprocess test quit after a fixed simulated interval, and sanitizer or loaded execution delayed target completion so expected failure output had not yet been collected."
+      "issue": 116550,
+      "supports": "A valid numeric-decoding path reads conversion-related status or boundary state after a native conversion, while discussion leaves open whether the state is unset by the library or exposed by incomplete sanitizer support; this supports the narrower boundary-definedness form of the pattern."
+    },
+    {
+      "issue": 116886,
+      "supports": "A file-processing utility consumed fields of a platform-populated metadata record that remained indeterminate under memory instrumentation; zeroing the record was a workaround, although later discussion attributed the observed CI failure primarily to the sanitizer environment or container."
     }
   ],
-  "scope_note": "The reports share timing-sensitive asynchronous tests, but the interference affects different milestones: worker startup, readiness signaling, and target completion/output. The pattern does not require an actual timeout exception; premature fixed-time termination is included.",
+  "scope_note": "This mixed cluster supports an umbrella pattern about consumers relying on implicit definedness, with two mechanisms: direct reads of nominally unused numeric payload storage, and reads of auxiliary or platform-produced state that may be only partially initialized or imperfectly modeled by the sanitizer environment. The reports do not establish that every case is an application defect, and they do not concern leaked ownership or stale/freed state.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T18:36:07.709003+00:00"
+  "generated_at": "2026-10-10T19:13:59.912440+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0037",
+    "workflow-0054",
+    "workflow-0055"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

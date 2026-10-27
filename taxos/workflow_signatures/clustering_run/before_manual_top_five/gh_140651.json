@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 140651,
+  "cluster_id": "workflow-0147",
+  "workflow": [
+    "A record exposes an existing field through a borrowed reference.",
+    "A helper inserts that reference into a compound result using ownership-transferring semantics without acquiring a new reference.",
+    "Cleanup of the compound result releases the field, leaving the original record with a dangling reference.",
+    "Serialization later inspects the dangling field and performs a use-after-free read, terminating the process."
+  ],
+  "summary": "Borrowed reference incorrectly transferred into compound state",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:54:12.828833+00:00"
+}

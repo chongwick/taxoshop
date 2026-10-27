@@ -9,7 +9,6 @@
     "The conflicting accesses form a data race, which instrumentation reports and may expose inconsistent state instead of completing finalization safely."
   ],
   "summary": "Finalization reads shared thread state before synchronization",
-  "decision_reason": "The underlying failure is a concurrent isolated execution context racing with finalization over shared process-wide metadata without sufficient synchronization. The specific thread registry and assertion differ, but the causal workflow materially matches the cluster’s shared-state race pattern.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:46:32.162359+00:00"
 }

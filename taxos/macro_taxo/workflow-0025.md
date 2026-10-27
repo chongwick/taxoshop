@@ -1,38 +1,45 @@
-# Large whole-program link-time optimization on an architecture with limited branch displacement is applied to a sufficiently large codebase.
+# Generated derived-class callables resolve inherited deferred annotations in the wrong namespace.
 
-Global optimization and code generation create a final layout in which a direct branch target is farther away than the target architecture's instruction encoding permits.
+Cross-module class transformation can detach inherited deferred annotations from their defining namespace, so later resolution of the derived class or generated initializer sees missing or shadowed names.
 
 ## Precondition
 
-A large build enables link-time or whole-program optimization on a target architecture with range-limited direct branches.
+A base class exposes deferred textual annotations, and a transformation generates or reuses a derived-class initializer across a module boundary.
 
 ## Critical operation
 
-The link-time compiler combines, optimizes, and lays out code before emitting machine instructions for an intermediate executable.
+The transformation copies inherited annotation text into generated callable metadata or resolves it using the derived class's module globals instead of preserving the defining context.
 
 ## Interference
 
-Global code placement and expansion increase the distance between a branch instruction and its target beyond the encodable displacement.
+Later type-hint evaluation lacks imports from the defining module or finds same-named objects in the derived module.
 
 ## Invalid assumption
 
-The code-generation pipeline assumes each emitted direct branch will remain in range, or that the assembler/linker will automatically provide a long-branch alternative or relaxation.
+The namespace used to build the derived class or callable is sufficient to resolve inherited annotation text.
 
 ## Failure
 
-The assembler rejects the generated instruction with an out-of-range branch diagnostic, causing link-time compilation and the build of the intermediate executable to abort; disabling link-time optimization avoids the failure path.
+Annotation resolution fails or silently reconstructs inherited annotations as incorrect types.
 
 ## Scope
 
-This is a singleton report, so the pattern is scoped to toolchain failures where whole-program code placement exposes an architecture-specific branch-range limit; it does not establish that all link-time optimization failures or all out-of-range branches have this cause.
+This singleton pattern is scoped to class-generation or transformation workflows that propagate deferred annotations across module boundaries; it does not claim that all annotation-resolution failures have this cause.
 
 ## Search strategy
 
-1. Search architecture-specific branch emission and relaxation logic for direct branches that lack a long-range fallback after whole-program layout.
-2. Check code-generation assumptions that branch targets remain within encoding range after global optimization, partitioning, or section reordering.
-3. Inspect linker and assembler support for relaxing or rewriting out-of-range branches in link-time-generated code.
-4. Exercise large link-time-optimized builds on architectures with limited branch reach, comparing the same build with link-time optimization disabled.
+1. Trace transformations that copy deferred annotation strings across class or module boundaries, and verify that definition-time namespace provenance is preserved.
+2. Inspect generated or reused callable metadata and confirm its resolution namespace comes from the annotation's defining context.
+3. Search base and derived modules for same-named symbols, then test whether inherited deferred references resolve to the defining symbols.
+4. Exercise inherited annotations with absent imports, shadowed names, generated initializers, and reused initializers across separate modules.
+5. Verify annotation resolution for both the transformed class and its initializer.
 
 ## Evidence
 
-- [#93619](../micro_taxo/gh_93619.md): A large optimized build on a range-limited architecture failed during link-time compilation because the assembler reported an out-of-range branch; the same build succeeded when link-time optimization was removed.
+- [#89737](../micro_taxo/gh_89737.md): The report shows that transformed derived classes inherited textual annotations from another module, while generated or reused initializers resolved them with unsuitable globals; missing or shadowing names caused failure or incorrect results.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0024](../macro_taxo_before_hybrid/workflow-0024.md)

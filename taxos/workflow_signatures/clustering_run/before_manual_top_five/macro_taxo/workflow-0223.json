@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0223",
+  "issues": [
+    100795,
+    144984,
+    145301
+  ],
+  "workflow_hypothesis": "Failed secondary registration causes double cleanup of an already-owned record",
+  "pattern": "Failure cleanup acts on ownership or destructor state that was not established by the failed operation",
+  "description": "Native error paths can cross an ownership or initialization boundary incorrectly: a failed call may leave an output value invalid, a partially initialized object may not satisfy its destructor's preconditions, or a container may already own a record despite a later registration failure. These distinct mechanisms turn recoverable initialization errors into invalid releases, duplicate releases, or cleanup-time dereferences.",
+  "precondition": "Initialization performs native calls, allocations, parent linking, or container registration incrementally, while failure handling funnels partial state through cleanup that can release or destroy it.",
+  "critical_operation": "A later native operation, allocation, or secondary registration fails after some output, object state, parent ownership, or container ownership has been established.",
+  "interference": "The failure leaves cleanup-relevant state ambiguous or partial: an out-parameter may be non-null but invalid, a destructor-required field may still be absent, or a parent/container may retain ownership independently of local cleanup.",
+  "invalid_assumption": "The error path assumes failed operations leave no releasable state, partial objects are already destructor-safe, and local cleanup remains the sole owner even after ownership was transferred or recorded elsewhere.",
+  "failure": "Cleanup performs an invalid or duplicate release, or dereferences uninitialized state; the original recoverable error is replaced by a crash, heap corruption, or ownership-count corruption.",
+  "search_strategy": [
+    "Trace every initialization failure edge after a native output, parent link, or container insertion, and verify cleanup is based on confirmed ownership and success status rather than pointer presence alone.",
+    "Audit destructors for fields initialized later than object creation, and force failures at each intervening allocation to confirm partial objects can be safely destroyed.",
+    "Map ownership transfers and reference-count changes across secondary registration failures, checking whether a parent or container will release the same resource during teardown.",
+    "Review native API contracts for output-parameter state on error and prohibit releasing failed outputs unless validity and ownership are explicitly guaranteed.",
+    "Exercise allocation and registration failures under sanitizers or fault injection, verifying exactly one release per owned resource and propagation of the original error."
+  ],
+  "evidence": [
+    {
+      "issue": 100795,
+      "supports": "A failed native lookup could leave its output pointer in an unknown state, while shared error cleanup released it based on non-nullness; the correction prevents cleanup from freeing an output whose validity and ownership were not guaranteed on error."
+    },
+    {
+      "issue": 144984,
+      "supports": "A child object acquired parent ownership before later allocations completed; failure destruction could dereference a cleanup table that was still absent and independently decrement the parent again."
+    },
+    {
+      "issue": 145301,
+      "supports": "A record was successfully inserted under an initial key, then a later keyed insertion failed; local cleanup freed the record even though the ownership-tracking table still retained it and would free it during destruction."
+    }
+  ],
+  "scope_note": "The cluster shares an umbrella pattern of invalid assumptions during partial initialization cleanup, but the mechanisms must remain distinct: issue 100795 concerns an ambiguous failed out-parameter and an invalid release; issue 144984 combines unsafe destruction of partial state with duplicate parent reference release; issue 145301 concerns container-retained ownership after partial multi-key registration. This does not claim that all failed calls, destructors, or insertion paths are unsafe.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:40:05.083942+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0035",
+    "workflow-0149",
+    "workflow-0153"
+  ],
+  "adaptation_fingerprint": "2dda68cb448e2b3498c49d2319f4f30c87d5d861c5ae851f63cd17f18d1611ff",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

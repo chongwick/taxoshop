@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0045",
+  "issues": [
+    106012
+  ],
+  "workflow_hypothesis": "Stale per-code instrumentation metadata triggers a pre-refresh version assertion",
+  "pattern": "Pre-dispatch validation assumes current metadata on immutable executable artifacts",
+  "description": "A runtime-wide monitoring update can leave immutable executable artifacts with stale or absent per-artifact metadata. If dispatch validates version consistency before selecting current per-artifact state or a runtime fallback, ordinary monitored execution can abort.",
+  "precondition": "A runtime-wide monitoring configuration changes its version while previously created executable artifacts retain older metadata or lack a complete per-artifact monitoring structure.",
+  "critical_operation": "An event dispatcher handles an event for such an artifact and selects the tools or handlers using artifact-level monitoring state.",
+  "interference": "The artifact metadata is stale or unavailable, including artifacts that cannot be eagerly rewritten after the global monitoring change.",
+  "invalid_assumption": "Dispatch assumes the artifact is current and safely validates it before refreshing metadata or choosing runtime-level fallback state.",
+  "failure": "A version or consistency check fails, aborting the process during otherwise ordinary monitored execution.",
+  "search_strategy": [
+    "Trace runtime-wide monitoring-version changes and verify synchronization of already-created executable artifacts.",
+    "Inspect dispatch paths for version or consistency assertions that run before metadata refresh or fallback selection.",
+    "Check immutable or shared artifacts for lazy, stale, or absent per-artifact monitoring state after global configuration changes.",
+    "Verify that dispatch separates events requiring per-artifact data from events that can use runtime-level monitoring state.",
+    "Exercise configuration changes followed by events in previously created static or shared artifacts."
+  ],
+  "evidence": [
+    {
+      "issue": 106012,
+      "supports": "The report shows monitored execution aborting when an event reached a static code object whose instrumentation version differed from the runtime version; the fix moved validation into tool selection and added runtime fallback when per-code data was absent."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern. It covers pre-dispatch validation failures involving versioned monitoring metadata on static or lazily refreshed executable artifacts; the report does not establish a broader rule for unrelated stale-state assertions.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:57:43.065085+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0039"
+  ],
+  "adaptation_fingerprint": "2f0fde7ba7571335e69af0d91fc4adaf80f95f0ae5b6cf3ed8734911fdc0cf97",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

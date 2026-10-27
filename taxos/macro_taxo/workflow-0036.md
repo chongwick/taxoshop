@@ -1,39 +1,50 @@
-# Boundary-sensitive text processing performs speculative lookahead for a multi-element candidate without first proving that the next element lies within the user
+# Malformed compact location metadata reaches unchecked or assertion-only decoders
 
-A text-processing fast path examines a neighboring character while testing a multi-character encoding or search candidate, but the current position may be at the logical end of the input.
+Compact location metadata is treated as trusted internal data even when truncated, incompatible, or structurally inconsistent. Release decoding can overread the logical buffer, while invariant checks in diagnostic paths can terminate the process instead of reporting malformed input.
 
 ## Precondition
 
-The input ends at the current processing position, while the selected candidate probe or skip heuristic may require reading one additional character.
+An attacker, tool, serialized artifact, or low-level object-construction path can provide compact metadata that is truncated, foreign-format, or inconsistent with the associated instruction data.
 
 ## Critical operation
 
-The routine performs candidate probing, mismatch handling, or search skipping using an unvalidated next-element access.
+A lazy iterator or diagnostic decoder parses variable-length location records to produce source positions, line ranges, or related derived metadata.
 
 ## Interference
 
-Boundary validation is omitted, delayed until after the probe, or the probe receives a pointer that represents only the current element even though the candidate logic assumes a following element is available.
+The decoder either advances and reads record fields without proving that enough bytes remain, including after zero-progress records, or reaches assertion-based cursor and continuation checks before malformed input has been rejected.
 
 ## Invalid assumption
 
-A following character exists whenever the current position is treated as a possible candidate start.
+The implementation assumes metadata was produced in a canonical format, that each record is complete, and that structural invariants can safely be enforced with assertions rather than validated as recoverable input.
 
 ## Failure
 
-The routine reads one element beyond the input boundary, producing an out-of-bounds access detectable by memory-safety instrumentation and potentially causing a process-terminating fault; functional correctness may otherwise appear unaffected.
+One mechanism interprets adjacent memory as additional metadata and can expose unrelated values or cause downstream memory corruption and crashes; the other aborts on an internal assertion when malformed metadata violates decoder invariants.
 
 ## Scope
 
-The reports share an unchecked one-element lookahead at an input boundary, but differ in purpose: one occurs during multi-character encoding candidate selection and the other during optimized substring-search skipping. The pattern is scoped to text-processing routines with speculative neighboring-character access, not to encoders alone.
+The cluster is mixed rather than a single failure mechanism: issues 99974, 99975, and 121112 establish unchecked logical-boundary decoding and adjacent-memory or corruption consequences, while issues 140935, 142736, and 143430 establish assertion-only rejection of malformed low-level metadata. The reports support a pattern for compact executable-location metadata readers and diagnostic iterators, not all parsers, and do not justify conflating adjacent-memory reads with stale or freed-state use.
 
 ## Search strategy
 
-1. Check every multi-character candidate probe for an explicit remaining-length test before reading the following character.
-2. Inspect optimized search skip and mismatch branches for accesses at current_index + 1 when current_index can equal the final valid position.
-3. Verify that helper routines receive a buffer and length sufficient for every lookahead they may perform.
-4. Exercise candidate misses and multi-character representations exactly at the input boundary under address sanitization.
+1. Check every variable-length record and fixed-width field read for a logical remaining-length proof before cursor advancement.
+2. Inspect zero-progress, terminator, continuation, and retry loops to ensure they cannot read another record after the payload is exhausted.
+3. Find diagnostic decoders whose cursor, continuation, or derived-state assertions can be reached from externally constructed or foreign metadata before validation.
+4. Exercise truncated, incompatible, and instruction-count-mismatched metadata in release and debug builds and require a recoverable malformed-input result rather than adjacent-memory reads, corruption, or process termination.
 
 ## Evidence
 
-- [#101180](../micro_taxo/gh_101180.md): A character encoder tested candidate representations through a path that could inspect a second character even when only the current character was supplied; a combining-character boundary case caused an out-of-bounds read, fixed by providing bounded two-element input and populating the second element only after confirming it exists.
-- [#127971](../micro_taxo/gh_127971.md): Optimized string-search mismatch and skip paths unconditionally inspected the character after the current search position, including when that position was the last possible pattern start; adding a boundary guard prevented the one-past-end read.
+- [#99974](../micro_taxo/gh_99974.md): A truncated continuation-encoded location payload caused variable-length fields to be read beyond the logical buffer, exposing adjacent heap bytes as derived position data.
+- [#99975](../micro_taxo/gh_99975.md): A record with zero decoded address progress caused iteration to retry after the valid payload ended and read additional bytes outside the logical metadata buffer.
+- [#121112](../micro_taxo/gh_121112.md): Foreign serialized executable metadata reached the same unchecked location decoder through a tooling path, producing memory-integrity failures and crashes; the report later explicitly identified the missing bounds checks.
+- [#140935](../micro_taxo/gh_140935.md): Structurally invalid continuation bytes supplied through low-level object construction reached diagnostic decoding and triggered an internal assertion.
+- [#142736](../micro_taxo/gh_142736.md): A one-byte location table attached to an executable object violated cursor and continuation invariants during diagnostic parsing and aborted on assertion.
+- [#143430](../micro_taxo/gh_143430.md): Metadata too short for the associated instruction stream reached position iteration and triggered the decoder's cursor and state assertions.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0032](../macro_taxo_before_hybrid/workflow-0032.md)
+- [workflow-0116](../macro_taxo_before_hybrid/workflow-0116.md)

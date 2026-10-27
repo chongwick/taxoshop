@@ -1,38 +1,45 @@
-# Partial-object cleanup dereferences absent optional state and duplicates a transferred parent release
+# An enumeration walks a registry containing inactive tombstones while sizing output only for active entries.
 
-When a child is linked to a parent before full initialization, a later allocation failure can invoke cleanup that is unsafe for partial state and inconsistently accounts for parent ownership.
+A retained registry entry becomes inactive by losing its backing resource, but enumeration still traverses the retained entry set while sizing results from the active-resource count.
 
 ## Precondition
 
-A newly allocated child acquires a parent association before all fields required by its destructor, including optional cleanup state, are initialized.
+A resource registry retains entries after resources are closed, destroyed, or released, representing inactive entries with no backing resource while maintaining a count of active resources.
 
 ## Critical operation
 
-A subsequent allocation or initialization step fails and the error path disposes of the partially initialized child.
+An enumeration allocates result storage from the active-resource count and traverses the registry, reading backing-resource fields for each retained entry.
 
 ## Interference
 
-Child destruction dereferences the still-absent optional state and releases the parent association, while surrounding failure handling also releases that parent ownership independently.
+A resource lifecycle operation marks an entry inactive without removing it from the registry traversal structure.
 
 ## Invalid assumption
 
-The destructor is safe for every initialization stage, and the parent ownership reference remains separately owned after child cleanup.
+The enumeration assumes every retained registry entry still has a backing resource and that the active count equals the number of entries it will process.
 
 ## Failure
 
-Recoverable allocation failure instead causes cleanup-time null dereference and duplicate parent release, potentially crashing or corrupting ownership accounting.
+The enumeration dereferences a null backing-resource pointer and can also write beyond storage sized for active entries, producing a process-terminating memory-safety failure instead of returning the active-resource list.
 
 ## Scope
 
-This is a cautiously scoped singleton pattern: it generalizes the interaction between partial-object destruction, optional cleanup state, and premature parent ownership transfer, not all null dereferences or double releases.
+This is a singleton cluster: the pattern is scoped to registries that retain inactive entries during lifecycle transitions and enumerate them through a backing-resource pointer.
 
 ## Search strategy
 
-1. Trace every allocation failure after child-parent association and verify cleanup is safe at each partial-initialization stage.
-2. Check destructors and cleanup helpers for unguarded dereferences of optional fields that are initialized only later.
-3. Map parent ownership transfers and confirm exactly one release occurs across destructor and error-path cleanup.
-4. Force failures at each initialization allocation and verify the original error propagates without crashes or ownership-count changes.
+1. Inspect registry enumerators for retained entries whose backing-resource pointer may be null.
+2. Compare the allocation count with the number of entries actually traversed, including inactive or tombstoned entries.
+3. Trace close, destroy, and release paths to determine whether they remove entries or only clear their backing-resource pointers.
+4. Check every dereference of a registry entry's backing resource for an explicit active-entry guard.
+5. Verify that the returned count is incremented only for entries actually emitted into the output buffer.
 
 ## Evidence
 
-- [#144984](../micro_taxo/gh_144984.md): The report shows a child parser retaining its parent before later allocations complete; failure cleanup invokes destruction with a null handler table, while parent cleanup and the error path both decrement the parent reference.
+- [#140652](../micro_taxo/gh_140652.md): The report reproduces a crash after resource closure and the fix skips retained entries with null backing resources while counting and emitting only active entries; added coverage also confirms closed and destroyed entries are excluded from enumeration.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0109](../macro_taxo_before_hybrid/workflow-0109.md)

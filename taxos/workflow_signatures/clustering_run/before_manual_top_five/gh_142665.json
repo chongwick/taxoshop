@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 142665,
+  "cluster_id": "workflow-0215",
+  "workflow": [
+    "A view-like object creates a derived view that retains a pointer into shared backing storage before fully resolving slice bounds.",
+    "Resolving a user-controlled slice bound invokes callback code that releases or truncates the underlying storage.",
+    "The derived view keeps the stale pointer after its owner invalidates the backing storage.",
+    "A later access through the derived view dereferences the invalid storage and terminates instead of reporting a recoverable error."
+  ],
+  "summary": "Reentrant backing-storage release leaves a derived view with a dangling pointer",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:07:45.298545+00:00"
+}

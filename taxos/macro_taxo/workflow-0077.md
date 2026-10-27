@@ -47,3 +47,9 @@ The reports span subinterpreters, ordinary threads, free-threaded execution, and
 - [#153014](../micro_taxo/gh_153014.md): A configuration/debug flag was written without synchronization while readers and the collector accessed it concurrently outside the stop-the-world region; relaxed atomic access was proposed.
 - [#153852](../micro_taxo/gh_153852.md): The umbrella report records many residual free-threading races involving shared caches, lists, sockets, instrumentation, thread registries, and finalization, including benign-value races that still violate synchronization requirements.
 - [#154822](../micro_taxo/gh_154822.md): A debug-only assertion read shared thread-list state before the operation that stopped the world, racing concurrent thread creation or exit; moving the read under the protection fixed the report.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0077](../macro_taxo_before_hybrid/workflow-0077.md)

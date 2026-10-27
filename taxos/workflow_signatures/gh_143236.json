@@ -10,7 +10,6 @@
     "Use-after-free terminates the operation instead of producing a normal missing-name error."
   ],
   "summary": "Reentrant callback releases mapping storage during lookup",
-  "decision_reason": "The failure workflow materially matches reentrant user code invalidating a backing resource during an operation that continues without revalidating or preserving the resource's lifetime.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:18:40.983729+00:00"
 }

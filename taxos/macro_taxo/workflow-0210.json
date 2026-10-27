@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0210",
+  "issues": [
+    72111,
+    142451,
+    144100,
+    144163
+  ],
+  "workflow_hypothesis": "Unchecked missing metadata lookup causes assembler crash",
+  "pattern": "Unchecked consumption of absent or inconsistent metadata resolution results",
+  "description": "Metadata-dependent state becomes absent, incomplete, unresolved, or internally inconsistent, and a later operation consumes the resulting lookup value without validating it. The same pattern spans packaging, copied objects, argument conversion, and low-level assembly; outcomes range from a type error to an assertion abort or segmentation fault.",
+  "precondition": "A record, copied object, descriptor, or instruction set depends on metadata that may be removed externally, omitted during propagation, left unresolved, or made mutually inconsistent.",
+  "critical_operation": "A later operation resolves, enumerates, identifies, classifies, or type-inspects an entity using that metadata.",
+  "interference": "The resolution produces no record, an invalid identifier, a null or unresolved descriptor, or another invalid result; in some cases the underlying lookup does not provide a reliable error indicator.",
+  "invalid_assumption": "The consuming path assumes the metadata is complete and internally consistent, and that resolution always returns a valid object or an explicitly handled failure.",
+  "failure": "The invalid result is iterated, dereferenced, type-inspected, or checked by an internal assertion, causing a non-diagnostic type error, process-aborting assertion, or memory fault instead of controlled validation or recovery.",
+  "search_strategy": [
+    "Trace every metadata-dependent lookup from externally removable, copied, deferred, or low-level constructed state to its first consumer, and check absence handling before iteration or dereference.",
+    "Audit copy and reconstruction paths for every identifier, descriptor, and property required by later name, type, or capability resolution.",
+    "Check unresolved descriptors and conflicting metadata tables before instance checks, type-feature checks, assertions, or pointer dereferences.",
+    "Verify that resolver APIs distinguish valid results, absent results, invalid identifiers, and error-bearing failures even when external library behavior omits an error indicator.",
+    "Exercise malformed, partially initialized, externally removed, and internally inconsistent metadata inputs and require recoverable diagnostics rather than interpreter aborts or segmentation faults."
+  ],
+  "evidence": [
+    {
+      "issue": 72111,
+      "supports": "An external uninstall removed system-managed package files and their records; a later repackaging lookup returned no record collection, which was iterated without validation and produced a type error."
+    },
+    {
+      "issue": 142451,
+      "supports": "A copied object omitted an identifier required by a later descriptive-name lookup; the invalid default identifier produced no usable result, and the lookup path reached an assertion or error instead of handling the missing copied metadata."
+    },
+    {
+      "issue": 144100,
+      "supports": "A pointer descriptor with unresolved target-type metadata reached argument conversion; the conversion path assumed a non-null prototype and asserted rather than returning a recoverable argument/type error."
+    },
+    {
+      "issue": 144163,
+      "supports": "An assembler accepted overlapping or inconsistent variable metadata; resolution of a referenced variable yielded an invalid object/reference, which was passed to a type inspection and caused a segmentation fault."
+    }
+  ],
+  "scope_note": "Initiating mechanisms include external metadata removal, incomplete copying, unresolved descriptors, and inconsistent tables. The common step is consuming absent or inconsistent metadata without validation. This does not establish leaked ownership or stale freed state; outcomes range from recoverable errors to assertions or invalid access.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:38:47.759354+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0006",
+    "workflow-0127",
+    "workflow-0145"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "scope_note"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.345010+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+}

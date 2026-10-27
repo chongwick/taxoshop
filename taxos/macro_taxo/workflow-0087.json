@@ -2,29 +2,40 @@
   "schema_version": 1,
   "cluster_id": "workflow-0087",
   "issues": [
-    136872
+    125515
   ],
-  "workflow_hypothesis": "Default configuration overrides an explicit allocator selection",
-  "pattern": "An instrumentation or diagnostic mode unconditionally replaces an explicitly selected compatible subordinate configuration with its own default.",
-  "description": "A build configuration enables a diagnostic mode and explicitly selects a compatible allocator or related implementation, but mode setup overwrites that selection with a default.",
-  "precondition": "A configuration supports both a mode-specific default and an explicit user selection for the same subordinate behavior, and the selections are valid together.",
-  "critical_operation": "The mode's configuration logic assigns its preferred default to the subordinate option.",
-  "interference": "That assignment is unconditional and occurs even when the user has already supplied an explicit value.",
-  "invalid_assumption": "The configuration logic assumes the subordinate option is unset or that the mode's default must always take precedence.",
-  "failure": "The explicit selection is silently discarded, producing a valid build with unintended behavior and no clear indication that the requested override was ignored.",
+  "workflow_hypothesis": "Reachability-unaware code generation produces compiler diagnostics",
+  "pattern": "Generated control flow retains unreachable operations after termination or configuration folding",
+  "description": "Code generation preserves mechanically emitted statements or control-flow constructs after a handler has already terminated, or when configuration folding makes a branch or loop impossible.",
+  "precondition": "Generated handlers combine explicit returns or jumps with generic cleanup/error emission, and some conditions or operation paths are compile-time fixed by configuration.",
+  "critical_operation": "The generator emits the handler body and then appends cleanup, error-handling, or loop code using a fallthrough-oriented reachability model.",
+  "interference": "An internal return/jump, or a compile-time constant condition, makes the appended statement or branch unreachable, while the generator still places it in the generated source.",
+  "invalid_assumption": "The generator assumes every emitted continuation remains reachable and that conditionally emitted paths should be treated as runtime possibilities, rather than tracking termination and configuration-specific dead paths.",
+  "failure": "The compiler reports unreachable-code or unused-code diagnostics in generated low-level source; warning-as-error configurations can fail the build.",
   "search_strategy": [
-    "Check mode-specific setup for unconditional writes to options that are also user-configurable.",
-    "Verify default assignments occur only when the corresponding option remains unset.",
-    "Review precedence handling for explicit command-line or configuration-file values versus feature-derived defaults.",
-    "Test combined configurations where a diagnostic mode is enabled alongside an explicit compatible implementation choice."
+    "Inspect generated handlers for statements emitted immediately after return or unconditional jump tokens.",
+    "Trace generator reachability state through return, jump, and error-label emission, and verify later cleanup is suppressed when the path terminates.",
+    "Search generated output under each supported compile-time configuration for constant-false branches and loops with provably non-executing bodies.",
+    "Compare generic stack or resource cleanup emission against handlers that return from inside an operation rather than at the normal epilogue."
   ],
   "evidence": [
     {
-      "issue": 136872,
-      "supports": "The report states that enabling address-sanitizer disables an explicitly requested memory allocator, although the combination works when the unconditional disabling assignment is removed; the accompanying comment explicitly says the user option should override the default."
+      "issue": 125515,
+      "supports": "The report documents unreachable cleanup after generated returns or jumps, loops whose conditions become statically impossible, and configuration-defined false error branches; subsequent fixes remove dead generated paths and teach the generator to mark return-following tokens unreachable."
     }
   ],
-  "scope_note": "This is a cautiously scoped singleton pattern covering configuration precedence defects involving a mode-derived default and an explicit compatible subordinate choice. The report does not establish that all mode defaults are incorrect—only that they must not override explicit user input when the combination is supported.",
+  "scope_note": "This is a cautiously scoped pattern from a singleton report. It covers generators that combine generic control-flow/cleanup templates with compile-time configuration folding; it does not claim that all compiler unreachable-code warnings originate in code generation.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T18:59:45.675053+00:00"
+  "generated_at": "2026-09-10T18:50:20.157685+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0072"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.321185+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

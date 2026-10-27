@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 109128,
+  "cluster_id": "workflow-0047",
+  "workflow": [
+    "A test or support routine changes process-wide environment state.",
+    "The routine finishes without restoring the original environment.",
+    "The test harness compares environment state before and after execution.",
+    "The residual change is detected and the overall test run is marked failed."
+  ],
+  "summary": "Unrestored environment mutation causes test-suite failure",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:09:11.521454+00:00"
+}

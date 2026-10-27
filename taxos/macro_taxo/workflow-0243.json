@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0243",
+  "issues": [
+    128130
+  ],
+  "workflow_hypothesis": "Concurrent unsynchronized access to shared mutable state",
+  "pattern": "Concurrent evaluation loses shared interrupt state",
+  "description": "Multiple execution contexts concurrently perform evaluations that update shared process-wide state recording an unhandled interrupt. One context records the interrupt, while another evaluation clears the same shared state as part of its own initialization. The unsynchronized updates race, allowing the clearing operation to erase the other context’s indication. A later termination check reads the cleared state and fails to handle the pending interrupt correctly.",
+  "precondition": "Shared mutable execution or native state is reachable by concurrent readers, writers, resetters, consumers, native calls, or cleanup paths.",
+  "critical_operation": "An operation reads, updates, publishes, consumes, validates, dereferences, or cleans up shared state while requiring coherent contents, stable lifetime, or exclusive ownership.",
+  "interference": "Another operation concurrently writes, resets, replaces, resizes, clears, reinitializes, enters the same native context, or releases related state without the same effective synchronization, atomic publication, lifetime rule, or ownership protocol.",
+  "invalid_assumption": "A runtime guard, timing delay, one-sided atomicity, prior bounds check, borrowed reference, partial critical section, isolation boundary, or presumed exclusive cleanup is assumed to serialize all relevant accesses and preserve state or ownership.",
+  "failure": "The overlap can produce a sanitizer-reported race, lost or contradictory state, invalid intermediate observations, out-of-bounds access, stale or freed-state use, double release, corruption, native-library failure, or a crash.",
+  "search_strategy": [
+    "Search for shared mutable records, flags, pointers, containers, buffers, descriptors, registries, and native contexts reached by multiple threads; identify every reader, writer, resetter, and cleanup path.",
+    "Check that all related reads, writes, check-and-update sequences, and dependent fields use one complete synchronization or atomic-publication protocol, including test, debug, and representation paths.",
+    "Trace borrowed references, exported buffers, replaceable objects, resized storage, and native allocations to verify stable lifetime through the full use and exclusive or reference-counted cleanup.",
+    "Check whether locks or runtime guards are suspended or released during native calls, polling, callbacks, or blocking regions while the shared state remains in use.",
+    "Stress concurrent initialization, reconfiguration, reset, mutation, handoff, invocation, shutdown, and cleanup under race and memory-safety instrumentation."
+  ],
+  "evidence": [
+    {
+      "issue": 128130,
+      "supports": "One concurrent evaluation records pending interrupt state while another evaluation resets the same process-wide marker during setup, so unsynchronized reset loses state."
+    }
+  ],
+  "scope_note": "Membership was manually restricted to the evidence listed below. This subgroup covers the single mechanism described by its member evidence.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:22:25.002751+00:00",
+  "adaptation_method": "manual_split_by_original_family",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0075"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "scope_note"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.325551+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+}

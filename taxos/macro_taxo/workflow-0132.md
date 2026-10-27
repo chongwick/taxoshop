@@ -1,38 +1,44 @@
-# Optimized execution keeps top-of-stack values in registers or another fast cache, then exits to a path that requires canonical stack storage.
+# Null string storage crosses a foreign-function boundary that requires a valid buffer
 
-A singleton pattern where an optimized execution side exit fails to materialize cached stack state before fallback execution.
+A null pointer is passed through a foreign-function boundary to a native routine that requires valid string storage; the routine measures or otherwise reads the string without accepting null, causing an invalid memory access and process termination.
 
 ## Precondition
 
-An optimized execution path maintains live stack values in a fast cache while fallback execution depends on canonical stack storage.
+A foreign-function call supplies a null pointer for an argument whose native contract requires a non-null, readable character buffer.
 
 ## Critical operation
 
-Transfer control from optimized execution to fallback execution at a side exit.
+The native routine performs an implicit string operation, such as determining the buffer's length, that dereferences the supplied pointer.
 
 ## Interference
 
-The side exit updates cache-depth or related metadata without flushing the live cached values into canonical stack storage.
+The foreign-function boundary conveys the null pointer as a raw native argument without converting the contract violation into a recoverable argument error.
 
 ## Invalid assumption
 
-Fallback execution assumes the canonical stack contains the current live values because the exit metadata indicates a valid state.
+The native routine assumes that the pointer is non-null and references valid character storage.
 
 ## Failure
 
-Fallback code consumes missing or stale stack data as a valid value and performs an invalid dereference, terminating the process.
+The dereference reaches the null address, producing an unrecoverable invalid-memory-access crash.
 
 ## Scope
 
-This is a cautiously scoped singleton pattern. The evidence supports unsynchronized cached stack state specifically across an optimized-code side exit, not a broader rule about all cache-coherence or fallback failures.
+This is a cautiously scoped singleton pattern: the evidence establishes the mechanism for native routines requiring non-null string storage, but does not establish behavior for routines that explicitly define null as valid or for interfaces that validate arguments before the call.
 
 ## Search strategy
 
-1. Inspect every optimized-to-fallback side exit and verify that all live cached stack values are materialized before control transfer.
-2. Check whether side-exit metadata updates can occur without corresponding writes to canonical stack storage.
-3. Trace fallback consumers for unchecked reads of stack slots immediately after optimized execution exits.
-4. Add tests that force side exits while top-of-stack values remain cached and verify both state correctness and process survival.
+1. Check every foreign-function call that passes nullable values to native parameters declared or documented as non-null string pointers.
+2. Trace native string-length, copy, comparison, and parsing operations to verify that their pointer arguments are validated before dereference.
+3. Verify that the language-to-native boundary rejects null arguments when the target routine's contract requires valid character storage.
+4. Inspect crash paths for null-address reads originating inside native string helpers rather than treating them as managed argument-conversion failures.
 
 ## Evidence
 
-- [#142718](../micro_taxo/gh_142718.md): The report identifies a crash caused by top-of-stack caching that did not save cached registers on side exits; the fix explicitly flushes the stack to memory before transferring control.
+- [#140408](../micro_taxo/gh_140408.md): The report demonstrates that a foreign-function call passes a null string pointer to a native duplication routine, whose length computation dereferences it and terminates the process with a null-address read.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0098](../macro_taxo_before_hybrid/workflow-0098.md)

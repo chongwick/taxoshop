@@ -2,29 +2,43 @@
   "schema_version": 1,
   "cluster_id": "workflow-0097",
   "issues": [
-    140354
+    145933
   ],
-  "workflow_hypothesis": "Unsupported target accepted until generated-artifact build failure",
-  "pattern": "An optional target-specific code-generation feature is enabled for a target outside the generator’s supported target set, but configuration accepts it without a",
-  "description": "A target-specific generator is enabled for an unsupported target; configuration accepts the setting, generation rejects the target without producing the required artifact, and the build surfaces either the generator error or a downstream missing-artifact compilation error.",
-  "precondition": "An optional generated-artifact feature is enabled while the selected target is not recognized as supported by its generator.",
-  "critical_operation": "The build invokes the generator and compiles source files that depend on the generated artifact.",
-  "interference": "Target support is not validated during configuration, and generator rejection does not produce the artifact required by dependent compilation.",
-  "invalid_assumption": "Successful feature configuration is treated as evidence that generation will succeed and provide the artifact for the selected target.",
-  "failure": "The build fails late with an unsupported-target generator diagnostic or a missing generated-artifact compilation error instead of rejecting the configuration early.",
+  "workflow_hypothesis": "Concurrent shutdown races with a still-running worker on shared state",
+  "pattern": "Shutdown/finalization races with residual worker activity on shared runtime or dependency state",
+  "description": "Teardown of shared runtime, interpreter, or external-library state proceeds before all participating workers and attachment paths have stopped or completed a synchronized handoff. Residual activity then accesses, modifies, or atomically updates state during cleanup. The cluster includes both premature lifetime-ending operations and direct synchronization mismatches during teardown.",
+  "precondition": "A shutdown, finalization, exit, or cleanup path can run while daemon workers, attaching threads, error-path thread churn, or native calls may still access shared lifecycle state or dependency-managed state.",
+  "critical_operation": "The teardown path clears, resets, removes, closes, frees, or otherwise updates shared state, sometimes with a plain store or after releasing the protection that normally orders access.",
+  "interference": "A still-running or re-entering worker concurrently reads, follows, or updates that state, or an attachment/native path accesses it using a different atomic, lock, or ordering protocol; in some cases external-library exit cleanup runs while worker calls remain active.",
+  "invalid_assumption": "The shutdown phase assumes that prior thread cleanup, an apparent stop-the-world or lock boundary, daemon-thread hanging, the GIL, an assertion context, or one-sided atomic/locked access guarantees quiescence and lifetime safety for every remaining participant.",
+  "failure": "Race detection reports unsynchronized conflicting accesses; depending on the mechanism, a worker may observe cleared or inconsistent state, access freed runtime or dependency storage, dereference invalid data, crash, hang, or fail shutdown testing.",
   "search_strategy": [
-    "Check optional code-generation configuration paths for validation against the generator’s supported-target set.",
-    "Trace generator rejection paths and verify that unsupported targets produce an explicit configuration-time or build-stopping diagnostic.",
-    "Check build dependencies to ensure consumers cannot compile when required generation fails or emits no artifact.",
-    "Search for target identifiers accepted by configuration but absent from the generator’s recognized-target registry."
+    "Trace every shutdown, finalization, exit, and cleanup path and verify that it waits for or otherwise prevents all daemon, attaching, re-entering, and native worker paths from accessing the affected state.",
+    "For each shared object or state record that can be freed or removed, identify all thread and container ownership references and verify that deallocation cannot occur until the last worker-held reference is released.",
+    "Compare every teardown access with concurrent worker accesses and require one complete protocol: the same mutex, compatible atomic operations, stop-the-world barrier, or explicit publication and quiescence sequence.",
+    "Inspect assertions, debug reads, error paths, and pre-barrier checks for shared-state access that occurs before the lock, pause, or synchronization operation that is supposed to protect it.",
+    "Audit calls that release runtime locks or enter external libraries during shutdown and verify that dependency cleanup or process-exit handlers cannot free their backing state while those calls remain active."
   ],
   "evidence": [
     {
-      "issue": 140354,
-      "supports": "The report shows an optional JIT-related generator being enabled for an Android target that is absent from the generator’s known targets; configuration succeeds, generation rejects the target, and the required generated header is then unavailable to compilation."
+      "issue": 145933,
+      "supports": "Process-exit cleanup in an external cryptographic library freed internal state while background workers continued native calls, producing a crash; the report's later analysis identifies exit overlap rather than the initially suspected startup-only race."
     }
   ],
-  "scope_note": "This is a singleton cluster, so the pattern is scoped to target-specific optional code generation where unsupported-target validation is missing or delayed until artifact generation.",
+  "scope_note": "Membership was manually restricted to the evidence listed below. This mixed cluster covers shutdown before residual activity is safely ordered or finished. Some members lose backing-state lifetime during cleanup; others use unlocked reads, incompatible atomic access, or incomplete barriers. Runtime, thread, and external-library state require different ownership and synchronization checks.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:06:49.965960+00:00"
+  "generated_at": "2026-10-10T19:21:56.543278+00:00",
+  "adaptation_method": "manual_subset_after_restoration",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014",
+    "workflow-0056",
+    "workflow-0077"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "scope_note"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.324644+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

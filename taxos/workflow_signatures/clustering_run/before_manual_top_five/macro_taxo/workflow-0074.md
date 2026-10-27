@@ -1,0 +1,47 @@
+# Instrumented fatal diagnostics break termination progress
+
+Under thread instrumentation, an intentional or incidental fatal event can enter diagnostic handling that is unsafe or non-progressing in the failing context. The shared failure is loss of a reliable termination result, through either a supervising process waiting on a crashed child or the fatal reporter itself re-entering or faulting while handling the error.
+
+## Precondition
+
+A multithreaded or free-threaded process runs with thread-sanitizing instrumentation and encounters a fatal condition, either in a worker subprocess or while the process lacks valid runtime thread state.
+
+## Critical operation
+
+Failure handling attempts to report the crash and complete termination, while a supervisor or test harness waits for the process to publish an exit status.
+
+## Interference
+
+In the worker-supervision case, the crashed child’s diagnostic path may wedge and prevent the parent from observing completion. In the in-process case, instrumentation and signal handling re-enter diagnostics that traverse runtime state or acquire synchronization primitives that are invalid or unsafe during fatal handling.
+
+## Invalid assumption
+
+Crash reporting is assumed to remain safe, reentrancy-proof, and progress-making under thread instrumentation and after runtime invariants or thread context have failed; supervisors likewise assume a crashed worker will still yield a terminal result.
+
+## Failure
+
+The diagnostic path crashes recursively, spins, or blocks, and the process or its supervisor hangs instead of terminating and reporting the expected failure.
+
+## Scope
+
+This mixed cluster supports a bounded pattern about loss of termination progress when instrumented fatal handling meets invalid runtime context. The reports distinguish two mechanisms: a supervisor blocked after a worker crash, and an in-process reporter that faults or spins during fatal handling. The exact reporter defect and outcome are platform-dependent; the evidence does not establish that every instrumented crash or every diagnostic handler will hang.
+
+## Search strategy
+
+1. Trace every fatal-error and crash-reporting path under thread instrumentation for runtime-state traversal, allocation, locking, or callbacks that may lack a valid thread context.
+2. Check whether signal or sanitizer handlers can re-enter fatal reporting before the first diagnostic pass has completed, including platform-specific handler behavior.
+3. Inspect subprocess supervisors for waits that depend on a crashed child completing diagnostic work or that lack an independent timeout and failure signal.
+4. Run intentional-failure tests across supported instrumentation and operating-system combinations, verifying that diagnostic failure cannot prevent process termination or publication of an exit result.
+5. Separate worker-supervision failures from in-process reporter failures when analyzing hangs, and identify whether the blocked component is the child, the reporter, or the parent wait.
+
+## Evidence
+
+- [#118729](../micro_taxo/gh_118729.md): An instrumented concurrent test suite intermittently hung because a worker subprocess could crash in a free-threaded build; the report attributed the resulting job hang to the crashed worker’s possibly wedged fault-reporting path and temporarily skipped the triggering test.
+- [#120696](../micro_taxo/gh_120696.md): Fatal reporting in an instrumented free-threaded process ran without valid thread state and reached unsafe runtime traversal or non-progressing synchronization. The observed result was a hang or reporter failure instead of reliable termination.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0058](../macro_taxo_before_hybrid/workflow-0058.md)
+- [workflow-0062](../macro_taxo_before_hybrid/workflow-0062.md)

@@ -9,7 +9,6 @@
     "The write dereferences released or null storage, causing a memory-safety crash instead of a recoverable bounds error."
   ],
   "summary": "Reentrant mutation invalidates container storage during assignment",
-  "decision_reason": "The failure workflow materially matches reentrant mutation invalidating container storage while an outer operation continues using it, leading to use-after-free or null-storage access.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:03:58.107594+00:00"
 }

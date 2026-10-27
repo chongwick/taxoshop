@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0097",
+  "issues": [
+    140354
+  ],
+  "workflow_hypothesis": "Unsupported target accepted until generated-artifact build failure",
+  "pattern": "An optional target-specific code-generation feature is enabled for a target outside the generator’s supported target set, but configuration accepts it without a",
+  "description": "A target-specific generator is enabled for an unsupported target; configuration accepts the setting, generation rejects the target without producing the required artifact, and the build surfaces either the generator error or a downstream missing-artifact compilation error.",
+  "precondition": "An optional generated-artifact feature is enabled while the selected target is not recognized as supported by its generator.",
+  "critical_operation": "The build invokes the generator and compiles source files that depend on the generated artifact.",
+  "interference": "Target support is not validated during configuration, and generator rejection does not produce the artifact required by dependent compilation.",
+  "invalid_assumption": "Successful feature configuration is treated as evidence that generation will succeed and provide the artifact for the selected target.",
+  "failure": "The build fails late with an unsupported-target generator diagnostic or a missing generated-artifact compilation error instead of rejecting the configuration early.",
+  "search_strategy": [
+    "Check optional code-generation configuration paths for validation against the generator’s supported-target set.",
+    "Trace generator rejection paths and verify that unsupported targets produce an explicit configuration-time or build-stopping diagnostic.",
+    "Check build dependencies to ensure consumers cannot compile when required generation fails or emits no artifact.",
+    "Search for target identifiers accepted by configuration but absent from the generator’s recognized-target registry."
+  ],
+  "evidence": [
+    {
+      "issue": 140354,
+      "supports": "The report shows an optional JIT-related generator being enabled for an Android target that is absent from the generator’s known targets; configuration succeeds, generation rejects the target, and the required generated header is then unavailable to compilation."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is scoped to target-specific optional code generation where unsupported-target validation is missing or delayed until artifact generation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:06:49.965960+00:00"
+}

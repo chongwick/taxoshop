@@ -1,41 +1,51 @@
-# Unchecked failure from a conversion, coercion, or probe helper leaves an error pending; later control flow treats the result as valid and reaches a downstream-­
+# Sanitizer leak checking aborts otherwise successful short-lived runtime or build subprocesses
 
-A low-level helper reports failure through a sentinel and pending error, but its caller continues as though it produced a valid result. Subsequent logic then violates the error-state contract and fails catastrophically instead of propagating the original argument or lookup error.
+Short-lived runtime and build helpers can complete their functional work yet fail at process exit when leak-detecting instrumentation observes residual runtime or instrumentation state, or when subprocess setup removes the configuration that suppresses known residual allocations.
 
 ## Precondition
 
-A reconfiguration, state-check, or loading operation invokes a helper that may fail while converting, coercing, accessing, or probing a value, leaving an error indicator pending and returning an error sentinel.
+A test or build invokes a short-lived runtime subprocess under leak-detecting sanitizer instrumentation; the subprocess may initialize runtime state, use profiling instrumentation, or intentionally replace its inherited environment.
 
 ## Critical operation
 
-The caller consumes the helper's result without immediately testing the failure sentinel, or proceeds to another operation while the helper's error remains pending.
+The subprocess performs its validation, generation, or startup work and then enters process shutdown, where runtime finalization, instrumentation exit handlers, and the sanitizer leak check run.
 
 ## Interference
 
-The pending error contaminates later branching, conversion, fallback probing, or invocation; an error sentinel may also be misinterpreted as an ordinary truthy or usable result.
+The leak check can run with sanitizer suppression settings removed by environment isolation, before multi-phase runtime initialization/finalization has reclaimed all allocations, after an abbreviated exit path, or after profiling shutdown has allocated bookkeeping state.
 
 ## Invalid assumption
 
-The caller assumes the helper produced a valid result and that downstream operations begin with no pending error, instead of treating the sentinel and error state as an immediate exceptional path.
+Functional success and ordinary subprocess termination are assumed to imply leak-clean shutdown, and environment isolation or instrumentation-specific exit behavior is assumed not to affect sanitizer leak-detection semantics.
 
 ## Failure
 
-Downstream code overwrites or mishandles the original error, dereferences invalid state, triggers an internal consistency failure, or aborts/crashes rather than returning the appropriate recoverable exception.
+LeakSanitizer reports residual direct or indirect allocations as fatal, the subprocess returns failure, and the enclosing test or build validation target aborts even though the component checks or artifact-generation work completed.
 
 ## Scope
 
-The reports differ in the helper involved—argument conversion, boolean coercion, and fallback symbol probing—but share the same error-state propagation defect. The pattern is scoped to callers of helpers whose failure is represented both by a sentinel/result and a pending error; it does not assert that every downstream crash has this cause.
+This is a mixed umbrella pattern. The reports share a fatal process-exit leak result masking successful functional work, but the mechanisms differ: lost sanitizer configuration, incomplete runtime teardown or abbreviated exit, and profiling-runtime shutdown bookkeeping. It does not conflate leaked ownership with stale or freed-state use, and it does not establish that every sanitizer leak or every instrumented subprocess has this failure mode.
 
 ## Search strategy
 
-1. Inspect every conversion, coercion, attribute access, and lookup helper for an error sentinel paired with a pending error.
-2. Verify that callers test failure sentinels immediately before branching, continuing, or invoking another helper.
-3. Check whether error sentinels can be mistaken for valid boolean, pointer, index, or status results.
-4. Trace fallback paths to ensure they explicitly preserve, clear, or propagate pending errors before making another call.
-5. Add adversarial tests where conversion or lookup raises, returns an invalid type, or fails on the first probe.
+1. Inspect short-lived subprocesses and build helpers that run with leak-detecting sanitizers and verify whether their exit status is determined by process-exit leak reports.
+2. Trace all runtime and instrumentation allocations made during initialization, validation, profiling, and exit handlers to confirm they are reclaimed before leak checking.
+3. Check tests that launch children with an empty or replaced environment for removal of sanitizer options, suppression files, preload settings, or related configuration.
+4. Compare normal, abbreviated, explicit, EOF, and profiler-enabled exit paths to ensure shutdown ordering is equivalent before sanitizer reporting.
+5. Run build-time generators with sanitizer and profiling instrumentation together and distinguish runtime leaks from profiling-runtime exit bookkeeping.
 
 ## Evidence
 
-- [#111942](../micro_taxo/gh_111942.md): Invalid reconfiguration arguments and failing value conversions were allowed to continue into later processing, producing crashes instead of the corresponding argument or conversion exception.
-- [#140650](../micro_taxo/gh_140650.md): A state query whose value could not be converted to a boolean returned an error sentinel that callers treated as a valid closed-state result, causing internal error handling to fail; checking the sentinel restored exception propagation.
-- [#141307](../micro_taxo/gh_141307.md): A failed first probe left an error pending while a fallback probe and subsequent call proceeded, ultimately reaching an internal assertion; clearing or propagating the probe error yielded a normal loading exception.
+- [#104472](../micro_taxo/gh_104472.md): An empty-environment subprocess removed sanitizer configuration that normally suppressed known runtime allocations; leak detection then made the otherwise successful test fail, leading to a sanitizer-specific skip.
+- [#104791](../micro_taxo/gh_104791.md): Sanitizer leak detection failed during build-time module validation after the checks themselves completed, with the report attributed to incomplete multi-phase runtime initialization and finalization.
+- [#135618](../micro_taxo/gh_135618.md): Immediate runtime exit exposed startup-created metadata allocations, while the same report also records sanitizer-enabled build helpers failing at exit because profiling bookkeeping remained allocated.
+- [#144199](../micro_taxo/gh_144199.md): A sanitizer- and profiling-instrumented build helper completed generation work but failed when exit-time profiling bookkeeping was reported as direct and indirect leaks, causing the enclosing profile build to stop.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0034](../macro_taxo_before_hybrid/workflow-0034.md)
+- [workflow-0038](../macro_taxo_before_hybrid/workflow-0038.md)
+- [workflow-0083](../macro_taxo_before_hybrid/workflow-0083.md)
+- [workflow-0146](../macro_taxo_before_hybrid/workflow-0146.md)

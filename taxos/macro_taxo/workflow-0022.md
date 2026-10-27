@@ -1,38 +1,45 @@
-# Format-driven native-width parsing into narrower fixed-width storage
+# Forked child thread creation can deadlock in non-fork-safe runtime instrumentation.
 
-A format-based argument parser writes an integer using the width of a native type into a destination object declared with a fixed-width integer type.
+A multithreaded process is forked under runtime instrumentation, and the child later creates a thread whose startup path enters instrumentation bookkeeping that was not safely reinitialized after the fork.
 
 ## Precondition
 
-A parser accepts a format specification and caller-provided destination pointers, and a native integer type named by the format can be wider than the fixed-width destination on some supported ABI.
+A multithreaded process uses an allocator, sanitizer, or instrumentation runtime with internal synchronization and can fork while that runtime has active thread bookkeeping.
 
 ## Critical operation
 
-The parser stores the parsed value according to the format unit's native integer width at the destination address.
+The forked child creates a worker or thread, invoking the runtime's thread-start, registration, or stack-initialization path.
 
 ## Interference
 
-The destination object is narrower than the width used by the parser, so the store extends beyond the object's bounds into adjacent memory.
+The child retains synchronization or registration state from the parent, while the execution context that could complete or release that state is absent or unable to make progress in the child.
 
 ## Invalid assumption
 
-Code assumes that matching numeric range or apparent integer compatibility makes a native-width format unit safe for a fixed-width integer object.
+Forking is assumed to leave runtime instrumentation state valid for subsequent child-side thread creation.
 
 ## Failure
 
-The out-of-bounds store corrupts adjacent stack memory and can be detected as a stack-buffer-overflow or cause later process termination.
+Child thread creation waits indefinitely in runtime initialization, causing queue, process, or executor operations to hang until timeout.
 
 ## Scope
 
-This cluster contains one report, so the pattern is scoped to format-driven integer parsers whose native-width storage contract is violated by fixed-width destinations; it does not establish that every parser or every integer conversion has this failure mode.
+Singleton cluster: the pattern is scoped to fork-like duplication of multithreaded processes followed by child thread creation under address-sanitizer-style runtime instrumentation. It does not establish the same failure for ordinary application locks, non-fork process starts, or uninstrumented builds.
 
 ## Search strategy
 
-1. Inspect every format-driven integer parse and compare each format unit's documented native storage width with the exact destination object's type and size.
-2. Search for fixed-width integer objects passed by address to parsers whose format units name native short, int, long, or long-long types.
-3. Review code on ABIs where native integer widths differ, and verify that each parser destination is either the exact native type or parsed through a width-matched temporary.
-4. Check sanitizer reports and stack layouts around parser calls for writes larger than the declared destination object.
+1. Inspect fork paths for child-side worker or thread creation under allocator, sanitizer, or instrumentation builds.
+2. Trace runtime hooks invoked by child thread startup, including registration, stack discovery, and allocation bookkeeping.
+3. Check every internal lock or completion flag crossing the fork boundary for ownership by a thread that will not exist in the child.
+4. Verify whether child-side runtime state is reinitialized or whether affected operations are isolated under non-fork-safe instrumentation.
+5. Reproduce fork-and-thread workflows with sanitizer instrumentation and capture stacks for both the blocked creator and the runtime bookkeeping path.
 
 ## Evidence
 
-- [#89391](../micro_taxo/gh_89391.md): The report attributes the stack overflow to a native-width unsigned-integer format unit receiving a pointer to a narrower fixed-width integer object; the parser consequently wrote past that object, and the fix changed both the destination declarations and format units to width-compatible types.
+- [#89363](../micro_taxo/gh_89363.md): Address-instrumented fork workflows intermittently hang when child-side thread creation waits in the instrumentation interceptor for registration while another path is blocked on an internal allocator mutex, supporting inherited non-fork-safe runtime synchronization as the shared mechanism.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0021](../macro_taxo_before_hybrid/workflow-0021.md)

@@ -1,38 +1,47 @@
-# A record is inserted into an ownership-tracking table under one key, then a later keyed insertion fails; failure cleanup frees it without accounting for the pre
+# Reentrant finalization changes teardown-owned reachability before cleanup completes
 
-A failure path frees a resource that remains owned by a tracking container, whose teardown frees it again.
+A teardown path invokes user-controlled finalization while its object, registry links, or related state are still being dismantled. Finalization can either recreate teardown-owned bookkeeping or republish the object through a shared registry; the original cleanup then continues against a topology that has changed underneath it.
 
 ## Precondition
 
-Initialization allocates a record and successfully registers it in an ownership-tracking table under an initial key, so the table retains responsibility for releasing it.
+Destruction or teardown invokes user-controlled finalization before all related state and reachability links have been dismantled, and finalization can access that state or its registry.
 
 ## Critical operation
 
-Initialization attempts to register the same record under an additional key and handles a failed insertion.
+The cleanup path destroys a value or runs an object finalizer while its surrounding state, ownership records, or registry membership are still in progress.
 
 ## Interference
 
-The failed-insertion cleanup releases the record while the table still tracks it and will release tracked records during destruction.
+Reentrant finalization changes reachability during cleanup: it may recreate state already cleared or republish the object in a shared registry while destruction continues.
 
 ## Invalid assumption
 
-The cleanup path assumes that a failed later registration means the record was never added to the table, ignoring ownership established by the earlier registration.
+The remaining teardown assumes that finalization cannot add new teardown-owned state or make the object reachable again, so it completes a fixed cleanup sequence or invalidates storage without reconciling those changes.
 
 ## Failure
 
-Table teardown releases the already-freed record, producing a double-free or use-after-free and crashing instead of returning a recoverable initialization error.
+For recreated bookkeeping, newly reachable state falls outside the cleanup pass and remains leaked; for republished objects, the registry retains a reference to storage that teardown later frees or invalidates, causing a use-after-free or process-terminating failure.
 
 ## Scope
 
-This is a singleton issue report, although it contains two analogous instances. The pattern is scoped to partially completed multi-key registration with container-managed ownership; it does not assert that all insertion-failure cleanup is unsafe.
+This mixed cluster supports a shared reentrant-teardown pattern with two distinct failure mechanisms: missed cleanup of recreated state and stale or freed storage exposed through renewed registry reachability. It does not claim that every finalizer callback, resurrection, leak, or registry bug follows this sequence.
 
 ## Search strategy
 
-1. Check multi-key registration paths for manual resource release after a later insertion fails.
-2. Verify whether a container still owns a resource before failure cleanup frees it.
-3. Trace destructor behavior for records partially registered before an operation reports failure.
-4. Inspect reference counts or ownership markers on every allocation and release path during initialization errors.
+1. Check whether teardown destroys values or invokes finalizers before all related state and registry links are dismantled.
+2. Check whether finalizers can recreate cleared bookkeeping, containers, ownership records, or other state associated with the teardown context.
+3. Check whether finalizers can retain, resurrect, or re-register the object in a shared lookup or tracking structure.
+4. Verify that cleanup revisits state created during callbacks and that object destruction reconciles renewed registry reachability before freeing storage.
+5. Trace post-teardown registry use for entries whose targets may have been invalidated during reentrant finalization.
 
 ## Evidence
 
-- [#145301](../micro_taxo/gh_145301.md): The report documents analogous initialization bugs in two keyed ownership tables: a record is successfully added under one key, a second insertion fails, local cleanup frees the record, and container destruction frees it again; the correction preserves container ownership or frees only records never inserted.
+- [#140798](../micro_taxo/gh_140798.md): The report shows that destroying a stored value can run user finalization which recreates per-thread bookkeeping during teardown; a fixed clearing sequence then misses the recreated state and leaks it.
+- [#142556](../micro_taxo/gh_142556.md): The report shows that finalization can re-register the object being destroyed; teardown then frees its storage while the registry still retains the entry, producing later use-after-free behavior.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0113](../macro_taxo_before_hybrid/workflow-0113.md)
+- [workflow-0128](../macro_taxo_before_hybrid/workflow-0128.md)

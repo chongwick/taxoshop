@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0014",
+  "issues": [
+    88350,
+    103718,
+    139210
+  ],
+  "workflow_hypothesis": "Post-cleanup access through freed type metadata",
+  "pattern": "Stale non-owning aliases across owner release or storage replacement",
+  "description": "A raw pointer, metadata reference, or derived address remains usable-looking after the owner releases the target or backing storage moves, and later code consumes the alias without restoring or revalidating it.",
+  "precondition": "Code derives or caches a non-owning alias to object metadata, contained data, or an allocation while a cleanup, release, or resizing operation can destroy that target or replace its backing storage.",
+  "critical_operation": "Cleanup drops the target's last ownership reference, releases a container that owns the aliased value, or reallocates and moves the backing allocation without preserving the alias as a valid offset or reacquiring it afterward.",
+  "interference": "Control proceeds to deallocation, diagnostic construction, parsing, or other code that reads, formats, traverses, or compares the retained alias after that lifetime or storage transition.",
+  "invalid_assumption": "The code assumes that retaining the address is sufficient because the logical object or owner is still in scope, or assumes that a derived pointer remains valid across release or reallocation without an explicit ownership guarantee or pointer restoration.",
+  "failure": "The alias refers to freed or obsolete storage, causing use-after-free, stale-buffer access, crashes, invalid diagnostics, or corrupted parsing and results.",
+  "search_strategy": [
+    "Trace every raw pointer, metadata reference, string-data pointer, and derived buffer address across decref, release, cleanup, and deallocation calls; verify the target remains owned until the final use.",
+    "Inspect realloc, resize, buffer-growth, and replacement paths for cached interior pointers and require offsets or equivalent stable handles to be saved and restored on every affected state path.",
+    "Check error-reporting and formatting paths for borrowed character data or container elements used after releasing the container that owns them.",
+    "Review deallocation callbacks and teardown routines for metadata inspected after cleanup; snapshot required flags or retain explicit ownership before invoking cleanup.",
+    "Audit alternate control-flow branches, nested parser modes, and failure paths to ensure aliases are repaired or invalidated even when the target changes representation or storage."
+  ],
+  "evidence": [
+    {
+      "issue": 88350,
+      "supports": "A deallocation path retained a pointer to type metadata, invoked cleanup that could remove the metadata's last ownership reference, and then inspected the freed metadata."
+    },
+    {
+      "issue": 103718,
+      "supports": "Tokenizer state cached pointers into a growable buffer, but reallocation could replace that buffer without correctly restoring all derived pointers, leaving later parsing to read the old allocation."
+    },
+    {
+      "issue": 139210,
+      "supports": "An error path released a container owning an event string before formatting the string through a borrowed character pointer, so the formatter read freed string storage."
+    }
+  ],
+  "scope_note": "This mixed cluster shares stale-alias lifetime failure, but the invalidation mechanisms differ: owner teardown can free metadata, container release can free a borrowed value, and reallocation can move backing storage without freeing the logical data. These are not ownership leaks; the common defect is using a non-owning or un-rebased alias after its validity boundary.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:12:14.577621+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014"
+  ],
+  "adaptation_fingerprint": "2e7136284c437e3c6b9d1e8317eeb876aa18cddabff8569cf162e8c8b6d36098",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

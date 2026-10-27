@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0052",
+  "issues": [
+    114453,
+    116891
+  ],
+  "workflow_hypothesis": "Profiling instrumentation breaks configuration probes and causes a misleading incomplete-type build failure",
+  "pattern": "Instrumented configure-time probes fail for environmental reasons and are misclassified as capability results",
+  "description": "Optional profiling or sanitizer instrumentation is propagated into configure-time test programs. If the instrumented executable cannot run because its runtime support or platform linkage is unavailable, the probe reports a false negative or a misleading capability error. Later configuration or compilation then fails in a location unrelated to the underlying instrumentation incompatibility.",
+  "precondition": "The build enables optional instrumentation, and the same instrumented compiler/linker flags are applied to small configure-time programs that are compiled, linked, and executed to detect platform or library capabilities.",
+  "critical_operation": "Run the generated probe executable and use its exit status or observed result to set a configuration feature or dependency flag.",
+  "interference": "Instrumentation adds a runtime or platform-linkage dependency that is missing or incompatible, causing the probe executable to terminate before testing the requested capability.",
+  "invalid_assumption": "A failed instrumented probe reflects absence of the tested capability, rather than failure of the probe's instrumentation runtime or execution environment.",
+  "failure": "Configuration records an incorrect feature or dependency result, producing either an immediate misleading configuration error or a later build failure such as an incomplete conditional type definition being embedded by value.",
+  "search_strategy": [
+    "Trace profiling, sanitizer, coverage, and similar flags into every configure-time compile/link/run probe.",
+    "Check whether each instrumented probe has the required runtime libraries, loader symbols, and platform support before interpreting its result.",
+    "Audit probe failure paths to distinguish execution or loader failures from genuine negative capability tests.",
+    "Find conditionally emitted type definitions controlled by probe results and verify that by-value consumers cannot compile when the probe is falsely negative."
+  ],
+  "evidence": [
+    {
+      "issue": 114453,
+      "supports": "An optional profiling flag was added to probe commands; on the affected platform the resulting executables failed at load time because of an unresolved runtime symbol. Configuration consequently recorded an incorrect dependency result, and the main build later reported an incomplete conditional type used by value."
+    },
+    {
+      "issue": 116891,
+      "supports": "Enabling thread-sanitizer instrumentation caused a library capability probe to report a false negative; the report identified missing compiler runtime support as the remedy. This supports the shared mechanism of instrumented probes failing before testing the requested capability, while the failure may surface directly as a misleading configuration診"
+    }
+  ],
+  "scope_note": "The reports share the probe-execution misclassification mechanism, but their downstream manifestations differ: one reaches a misleading compile-time type error after configuration, while the other stops during configuration with a false library-capability diagnostic. The evidence does not establish that every instrumentation combination fails or that all such failures produce an incomplete-type error.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:40:42.554059+00:00"
+}

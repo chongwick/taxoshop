@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0008",
+  "issues": [
+    73069,
+    153928,
+    154043,
+    154130
+  ],
+  "workflow_hypothesis": "Concurrent iterator exhaustion releases shared sequence during another retrieval",
+  "pattern": "Concurrent consumers of a shared iterator race traversal-state updates with backing-state ownership or cleanup.",
+  "description": "Multiple threads use one stateful or one-shot iterator whose cursor, live traversal resource, cached result, or owned backing object is shared. The reports split into cursor/resource races and one-time ownership races: some permit overlapping traversal or duplicate initialization, while others invalidate or release shared state during another call.",
+  "precondition": "A shared iterator exposes mutable traversal state or a backing resource/reference to concurrent callers without serializing the complete next-operation, including cursor advancement, resource access, exhaustion, and ownership cleanup.",
+  "critical_operation": "A worker observes the iterator as available, then reads or advances the shared cursor, traverses the backing state, initializes a shared cached result, or consumes the iterator-owned backing reference.",
+  "interference": "Another worker concurrently performs the same traversal or initialization, reaches exhaustion, closes the live resource, clears the shared owner, or releases the backing object before the first operation has finished.",
+  "invalid_assumption": "An availability check is treated as exclusive ownership, cursor check/use/update is treated as one operation, and a borrowed backing pointer or shared cache is assumed to remain valid or to be initialized by only one worker.",
+  "failure": "Cursor races can produce duplicate, skipped, or out-of-bounds results; overlapping resource closure or ownership cleanup can cause stale or freed-state access, double release, refcount corruption, or process termination; concurrent lazy initialization can instead leave duplicate results leaked. These are distinct failure modes rather than one universal outcome.",
+  "search_strategy": [
+    "Find shared iterators whose availability check, cursor read, item access, and cursor update are separate unsynchronized operations.",
+    "Check exhaustion and close paths for an atomic claim or lock that ensures exactly one worker clears and releases iterator-owned backing state.",
+    "Check that each traversal acquires a strong lifetime guarantee for a backing resource or object before dereferencing it, and retains it until the traversal ends.",
+    "Check one-shot and lazy-cache initialization paths for atomic consume-or-publish semantics, and verify losing workers dispose of duplicate results without releasing the published value.",
+    "Check whether a resource-returning operation copies or otherwise protects data before releasing the lock that guards the underlying traversal resource."
+  ],
+  "evidence": [
+    {
+      "issue": 73069,
+      "supports": "Concurrent iteration could close a shared traversal resource while another worker still used it, while concurrent initialization of per-entry cached state could create duplicate cached objects and leak the loser; the report therefore supports both lifetime/cleanup and non-atomic publication mechanisms."
+    },
+    {
+      "issue": 153928,
+      "supports": "Shared sequence iterators had an unsynchronized cursor check/read/increment that could read beyond the sequence, and concurrent exhaustion could release the same backing sequence more than once while another call still accessed it."
+    },
+    {
+      "issue": 154043,
+      "supports": "A shared one-shot iterator allowed multiple workers to observe the same owned object, use it, and independently clear and release it, causing double release and use-after-free; an atomic consume fixes this ownership race."
+    },
+    {
+      "issue": 154130,
+      "supports": "Concurrent exhaustion of a shared iterator could double-release its single backing-object reference, while a sibling traversal held only a borrowed pointer and continued using the object after it was freed, producing immediate or delayed corruption."
+    }
+  ],
+  "scope_note": "The common pattern is unsynchronized sharing of iterator traversal state plus insufficiently coordinated backing-state lifetime. The reports differ materially: cursor races may yield wrong or out-of-bounds results without freeing memory; resource closure and one-shot exhaustion can invalidate in-flight borrowed state; and lazy cache initialization can leak a duplicate without stale-state access. The pattern does not claim that every shared iterator crashes or that every race involves ownership.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:11:34.523653+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0008",
+    "workflow-0163"
+  ],
+  "adaptation_fingerprint": "ae784ffd6c7e89662748b18b3f2acc19abaf151d791d93efd8efb1fc957e5684",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

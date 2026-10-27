@@ -1,40 +1,44 @@
-# A quiescence deadlock caused by acquiring or invoking broader coordination while holding a contended narrow lock.
+# Parallel instrumented tests expose environment-sensitive subprocess failures
 
-Concurrent code performs a quiescence-sensitive operation while holding a lock whose waiters are not allowed to reach the required safe point.
+A subprocess success check can expose environment-sensitive failures during parallel execution of instrumented tests.
 
 ## Precondition
 
-A subsystem has a narrow shared mutex and a broader coordination mechanism that pauses or waits for participating workers to reach safe points; contended mutex acquisition can leave a worker attached or otherwise unable to report that safe point.
+Tests execute concurrently across multiple worker processes in an instrumented runtime or build.
 
 ## Critical operation
 
-A worker holds the narrow mutex while performing an operation that directly requests global quiescence or indirectly acquires a broader coordination lock that can request global quiescence.
+One test launches a subprocess to perform an isolated operation and requires that subprocess to complete successfully.
 
 ## Interference
 
-Another worker holds or waits on the broader coordination state while additional workers block on the narrow mutex without reaching the safe point required by the quiescence operation.
+Concurrent workload and instrumentation-related runtime conditions affect the subprocess execution path or its process termination status.
 
 ## Invalid assumption
 
-The narrow mutex can safely be held across callbacks, invalidation, lock acquisition, or global coordination, and workers blocked on it will not prevent a global pause from completing.
+The subprocess will always return the expected success status despite the surrounding parallel, instrumented execution conditions.
 
 ## Failure
 
-A circular wait forms: the quiescence requester waits for blocked workers, blocked workers wait for the narrow mutex, and the mutex holder waits for the broader coordination or quiescence operation. The system hangs instead of completing.
+The child exits with a non-success code, and the harness converts that unexpected status into an assertion failure.
 
 ## Scope
 
-The reports share the quiescence-versus-lock dependency, but differ in shape: one directly invokes global pause while holding the narrow lock, while the other reaches it through a second lock and a lock-order inversion. The pattern is scoped to systems where lock waits can prevent safe-point participation.
+This is a singleton report. It supports the interaction between parallel instrumented execution, subprocess success assertions, and surfaced exit-status failures, but does not establish the underlying cause of the child’s non-success exit or a universal race-specific mechanism.
 
 ## Search strategy
 
-1. Check every operation performed while holding a shared mutex for callbacks, invalidation, registration, or other actions that may acquire another lock.
-2. Trace whether waiting for each contended mutex detaches, yields, or otherwise permits the worker to reach global safe points.
-3. Check for lock-order inversions between narrow resource locks and broader coordination or state-management locks.
-4. Check whether any global pause or quiescence operation can run while a lock needed by its participants is held.
-5. Check multi-threaded paths with several workers contending on the same mutex while another worker performs a stop, update, or invalidation operation.
+1. Inspect parallel test runners for subprocess-based tests whose child exit codes are asserted to indicate success.
+2. Check instrumented-build and race-detection configurations for tests that launch additional processes under concurrent load.
+3. Trace subprocess creation and teardown paths for environment-sensitive exit codes that are reported only as generic assertion failures.
+4. Verify whether tests distinguish infrastructure or instrumentation failures from ordinary child-process assertion failures.
 
 ## Evidence
 
-- [#139116](../micro_taxo/gh_139116.md): One worker held a shared tracing-table lock while invoking a tracer change that requested a global pause; another worker had attached and blocked on that lock without detaching, so the pause waited for a worker that could not progress until the lock was released.
-- [#151593](../micro_taxo/gh_151593.md): One mutator acquired a shared key-structure mutex and then attempted to acquire a type-management lock; another worker held the type-management lock while requesting global quiescence, and other mutators blocked on the shared mutex without reaching safe points, creating the same circular wait.
+- [#126445](../micro_taxo/gh_126445.md): A Linux test run executed many tests in parallel under a thread-sanitized/free-threading configuration; an import-related test launched a separate interpreter process, which returned exit code 66, and the helper reported that unexpected status as an AssertionError.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0073](../macro_taxo_before_hybrid/workflow-0073.md)

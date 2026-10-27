@@ -2,34 +2,64 @@
   "schema_version": 1,
   "cluster_id": "workflow-0118",
   "issues": [
-    141311,
-    142787
+    139540,
+    139749,
+    139750,
+    139827,
+    142476,
+    142985
   ],
-  "workflow_hypothesis": "Maximum cursor position mishandled by zero-length read",
-  "pattern": "When an out-of-range cursor or slice boundary is normalized to an empty read, the invalid origin is still passed into a lower-level data-access path that is not",
-  "description": "Degenerate empty-range requests retain an invalid source position and reach code that assumes a valid nonempty range.",
-  "precondition": "A seekable or sliceable data source permits positions or bounds outside its actual contents, including a position at the numeric limit, and the resulting requested range can be empty.",
-  "critical_operation": "Compute or normalize the range length, then continue dispatching the request to the underlying read, copy, or pointer-based access routine.",
-  "interference": "The empty-length result does not short-circuit the operation or sanitize the retained out-of-range origin.",
-  "invalid_assumption": "The lower-level routine assumes every request has an in-bounds origin suitable for range assertions and pointer formation, even when the transfer length is zero.",
-  "failure": "The operation triggers a failed boundary assertion or undefined pointer arithmetic instead of returning an ordinary empty result.",
+  "workflow_hypothesis": "Optimized execution leaks generated state",
+  "pattern": "Generated optimized state has mismatched ownership across lifecycle handoffs",
+  "description": "An optimized execution path creates generated state whose ownership changes among execution, container, and teardown contexts, but the handoff contract is incomplete or inconsistent. The resulting defect can retain the state indefinitely or release it before a remaining user is finished.",
+  "precondition": "An optimization or generated-execution path allocates managed state with an initial reference and more than one possible owner, such as an execution context, installed container, exit record, or teardown structure.",
+  "critical_operation": "The generated state is dispatched, inserted into a durable structure, transferred to another lifecycle owner, or cleaned up after optimized execution, including failure, invalidation, and short-lived helper-process paths.",
+  "interference": "A path omits the release after ownership transfer, while another path releases before a stealing handoff or before the object's tracking/deallocation invariants are established.",
+  "invalid_assumption": "The implementation assumes all paths use the same ownership convention and that a nearby container or cleanup phase automatically covers the generated state; conversely, it may assume an early decrement is safe without proving that no later owner still relies on the object.",
+  "failure": "The generated state is either leaked and reported at shutdown by leak instrumentation, or prematurely freed and later accessed or decremented, producing use-after-free or related memory-safety failures.",
   "search_strategy": [
-    "Check whether empty or negative-length normalization returns immediately before lower-level buffer access.",
-    "Trace zero-length reads and slices to confirm their origin offset is not still out of bounds.",
-    "Inspect assertions and pointer arithmetic for unconditional in-bounds assumptions when the transfer length is zero.",
-    "Test maximum representable positions and out-of-range slice bounds against empty-result behavior."
+    "Trace each generated execution allocation through dispatch, installation, exception, invalidation, teardown, and process-shutdown paths, recording the owning reference at every boundary.",
+    "Check whether optimized execution and generated-state construction release their initial reference on every successful, exceptional, failed-compilation, and helper-process exit.",
+    "Verify whether insertion or registration steals, borrows, or increments a reference, and place decrements only after that ownership contract is explicit.",
+    "Audit object tracking and deallocation preconditions before adding cleanup on allocation-failure or early-exit paths.",
+    "Exercise both leak detection and lifetime-sensitive invalidation or teardown scenarios to distinguish unreleased state from stale or prematurely freed state."
   ],
   "evidence": [
     {
-      "issue": 141311,
-      "supports": "A maximum-position seek produced a zero-length read, but the retained position still reached assertions and pointer formation that assumed a usable buffer origin, causing an assertion failure and undefined behavior risk."
+      "issue": 139540,
+      "supports": "Optimized generated execution state remained live across exceptional execution and teardown-related paths; the report and investigation identify inconsistent executor cleanup and reference ownership rather than a workload-specific cause."
     },
     {
-      "issue": 142787,
-      "supports": "Out-of-range slice bounds produced an empty slice, but the retained start offset still reached a lower-level blob reader whose in-bounds assertion assumed a nonempty valid origin."
+      "issue": 139749,
+      "supports": "A recoverable exception after optimized execution was enough to leave the generated execution allocation unreclaimed, supporting an exceptional-exit ownership gap."
+    },
+    {
+      "issue": 139750,
+      "supports": "Repeated optimized calls from an unrelated workload produced a direct leak of the generated execution object, showing that the defect is in the shared optimized-state lifecycle."
+    },
+    {
+      "issue": 139827,
+      "supports": "A separate complex operation reached the same generated-state allocation and leaked it, confirming that the trigger varies while the ownership defect is shared."
+    },
+    {
+      "issue": 142476,
+      "supports": "The attempted ownership correction exposed the second mechanism: releasing before a transfer that steals the reference caused use-after-free, while the original path leaked when the transfer or cleanup contract was missed."
+    },
+    {
+      "issue": 142985,
+      "supports": "Short-lived build helper processes also allocated generated execution state and terminated with direct leaks, showing that the defect applies to lifecycle completion and shutdown, not only repeated application workloads."
     }
   ],
-  "scope_note": "This pattern is supported by two reports involving in-memory or blob-like data access. It covers empty-range handling with invalid origins; it does not establish that every zero-length operation or every out-of-range access is unsafe.",
+  "scope_note": "This is a mixed cluster with one umbrella ownership pattern and two distinct failure mechanisms: missing or misplaced release causes leaks, while premature release or invalid tracking assumptions cause stale/freed-state use. The reports support optimized/generated execution state specifically; they do not establish that every generated artifact or every lifecycle handoff has this defect.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:20:44.183305+00:00"
+  "generated_at": "2026-10-10T19:23:42.553862+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0089",
+    "workflow-0090",
+    "workflow-0094"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

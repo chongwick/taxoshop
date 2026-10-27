@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0057",
+  "issues": [
+    113956,
+    128137,
+    129701,
+    130019
+  ],
+  "workflow_hypothesis": "Concurrent permanent-retention transition races with owner reference counting",
+  "pattern": "Concurrent non-atomic mutation or initialization of concurrency-visible object metadata races with ownership and lifecycle inspection",
+  "description": "A shared or newly reachable object exposes ownership, reference-count, lifecycle, or validity metadata to concurrent threads while another operation changes multiple metadata fields or bulk-initializes storage. The cluster covers two related mechanisms: lifecycle promotion can overlap owner reference-count activity or publication, while allocation-time bulk clearing can overlap lock-free header inspection.",
+  "precondition": "An object can be reached or inspected concurrently, and its concurrency-visible metadata is accessed through a mixture of ordinary stores, atomic operations, locks, or bulk memory writes that are not governed by one consistent synchronization protocol.",
+  "critical_operation": "One thread either promotes the object to a stronger retention state while rewriting ownership or reference-count metadata, or initializes an allocation by bulk-clearing memory that includes the object header before explicit header initialization is complete.",
+  "interference": "During that operation, another thread may acquire or release references, inspect ownership or lifecycle state, observe the object through a shared pool, or perform lock-free validation of the header.",
+  "invalid_assumption": "The implementation assumes that same-thread completion of initialization, atomicity of individual readers, or later correction of metadata makes the transition safe, even though non-atomic multi-field updates or byte-wise bulk writes can overlap concurrent metadata access.",
+  "failure": "Observers can see mixed, transient, or inconsistent ownership, reference-count, retention, or validity metadata, causing incorrect lifecycle decisions, corrupted reference state, a real data race, memory-safety failure, or process termination. The reports do not establish that the common failure must involve stale or freed state.",
+  "search_strategy": [
+    "Inspect shared-object retention or lifecycle-promotion paths for non-atomic writes to ownership, reference-count, or state fields that can overlap owner-thread reference operations.",
+    "Check that publication, lookup, promotion, and cleanup of pooled objects use one compatible lock or atomic-access discipline, and that reference-count adjustments are thread-safe.",
+    "Search allocation and reuse paths for memset, zeroing, or other bulk writes that cover concurrency-visible headers before those headers are initialized.",
+    "Verify that lock-free readers cannot inspect header metadata during bulk initialization, and that fields read atomically are also written atomically or protected by the same synchronization protocol."
+  ],
+  "evidence": [
+    {
+      "issue": 113956,
+      "supports": "Shows that promoting an object owned by another thread can race with that owner's reference-count operations; safe handling requires ownership or merged-reference checks and atomic stores for metadata observed concurrently."
+    },
+    {
+      "issue": 128137,
+      "supports": "Shows that a lifecycle-classification field changed during retention promotion must use atomic reads and writes when other threads can inspect it."
+    },
+    {
+      "issue": 129701,
+      "supports": "Shows that insertion, promotion, and reference-count adjustment need coordinated locking and thread-safe decrements so another thread cannot observe or use an object during a partially completed transition."
+    },
+    {
+      "issue": 130019,
+      "supports": "Shows that non-atomic full-allocation clearing can race with concurrent reads of ownership and reference metadata, including transient header values that appear valid or match another thread."
+    }
+  ],
+  "scope_note": "This mixed cluster supports an umbrella pattern about unsynchronized writes to concurrency-visible object metadata. Issues 113956, 128137, and 129701 concern pooled-object publication and retention-state promotion; issue 130019 concerns allocation-time bulk initialization of headers. The evidence does not support conflating leaked ownership with stale or freed state, nor claiming that every reference-count race or allocator memset has this form.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:16:26.310835+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0049",
+    "workflow-0079"
+  ],
+  "adaptation_fingerprint": "0bfd160ae6af850f07b36ae535c2f3e5751097257edc9a981a6eebb24697264f",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

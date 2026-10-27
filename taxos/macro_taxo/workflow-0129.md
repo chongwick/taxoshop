@@ -1,41 +1,44 @@
-# Native or low-level code obtains an object through an overridable, re-entrant, or replaceable operation and expects a specific internal type or layout.
+# Unsupported target accepted for optional code generation until artifact generation fails
 
-Native or low-level code obtains an object through an overridable, re-entrant, or replaceable operation and expects a specific internal type or layout.
+An optional target-specific generator is enabled for an unsupported target; configuration accepts it, generation rejects the target without producing the required artifact, and dependent compilation fails later.
 
 ## Precondition
 
-A low-level path crosses a dynamic trust boundary such as a factory, constructor, cache method, or attribute lookup, then receives a generic object value.
+An optional generated-artifact feature is enabled while the selected target is outside the generator’s supported target set.
 
 ## Critical operation
 
-The path immediately uses that value as a specific internal representation, accessing fields or state through an unchecked cast or equivalent assumption.
+The build invokes the generator and then compiles source files that depend on its output.
 
 ## Interference
 
-User-controlled behavior at the trust boundary returns or exposes an object with an incompatible type or smaller layout.
+Configuration does not validate target support, and generator rejection leaves the required artifact unavailable to downstream compilation.
 
 ## Invalid assumption
 
-The value's provenance through the expected callback, cache, attribute, or constructor is treated as proof that it satisfies the required representation contract.
+Successful configuration is treated as evidence that generation will succeed and provide the required artifact for the selected target.
 
 ## Failure
 
-Representation-specific access or state mutation operates on the wrong object, causing type confusion, heap out-of-bounds access, or process termination instead of a recoverable validation error.
+The build fails late with an unsupported-target generator error or a missing generated-artifact compilation error instead of rejecting the unsupported configuration early.
 
 ## Scope
 
-The four reports support a general unchecked-use pattern across factories, constructors, caches, and attribute lookups—not only factory initialization. The exact consequence varies by representation and access path; the shared risk is treating dynamically obtained objects as validated internal representations without checking type and layout first.
+This is a singleton cluster, so the pattern is scoped to optional target-specific code generation whose unsupported-target validation is missing or delayed until artifact generation.
 
 ## Search strategy
 
-1. Audit every dynamic callback, constructor, cache operation, and attribute lookup consumed by low-level code for immediate unchecked representation use.
-2. Search for casts from generic object values to internal structs after dynamic dispatch or object creation.
-3. Verify the required exact or compatible type before every metadata, field, or buffer access.
-4. Check that malformed dynamic results are rejected before state mutation, cache updates, or decoder execution.
+1. Check optional code-generation configuration paths for validation against the generator’s supported-target registry.
+2. Trace generator rejection paths and verify that unsupported targets stop the build with an explicit diagnostic before dependent compilation.
+3. Check build dependencies to ensure consumers cannot compile when required generation fails or emits no artifact.
+4. Search for target identifiers accepted by configuration but absent from the generator’s recognized-target set.
 
 ## Evidence
 
-- [#142595](../micro_taxo/gh_142595.md): A replaceable type-producing call returned a non-type object that was cast to an internal type representation and dereferenced during initialization; the fix validates the result before use.
-- [#142781](../micro_taxo/gh_142781.md): Replaceable cache operations returned an object incompatible with the requested instance type, and the consumer treated it as a valid internal instance; the fix validates cache results before dependent state updates.
-- [#143376](../micro_taxo/gh_143376.md): A dynamically supplied attribute returned an arbitrary small object that a decoder treated as a larger internal identifier structure, producing a heap-buffer-overflow; the proposed fix validates the identifier type.
-- [#143636](../micro_taxo/gh_143636.md): An overridable constructor returned a nonconforming object during replacement, after which the consumer accessed it as the expected namespace representation; the fix rejects the result before copying internal state.
+- [#140354](../micro_taxo/gh_140354.md): The report shows an optional code-generation feature accepted for an Android target absent from the generator’s known targets; generation rejects the target, the generated header is not produced, and compilation subsequently fails because the header is missing.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0097](../macro_taxo_before_hybrid/workflow-0097.md)

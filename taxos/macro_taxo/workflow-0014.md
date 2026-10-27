@@ -74,3 +74,9 @@ The reports share an ownership and lifetime-ordering failure, but the invalidate
 - [#148382](../micro_taxo/gh_148382.md): A borrowed context pointer is used after intervening callbacks replace and free the context, supporting callback-induced owner invalidation.
 - [#151046](../micro_taxo/gh_151046.md): A temporary view is retained by a callee after its short-lived backing buffer is released, directly supporting dangling view access.
 - [#151403](../micro_taxo/gh_151403.md): A conversion callback mutates the argument sequence and frees its current item, while an error path still reads that item through a borrowed pointer.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0014](../macro_taxo_before_hybrid/workflow-0014.md)

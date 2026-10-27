@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "issue": 120696,
+  "cluster_id": "workflow-0074",
+  "workflow": [
+    "A diagnostic test intentionally triggers a fatal runtime error in an instrumented multithreaded process.",
+    "The fatal-error path invokes crash-reporting logic while the instrumentation and runtime are in an incompatible locking or signal-handling state.",
+    "Crash reporting cannot complete under that combination, so the process hangs instead of terminating and returning the expected failure."
+  ],
+  "summary": "Instrumented fatal-error reporting deadlocks and hangs the process",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:20:44.124582+00:00"
+}

@@ -26,5 +26,12 @@
   ],
   "scope_note": "This is a cautiously scoped singleton pattern. The evidence supports a platform-sensitive defect in heterogeneous numeric comparison, but does not prove whether the underlying fault is a particular implementation, compiler, allocator, or memory-corruption mechanism.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T17:40:05.456893+00:00"
+  "generated_at": "2026-09-10T17:40:05.456893+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0011"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

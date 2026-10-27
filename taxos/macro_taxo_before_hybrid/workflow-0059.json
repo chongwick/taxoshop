@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0059",
+  "issues": [
+    119447,
+    140159
+  ],
+  "workflow_hypothesis": "Configuration-guard mismatch exposes an undefined optional state type",
+  "pattern": "Mismatched conditional-availability guards expose an optional type or structure member to a compilation path where its definition is absent.",
+  "description": "A compile-time capability is represented by multiple guards, but the guard controlling a consumer is broader or has been removed while the provider remains conditional.",
+  "precondition": "A type or structure member is available only for selected build configurations, feature combinations, or external header versions, with its existence controlled by conditional compilation.",
+  "critical_operation": "A refactor or feature addition moves the reference into shared declarations or a metadata table, or otherwise protects it with a capability check that does not exactly match the provider's guard.",
+  "interference": "The build selects a configuration or header set in which the optional entity is omitted even though the consumer-side path is enabled.",
+  "invalid_assumption": "The consumer guard or feature macro is assumed to prove that the referenced type or member is defined, although the two availability conditions are not equivalent.",
+  "failure": "Compilation fails on a missing type or structure member; subsequent declarations that depend on the failed initializer may produce secondary incomplete-array or related diagnostics.",
+  "search_strategy": [
+    "Trace every optional type and structure-member reference to the exact preprocessor guard that defines it.",
+    "Compare capability macros used at each reference site with the guards controlling the corresponding declaration or header member.",
+    "Build with configurations that disable each optional feature and with older or minimal platform headers.",
+    "Search shared declarations, descriptor tables, and generated metadata for entries whose providers are conditionally compiled.",
+    "Verify that disabled configurations supply either a neutral definition or omit every dependent reference."
+  ],
+  "evidence": [
+    {
+      "issue": 119447,
+      "supports": "An optional runtime state structure was omitted when a numeric build feature was disabled, but a refactor made its shared-header reference unconditional; the fix supplied a neutral definition for that configuration."
+    },
+    {
+      "issue": 140159,
+      "supports": "A descriptor entry was enabled by a feature macro even though the corresponding system-header structure member was absent on some supported header versions, causing a missing-member error and cascading incomplete-array diagnostics."
+    }
+  ],
+  "scope_note": "The reports support this pattern for low-level C code using preprocessor-selected types or platform-header members. They differ in whether the missing entity is project-defined or externally defined, so the general rule is guard alignment rather than any particular platform or feature.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:44:42.165527+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 142555,
+  "cluster_id": "workflow-0062",
+  "workflow": [
+    "An element-assignment operation invokes user-defined conversion logic before performing the write.",
+    "The conversion logic re-enters the same container and clears or shrinks its backing storage.",
+    "The outer assignment continues using the pre-conversion storage state without revalidating its pointer and bounds.",
+    "The write dereferences released or null storage, causing a memory-safety crash instead of a recoverable bounds error."
+  ],
+  "summary": "Reentrant mutation invalidates container storage during assignment",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:03:58.107594+00:00"
+}

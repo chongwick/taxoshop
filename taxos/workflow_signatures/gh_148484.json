@@ -9,7 +9,6 @@
     "Repeated invalid constructions retain the iterator, causing memory usage to grow and leak detection to report unreclaimed allocations."
   ],
   "summary": "Exceptional validation failure omits cleanup of an intermediate iterator",
-  "decision_reason": "The bug materially matches the existing cluster's failure workflow: an operation allocates intermediate state, later rejects an argument, and an exceptional path fails to release that state, producing a leak.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:36:44.833541+00:00"
 }

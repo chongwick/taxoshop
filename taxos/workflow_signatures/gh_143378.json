@@ -9,7 +9,6 @@
     "The outer operation fails to revalidate the buffer state and writes through the stale storage, causing use-after-free and process termination instead of a recoverable mutation or-간"
   ],
   "summary": "Reentrant mutation invalidates backing storage before write completion",
-  "decision_reason": "The underlying failure workflow materially matches the existing cluster: user-controlled conversion/acquisition code mutates or detaches a backing resource, and the outer operation continues without revalidating it before later use. The specific symptom here is use-after-free of internal buffer data",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:20:37.240064+00:00"
 }

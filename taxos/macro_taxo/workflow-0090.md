@@ -1,40 +1,50 @@
-# Optimized execution leaks generated artifacts
+# Unsynchronized lazy initialization of shared derived state
 
-An optimization path materializes generated execution artifacts without completing their ownership lifecycle, causing sanitizer-visible leaks across otherwise unrelated workloads.
+Concurrent first-use initialization of a shared cache or runtime value is performed with an unsynchronized check-then-compute/publish sequence, sometimes spanning multiple fields or ownership changes.
 
 ## Precondition
 
-An optional tracing, compilation, or execution-optimization path is enabled, and the workload reaches a code path eligible for optimization under leak-detection instrumentation.
+A shared object, cache slot, or runtime state contains an absent or sentinel-marked derived value that multiple threads can access concurrently, and initialization is deferred until first use without a once protocol, lock, or atomic publication scheme.
 
 ## Critical operation
 
-The optimizer converts an intermediate execution representation into a newly allocated generated execution artifact for the optimized path.
+A thread observes the sentinel, computes or fetches the derived value, and publishes it or updates associated metadata and ownership state before returning or using it.
 
 ## Interference
 
-The artifact is not transferred to a durable owner with teardown responsibility, or the corresponding release path is absent when optimized execution ends or the process shuts down.
+Other threads can observe the same sentinel and perform the computation concurrently, publish competing results, read the state while it is being initialized, or race with the associated metadata and reference/ownership updates.
 
 ## Invalid assumption
 
-The implementation assumes that a generated artifact created during optimization will be reclaimed automatically or that its lifetime is covered by an existing execution object's cleanup, even though the allocation has a separate ownership obligation.
+Equivalent results, object immutability, atomicity of an individual pointer or flag, or historical serialization by a global interpreter lock is assumed to make the check, initialization, publication, and ownership bookkeeping safe as one operation.
 
 ## Failure
 
-Leak instrumentation reports the generated artifact as a direct allocation at process termination, potentially turning tests or build-time helper executions into failures.
+The program has a data race and may expose incompletely published or inconsistently paired state; competing initialization can also leak, mis-account, or incorrectly release resources, producing sanitizer failures, invalid behavior, or crashes.
 
 ## Scope
 
-The reports support a shared lifecycle defect in the optimization-generated artifact, while the triggering workload varies substantially: repeated calls, a single complex operation, and build-time code generation. They do not establish that repetition is required or that every optimized artifact leaks.
+The shared pattern is unsynchronized concurrent first-use initialization or publication of shared derived state. It does not require duplicate computation in every case: one report is primarily a reader-versus-publisher race, and another is eager runtime initialization replacing a lazy global. The umbrella reports also contain unrelated sanitizer findings, which are not generalized here.
 
 ## Search strategy
 
-1. Trace every allocation of generated execution artifacts from creation to an explicit release or owner teardown.
-2. Check whether optimized and non-optimized execution paths use the same ownership and destruction protocol for generated state.
-3. Inspect early exits, failed optimization, replacement, and shutdown paths for generated artifacts that are created but never registered or freed.
-4. Run representative short-lived optimized workloads under leak detection and verify that allocation counts return to baseline after execution.
+1. Search for shared fields tested against NULL, zero, or a sentinel and assigned by the same first-use path; verify the test and publication are synchronized.
+2. Search for lazy initialization that writes a pointer plus length, status, flags, or other metadata; verify readers cannot observe a mixed-generation state.
+3. Search for cache fills or external-resource fetches performed after a relaxed cache miss; verify compare-exchange or locking handles losing computations and their ownership.
+4. Search for static or runtime globals initialized inside frequently called accessors; verify they are initialized before concurrency begins or protected by a one-time primitive.
+5. Search for diagnostic or consistency readers that access fields concurrently with lazy writers; verify they use the same atomic or locking discipline and valid publication ordering.
 
 ## Evidence
 
-- [#139750](../micro_taxo/gh_139750.md): A repeated workload with optimization enabled reaches generated execution-artifact allocation, and leak detection reports the artifact because it is never freed.
-- [#139827](../micro_taxo/gh_139827.md): A distinct application operation reaches the same optimizer allocation and produces the same unfreed generated artifact, showing that the trigger is not specific to the application API.
-- [#142985](../micro_taxo/gh_142985.md): Build-time module-processing executions allocate generated artifacts through the optimizer and fail under leak detection, confirming the issue also occurs in short-lived helper processes rather than only in long-running repeated calls.
+- [#128013](../micro_taxo/gh_128013.md): Concurrent first access generated a shared encoded representation while its pointer, length, and contents were published in an unsafe order; the fix serialized initialization and published the pointer only after the representation was complete.
+- [#128133](../micro_taxo/gh_128133.md): Concurrent first hashing of the same shared value raced on its sentinel-based cached result; atomic cache accesses were required even though the computed hash was deterministic.
+- [#128212](../micro_taxo/gh_128212.md): A consistency reader accessed the shared representation pointer concurrently with its publisher without using the required atomic access discipline.
+- [#130421](../micro_taxo/gh_130421.md): The report identified lazily initialized shared runtime timebase state as racy and moved its computation into runtime initialization; its broader sanitizer findings include unrelated initialization and object-lifetime races.
+- [#153201](../micro_taxo/gh_153201.md): The associated analysis identified concurrent first fetches into shared digest cache slots; atomic publication alone did not resolve the race-loser ownership bookkeeping, which could leave transient reference imbalances and leaks or over-release hazards.
+- [#154044](../micro_taxo/gh_154044.md): Concurrent first reads of a shared descriptor property both computed and stored equivalent cached values through an unsynchronized check-then-write, leaking the losing result despite value equivalence.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0074](../macro_taxo_before_hybrid/workflow-0074.md)

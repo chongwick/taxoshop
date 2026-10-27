@@ -9,7 +9,6 @@
     "The access reaches freed memory, causing a use-after-free failure instead of a recoverable mutation or concurrency error."
   ],
   "summary": "Mutable buffer mutation invalidates retained formatting pointer",
-  "decision_reason": "The failure mechanism materially matches the existing cluster: an operation retains a pointer into owner-managed storage, the owner releases or relocates that storage during execution, and a later access dereferences the stale pointer.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:04:37.132882+00:00"
 }

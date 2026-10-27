@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0056",
+  "issues": [
+    113720
+  ],
+  "workflow_hypothesis": "Tokenizer pointer-index overflow during continued multiline input",
+  "pattern": "Invalid lexer/tokenizer buffer offsets produce pointer-index overflow",
+  "description": "Lexer/tokenizer buffer-position arithmetic can form invalid pointer offsets during stateful or continued input processing.",
+  "precondition": "Valid input is processed through a lexer/tokenizer path that tracks positions across continuation, newline, or buffer-state transitions.",
+  "critical_operation": "Lexer/tokenizer code adds a calculated offset to a buffer base to obtain a character pointer or indexed position.",
+  "interference": "Position handling supplies an invalid or overflowing offset to that pointer calculation.",
+  "invalid_assumption": "The calculated offset is representable and remains within the buffer's valid address range.",
+  "failure": "Undefined-behavior instrumentation reports pointer-index overflow while processing input, but execution continues successfully.",
+  "search_strategy": [
+    "Inspect lexer and tokenizer pointer arithmetic fed by continuation, newline, or buffer-state variables.",
+    "Trace offset provenance across buffer transitions, including signed/unsigned conversions and sentinel values.",
+    "Check that derived buffer positions are range-validated before pointer arithmetic or indexing.",
+    "Exercise both interactive continued input and lexer-buffer test paths under undefined-behavior instrumentation."
+  ],
+  "evidence": [
+    {
+      "issue": 113720,
+      "supports": "The report shows pointer-index overflow during valid continued interactive input and later at lexer-buffer locations during a successful test run; both reproduce diagnostics without an interpreter crash."
+    }
+  ],
+  "scope_note": "This singleton report supports a lexer/tokenizer buffer-offset pattern. Its reproductions differ in trigger context, so the evidence does not establish that all multiline input or all buffer transitions are affected.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:58:05.392008+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0048"
+  ],
+  "adaptation_fingerprint": "2f8867cab0d1996fbdf830a9b94071ee93e26da04ac2ee1790d6bee15b0af0e7",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

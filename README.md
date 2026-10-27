@@ -16,12 +16,14 @@ under sanitizers, and report the ones that are new and confirmed.
 
 | Path | What it is |
 |------|------------|
-| [`taxos/macro_taxo/`](taxos/macro_taxo) | The **pattern write-ups** (`workflow-XXXX.md`). Each: precondition, critical operation, interference, invalid assumption, failure, scope, **search strategy**, evidence. Start here. |
+| [`taxos/macro_taxo/`](taxos/macro_taxo) | The **pattern write-ups**, fitted to 116 manually constrained hybrid clusters (the original top five memberships and IDs are restored exactly). Each: precondition, critical operation, interference, invalid assumption, failure, scope, **search strategy**, evidence, and archived source-family links. Start here. |
+| [`taxos/macro_taxo_before_hybrid/`](taxos/macro_taxo_before_hybrid) | The original 163 macro entries and their original IDs. Historical audit references refer to this taxonomy. |
 | [`taxos/workflow_signatures/`](taxos/workflow_signatures) | Clustering data. `clusters.json` maps each family → summary + known issue numbers; `gh_*.json` is one signature per known GitHub issue. |
 | [`taxos/micro_taxo/`](taxos/micro_taxo) | Per-issue write-ups (`gh_NNNNN.md`) and source material. |
 | [`tally_bugs.py`](tally_bugs.py) | Ranks the pattern families by how many known issues cluster to them. |
 | `generate_*.py` | Generators that produced the taxonomy, including `generate_reports.py` for CPython GitHub evidence and `generate_ruby_reports.py` for CRuby Redmine evidence. |
-| `generate_workflow_signatures.py` | Creates abstract workflow signatures for either corpus; use `--corpus ruby` for the CRuby micro-taxonomy. |
+| `generate_workflow_signatures.py` | Generates CPython workflow signatures, clusters CPU embeddings, then reviews every member with Luna. `--recluster-only` reuses saved signatures. |
+| `fit_macro_taxonomy.py` | Fits archived macro descriptions to the fixed hybrid membership in a staging directory, with evidence validation and source-family provenance. |
 | `generate_macro_taxonomy.py` | Creates macro-taxonomy entries from a corpus's workflow clusters; use `--corpus ruby` for CRuby. |
 | [`Dockerfile`](Dockerfile) | Multi-stage build of CPython (`origin/main`) with ASan+UBSan (`asan-ubsan`, the default target) and ThreadSanitizer (`tsan`). |
 | [`Dockerfile.cruby`](Dockerfile.cruby) | Standalone CRuby build with Clang ASan+UBSan enabled. |
@@ -36,9 +38,9 @@ under sanitizers, and report the ones that are new and confirmed.
 python3 tally_bugs.py
 
 # 2. Read the top families you'll target
-$EDITOR taxos/macro_taxo/workflow-0137.md   # reentrant conversion invalidates a resource
-$EDITOR taxos/macro_taxo/workflow-0080.md   # callback re-entrancy
-$EDITOR taxos/macro_taxo/workflow-0014.md   # retained pointer used after owner releases
+$EDITOR taxos/macro_taxo/workflow-0080.md   # callback reentrancy invalidates active native state
+$EDITOR taxos/macro_taxo/workflow-0064.md   # ownership across isolated-context lifecycles
+$EDITOR taxos/macro_taxo/workflow-0014.md   # stale borrowed handles after invalidation
 
 # 3. Reuse the sanitizer image if it exists (the build is slow); otherwise build it
 docker images | grep -iE "cpython|asan"

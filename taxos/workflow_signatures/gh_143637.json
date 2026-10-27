@@ -9,7 +9,6 @@
     "A later field access reads released storage, causing a heap memory-safety failure instead of a recoverable argument error."
   ],
   "summary": "Reentrant input mutation invalidates a borrowed record during parsing",
-  "decision_reason": "The failure workflow materially matches reentrant argument conversion invalidating state before later use: user-controlled conversion mutates or releases an object relied upon by the outer operation, which then continues without retaining or revalidating it and accesses invalid state.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:24:18.002013+00:00"
 }

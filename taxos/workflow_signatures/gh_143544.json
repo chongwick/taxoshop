@@ -9,7 +9,6 @@
     "The operation then uses or releases the stale reference, causing a use-after-free instead of propagating the intended parsing error."
   ],
   "summary": "Reentrant callback invalidates retained exception state",
-  "decision_reason": "The failure workflow materially matches reentrant invalidation of a backing resource during an ongoing operation, followed by continued use without revalidation. The specific resource is exception-construction state rather than an attached handle, but the ordering and causal mechanism are the same.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:22:30.510017+00:00"
 }

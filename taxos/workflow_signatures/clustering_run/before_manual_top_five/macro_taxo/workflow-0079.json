@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0079",
+  "issues": [
+    121390,
+    121847,
+    138756,
+    140120,
+    140272,
+    140442,
+    140474,
+    145204,
+    150536
+  ],
+  "workflow_hypothesis": "Incomplete nested configuration cleanup leaks allocated settings",
+  "pattern": "Ownership-bound cleanup paths fail to reclaim direct or nested allocations",
+  "description": "Operations and lifecycle paths allocate owned data, but cleanup contracts differ across several mechanisms: destructor metadata can target the wrong field, owner destruction can be shallow, temporary ownership can be dropped on completion or error paths, and backend or helper cleanup can omit nested allocations. The common pattern is failure to discharge explicit ownership, not use of stale or freed state.",
+  "precondition": "A container, configuration, operation, helper, or backend interaction acquires heap storage whose direct or nested components require explicit deallocation or ownership transfer.",
+  "critical_operation": "The code completes the operation, transfers or packages the state, clears the container, or destroys the owner through a destructor callback, release path, helper, or backend cleanup API.",
+  "interference": "The cleanup contract is incomplete or mismatched: a destructor is registered for the wrong ownership position, only the outer object is released, a temporary or returned allocation is omitted on a success, empty-input, or error branch, or a backend bulk cleanup leaves embedded allocations unreclaimed.",
+  "invalid_assumption": "The implementation assumes that outer-object destruction, successful packaging or handoff, generic bulk cleanup, or short-lived process exit will recursively release every allocation associated with the state.",
+  "failure": "Direct or indirect allocations remain live after the ownership boundary; repeated operations accumulate memory, while teardown, leak checking, or sanitizer-instrumented builds report leaks or fail despite otherwise successful work.",
+  "search_strategy": [
+    "For every heap allocation and ownership acquisition, trace success, empty-input, error, teardown, and process-exit paths to an explicit deallocation or documented ownership transfer.",
+    "Verify that destructor callbacks, release flags, and cleanup branches correspond to the actual fields and allocation owners, including containers with asymmetric or null-valued entries.",
+    "Inspect owner-destruction routines for shallow frees and confirm that nested strings, arrays, list elements, temporary substructures, and registration storage are released with matching allocators.",
+    "Compare backend and helper implementations of bulk reset, clear, digest, probe, or teardown operations against per-record or per-component cleanup to detect nonrecursive behavior.",
+    "Check APIs that return newly allocated buffers, references, tuples, lists, or configuration objects and ensure the caller releases each returned resource on every exit path."
+  ],
+  "evidence": [
+    {
+      "issue": 121390,
+      "supports": "A hash table stored heap-allocated keys with empty values, but destruction callbacks were assigned to the opposite ownership slots, so the keys survived table teardown."
+    },
+    {
+      "issue": 121847,
+      "supports": "A sanitizer-enabled build helper reported leaks at process exit; later discussion separated cosmetic short-lived runtime leaks from a newer configuration cleanup defect, supporting the broader boundary of incomplete helper or configuration cleanup rather than one single root cause."
+    },
+    {
+      "issue": 138756,
+      "supports": "Freeing a configuration wrapper omitted independently allocated string, list, and registration members, requiring deep member cleanup and matching allocation/deallocation handling."
+    },
+    {
+      "issue": 140120,
+      "supports": "A digest operation created temporary nested state and returned after producing its result without freeing all nested components, causing repeated sanitizer-visible direct and indirect leaks."
+    },
+    {
+      "issue": 140272,
+      "supports": "A clearing loop received an owned key buffer from an external allocation API and omitted its release on both normal and deletion-error paths."
+    },
+    {
+      "issue": 140442,
+      "supports": "Callback registration created a new argument tuple, packaged it into a callback, and failed to release the local reference after the handoff, leaving a shutdown leak."
+    },
+    {
+      "issue": 140474,
+      "supports": "An empty-input conversion branch allocated a temporary converted buffer but neither adopted nor freed it before completing, so repeated construction leaked the buffer."
+    },
+    {
+      "issue": 145204,
+      "supports": "A test caller received an allocated empty list and created a configuration object but returned without releasing either, producing direct and indirect leaks."
+    },
+    {
+      "issue": 150536,
+      "supports": "A platform-specific bulk history cleanup released outer records but did not free duplicated text fields, showing that backend cleanup semantics may not recursively reclaim nested allocations."
+    }
+  ],
+  "scope_note": "This mixed cluster supports a higher-level ownership-cleanup pattern with distinct mechanisms: metadata mismatch, incomplete deep destruction, omitted local release or transfer, and backend-specific nonrecursive cleanup. The reports establish leaks and sanitizer-visible retention, not stale-pointer or use-after-free behavior; the older build report also contains allocations not proven to share the configuration-specific cause.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:20:11.249733+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0065",
+    "workflow-0067",
+    "workflow-0094",
+    "workflow-0161"
+  ],
+  "adaptation_fingerprint": "fc57e644e8e184e36f59604b7f3e632dab2e1fefcd136ab28727c2e70515d220",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

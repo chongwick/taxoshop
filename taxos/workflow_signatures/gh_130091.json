@@ -9,7 +9,6 @@
     "Instrumentation detects the concurrent teardown and access, causing the affected operation or test to fail."
   ],
   "summary": "Concurrent teardown races with worker attachment to shared runtime state",
-  "decision_reason": "The bug materially matches the cluster’s workflow of concurrent isolated execution contexts racing on shared process-wide state while one context tears it down and another uses it.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:31:30.958187+00:00"
 }

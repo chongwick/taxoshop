@@ -37,3 +37,9 @@ The two reports share the ordering and representability mechanism across both fl
 
 - [#75554](../micro_taxo/gh_75554.md): The report's fixes add representability checks before conversions to integer and narrower floating types, replacing post-conversion/back-conversion checks that could themselves rely on undefined behavior.
 - [#77756](../micro_taxo/gh_77756.md): The report identifies multiple sanitizer findings where out-of-bounds floating-point values were cast to other numeric types, notes compiler optimizations can change the prior behavior, and recommends defined conversion or explicit error handling.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0010](../macro_taxo_before_hybrid/workflow-0010.md)

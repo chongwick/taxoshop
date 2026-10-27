@@ -1,38 +1,44 @@
-# User-provided display text containing an unescaped reserved substitution marker is later processed by a formatter that interprets the marker as a directive, so,
+# Literal reserved marker in display text is misinterpreted as a formatting directive
 
-A display-text API accepts literal user content but routes it through substitution formatting during rendering.
+An interface accepts display text containing literal caller content but later processes that text as a substitution template during rendering.
 
 ## Precondition
 
-A caller supplies display text containing a character reserved by the API's substitution syntax, without the required escaping.
+A caller supplies display text containing a reserved substitution marker without the escaping required by the formatting syntax.
 
 ## Critical operation
 
-The rendering path applies substitution expansion to the supplied text using the API's formatting rules.
+The rendering path applies substitution expansion to the supplied display text.
 
 ## Interference
 
-The reserved character is parsed as the start of a substitution directive rather than preserved as literal display content.
+The reserved marker is parsed as the start of a substitution directive instead of remaining literal display content.
 
 ## Invalid assumption
 
-The implementation assumes supplied display text is already valid substitution-format text, or that literal reserved characters need no escaping.
+The implementation assumes display text is valid template text, or that callers will escape literal reserved markers themselves.
 
 ## Failure
 
-Rendering rejects the text with a formatting error instead of displaying the caller's intended text.
+Rendering raises a formatting error and fails to display the intended text.
 
 ## Scope
 
-This is a singleton pattern, so it is scoped to display interfaces that intentionally support substitution formatting and fail when literal reserved syntax is not escaped.
+This is a singleton pattern, scoped to display interfaces that intentionally apply substitution formatting during rendering; it does not generalize to display paths without template interpretation.
 
 ## Search strategy
 
 1. Inspect display-text rendering paths for implicit formatting or substitution of caller-controlled strings.
-2. Check whether reserved syntax characters in user-supplied display text are escaped before expansion.
-3. Trace formatting failures for malformed or incomplete substitution directives back to the original text boundary.
-4. Verify documentation and validation clearly distinguish literal display text from substitution templates.
+2. Check whether reserved syntax characters in supplied display text are escaped before template expansion.
+3. Trace malformed or incomplete substitution-directive errors back to the original display-text boundary.
+4. Verify documentation and validation distinguish literal display text from substitution templates.
 
 ## Evidence
 
-- [#57894](../micro_taxo/gh_57894.md): The report shows that display text containing a literal reserved marker is passed through substitution expansion, where the marker is interpreted as an invalid directive and rendering fails; doubling the marker preserves literal output.
+- [#57894](../micro_taxo/gh_57894.md): The report shows that a literal percent marker in supplied help text is later processed by percent-style substitution, interpreted as an invalid directive, and rejected; escaping the marker produces the intended literal output.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0002](../macro_taxo_before_hybrid/workflow-0002.md)

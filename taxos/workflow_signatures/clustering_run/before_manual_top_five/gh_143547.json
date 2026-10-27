@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143547,
+  "cluster_id": "workflow-0062",
+  "workflow": [
+    "An error-reporting routine retrieves a globally configured callback and begins invoking it.",
+    "The callback raises an exception and changes the global callback configuration during its invocation.",
+    "Failure handling releases the routine’s only strong reference to the original callback before fallback logging has finished using it.",
+    "The replacement removes the original callback’s remaining ownership, leaving fallback logging with a dangling reference.",
+    "Fallback error reporting accesses the released callback, causing a use-after-free and process termination instead of safely reporting the callback failure."
+  ],
+  "summary": "Callback replacement during failure recovery causes use-after-free",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:23:18.552108+00:00"
+}

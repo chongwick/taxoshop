@@ -2,29 +2,46 @@
   "schema_version": 1,
   "cluster_id": "workflow-0033",
   "issues": [
-    100086
+    96569,
+    96678,
+    144759
   ],
-  "workflow_hypothesis": "Extended diagnostic text exceeds fixed display capacity",
-  "pattern": "Appending variable-length build or configuration metadata to a compact diagnostic string whose storage limit was sized for the preexisting fields can truncate,1",
-  "description": "A compact diagnostic already combines version, revision, timestamps, and toolchain metadata in fixed-capacity storage. A change adds configuration-dependent build details to that same formatted output.",
-  "precondition": "A human-readable diagnostic is assembled in a fixed-size buffer or other hard output limit, and its existing fields already have variable-length content.",
-  "critical_operation": "Append additional build, configuration, optimization, or instrumentation metadata to the existing diagnostic format.",
-  "interference": "The new metadata competes with the existing version and toolchain fields for the same bounded capacity; the combined length varies with enabled options and compiler details.",
-  "invalid_assumption": "Assume the prior capacity or a static maximum remains sufficient for every combination of existing and newly appended fields.",
-  "failure": "The formatter truncates the diagnostic, potentially dropping part of the new build description or existing toolchain information and producing incomplete or misleading output.",
+  "workflow_hypothesis": "Null base pointer offset computed before validation",
+  "pattern": "Optional or uninitialized pointer state is converted with pointer arithmetic before its null/absence state is handled.",
+  "description": "Optional or uninitialized pointer state is converted with pointer arithmetic before its null/absence state is handled.",
+  "precondition": "A pointer field or pointer argument may legitimately be NULL because backing storage or a logical position has not been initialized, allocated, or supplied.",
+  "critical_operation": "Code performs pointer addition or subtraction to compute an address or offset before checking for NULL or representing the absent state explicitly.",
+  "interference": "The arithmetic has undefined behavior; sanitizers can stop execution, and compiler assumptions about defined pointer arithmetic can invalidate subsequent checks or calculations.",
+  "invalid_assumption": "The implementation assumes that arithmetic on a NULL pointer merely preserves an absent value or safely produces a value that can later be checked.",
+  "failure": "Execution may abort during diagnostics, compute an invalid address or offset, or crash instead of taking the intended initialization, allocation, relocation, or NULL-preserving path.",
   "search_strategy": [
-    "Inspect fixed-size diagnostic buffers and verify their capacity against the maximum length of every existing and newly added field.",
-    "Trace every formatted diagnostic expansion and calculate worst-case output length for combinations of version, revision, timestamp, toolchain, and configuration metadata.",
-    "Check whether bounded formatting APIs report or test truncation after new fields are appended.",
-    "Review changes that add variable-length build or environment details to single-line version, startup, or banner output and require an alternate channel when the bound cannot be guaranteed."
+    "Search every pointer addition and subtraction for operands that may be NULL, and require an explicit guard before the arithmetic.",
+    "Trace pointer fields through initialization, allocation, relocation, and restoration paths; verify that NULL states are encoded without pointer arithmetic.",
+    "Inspect callers of low-level routines for optional pointer arguments and check that contracts forbid NULL before any derived-pointer computation.",
+    "Run undefined-behavior sanitizers through uninitialized, empty, reallocation, and first-use paths, including builds with compiler overflow assumptions disabled."
   ],
   "evidence": [
     {
-      "issue": 100086,
-      "supports": "The attempted change appended configuration-dependent build details to an existing version/build-info string stored in fixed-capacity storage; the reported output was truncated, losing the end of the build description or compiler information. The follow-up placed the details in a separate test-runner diagnostic instead of extending the shared line."
+      "issue": 96569,
+      "supports": "A frame-storage base pointer is NULL on first use, yet code adds an offset before checking capacity and attempting to allocate storage; undefined behavior is diagnosed and the process aborts."
+    },
+    {
+      "issue": 96678,
+      "supports": "The sanitizer review identifies a callable path where an optional argument pointer can be NULL and is advanced before being passed onward; the fix removes the NULL arithmetic by tightening the pointer contract and call path."
+    },
+    {
+      "issue": 144759,
+      "supports": "Uninitialized NULL position fields are converted to offsets during buffer relocation and later reconstructed with arithmetic; explicit NULL checks and a sentinel are required to avoid undefined behavior."
     }
   ],
-  "scope_note": "This is a singleton cluster, so the pattern is scoped to the one documented attempt to expand a bounded version/build diagnostic. The report also shows a boundary: moving detailed metadata to a dedicated diagnostic channel avoids enlarging the constrained string.",
+  "scope_note": "The shared pattern is guarded NULL-pointer arithmetic in low-level C state-management code. The reports differ in whether the pointer represents absent storage, an optional argument array, or an uninitialized relocation position, and issue 96678 also contains unrelated undefined-behavior findings; this taxonomy covers only its NULL-arithmetic subset.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T17:53:28.509566+00:00"
+  "generated_at": "2026-09-10T17:51:40.149806+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0029"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

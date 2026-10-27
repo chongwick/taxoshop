@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": 140332,
-  "cluster_id": "workflow-0085",
+  "cluster_id": "workflow-0109",
   "workflow": [
     "An application enables uninitialized-memory instrumentation but links a dependency built without compatible instrumentation.",
     "During normal initialization, the application passes valid data into the dependency for processing.",
@@ -9,7 +9,6 @@
     "The sanitizer aborts initialization and reports a false-positive uninitialized read instead of allowing the operation to complete."
   ],
   "summary": "Partial instrumentation causes a false-positive uninitialized read during initialization",
-  "decision_reason": "The failure mechanism materially matches the existing cluster: valid initialization crosses into an uninstrumented dependency, sanitizer metadata is unavailable, and an instrumented read is incorrectly reported as uninitialized.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:44:21.553144+00:00"
 }

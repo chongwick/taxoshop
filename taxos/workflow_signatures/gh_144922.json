@@ -9,7 +9,6 @@
     "A later chunk reads released, null, or undersized storage, causing a use-after-free or out-of-bounds access instead of safe handling."
   ],
   "summary": "Reentrant callback invalidates cached backing storage",
-  "decision_reason": "The failure workflow materially matches reentrant invalidation of a backing resource before later use: user-controlled callback execution changes or releases the resource, and the outer operation continues with stale state without revalidation.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:32:39.283547+00:00"
 }

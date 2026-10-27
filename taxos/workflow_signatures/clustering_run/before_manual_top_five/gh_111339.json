@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 111339,
+  "cluster_id": "workflow-0064",
+  "workflow": [
+    "A statically defined runtime type is initialized with metadata containing runtime-owned interned keys.",
+    "The runtime shuts down without including that type in lifecycle cleanup, so its metadata dictionary survives while the interned keys are reclaimed.",
+    "A subsequent runtime initialization reuses or re-prepares the stale type and scans the retained dictionary.",
+    "Dictionary validation encounters a freed key and aborts instead of rebuilding or clearing the type state."
+  ],
+  "summary": "Stale static type metadata survives runtime shutdown",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:10:27.713983+00:00"
+}

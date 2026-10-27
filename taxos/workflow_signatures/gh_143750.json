@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": 143750,
-  "cluster_id": "workflow-0141",
+  "cluster_id": "workflow-0205",
   "workflow": [
     "A concurrency test runs with race-detection instrumentation enabled.",
     "The test links against a prebuilt dependency that was compiled without the same instrumentation.",
@@ -10,7 +10,6 @@
     "The instrumented test job fails on the false-positive diagnostic instead of completing successfully."
   ],
   "summary": "Uninstrumented dependency causes false-positive race reports",
-  "decision_reason": "No existing cluster captures the defining mechanism: valid synchronization inside a dependency is omitted from instrumentation, causing cross-boundary false-positive race reports. The closest instrumentation-related clusters concern uninitialized metadata, subprocess failures, or configuration break",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:26:02.439431+00:00"
 }

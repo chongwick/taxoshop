@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 144206,
+  "cluster_id": "workflow-0166",
+  "workflow": [
+    "A caller supplies an output buffer smaller than the operation’s required result size.",
+    "The interface accepts the buffer and passes it to a native operation without validating its capacity.",
+    "The native operation writes the fixed-size result past the buffer boundary.",
+    "A guard detects the overwrite afterward and reports a fatal system error instead of a recoverable size error."
+  ],
+  "summary": "Undersized output buffer causes detected native write overflow",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:29:51.201305+00:00"
+}

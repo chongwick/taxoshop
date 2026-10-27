@@ -1,38 +1,46 @@
-# Instrumented worker crash wedges concurrent failure handling
+# Unsafe typed diagnostic formatting on exceptional paths
 
-A concurrently supervised worker can crash under diagnostic instrumentation, and the supervisor's crash-reporting path can wedge instead of converting the abnormal termination into a completed failure result.
+A validation or error path constructs a diagnostic with a typed formatting interface while its values are not guaranteed to satisfy the format directives and argument contract.
 
 ## Precondition
 
-A multithreaded test or service launches and waits for a worker process while sanitizer, fault-reporting, or equivalent diagnostic instrumentation is active.
+Malformed, excessive, or noncanonical input reaches an error or warning-reporting path with dynamically derived values.
 
 ## Critical operation
 
-The supervisor performs a worker operation and relies on the worker's termination and diagnostic output to complete the supervision protocol.
+The path passes those values to a variadic or typed diagnostic formatter.
 
 ## Interference
 
-The worker crashes, transferring control into diagnostic crash handling that may block or fail to signal the supervisor's waiting path.
+A format directive requires a narrower representation or argument position than the supplied value provides, such as text for a non-text value or a missing argument paired with a count.
 
 ## Invalid assumption
 
-The supervisor assumes that diagnostic handling remains progress-making after an abrupt worker crash and that it will always publish a terminal result or usable exit status.
+The diagnostic formatter will receive values whose types, representations, and positions always match the format string.
 
 ## Failure
 
-The parent waits indefinitely for completion, so the test or job hangs instead of reporting a recoverable worker failure.
+Diagnostic construction performs an invalid memory read or buffer overrun and crashes instead of returning the intended error or warning.
 
 ## Scope
 
-This is a singleton cluster. The report supports the crash-to-diagnostic-handling-to-hang mechanism, but explicitly leaves the exact diagnostic subsystem cause uncertain; the pattern is therefore scoped to instrumented subprocess supervision rather than all worker crashes.
+The reports support a pattern about mismatched typed diagnostic-format contracts on exceptional paths, broader than missing variadic arguments. The shared mechanism is unsafe formatting assumptions; the reports do not establish that every diagnostic-format defect has the same memory-safety consequence.
 
 ## Search strategy
 
-1. Inspect subprocess supervisors for waits that have no timeout or independent progress guarantee after abnormal worker termination.
-2. Trace crash-reporting and diagnostic-handler paths for blocking I/O, locks, or joins inherited from a multithreaded parent.
-3. Verify that worker crashes are translated into an explicit completion signal and failure result even when diagnostic output cannot be produced.
-4. Review sanitizer or fault-instrumented subprocess tests for cleanup paths that depend on a crashed child performing normal shutdown.
+1. Audit every diagnostic format string against its complete argument list and each argument’s runtime type contract.
+2. Check exceptional paths that format arbitrary, user-controlled, or noncanonical values.
+3. Search for text-oriented directives fed by counts, pointers, keys, or generic objects without explicit conversion.
+4. Exercise malformed argument and keyword inputs under memory sanitizers and verify that the intended diagnostic is produced.
 
 ## Evidence
 
-- [#118729](../micro_taxo/gh_118729.md): The report documents an intermittent instrumented concurrent test hang, with analysis attributing it to a worker process crash followed by a possibly wedged fault-reporting path; the mitigation temporarily skipped the worker-crash-prone test until the underlying defect was fixed.
+- [#114050](../micro_taxo/gh_114050.md): An excessive-argument error path supplied only a numeric count to a format string containing an unmatched text directive, causing the count to be interpreted as a text pointer and read from an invalid address.
+- [#140492](../micro_taxo/gh_140492.md): A warning path formatted a non-text keyword value with a directive requiring a text-compatible value, causing the formatter to read beyond the value’s valid storage.
+- [#144169](../micro_taxo/gh_144169.md): Non-string keyword keys reached error and warning formatting that assumed text-compatible values; using a representation suitable for arbitrary objects prevented the diagnostic path from crashing.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0050](../macro_taxo_before_hybrid/workflow-0050.md)

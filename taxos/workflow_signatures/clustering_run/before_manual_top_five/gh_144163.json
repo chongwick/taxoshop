@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 144163,
+  "cluster_id": "workflow-0210",
+  "workflow": [
+    "A low-level instruction is assembled with overlapping or inconsistent variable metadata.",
+    "Name resolution returns no valid descriptor for the referenced variable.",
+    "The assembler assumes the lookup succeeded and inspects the missing descriptor as a typed object.",
+    "The invalid dereference causes a segmentation fault instead of a recoverable metadata error."
+  ],
+  "summary": "Unchecked missing metadata lookup causes assembler crash",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:28:34.732265+00:00"
+}

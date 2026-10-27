@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 134457,
+  "cluster_id": "workflow-0050",
+  "workflow": [
+    "A callback is implemented with a parameter signedness that differs from the interface type used for dispatch.",
+    "The callback is registered or invoked through the interface despite the incompatible function signature.",
+    "A call passes the argument through the mismatched function-pointer type.",
+    "Undefined-behavior instrumentation detects the incompatible indirect call and reports a runtime failure instead of completing normally."
+  ],
+  "summary": "Incompatible callback parameter signedness causes instrumented indirect-call failure",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:34:55.350156+00:00"
+}

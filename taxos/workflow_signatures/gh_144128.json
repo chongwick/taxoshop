@@ -9,7 +9,6 @@
     "The outer operation continues using the invalidated element reference, causing a use-after-free and process-terminating crash instead of a recoverable conversion error."
   ],
   "summary": "Reentrant conversion invalidates the current element before use completes",
-  "decision_reason": "The failure workflow materially matches reentrant user-controlled conversion invalidating a backing object or resource before the outer operation revalidates or finishes using it. The specific container and conversion details are generalized away, while the essential ordering—conversion callback, re",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:28:15.939895+00:00"
 }

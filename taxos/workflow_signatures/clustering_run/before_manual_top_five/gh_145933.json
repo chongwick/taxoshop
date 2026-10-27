@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 145933,
+  "cluster_id": "workflow-0097",
+  "workflow": [
+    "Multiple worker threads perform operations using shared native library state.",
+    "Process termination begins and cleanup releases that shared state while workers are still active.",
+    "A worker continues through the operation after the cleanup has invalidated the state it relies on.",
+    "The worker accesses the released state and crashes instead of being synchronized with shutdown."
+  ],
+  "summary": "Concurrent shutdown invalidates shared native state during active work",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:34:28.141303+00:00"
+}

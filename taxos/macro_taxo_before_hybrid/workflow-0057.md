@@ -1,0 +1,39 @@
+# A runtime type enables garbage-collector traversal for instances that include statically allocated special records whose storage does not contain the complete, 
+
+A runtime type enables garbage-collector traversal for instances that include statically allocated special records whose storage does not contain the complete ordinary-object layout.
+
+## Precondition
+
+A type is shared by ordinary heap objects and special records stored in a static array or other compact storage that omits metadata or fields required by collectible objects.
+
+## Critical operation
+
+The garbage collector dispatches the type's traversal routine for one of those special records.
+
+## Interference
+
+The traversal routine accesses layout-dependent metadata or reference fields using offsets valid for ordinary heap instances, but invalid for the compact static record.
+
+## Invalid assumption
+
+Type-level eligibility for traversal is treated as proof that every instance has the full collectible-object layout and may be traversed identically.
+
+## Failure
+
+The traversal performs an out-of-bounds read relative to the static storage, producing a global memory-safety error and potentially aborting the process during collection or cleanup.
+
+## Scope
+
+Both reports describe the same underlying incident, so this pattern is scoped to the shared mechanism evidenced here: a traversal-capable type has compact static special instances that are mistakenly exposed to the collector. The reports do not establish that every static record or every collector/layout mismatch follows this pattern.
+
+## Search strategy
+
+1. Inspect every type with a garbage-collector traversal callback for statically allocated or immortal instances of the same type.
+2. Verify that each instance presented to the collector has all header metadata and reference fields assumed by the traversal routine.
+3. Trace collector eligibility checks to ensure special noncollectible records are excluded before traversal dispatch.
+4. Run memory-safety instrumentation while forcing collection and cleanup paths that may encounter static instances.
+
+## Evidence
+
+- [#118074](../micro_taxo/gh_118074.md): The fix adds an instance-level eligibility check so statically stored special records are not treated as collectible, because the shared traversal routine would otherwise access bytes outside their object storage.
+- [#118113](../micro_taxo/gh_118113.md): The sanitizer report shows collection invoking the traversal routine on a static special record whose storage lacks the metadata expected before the ordinary object header, causing an out-of-bounds global read and process abort; the report was later identified as a duplicate of the other incident.

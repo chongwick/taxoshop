@@ -1,38 +1,46 @@
-# An instrumented runtime’s custom allocator probes ownership metadata for a pointer during early initialization, but the instrumentation changes the pointer’s or
+# Signed left shifts used to construct packed or bit-oriented values can trigger undefined behavior before the intended representation is finalized.
 
-An instrumented runtime’s custom allocator probes ownership metadata for a pointer during early initialization, but the instrumentation changes the pointer’s or allocation’s layout so the probe reads beyond valid heap storage.
+Low-level code performs left shifts in a signed integer while building a packed value or transformed bit pattern, even though the intended result is an unsigned or fixed-width representation.
 
 ## Precondition
 
-A runtime uses a custom allocator that classifies pointers by reading allocator-specific address or in-band metadata, and memory-error instrumentation is enabled across the runtime.
+A valid execution path can supply a negative intermediate value or a nonnegative value whose shifted result exceeds the signed type's representable range.
 
 ## Critical operation
 
-Early initialization resizes an internal mapping or container and releases its previous storage through the custom deallocation path.
+The code left-shifts that value while it is still signed, postponing conversion or relying on signed arithmetic to produce the desired bit pattern.
 
 ## Interference
 
-Instrumentation changes allocation routing or layout, including redzones and metadata placement, so the released pointer does not conform to the custom allocator’s expected representation.
+Input-dependent values and ordinary startup or decoding paths reach signed-shift cases that violate the language's rules; sanitizer instrumentation exposes them even when the resulting machine-level bits appear usable.
 
 ## Invalid assumption
 
-The deallocator assumes every pointer reaching its classification routine belongs to the allocator’s own metadata domain and can be inspected using its normal ownership test.
+Signed left shift is assumed to provide predictable bit packing or wrapping, with unsigned conversion afterward making the operation safe.
 
 ## Failure
 
-The ownership test reads outside valid heap storage; the instrumentation reports a heap-buffer-overflow and aborts the helper, causing the surrounding build or initialization command to fail.
+Undefined-behavior diagnostics are emitted during normal execution, such as interpreter startup, routine decoding, or test execution; behavior is not portable and may differ between instrumented and release builds.
 
 ## Scope
 
-This is a singleton cluster. It supports the interaction between whole-runtime memory instrumentation and allocator metadata probing during initialization; it does not establish that all custom allocators or all instrumentation configurations fail, nor that the downstream build command is itself the defect.
+The shared pattern is signed left-shift undefined behavior in low-level bit construction. The reports differ in trigger: one uses negative operands, while the others use positive values exceeding signed range; they do not establish a broader claim about every packed-state encoder or about release-build behavior.
 
 ## Search strategy
 
-1. Trace every custom deallocation ownership check and verify that its metadata reads are valid for pointers allocated under the active instrumentation runtime.
-2. Inspect early initialization paths for container growth or mapping replacement that frees storage before allocator and instrumentation compatibility has been established.
-3. Compare allocation and deallocation domains across instrumented and non-instrumented builds, including redzones, headers, and pointer-classification assumptions.
-4. Add an instrumented test that exercises the first initialization-time resize and confirms that foreign or differently laid-out pointers are rejected without dereferencing invalid metadata.
+1. Search for left shifts whose left operand has a signed integer type and trace whether valid inputs can make it negative or large enough to overflow.
+2. Check packing, byte-accumulation, tagging, and scaling code for signed shifts performed before conversion to an unsigned or explicitly width-limited type.
+3. Run undefined-behavior sanitizers through startup, decoding, and boundary-value paths, including all-ones and other values near the signed width limit.
+4. Verify that shift counts and intermediate types are safe independently of the final cast or intended modulo representation.
 
 ## Evidence
 
-- [#96714](../micro_taxo/gh_96714.md): The report shows address instrumentation enabled for the runtime, an initialization-time mapping resize, deallocation through a custom small-object allocator, an ownership probe reading a wild pointer outside valid heap storage, instrumentation aborting the helper, and the build failing on the resulting command exit.
+- [#65128](../micro_taxo/gh_65128.md): The report records repeated diagnostics for left-shifting negative values and identifies a fix that converts negative numbers to an unsigned size type before shifting, supporting the signed-operand packing mechanism.
+- [#95635](../micro_taxo/gh_95635.md): The report shows ordinary interpreter execution diagnosing a signed left shift whose positive result cannot be represented in the signed type, supporting that the pattern includes signed overflow, not only negative operands.
+- [#96735](../micro_taxo/gh_96735.md): The report shows byte unpacking accumulating an all-ones value through a signed left shift that cannot be represented, supporting the packed-bit construction case and its dependence on boundary inputs.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0003](../macro_taxo_before_hybrid/workflow-0003.md)

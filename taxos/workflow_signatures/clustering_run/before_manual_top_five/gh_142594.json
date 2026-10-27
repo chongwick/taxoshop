@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 142594,
+  "cluster_id": "workflow-0062",
+  "workflow": [
+    "A resource-wrapper shutdown operation queries a user-overridable state property.",
+    "The property callback re-enters the wrapper and detaches its underlying resource, clearing the wrapper’s internal resource reference.",
+    "Shutdown resumes with its original assumptions and accesses the cleared reference without rechecking it.",
+    "The invalid access dereferences null storage and terminates the process instead of completing shutdown safely."
+  ],
+  "summary": "Reentrant shutdown invalidates an underlying resource before continued access",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:05:36.877273+00:00"
+}

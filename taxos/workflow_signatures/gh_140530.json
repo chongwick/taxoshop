@@ -9,7 +9,6 @@
     "Repeated invalid operations retain each temporary object, causing memory growth and leak reports instead of clean failure handling."
   ],
   "summary": "Exceptional validation failure omits temporary-object cleanup",
-  "decision_reason": "The failure workflow materially matches an exceptional validation path that leaves an intermediate owned allocation unreleased, causing leaks across repeated failures.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:49:10.324821+00:00"
 }

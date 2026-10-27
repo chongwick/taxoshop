@@ -1,38 +1,44 @@
-# Re-entering parser diagnostics while an earlier parse error remains pending can trigger an internal assertion instead of preserving and returning the original,0
+# A test-suite environment-integrity check detects a process-wide environment mutation left behind by executed test or support code.
 
-A parser’s recovery or error-reporting path attempts to construct a new diagnostic after an earlier parse failure has already set the failure state.
+A test or support path mutates shared process environment state, and the mutation remains visible after that path completes.
 
 ## Precondition
 
-Malformed structured input causes the parser to record a pending diagnostic and mark parsing as failed.
+The harness records or otherwise expects process-wide environment state to remain unchanged across test execution.
 
 ## Critical operation
 
-A subsequent recovery or reporting branch invokes diagnostic construction or enrichment for the same input.
+Executed test or support code changes a process-wide environment variable or related environment state.
 
 ## Interference
 
-The original diagnostic remains active while the later operation proceeds.
+The changed state persists beyond the responsible operation and affects the harness's post-execution comparison.
 
 ## Invalid assumption
 
-The diagnostic-construction path assumes no prior error is pending and treats its operation as ordinary error-free execution.
+The executed code is assumed to be environment-isolated or to restore the original state before returning.
 
 ## Failure
 
-The runtime asserts or aborts during diagnostic construction, masking the original recoverable parse error.
+The harness reports an environment mismatch and marks the overall test run as failed.
 
 ## Scope
 
-This is a cautiously scoped singleton pattern supported by one report: it applies to stateful parser diagnostic/recovery code where a pending error can coexist with a later diagnostic attempt, not to all forms of error overwriting.
+This is a singleton cluster. The report supports the residual-mutation and detection pattern, but does not identify the responsible routine, the specific environment state, or whether the mutation came directly from a test or from support code.
 
 ## Search strategy
 
-1. Check every parser recovery branch for diagnostic construction after a failure indicator is set.
-2. Trace diagnostic helpers for calls that can allocate, invoke callbacks, or raise secondary errors while another error remains pending.
-3. Verify that repeated or nested diagnostic creation preserves the first error or exits cleanly instead of replacing it.
-4. Exercise malformed inputs that traverse multiple recovery alternatives and confirm they return a parse diagnostic rather than terminating internally.
+1. Check every test and helper that writes process-wide environment state for restoration on all normal and exceptional exits.
+2. Trace environment mutations across fixture, setup, teardown, and subprocess-boundary code to verify whether they remain in the parent process.
+3. Search for end-of-suite baseline comparisons or environment-integrity assertions and identify which shared state they cover.
+4. Review recently added or conditionally executed support paths that can run during broad test-suite jobs and confirm they cannot leak environment changes.
 
 ## Evidence
 
-- [#113602](../micro_taxo/gh_113602.md): A malformed input entered a parser error path, a later invalid-pattern diagnostic attempted to run while an error was already set, and the diagnostic machinery reached an assertion; the fix explicitly stopped diagnostic construction when the parser and error state were already active.
+- [#109128](../micro_taxo/gh_109128.md): The report records a broad test run with one environment change detected and the result classified as an environment-change failure, supporting a residual process-wide environment mutation caught by suite-level integrity checking.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0040](../macro_taxo_before_hybrid/workflow-0040.md)

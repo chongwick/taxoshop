@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 96678,
+  "cluster_id": "workflow-0033",
+  "workflow": [
+    "A valid call path supplies no argument array because there are no values to package.",
+    "The implementation computes an offset from the null base pointer before checking whether the resulting sequence is empty or the pointer is usable.",
+    "Null-pointer arithmetic violates language rules and is exposed by runtime diagnostics or compiler assumptions.",
+    "The operation terminates instead of safely handling the empty argument sequence."
+  ],
+  "summary": "Null base pointer offset computed before validation",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:04:08.576530+00:00"
+}

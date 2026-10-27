@@ -9,7 +9,6 @@
     "The failure affects ordinary concurrent inspection until publication is delayed or the field access is synchronized."
   ],
   "summary": "Concurrent observation of partially initialized published state",
-  "decision_reason": "The underlying workflow is materially the same as concurrent isolated contexts racing on shared process-wide state: one execution context publishes or initializes shared metadata while another reads it without sufficient synchronization. The specific identity field and registry details are symptoms,",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:41:39.130006+00:00"
 }

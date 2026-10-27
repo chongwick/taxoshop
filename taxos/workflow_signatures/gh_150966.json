@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": 150966,
-  "cluster_id": "workflow-0042",
+  "cluster_id": "workflow-0049",
   "workflow": [
     "A diagnostic test launches a failing child process and expects its error output after termination.",
     "The supervising display loop uses a fixed short sequence of polling events before requesting exit.",
@@ -9,7 +9,6 @@
     "The supervisor exits before collecting the child's diagnostics, leaving empty output and causing the test assertion to fail."
   ],
   "summary": "Load-sensitive premature termination loses child diagnostics",
-  "decision_reason": "The underlying failure is materially the same as the existing load-sensitive timeout cluster: a fixed timing assumption fails under slower scheduling, causing expected early results to be absent even though the operation itself remains valid.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:40:01.182044+00:00"
 }

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0046",
+  "issues": [
+    96572,
+    101975,
+    108253,
+    114106,
+    119462,
+    140496
+  ],
+  "workflow_hypothesis": "Stale lookup cache retains a released replaced value",
+  "pattern": "Auxiliary lifetime or version metadata remains apparently valid after the object, backing mapping, or hierarchy state it describes has changed.",
+  "description": "A runtime maintains derived bookkeeping such as non-owning reference links, traversal bounds, lookup-cache entries, or version markers. A release, mutation, replacement, stack change, or incomplete hierarchy update leaves that metadata stale; a later traversal or lookup trusts it and uses state that is no longer live or current. The cluster includes both stale-pointer lifetime failures and stale-cache/version-invalidation failures.",
+  "precondition": "Execution maintains auxiliary metadata that points to an object or cached value, describes a mutable backing store, or marks a derived lookup as valid without independently owning the referenced state.",
+  "critical_operation": "The referenced object is released, a stack or container range changes, a backing mapping replaces or removes a value, or version propagation across related objects fails or stops partway through.",
+  "interference": "A fast path, alternate mutation path, deallocation path, or failed update omits the required unlink, bounds update, cache invalidation, dependent-marker update, or replacement ordering; later garbage collection, traversal, or lookup consumes the unchanged metadata.",
+  "invalid_assumption": "The code treats a reachable auxiliary slot, nonzero validity marker, or cache hit as proof that the referenced object is still alive and that the derived result still matches current state, even though the metadata does not itself establish ownership or complete invalidation.",
+  "failure": "Traversal or lookup reads metadata from a released object, uses a stale cached value instead of the replacement, or combines inconsistent version state, causing use-after-free, invalid reference-count operations, corrupted results, memory corruption, or a process crash.",
+  "search_strategy": [
+    "Enumerate every non-owning pointer, cache entry, traversal bound, and validity marker and verify that its invalidation is coupled to release, replacement, removal, and stack or container-shape changes.",
+    "Audit all direct and indirect mutation paths for backing mappings and related objects; confirm that they clear dependent cache entries and validity markers before releasing or replacing cached values.",
+    "Verify that hierarchical or dependent version assignment updates prerequisites before dependents and leaves all failure paths in an explicitly invalid state.",
+    "Inspect optimized decrement, deallocation, tracing, and garbage-collection paths for skipped unlinking or stale range metadata that can expose freed entries to later traversal.",
+    "Check cache-hit and metadata-consumption paths for an independent ownership or current-version check before dereferencing the referenced object."
+  ],
+  "evidence": [
+    {
+      "issue": 96572,
+      "supports": "An optimized release path skipped removal from global tracing bookkeeping, so later bookkeeping access followed links in an object that had already been freed."
+    },
+    {
+      "issue": 101975,
+      "supports": "A frame traversal bound was not updated after a stack element was released, allowing garbage collection to inspect the freed element through stale frame metadata."
+    },
+    {
+      "issue": 108253,
+      "supports": "Changing or deallocating a function left a borrowed version-cache pointer until lookup read metadata from the freed function; the fix centralized version changes so the old cache slot is cleared."
+    },
+    {
+      "issue": 114106,
+      "supports": "Direct mutation of an underlying mapping bypassed type-cache invalidation, leaving a cached value usable after replacement released it and producing stale or corrupted lookup behavior."
+    },
+    {
+      "issue": 119462,
+      "supports": "Repeated dependent lookups exposed broken versioning invariants: a derived object could retain a seemingly valid marker when prerequisite version assignment failed or occurred in the wrong order, undermining method-cache invalidation and causing corruption or crashes."
+    },
+    {
+      "issue": 140496,
+      "supports": "Direct replacement in a backing mapping released the old member without invalidating the type lookup cache, so a later lookup dereferenced the freed cached value instead of using the replacement."
+    }
+  ],
+  "scope_note": "The common pattern is stale auxiliary state, not leaked ownership. Issues 96572 and 101975 concern lifetime or traversal bookkeeping exposing released objects; issues 108253, 114106, 119462, and 140496 concern lookup-cache or version-marker invalidation, including direct backing-store mutation and hierarchy-ordering failures. The reports support this boundary for managed runtime metadata and do not establish a rule for every cache or every non-owning reference.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:14:53.339868+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014",
+    "workflow-0060"
+  ],
+  "adaptation_fingerprint": "7bd102037e27de2ff4b26b1ea37885c1f0e261be3834194fc6f5e06645e9f0a6",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0140",
+  "issues": [
+    143640
+  ],
+  "workflow_hypothesis": "Mismatched capability probe enables unavailable interface",
+  "pattern": "A build-time capability probe can enable a platform interface when it tests symbol availability under assumptions that do not match the final compiler target or",
+  "description": "A build configuration records a platform interface as available even though the final compilation environment does not expose its declaration.",
+  "precondition": "The build targets a platform-specific SDK, API level, or feature set in which an interface is conditionally declared, while configuration probing and final compilation do not use exactly the same target settings and header-visibility conditions.",
+  "critical_operation": "The configuration probe checks whether the interface can be declared or linked, without compiling the real use under the final target-specific headers and flags, and records a feature macro that enables the interface-dependent implementation.",
+  "interference": "During compilation, target-specific availability guards or equivalent header conditions suppress the interface declaration for the actual target settings.",
+  "invalid_assumption": "A successful configure-time symbol or link check is assumed to prove that the interface is declared and callable in every subsequent compilation unit under the final target configuration.",
+  "failure": "The enabled code path calls an undeclared interface; strict diagnostics, such as treating implicit declarations as errors, stop the build instead of selecting a fallback or clearly reporting the target mismatch.",
+  "search_strategy": [
+    "Compare every platform capability probe with the exact compiler target, SDK/API, preprocessor flags, and headers used by the final build.",
+    "Inspect availability-guarded declarations and verify that the probe compiles a representative call with the same headers and target macros.",
+    "Search for feature macros set by link-only or declaration-free probes, then trace whether guarded source code relies on those macros.",
+    "Check whether changing target or SDK settings affects configuration results and compilation settings consistently across clean rebuilds."
+  ],
+  "evidence": [
+    {
+      "issue": 143640,
+      "supports": "The report shows a configure check marking a platform interface available while the compiler uses a lower target API level whose headers omit the declaration; the resulting feature-enabled call fails under an implicit-declaration error, and using a correctly targeted compiler is identified as the remedy."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern supported by one platform-specific build failure. It generalizes to mismatches between capability probes and final target/header settings, but does not establish that every probe failure is caused by a link-only test or that the interface is absent at runtime.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:31:22.314621+00:00"
+}

@@ -1,38 +1,45 @@
-# A singleton report supports a cautiously scoped pattern: unsafe raw-memory corruption of a live managed object's header can become process-fatal when later code
+# Dependency contract drift makes compatibility tests stale
 
-A singleton report supports a cautiously scoped pattern: unsafe raw-memory corruption of a live managed object's header can become process-fatal when later code consumes the object as metadata or structured input.
+A test suite encodes an external dependency's accepted-value domain, normalization, and diagnostics; a dependency update changes that contract, so unchanged assertions fail even though the operation remains valid.
 
 ## Precondition
 
-A live managed object has a header containing type, reference, ownership, or related representation metadata that downstream operations trust.
+Tests directly exercise behavior owned or defined by an external toolkit and assert specific accepted input forms, converted results, or error text.
 
 ## Critical operation
 
-An unsafe raw-memory write replaces part of that header with invalid pointer or ownership values while the object remains reachable.
+Run those tests after upgrading the toolkit while retaining the existing version-independent expectations.
 
 ## Interference
 
-A later operation consumes the damaged object as structured metadata or input, including through a callback or deferred access path, without first validating its representation invariants.
+The toolkit broadens an option's value domain from integral values to general screen-distance values and correspondingly changes parsing, conversion, returned representations, or diagnostic wording.
 
 ## Invalid assumption
 
-The object's header and the metadata needed to interpret it remain valid and internally consistent throughout the operation.
+The tests assume the previous validator, normalization rules, and exact diagnostics remain stable across toolkit versions.
 
 ## Failure
 
-Runtime metadata access follows corrupted state and performs an invalid dereference, fatally terminating the process instead of producing a recoverable error.
+Valid operations or correctly rejected inputs produce a test failure because the assertion compares current dependency behavior with an obsolete expectation.
 
 ## Scope
 
-This is a singleton cluster. The pattern is limited to intentionally unsafe memory corruption of live managed-object headers and subsequent metadata consumption; it does not establish that ordinary malformed metadata alone causes the same failure.
+This is a cautiously scoped singleton pattern. The report supports dependency-driven drift in accepted values, conversion/representation, and diagnostics within compatibility tests; it does not establish that every dependency update causes this failure mode.
 
 ## Search strategy
 
-1. Check whether raw-memory writes can target the headers of live managed objects that remain reachable.
-2. Verify that consumers validate type, pointer, reference, and ownership invariants before interpreting an object as structured metadata.
-3. Trace deferred callbacks and iteration or containment paths for header corruption that occurs during consumption rather than before it.
-4. Check whether malformed object representation reaches unchecked metadata access or dereference instead of a recoverable validation failure.
+1. Check tests that assert exact third-party error strings or validator-specific diagnostics.
+2. Check shared test helpers for hard-coded conversions, rounding, clipping, or return-type assumptions tied to an external dependency.
+3. Check version-gated option tests whenever a dependency changes an option's accepted input domain.
+4. Check compatibility tests for assertions that distinguish integral values from unit-bearing or otherwise richer representations.
+5. Check whether dependency-version branches cover changed normalization and representation behavior, not only changed input acceptance.
 
 ## Evidence
 
-- [#135637](../micro_taxo/gh_135637.md): The report demonstrates direct and deferred raw-memory overwrites of a live object's header, followed by use of the damaged object as metadata; runtime attribute or type processing then dereferences the invalid header state and crashes.
+- [#124378](../micro_taxo/gh_124378.md): A dependency changed size-option conversion from integer-only behavior to screen-distance values. Tests and shared helpers required version-specific updates, supporting a stale dependency-contract expectation rather than an application memory-safety failure.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0071](../macro_taxo_before_hybrid/workflow-0071.md)

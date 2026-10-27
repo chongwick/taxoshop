@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 140272,
+  "cluster_id": "workflow-0079",
+  "workflow": [
+    "A clearing operation retrieves each record key into newly allocated temporary storage.",
+    "The operation removes the record but does not release the temporary key storage on either successful or error termination.",
+    "Repeated clearing operations leave each retrieved key allocation unreclaimed.",
+    "Leak detection reports persistent memory growth instead of clean reclamation."
+  ],
+  "summary": "Successful operation omits cleanup of temporary allocated key state",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:43:24.812608+00:00"
+}

@@ -5,7 +5,7 @@
     79374,
     140497
   ],
-  "workflow_hypothesis": "Boundary overrun during unreachable-code optimization",
+  "workflow_hypothesis": "Empty instruction sequence causes boundary-overrun during execution",
   "pattern": "Bounded instruction-stream consumers dereference an instruction after reaching the stream boundary because end-of-sequence validation is missing or bypassed.",
   "description": "A component processes an instruction buffer whose valid range may end immediately after a terminating instruction or may be empty after transformation. It advances or dispatches at the boundary without proving that a valid instruction remains.",
   "precondition": "The instruction buffer can be empty, malformed, or have a cursor/target equal to its length, including when a terminator is the final valid instruction.",
@@ -31,5 +31,12 @@
   ],
   "scope_note": "The reports differ in phase: one concerns optimization-time scanning after unreachable code, while the other concerns execution of an empty instruction buffer. The shared pattern is boundary dereference without validating that a current instruction exists; it does not require unreachable-code removal specifically.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T17:41:01.439034+00:00"
+  "generated_at": "2026-09-10T17:41:01.439034+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0013"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

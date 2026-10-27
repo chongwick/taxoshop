@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 140935,
+  "cluster_id": "workflow-0036",
+  "workflow": [
+    "A caller constructs an executable object with deliberately malformed encoded location metadata.",
+    "A diagnostic or inspection operation decodes the metadata assuming its encoding invariants are valid.",
+    "The malformed continuation pattern violates the decoder’s expected byte structure.",
+    "An internal assertion fires during decoding, terminating the process instead of reporting invalid metadata as a recoverable error."
+  ],
+  "summary": "Malformed encoded metadata triggers fatal decoder assertion",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:57:33.768818+00:00"
+}

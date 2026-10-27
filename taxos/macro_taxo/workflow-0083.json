@@ -2,29 +2,40 @@
   "schema_version": 1,
   "cluster_id": "workflow-0083",
   "issues": [
-    135618
+    124001
   ],
-  "workflow_hypothesis": "Immediate interactive exit leaves startup allocations unreclaimed",
-  "pattern": "Startup-created runtime metadata survives an abbreviated interactive exit",
-  "description": "A runtime that eagerly initializes built-in components can leave some startup allocations unreclaimed when an immediate interactive termination path bypasses complete teardown.",
-  "precondition": "Run an eagerly initializing interactive runtime under allocation-leak instrumentation, then terminate it through an immediate or abbreviated exit path before ordinary interactive cleanup completes.",
-  "critical_operation": "Startup initializes built-in components and allocates their metadata, containers, and associated strings.",
-  "interference": "The selected termination path performs incomplete or differently ordered shutdown, so some allocations made during startup are not released before process-exit leak checking.",
-  "invalid_assumption": "All interactive exit routes are assumed to execute equivalent cleanup for startup-owned component state, or startup allocations are assumed to be harmless process-lifetime objects.",
-  "failure": "Leak instrumentation reports the residual startup allocations as leaks and can classify the process termination as unsuccessful.",
+  "workflow_hypothesis": "Undersized alternate signal stack overruns heap storage",
+  "pattern": "A fixed-size alternate signal stack is allocated without validating worst-case signal-handler stack usage; signal-path execution can corrupt the heap-backedっ",
+  "description": "A fault-reporting component allocates an alternate signal stack with a platform-sensitive fixed heuristic, and excessive signal-handler stack use corrupts that allocation before teardown.",
+  "precondition": "A fault-reporting subsystem uses a heap-backed alternate signal stack whose size is chosen by a fixed multiplier or other heuristic rather than being established from the complete handler call chain and platform requirements.",
+  "critical_operation": "A diagnostic or fault signal executes on the alternate stack and invokes handler logic, potentially including a prior handler or other callbacks.",
+  "interference": "The signal-path stack usage exceeds the reserved region and overwrites bytes or allocator metadata beyond the valid stack allocation.",
+  "invalid_assumption": "The heuristic-sized alternate stack is sufficient for every supported platform and handler path, and therefore remains intact until normal cleanup.",
+  "failure": "Later cleanup fills, validates, or frees the corrupted allocation; memory instrumentation detects the out-of-bounds state and terminates the process, although the corruption occurred earlier.",
   "search_strategy": [
-    "Compare every interactive termination route and verify that each reaches the same complete runtime teardown sequence.",
-    "Trace startup allocations for built-in component metadata and strings to an explicit owner or shutdown release path.",
-    "Run leak instrumentation immediately after startup across normal, explicit, EOF, interrupt, and abbreviated exit paths.",
-    "Check whether process-exit leak reporting occurs before deferred runtime cleanup or finalizers can release startup-owned state."
+    "Inspect alternate-signal-stack allocations for fixed constants or multipliers that are not derived from measured worst-case handler usage.",
+    "Trace every handler and chained-handler call reachable on the alternate stack, and compare its worst-case stack use with the reserved size on each target platform.",
+    "Check whether signal-stack allocations have guard regions, explicit overflow detection, or tests that exercise the deepest diagnostic path.",
+    "Verify that teardown-time allocator failures are correlated with earlier writes to the signal-stack allocation rather than treated as the point of origin."
   ],
   "evidence": [
     {
-      "issue": 135618,
-      "supports": "Leak reports after immediate interactive termination identify allocations created while built-in components and their type metadata were initialized, including metadata containers and documentation strings; later comments show that other exit methods did not reproduce the report and that the behavior was fixed on the main branch."
+      "issue": 124001,
+      "supports": "An allocation made for an alternate signal stack was later reported out of bounds during teardown. Reproductions across environments and persistence after increasing a fixed size multiplier support checking actual handler stack requirements rather than assuming a fixed heuristic is sufficient."
     }
   ],
-  "scope_note": "This is a singleton cluster. The report establishes an exit-path-sensitive startup-cleanup defect in one interpreter implementation and does not justify a broader rule about all interactive runtimes or all sanitizer configurations.",
+  "scope_note": "This is a singleton cluster. The report supports a cautiously scoped pattern involving heap-backed alternate signal-stack corruption and delayed detection, but the enlargement experiment did not change the observed allocation or failure, so it does not conclusively prove that simple undersizing alone is the root cause.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T18:58:13.945558+00:00"
+  "generated_at": "2026-09-10T18:49:29.821237+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0070"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "evidence"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.319868+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

@@ -1,40 +1,46 @@
-# Concurrent lifecycle-state promotion of shared deduplicated objects races with ownership and reference-count operations
+# Fixed wall-clock test budgets can make asynchronous behavior flaky when scheduling or instrumentation delays progress.
 
-A shared pooled object is promoted to a stronger retention or lifecycle state while concurrent threads still access its ownership, reference-count, or state metadata.
+Fixed wall-clock test budgets can make asynchronous behavior flaky when scheduling or instrumentation delays progress.
 
 ## Precondition
 
-Multiple threads can access the same deduplicated object, and its lifecycle metadata is distributed across state, ownership, and reference-count fields that may be updated by different operations.
+A test starts asynchronous work and uses a short fixed timeout or fixed-duration polling window before checking intermediate results or final output.
 
 ## Critical operation
 
-One thread promotes or finalizes the object's lifecycle state and updates its metadata, including retention status and ownership or reference-count representation.
+The test waits for early completion, readiness, or observable output, then proceeds to assertions or deliberately triggers termination when that time budget expires.
 
 ## Interference
 
-Other threads concurrently inspect the lifecycle state or perform reference acquisition, release, or ownership-related operations on that same object, and shared-container publication or lookup may overlap the transition.
+System load, parallel execution, process-launch latency, or runtime instrumentation delays worker startup and progress beyond the test's fixed wall-clock window.
 
 ## Invalid assumption
 
-The transition is treated as safe even though its metadata updates and reference-count changes are not covered by one synchronization protocol or made consistently atomic.
+The expected milestone or output must be observable within that fixed duration regardless of execution environment.
 
 ## Failure
 
-Threads can observe a mixed or stale lifecycle state, perform incompatible reference-count operations, or return an incompletely transitioned object, leading to corrupted ownership or cleanup state, memory-safety failures, or process termination.
+The test observes no or only partial results, times out, or terminates the target before its expected output is available, and reports a failure even though the asynchronous operation may still be behaving correctly.
 
 ## Scope
 
-The reports are all from one concurrent deduplication/interning subsystem and support a pattern about lifecycle-state transitions of shared objects. They do not establish that every reference-count race has this form, nor that every case requires permanent retention specifically.
+The reports share timing-sensitive asynchronous tests, but the interference affects different milestones: worker startup, readiness signaling, and target completion/output. The pattern does not require an actual timeout exception; premature fixed-time termination is included.
 
 ## Search strategy
 
-1. Inspect shared-object promotion paths for ordinary multi-field stores concurrent with reference acquisition, release, or ownership changes.
-2. Check whether lifecycle-state reads and writes use the same lock or atomic access discipline across lookup, publication, and cleanup paths.
-3. Search for direct reference-count manipulation in concurrent container transitions and verify that it cannot overlap owner-thread reference operations.
-4. Review deduplication or interning code for a window between inserting an object into the shared pool and completing its retention-state transition.
+1. Inspect tests for hard-coded short timeouts around asynchronous startup, readiness, completion, or result collection.
+2. Check for fixed sleep durations or bounded polling loops followed by assertions about output, result counts, or process state.
+3. Look for test cleanup or quit logic that fires after elapsed time rather than after an explicit completion/readiness signal.
+4. Verify that sanitizer, tracing, parallel, and heavily loaded environments can extend the operation beyond the test's timing assumptions.
 
 ## Evidence
 
-- [#113956](../micro_taxo/gh_113956.md): Shows that promoting a shared object to permanent retention can race with the owning thread's reference-count operations; the fix avoids promotion when ownership state is unsafe and uses atomic metadata stores.
-- [#128137](../micro_taxo/gh_128137.md): Shows that a concurrently observed lifecycle-status field itself must use atomic reads and writes when promotion changes the object's retained-state classification.
-- [#129701](../micro_taxo/gh_129701.md): Shows that insertion, retention-state promotion, and reference-count adjustment require coordinated locking and thread-safe decrement operations to prevent another thread from observing or using the object during a partially completed transition.
+- [#110097](../micro_taxo/gh_110097.md): A concurrent result test expected immediately completable work to produce two results before a fixed deadline, but loaded systems delayed worker launch so the deadline yielded zero or one result.
+- [#143442](../micro_taxo/gh_143442.md): A readiness wait used a fixed short timeout, and runtime instrumentation plus parallel execution delayed startup enough to cause a readiness timeout.
+- [#150966](../micro_taxo/gh_150966.md): A live subprocess test quit after a fixed simulated interval, and sanitizer or loaded execution delayed target completion so expected failure output had not yet been collected.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0042](../macro_taxo_before_hybrid/workflow-0042.md)

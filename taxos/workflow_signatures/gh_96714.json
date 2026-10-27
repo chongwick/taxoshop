@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": 96714,
-  "cluster_id": "workflow-0030",
+  "cluster_id": "workflow-0034",
   "workflow": [
     "A build enables memory-error instrumentation across a runtime that also uses a custom allocator for small objects.",
     "An instrumented helper starts and initializes internal mapping state.",
@@ -10,7 +10,6 @@
     "That classification reads outside valid heap storage, so instrumentation aborts the helper and the build reports a downstream command failure."
   ],
   "summary": "Instrumented custom-allocator metadata access aborts initialization",
-  "decision_reason": "Distinct failure workflow: the crash arises from allocator and memory-instrumentation interaction during deallocation, not from the existing clusters’ thread-state reuse, null access, overflow, unsupported-option configuration, or other mechanisms.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:04:24.573557+00:00"
 }

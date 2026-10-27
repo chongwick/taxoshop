@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0076",
+  "issues": [
+    121275
+  ],
+  "workflow_hypothesis": "Unsupported protocol-family result causes server binding failure",
+  "pattern": "Unrestricted address discovery selects a protocol family unsupported by the runtime",
+  "description": "A server setup uses address discovery without constraining results to protocol families supported by the runtime, then attempts to bind using the selected result.",
+  "precondition": "The environment disables or lacks support for a network protocol family, while endpoint discovery can still report addresses belonging to that family.",
+  "critical_operation": "Server initialization performs unrestricted endpoint discovery and uses a discovered result's protocol family to create and bind the listening socket.",
+  "interference": "Discovery returns an endpoint in the disabled or unsupported family, potentially as the selected result.",
+  "invalid_assumption": "Every discovered endpoint family is supported by the runtime and is safe to use for binding.",
+  "failure": "Socket creation or binding fails with a low-level unsupported-family error instead of selecting a supported endpoint or reporting a controlled configuration condition.",
+  "search_strategy": [
+    "Check endpoint-discovery calls used for server binding and verify that the requested family is constrained to runtime-supported families.",
+    "Check code that selects the first or otherwise preferred discovery result and verify it filters out unsupported protocol families before socket creation.",
+    "Check protocol-family capability flags and build-time feature switches against all server setup paths that create and bind sockets.",
+    "Check binding error handling to ensure unsupported-family results are skipped or converted into an intentional, actionable failure."
+  ],
+  "evidence": [
+    {
+      "issue": 121275,
+      "supports": "A server test setup on a build without IPv6 support used address discovery that still returned an IPv6 result, selected its family for socket creation, and then failed during binding with a bad-family error; the fix constrained discovery to IPv4 when IPv6 was unavailable."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is scoped to server/listener setup paths where address discovery may expose protocol families unavailable in the running environment; it does not establish behavior for client connection retries or other discovery consumers.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:46:45.248584+00:00",
+  "adaptation_method": "reused_exact_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0064"
+  ],
+  "adaptation_fingerprint": "0492cdf87371def293c9b5329b3363c4647119d4f43f5bb928f7d151d238a7de",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.318255+00:00"
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0050",
+  "issues": [
+    114050,
+    140492,
+    144169
+  ],
+  "workflow_hypothesis": "Mismatched diagnostic placeholder causes invalid memory read during error reporting",
+  "pattern": "Unsafe typed diagnostic formatting on exceptional paths",
+  "description": "A validation or error path constructs a diagnostic with a typed formatting interface while its values are not guaranteed to satisfy the format directives and argument contract.",
+  "precondition": "Malformed, excessive, or noncanonical input reaches an error or warning-reporting path with dynamically derived values.",
+  "critical_operation": "The path passes those values to a variadic or typed diagnostic formatter.",
+  "interference": "A format directive requires a narrower representation or argument position than the supplied value provides, such as text for a non-text value or a missing argument paired with a count.",
+  "invalid_assumption": "The diagnostic formatter will receive values whose types, representations, and positions always match the format string.",
+  "failure": "Diagnostic construction performs an invalid memory read or buffer overrun and crashes instead of returning the intended error or warning.",
+  "search_strategy": [
+    "Audit every diagnostic format string against its complete argument list and each argument’s runtime type contract.",
+    "Check exceptional paths that format arbitrary, user-controlled, or noncanonical values.",
+    "Search for text-oriented directives fed by counts, pointers, keys, or generic objects without explicit conversion.",
+    "Exercise malformed argument and keyword inputs under memory sanitizers and verify that the intended diagnostic is produced."
+  ],
+  "evidence": [
+    {
+      "issue": 114050,
+      "supports": "An excessive-argument error path supplied only a numeric count to a format string containing an unmatched text directive, causing the count to be interpreted as a text pointer and read from an invalid address."
+    },
+    {
+      "issue": 140492,
+      "supports": "A warning path formatted a non-text keyword value with a directive requiring a text-compatible value, causing the formatter to read beyond the value’s valid storage."
+    },
+    {
+      "issue": 144169,
+      "supports": "Non-string keyword keys reached error and warning formatting that assumed text-compatible values; using a representation suitable for arbitrary objects prevented the diagnostic path from crashing."
+    }
+  ],
+  "scope_note": "The reports support a pattern about mismatched typed diagnostic-format contracts on exceptional paths, broader than missing variadic arguments. The shared mechanism is unsafe formatting assumptions; the reports do not establish that every diagnostic-format defect has the same memory-safety consequence.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:39:53.117985+00:00"
+}

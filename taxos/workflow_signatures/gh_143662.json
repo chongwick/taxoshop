@@ -9,7 +9,6 @@
     "A later native-resource access dereferences the cleared handle and terminates the process instead of reporting a recoverable state error."
   ],
   "summary": "Re-entrant callback invalidates a backing resource before later use",
-  "decision_reason": "The bug materially matches this cluster: user-controlled conversion code releases the resource after an initial validity check, and the outer operation later uses the invalidated handle without revalidation.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:25:41.642236+00:00"
 }

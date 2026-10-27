@@ -1,38 +1,44 @@
-# A legacy global-registration path is invoked for a component created with an incompatible managed state layout.
+# An instrumentation or diagnostic mode unconditionally replaces an explicitly selected compatible subordinate configuration with its own default.
 
-Legacy registration rejects components whose state is defined through a structured or slot-based layout.
+A build configuration enables a diagnostic mode and explicitly selects a compatible allocator or related implementation, but mode setup overwrites that selection with a default.
 
 ## Precondition
 
-A module-like component is created with managed, slot-based, or otherwise structured state that the legacy registration mechanism does not support.
+A configuration supports both a mode-specific default and an explicit user selection for the same subordinate behavior, and the selections are valid together.
 
 ## Critical operation
 
-Invoke the legacy global-registration operation on that component.
+The mode's configuration logic assigns its preferred default to the subordinate option.
 
 ## Interference
 
-The registration path encounters the component's incompatible state layout and cannot map it into the legacy global-state model.
+That assignment is unconditional and occurs even when the user has already supplied an explicit value.
 
 ## Invalid assumption
 
-The caller assumes the legacy registration operation accepts every module-like component regardless of its state-layout representation.
+The configuration logic assumes the subordinate option is unset or that the mode's default must always take precedence.
 
 ## Failure
 
-Registration is rejected with an internal system-level error instead of completing.
+The explicit selection is silently discarded, producing a valid build with unintended behavior and no clear indication that the requested override was ignored.
 
 ## Scope
 
-This is a cautiously scoped singleton pattern: it establishes incompatibility between one legacy registration path and slot-based managed state, but does not show that all legacy operations or all structured state layouts are incompatible.
+This is a cautiously scoped singleton pattern covering configuration precedence defects involving a mode-derived default and an explicit compatible subordinate choice. The report does not establish that all mode defaults are incorrect—only that they must not override explicit user input when the combination is supported.
 
 ## Search strategy
 
-1. Check legacy registration callers for components created with managed or slot-based state layouts.
-2. Trace registration preconditions and verify that structured state layouts are explicitly supported.
-3. Search for internal errors raised when legacy and managed state models are mixed.
-4. Audit callers that ignore or fail to validate compatibility before invoking registration.
+1. Check mode-specific setup for unconditional writes to options that are also user-configurable.
+2. Verify default assignments occur only when the corresponding option remains unset.
+3. Review precedence handling for explicit command-line or configuration-file values versus feature-derived defaults.
+4. Test combined configurations where a diagnostic mode is enabled alongside an explicit compatible implementation choice.
 
 ## Evidence
 
-- [#140751](../micro_taxo/gh_140751.md): The report demonstrates that invoking a legacy registration operation on a component with slots is rejected with a system-level error, and that this rejection is expected behavior.
+- [#136872](../micro_taxo/gh_136872.md): The report states that enabling address-sanitizer disables an explicitly requested memory allocator, although the combination works when the unconditional disabling assignment is removed; the accompanying comment explicitly says the user option should override the default.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0087](../macro_taxo_before_hybrid/workflow-0087.md)

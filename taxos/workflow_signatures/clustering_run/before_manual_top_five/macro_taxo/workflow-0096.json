@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0096",
+  "issues": [
+    129838
+  ],
+  "workflow_hypothesis": "Independent feature and version checks redefine one compiler configuration symbol",
+  "pattern": "Independent compiler-capability checks redefine the same configuration symbol",
+  "description": "Independent capability and version checks redundantly define one compiler-configuration symbol when newer toolchains accept both annotation spellings.",
+  "precondition": "A build supports modern and legacy spellings of the same compiler annotation, with capability-based and version-based detection paths targeting one shared configuration symbol.",
+  "critical_operation": "The capability probe defines the shared symbol for the modern spelling, while the version fallback independently defines it for the legacy spelling.",
+  "interference": "On newer compilers, both detection predicates are true because the compiler accepts both spellings, so the fallback executes after the symbol has already been defined.",
+  "invalid_assumption": "The detection paths are assumed to be mutually exclusive, or the version check is assumed to imply that the shared symbol is still undefined.",
+  "failure": "The compiler reports a duplicate configuration-symbol definition and the build fails; the fallback must be conditional on the symbol not already being defined.",
+  "search_strategy": [
+    "Inspect compiler capability probes and version fallbacks that define the same configuration symbol.",
+    "Check whether a version-based fallback is guarded against a symbol established by an earlier feature probe.",
+    "Trace whether newer toolchains satisfy both detection predicates because they accept both annotation spellings.",
+    "Verify that alternate compiler spellings are normalized through one guarded definition path."
+  ],
+  "evidence": [
+    {
+      "issue": 129838,
+      "supports": "The report shows a capability check selecting a modern diagnostic-suppression annotation and an independent compiler-version check selecting a legacy spelling; newer compilers satisfy both, causing a duplicate definition until the fallback is guarded by an undefined-symbol check."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is cautiously scoped to compiler-configuration macros or equivalent symbols selected through overlapping capability and version checks.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:53:59.855966+00:00",
+  "adaptation_method": "reused_exact_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0078"
+  ],
+  "adaptation_fingerprint": "74c499237d72ce2465f549cad6aa8b4bfe423e514f5ac63ab5a8d40375a0a9ba",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.324056+00:00"
+}

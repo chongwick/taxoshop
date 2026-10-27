@@ -2,35 +2,40 @@
   "schema_version": 1,
   "cluster_id": "workflow-0088",
   "issues": [
-    139116,
-    151593
+    126445
   ],
-  "workflow_hypothesis": "Lock-held global pause creates circular wait",
-  "pattern": "A quiescence deadlock caused by acquiring or invoking broader coordination while holding a contended narrow lock.",
-  "description": "Concurrent code performs a quiescence-sensitive operation while holding a lock whose waiters are not allowed to reach the required safe point.",
-  "precondition": "A subsystem has a narrow shared mutex and a broader coordination mechanism that pauses or waits for participating workers to reach safe points; contended mutex acquisition can leave a worker attached or otherwise unable to report that safe point.",
-  "critical_operation": "A worker holds the narrow mutex while performing an operation that directly requests global quiescence or indirectly acquires a broader coordination lock that can request global quiescence.",
-  "interference": "Another worker holds or waits on the broader coordination state while additional workers block on the narrow mutex without reaching the safe point required by the quiescence operation.",
-  "invalid_assumption": "The narrow mutex can safely be held across callbacks, invalidation, lock acquisition, or global coordination, and workers blocked on it will not prevent a global pause from completing.",
-  "failure": "A circular wait forms: the quiescence requester waits for blocked workers, blocked workers wait for the narrow mutex, and the mutex holder waits for the broader coordination or quiescence operation. The system hangs instead of completing.",
+  "workflow_hypothesis": "Instrumented subprocess failure is surfaced as a test assertion",
+  "pattern": "Parallel instrumented tests expose environment-sensitive subprocess failures",
+  "description": "A subprocess success check can expose environment-sensitive failures during parallel execution of instrumented tests.",
+  "precondition": "Tests execute concurrently across multiple worker processes in an instrumented runtime or build.",
+  "critical_operation": "One test launches a subprocess to perform an isolated operation and requires that subprocess to complete successfully.",
+  "interference": "Concurrent workload and instrumentation-related runtime conditions affect the subprocess execution path or its process termination status.",
+  "invalid_assumption": "The subprocess will always return the expected success status despite the surrounding parallel, instrumented execution conditions.",
+  "failure": "The child exits with a non-success code, and the harness converts that unexpected status into an assertion failure.",
   "search_strategy": [
-    "Check every operation performed while holding a shared mutex for callbacks, invalidation, registration, or other actions that may acquire another lock.",
-    "Trace whether waiting for each contended mutex detaches, yields, or otherwise permits the worker to reach global safe points.",
-    "Check for lock-order inversions between narrow resource locks and broader coordination or state-management locks.",
-    "Check whether any global pause or quiescence operation can run while a lock needed by its participants is held.",
-    "Check multi-threaded paths with several workers contending on the same mutex while another worker performs a stop, update, or invalidation operation."
+    "Inspect parallel test runners for subprocess-based tests whose child exit codes are asserted to indicate success.",
+    "Check instrumented-build and race-detection configurations for tests that launch additional processes under concurrent load.",
+    "Trace subprocess creation and teardown paths for environment-sensitive exit codes that are reported only as generic assertion failures.",
+    "Verify whether tests distinguish infrastructure or instrumentation failures from ordinary child-process assertion failures."
   ],
   "evidence": [
     {
-      "issue": 139116,
-      "supports": "One worker held a shared tracing-table lock while invoking a tracer change that requested a global pause; another worker had attached and blocked on that lock without detaching, so the pause waited for a worker that could not progress until the lock was released."
-    },
-    {
-      "issue": 151593,
-      "supports": "One mutator acquired a shared key-structure mutex and then attempted to acquire a type-management lock; another worker held the type-management lock while requesting global quiescence, and other mutators blocked on the shared mutex without reaching safe points, creating the same circular wait."
+      "issue": 126445,
+      "supports": "A Linux test run executed many tests in parallel under a thread-sanitized/free-threading configuration; an import-related test launched a separate interpreter process, which returned exit code 66, and the helper reported that unexpected status as an AssertionError."
     }
   ],
-  "scope_note": "The reports share the quiescence-versus-lock dependency, but differ in shape: one directly invokes global pause while holding the narrow lock, while the other reaches it through a second lock and a lock-order inversion. The pattern is scoped to systems where lock waits can prevent safe-point participation.",
+  "scope_note": "This is a singleton report. It supports the interaction between parallel instrumented execution, subprocess success assertions, and surfaced exit-status failures, but does not establish the underlying cause of the child’s non-success exit or a universal race-specific mechanism.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:00:34.698215+00:00"
+  "generated_at": "2026-09-10T18:50:43.239589+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0073"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.321742+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

@@ -1,38 +1,44 @@
-# An instrumentation or diagnostic mode unconditionally replaces an explicitly selected compatible subordinate configuration with its own default.
+# Generated control flow retains unreachable operations after termination or configuration folding
 
-A build configuration enables a diagnostic mode and explicitly selects a compatible allocator or related implementation, but mode setup overwrites that selection with a default.
+Code generation preserves mechanically emitted statements or control-flow constructs after a handler has already terminated, or when configuration folding makes a branch or loop impossible.
 
 ## Precondition
 
-A configuration supports both a mode-specific default and an explicit user selection for the same subordinate behavior, and the selections are valid together.
+Generated handlers combine explicit returns or jumps with generic cleanup/error emission, and some conditions or operation paths are compile-time fixed by configuration.
 
 ## Critical operation
 
-The mode's configuration logic assigns its preferred default to the subordinate option.
+The generator emits the handler body and then appends cleanup, error-handling, or loop code using a fallthrough-oriented reachability model.
 
 ## Interference
 
-That assignment is unconditional and occurs even when the user has already supplied an explicit value.
+An internal return/jump, or a compile-time constant condition, makes the appended statement or branch unreachable, while the generator still places it in the generated source.
 
 ## Invalid assumption
 
-The configuration logic assumes the subordinate option is unset or that the mode's default must always take precedence.
+The generator assumes every emitted continuation remains reachable and that conditionally emitted paths should be treated as runtime possibilities, rather than tracking termination and configuration-specific dead paths.
 
 ## Failure
 
-The explicit selection is silently discarded, producing a valid build with unintended behavior and no clear indication that the requested override was ignored.
+The compiler reports unreachable-code or unused-code diagnostics in generated low-level source; warning-as-error configurations can fail the build.
 
 ## Scope
 
-This is a cautiously scoped singleton pattern covering configuration precedence defects involving a mode-derived default and an explicit compatible subordinate choice. The report does not establish that all mode defaults are incorrect—only that they must not override explicit user input when the combination is supported.
+This is a cautiously scoped pattern from a singleton report. It covers generators that combine generic control-flow/cleanup templates with compile-time configuration folding; it does not claim that all compiler unreachable-code warnings originate in code generation.
 
 ## Search strategy
 
-1. Check mode-specific setup for unconditional writes to options that are also user-configurable.
-2. Verify default assignments occur only when the corresponding option remains unset.
-3. Review precedence handling for explicit command-line or configuration-file values versus feature-derived defaults.
-4. Test combined configurations where a diagnostic mode is enabled alongside an explicit compatible implementation choice.
+1. Inspect generated handlers for statements emitted immediately after return or unconditional jump tokens.
+2. Trace generator reachability state through return, jump, and error-label emission, and verify later cleanup is suppressed when the path terminates.
+3. Search generated output under each supported compile-time configuration for constant-false branches and loops with provably non-executing bodies.
+4. Compare generic stack or resource cleanup emission against handlers that return from inside an operation rather than at the normal epilogue.
 
 ## Evidence
 
-- [#136872](../micro_taxo/gh_136872.md): The report states that enabling address-sanitizer disables an explicitly requested memory allocator, although the combination works when the unconditional disabling assignment is removed; the accompanying comment explicitly says the user option should override the default.
+- [#125515](../micro_taxo/gh_125515.md): The report documents unreachable cleanup after generated returns or jumps, loops whose conditions become statically impossible, and configuration-defined false error branches; subsequent fixes remove dead generated paths and teach the generator to mark return-following tokens unreachable.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0072](../macro_taxo_before_hybrid/workflow-0072.md)

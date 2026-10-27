@@ -1,38 +1,44 @@
-# Concurrent exhaustion cleanup of a shared iterator releases one owner/reference more than once and can invalidate an overlapping traversal.
+# Incomplete validation of representation-sensitive restored state enables later low-level crash
 
-A concurrency pattern where shared iterator exhaustion is handled by unsynchronized one-time cleanup while other threads may still be traversing the referenced state.
+A state-restoration interface accepts a structured record containing an optional mapping-like field without validating that field’s representation. Later execution treats the stored value as a mapping, allowing an incompatible object to reach low-level lookup code and crash the process instead of raising a recoverable type error.
 
 ## Precondition
 
-Multiple threads can advance the same shared iterator concurrently, and its exhaustion state includes a shared owner/reference that is expected to be released once.
+A structured state record contains fields with required representations, including an optional mapping-like field, and callers can provide those fields through a restoration or equivalent state-admission path.
 
 ## Critical operation
 
-An exhaustion path observes the shared reference, clears it, and releases the referenced traversal state.
+Later execution performs mapping-dependent lookup or related representation-sensitive access using the restored field.
 
 ## Interference
 
-Concurrent exhaustion paths can observe the same reference before any clear is visible, causing multiple releases; a thread already traversing may retain only a borrowed pointer while another thread performs the release.
+Validation checks other state fields but omits the optional mapping-like field, so a wrong-type value is accepted and stored as internal state.
 
 ## Invalid assumption
 
-A non-null shared reference is assumed to imply exclusive cleanup ownership and continued validity of the referenced state for the entire traversal.
+The downstream consumer assumes the restored field satisfies its mapping invariant because acceptance by the state-admission path was treated as sufficient validation.
 
 ## Failure
 
-Ownership accounting is decremented too far or corrupted, potentially freeing the traversal state while it is still in use; the resulting stale access or later integrity check can crash the process or expose delayed memory corruption.
+The incompatible value reaches low-level object or memory access during the lookup, causing a process crash rather than a recoverable type or state error.
 
 ## Scope
 
-This is a cautiously scoped singleton pattern. The evidence supports unsynchronized one-time exhaustion cleanup combined with borrowed traversal state, but does not establish a broader rule covering all concurrent iterator result races.
+This is a singleton pattern, so it is cautiously scoped to incomplete validation of a representation-sensitive field during structured state restoration, followed by later specialized use. It does not generalize to all malformed input or imply that every validation omission causes a low-level crash.
 
 ## Search strategy
 
-1. Check every shared-iterator exhaustion path for an atomic claim that permits exactly one thread to clear and release the shared owner/reference.
-2. Check that a traversal acquires a strong lifetime guarantee before using a shared pointer and releases that guarantee only after the traversal ends.
-3. Check whether a failed optimistic lifetime acquisition retries or is incorrectly treated as genuine iterator exhaustion.
-4. Check that pointer publication and clearing obey the lifetime-safety requirements of the retain operation used by concurrent readers.
+1. Check every field in state-restoration and deserialization records for explicit validation of optional representation-sensitive values before storage.
+2. Trace restored fields to later mapping lookups or other specialized consumers and verify that their required representations are enforced at admission.
+3. Search for low-level lookup operations on state fields that lack a corresponding local type or invariant check.
+4. Check whether malformed structured state is retained as trusted internal state and fails only during subsequent execution.
 
 ## Evidence
 
-- [#154130](../micro_taxo/gh_154130.md): The report demonstrates that concurrent exhaustion can double-release a single iterator-owned reference, while a sibling traversal still uses the referenced state; it also documents immediate crashes and delayed ownership corruption.
+- [#140590](../micro_taxo/gh_140590.md): A missing validation check for an optional mapping-valued state field allowed tuple and string values to be stored; later dictionary-oriented lookup reached invalid low-level access and produced a segmentation fault instead of a type error.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0104](../macro_taxo_before_hybrid/workflow-0104.md)

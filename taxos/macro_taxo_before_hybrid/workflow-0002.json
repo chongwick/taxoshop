@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0002",
+  "issues": [
+    57894
+  ],
+  "workflow_hypothesis": "Unescaped substitution marker breaks display rendering",
+  "pattern": "User-provided display text containing an unescaped reserved substitution marker is later processed by a formatter that interprets the marker as a directive, so,",
+  "description": "A display-text API accepts literal user content but routes it through substitution formatting during rendering.",
+  "precondition": "A caller supplies display text containing a character reserved by the API's substitution syntax, without the required escaping.",
+  "critical_operation": "The rendering path applies substitution expansion to the supplied text using the API's formatting rules.",
+  "interference": "The reserved character is parsed as the start of a substitution directive rather than preserved as literal display content.",
+  "invalid_assumption": "The implementation assumes supplied display text is already valid substitution-format text, or that literal reserved characters need no escaping.",
+  "failure": "Rendering rejects the text with a formatting error instead of displaying the caller's intended text.",
+  "search_strategy": [
+    "Inspect display-text rendering paths for implicit formatting or substitution of caller-controlled strings.",
+    "Check whether reserved syntax characters in user-supplied display text are escaped before expansion.",
+    "Trace formatting failures for malformed or incomplete substitution directives back to the original text boundary.",
+    "Verify documentation and validation clearly distinguish literal display text from substitution templates."
+  ],
+  "evidence": [
+    {
+      "issue": 57894,
+      "supports": "The report shows that display text containing a literal reserved marker is passed through substitution expansion, where the marker is interpreted as an invalid directive and rendering fails; doubling the marker preserves literal output."
+    }
+  ],
+  "scope_note": "This is a singleton pattern, so it is scoped to display interfaces that intentionally support substitution formatting and fail when literal reserved syntax is not escaped.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:35:34.469870+00:00"
+}

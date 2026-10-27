@@ -9,7 +9,6 @@
     "Race-detection instrumentation reports the conflicting access instead of allowing concurrent initialization to complete normally."
   ],
   "summary": "Concurrent initialization races on shared process-wide tables",
-  "decision_reason": "The failure is materially the same as concurrent isolated contexts racing on shared process-wide state; the shared tables and initialization context are implementation details.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:42:39.138532+00:00"
 }

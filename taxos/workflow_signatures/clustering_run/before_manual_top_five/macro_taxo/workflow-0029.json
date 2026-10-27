@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0029",
+  "issues": [
+    94404,
+    98249,
+    116259
+  ],
+  "workflow_hypothesis": "Nonportable configuration generation emits an invalid script",
+  "pattern": "Generated configuration scripts trust unvalidated external tool commands or dialects.",
+  "description": "Configuration generation embeds external-tool commands or edit syntax into shell scripts without ensuring that the selected tool is available and semantically compatible in the target environment.",
+  "precondition": "The generator relies on host utilities or interpreters whose names, availability, or command dialects vary across supported environments.",
+  "critical_operation": "It probes or selects a tool and embeds its invocation or multiline transformation commands into generated configuration or build scripts.",
+  "interference": "A missing, differently named, or dialect-incompatible tool leaves an unresolved command or raw edit fragment in the generated script.",
+  "invalid_assumption": "A nominal tool match or successful probe is assumed to guarantee exact command availability and portable execution semantics.",
+  "failure": "The shell executes leaked transformation text or cannot resolve the selected command, so configuration or subsequent build generation aborts with a misleading script error.",
+  "search_strategy": [
+    "Trace every detected external tool or interpreter into generated scripts and verify the exact command is executable at its use site.",
+    "Inspect generated multiline editing commands for syntax differences across all supported utility implementations.",
+    "Test configuration with missing, versioned, and alternate-dialect host tools and inspect the generated script before execution.",
+    "Add explicit validation and diagnostics when a selected host tool is unavailable or cannot perform the required transformation."
+  ],
+  "evidence": [
+    {
+      "issue": 94404,
+      "supports": "A generated configuration edit used multiline insertion syntax accepted by one text-processing dialect but rejected by another, causing configuration to fail on a supported platform."
+    },
+    {
+      "issue": 98249,
+      "supports": "Cross-build configuration embedded an unversioned host interpreter command after an inadequate selection path; the later generation rule failed because that exact command was unavailable."
+    },
+    {
+      "issue": 116259,
+      "supports": "Configuration emitted a raw edit fragment into its shell script, where the shell treated it as a command and then reported a syntax error; related discussion points to an unmet external-tool requirement."
+    }
+  ],
+  "scope_note": "The common pattern is unvalidated external-tool dependence in generated configuration workflows. The reports include both dialect-sensitive text transformation and unavailable host-command selection; they should be reviewed as related mechanisms, not as one specific utility failure.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:56:25.619804+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0028",
+    "workflow-0031"
+  ],
+  "adaptation_fingerprint": "b4a22cfb9e7145372a492cc7641627f36e04f5bef0da4f44e6e6fb29ac0e8543",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

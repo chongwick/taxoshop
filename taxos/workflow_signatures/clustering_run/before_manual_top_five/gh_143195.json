@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "issue": 143195,
+  "cluster_id": "workflow-0062",
+  "workflow": [
+    "A formatting operation captures a raw pointer and length for a mutable byte buffer, then evaluates a user-supplied separator's length.",
+    "The separator's user-defined length callback mutates or releases the original buffer.",
+    "The operation does not revalidate the buffer after the callback returns.",
+    "It continues using the captured pointer and length, accessing storage that is no longer valid.",
+    "The access becomes a use-after-free and can terminate the process instead of returning a recoverable mutation error."
+  ],
+  "summary": "Reentrant callback invalidates captured buffer before later formatting access",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:16:59.422171+00:00"
+}

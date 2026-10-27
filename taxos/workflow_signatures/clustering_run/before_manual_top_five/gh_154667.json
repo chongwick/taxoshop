@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 154667,
+  "cluster_id": "workflow-0226",
+  "workflow": [
+    "A timestamp-bearing record accepts a date outside the fixed-width format’s representable range, with different construction paths applying validation or clamping inconsistently.",
+    "In strict mode, one path retains the invalid date until later serialization; in permissive mode, an extreme source timestamp can fail during time conversion before clamping occurs.",
+    "Serialization then packs the out-of-range date into fixed-width fields and raises a low-level encoding error instead of reporting the invalid input consistently.",
+    "When an upper-bound date is clamped to an unrepresentable odd second, encoding truncates it and a later round trip returns a different timestamp."
+  ],
+  "summary": "Inconsistent boundary validation defers invalid timestamp failure to serialization",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:45:45.473139+00:00"
+}

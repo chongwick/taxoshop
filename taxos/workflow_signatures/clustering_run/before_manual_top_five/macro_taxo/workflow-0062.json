@@ -1,0 +1,319 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0062",
+  "issues": [
+    115243,
+    120289,
+    120298,
+    130555,
+    140551,
+    142555,
+    142557,
+    142558,
+    142559,
+    142560,
+    142594,
+    142637,
+    142663,
+    142664,
+    142731,
+    142732,
+    142734,
+    142782,
+    142828,
+    142829,
+    142830,
+    142831,
+    142882,
+    142884,
+    143004,
+    143007,
+    143008,
+    143195,
+    143196,
+    143197,
+    143198,
+    143200,
+    143236,
+    143308,
+    143309,
+    143310,
+    143375,
+    143378,
+    143379,
+    143380,
+    143543,
+    143544,
+    143545,
+    143546,
+    143547,
+    143635,
+    143637,
+    143638,
+    143639,
+    143662,
+    144128,
+    144475,
+    144922,
+    148382,
+    148625,
+    151403,
+    154189
+  ],
+  "workflow_hypothesis": "Reentrant mutation invalidates backing storage before continued container access",
+  "pattern": "Reentrant invalidation of retained native state during user-code boundaries.",
+  "description": "A native operation retains borrowed objects, raw storage, cached bounds, iteration state, or resource handles across user-controlled work. Reentrant mutation invalidates that state, but execution resumes through the old view.",
+  "precondition": "The operation captures unowned objects, pointers, buffers, lengths, indexes, iterators, tables, or resource handles before conversion, comparison, hashing, formatting, cleanup, I/O, or callback dispatch that may execute arbitrary code.",
+  "critical_operation": "The operation invokes user-defined behavior or destruction while continuing to depend on the captured object lifetime, storage address, structural layout, bounds, representation, iterator state, or associated resource.",
+  "interference": "Reentrant code clears, resizes, replaces, detaches, releases, destroys, or recursively re-enters the owner, backing storage, resource, or active operation context.",
+  "invalid_assumption": "The operation assumes the captured state remains live and structurally consistent, or that a borrowed object remains available, after the reentrant boundary.",
+  "failure": "Continuation through stale or null state causes use-after-free, null dereference, out-of-bounds access, invalid iteration, corrupted results, or process termination instead of defined recovery.",
+  "search_strategy": [
+    "Audit every user-code boundary for borrowed objects, raw pointers, cached lengths, indexes, iterators, tables, and resource handles used afterward.",
+    "Check whether conversions, comparisons, hashing, formatting, callbacks, destructors, or I/O can mutate, clear, replace, detach, release, or recursively re-enter the active owner.",
+    "Verify strong lifetime protection and revalidation of identity, storage, bounds, representation, iterator state, and resource attachment after the boundary.",
+    "Inspect cleanup, error, fallback, and teardown paths for stale borrowed elements or context pointers reused after failure, destruction, or owner replacement."
+  ],
+  "evidence": [
+    {
+      "issue": 115243,
+      "supports": "Custom comparison can clear a container after an element is borrowed but before the native operation finishes using it."
+    },
+    {
+      "issue": 120289,
+      "supports": "An external callback can disable or clear the active profiling context while its caller continues through that context."
+    },
+    {
+      "issue": 120298,
+      "supports": "Rich comparison can clear an operand container while the enclosing comparison still uses borrowed final elements."
+    },
+    {
+      "issue": 130555,
+      "supports": "Element destruction during cleanup can mutate the same mapping while the clearing loop still uses its embedded storage."
+    },
+    {
+      "issue": 140551,
+      "supports": "Hash or equality reentrancy can clear or reshape a mapping while lookup or insertion retains old representation assumptions."
+    },
+    {
+      "issue": 142555,
+      "supports": "Index conversion can clear or shrink a target sequence before assignment completes bounds checks and writes."
+    },
+    {
+      "issue": 142557,
+      "supports": "Formatting can run user code that mutates or clears byte storage still needed by the formatting path."
+    },
+    {
+      "issue": 142558,
+      "supports": "Argument conversion can invalidate a captured byte buffer before a search operation resumes."
+    },
+    {
+      "issue": 142559,
+      "supports": "Index conversion can clear a searched byte buffer after pointer and length capture but before continued access."
+    },
+    {
+      "issue": 142560,
+      "supports": "A search helper can retain raw storage across an argument call that invalidates its owner."
+    },
+    {
+      "issue": 142594,
+      "supports": "A state callback can detach an underlying resource, leaving a later close step with a null backing handle."
+    },
+    {
+      "issue": 142637,
+      "supports": "Equality can reshape an ordered mapping while deletion continues with stale table and node state."
+    },
+    {
+      "issue": 142663,
+      "supports": "Element unpacking can release a view and resize its exporter while comparison still uses the old buffer."
+    },
+    {
+      "issue": 142664,
+      "supports": "Hashing can mutate or release a view exporter while the hash operation still uses the view."
+    },
+    {
+      "issue": 142731,
+      "supports": "Key hashing can replace and release an instance mapping while attribute access still uses its old pointer."
+    },
+    {
+      "issue": 142732,
+      "supports": "Iterator reentry can clean up iterator state retained by the outer iteration."
+    },
+    {
+      "issue": 142734,
+      "supports": "User item access or insertion can mutate a source mapping while copying retains iteration and borrowed-entry state."
+    },
+    {
+      "issue": 142782,
+      "supports": "Key equality can clear a cache and free the currently visited node before lookup continues."
+    },
+    {
+      "issue": 142828,
+      "supports": "Callback equality can clear a callback list while removal retains pointers into the old list."
+    },
+    {
+      "issue": 142829,
+      "supports": "Value equality can mutate compared maps and free keys or values still used by the outer comparison."
+    },
+    {
+      "issue": 142830,
+      "supports": "Callbacks can mutate or clear callback state during execution while surrounding code uses the old context."
+    },
+    {
+      "issue": 142831,
+      "supports": "Encoding callbacks can mutate mappings or sequences while the encoder traverses borrowed entries."
+    },
+    {
+      "issue": 142882,
+      "supports": "Index conversion can clear a destination array before a subsequent write through its cached buffer."
+    },
+    {
+      "issue": 142884,
+      "supports": "A sink callback can clear an array after chunk metadata and pointers are cached but before output completes."
+    },
+    {
+      "issue": 143004,
+      "supports": "A mapping lookup can return a borrowed value, then arithmetic reentrancy can mutate the mapping before reuse."
+    },
+    {
+      "issue": 143007,
+      "supports": "Numeric conversion can detach an associated resource before the operation calls through its cached handle."
+    },
+    {
+      "issue": 143008,
+      "supports": "A flush callback can detach a wrapped resource before a later step uses its backing handle."
+    },
+    {
+      "issue": 143195,
+      "supports": "A length query can clear byte storage before conversion continues reading the original buffer."
+    },
+    {
+      "issue": 143196,
+      "supports": "Custom multiplication can destroy an encoder while cache construction continues with stale encoder assumptions."
+    },
+    {
+      "issue": 143197,
+      "supports": "Reentrant conversion can replace and release an object while the outer operation writes through its old pointer."
+    },
+    {
+      "issue": 143198,
+      "supports": "Iterator setup can close an associated connection before execution reuses cached statement state."
+    },
+    {
+      "issue": 143200,
+      "supports": "Index conversion can clear an element's child storage before slicing continues through it."
+    },
+    {
+      "issue": 143236,
+      "supports": "Key comparison can clear frame locals while name lookup continues through the old locals state."
+    },
+    {
+      "issue": 143308,
+      "supports": "Truth conversion can release a serialization buffer before serialization copies from its retained view."
+    },
+    {
+      "issue": 143309,
+      "supports": "Environment conversion can mutate a source mapping while retained traversal data is still consumed."
+    },
+    {
+      "issue": 143310,
+      "supports": "Element conversion can clear an input list while outer conversion traverses old slots."
+    },
+    {
+      "issue": 143375,
+      "supports": "Offset conversion can detach a buffered writer before seek resumes with stale buffered state."
+    },
+    {
+      "issue": 143378,
+      "supports": "Buffer acquisition can close or mutate the target before the write path finishes with its storage."
+    },
+    {
+      "issue": 143379,
+      "supports": "Boolean conversion can reinitialize a format object and free code storage still being traversed."
+    },
+    {
+      "issue": 143380,
+      "supports": "Parameter processing can invalidate an associated connection before execution uses it."
+    },
+    {
+      "issue": 143543,
+      "supports": "Equality can advance or replace an iterator's current keys while the outer grouping comparison still uses them."
+    },
+    {
+      "issue": 143544,
+      "supports": "Error construction can replace or free an exception type while decoding still relies on the old type."
+    },
+    {
+      "issue": 143545,
+      "supports": "Index conversion can clear profiler state while initialization or stopping writes through the old context."
+    },
+    {
+      "issue": 143546,
+      "supports": "Equality can mutate or clear participating sets while probing and cleanup use stale tables."
+    },
+    {
+      "issue": 143547,
+      "supports": "A failing callback can free its object, after which fallback logging reuses the dangling pointer."
+    },
+    {
+      "issue": 143635,
+      "supports": "Attribute lookup can clear a shared argument list and free an argument before later representation probes."
+    },
+    {
+      "issue": 143637,
+      "supports": "Index conversion can clear a control list while parsing continues with captured items and bounds."
+    },
+    {
+      "issue": 143638,
+      "supports": "Reentrant assignment can recursively mutate serializer state while the outer operation still uses it."
+    },
+    {
+      "issue": 143639,
+      "supports": "Key hashing can re-enter loading and free pending objects still used by outer insertion."
+    },
+    {
+      "issue": 143662,
+      "supports": "Text conversion can close an associated database before cursor iteration calls through the cleared handle."
+    },
+    {
+      "issue": 144128,
+      "supports": "Index conversion can clear a source list and release the element being converted before conversion completes."
+    },
+    {
+      "issue": 144475,
+      "supports": "Representation can iterate borrowed entries after reentrant replacement and freeing of the original container."
+    },
+    {
+      "issue": 144922,
+      "supports": "A write callback can clear, shrink, or reallocate an array after metadata and pointers are cached."
+    },
+    {
+      "issue": 148382,
+      "supports": "Callbacks can replace and free a context while a borrowed context pointer remains in use."
+    },
+    {
+      "issue": 148625,
+      "supports": "Rich comparison can free an object whose type or fields the enclosing comparison reads afterward."
+    },
+    {
+      "issue": 151403,
+      "supports": "Path conversion can mutate its argument sequence and free the current item while an error path reads it."
+    },
+    {
+      "issue": 154189,
+      "supports": "Key hashing can replace argument and keyword containers behind cached raw pointers during a call."
+    }
+  ],
+  "scope_note": "The common pattern is reentrant invalidation of retained native state, spanning object lifetimes, buffers, tables, iterators, resources, exception state, and recursive context. Some cases use stale or freed state; others use null or reshaped state. Ownership leaks alone are outside scope.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:58:43.561637+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014",
+    "workflow-0080",
+    "workflow-0137"
+  ],
+  "adaptation_fingerprint": "e0215ea2992b14b1be15530780e4645e940e7d83854826e25bfdd940f976b2e1",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

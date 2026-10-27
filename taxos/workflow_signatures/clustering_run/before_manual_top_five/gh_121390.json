@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 121390,
+  "cluster_id": "workflow-0079",
+  "workflow": [
+    "An associative container stores dynamically allocated records as keys while its associated values are intentionally empty.",
+    "Its cleanup configuration assigns the deallocator to values and leaves key cleanup unset, reversing the actual ownership layout.",
+    "When entries are removed or the container is destroyed, the allocated keys are not released.",
+    "Repeated use or leak checking reports persistent memory growth instead of clean reclamation."
+  ],
+  "summary": "Reversed container cleanup ownership leaks allocated keys",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:22:07.419586+00:00"
+}

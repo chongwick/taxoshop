@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0118",
+  "issues": [
+    139540,
+    139749,
+    139750,
+    139827,
+    142476,
+    142985
+  ],
+  "workflow_hypothesis": "Optimized execution leaks generated state",
+  "pattern": "Generated optimized state has mismatched ownership across lifecycle handoffs",
+  "description": "An optimized execution path creates generated state whose ownership changes among execution, container, and teardown contexts, but the handoff contract is incomplete or inconsistent. The resulting defect can retain the state indefinitely or release it before a remaining user is finished.",
+  "precondition": "An optimization or generated-execution path allocates managed state with an initial reference and more than one possible owner, such as an execution context, installed container, exit record, or teardown structure.",
+  "critical_operation": "The generated state is dispatched, inserted into a durable structure, transferred to another lifecycle owner, or cleaned up after optimized execution, including failure, invalidation, and short-lived helper-process paths.",
+  "interference": "A path omits the release after ownership transfer, while another path releases before a stealing handoff or before the object's tracking/deallocation invariants are established.",
+  "invalid_assumption": "The implementation assumes all paths use the same ownership convention and that a nearby container or cleanup phase automatically covers the generated state; conversely, it may assume an early decrement is safe without proving that no later owner still relies on the object.",
+  "failure": "The generated state is either leaked and reported at shutdown by leak instrumentation, or prematurely freed and later accessed or decremented, producing use-after-free or related memory-safety failures.",
+  "search_strategy": [
+    "Trace each generated execution allocation through dispatch, installation, exception, invalidation, teardown, and process-shutdown paths, recording the owning reference at every boundary.",
+    "Check whether optimized execution and generated-state construction release their initial reference on every successful, exceptional, failed-compilation, and helper-process exit.",
+    "Verify whether insertion or registration steals, borrows, or increments a reference, and place decrements only after that ownership contract is explicit.",
+    "Audit object tracking and deallocation preconditions before adding cleanup on allocation-failure or early-exit paths.",
+    "Exercise both leak detection and lifetime-sensitive invalidation or teardown scenarios to distinguish unreleased state from stale or prematurely freed state."
+  ],
+  "evidence": [
+    {
+      "issue": 139540,
+      "supports": "Optimized generated execution state remained live across exceptional execution and teardown-related paths; the report and investigation identify inconsistent executor cleanup and reference ownership rather than a workload-specific cause."
+    },
+    {
+      "issue": 139749,
+      "supports": "A recoverable exception after optimized execution was enough to leave the generated execution allocation unreclaimed, supporting an exceptional-exit ownership gap."
+    },
+    {
+      "issue": 139750,
+      "supports": "Repeated optimized calls from an unrelated workload produced a direct leak of the generated execution object, showing that the defect is in the shared optimized-state lifecycle."
+    },
+    {
+      "issue": 139827,
+      "supports": "A separate complex operation reached the same generated-state allocation and leaked it, confirming that the trigger varies while the ownership defect is shared."
+    },
+    {
+      "issue": 142476,
+      "supports": "The attempted ownership correction exposed the second mechanism: releasing before a transfer that steals the reference caused use-after-free, while the original path leaked when the transfer or cleanup contract was missed."
+    },
+    {
+      "issue": 142985,
+      "supports": "Short-lived build helper processes also allocated generated execution state and terminated with direct leaks, showing that the defect applies to lifecycle completion and shutdown, not only repeated application workloads."
+    }
+  ],
+  "scope_note": "This is a mixed cluster with one umbrella ownership pattern and two distinct failure mechanisms: missing or misplaced release causes leaks, while premature release or invalid tracking assumptions cause stale/freed-state use. The reports support optimized/generated execution state specifically; they do not establish that every generated artifact or every lifecycle handoff has this defect.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:23:42.553862+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0089",
+    "workflow-0090",
+    "workflow-0094"
+  ],
+  "adaptation_fingerprint": "f1fc9394418c2cea67ef9edd498d1e16833d7b946f371af480bdef1ba1007c8d",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

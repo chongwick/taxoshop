@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 116259,
+  "cluster_id": "workflow-0029",
+  "workflow": [
+    "A build-configuration generator relies on an external text-processing tool to produce a shell script containing generated configuration data.",
+    "The required tool is unavailable or incompatible in the build environment, so a multi-line editing fragment is emitted without being applied correctly.",
+    "The configuration process executes that fragment as shell syntax instead of transforming it into valid script content.",
+    "Script parsing fails, aborting configuration instead of reporting the missing or incompatible tool clearly."
+  ],
+  "summary": "Nonportable configuration generation emits an invalid script",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:15:47.496333+00:00"
+}

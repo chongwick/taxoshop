@@ -1,39 +1,45 @@
-# Process duplication followed by thread creation can deadlock when an instrumentation or runtime subsystem retains non-fork-safe synchronization state.
+# Extreme-allocation tests assume environment-independent recoverable failure.
 
-A fork-like duplication of a multithreaded process is followed by worker or thread creation in the child, whose runtime instrumentation path depends on synchronization state inherited from the parent.
+Tests that probe infeasible allocations depend on allocator and diagnostic configurations preserving the same recoverable failure semantics.
 
 ## Precondition
 
-A multithreaded process can be duplicated while a runtime, allocator, sanitizer, or instrumentation subsystem is performing thread-related bookkeeping or holds an internal synchronization primitive.
+A test intentionally requests an infeasible allocation and expects the operation to report failure through the normal recoverable path.
 
 ## Critical operation
 
-The duplicated child creates a worker or thread, entering the subsystem's thread-start or thread-registration path.
+The computation performs the extreme request and relies on the active runtime and allocator to reject it in a form the test can inspect.
 
 ## Interference
 
-The child inherits the subsystem's locked or incomplete bookkeeping state, but the parent thread responsible for releasing the lock or completing registration does not exist in the child.
+Diagnostic instrumentation can turn allocation failure into a fatal abort, while an allocator may accept virtual address space and defer failure until memory is touched, allowing the operating system to kill the process.
 
 ## Invalid assumption
 
-The child is assumed to inherit runtime instrumentation state that remains valid and recoverable after process duplication.
+The test assumes every supported allocator, platform, and instrumented configuration rejects the request promptly and consistently as a recoverable error.
 
 ## Failure
 
-Child thread creation blocks indefinitely inside the runtime or instrumentation layer, leaving the dependent operation, process, or test hung until timeout.
+The process aborts or is killed before the expected failure result can be checked, so the test itself becomes unreliable across environments.
 
 ## Scope
 
-Singleton cluster: this pattern is scoped to fork-like duplication of multithreaded processes followed by child thread creation when runtime instrumentation or support libraries maintain non-fork-safe synchronization state. It does not establish that ordinary application locks or every process-start method have the same failure mode.
+This two-report pattern covers one shared test-design mismatch with two distinct mechanisms: fatal diagnostic handling and deferred allocator or operating-system failure. It does not claim that all environments fail through the same mechanism.
 
 ## Search strategy
 
-1. Inspect fork-like process-duplication paths for subsequent worker or thread creation in the child.
-2. Check whether runtime, allocator, sanitizer, or instrumentation hooks run during child thread initialization.
-3. Trace internal locks and registration flags across duplication boundaries, and verify that no vanished parent thread can be their only progress mechanism.
-4. Search for child-side cleanup or reinitialization of runtime synchronization state after duplication.
-5. Check whether affected operations are disabled, isolated, or replaced under instrumentation configurations known to be non-fork-safe.
+1. Inspect tests that provoke infeasible allocations and verify that the expected failure mode is explicit and deterministic.
+2. Compare allocator, platform, overcommit, and diagnostic-build behavior before asserting recoverable allocation failure.
+3. Check whether an accepted large allocation is later materialized or written, allowing deferred failure to become process-wide OOM termination.
+4. Verify that fatal diagnostic configurations and platforms with different allocation semantics are skipped, isolated, or tested through subprocess outcomes.
 
 ## Evidence
 
-- [#89363](../micro_taxo/gh_89363.md): The report documents intermittent hangs in fork-based multiprocessing and thread-related tests under address-instrumented builds; debugging shows the child-side thread-creation interceptor waiting for registration while another execution path is blocked on an internal instrumentation mutex, supporting a fork-inherited runtime synchronization deadlo
+- [#89359](../micro_taxo/gh_89359.md): The report shows that memory and address instrumentation abort on allocation failure instead of returning a recoverable failure, so extreme-allocation tests must account for fatal diagnostic semantics.
+- [#114331](../micro_taxo/gh_114331.md): The report shows that one allocator accepts an enormous virtual allocation and the process is later killed on use, while another allocator rejects it; the test therefore relied on non-portable allocation timing and semantics.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0020](../macro_taxo_before_hybrid/workflow-0020.md)

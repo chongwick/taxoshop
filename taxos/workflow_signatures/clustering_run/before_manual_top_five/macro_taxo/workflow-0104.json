@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0104",
+  "issues": [
+    93981,
+    133157
+  ],
+  "workflow_hypothesis": "Removing sanitizer suppression exposes deliberate fault-trigger and mismatched-dispatch undefined behavior",
+  "pattern": "Sanitizer exposure of nonportable fault injection and signature-unsafe callback dispatch",
+  "description": "Low-level failure tests or dispatch paths rely on operations that are undefined in the language or ABI: deliberate invalid accesses or arithmetic to provoke faults, and calls through generic function-pointer interfaces whose signatures do not exactly match the target. With sanitizer instrumentation active or restored, these paths are diagnosed before their intended signal handling or callback behavior can be observed.",
+  "precondition": "A low-level path deliberately fabricates a fault with undefined operations, or stores and invokes callbacks through a generic interface without preserving an exactly compatible function signature; sanitizer checks are active or disabled around the path.",
+  "critical_operation": "Execute the deliberate fault path or perform the indirect callback dispatch while sanitizer instrumentation is active or has been re-enabled.",
+  "interference": "The sanitizer intercepts the fabricated invalid operation or reports the incompatible indirect call, and may abort before the expected fault signal, supervised process termination, or callback result completes.",
+  "invalid_assumption": "The implementation assumes that undefined operations will reliably produce the desired platform-level fault and that callbacks with merely similar argument layouts are interchangeable through a generic function-pointer interface.",
+  "failure": "Execution or the associated test fails with sanitizer diagnostics or an unexpected abort instead of validating the intended fault-handling or callback-dispatch behavior.",
+  "search_strategy": [
+    "Find tests or low-level routines that provoke faults with null reads, division by zero, invalid shifts, or other undefined operations, and replace them with explicit platform-appropriate signaling where possible.",
+    "Trace sanitizer-suppression annotations around fault injection and determine whether enabling instrumentation changes the observable signal, exit status, or supervisor result.",
+    "Check every indirect callback call and registration boundary for exact agreement of return and parameter types, including generated dispatch code and casts through generic function-pointer types.",
+    "Add signature-specific wrappers or generator-time checks for heterogeneous callback families, and verify sanitizer-enabled execution of each dispatch path."
+  ],
+  "evidence": [
+    {
+      "issue": 93981,
+      "supports": "A supervised worker-recovery test deliberately caused fatal memory faults; AddressSanitizer intercepted the resulting invalid access and aborted the worker with a fatal-signal report, so the test did not observe the ordinary worker-failure behavior."
+    },
+    {
+      "issue": 133157,
+      "supports": "Removing undefined-behavior suppression exposed deliberate null-read and divide-by-zero fault fabrication plus indirect callback calls with incompatible signatures; the changes replaced synthetic faults with explicit signaling, removed an unnecessary null-read path, and introduced signature-aware dispatch handling."
+    }
+  ],
+  "scope_note": "The reports support one umbrella pattern with two distinct mechanisms: sanitizer interception of intentional process-failure injection, and sanitizer-visible undefined behavior in callback dispatch or fault-trigger code. They do not establish that every sanitizer failure involves both mechanisms or that all generic callback storage is invalid; the callback hazard concerns invocation through a mismatched function type.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:22:40.671262+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0026",
+    "workflow-0082"
+  ],
+  "adaptation_fingerprint": "c0b1f3bc9f5581d9a72b7e6ec394b4a4f8688e4332655cdc0452e9e4c26cbd54",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

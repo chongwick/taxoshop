@@ -2,29 +2,41 @@
   "schema_version": 1,
   "cluster_id": "workflow-0084",
   "issues": [
-    135637
+    124378
   ],
-  "workflow_hypothesis": "Corrupted object header causes fatal metadata dereference",
-  "pattern": "A singleton report supports a cautiously scoped pattern: unsafe raw-memory corruption of a live managed object's header can become process-fatal when later code",
-  "description": "A singleton report supports a cautiously scoped pattern: unsafe raw-memory corruption of a live managed object's header can become process-fatal when later code consumes the object as metadata or structured input.",
-  "precondition": "A live managed object has a header containing type, reference, ownership, or related representation metadata that downstream operations trust.",
-  "critical_operation": "An unsafe raw-memory write replaces part of that header with invalid pointer or ownership values while the object remains reachable.",
-  "interference": "A later operation consumes the damaged object as structured metadata or input, including through a callback or deferred access path, without first validating its representation invariants.",
-  "invalid_assumption": "The object's header and the metadata needed to interpret it remain valid and internally consistent throughout the operation.",
-  "failure": "Runtime metadata access follows corrupted state and performs an invalid dereference, fatally terminating the process instead of producing a recoverable error.",
+  "workflow_hypothesis": "Dependency behavior change invalidates a narrow test expectation",
+  "pattern": "Dependency contract drift makes compatibility tests stale",
+  "description": "A test suite encodes an external dependency's accepted-value domain, normalization, and diagnostics; a dependency update changes that contract, so unchanged assertions fail even though the operation remains valid.",
+  "precondition": "Tests directly exercise behavior owned or defined by an external toolkit and assert specific accepted input forms, converted results, or error text.",
+  "critical_operation": "Run those tests after upgrading the toolkit while retaining the existing version-independent expectations.",
+  "interference": "The toolkit broadens an option's value domain from integral values to general screen-distance values and correspondingly changes parsing, conversion, returned representations, or diagnostic wording.",
+  "invalid_assumption": "The tests assume the previous validator, normalization rules, and exact diagnostics remain stable across toolkit versions.",
+  "failure": "Valid operations or correctly rejected inputs produce a test failure because the assertion compares current dependency behavior with an obsolete expectation.",
   "search_strategy": [
-    "Check whether raw-memory writes can target the headers of live managed objects that remain reachable.",
-    "Verify that consumers validate type, pointer, reference, and ownership invariants before interpreting an object as structured metadata.",
-    "Trace deferred callbacks and iteration or containment paths for header corruption that occurs during consumption rather than before it.",
-    "Check whether malformed object representation reaches unchecked metadata access or dereference instead of a recoverable validation failure."
+    "Check tests that assert exact third-party error strings or validator-specific diagnostics.",
+    "Check shared test helpers for hard-coded conversions, rounding, clipping, or return-type assumptions tied to an external dependency.",
+    "Check version-gated option tests whenever a dependency changes an option's accepted input domain.",
+    "Check compatibility tests for assertions that distinguish integral values from unit-bearing or otherwise richer representations.",
+    "Check whether dependency-version branches cover changed normalization and representation behavior, not only changed input acceptance."
   ],
   "evidence": [
     {
-      "issue": 135637,
-      "supports": "The report demonstrates direct and deferred raw-memory overwrites of a live object's header, followed by use of the damaged object as metadata; runtime attribute or type processing then dereferences the invalid header state and crashes."
+      "issue": 124378,
+      "supports": "A dependency changed size-option conversion from integer-only behavior to screen-distance values. Tests and shared helpers required version-specific updates, supporting a stale dependency-contract expectation rather than an application memory-safety failure."
     }
   ],
-  "scope_note": "This is a singleton cluster. The pattern is limited to intentionally unsafe memory corruption of live managed-object headers and subsequent metadata consumption; it does not establish that ordinary malformed metadata alone causes the same failure.",
+  "scope_note": "This is a cautiously scoped singleton pattern. The report supports dependency-driven drift in accepted values, conversion/representation, and diagnostics within compatibility tests; it does not establish that every dependency update causes this failure mode.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T18:58:37.872722+00:00"
+  "generated_at": "2026-09-10T18:50:02.206199+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0071"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "evidence"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.320653+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

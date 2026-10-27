@@ -9,7 +9,6 @@
     "The stale read causes a use-after-free and can terminate the process instead of raising a recoverable mutation error."
   ],
   "summary": "Reentrant mutation invalidates a retained buffer pointer",
-  "decision_reason": "The underlying failure is materially the same as a retained pointer being dereferenced after its owning buffer releases or relocates storage; the reentrant argument conversion is the trigger, while the core mechanism is stale-pointer use-after-free.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:04:50.302412+00:00"
 }

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0010",
+  "issues": [
+    75554,
+    77756
+  ],
+  "workflow_hypothesis": "Out-of-range floating-point-to-integer conversion occurs before validation",
+  "pattern": "Unchecked floating-point demotion before representability validation",
+  "description": "A floating-point value is converted to a bounded numeric destination before the implementation establishes that the value is representable there.",
+  "precondition": "A floating-point result may exceed the destination type's range, or—for an integer destination—its integral part may be outside that range.",
+  "critical_operation": "The implementation performs the floating-point-to-destination conversion before an explicit range check or a defined saturating/conversion routine.",
+  "interference": "The out-of-range conversion has undefined or otherwise implementation-dependent behavior, which can vary across platforms and compiler optimizations.",
+  "invalid_assumption": "The implementation assumes the converted value, or a value converted back to floating point, reliably preserves enough information to detect that the original value was out of range.",
+  "failure": "Range errors can be missed or reported inconsistently, and the program may produce an invalid destination value or trigger sanitizer/compiler-dependent behavior.",
+  "search_strategy": [
+    "Search for floating-point expressions cast to integer types before any explicit min/max bounds check.",
+    "Search for floating-point values narrowed to a smaller floating type before checking whether the source exceeds that type's finite range.",
+    "Inspect overflow checks that cast first and then compare the result after converting it back to floating point.",
+    "Trace rounding, scaling, splitting, or unit-conversion paths for conversions whose intermediate floating-point result can exceed the destination range."
+  ],
+  "evidence": [
+    {
+      "issue": 75554,
+      "supports": "The report's fixes add representability checks before conversions to integer and narrower floating types, replacing post-conversion/back-conversion checks that could themselves rely on undefined behavior."
+    },
+    {
+      "issue": 77756,
+      "supports": "The report identifies multiple sanitizer findings where out-of-bounds floating-point values were cast to other numeric types, notes compiler optimizations can change the prior behavior, and recommends defined conversion or explicit error handling."
+    }
+  ],
+  "scope_note": "The two reports share the ordering and representability mechanism across both floating-to-integer and floating-to-narrower-floating conversions. The pattern is limited to destinations whose range does not represent every possible source value; it does not claim that all floating-point conversions are unsafe.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:39:38.894572+00:00"
+}

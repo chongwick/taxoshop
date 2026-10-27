@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0218",
+  "issues": [
+    144833
+  ],
+  "workflow_hypothesis": "Error reporting uses a released and misinterpreted wrapper after resource initialization failure",
+  "pattern": "Initialization-failure reporting combines premature wrapper destruction with context retrieval through an incompatible object pointer.",
+  "description": "When native resource creation fails, cleanup releases a newly created wrapper before diagnostics finish, while the reporting path may also receive a different object type than the context accessor expects. The resulting error path uses invalid lifetime or layout assumptions instead of returning the initialization error safely.",
+  "precondition": "A wrapper is allocated before an underlying native resource is initialized, and failure can transfer control to diagnostic handling with both the wrapper and a separate reporting-context object in scope.",
+  "critical_operation": "Native initialization fails, after which cleanup releases the wrapper and the error-reporting call is prepared using a pointer whose actual object type may not match the context accessor's expected type.",
+  "interference": "Diagnostic handling dereferences the released wrapper or reads context fields through the incompatible pointer while constructing the failure result.",
+  "invalid_assumption": "The code assumes cleanup has not ended the wrapper's lifetime and that related object pointers are interchangeable because they participate in the same operation, despite distinct ownership and layouts.",
+  "failure": "Error reporting performs a use-after-free or an out-of-bounds/type-confused field access, causing sanitizer-detected memory failure or a crash instead of a recoverable initialization error.",
+  "search_strategy": [
+    "Trace native-resource initialization failures through cleanup and verify that all diagnostic reads occur before the wrapper's final release.",
+    "Check every error-reporting context argument against the accessor's required object type and field layout; reject merely related objects as substitutes.",
+    "Inspect failure paths for aliases retained across decref, release, or destructor calls and ensure they are not dereferenced afterward.",
+    "Exercise forced native-initialization failures under memory and undefined-behavior sanitizers to distinguish lifetime errors from incompatible-layout reads."
+  ],
+  "evidence": [
+    {
+      "issue": 144833,
+      "supports": "The report documents one initialization-failure path where releasing the wrapper precedes context retrieval through its dangling pointer, while the accessor also receives a socket object where a context object is required; the fix reorders reporting before release and supplies the correct context object."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern. Its shared umbrella covers two simultaneous mechanisms in one failure path—premature release and incompatible object-pointer use—without treating ownership loss as equivalent to type confusion. The evidence supports initialization-failure diagnostics specifically, not a broader rule about all cleanup or error-reporting code.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:39:44.901289+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014"
+  ],
+  "adaptation_fingerprint": "6b8a8f42ae8dcf81ecaf02c52b7fbec795bd999a97635267ed9a639c5538bc4b",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

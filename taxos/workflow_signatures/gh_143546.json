@@ -9,7 +9,6 @@
     "An out-of-bounds read causes a heap-buffer-overflow and process termination instead of safe reentrant handling."
   ],
   "summary": "Reentrant container mutation invalidates active storage traversal",
-  "decision_reason": "The failure workflow is materially the same as re-entrant cleanup invalidating container storage during an active clearing operation: user-controlled re-entry mutates the container while the original traversal retains stale storage and accounting state, leading to an out-of-bounds access.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:23:04.148074+00:00"
 }

@@ -1,39 +1,46 @@
-# An enumeration walks a registry containing inactive tombstones while sizing output only for active entries.
+# Sanitized code consumes data initialized across an uninstrumented library or system-call boundary
 
-A retained registry entry becomes inactive by losing its backing resource, but enumeration still traverses the retained entry set while sizing results from the active-resource count.
+A memory-sanitized component reads data whose real bytes are initialized, but whose sanitizer shadow metadata was not propagated across an uninstrumented boundary.
 
 ## Precondition
 
-A resource registry retains entries after resources are closed, destroyed, or released, representing inactive entries with no backing resource while maintaining a count of active resources.
+A program enables uninitialized-memory instrumentation while relying on a library or low-level data source that is not instrumented compatibly.
 
 ## Critical operation
 
-An enumeration allocates result storage from the active-resource count and traverses the registry, reading backing-resource fields for each retained entry.
+Instrumented code scans, compares, hashes, or otherwise reads the returned buffer or string-like value.
 
 ## Interference
 
-A resource lifecycle operation marks an entry inactive without removing it from the registry traversal structure.
+The boundary initializes or fills the actual storage without updating the instrumentation metadata, or metadata from the producing component is unavailable.
 
 ## Invalid assumption
 
-The enumeration assumes every retained registry entry still has a backing resource and that the active count equals the number of entries it will process.
+The sanitizer's shadow state is assumed to accurately represent the data's real initialization state across every call, library, and system interface.
 
 ## Failure
 
-The enumeration dereferences a null backing-resource pointer and can also write beyond storage sized for active entries, producing a process-terminating memory-safety failure instead of returning the active-resource list.
+The sanitizer reports a fatal use of uninitialized memory during a valid operation, producing a false positive until the producer is instrumented or the boundary explicitly marks the data initialized.
 
 ## Scope
 
-This is a singleton cluster: the pattern is scoped to registries that retain inactive entries during lifecycle transitions and enumerate them through a backing-resource pointer.
+The reports support a pattern specific to shadow-metadata sanitizers such as MSan at uninstrumented library, runtime, or syscall boundaries. They do not establish that every uninitialized-memory report is a false positive or that all boundary crossings require the same repair.
 
 ## Search strategy
 
-1. Inspect registry enumerators for retained entries whose backing-resource pointer may be null.
-2. Compare the allocation count with the number of entries actually traversed, including inactive or tombstoned entries.
-3. Trace close, destroy, and release paths to determine whether they remove entries or only clear their backing-resource pointers.
-4. Check every dereference of a registry entry's backing resource for an explicit active-entry guard.
-5. Verify that the returned count is incremented only for entries actually emitted into the output buffer.
+1. Check every library and runtime dependency on a sanitized link path for compatible sanitizer instrumentation.
+2. Inspect system-call and foreign-function boundaries for buffers whose sanitizer initialization metadata is not explicitly propagated.
+3. Trace every reported read of a valid buffer back to its producer and compare actual writes with shadow-metadata updates.
+4. Add a targeted test that consumes data returned by each uninstrumented boundary under the sanitizer and verify whether explicit metadata marking is required.
 
 ## Evidence
 
-- [#140652](../micro_taxo/gh_140652.md): The report reproduces a crash after resource closure and the fix skips retained entries with null backing resources while counting and emitting only active entries; added coverage also confirms closed and destroyed entries are excluded from enumeration.
+- [#135774](../micro_taxo/gh_135774.md): A valid startup key created through code linked from an unsanitized prebuilt runtime was later hashed by instrumented code, exposing missing shadow metadata as an uninitialized read.
+- [#140332](../micro_taxo/gh_140332.md): A sanitized extension passed data through an unsanitized cryptographic library, whose comparison path triggered an apparent uninitialized read because the external library was not built with matching instrumentation.
+- [#148850](../micro_taxo/gh_148850.md): A system call filled a buffer without sanitizer metadata updates; a later instrumented search treated the valid returned bytes as uninitialized until the buffer was explicitly unpoisoned.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0085](../macro_taxo_before_hybrid/workflow-0085.md)

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0112",
+  "issues": [
+    140777
+  ],
+  "workflow_hypothesis": "Invalid shared-memory destination causes fatal initialization write",
+  "pattern": "Shared-memory aggregate initialization performs an unchecked bulk serialization write through an unusable destination, causing a native memory fault.",
+  "description": "A shared-memory-backed aggregate is initialized by serializing ordinary values directly into its backing storage. If the write destination is invalid or unusable, the native bulk write faults instead of producing a recoverable initialization error.",
+  "precondition": "A shared-memory-backed aggregate is being initialized and its values must be serialized into backing storage.",
+  "critical_operation": "Initialization performs a native bulk write of the serialized representation into the backing-storage destination.",
+  "interference": "The destination address is invalid or does not refer to usable writable backing storage when the bulk write occurs; this report does not establish why that state arises.",
+  "invalid_assumption": "The initialization path assumes the destination remains valid and writable without validating it immediately before the bulk write.",
+  "failure": "The bulk write dereferences the unusable destination, producing a memory-safety fault and aborting the process rather than returning a recoverable initialization failure.",
+  "search_strategy": [
+    "Check shared-memory aggregate initialization for bulk serialization writes through destinations whose validity is not verified at the write site.",
+    "Trace backing-storage mapping, allocation, and lifetime transitions immediately before native bulk writes.",
+    "Inspect native buffer-copy or packing paths for invalid-destination handling that converts faults into recoverable errors.",
+    "Review fuzz-reduced initialization cases involving temporary-resource or storage-lifetime changes for stale destination addresses."
+  ],
+  "evidence": [
+    {
+      "issue": 140777,
+      "supports": "The sanitizer trace shows aggregate construction reaching a native packing operation whose bulk memory write faults at an unusable high address; discussion indicates the shared-memory construction is the relevant trigger, while the report does not establish a reproducible cause for the invalid destination."
+    }
+  ],
+  "scope_note": "This is a singleton report, so the pattern is limited to the observed shared-memory-backed initialization path and should not be generalized to all shared-memory failures or to a specific root cause for destination invalidation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:13:06.059232+00:00"
+}

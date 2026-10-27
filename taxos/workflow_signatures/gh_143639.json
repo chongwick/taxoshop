@@ -9,7 +9,6 @@
     "The outer insertion resumes with those dangling references and dereferences freed storage, causing a use-after-free crash."
   ],
   "summary": "Reentrant mutation invalidates borrowed insertion state",
-  "decision_reason": "The failure is materially the same as re-entrant cleanup invalidating shared storage while the original operation continues using retained addresses, leading to use-after-free.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:24:56.316100+00:00"
 }

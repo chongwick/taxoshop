@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 127971,
+  "cluster_id": "workflow-0040",
+  "workflow": [
+    "A text-search operation scans candidate starting positions within a bounded character buffer.",
+    "A candidate match fails at the final valid position, but the skip heuristic examines the following character to choose the next advance.",
+    "The lookahead is performed without confirming that the following character remains inside the buffer.",
+    "The one-past-end read causes a heap-buffer-overflow and may terminate instrumented execution."
+  ],
+  "summary": "Unbounded lookahead reads beyond a text buffer during search",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:26:48.247688+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 140267,
+  "cluster_id": "workflow-0127",
+  "workflow": [
+    "A standalone service starts a background worker that blocks waiting for incoming connections.",
+    "Shutdown signals the service’s main loop and request handlers but does not signal the connection-accepting worker.",
+    "The accepting worker remains blocked and continues running after shutdown begins.",
+    "Instrumentation checks teardown and reports the still-live worker as a thread leak, causing shutdown validation to fail."
+  ],
+  "summary": "Shutdown leaves a blocking background worker un-terminated",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:43:13.674558+00:00"
+}

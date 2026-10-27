@@ -2,29 +2,40 @@
   "schema_version": 1,
   "cluster_id": "workflow-0096",
   "issues": [
-    140267
+    129838
   ],
-  "workflow_hypothesis": "Shutdown leaves a blocking background worker un-terminated",
-  "pattern": "A process-scoped background worker performs an indefinitely blocking connection wait, while shutdown signals are checked only outside that wait. The worker can,",
-  "description": "A process-scoped background worker performs an indefinitely blocking connection wait, while shutdown signals are checked only outside that wait. The worker can remain alive after the service’s main shutdown path finishes, causing teardown instrumentation to report a thread leak; joining it directly may instead block indefinitely if its wait or downstream I/O has no bounded exit.",
-  "precondition": "A standalone service uses a background worker for blocking connection acceptance, and the worker’s lifetime is tied to process termination or daemon-style cleanup rather than explicit cooperative shutdown.",
-  "critical_operation": "The worker enters a blocking accept or receive operation and the service begins shutdown by signaling its main loop and request-processing workers.",
-  "interference": "The blocking operation is not interrupted by the shutdown signal because the listener is not closed, timed out, or otherwise made responsive to cancellation; the worker therefore cannot return to recheck the signal.",
-  "invalid_assumption": "Shutdown signaling alone is assumed to terminate every worker, or teardown assumes that every still-live worker must be synchronously joined without accounting for process-scoped daemon semantics and potentially unbounded I/O.",
-  "failure": "Shutdown validation reports a live-worker or thread leak; if cleanup is changed to join the worker synchronously, shutdown can hang when the worker or its request handlers remain blocked.",
+  "workflow_hypothesis": "Independent feature and version checks redefine one compiler configuration symbol",
+  "pattern": "Independent compiler-capability checks redefine the same configuration symbol",
+  "description": "Independent capability and version checks redundantly define one compiler-configuration symbol when newer toolchains accept both annotation spellings.",
+  "precondition": "A build supports modern and legacy spellings of the same compiler annotation, with capability-based and version-based detection paths targeting one shared configuration symbol.",
+  "critical_operation": "The capability probe defines the shared symbol for the modern spelling, while the version fallback independently defines it for the legacy spelling.",
+  "interference": "On newer compilers, both detection predicates are true because the compiler accepts both spellings, so the fallback executes after the symbol has already been defined.",
+  "invalid_assumption": "The detection paths are assumed to be mutually exclusive, or the version check is assumed to imply that the shared symbol is still undefined.",
+  "failure": "The compiler reports a duplicate configuration-symbol definition and the build fails; the fallback must be conditional on the symbol not already being defined.",
   "search_strategy": [
-    "Trace every background worker’s blocking accept or receive call and verify how shutdown interrupts it.",
-    "Check whether each shutdown signal is observed inside the worker’s blocking loop rather than only by an outer loop.",
-    "Verify that listener closure, bounded timeouts, cancellation, or equivalent mechanisms make blocked workers exit.",
-    "Inspect teardown checks and joins for assumptions that process-scoped daemon workers must be synchronously reclaimed."
+    "Inspect compiler capability probes and version fallbacks that define the same configuration symbol.",
+    "Check whether a version-based fallback is guarded against a symbol established by an earlier feature probe.",
+    "Trace whether newer toolchains satisfy both detection predicates because they accept both annotation spellings.",
+    "Verify that alternate compiler spellings are normalized through one guarded definition path."
   ],
   "evidence": [
     {
-      "issue": 140267,
-      "supports": "The report documents a standalone manager process whose daemon connection-accepting worker blocks in accept, does not observe the shutdown event, and is reported by thread instrumentation as leaked; review feedback also notes that joining blocking handler workers can itself be unreliable."
+      "issue": 129838,
+      "supports": "The report shows a capability check selecting a modern diagnostic-suppression annotation and an independent compiler-version check selecting a legacy spelling; newer compilers satisfy both, causing a duplicate definition until the fallback is guarded by an undefined-symbol check."
     }
   ],
-  "scope_note": "Singleton cluster. This pattern is scoped to standalone, process-bound services using daemon-style workers; in that design, an instrumentation warning may reflect an intentional process-exit cleanup model rather than an externally visible resource leak.",
+  "scope_note": "This is a singleton cluster, so the pattern is cautiously scoped to compiler-configuration macros or equivalent symbols selected through overlapping capability and version checks.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:06:28.241786+00:00"
+  "generated_at": "2026-09-10T18:53:59.855966+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0078"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.324056+00:00",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

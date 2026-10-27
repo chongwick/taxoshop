@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0067",
+  "issues": [
+    118074,
+    118113
+  ],
+  "workflow_hypothesis": "Garbage-collector traversal overruns special static records",
+  "pattern": "Static special instances are exposed to collector traversal despite lacking the ordinary object layout.",
+  "description": "A collector-traversable type is also used for immutable or static special instances whose storage omits fields required by ordinary collectible objects.",
+  "precondition": "A type is shared by ordinary heap objects and special static instances that lack header metadata or reference fields expected by collectible objects.",
+  "critical_operation": "The garbage collector dispatches the type's traversal routine for one of those special instances during collection or cleanup.",
+  "interference": "The traversal reads layout-dependent fields at offsets valid for ordinary heap objects but outside the special instance's valid storage.",
+  "invalid_assumption": "Type-level traversal eligibility is treated as proof that every instance has the complete collectible-object layout and can be traversed identically.",
+  "failure": "The traversal performs an out-of-bounds read in static storage, triggering a memory-safety failure and aborting the process.",
+  "search_strategy": [
+    "Inspect every traversal-enabled type for static, immutable, or immortal instances sharing that type.",
+    "Verify that each instance reaching traversal has every header and reference field the routine accesses.",
+    "Trace collector admission checks to ensure noncollectible special instances are excluded before traversal.",
+    "Run memory-safety instrumentation through collection and cleanup paths that may encounter static instances."
+  ],
+  "evidence": [
+    {
+      "issue": 118074,
+      "supports": "The fix excludes statically stored special instances from collection because the shared traversal routine otherwise reads beyond their object storage."
+    },
+    {
+      "issue": 118113,
+      "supports": "The sanitizer trace shows cleanup-time traversal reading before a static instance whose storage lacks the metadata expected by ordinary collectible objects; the report was identified as a duplicate."
+    }
+  ],
+  "scope_note": "Both reports evidence the same incident, so this pattern is limited to traversal-capable types with compact static special instances mistakenly exposed to the collector. They do not establish a rule for all static records or all layout mismatches.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T20:00:12.792187+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0057"
+  ],
+  "adaptation_fingerprint": "97d7c6898683b572a9b7a336e1486f5e53d7dabb24f3c785b195fed379b3742b",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

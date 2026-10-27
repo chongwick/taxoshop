@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 144759,
+  "cluster_id": "workflow-0033",
+  "workflow": [
+    "A parser maintains optional pointer positions that remain null for an initial parsing mode.",
+    "A buffer relocation triggers code that converts those positions into offsets relative to the current buffer without checking for null.",
+    "The resulting pointer arithmetic forms an invalid pointer relationship and invokes undefined behavior.",
+    "The relocation or restoration path reports a sanitizer failure or may terminate instead of preserving the unset positions safely."
+  ],
+  "summary": "Null optional pointer used in buffer relocation arithmetic",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:32:03.843654+00:00"
+}

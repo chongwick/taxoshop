@@ -1,39 +1,49 @@
-# Instrumented configure-time probes fail for environmental reasons and are misclassified as capability results
+# Unchecked failure results contaminate downstream processing and error-recovery paths
 
-Optional profiling or sanitizer instrumentation is propagated into configure-time test programs. If the instrumented executable cannot run because its runtime support or platform linkage is unavailable, the probe reports a false negative or a misleading capability error. Later configuration or compilation then fails in a location unrelated to the underlying instrumentation incompatibility.
+A low-level conversion, coercion, probe, or dependency lookup reports failure through an error sentinel, pending exception, or missing result, but its caller continues into later control flow. The downstream path then treats invalid state as usable, converting a recoverable argument, loading, or runtime error into an internal assertion, SystemError, or crash.
 
 ## Precondition
 
-The build enables optional instrumentation, and the same instrumented compiler/linker flags are applied to small configure-time programs that are compiled, linked, and executed to detect platform or library capabilities.
+A reconfiguration or runtime-support path invokes an operation that may fail while converting a value, probing alternatives, or retrieving a required dependency; failure is represented by a sentinel or absent result and may leave an exception pending.
 
 ## Critical operation
 
-Run the generated probe executable and use its exit status or observed result to set a configuration feature or dependency flag.
+The caller does not immediately distinguish failure from a valid result before branching, attempting a fallback, or invoking the returned value.
 
 ## Interference
 
-Instrumentation adds a runtime or platform-linkage dependency that is missing or incompatible, causing the probe executable to terminate before testing the requested capability.
+The failure state reaches subsequent logic: an error sentinel may be coerced into a valid boolean/status, a pending exception may remain set during another probe or call, or a missing dependency may be passed to a call operation.
 
 ## Invalid assumption
 
-A failed instrumented probe reflects absence of the tested capability, rather than failure of the probe's instrumentation runtime or execution environment.
+The caller assumes that the helper or lookup succeeded, produced a usable result, and left no pending exception, instead of treating failure as an immediate exceptional path or explicitly preserving and propagating the original error.
 
 ## Failure
 
-Configuration records an incorrect feature or dependency result, producing either an immediate misleading configuration error or a later build failure such as an incomplete conditional type definition being embedded by value.
+Downstream code mishandles the sentinel, calls an absent value, or invokes another operation with an exception already pending, causing an internal assertion or SystemError, aborting, or crashing instead of reporting the original recoverable error.
 
 ## Scope
 
-The reports share the probe-execution misclassification mechanism, but their downstream manifestations differ: one reaches a misleading compile-time type error after configuration, while the other stops during configuration with a false library-capability diagnostic. The evidence does not establish that every instrumentation combination fails or that all such failures produce an incomplete-type error.
+The cluster combines two related but distinct mechanisms: unchecked conversion/coercion or probe failures that leave a sentinel and/or pending exception, and an unchecked dependency lookup in a fallback diagnostic path that yields no callable result. The shared pattern is failure-result validation and error-state propagation, not leaked ownership or stale/freed memory; it does not claim that all downstream crashes have one identical helper or representation.
 
 ## Search strategy
 
-1. Trace profiling, sanitizer, coverage, and similar flags into every configure-time compile/link/run probe.
-2. Check whether each instrumented probe has the required runtime libraries, loader symbols, and platform support before interpreting its result.
-3. Audit probe failure paths to distinguish execution or loader failures from genuine negative capability tests.
-4. Find conditionally emitted type definitions controlled by probe results and verify that by-value consumers cannot compile when the probe is falsely negative.
+1. Inspect conversion, coercion, probe, and attribute-lookup helpers for sentinel or null results that also establish an exception.
+2. Verify that every caller checks failure immediately before branching, retrying, falling back, or invoking another operation.
+3. Check whether negative or null failure results can be coerced into ordinary boolean/status values or passed as callable dependencies.
+4. Trace fallback probes and diagnostic paths to ensure they explicitly clear, preserve, or propagate pending exceptions before continuing.
+5. Exercise invalid arguments, failing conversions, failed first probes, and removed support dependencies to confirm recoverable errors survive downstream handling.
 
 ## Evidence
 
-- [#114453](../micro_taxo/gh_114453.md): An optional profiling flag was added to probe commands; on the affected platform the resulting executables failed at load time because of an unresolved runtime symbol. Configuration consequently recorded an incorrect dependency result, and the main build later reported an incomplete conditional type used by value.
-- [#116891](../micro_taxo/gh_116891.md): Enabling thread-sanitizer instrumentation caused a library capability probe to report a false negative; the report identified missing compiler runtime support as the remedy. This supports the shared mechanism of instrumented probes failing before testing the requested capability, while the failure may surface directly as a misleading configuration診
+- [#111942](../micro_taxo/gh_111942.md): Invalid reconfiguration arguments and conversions could fail without immediate handling; later processing used the invalid state and crashed instead of returning the argument or conversion exception.
+- [#140650](../micro_taxo/gh_140650.md): A user-provided state value that raised or could not be converted to a boolean produced an error sentinel that downstream closed-state logic treated as a valid result, causing a SystemError rather than propagating the TypeError or original exception.
+- [#141307](../micro_taxo/gh_141307.md): A failed initial symbol probe left an exception pending while alternate probing and module creation continued, eventually reaching an internal call assertion instead of returning the loading error.
+- [#142737](../micro_taxo/gh_142737.md): Fallback traceback handling looked up a required support operation after it had been removed, failed to validate the missing result, and later attempted to call it, triggering an assertion instead of displaying the original exception.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0044](../macro_taxo_before_hybrid/workflow-0044.md)
+- [workflow-0133](../macro_taxo_before_hybrid/workflow-0133.md)

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 72174,
+  "cluster_id": "workflow-0114",
+  "workflow": [
+    "A custom allocator returns storage aligned only to a smaller boundary.",
+    "Code places or accesses an object whose required alignment is stricter than the allocator guarantees.",
+    "The resulting misaligned object violates language and platform alignment requirements.",
+    "Runtime diagnostics or compiler assumptions expose undefined behavior during ordinary execution."
+  ],
+  "summary": "Under-aligned allocator storage is used for stricter-aligned objects",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:53:54.312899+00:00"
+}

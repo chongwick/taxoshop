@@ -37,3 +37,9 @@ The reports differ in phase: one concerns optimization-time scanning after unrea
 
 - [#79374](../micro_taxo/gh_79374.md): An optimization scan reached exactly the end of its bounded instruction array after a terminating operation, and its opcode-search helper read at that boundary; the fix added an explicit length check.
 - [#140497](../micro_taxo/gh_140497.md): Execution of a deliberately empty instruction buffer caused the dispatcher to read beyond the allocated buffer, demonstrating the same missing validation when no instruction exists at the current position.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0013](../macro_taxo_before_hybrid/workflow-0013.md)

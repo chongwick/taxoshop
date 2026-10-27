@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 143308,
+  "cluster_id": "workflow-0062",
+  "workflow": [
+    "A serialization operation obtains a temporary view into a mutable buffer and validates its layout.",
+    "Before consuming the view, it invokes user-controlled callback logic that releases or invalidates the underlying buffer.",
+    "The operation continues using the previously obtained pointer and length without retaining or revalidating the backing storage.",
+    "Access through the stale view reaches released memory, causing a use-after-free instead of safe serialization."
+  ],
+  "summary": "Reentrant callback invalidates buffer before deferred view use",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:18:59.084826+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0127",
+  "issues": [
+    140267
+  ],
+  "workflow_hypothesis": "Shutdown leaves a blocking background worker un-terminated",
+  "pattern": "Shutdown validation mistakes process-scoped blocked daemon workers for synchronously reclaimable threads",
+  "description": "Shutdown validation treats process-scoped daemon workers blocked in accept or request I/O as synchronously leaked, even though their lifecycle ends with the standalone server process. Making cleanup fully synchronous can instead hang when blocked operations lack cooperative cancellation.",
+  "precondition": "A standalone server process uses daemon background workers for connection acceptance and/or request handling, with process exit serving as the intended cleanup boundary.",
+  "critical_operation": "The server begins shutdown by signaling its main loop or request handlers while workers remain in blocking listener or connection I/O.",
+  "interference": "The blocking I/O does not observe the shutdown signal until it returns, because the listener or connection is not closed, timed out, or otherwise made cancellation-responsive.",
+  "invalid_assumption": "Teardown assumes that every created worker must be synchronously terminated and joined, without accounting for daemon workers whose lifetime is intentionally process-scoped or for uncooperative peers that can keep I/O blocked.",
+  "failure": "Thread-leak instrumentation reports a live or unjoined worker, while attempts to join all workers can delay or hang shutdown and leave process-owned temporary resources behind if the standalone server does not exit.",
+  "search_strategy": [
+    "Trace every daemon worker to its blocking accept or connection-I/O operations and identify the actual process or service boundary that ends its lifetime.",
+    "Check whether shutdown signals can interrupt each blocking operation through listener closure, bounded timeouts, cancellation, or equivalent mechanisms.",
+    "Inspect teardown instrumentation for assumptions that process-scoped daemon workers must be synchronously joined.",
+    "Verify that any proposed joins cannot be held indefinitely by an uncooperative connection peer or handler operation."
+  ],
+  "evidence": [
+    {
+      "issue": 140267,
+      "supports": "Daemon server workers remained blocked in accept or request I/O when shutdown validation reported a thread leak. The report explains that a shutdown event does not cancel every blocking operation and that synchronous joining may hang; worker lifetime was intended to end with the process."
+    }
+  ],
+  "scope_note": "Singleton cluster. The evidence supports a narrowly scoped pattern for standalone, process-bound daemon-worker servers. It does not establish that daemon-thread leaks are harmless in libraries or in-process services, nor that every blocking worker should be exempt from explicit shutdown.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:24:36.350121+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0096"
+  ],
+  "adaptation_fingerprint": "aa04e6cd127b26370d931f8158e3afea110fae3a222d3bd3e5a6a8a25d02c1c9",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern",
+    "evidence"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.330096+00:00"
+}

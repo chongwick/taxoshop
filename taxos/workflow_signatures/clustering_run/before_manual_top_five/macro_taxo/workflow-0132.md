@@ -1,0 +1,44 @@
+# Null string storage crosses a foreign-function boundary that requires a valid buffer
+
+A null pointer is passed through a foreign-function boundary to a native routine that requires valid string storage; the routine measures or otherwise reads the string without accepting null, causing an invalid memory access and process termination.
+
+## Precondition
+
+A foreign-function call supplies a null pointer for an argument whose native contract requires a non-null, readable character buffer.
+
+## Critical operation
+
+The native routine performs an implicit string operation, such as determining the buffer's length, that dereferences the supplied pointer.
+
+## Interference
+
+The foreign-function boundary conveys the null pointer as a raw native argument without converting the contract violation into a recoverable argument error.
+
+## Invalid assumption
+
+The native routine assumes that the pointer is non-null and references valid character storage.
+
+## Failure
+
+The dereference reaches the null address, producing an unrecoverable invalid-memory-access crash.
+
+## Scope
+
+This is a cautiously scoped singleton pattern: the evidence establishes the mechanism for native routines requiring non-null string storage, but does not establish behavior for routines that explicitly define null as valid or for interfaces that validate arguments before the call.
+
+## Search strategy
+
+1. Check every foreign-function call that passes nullable values to native parameters declared or documented as non-null string pointers.
+2. Trace native string-length, copy, comparison, and parsing operations to verify that their pointer arguments are validated before dereference.
+3. Verify that the language-to-native boundary rejects null arguments when the target routine's contract requires valid character storage.
+4. Inspect crash paths for null-address reads originating inside native string helpers rather than treating them as managed argument-conversion failures.
+
+## Evidence
+
+- [#140408](../micro_taxo/gh_140408.md): The report demonstrates that a foreign-function call passes a null string pointer to a native duplication routine, whose length computation dereferences it and terminates the process with a null-address read.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0098](../macro_taxo_before_hybrid/workflow-0098.md)

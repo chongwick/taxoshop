@@ -55,3 +55,9 @@ The shared pattern is broader than backing-resource detachment and broader than 
 - [#144922](../micro_taxo/gh_144922.md): A write callback can clear, shrink, or reallocate the array after block metadata and storage pointers were cached.
 - [#148625](../micro_taxo/gh_148625.md): Rich comparison can execute user code that frees an object whose type or fields the enclosing comparison still reads afterward.
 - [#154189](../micro_taxo/gh_154189.md): Keyword hashing can reenter object state replacement and free the argument and keyword containers behind cached raw pointers.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0137](../macro_taxo_before_hybrid/workflow-0137.md)

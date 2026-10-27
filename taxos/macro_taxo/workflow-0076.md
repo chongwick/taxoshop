@@ -1,38 +1,44 @@
-# A build-generated configuration header is made less discoverable than external include directories, allowing a stale same-named header to be selected during a “
+# Unrestricted address discovery selects a protocol family unsupported by the runtime
 
-A source-tree build compiles headers that depend on a generated configuration header, but compiler include-path ordering lets an older externally installed header win. The stale definitions are then combined with current declarations, producing misleading compile-time conflicts.
+A server setup uses address discovery without constraining results to protocol families supported by the runtime, then attempts to bind using the selected result.
 
 ## Precondition
 
-The build generates a configuration header for the current target, while an older header with the same name remains in a system, sysroot, environment-provided, or dependency-provided include directory.
+The environment disables or lacks support for a network protocol family, while endpoint discovery can still report addresses belonging to that family.
 
 ## Critical operation
 
-Compile source files whose project headers include the configuration header through normal preprocessor search rules.
+Server initialization performs unrestricted endpoint discovery and uses a discovered result's protocol family to create and bind the listening socket.
 
 ## Interference
 
-Externally supplied include paths are placed before the project’s generated-header location, or the generated header is stored outside the directory searched relative to the including project header, causing lookup to fall through to the external directory.
+Discovery returns an endpoint in the disabled or unsupported family, potentially as the selected result.
 
 ## Invalid assumption
 
-The build assumes that a quoted configuration-header include will resolve to the current generated file, or that dependency and environment include flags cannot override the project configuration.
+Every discovered endpoint family is supported by the runtime and is safe to use for binding.
 
 ## Failure
 
-The compiler consumes stale configuration macros alongside current source declarations, causing macro redefinitions, incompatible types, or other compile errors instead of clearly identifying the wrong-header selection.
+Socket creation or binding fails with a low-level unsupported-family error instead of selecting a supported endpoint or reporting a controlled configuration condition.
 
 ## Scope
 
-This is a singleton cluster, so the pattern is scoped to generated configuration headers with duplicate external installations and vulnerable include-path or header-placement rules; it does not claim that all stale-header failures arise from the same build-system design.
+This is a singleton cluster, so the pattern is scoped to server/listener setup paths where address discovery may expose protocol families unavailable in the running environment; it does not establish behavior for client connection retries or other discovery consumers.
 
 ## Search strategy
 
-1. Trace every generated configuration header from its generation path to each compiler include path and verify that the current file is searched first.
-2. Inspect how dependency, sysroot, environment, and user-supplied include flags are ordered relative to project and build directories.
-3. Check quoted and angled includes of same-named generated headers for fallback paths that can reach system installations.
-4. Compile with a deliberately stale same-named external header and verify that the build either ignores it or emits an explicit header-selection diagnostic.
+1. Check endpoint-discovery calls used for server binding and verify that the requested family is constrained to runtime-supported families.
+2. Check code that selects the first or otherwise preferred discovery result and verify it filters out unsupported protocol families before socket creation.
+3. Check protocol-family capability flags and build-time feature switches against all server setup paths that create and bind sockets.
+4. Check binding error handling to ensure unsupported-family results are skipped or converted into an intentional, actionable failure.
 
 ## Evidence
 
-- [#129019](../micro_taxo/gh_129019.md): The report shows a source build selecting an older system-installed configuration header because compiler flags and header placement allowed external lookup to precede the generated file; removing the stale header or placing the generated header in the project include directory resolved the conflicting macros and types.
+- [#121275](../micro_taxo/gh_121275.md): A server test setup on a build without IPv6 support used address discovery that still returned an IPv6 result, selected its family for socket creation, and then failed during binding with a bad-family error; the fix constrained discovery to IPv4 when IPv6 was unavailable.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0064](../macro_taxo_before_hybrid/workflow-0064.md)

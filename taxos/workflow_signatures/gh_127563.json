@@ -9,7 +9,6 @@
     "The memory-copy operation still requires valid pointer arguments, so instrumentation reports undefined behavior and the process fails instead of completing the resize."
   ],
   "summary": "Zero-length memory transfer uses an invalid derived pointer",
-  "decision_reason": "The failure workflow is materially the same as the existing zero-length memory-transfer cluster: an operation passes an invalid pointer to a low-level copy routine despite a zero length. The pointer is misaligned rather than null, but the violated pointer precondition and resulting undefined-behioru",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:26:35.398448+00:00"
 }

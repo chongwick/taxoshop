@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 151722,
+  "cluster_id": "workflow-0126",
+  "workflow": [
+    "An aggregate intended to be immutable becomes reachable before construction from user-provided data finishes.",
+    "Construction continues inserting entries and resizing its internal storage while other threads can discover the partially built aggregate.",
+    "Concurrent readers inspect its length and derive representations without synchronization against those construction-time mutations.",
+    "The overlapping reads and writes form a data race, allowing changing observations and sanitizer-reported failure instead of safe immutable behavior."
+  ],
+  "summary": "Concurrent reads of a partially constructed aggregate race with internal mutation",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:41:20.054050+00:00"
+}

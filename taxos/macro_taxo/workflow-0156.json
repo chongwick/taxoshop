@@ -2,29 +2,43 @@
   "schema_version": 1,
   "cluster_id": "workflow-0156",
   "issues": [
-    148716
+    140631,
+    140860
   ],
-  "workflow_hypothesis": "Polymorphic call optimization assumes a callable target exists",
-  "pattern": "A specialized runtime optimizer processes a hot polymorphic call site after instrumentation state changes, but assumes a single callable target was inferred.",
-  "description": "Hot indirect-call optimization can encounter receivers with varying types and no uniquely inferable callable target.",
-  "precondition": "A loop repeatedly invokes a method-like operation on receivers of incompatible types until the call site reaches the optimization threshold.",
-  "critical_operation": "The optimizer compiles the polymorphic call site and attempts to select a representative callable target.",
-  "interference": "Instrumentation or monitoring is enabled and then cleared, leaving specialization state altered so the optimizer processes the unstable site instead of abandoning optimization.",
-  "invalid_assumption": "The optimization path assumes the inferred callable target is always present and does not handle a missing target.",
-  "failure": "An internal null assertion fires, aborting the runtime instead of falling back or skipping optimization.",
+  "workflow_hypothesis": "Teardown ordering preserves callback-retained module allocations",
+  "pattern": "Teardown-ordering retains callback-connected module runtime graphs",
+  "description": "A process- or interpreter-scoped callback registry can keep a reference path into runtime types and metadata created during module initialization, so shutdown leaks the connected object graph when modules are destroyed before callbacks are cleared.",
+  "precondition": "Module initialization creates managed runtime types with associated descriptors, dictionaries, strings, or other metadata, and a long-lived callback mechanism retains callback-owned state that can reference or become connected to those module-created objects.",
+  "critical_operation": "Initialize the module and activate or register the callback mechanism, then begin interpreter or process teardown.",
+  "interference": "Teardown destroys or finalizes modules while the callback registry and its callback-related object graph are still retained, preserving reachability into the module-created graph; an unrelated failing operation may occur in the same run but is not established as the cause.",
+  "invalid_assumption": "Module cleanup, garbage collection, or later interpreter-state clearing is assumed to break all references, even though callback references must be removed before module destruction for the module-created graph to become reclaimable.",
+  "failure": "Leak detection reports the created runtime type and transitively connected metadata as indirect leaks. This is retained reachability during teardown, not use of stale or freed state.",
   "search_strategy": [
-    "Check hot-call optimization paths for polymorphic receiver handling when no unique target can be inferred.",
-    "Trace specialization-state transitions across instrumentation enable/disable operations before optimization begins.",
-    "Search for unconditional dereferences or assertions on inferred callable targets without a missing-target fallback.",
-    "Verify that unstable indirect-call sites bail out safely when target resolution returns null or ambiguous."
+    "Trace interpreter and process shutdown ordering, and verify callback registries are cleared before modules that create managed runtime types are destroyed.",
+    "Search callback containers for retained closures, hooks, event records, or argument objects that can reference module objects, runtime types, descriptors, or metadata.",
+    "Check whether module finalization depends on clearing module-owned references while an external callback registry still holds a path into the same object graph.",
+    "Reproduce module initialization and callback registration independently and together under leak detection, separating teardown retention from any unrelated exception or failed operation.",
+    "Verify that garbage collection and later interpreter-state cleanup occur after callback references are removed rather than treating those phases as substitutes for ordering."
   ],
   "evidence": [
     {
-      "issue": 148716,
-      "supports": "The report shows a hot loop with varying receiver types, an instrumentation setup-and-clear sequence affecting specialization behavior, and an optimizer assertion when no callable target is available."
+      "issue": 140631,
+      "supports": "The report shows that a module-created managed type and its descriptors and metadata are reported as indirect leaks when combined with an active audit callback, while each feature alone is reported as clean; its unrelated name-resolution failure is not sufficient evidence for a failure-context mechanism."
+    },
+    {
+      "issue": 140860,
+      "supports": "The report directly attributes the leak to retained audit-hook references reaching a module-created managed type and records that clearing the callback registry before module destruction avoids the cycle, supporting the teardown-ordering mechanism."
     }
   ],
-  "scope_note": "This is a cautiously scoped pattern from a singleton report; the shared mechanism is the unchecked missing-target case at a polymorphic call site, while the exact instrumentation state transition may be implementation-specific.",
+  "scope_note": "Both reports support callback-retention and teardown ordering, but the first includes an incidental failing expression and does not independently prove the exact reference path. The pattern is scoped to callback systems whose retained state reaches module-created runtime object graphs during teardown; it does not generalize to every indirect leak, callback registry, or exception-associated leak.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:38:01.743757+00:00"
+  "generated_at": "2026-10-10T19:26:33.792685+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0108",
+    "workflow-0115"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

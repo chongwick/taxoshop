@@ -9,7 +9,6 @@
     "Race-detection instrumentation reports the data race, causing shutdown testing to fail instead of completing safely."
   ],
   "summary": "Concurrent shutdown races with a still-running worker on shared state",
-  "decision_reason": "The failure workflow materially matches a concurrent isolated-context race on shared process-wide state: shutdown updates shared state while another execution context remains active and accesses it without sufficient synchronization.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:42:23.037063+00:00"
 }

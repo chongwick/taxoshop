@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 120378,
+  "cluster_id": "workflow-0073",
+  "workflow": [
+    "A caller supplies a size value larger than the downstream component’s supported signed range.",
+    "The interface accepts the oversized value without validating it against that narrower range.",
+    "The downstream component performs internal arithmetic or conversion with the invalid size, causing integer overflow and corrupting its screen state.",
+    "A later refresh uses the corrupted state and dereferences invalid memory, terminating the process instead of returning a range error."
+  ],
+  "summary": "Unchecked oversized dimensions cause downstream integer overflow and refresh crash",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:20:22.972641+00:00"
+}

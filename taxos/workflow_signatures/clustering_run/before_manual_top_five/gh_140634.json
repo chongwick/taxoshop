@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 140634,
+  "cluster_id": "workflow-0147",
+  "workflow": [
+    "A reconstruction helper builds a composite result containing a field borrowed from a still-live source object.",
+    "The builder treats the borrowed field as an owned reference without incrementing its ownership count.",
+    "The source object is released, deallocating the field while the composite result still retains its pointer.",
+    "Later cleanup or access through the composite result uses the dangling pointer, causing a heap memory-safety failure."
+  ],
+  "summary": "Borrowed field retained without ownership increment becomes dangling",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:53:12.683693+00:00"
+}

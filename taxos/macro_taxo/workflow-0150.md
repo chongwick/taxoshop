@@ -1,39 +1,44 @@
-# unserialized inspection of a concurrently changing container
+# A low-level structured-data encoder accepts an unvalidated initial nesting level that is inconsistent with its formatting-cache contents.
 
-A lock-free inspection path reads container metadata or backing storage while the container is still being built or concurrently resized, cleared, or otherwise structurally modified.
+When formatting nested containers, the encoder lazily caches per-depth separator and indentation strings. A caller-supplied starting depth can exceed the cache's initialized depth, exposing a synchronization flaw between logical depth and cache state.
 
 ## Precondition
 
-A container can become visible to another thread before construction is complete, or can be structurally mutated concurrently with readers in a free-threaded execution model.
+An internal or low-level encoding entry point accepts a non-base initial nesting level without ensuring that the formatting cache contains entries through that level.
 
 ## Critical operation
 
-A reader performs a size, memory-footprint, representation, hash, or similar inspection by directly reading internal counters or walking backing storage without synchronizing the complete representation.
+Encoding a non-empty nested container increments the logical nesting level and requests the cached separator or indentation string for that new level.
 
 ## Interference
 
-The writer changes the inspected counter, capacity, table, or backing-storage pointer, including reallocating or clearing storage, while the reader accesses related state.
+The cache-growth path is invoked with a logical level far beyond the cache's actual size, so its index calculations operate on a short cache rather than on entries representing the preceding level.
 
 ## Invalid assumption
 
-Treating the container as immutable or stable based on its public type or intended steady-state semantics—and making only an individual scalar read atomic—is assumed to make the whole inspection safe, even though publication may precede initialization and related metadata and storage are not protected together.
+The cache-growth helper assumes that entries for the immediately preceding logical level already exist whenever a deeper level is requested.
 
 ## Failure
 
-The access is a data race and may yield transient or inconsistent observations, sanitizer reports, or invalid storage access and a crash; for an object intended to be immutable, readers may also observe construction-time contents.
+The helper either trips its consistency assertion in diagnostic builds or reads beyond the cache allocation in unchecked builds, producing an abort or heap-buffer-overflow instead of a recoverable validation or state error.
 
 ## Scope
 
-The reports support a pattern about concurrent inspection during construction or structural mutation, especially in free-threaded runtimes. They do not show that every lock-free read is unsafe: safety can hold after publication is complete when the representation is genuinely immutable, or when the read protocol and publication mechanism protect all related state.
+This is a cautiously scoped pattern from a singleton report: it applies to lazily grown depth-indexed formatting caches when an internal entry point permits an inconsistent initial depth; it does not claim that all cache-growth failures have this cause.
 
 ## Search strategy
 
-1. Check whether every read-only size, footprint, representation, or hash path is synchronized with concurrent structural mutation.
-2. Trace object publication and reachability to verify that no partially initialized container can be discovered by another thread.
-3. Audit lock-free readers for coupled reads of counters, capacity, table pointers, and backing arrays whose updates are not protected by one common protocol.
-4. Check resize, clear, and empty-state transitions for writes that race with inspection reads or can invalidate a storage pointer after it is observed.
+1. Check internal encoder entry points for caller-supplied depth or level parameters that are not normalized to the cache's initialized depth.
+2. Trace every lazy cache-growth index from the requested logical level back to the cache initialization size.
+3. Verify that a cache-growth helper validates the requested level against actual cache length before deriving data from the previous level.
+4. Exercise direct low-level calls with nonzero initial depth and a nested, non-empty container under sanitizers and assertions enabled.
 
 ## Evidence
 
-- [#145036](../micro_taxo/gh_145036.md): A footprint query atomically read a capacity field while concurrent append/pop operations updated capacity during resize and clearing; the unsynchronized field access triggered a ThreadSanitizer race, and an attempted direct capacity lookup could dereference cleared storage.
-- [#151722](../micro_taxo/gh_151722.md): A supposedly immutable mapping was discoverable while construction was still inserting and resizing entries; concurrent length, representation, and hash reads accessed counters and the entry table without synchronization, producing races and observations of a changing object.
+- [#140750](../micro_taxo/gh_140750.md): A direct low-level encoder call supplied an initial depth greater than the one-entry formatting cache; encoding a nested mapping requested a deeper separator, after which the cache-growth helper asserted in a debug build and performed an out-of-bounds read under AddressSanitizer.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0110](../macro_taxo_before_hybrid/workflow-0110.md)

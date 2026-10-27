@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 114331,
+  "cluster_id": "workflow-0021",
+  "workflow": [
+    "A stress operation intentionally requests an extremely large memory allocation expected to fail safely.",
+    "The memory allocator accepts the request instead of returning an allocation-failure result, relying on deferred or virtual allocation.",
+    "The operation touches the purportedly allocated memory, exhausting available system memory.",
+    "The operating system terminates the process before the caller can observe and handle a recoverable allocation error."
+  ],
+  "summary": "Deferred oversized allocation causes operating-system termination",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:14:08.300563+00:00"
+}

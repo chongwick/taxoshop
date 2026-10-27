@@ -1,0 +1,9 @@
+{
+  "published_at": "2026-10-11T18:45:32.124184+00:00",
+  "clusters": 116,
+  "issues": 363,
+  "method": "manual_top_five_restoration",
+  "cluster_file_sha256": "a369da5e7f291ec0f62bd5df67489a2c19246f090d2e7eb78944cc790bf33eb0",
+  "membership_and_evidence_validated": true,
+  "prior_manifest": "../workflow_signatures/clustering_run/before_manual_top_five/macro_taxo/adaptation_manifest.json"
+}

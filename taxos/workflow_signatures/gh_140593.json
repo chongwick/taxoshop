@@ -9,7 +9,6 @@
     "Repeated inputs retain each allocation, causing memory growth instead of clean error propagation and cleanup."
   ],
   "summary": "Exceptional parse failure omits cleanup and leaks temporary model data",
-  "decision_reason": "The bug materially matches the existing cluster: an input-processing operation allocates intermediate state, encounters a recoverable error, and exits through an exceptional path that omits releasing that state, causing repeated leaks.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:50:40.236078+00:00"
 }

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 143378,
+  "cluster_id": "workflow-0062",
+  "workflow": [
+    "A mutable in-memory buffer begins a write-like operation and validates that its internal storage is usable.",
+    "Acquiring the caller-provided input invokes user-controlled code that re-enters the same buffer and closes or otherwise mutates it.",
+    "The re-entrant mutation releases or invalidates the internal storage while the outer operation continues.",
+    "The outer operation fails to revalidate the buffer state and writes through the stale storage, causing use-after-free and process termination instead of a recoverable mutation or-간"
+  ],
+  "summary": "Reentrant mutation invalidates backing storage before write completion",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:20:37.240064+00:00"
+}

@@ -7,7 +7,7 @@
     127563,
     146196
   ],
-  "workflow_hypothesis": "Zero-length memory transfer is invoked with a null data pointer",
+  "workflow_hypothesis": "Zero-length memory transfer with a null pointer",
   "pattern": "Zero-count memory transfer through absent or invalid storage",
   "description": "An empty-state or zero-length path reaches a memory-transfer operation with a null, invalid, or improperly aligned pointer, even though no elements are transferred.",
   "precondition": "The computed transfer count can be zero while the corresponding storage is absent or while pointer derivation produces a pointer that does not satisfy the pointed-to type or library contract.",
@@ -41,5 +41,12 @@
   ],
   "scope_note": "The shared mechanism is broader than null pointers: empty representations can yield invalid or misaligned derived pointers, and the problematic operation may be pointer formation as well as the transfer call. The reports concern C-style memory operations and sanitizer/compiler contracts; they do not establish that every zero-length API must accept a null pointer.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T17:37:07.550306+00:00"
+  "generated_at": "2026-09-10T17:37:07.550306+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0005"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

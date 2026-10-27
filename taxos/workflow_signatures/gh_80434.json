@@ -9,7 +9,6 @@
     "The dereference accesses freed memory, triggering a use-after-free failure or unsafe behavior."
   ],
   "summary": "Retained pointer dereferences storage after its owner releases the buffer",
-  "decision_reason": "The failure mechanism is materially identical: a derived pointer outlives the buffer owner and is later dereferenced after the underlying storage has been released.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T14:55:43.915605+00:00"
 }

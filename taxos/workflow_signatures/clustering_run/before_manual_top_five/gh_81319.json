@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 81319,
+  "cluster_id": "workflow-0005",
+  "workflow": [
+    "A zero-argument call leaves the argument-array pointer null.",
+    "A wrapper prepares a new argument array and computes a transfer length of zero.",
+    "The implementation still invokes a low-level memory-copy operation with the null source pointer.",
+    "The copy routine's pointer preconditions are violated despite the zero length, producing undefined behavior or runtime diagnostics."
+  ],
+  "summary": "Zero-length argument transfer uses a null source pointer",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T14:55:57.205115+00:00"
+}

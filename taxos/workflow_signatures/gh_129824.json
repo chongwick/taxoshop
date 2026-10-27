@@ -9,7 +9,6 @@
     "Race-detection instrumentation reports the unsynchronized access, causing the affected concurrent tests to fail or be skipped instead of completing normally."
   ],
   "summary": "Concurrent isolated contexts race on shared process-wide state",
-  "decision_reason": "The bug is a collection of unsynchronized concurrent accesses to shared global state and resources. No existing cluster captures this broad initialization, mutation, teardown, and resource-use race workflow without materially narrowing it to a different mechanism.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:30:47.628969+00:00"
 }

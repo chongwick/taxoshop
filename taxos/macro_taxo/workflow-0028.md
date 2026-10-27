@@ -1,39 +1,45 @@
-# A build/configuration generator emits embedded text-processing commands using syntax that is not portable across supported tool dialects.
+# Forked child inherits live process/thread state that ordinary shutdown cannot reclaim under leak detection
 
-Build or configuration generation relies on shell-invoked text-editing commands whose syntax and multiline behavior vary between implementations.
+A fork-like child is created from a multithreaded or otherwise initialized process, and inherited state belonging to threads that do not survive in the child remains unreclaimed until child termination.
 
 ## Precondition
 
-The build system generates scripts or edit commands dynamically and may run with different implementations of the assumed text-processing utility.
+The parent has live process-wide bookkeeping or thread-associated allocations, and a child is created while leak detection is enabled.
 
 ## Critical operation
 
-The generated workflow invokes those commands to construct or modify configuration artifacts and build metadata.
+The child continues through the program's ordinary shutdown or interpreter-exit path after duplicating the parent's address space.
 
 ## Interference
 
-The target utility parses multiline edits or edit-script fragments differently from the implementation assumed by the generator.
+Only the creating thread survives the fork, while allocations and bookkeeping associated with other threads or inherited global runtime state remain present in the child without the owners or cleanup activity that would normally release them.
 
 ## Invalid assumption
 
-The generator assumes that detecting or invoking a nominally compatible utility guarantees identical command syntax and semantics.
+Forking produces a child whose ordinary shutdown can reclaim all inherited runtime state as though it had been initialized independently or all original threads still existed.
 
 ## Failure
 
-Configuration aborts when edit instructions are rejected or interpreted as shell commands, leaving generated artifacts invalid and preventing the build from proceeding.
+Leak detection reports residual allocations at child exit, converts the child termination into a nonzero status, and causes a parent wait or supervising workflow that expects success to fail.
 
 ## Scope
 
-The shared pattern is nonportable generated text-processing syntax causing configuration-script failure. One report also documents missing and incorrectly ordered compiler flags for shared-library objects, but that separate flag-propagation issue is not supported by the other report and is intentionally excluded.
+This pattern is limited to fork-like address-space duplication in a process with live threaded or process-wide runtime state and fatal child-exit leak checking. The first report also includes independent leaks from ordinary shutdown and deliberate retained allocations, which are outside this pattern.
 
 ## Search strategy
 
-1. Inspect generated shell scripts for embedded multiline text-processing commands and verify their syntax against every supported utility implementation.
-2. Check whether generated edit scripts rely on implementation-specific insert, append, or external-file semantics.
-3. Run configuration generation with alternate utility implementations and inspect failures for edit instructions leaking into shell parsing.
-4. Verify that generated configuration artifacts are syntactically valid immediately after each text-processing transformation.
+1. Check fork-like child creation sites for execution while worker threads or thread-owned runtime allocations may still be live.
+2. Check the child branch for ordinary high-level shutdown instead of an immediate, fork-safe successful termination path.
+3. Check whether inherited process-wide registries, thread stacks, locks, sentinels, or allocator bookkeeping have explicit child-side reset or cleanup handling.
+4. Check sanitizer and leak-detector configuration to see whether child-exit leaks are fatal and whether the parent asserts a zero child status.
 
 ## Evidence
 
-- [#94404](../micro_taxo/gh_94404.md): Documents a generated configuration edit using multiline insertion syntax that works with one utility dialect but is rejected by another, causing configuration failure.
-- [#116259](../micro_taxo/gh_116259.md): Documents a generated configuration script containing an edit command fragment that the shell attempts to execute, producing a command-not-found and syntax error during configuration.
+- [#94064](../micro_taxo/gh_94064.md): The report shows forked child tests failing because leak detection found inherited runtime and thread-related allocations at shutdown; the child exited with status 1 where the parent expected status 0. The same report also contains unrelated shutdown-only and deliberate leaks, so only its forked-child evidence supports this pattern.
+- [#140493](../micro_taxo/gh_140493.md): The report creates a child while multiple threads are active and records leak-detector findings; its accompanying analysis explains that the non-calling threads disappear while their stacks and associated allocations remain in the child, establishing the fork-plus-live-thread mechanism.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0027](../macro_taxo_before_hybrid/workflow-0027.md)

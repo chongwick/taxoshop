@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0040",
+  "issues": [
+    109128
+  ],
+  "workflow_hypothesis": "Unrestored environment mutation causes test-suite failure",
+  "pattern": "A test-suite environment-integrity check detects a process-wide environment mutation left behind by executed test or support code.",
+  "description": "A test or support path mutates shared process environment state, and the mutation remains visible after that path completes.",
+  "precondition": "The harness records or otherwise expects process-wide environment state to remain unchanged across test execution.",
+  "critical_operation": "Executed test or support code changes a process-wide environment variable or related environment state.",
+  "interference": "The changed state persists beyond the responsible operation and affects the harness's post-execution comparison.",
+  "invalid_assumption": "The executed code is assumed to be environment-isolated or to restore the original state before returning.",
+  "failure": "The harness reports an environment mismatch and marks the overall test run as failed.",
+  "search_strategy": [
+    "Check every test and helper that writes process-wide environment state for restoration on all normal and exceptional exits.",
+    "Trace environment mutations across fixture, setup, teardown, and subprocess-boundary code to verify whether they remain in the parent process.",
+    "Search for end-of-suite baseline comparisons or environment-integrity assertions and identify which shared state they cover.",
+    "Review recently added or conditionally executed support paths that can run during broad test-suite jobs and confirm they cannot leak environment changes."
+  ],
+  "evidence": [
+    {
+      "issue": 109128,
+      "supports": "The report records a broad test run with one environment change detected and the result classified as an environment-change failure, supporting a residual process-wide environment mutation caught by suite-level integrity checking."
+    }
+  ],
+  "scope_note": "This is a singleton cluster. The report supports the residual-mutation and detection pattern, but does not identify the responsible routine, the specific environment state, or whether the mutation came directly from a test or from support code.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:35:21.248234+00:00"
+}

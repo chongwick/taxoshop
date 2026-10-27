@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0188",
+  "issues": [
+    140410,
+    141311,
+    141314,
+    142787
+  ],
+  "workflow_hypothesis": "Out-of-range empty slice triggers read-position assertion",
+  "pattern": "Empty-result operations leak invalid metadata into nonempty validation or access paths",
+  "description": "An operation determines that no output or data transfer is needed, but associated bounds, origins, or buffered state remain invalid or empty and are processed by logic intended for nonempty work.",
+  "precondition": "The requested result has zero cardinality because of a negative length, normalized empty range, boundary position, or valid empty buffered state, while an associated parameter, origin, or snapshot is out of range or has no data.",
+  "critical_operation": "The implementation performs ordinary argument validation, lower-level access, pointer formation, or optimized scanning before completing the zero-result case.",
+  "interference": "Zero cardinality does not short-circuit the operation or make the associated metadata safe for the nonempty path.",
+  "invalid_assumption": "Checks and routines used for nonempty work may require valid bounds, in-range origins, or nonempty backing data even when no output, transfer, or scan is required.",
+  "failure": "A logically valid empty operation raises an internal error or assertion, or risks invalid pointer/arithmetic behavior, instead of returning an empty result or valid position.",
+  "search_strategy": [
+    "Check zero-length and empty-range branches for immediate completion before argument validation that only affects produced elements.",
+    "Trace normalized out-of-range positions and slice bounds into lower-level reads, copies, pointer arithmetic, and assertions.",
+    "Inspect optimized scans and position calculations for valid empty buffers that still execute nonempty-buffer assumptions.",
+    "Test negative lengths, maximum positions, beyond-end bounds, and empty buffered states for ordinary empty-result behavior.",
+    "Separate irrelevant-parameter validation failures from invalid-origin or empty-buffer access failures when reviewing fixes."
+  ],
+  "evidence": [
+    {
+      "issue": 140410,
+      "supports": "A negative-length construction request correctly implies no output, but an independently invalid maximum-character bound is validated first and causes an internal error instead of the empty result."
+    },
+    {
+      "issue": 141311,
+      "supports": "A position at the numeric maximum makes the effective read length zero, but the retained position still reaches pointer formation and assertions requiring an in-range origin, creating assertion and undefined-behavior risk."
+    },
+    {
+      "issue": 141314,
+      "supports": "A valid text-reader state leaves an empty buffered snapshot, yet position reporting runs a backward-scan optimization that assumes buffered data exists and fails an internal bounds assertion."
+    },
+    {
+      "issue": 142787,
+      "supports": "Out-of-range slice bounds normalize to an empty slice, but the retained start offset is passed to a lower-level reader whose in-bounds assertion assumes a valid nonempty access."
+    }
+  ],
+  "scope_note": "The common pattern is missing empty-state short-circuiting or sanitization, with two supported mechanisms: irrelevant parameter validation can precede the empty-result decision, while invalid origins or empty buffers can reach lower-level access or optimization code. These mechanisms should be distinguished during review; the reports do not establish that every invalid argument must be ignored for every empty operation, nor do they concern leaked ownership or stale/freed state.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:38:07.855997+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0100",
+    "workflow-0118",
+    "workflow-0120"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+}

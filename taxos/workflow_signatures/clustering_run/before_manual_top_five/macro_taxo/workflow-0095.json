@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0095",
+  "issues": [
+    129824,
+    140260,
+    150284
+  ],
+  "workflow_hypothesis": "Concurrent isolated contexts race on shared process-wide state",
+  "pattern": "Concurrent execution accesses process-wide state without a complete initialization, mutation, or lifetime protocol",
+  "description": "Independent contexts or threads share runtime metadata, lazily initialized storage, mutable context registries, or resources, so their apparent isolation does not prevent conflicting process-wide accesses. The reports cover distinct variants: concurrent initialization, unsynchronized registry traversal, and concurrent resource close/use.",
+  "precondition": "Multiple contexts or threads can run concurrently while process-wide state remains reachable during initialization, normal operation, registration, enumeration, or teardown.",
+  "critical_operation": "Code initializes or updates shared metadata, publishes or traverses a mutable context list, or reads or closes a shared resource through non-atomic access, incomplete locking, or an insufficient once/lifetime protocol.",
+  "interference": "Another execution concurrently performs the same initialization or metadata update, changes the list while it is being inspected, or uses the resource while teardown closes it.",
+  "invalid_assumption": "Context isolation, prior initialization, an incidental lock or interpreter lock, or a lifecycle boundary was assumed to serialize all process-wide accesses and to keep shared state stable for the duration of its use.",
+  "failure": "Race detection reports unsynchronized accesses; affected tests may be skipped or disabled, and execution may hang, time out, leak live threads, observe inconsistent metadata, or perform a concurrent close/use of a resource. A registry race does not by itself imply stale or freed state.",
+  "search_strategy": [
+    "Search for process-global or static state initialized from multiple contexts; require immutable startup initialization, a once protocol, atomic publication, or a lock.",
+    "Check shared counters, flags, version metadata, aliases, and cached tables for atomic reads and writes, including assertions and debug reads outside the established synchronization boundary.",
+    "Check mutable thread, context, or resource registries for concurrent add/remove versus enumeration; require locking, a synchronized snapshot, or an explicit lifetime pin.",
+    "Check teardown paths for shared descriptors and other resources that can close while another context reads or uses them; verify ownership, reference, and close ordering.",
+    "Trace sanitizer skips, timeouts, and thread-leak reports back to the underlying shared-state access instead of treating suppression as synchronization."
+  ],
+  "evidence": [
+    {
+      "issue": 129824,
+      "supports": "Concurrent subinterpreters exposed several variants of the pattern: process-wide metadata and lazy initialization races, unsynchronized shared counters, and a descriptor close/read race; remedies included atomics, controlled initialization, and sanitizer-specific suppression for unresolved cases."
+    },
+    {
+      "issue": 140260,
+      "supports": "Independent subinterpreters concurrently executed extension initialization that wrote the same process-global optimization table, requiring a once-only or otherwise serialized initialization protocol."
+    },
+    {
+      "issue": 150284,
+      "supports": "Free-threaded activity concurrently enumerated a runtime-managed thread list while another thread registered a thread, producing a sanitizer race alongside hangs, timeouts, and thread-leak warnings; this supports mutable-registry synchronization without implying stale or freed state."
+    }
+  ],
+  "scope_note": "This is a mixed cluster unified by incomplete coordination of process-wide state, not by one exact data structure or one failure mode. The reports distinguish concurrent lazy initialization, mutable-list traversal, and shared-resource lifetime races; thread-leak warnings are an observed consequence in one report, not evidence that every case involves leaked ownership or use-after-free.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:20:59.299228+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0077"
+  ],
+  "adaptation_fingerprint": "19115e8abea7508d3c59fd3bf09cf5dbe43ba175272969d89f5412e61b80fd71",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

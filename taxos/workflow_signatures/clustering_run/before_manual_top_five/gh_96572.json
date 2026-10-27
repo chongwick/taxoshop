@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 96572,
+  "cluster_id": "workflow-0046",
+  "workflow": [
+    "A diagnostic bookkeeping mechanism retains links to every live object.",
+    "A performance optimization releases an object without removing its links from the bookkeeping structure.",
+    "The object is deallocated while the stale links remain reachable.",
+    "Later bookkeeping cleanup follows the retained links and reads freed storage, causing a use-after-free crash."
+  ],
+  "summary": "Stale bookkeeping link survives object deallocation",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:03:47.715906+00:00"
+}

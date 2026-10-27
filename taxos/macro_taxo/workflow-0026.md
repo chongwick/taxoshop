@@ -1,38 +1,44 @@
-# Sanitizer interception of deliberate worker-failure injection invalidates process-supervision tests
+# Large whole-program link-time optimization on an architecture with limited branch displacement is applied to a sufficiently large codebase.
 
-A process-pool recovery test deliberately crashes a worker during task handling, but sanitizer instrumentation intercepts the fault and terminates the worker through its own diagnostic path, so the supervisor/test harness observes sanitizer failure output instead of the intended worker-death condition.
+Global optimization and code generation create a final layout in which a direct branch target is farther away than the target architecture's instruction encoding permits.
 
 ## Precondition
 
-A recovery test runs under memory-safety instrumentation and intentionally triggers a fatal memory signal inside a worker while decoding or executing a task.
+A large build enables link-time or whole-program optimization on a target architecture with range-limited direct branches.
 
 ## Critical operation
 
-The worker performs the injected crash and the pool supervisor classifies the resulting process termination as a worker failure.
+The link-time compiler combines, optimizes, and lays out code before emitting machine instructions for an intermediate executable.
 
 ## Interference
 
-The sanitizer intercepts the injected fault, emits a sanitizer fatal-error report, and aborts through instrumentation before the termination follows the test's expected observable path.
+Global code placement and expansion increase the distance between a branch instruction and its target beyond the encodable displacement.
 
 ## Invalid assumption
 
-The test assumes that deliberate fatal signals have the same process-level behavior and observable diagnostics under sanitizer instrumentation as they do in an ordinary runtime.
+The code-generation pipeline assumes each emitted direct branch will remain in range, or that the assembler/linker will automatically provide a long-branch alternative or relaxation.
 
 ## Failure
 
-The recovery test is reported as failed or produces unexpected sanitizer diagnostics instead of validating the intended worker-failure handling.
+The assembler rejects the generated instruction with an out-of-range branch diagnostic, causing link-time compilation and the build of the intermediate executable to abort; disabling link-time optimization avoids the failure path.
 
 ## Scope
 
-This cluster contains one report, so the pattern is scoped to deliberate fatal-fault injection in supervised worker or subprocess recovery tests under sanitizer instrumentation; it does not establish that all sanitizer failures or all worker crashes behave this way.
+This is a singleton report, so the pattern is scoped to toolchain failures where whole-program code placement exposes an architecture-specific branch-range limit; it does not establish that all link-time optimization failures or all out-of-range branches have this cause.
 
 ## Search strategy
 
-1. Find worker or subprocess tests that deliberately trigger fatal signals or invalid memory accesses, and inspect whether sanitizer-enabled runs are accounted for.
-2. Trace how the supervisor distinguishes expected worker death from sanitizer-generated aborts and diagnostic output.
-3. Search for crash-injection tests executed under memory-safety sanitizers without a runtime or test-harness guard.
-4. Check whether assertions depend on exact process-exit behavior, signal status, or absence of sanitizer output when testing worker recovery.
+1. Search architecture-specific branch emission and relaxation logic for direct branches that lack a long-range fallback after whole-program layout.
+2. Check code-generation assumptions that branch targets remain within encoding range after global optimization, partitioning, or section reordering.
+3. Inspect linker and assembler support for relaxing or rewriting out-of-range branches in link-time-generated code.
+4. Exercise large link-time-optimized builds on architectures with limited branch reach, comparing the same build with link-time optimization disabled.
 
 ## Evidence
 
-- [#93981](../micro_taxo/gh_93981.md): A sanitizer-instrumented process-pool test intentionally triggered fatal memory faults during task decoding and worker function execution; the runtime emitted an AddressSanitizer fatal-signal report and aborted, and the affected recovery tests were reported as failed.
+- [#93619](../micro_taxo/gh_93619.md): A large optimized build on a range-limited architecture failed during link-time compilation because the assembler reported an out-of-range branch; the same build succeeded when link-time optimization was removed.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0025](../macro_taxo_before_hybrid/workflow-0025.md)

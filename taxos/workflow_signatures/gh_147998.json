@@ -9,7 +9,6 @@
     "The temporary state remains allocated after each failure, causing memory growth and leak reports."
   ],
   "summary": "Exceptional failure path leaks temporary shared state",
-  "decision_reason": "The bug materially matches the existing pattern of an exceptional processing path allocating intermediate state and omitting its cleanup. The specific cause here is variable shadowing that prevents the failure handler from seeing and releasing the allocation.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:35:43.388574+00:00"
 }

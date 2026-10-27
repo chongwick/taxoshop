@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0163",
+  "issues": [
+    140590
+  ],
+  "workflow_hypothesis": "Unchecked state-field type causes later invalid mapping access",
+  "pattern": "Incomplete validation of representation-sensitive restored state enables later low-level crash",
+  "description": "A state-restoration interface accepts a structured record containing an optional mapping-like field without validating that field’s representation. Later execution treats the stored value as a mapping, allowing an incompatible object to reach low-level lookup code and crash the process instead of raising a recoverable type error.",
+  "precondition": "A structured state record contains fields with required representations, including an optional mapping-like field, and callers can provide those fields through a restoration or equivalent state-admission path.",
+  "critical_operation": "Later execution performs mapping-dependent lookup or related representation-sensitive access using the restored field.",
+  "interference": "Validation checks other state fields but omits the optional mapping-like field, so a wrong-type value is accepted and stored as internal state.",
+  "invalid_assumption": "The downstream consumer assumes the restored field satisfies its mapping invariant because acceptance by the state-admission path was treated as sufficient validation.",
+  "failure": "The incompatible value reaches low-level object or memory access during the lookup, causing a process crash rather than a recoverable type or state error.",
+  "search_strategy": [
+    "Check every field in state-restoration and deserialization records for explicit validation of optional representation-sensitive values before storage.",
+    "Trace restored fields to later mapping lookups or other specialized consumers and verify that their required representations are enforced at admission.",
+    "Search for low-level lookup operations on state fields that lack a corresponding local type or invariant check.",
+    "Check whether malformed structured state is retained as trusted internal state and fails only during subsequent execution."
+  ],
+  "evidence": [
+    {
+      "issue": 140590,
+      "supports": "A missing validation check for an optional mapping-valued state field allowed tuple and string values to be stored; later dictionary-oriented lookup reached invalid low-level access and produced a segmentation fault instead of a type error."
+    }
+  ],
+  "scope_note": "This is a singleton pattern, so it is cautiously scoped to incomplete validation of a representation-sensitive field during structured state restoration, followed by later specialized use. It does not generalize to all malformed input or imply that every validation omission causes a low-level crash.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:36:19.769222+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0104"
+  ],
+  "adaptation_fingerprint": "bf4b43e03e6ff3652e7a3d872dc6d90bc4171fd2eedcf88ec3ca6abb958078ff",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

@@ -123,7 +123,7 @@ def read_clusters() -> dict[str, dict[str, Any]]:
         )
     data = json.loads(WORKFLOWS.read_text())
     clusters = data.get("clusters")
-    if data.get("schema_version") != 1 or not isinstance(clusters, dict):
+    if data.get("schema_version") not in (1, 2) or not isinstance(clusters, dict):
         raise ValueError(f"Unsupported workflow state in {WORKFLOWS}")
     return clusters
 
@@ -142,7 +142,11 @@ def pending_clusters(args: argparse.Namespace, clusters: dict[str, dict[str, Any
         raise ValueError(f"Unknown workflow cluster(s): {', '.join(sorted(unknown))}")
     entries = [(cluster_id, clusters[cluster_id]) for cluster_id in sorted(selected)]
     if not args.force:
-        entries = [(cluster_id, cluster) for cluster_id, cluster in entries if not (OUTPUT / f"{cluster_id}.json").exists()]
+        entries = [
+            (cluster_id, cluster) for cluster_id, cluster in entries
+            if not (OUTPUT / f"{cluster_id}.json").exists()
+            or sorted(json.loads((OUTPUT / f"{cluster_id}.json").read_text()).get("issues", [])) != sorted(cluster["issues"])
+        ]
     return entries[: args.limit] if args.limit else entries
 
 
@@ -224,6 +228,10 @@ def markdown(entry: dict[str, Any]) -> str:
     lines.extend(["", "## Evidence", ""])
     for item in sorted(entry["evidence"], key=lambda value: value["issue"]):
         lines.append(f"- [#{item['issue']}](../{REPORT_LINK_DIR}/{REPORT_PREFIX}_{item['issue']}.md): {item['supports']}")
+    if entry.get("source_cluster_ids"):
+        lines.extend(["", "## Source taxonomy", "",
+                      "Adapted to the hybrid cluster membership from these archived macro entries:", ""])
+        lines.extend(f"- [{key}](../{entry['source_taxonomy']}/{key}.md)" for key in entry["source_cluster_ids"])
     return "\n".join(lines) + "\n"
 
 

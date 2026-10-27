@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0149",
+  "issues": [
+    144984
+  ],
+  "workflow_hypothesis": "Partial-object cleanup dereferences missing state and releases parent ownership twice",
+  "pattern": "Partial-object cleanup dereferences absent optional state and duplicates a transferred parent release",
+  "description": "When a child is linked to a parent before full initialization, a later allocation failure can invoke cleanup that is unsafe for partial state and inconsistently accounts for parent ownership.",
+  "precondition": "A newly allocated child acquires a parent association before all fields required by its destructor, including optional cleanup state, are initialized.",
+  "critical_operation": "A subsequent allocation or initialization step fails and the error path disposes of the partially initialized child.",
+  "interference": "Child destruction dereferences the still-absent optional state and releases the parent association, while surrounding failure handling also releases that parent ownership independently.",
+  "invalid_assumption": "The destructor is safe for every initialization stage, and the parent ownership reference remains separately owned after child cleanup.",
+  "failure": "Recoverable allocation failure instead causes cleanup-time null dereference and duplicate parent release, potentially crashing or corrupting ownership accounting.",
+  "search_strategy": [
+    "Trace every allocation failure after child-parent association and verify cleanup is safe at each partial-initialization stage.",
+    "Check destructors and cleanup helpers for unguarded dereferences of optional fields that are initialized only later.",
+    "Map parent ownership transfers and confirm exactly one release occurs across destructor and error-path cleanup.",
+    "Force failures at each initialization allocation and verify the original error propagates without crashes or ownership-count changes."
+  ],
+  "evidence": [
+    {
+      "issue": 144984,
+      "supports": "The report shows a child parser retaining its parent before later allocations complete; failure cleanup invokes destruction with a null handler table, while parent cleanup and the error path both decrement the parent reference."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern: it generalizes the interaction between partial-object destruction, optional cleanup state, and premature parent ownership transfer, not all null dereferences or double releases.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:34:40.793759+00:00"
+}

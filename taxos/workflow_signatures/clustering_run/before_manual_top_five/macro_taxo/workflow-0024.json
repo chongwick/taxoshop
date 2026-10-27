@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0024",
+  "issues": [
+    89571,
+    89657,
+    113602,
+    140576
+  ],
+  "workflow_hypothesis": "Error recovery dereferences missing diagnostic source data",
+  "pattern": "Layered parser error paths continue after lower-level failure state becomes invalid",
+  "description": "Malformed input causes a lower tokenizer or parser layer to report an error while a higher layer continues recovery, optional parsing, secondary diagnostic construction, or result packaging. The cluster includes two mechanisms: parser paths that reuse incomplete diagnostic context or attempt to replace an existing error, and tokenizer paths that treat an error-bearing sentinel as normal completion.",
+  "precondition": "Malformed input produces a low-level lexical or parsing error together with partial token, source-location, delimiter, or parser state.",
+  "critical_operation": "A higher-level parser or tokenizer continues an alternative, recovery pass, diagnostic construction, or token/result construction based on the low-level return value.",
+  "interference": "The lower-level error remains pending while recovery mutates or leaves source metadata unavailable, or while a sentinel value is indistinguishable from clean completion.",
+  "invalid_assumption": "Continuation and construction logic assumes the earlier error has been propagated or cleared and that source context and result data are valid, even when an exception remains pending or the returned sentinel represents failure.",
+  "failure": "The system dereferences missing diagnostic data, overwrites or re-enters an existing error, asserts on an exception-bearing call, or emits a normal result with an error still set instead of returning the original recoverable syntax or tokenization error.",
+  "search_strategy": [
+    "Trace every recovery, retry, optional, and fallback parser branch to verify that it short-circuits when a lower-level error indicator or exception is set.",
+    "Audit all diagnostic constructors for validation of source text, line, offset, and delimiter context before dereferencing data that recovery may have reset or omitted.",
+    "Inspect every sentinel-handling path, especially end-of-input results, to distinguish clean completion from a sentinel returned with a pending error before constructing a token or wrapper result.",
+    "Check secondary error-reporting paths for attempts to replace or enrich an existing error, and verify that the first recoverable error is preserved.",
+    "Exercise malformed inputs that combine lexical failures with structural errors and assert that they return a diagnostic rather than crashing, asserting, or producing a normal result with an exception pending."
+  ],
+  "evidence": [
+    {
+      "issue": 89571,
+      "supports": "A lexical continuation error and an unclosed-delimiter condition caused a second parser pass to construct a structural diagnostic after recovery had left its source-line context unavailable, resulting in a null dereference; the fix preserves the earlier tokenizer error."
+    },
+    {
+      "issue": 89657,
+      "supports": "An invalid continuation error propagated through optional grammar branches that continued as if successful, leading diagnostic construction to use incorrect or unavailable source and offset state; fixes added error-aware unwinding and corrected locations."
+    },
+    {
+      "issue": 113602,
+      "supports": "A malformed structural input caused a later diagnostic attempt while the parser already had an active error, so diagnostic machinery invoked code with an exception pending and hit an internal assertion; the fix bails out when an existing error is present."
+    },
+    {
+      "issue": 140576,
+      "supports": "A low-level character read returned an end-of-input sentinel while setting an error, but tokenization treated it as clean exhaustion and built a normal token result, producing a system failure; the fix converts the error-bearing sentinel into an error token."
+    }
+  ],
+  "scope_note": "This mixed cluster supports an umbrella pattern about failure-state propagation across layered tokenizer/parser and diagnostic code. Reports 89571, 89657, and 113602 concern secondary parser diagnostics or continuation with an existing or invalid error state; 140576 concerns sentinel/result confusion in tokenization. The evidence does not support claims about ownership leaks, stale or freed memory, or all parser crashes.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:13:00.199109+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0023",
+    "workflow-0047",
+    "workflow-0103"
+  ],
+  "adaptation_fingerprint": "812eeace18e2bd215637ad6b28f5a16c8534bbc7acd4aac43dc527ed61cbfaa0",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

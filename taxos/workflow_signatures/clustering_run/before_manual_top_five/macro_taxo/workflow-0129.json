@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0129",
+  "issues": [
+    140354
+  ],
+  "workflow_hypothesis": "Unsupported target accepted until generated-artifact build failure",
+  "pattern": "Unsupported target accepted for optional code generation until artifact generation fails",
+  "description": "An optional target-specific generator is enabled for an unsupported target; configuration accepts it, generation rejects the target without producing the required artifact, and dependent compilation fails later.",
+  "precondition": "An optional generated-artifact feature is enabled while the selected target is outside the generator’s supported target set.",
+  "critical_operation": "The build invokes the generator and then compiles source files that depend on its output.",
+  "interference": "Configuration does not validate target support, and generator rejection leaves the required artifact unavailable to downstream compilation.",
+  "invalid_assumption": "Successful configuration is treated as evidence that generation will succeed and provide the required artifact for the selected target.",
+  "failure": "The build fails late with an unsupported-target generator error or a missing generated-artifact compilation error instead of rejecting the unsupported configuration early.",
+  "search_strategy": [
+    "Check optional code-generation configuration paths for validation against the generator’s supported-target registry.",
+    "Trace generator rejection paths and verify that unsupported targets stop the build with an explicit diagnostic before dependent compilation.",
+    "Check build dependencies to ensure consumers cannot compile when required generation fails or emits no artifact.",
+    "Search for target identifiers accepted by configuration but absent from the generator’s recognized-target set."
+  ],
+  "evidence": [
+    {
+      "issue": 140354,
+      "supports": "The report shows an optional code-generation feature accepted for an Android target absent from the generator’s known targets; generation rejects the target, the generated header is not produced, and compilation subsequently fails because the header is missing."
+    }
+  ],
+  "scope_note": "This is a singleton cluster, so the pattern is scoped to optional target-specific code generation whose unsupported-target validation is missing or delayed until artifact generation.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:24:44.354436+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0097"
+  ],
+  "adaptation_fingerprint": "b89bb64de6ed2904f2a825dd49eab11a218f24bea61ad4557ca6ee24747f660b",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f"
+}

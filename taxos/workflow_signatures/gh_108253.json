@@ -9,7 +9,6 @@
     "A subsequent version lookup retrieves and accesses the dangling pointer, causing a use-after-free crash."
   ],
   "summary": "Stale cached pointer survives object invalidation and release",
-  "decision_reason": "The failure is materially the same as retained pointer dereference after owner release: a cache retains a pointer to an object whose storage has been freed, and a later lookup dereferences it.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:08:44.549453+00:00"
 }

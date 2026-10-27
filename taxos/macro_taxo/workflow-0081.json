@@ -2,70 +2,36 @@
   "schema_version": 1,
   "cluster_id": "workflow-0081",
   "issues": [
-    130977,
-    131325,
-    132869,
-    142717,
-    144356,
-    149142,
-    151277,
-    153908,
-    154756
+    122136
   ],
-  "workflow_hypothesis": "Concurrent unsynchronized access to shared byte storage",
-  "pattern": "Concurrent unsynchronized access to shared mutable storage or state",
-  "description": "Multiple threads retain aliases to the same mutable storage or object state, while at least one operation mutates it and another reads or mutates it concurrently without a complete shared synchronization protocol.",
-  "precondition": "Mutable backing storage, container representation, iterator state, extension state, or external-library state is reachable by multiple threads or through independent views, handles, or callbacks.",
-  "critical_operation": "A thread performs an in-place update, read-modify-write, publication, reordering, exhaustion transition, or buffer handoff on that shared state while another thread accesses related bytes, fields, pointers, metadata, or lifetime state.",
-  "interference": "The accesses are not ordered by the same lock, atomic protocol, ownership rule, or safe snapshot mechanism. Partial protection is insufficient when aliases bypass the lock, a dependent field is published before its contents, a private cursor is updated outside the container lock, or a consumer retains a buffer after handoff.",
-  "invalid_assumption": "The implementation assumes that object reachability, a sequencing point, atomic access to one field, or locking only the enclosing container makes the entire representation and its lifetime stable for concurrent readers and writers.",
-  "failure": "The conflicting accesses constitute undefined behavior or an invalid intermediate state. Race detectors report the conflict, and executions may observe inconsistent data, corrupt container state, trigger assertions or crashes, double-release or use freed memory, or expose stale or partially initialized contents.",
+  "workflow_hypothesis": "Underestimated external capacity defeats a backpressure test expectation",
+  "pattern": "A capacity-sensitive I/O test derives its workload from a reported external-buffer size and uses that single estimate to trigger backpressure.",
+  "description": "Tests that infer an external system's usable capacity from an advertised size can miss the intended saturation state when the real capacity is larger or changes dynamically.",
+  "precondition": "The test needs to force an asynchronous I/O path into backpressure, while the relevant external buffer is controlled by the operating system or another implementation outside the test.",
+  "critical_operation": "The test queries the externally reported capacity and writes approximately that amount, expecting the operation to fill the external buffer and make the application's pending-write buffer observable.",
+  "interference": "The external implementation accepts substantially more data than the reported capacity, potentially because capacity is dynamically allocated or the report excludes usable message space.",
+  "invalid_assumption": "The reported capacity is an exact upper bound on data acceptance and one workload sized from it is sufficient to force backpressure.",
+  "failure": "The backpressure assertion fails even though the write remains valid, producing a false test failure; repeated writes or an observation-based saturation condition are needed instead.",
   "search_strategy": [
-    "Search for shared backing storage or views passed to multiple threads and verify that every read and write uses one common synchronization or ownership protocol.",
-    "Inspect multi-field publication and mutation sequences and verify that dependent contents become visible before indexes, pointers, lengths, or state flags are exposed.",
-    "Check every reader path—including formatting, length queries, iteration, callbacks, and cleanup—for the same lock or atomic protocol used by writers.",
-    "Find in-place algorithms on shared containers and require locking, atomic element updates, or copy/snapshot-and-swap isolation before mutation.",
-    "Stress shared handles and buffers with concurrent mutation, exhaustion, reuse, and destruction under a race detector and memory-safety instrumentation."
+    "Find tests that size a workload directly from an operating-system or external-component capacity report.",
+    "Check whether a single write at the reported capacity is assumed to make an external buffer full.",
+    "Inspect whether the test observes actual pending data or blocking before asserting that backpressure occurred.",
+    "Look for environment-dependent capacity, dynamic allocation, or reports that exclude usable payload space."
   ],
   "evidence": [
     {
-      "issue": 130977,
-      "supports": "Independent views of one mutable byte backing store concurrently perform element reads and writes; the race detector reports the plain read/write conflict."
-    },
-    {
-      "issue": 131325,
-      "supports": "A reusable read buffer is handed to an asynchronous consumer before the producer has established the required sequencing, allowing a later fill to race with transmission of the earlier view."
-    },
-    {
-      "issue": 132869,
-      "supports": "Concurrent lookup can observe an index before the associated key is initialized because publication order and lookup synchronization do not match, producing an invalid null entry and crash."
-    },
-    {
-      "issue": 142717,
-      "supports": "Multiple threads perform compound push, pop, and read operations on one shared sequence without synchronization, corrupting its transient representation and causing an invalid-memory crash; the JIT exposed the timing but was not the underlying contract."
-    },
-    {
-      "issue": 144356,
-      "supports": "Iterator length and advancement race with set mutation and with concurrent use of the same iterator; protecting only the underlying set leaves iterator cursor, exhaustion, and reference-release state vulnerable to races and double release."
-    },
-    {
-      "issue": 149142,
-      "supports": "A shared numeric context performs unsynchronized flag read-modify-write and clearing operations across threads, so status and trap state require a common mutex or equivalent coordination."
-    },
-    {
-      "issue": 151277,
-      "supports": "Concurrent comparison reads mutable external-library string storage while another operation replaces its contents, and the library's internal synchronization does not cover both access paths."
-    },
-    {
-      "issue": 153908,
-      "supports": "A writer uses atomic or critical-section updates while representation code reads the same fast-path scalar or slow-path pointer plainly, causing both a race and, for replaced objects, a possible use-after-free."
-    },
-    {
-      "issue": 154756,
-      "supports": "An in-place ordering algorithm writes sequence slots while other threads iterate the same sequence; plain stores race with readers, motivating synchronization or copy-and-swap isolation."
+      "issue": 122136,
+      "supports": "A test wrote data sized from reported socket-buffer capacities, but a Linux kernel accepted more data than advertised, so the application's write buffer stayed empty and the backpressure assertion failed; the fix looped until pending data was actually observed."
     }
   ],
-  "scope_note": "The shared mechanism is broader than byte buffers: the reports cover aliases to raw storage, containers, iterators, scalar fields, pointers, and external-library objects. It applies where concurrent access is permitted or accidentally exposed; some APIs may instead require caller-provided synchronization, and a race-detector report alone does not establish that the implementation must serialize intentionally unsupported use.",
+  "scope_note": "This cluster contains one report, so the pattern is scoped to capacity-driven backpressure tests involving externally reported buffer sizes; it does not establish that all capacity reports are inaccurate or that looping is universally required.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T18:57:20.860801+00:00"
+  "generated_at": "2026-09-10T18:48:53.386594+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0069"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

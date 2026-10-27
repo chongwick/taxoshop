@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": 132097,
-  "cluster_id": "workflow-0043",
+  "cluster_id": "workflow-0050",
   "workflow": [
     "A code generator assigns a generic calling convention and dispatch flags to a class-associated callable.",
     "The generated callable implementation uses a different parameter layout and a more specific first-argument type than that convention permits.",
@@ -9,7 +9,6 @@
     "Undefined-behavior instrumentation detects the mismatched indirect call and aborts instead of completing the invocation."
   ],
   "summary": "Incompatible generated callback signature invoked through generic dispatch",
-  "decision_reason": "The failure mechanism materially matches the existing cluster: a callable with an incompatible concrete signature is cast to a generic callback interface and invoked through that interface, producing undefined behavior during normal dispatch.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:33:18.778327+00:00"
 }

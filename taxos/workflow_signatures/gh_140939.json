@@ -9,7 +9,6 @@
     "Repeated failures leave each temporary allocation retained, and leak detection reports persistent memory growth instead of clean recovery."
   ],
   "summary": "Exceptional allocation failure omits temporary-state cleanup",
-  "decision_reason": "The bug materially matches the existing pattern of an exceptional operation failure that skips cleanup for an intermediate allocation, causing leaks across repeated failures.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:58:07.176112+00:00"
 }

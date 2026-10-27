@@ -9,7 +9,6 @@
     "The update later uses the released value, causing a use-after-free and process-terminating memory failure."
   ],
   "summary": "Reentrant container mutation invalidates a borrowed value reference",
-  "decision_reason": "The underlying failure is materially the same as retaining a pointer into owner-managed storage after the owner releases it, then dereferencing it later. The reentrant callback and container mutation are implementation-specific details of that general use-after-free workflow.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:15:20.141721+00:00"
 }

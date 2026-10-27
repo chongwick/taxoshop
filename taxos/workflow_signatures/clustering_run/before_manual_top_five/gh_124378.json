@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 124378,
+  "cluster_id": "workflow-0084",
+  "workflow": [
+    "A test assumes a size option accepts only integer values and expects the corresponding integer-validation error for invalid input.",
+    "An external UI toolkit changes that option to accept general screen-distance values, including unit-bearing strings.",
+    "The unchanged test submits invalid input and receives a distance-parsing error instead of the previously expected integer error.",
+    "The assertion compares against the obsolete diagnostic and reports a test failure despite the underlying operation behaving correctly."
+  ],
+  "summary": "Dependency behavior change invalidates a narrow test expectation",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:25:05.822726+00:00"
+}

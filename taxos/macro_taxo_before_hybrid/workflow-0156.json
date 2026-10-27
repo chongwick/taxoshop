@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0156",
+  "issues": [
+    148716
+  ],
+  "workflow_hypothesis": "Polymorphic call optimization assumes a callable target exists",
+  "pattern": "A specialized runtime optimizer processes a hot polymorphic call site after instrumentation state changes, but assumes a single callable target was inferred.",
+  "description": "Hot indirect-call optimization can encounter receivers with varying types and no uniquely inferable callable target.",
+  "precondition": "A loop repeatedly invokes a method-like operation on receivers of incompatible types until the call site reaches the optimization threshold.",
+  "critical_operation": "The optimizer compiles the polymorphic call site and attempts to select a representative callable target.",
+  "interference": "Instrumentation or monitoring is enabled and then cleared, leaving specialization state altered so the optimizer processes the unstable site instead of abandoning optimization.",
+  "invalid_assumption": "The optimization path assumes the inferred callable target is always present and does not handle a missing target.",
+  "failure": "An internal null assertion fires, aborting the runtime instead of falling back or skipping optimization.",
+  "search_strategy": [
+    "Check hot-call optimization paths for polymorphic receiver handling when no unique target can be inferred.",
+    "Trace specialization-state transitions across instrumentation enable/disable operations before optimization begins.",
+    "Search for unconditional dereferences or assertions on inferred callable targets without a missing-target fallback.",
+    "Verify that unstable indirect-call sites bail out safely when target resolution returns null or ambiguous."
+  ],
+  "evidence": [
+    {
+      "issue": 148716,
+      "supports": "The report shows a hot loop with varying receiver types, an instrumentation setup-and-clear sequence affecting specialization behavior, and an optimizer assertion when no callable target is available."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped pattern from a singleton report; the shared mechanism is the unchecked missing-target case at a polymorphic call site, while the exact instrumentation state transition may be implementation-specific.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:38:01.743757+00:00"
+}

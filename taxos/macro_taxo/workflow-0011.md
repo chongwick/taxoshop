@@ -36,3 +36,9 @@ This is a cautiously scoped singleton pattern. The evidence supports a platform-
 ## Evidence
 
 - [#77808](../micro_taxo/gh_77808.md): The report documents intermittent process-segmentation faults while comparing values drawn from several numeric representations, with the crash reproduced on 32-bit x86 and ARM environments and sometimes absent on rerun; it localizes the failure to a mixed equality-comparison workload but does not establish a more specific root cause.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0011](../macro_taxo_before_hybrid/workflow-0011.md)

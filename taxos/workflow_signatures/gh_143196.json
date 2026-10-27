@@ -10,7 +10,6 @@
     "The stale access causes a heap memory-safety failure and process termination instead of a recoverable argument error."
   ],
   "summary": "Reentrant callback invalidates formatting-cache state before later use",
-  "decision_reason": "The failure workflow materially matches reentrant mutation invalidating storage while an outer cleanup-like operation continues using the original state; the formatting-cache context and specific callback differ, but the causal mechanism is the same.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:17:33.083073+00:00"
 }

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0132",
+  "issues": [
+    140408
+  ],
+  "workflow_hypothesis": "Null pointer passed to a native routine requiring valid string storage",
+  "pattern": "Null string storage crosses a foreign-function boundary that requires a valid buffer",
+  "description": "A null pointer is passed through a foreign-function boundary to a native routine that requires valid string storage; the routine measures or otherwise reads the string without accepting null, causing an invalid memory access and process termination.",
+  "precondition": "A foreign-function call supplies a null pointer for an argument whose native contract requires a non-null, readable character buffer.",
+  "critical_operation": "The native routine performs an implicit string operation, such as determining the buffer's length, that dereferences the supplied pointer.",
+  "interference": "The foreign-function boundary conveys the null pointer as a raw native argument without converting the contract violation into a recoverable argument error.",
+  "invalid_assumption": "The native routine assumes that the pointer is non-null and references valid character storage.",
+  "failure": "The dereference reaches the null address, producing an unrecoverable invalid-memory-access crash.",
+  "search_strategy": [
+    "Check every foreign-function call that passes nullable values to native parameters declared or documented as non-null string pointers.",
+    "Trace native string-length, copy, comparison, and parsing operations to verify that their pointer arguments are validated before dereference.",
+    "Verify that the language-to-native boundary rejects null arguments when the target routine's contract requires valid character storage.",
+    "Inspect crash paths for null-address reads originating inside native string helpers rather than treating them as managed argument-conversion failures."
+  ],
+  "evidence": [
+    {
+      "issue": 140408,
+      "supports": "The report demonstrates that a foreign-function call passes a null string pointer to a native duplication routine, whose length computation dereferences it and terminates the process with a null-address read."
+    }
+  ],
+  "scope_note": "This is a cautiously scoped singleton pattern: the evidence establishes the mechanism for native routines requiring non-null string storage, but does not establish behavior for routines that explicitly define null as valid or for interfaces that validate arguments before the call.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:07:05.694521+00:00",
+  "adaptation_method": "reused_exact_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0098"
+  ],
+  "adaptation_fingerprint": "cb90eaae9bb6d390341c1ae8bff69e6245868caefd2dd561b69704f199385eb8",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.331181+00:00"
+}

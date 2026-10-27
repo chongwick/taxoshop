@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0037",
+  "issues": [
+    102509,
+    106914
+  ],
+  "workflow_hypothesis": "Uninitialized unused numeric storage is read before neutralizing arithmetic",
+  "pattern": "A zero-magnitude numeric object leaves a nominally unused storage unit uninitialized, but a conversion helper reads that unit and incorporates it into scaling—ภ",
+  "description": "A zero-magnitude numeric object leaves a nominally unused storage unit uninitialized, but a conversion helper reads that unit and incorporates it into scaling—potentially by multiplying it by the zero magnitude—before producing the converted value.",
+  "precondition": "An object represents zero magnitude while its first numeric storage unit remains uninitialized because the representation treats that unit as unused.",
+  "critical_operation": "A value-conversion or compact-value helper unconditionally reads the first storage unit and uses it in arithmetic with the object's magnitude or size.",
+  "interference": "Memory-safety instrumentation tracks the read of the indeterminate unit and treats its propagation through arithmetic as an uninitialized-value use, even when the arithmetic would mathematically cancel it.",
+  "invalid_assumption": "The zero magnitude or neutralizing arithmetic is assumed to make reading the unused unit harmless, so the helper is allowed to access it without first checking for zero.",
+  "failure": "The conversion is flagged as an uninitialized-memory use and may abort under instrumentation; the implementation therefore fails sanitizer-instrumented builds or operations despite the intended numeric result being zero.",
+  "search_strategy": [
+    "Check whether zero-valued numeric objects can retain uninitialized payload units.",
+    "Inspect conversion helpers for unconditional reads of payload storage before checking magnitude or element count.",
+    "Search for arithmetic that multiplies, masks, or otherwise neutralizes an indeterminate payload value only after reading it.",
+    "Run memory-initialization instrumentation through zero-value conversion and compact-representation paths."
+  ],
+  "evidence": [
+    {
+      "issue": 102509,
+      "supports": "The report identifies a zero-sized numeric representation whose first payload unit is read by a conversion helper and then multiplied by zero; memory instrumentation reports the read, and the eventual fix initializes the unit."
+    },
+    {
+      "issue": 106914,
+      "supports": "The report independently describes the same mechanism: a zero-magnitude object's first payload unit may be uninitialized, a compact-value conversion reads it while multiplying by zero, and MemorySanitizer terminates the instrumented operation."
+    }
+  ],
+  "scope_note": "Both reports describe the same underlying case and one explicitly identifies the other as a duplicate. The pattern is scoped to numeric representations with omitted or lazily initialized payload storage and conversion code that reads payload data before guarding the zero-magnitude case; it does not claim that every uninitialized read is neutralized by arithmetic or that every sanitizer report indicates a distinct defect.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:34:02.029842+00:00"
+}

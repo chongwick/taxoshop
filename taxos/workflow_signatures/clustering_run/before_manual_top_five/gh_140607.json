@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 140607,
+  "cluster_id": "workflow-0174",
+  "workflow": [
+    "A buffered read operation allocates a destination buffer and delegates filling it to a lower-level provider.",
+    "The provider returns a byte count outside the valid range of zero through the buffer capacity.",
+    "The caller uses that count to construct the result without validating it against the allocated buffer.",
+    "An oversized count makes result construction read beyond the buffer, causing a heap-buffer-overflow or process termination instead of a recoverable input error."
+  ],
+  "summary": "Unvalidated returned byte count causes buffer over-read",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:51:21.252790+00:00"
+}

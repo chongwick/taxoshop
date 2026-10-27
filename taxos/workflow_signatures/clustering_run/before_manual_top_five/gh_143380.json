@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 143380,
+  "cluster_id": "workflow-0062",
+  "workflow": [
+    "A database-like operation validates that its backing resource is available and begins obtaining parameter data from caller-supplied sequences or mappings.",
+    "A user-defined length, item, iteration, or conversion callback closes or releases the backing resource while the outer operation is still running.",
+    "The operation fails to revalidate the resource after the callback returns and continues parameter binding or execution.",
+    "A native routine is called through the cleared resource handle, causing a null dereference and process termination instead of a recoverable closed-resource error."
+  ],
+  "summary": "Reentrant callback invalidates a backing resource before later use",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:21:16.826829+00:00"
+}

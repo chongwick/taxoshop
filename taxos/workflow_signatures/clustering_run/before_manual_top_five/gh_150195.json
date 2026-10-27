@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 150195,
+  "cluster_id": "workflow-0232",
+  "workflow": [
+    "A deep-recursion test chooses a fixed nesting depth intended to exceed the runtime's recursion threshold.",
+    "Build-time instrumentation or hardening changes the effective recursion behavior, so the chosen depth no longer reaches that threshold.",
+    "The recursive operation completes without raising the expected recursion-limit error.",
+    "The test assertion reports failure even though the runtime remains operational; increasing the tested depth restores the intended boundary condition."
+  ],
+  "summary": "Fixed recursion depth no longer reaches the enforced limit",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:38:45.294327+00:00"
+}

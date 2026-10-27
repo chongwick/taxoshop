@@ -1,40 +1,47 @@
-# Optional or uninitialized pointer state is converted with pointer arithmetic before its null/absence state is handled.
+# Generated configuration scripts trust unvalidated external tool commands or dialects.
 
-Optional or uninitialized pointer state is converted with pointer arithmetic before its null/absence state is handled.
+Configuration generation embeds external-tool commands or edit syntax into shell scripts without ensuring that the selected tool is available and semantically compatible in the target environment.
 
 ## Precondition
 
-A pointer field or pointer argument may legitimately be NULL because backing storage or a logical position has not been initialized, allocated, or supplied.
+The generator relies on host utilities or interpreters whose names, availability, or command dialects vary across supported environments.
 
 ## Critical operation
 
-Code performs pointer addition or subtraction to compute an address or offset before checking for NULL or representing the absent state explicitly.
+It probes or selects a tool and embeds its invocation or multiline transformation commands into generated configuration or build scripts.
 
 ## Interference
 
-The arithmetic has undefined behavior; sanitizers can stop execution, and compiler assumptions about defined pointer arithmetic can invalidate subsequent checks or calculations.
+A missing, differently named, or dialect-incompatible tool leaves an unresolved command or raw edit fragment in the generated script.
 
 ## Invalid assumption
 
-The implementation assumes that arithmetic on a NULL pointer merely preserves an absent value or safely produces a value that can later be checked.
+A nominal tool match or successful probe is assumed to guarantee exact command availability and portable execution semantics.
 
 ## Failure
 
-Execution may abort during diagnostics, compute an invalid address or offset, or crash instead of taking the intended initialization, allocation, relocation, or NULL-preserving path.
+The shell executes leaked transformation text or cannot resolve the selected command, so configuration or subsequent build generation aborts with a misleading script error.
 
 ## Scope
 
-The shared pattern is guarded NULL-pointer arithmetic in low-level C state-management code. The reports differ in whether the pointer represents absent storage, an optional argument array, or an uninitialized relocation position, and issue 96678 also contains unrelated undefined-behavior findings; this taxonomy covers only its NULL-arithmetic subset.
+The common pattern is unvalidated external-tool dependence in generated configuration workflows. The reports include both dialect-sensitive text transformation and unavailable host-command selection; they should be reviewed as related mechanisms, not as one specific utility failure.
 
 ## Search strategy
 
-1. Search every pointer addition and subtraction for operands that may be NULL, and require an explicit guard before the arithmetic.
-2. Trace pointer fields through initialization, allocation, relocation, and restoration paths; verify that NULL states are encoded without pointer arithmetic.
-3. Inspect callers of low-level routines for optional pointer arguments and check that contracts forbid NULL before any derived-pointer computation.
-4. Run undefined-behavior sanitizers through uninitialized, empty, reallocation, and first-use paths, including builds with compiler overflow assumptions disabled.
+1. Trace every detected external tool or interpreter into generated scripts and verify the exact command is executable at its use site.
+2. Inspect generated multiline editing commands for syntax differences across all supported utility implementations.
+3. Test configuration with missing, versioned, and alternate-dialect host tools and inspect the generated script before execution.
+4. Add explicit validation and diagnostics when a selected host tool is unavailable or cannot perform the required transformation.
 
 ## Evidence
 
-- [#96569](../micro_taxo/gh_96569.md): A frame-storage base pointer is NULL on first use, yet code adds an offset before checking capacity and attempting to allocate storage; undefined behavior is diagnosed and the process aborts.
-- [#96678](../micro_taxo/gh_96678.md): The sanitizer review identifies a callable path where an optional argument pointer can be NULL and is advanced before being passed onward; the fix removes the NULL arithmetic by tightening the pointer contract and call path.
-- [#144759](../micro_taxo/gh_144759.md): Uninitialized NULL position fields are converted to offsets during buffer relocation and later reconstructed with arithmetic; explicit NULL checks and a sentinel are required to avoid undefined behavior.
+- [#94404](../micro_taxo/gh_94404.md): A generated configuration edit used multiline insertion syntax accepted by one text-processing dialect but rejected by another, causing configuration to fail on a supported platform.
+- [#98249](../micro_taxo/gh_98249.md): Cross-build configuration embedded an unversioned host interpreter command after an inadequate selection path; the later generation rule failed because that exact command was unavailable.
+- [#116259](../micro_taxo/gh_116259.md): Configuration emitted a raw edit fragment into its shell script, where the shell treated it as a command and then reported a syntax error; related discussion points to an unmet external-tool requirement.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0028](../macro_taxo_before_hybrid/workflow-0028.md)
+- [workflow-0031](../macro_taxo_before_hybrid/workflow-0031.md)

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0080",
+  "issues": [
+    130555,
+    140551,
+    142555,
+    142559,
+    142594,
+    142637,
+    142663,
+    142731,
+    142732,
+    142734,
+    142782,
+    142828,
+    142829,
+    142831,
+    142882,
+    142884,
+    143196,
+    143379,
+    143543,
+    143546,
+    143635,
+    143639
+  ],
+  "workflow_hypothesis": "Re-entrant cleanup invalidates embedded container storage during clearing",
+  "pattern": "Callback re-entrancy invalidates borrowed state or backing storage during a native operation",
+  "description": "A low-level operation invokes user-defined behavior while retaining borrowed references, raw pointers, cached sizes, iterator state, or container metadata. The callback re-enters and mutates, replaces, clears, resizes, detaches, or destroys that state before the operation resumes.",
+  "precondition": "A native fast path holds unowned object references or cached structural/storage state across a potentially user-defined callback.",
+  "critical_operation": "The operation performs lookup, iteration, conversion, comparison, formatting, serialization, packing, I/O, insertion, or cleanup and invokes user code mid-operation.",
+  "interference": "The callback re-enters the active object or its owner and changes the relevant container, iterator, buffer, cache, backing object, or object lifetime.",
+  "invalid_assumption": "The operation assumes the callback is observational, or assumes previously acquired pointers, references, lengths, indexes, and representation metadata remain valid after the callback.",
+  "failure": "Continuation through stale state causes use-after-free, null dereference, out-of-bounds access, invalid iteration, assertion failure, or process termination.",
+  "search_strategy": [
+    "Audit every user-callback boundary for borrowed references, raw pointers, cached lengths, indexes, and backing buffers used afterward.",
+    "Check whether callbacks can re-enter the active object or owner and clear, resize, replace, detach, reinitialize, or deallocate its state.",
+    "Check that objects are kept alive and that pointers, bounds, representation, and mutation state are revalidated after callbacks.",
+    "Check cleanup and teardown loops for releasing elements before detaching or snapshotting storage that later iterations still use."
+  ],
+  "evidence": [
+    {
+      "issue": 130555,
+      "supports": "Cleanup of embedded values invoked destructors that mutated the same mapping, invalidating the embedded value storage still used by the clearing loop."
+    },
+    {
+      "issue": 140551,
+      "supports": "Hash or equality during mapping lookup could clear the mapping and change its representation before insertion resumed with lookup assumptions."
+    },
+    {
+      "issue": 142555,
+      "supports": "Index or numeric conversion during sequence assignment could clear or shrink the target buffer before the write and bounds check completed."
+    },
+    {
+      "issue": 142559,
+      "supports": "Index conversion during a byte search could clear the target byte buffer after its pointer and length were captured but before searching."
+    },
+    {
+      "issue": 142594,
+      "supports": "A closed-state property callback detached the underlying stream, leaving the close operation with a null backing object."
+    },
+    {
+      "issue": 142637,
+      "supports": "Equality during ordered-mapping lookup could clear and reshape its table while deletion and node handling still used stale table pointers."
+    },
+    {
+      "issue": 142663,
+      "supports": "Element unpacking during memory comparison could release a view and resize its exporter, freeing the buffer used by later comparison iterations."
+    },
+    {
+      "issue": 142731,
+      "supports": "Hashing an attribute name could replace and release the instance mapping while attribute storage continued using the old mapping pointer."
+    },
+    {
+      "issue": 142732,
+      "supports": "An iterator callback could re-enter the same iterator, triggering cleanup of iterator state that the outer iteration still held; related iterator implementations had the same exposure."
+    },
+    {
+      "issue": 142734,
+      "supports": "User item access or insertion during ordered-mapping copy could mutate the source while copying, invalidating iteration state and previously borrowed entries."
+    },
+    {
+      "issue": 142782,
+      "supports": "Key equality during cache traversal could clear the cache and free the currently visited node before cache lookup moved or returned it."
+    },
+    {
+      "issue": 142828,
+      "supports": "Callback equality during callback-list removal could clear the list while the removal loop retained pointers into it."
+    },
+    {
+      "issue": 142829,
+      "supports": "Value equality during persistent-map comparison could mutate the compared context, prematurely deallocating maps and keys or values still being compared."
+    },
+    {
+      "issue": 142831,
+      "supports": "Encoding callbacks could mutate or clear the mapping, item list, or sequence while the encoder iterated borrowed entries."
+    },
+    {
+      "issue": 142882,
+      "supports": "Index conversion during sequence extension could clear the destination array, leaving the subsequent element write with a null buffer."
+    },
+    {
+      "issue": 142884,
+      "supports": "A sink write callback could clear the array after chunk counts and pointers were computed, while the output loop continued reading the old buffer."
+    },
+    {
+      "issue": 143196,
+      "supports": "Custom multiplication during indentation-cache creation could destroy the encoder and invalidate the cache assumptions used by the continuing encoder call."
+    },
+    {
+      "issue": 143379,
+      "supports": "Boolean conversion during packing could reinitialize the format object and free the format-code array being traversed."
+    },
+    {
+      "issue": 143543,
+      "supports": "Key equality during grouping could advance the same iterator and replace or release the current keys while the outer comparison still used them."
+    },
+    {
+      "issue": 143546,
+      "supports": "Equality during in-place set intersection could mutate or clear the participating sets while probing and cleanup still used their table state."
+    },
+    {
+      "issue": 143635,
+      "supports": "Attribute lookup during type representation could clear the shared argument list and free the argument object before subsequent representation probes."
+    },
+    {
+      "issue": 143639,
+      "supports": "Key hashing during deserialization could re-enter loading, drain the shared stack, and free pending key, value, or mapping objects still used by the outer insertion."
+    }
+  ],
+  "scope_note": "The shared mechanism is callback-driven re-entrancy, broader than embedded-container cleanup: callbacks arise from hashing, equality, conversion, iteration, formatting, I/O, serialization, and destruction. Some reports invalidate object lifetime, while others invalidate buffers, cached sizes, representation, or iteration state without immediate deallocation; the common boundary is continued use of unprotected state after arbitrary user code.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T18:55:59.576450+00:00"
+}

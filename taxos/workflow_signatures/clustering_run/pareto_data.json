@@ -1,0 +1,5226 @@
+{
+  "manual_revision": {
+    "revised_at": "2026-10-11T18:45:32.124184+00:00",
+    "method": "Restore exact original top five; retain residual hybrid memberships except split workflow-0100 by original source families.",
+    "ranking_constraint": [
+      "workflow-0014",
+      "workflow-0080",
+      "workflow-0137",
+      "workflow-0077",
+      "workflow-0091"
+    ],
+    "provenance": {
+      "workflow-0001": {
+        "previous_hybrid_cluster": "workflow-0001",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0002": {
+        "previous_hybrid_cluster": "workflow-0002",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0005": {
+        "previous_hybrid_cluster": "workflow-0005",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0008": {
+        "previous_hybrid_cluster": "workflow-0008",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0009": {
+        "previous_hybrid_cluster": "workflow-0009",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0010": {
+        "previous_hybrid_cluster": "workflow-0010",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0011": {
+        "previous_hybrid_cluster": "workflow-0011",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0013": {
+        "previous_hybrid_cluster": "workflow-0013",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0017": {
+        "previous_hybrid_cluster": "workflow-0017",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0021": {
+        "previous_hybrid_cluster": "workflow-0021",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0022": {
+        "previous_hybrid_cluster": "workflow-0022",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0024": {
+        "previous_hybrid_cluster": "workflow-0024",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0025": {
+        "previous_hybrid_cluster": "workflow-0025",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0026": {
+        "previous_hybrid_cluster": "workflow-0026",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0028": {
+        "previous_hybrid_cluster": "workflow-0028",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0029": {
+        "previous_hybrid_cluster": "workflow-0029",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0030": {
+        "previous_hybrid_cluster": "workflow-0030",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0033": {
+        "previous_hybrid_cluster": "workflow-0033",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0034": {
+        "previous_hybrid_cluster": "workflow-0034",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0036": {
+        "previous_hybrid_cluster": "workflow-0036",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0037": {
+        "previous_hybrid_cluster": "workflow-0037",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0040": {
+        "previous_hybrid_cluster": "workflow-0040",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0042": {
+        "previous_hybrid_cluster": "workflow-0042",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0044": {
+        "previous_hybrid_cluster": "workflow-0044",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0045": {
+        "previous_hybrid_cluster": "workflow-0045",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0046": {
+        "previous_hybrid_cluster": "workflow-0046",
+        "method": "manual_subset_after_restoration"
+      },
+      "workflow-0047": {
+        "previous_hybrid_cluster": "workflow-0047",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0049": {
+        "previous_hybrid_cluster": "workflow-0049",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0050": {
+        "previous_hybrid_cluster": "workflow-0050",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0052": {
+        "previous_hybrid_cluster": "workflow-0052",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0056": {
+        "previous_hybrid_cluster": "workflow-0056",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0057": {
+        "previous_hybrid_cluster": "workflow-0057",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0058": {
+        "previous_hybrid_cluster": "workflow-0058",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0059": {
+        "previous_hybrid_cluster": "workflow-0059",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0061": {
+        "previous_hybrid_cluster": "workflow-0061",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0064": {
+        "previous_hybrid_cluster": "workflow-0064",
+        "method": "manual_subset_after_restoration"
+      },
+      "workflow-0067": {
+        "previous_hybrid_cluster": "workflow-0067",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0073": {
+        "previous_hybrid_cluster": "workflow-0073",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0074": {
+        "previous_hybrid_cluster": "workflow-0074",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0075": {
+        "previous_hybrid_cluster": "workflow-0075",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0076": {
+        "previous_hybrid_cluster": "workflow-0076",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0079": {
+        "previous_hybrid_cluster": "workflow-0079",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0240": {
+        "previous_hybrid_cluster": "workflow-0080",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0081": {
+        "previous_hybrid_cluster": "workflow-0081",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0083": {
+        "previous_hybrid_cluster": "workflow-0083",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0084": {
+        "previous_hybrid_cluster": "workflow-0084",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0087": {
+        "previous_hybrid_cluster": "workflow-0087",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0088": {
+        "previous_hybrid_cluster": "workflow-0088",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0090": {
+        "previous_hybrid_cluster": "workflow-0090",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0094": {
+        "previous_hybrid_cluster": "workflow-0094",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0096": {
+        "previous_hybrid_cluster": "workflow-0096",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0097": {
+        "previous_hybrid_cluster": "workflow-0097",
+        "method": "manual_subset_after_restoration"
+      },
+      "workflow-0100": {
+        "previous_hybrid_cluster": "workflow-0100",
+        "method": "manual_split_by_original_family"
+      },
+      "workflow-0241": {
+        "previous_hybrid_cluster": "workflow-0100",
+        "method": "manual_split_by_original_family"
+      },
+      "workflow-0242": {
+        "previous_hybrid_cluster": "workflow-0100",
+        "method": "manual_split_by_original_family"
+      },
+      "workflow-0243": {
+        "previous_hybrid_cluster": "workflow-0100",
+        "method": "manual_split_by_original_family"
+      },
+      "workflow-0244": {
+        "previous_hybrid_cluster": "workflow-0100",
+        "method": "manual_split_by_original_family"
+      },
+      "workflow-0245": {
+        "previous_hybrid_cluster": "workflow-0100",
+        "method": "manual_split_by_original_family"
+      },
+      "workflow-0246": {
+        "previous_hybrid_cluster": "workflow-0100",
+        "method": "manual_split_by_original_family"
+      },
+      "workflow-0247": {
+        "previous_hybrid_cluster": "workflow-0100",
+        "method": "manual_split_by_original_family"
+      },
+      "workflow-0248": {
+        "previous_hybrid_cluster": "workflow-0100",
+        "method": "manual_split_by_original_family"
+      },
+      "workflow-0104": {
+        "previous_hybrid_cluster": "workflow-0104",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0105": {
+        "previous_hybrid_cluster": "workflow-0105",
+        "method": "manual_subset_after_restoration"
+      },
+      "workflow-0109": {
+        "previous_hybrid_cluster": "workflow-0109",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0110": {
+        "previous_hybrid_cluster": "workflow-0110",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0111": {
+        "previous_hybrid_cluster": "workflow-0111",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0112": {
+        "previous_hybrid_cluster": "workflow-0112",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0114": {
+        "previous_hybrid_cluster": "workflow-0114",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0118": {
+        "previous_hybrid_cluster": "workflow-0118",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0120": {
+        "previous_hybrid_cluster": "workflow-0120",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0125": {
+        "previous_hybrid_cluster": "workflow-0125",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0126": {
+        "previous_hybrid_cluster": "workflow-0126",
+        "method": "manual_subset_after_restoration"
+      },
+      "workflow-0127": {
+        "previous_hybrid_cluster": "workflow-0127",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0129": {
+        "previous_hybrid_cluster": "workflow-0129",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0132": {
+        "previous_hybrid_cluster": "workflow-0132",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0135": {
+        "previous_hybrid_cluster": "workflow-0135",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0138": {
+        "previous_hybrid_cluster": "workflow-0138",
+        "method": "manual_subset_after_restoration"
+      },
+      "workflow-0140": {
+        "previous_hybrid_cluster": "workflow-0140",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0147": {
+        "previous_hybrid_cluster": "workflow-0147",
+        "method": "manual_subset_after_restoration"
+      },
+      "workflow-0149": {
+        "previous_hybrid_cluster": "workflow-0149",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0150": {
+        "previous_hybrid_cluster": "workflow-0150",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0151": {
+        "previous_hybrid_cluster": "workflow-0151",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0153": {
+        "previous_hybrid_cluster": "workflow-0153",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0156": {
+        "previous_hybrid_cluster": "workflow-0156",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0158": {
+        "previous_hybrid_cluster": "workflow-0158",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0162": {
+        "previous_hybrid_cluster": "workflow-0162",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0163": {
+        "previous_hybrid_cluster": "workflow-0163",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0165": {
+        "previous_hybrid_cluster": "workflow-0165",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0166": {
+        "previous_hybrid_cluster": "workflow-0166",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0168": {
+        "previous_hybrid_cluster": "workflow-0168",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0169": {
+        "previous_hybrid_cluster": "workflow-0169",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0172": {
+        "previous_hybrid_cluster": "workflow-0172",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0174": {
+        "previous_hybrid_cluster": "workflow-0174",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0179": {
+        "previous_hybrid_cluster": "workflow-0179",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0180": {
+        "previous_hybrid_cluster": "workflow-0180",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0188": {
+        "previous_hybrid_cluster": "workflow-0188",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0193": {
+        "previous_hybrid_cluster": "workflow-0193",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0200": {
+        "previous_hybrid_cluster": "workflow-0200",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0205": {
+        "previous_hybrid_cluster": "workflow-0205",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0206": {
+        "previous_hybrid_cluster": "workflow-0206",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0207": {
+        "previous_hybrid_cluster": "workflow-0207",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0210": {
+        "previous_hybrid_cluster": "workflow-0210",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0214": {
+        "previous_hybrid_cluster": "workflow-0214",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0215": {
+        "previous_hybrid_cluster": "workflow-0215",
+        "method": "manual_subset_after_restoration"
+      },
+      "workflow-0216": {
+        "previous_hybrid_cluster": "workflow-0216",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0221": {
+        "previous_hybrid_cluster": "workflow-0221",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0223": {
+        "previous_hybrid_cluster": "workflow-0223",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0226": {
+        "previous_hybrid_cluster": "workflow-0226",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0232": {
+        "previous_hybrid_cluster": "workflow-0232",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0233": {
+        "previous_hybrid_cluster": "workflow-0233",
+        "method": "manual_subset_after_restoration"
+      },
+      "workflow-0239": {
+        "previous_hybrid_cluster": "workflow-0239",
+        "method": "retained_hybrid_membership"
+      },
+      "workflow-0014": {
+        "method": "manual_restore_exact_original"
+      },
+      "workflow-0080": {
+        "method": "manual_restore_exact_original"
+      },
+      "workflow-0137": {
+        "method": "manual_restore_exact_original"
+      },
+      "workflow-0077": {
+        "method": "manual_restore_exact_original"
+      },
+      "workflow-0091": {
+        "method": "manual_restore_exact_original"
+      }
+    },
+    "prior_snapshot": "clustering_run/before_manual_top_five",
+    "luna_review_applies_to": "clustering_run/before_manual_top_five/clusters.json"
+  },
+  "initial": {
+    "issues": 363,
+    "clusters": 245,
+    "singletons": 179,
+    "size_distribution": {
+      "1": 179,
+      "2": 38,
+      "3": 18,
+      "4": 5,
+      "5": 2,
+      "6": 1,
+      "8": 1,
+      "10": 1
+    },
+    "clusters_for_80_percent": 173,
+    "cluster_percent_for_80_percent": 70.61224489795919,
+    "top_20_percent_cluster_count": 49,
+    "top_20_percent_issue_coverage": 41.3223,
+    "ranked_clusters": [
+      {
+        "rank": 1,
+        "cluster_id": "workflow-0062",
+        "summary": "Reentrant mutation invalidates backing storage before continued container access",
+        "size": 10,
+        "issue_percent": 2.7548,
+        "cumulative_issues": 10,
+        "cumulative_percent": 2.7548,
+        "issues": [
+          115243,
+          142734,
+          142831,
+          142882,
+          142884,
+          143004,
+          143200,
+          143546,
+          143635,
+          144475
+        ]
+      },
+      {
+        "rank": 2,
+        "cluster_id": "workflow-0175",
+        "summary": "Reentrant mutation invalidates captured buffer storage",
+        "size": 8,
+        "issue_percent": 2.2039,
+        "cumulative_issues": 18,
+        "cumulative_percent": 4.9587,
+        "issues": [
+          142555,
+          142558,
+          142559,
+          142560,
+          142663,
+          143309,
+          143310,
+          151403
+        ]
+      },
+      {
+        "rank": 3,
+        "cluster_id": "workflow-0181",
+        "summary": "Reentrant callback invalidates backing storage during active operation",
+        "size": 6,
+        "issue_percent": 1.6529,
+        "cumulative_issues": 24,
+        "cumulative_percent": 6.6116,
+        "issues": [
+          142664,
+          143008,
+          143195,
+          143196,
+          143308,
+          144922
+        ]
+      },
+      {
+        "rank": 4,
+        "cluster_id": "workflow-0100",
+        "summary": "Concurrent unsynchronized access to shared mutable state",
+        "size": 5,
+        "issue_percent": 1.3774,
+        "cumulative_issues": 29,
+        "cumulative_percent": 7.989,
+        "issues": [
+          130605,
+          143756,
+          149142,
+          153014,
+          153852
+        ]
+      },
+      {
+        "rank": 5,
+        "cluster_id": "workflow-0101",
+        "summary": "Concurrent unsynchronized access to shared byte storage",
+        "size": 5,
+        "issue_percent": 1.3774,
+        "cumulative_issues": 34,
+        "cumulative_percent": 9.3664,
+        "issues": [
+          130977,
+          142717,
+          151277,
+          153908,
+          154756
+        ]
+      },
+      {
+        "rank": 6,
+        "cluster_id": "workflow-0072",
+        "summary": "Reentrant comparison invalidates an object before resumed use",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 38,
+        "cumulative_percent": 10.4683,
+        "issues": [
+          120298,
+          142829,
+          143543,
+          148625
+        ]
+      },
+      {
+        "rank": 7,
+        "cluster_id": "workflow-0090",
+        "summary": "Concurrent lazy-cache initialization races during shared value publication",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 42,
+        "cumulative_percent": 11.5702,
+        "issues": [
+          128013,
+          128133,
+          128212,
+          154044
+        ]
+      },
+      {
+        "rank": 8,
+        "cluster_id": "workflow-0091",
+        "summary": "Unsynchronized concurrent replacement and reading of shared object state",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 46,
+        "cumulative_percent": 12.6722,
+        "issues": [
+          128100,
+          128144,
+          145272,
+          154821
+        ]
+      },
+      {
+        "rank": 9,
+        "cluster_id": "workflow-0123",
+        "summary": "Successful operation omits cleanup of temporary owned state",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 50,
+        "cumulative_percent": 13.7741,
+        "issues": [
+          140120,
+          140272,
+          140442,
+          142476
+        ]
+      },
+      {
+        "rank": 10,
+        "cluster_id": "workflow-0199",
+        "summary": "Reentrant mutation invalidates storage during iteration",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 54,
+        "cumulative_percent": 14.876,
+        "issues": [
+          143378,
+          143379,
+          143639,
+          154189
+        ]
+      },
+      {
+        "rank": 11,
+        "cluster_id": "workflow-0005",
+        "summary": "Zero-length memory transfer with a null pointer",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 57,
+        "cumulative_percent": 15.7025,
+        "issues": [
+          71757,
+          81319,
+          146196
+        ]
+      },
+      {
+        "rank": 12,
+        "cluster_id": "workflow-0008",
+        "summary": "Concurrent iterator exhaustion releases shared sequence during another retrieval",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 60,
+        "cumulative_percent": 16.5289,
+        "issues": [
+          73069,
+          153928,
+          154130
+        ]
+      },
+      {
+        "rank": 13,
+        "cluster_id": "workflow-0024",
+        "summary": "Error recovery dereferences missing diagnostic source data",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 63,
+        "cumulative_percent": 17.3554,
+        "issues": [
+          89571,
+          89657,
+          113602
+        ]
+      },
+      {
+        "rank": 14,
+        "cluster_id": "workflow-0036",
+        "summary": "Unchecked truncated metadata decoding leaks adjacent memory",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 66,
+        "cumulative_percent": 18.1818,
+        "issues": [
+          99974,
+          99975,
+          121112
+        ]
+      },
+      {
+        "rank": 15,
+        "cluster_id": "workflow-0042",
+        "summary": "Uninitialized unused numeric storage is read before neutralizing arithmetic",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 69,
+        "cumulative_percent": 19.0083,
+        "issues": [
+          102509,
+          106914,
+          116550
+        ]
+      },
+      {
+        "rank": 16,
+        "cluster_id": "workflow-0046",
+        "summary": "Stale lookup cache retains a released replaced value",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 72,
+        "cumulative_percent": 19.8347,
+        "issues": [
+          108253,
+          114106,
+          140496
+        ]
+      },
+      {
+        "rank": 17,
+        "cluster_id": "workflow-0050",
+        "summary": "Incompatible callback signature hidden by function-pointer cast",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 75,
+        "cumulative_percent": 20.6612,
+        "issues": [
+          111178,
+          132097,
+          134457
+        ]
+      },
+      {
+        "rank": 18,
+        "cluster_id": "workflow-0061",
+        "summary": "Profiling instrumentation breaks configuration probes and causes a misleading incomplete-type build failure",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 78,
+        "cumulative_percent": 21.4876,
+        "issues": [
+          114453,
+          116891,
+          143640
+        ]
+      },
+      {
+        "rank": 19,
+        "cluster_id": "workflow-0066",
+        "summary": "Unsynchronized resource-handle mutation during concurrent use",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 81,
+        "cumulative_percent": 22.314,
+        "issues": [
+          116912,
+          128050,
+          132886
+        ]
+      },
+      {
+        "rank": 20,
+        "cluster_id": "workflow-0071",
+        "summary": "Reentrant callback releases active context before outer operation resumes",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 84,
+        "cumulative_percent": 23.1405,
+        "issues": [
+          120289,
+          142830,
+          143545
+        ]
+      },
+      {
+        "rank": 21,
+        "cluster_id": "workflow-0097",
+        "summary": "Concurrent shutdown races with a still-running worker on shared state",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 87,
+        "cumulative_percent": 23.9669,
+        "issues": [
+          130091,
+          140257,
+          145933
+        ]
+      },
+      {
+        "rank": 22,
+        "cluster_id": "workflow-0118",
+        "summary": "Optimized execution leaks generated state",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 90,
+        "cumulative_percent": 24.7934,
+        "issues": [
+          139750,
+          139827,
+          142985
+        ]
+      },
+      {
+        "rank": 23,
+        "cluster_id": "workflow-0139",
+        "summary": "Reentrant container mutation invalidates in-progress lookup state",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 93,
+        "cumulative_percent": 25.6198,
+        "issues": [
+          140551,
+          142637,
+          142782
+        ]
+      },
+      {
+        "rank": 24,
+        "cluster_id": "workflow-0140",
+        "summary": "Unchecked executable metadata type causes later invalid dereference",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 96,
+        "cumulative_percent": 26.4463,
+        "issues": [
+          140564,
+          140776,
+          141390
+        ]
+      },
+      {
+        "rank": 25,
+        "cluster_id": "workflow-0157",
+        "summary": "Malformed encoded metadata triggers fatal decoder assertion",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 99,
+        "cumulative_percent": 27.2727,
+        "issues": [
+          140935,
+          142736,
+          143430
+        ]
+      },
+      {
+        "rank": 26,
+        "cluster_id": "workflow-0194",
+        "summary": "Reentrant conversion invalidates a resource before later use",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 102,
+        "cumulative_percent": 28.0992,
+        "issues": [
+          143007,
+          143375,
+          144128
+        ]
+      },
+      {
+        "rank": 27,
+        "cluster_id": "workflow-0196",
+        "summary": "Reentrant callback invalidates a backing resource before later use",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 105,
+        "cumulative_percent": 28.9256,
+        "issues": [
+          143198,
+          143380,
+          143662
+        ]
+      },
+      {
+        "rank": 28,
+        "cluster_id": "workflow-0215",
+        "summary": "Retained view writes through released mapped storage",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 108,
+        "cumulative_percent": 29.7521,
+        "issues": [
+          144281,
+          146011,
+          151046
+        ]
+      },
+      {
+        "rank": 29,
+        "cluster_id": "workflow-0003",
+        "summary": "Negative signed accumulator is shifted during binary decoding",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 110,
+        "cumulative_percent": 30.303,
+        "issues": [
+          65128,
+          96735
+        ]
+      },
+      {
+        "rank": 30,
+        "cluster_id": "workflow-0010",
+        "summary": "Out-of-range floating-point narrowing occurs before representability validation",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 112,
+        "cumulative_percent": 30.854,
+        "issues": [
+          75554,
+          77756
+        ]
+      },
+      {
+        "rank": 31,
+        "cluster_id": "workflow-0013",
+        "summary": "Empty instruction sequence causes boundary-overrun during execution",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 114,
+        "cumulative_percent": 31.405,
+        "issues": [
+          79374,
+          140497
+        ]
+      },
+      {
+        "rank": 32,
+        "cluster_id": "workflow-0014",
+        "summary": "Reentrant backing-storage release leaves a derived view with a dangling pointer",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 116,
+        "cumulative_percent": 31.9559,
+        "issues": [
+          80434,
+          142665
+        ]
+      },
+      {
+        "rank": 33,
+        "cluster_id": "workflow-0028",
+        "summary": "Forked child leaks inherited resources from vanished threads",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 118,
+        "cumulative_percent": 32.5069,
+        "issues": [
+          94064,
+          140493
+        ]
+      },
+      {
+        "rank": 34,
+        "cluster_id": "workflow-0029",
+        "summary": "Nonportable configuration generation emits an invalid script",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 120,
+        "cumulative_percent": 33.0579,
+        "issues": [
+          94404,
+          116259
+        ]
+      },
+      {
+        "rank": 35,
+        "cluster_id": "workflow-0033",
+        "summary": "Null base pointer offset computed before validation",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 122,
+        "cumulative_percent": 33.6088,
+        "issues": [
+          96678,
+          144759
+        ]
+      },
+      {
+        "rank": 36,
+        "cluster_id": "workflow-0038",
+        "summary": "Legacy shared extension state survives repeated runtime shutdown",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 124,
+        "cumulative_percent": 34.1598,
+        "issues": [
+          100773,
+          113576
+        ]
+      },
+      {
+        "rank": 37,
+        "cluster_id": "workflow-0040",
+        "summary": "Insufficient lookahead causes out-of-bounds read during character-sequence encoding",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 126,
+        "cumulative_percent": 34.7107,
+        "issues": [
+          101180,
+          127971
+        ]
+      },
+      {
+        "rank": 38,
+        "cluster_id": "workflow-0044",
+        "summary": "Expected runtime leak aborts sanitizer-instrumented build validation",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 128,
+        "cumulative_percent": 35.2617,
+        "issues": [
+          104472,
+          104791
+        ]
+      },
+      {
+        "rank": 39,
+        "cluster_id": "workflow-0049",
+        "summary": "Load-sensitive fixed-timeout readiness failure",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 130,
+        "cumulative_percent": 35.8127,
+        "issues": [
+          110097,
+          143442
+        ]
+      },
+      {
+        "rank": 40,
+        "cluster_id": "workflow-0052",
+        "summary": "Unchecked argument-conversion failure causes downstream crash",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 132,
+        "cumulative_percent": 36.3636,
+        "issues": [
+          111942,
+          140650
+        ]
+      },
+      {
+        "rank": 41,
+        "cluster_id": "workflow-0053",
+        "summary": "Per-context allocator storage leaks across repeated teardown cycles",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 134,
+        "cumulative_percent": 36.9146,
+        "issues": [
+          113055,
+          140301
+        ]
+      },
+      {
+        "rank": 42,
+        "cluster_id": "workflow-0057",
+        "summary": "Concurrent permanent-retention transition races with owner reference counting",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 136,
+        "cumulative_percent": 37.4656,
+        "issues": [
+          113956,
+          129701
+        ]
+      },
+      {
+        "rank": 43,
+        "cluster_id": "workflow-0058",
+        "summary": "Invalid diagnostic argument type causes out-of-bounds formatting read",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 138,
+        "cumulative_percent": 38.0165,
+        "issues": [
+          114050,
+          140492
+        ]
+      },
+      {
+        "rank": 44,
+        "cluster_id": "workflow-0064",
+        "summary": "Cross-context shared state outlives its owner",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 140,
+        "cumulative_percent": 38.5675,
+        "issues": [
+          116510,
+          140404
+        ]
+      },
+      {
+        "rank": 45,
+        "cluster_id": "workflow-0067",
+        "summary": "Garbage-collector traversal overruns special static records",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 142,
+        "cumulative_percent": 39.1185,
+        "issues": [
+          118074,
+          118113
+        ]
+      },
+      {
+        "rank": 46,
+        "cluster_id": "workflow-0073",
+        "summary": "Unchecked oversized geometry causes downstream arithmetic corruption and crash",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 144,
+        "cumulative_percent": 39.6694,
+        "issues": [
+          120378,
+          140462
+        ]
+      },
+      {
+        "rank": 47,
+        "cluster_id": "workflow-0079",
+        "summary": "Incomplete nested configuration cleanup leaks allocated settings",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 146,
+        "cumulative_percent": 40.2204,
+        "issues": [
+          121847,
+          138756
+        ]
+      },
+      {
+        "rank": 48,
+        "cluster_id": "workflow-0085",
+        "summary": "Background thread accesses execution state after finalization frees it",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 148,
+        "cumulative_percent": 40.7713,
+        "issues": [
+          124878,
+          154822
+        ]
+      },
+      {
+        "rank": 49,
+        "cluster_id": "workflow-0093",
+        "summary": "Concurrent shared-value status mutation races with ownership handling",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 150,
+        "cumulative_percent": 41.3223,
+        "issues": [
+          128137,
+          130019
+        ]
+      },
+      {
+        "rank": 50,
+        "cluster_id": "workflow-0095",
+        "summary": "Concurrent isolated contexts race on shared process-wide state",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 152,
+        "cumulative_percent": 41.8733,
+        "issues": [
+          129824,
+          140260
+        ]
+      },
+      {
+        "rank": 51,
+        "cluster_id": "workflow-0105",
+        "summary": "Concurrent unsynchronized access to shared collection-accounting state",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 154,
+        "cumulative_percent": 42.4242,
+        "issues": [
+          133473,
+          144356
+        ]
+      },
+      {
+        "rank": 52,
+        "cluster_id": "workflow-0109",
+        "summary": "Partial instrumentation causes a false-positive uninitialized read during startup",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 156,
+        "cumulative_percent": 42.9752,
+        "issues": [
+          135774,
+          140332
+        ]
+      },
+      {
+        "rank": 53,
+        "cluster_id": "workflow-0112",
+        "summary": "Lock-held global pause creates circular wait",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 158,
+        "cumulative_percent": 43.5262,
+        "issues": [
+          139116,
+          151593
+        ]
+      },
+      {
+        "rank": 54,
+        "cluster_id": "workflow-0114",
+        "summary": "Misaligned typed access during raw code-buffer patching",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 160,
+        "cumulative_percent": 44.0771,
+        "issues": [
+          139269,
+          139834
+        ]
+      },
+      {
+        "rank": 55,
+        "cluster_id": "workflow-0116",
+        "summary": "Exceptional execution path omits cleanup of an allocated execution object",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 162,
+        "cumulative_percent": 44.6281,
+        "issues": [
+          139540,
+          139749
+        ]
+      },
+      {
+        "rank": 56,
+        "cluster_id": "workflow-0119",
+        "summary": "Exceptional parse failure omits cleanup and leaks temporary model data",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 164,
+        "cumulative_percent": 45.1791,
+        "issues": [
+          139751,
+          140593
+        ]
+      },
+      {
+        "rank": 57,
+        "cluster_id": "workflow-0126",
+        "summary": "Unsynchronized inspection of concurrently updated synchronization state",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 166,
+        "cumulative_percent": 45.73,
+        "issues": [
+          140263,
+          152741
+        ]
+      },
+      {
+        "rank": 58,
+        "cluster_id": "workflow-0130",
+        "summary": "Exceptional error path leaks temporary owned state",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 168,
+        "cumulative_percent": 46.281,
+        "issues": [
+          140398,
+          147998
+        ]
+      },
+      {
+        "rank": 59,
+        "cluster_id": "workflow-0138",
+        "summary": "Error path omits cleanup of partially acquired temporary values",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 170,
+        "cumulative_percent": 46.832,
+        "issues": [
+          140517,
+          140530
+        ]
+      },
+      {
+        "rank": 60,
+        "cluster_id": "workflow-0153",
+        "summary": "Reentrant finalization re-registers an object during destruction",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 172,
+        "cumulative_percent": 47.3829,
+        "issues": [
+          140798,
+          142556
+        ]
+      },
+      {
+        "rank": 61,
+        "cluster_id": "workflow-0166",
+        "summary": "Undersized output buffer causes native write overflow",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 174,
+        "cumulative_percent": 47.9339,
+        "issues": [
+          141338,
+          144206
+        ]
+      },
+      {
+        "rank": 62,
+        "cluster_id": "workflow-0168",
+        "summary": "Worker teardown omits cleanup of private tracing state",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 176,
+        "cumulative_percent": 48.4848,
+        "issues": [
+          141542,
+          144068
+        ]
+      },
+      {
+        "rank": 63,
+        "cluster_id": "workflow-0184",
+        "summary": "Reentrant collection clearing invalidates iteration storage",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 178,
+        "cumulative_percent": 49.0358,
+        "issues": [
+          142732,
+          142828
+        ]
+      },
+      {
+        "rank": 64,
+        "cluster_id": "workflow-0192",
+        "summary": "Unchecked object type causes metadata reinterpretation and heap over-read",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 180,
+        "cumulative_percent": 49.5868,
+        "issues": [
+          143005,
+          143376
+        ]
+      },
+      {
+        "rank": 65,
+        "cluster_id": "workflow-0195",
+        "summary": "Reentrant replacement invalidates a borrowed state pointer",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 182,
+        "cumulative_percent": 50.1377,
+        "issues": [
+          143197,
+          143638
+        ]
+      },
+      {
+        "rank": 66,
+        "cluster_id": "workflow-0201",
+        "summary": "Callback invalidates borrowed state before later use",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 184,
+        "cumulative_percent": 50.6887,
+        "issues": [
+          143544,
+          148382
+        ]
+      },
+      {
+        "rank": 67,
+        "cluster_id": "workflow-0001",
+        "summary": "Inherited thread-local state reused after process duplication and identifier collision",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 185,
+        "cumulative_percent": 50.9642,
+        "issues": [
+          54726
+        ]
+      },
+      {
+        "rank": 68,
+        "cluster_id": "workflow-0002",
+        "summary": "Unescaped substitution marker breaks display rendering",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 186,
+        "cumulative_percent": 51.2397,
+        "issues": [
+          57894
+        ]
+      },
+      {
+        "rank": 69,
+        "cluster_id": "workflow-0004",
+        "summary": "Truncated mapped backing store causes fatal later access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 187,
+        "cumulative_percent": 51.5152,
+        "issues": [
+          66234
+        ]
+      },
+      {
+        "rank": 70,
+        "cluster_id": "workflow-0006",
+        "summary": "Externally removed installation causes unchecked missing metadata to crash recovery",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 188,
+        "cumulative_percent": 51.7906,
+        "issues": [
+          72111
+        ]
+      },
+      {
+        "rank": 71,
+        "cluster_id": "workflow-0007",
+        "summary": "Under-aligned allocator storage is used for stricter-aligned objects",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 189,
+        "cumulative_percent": 52.0661,
+        "issues": [
+          72174
+        ]
+      },
+      {
+        "rank": 72,
+        "cluster_id": "workflow-0009",
+        "summary": "Post-overflow validation of signed output-size arithmetic is defeated by optimization",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 190,
+        "cumulative_percent": 52.3416,
+        "issues": [
+          73331
+        ]
+      },
+      {
+        "rank": 73,
+        "cluster_id": "workflow-0011",
+        "summary": "Intermittent invalid memory access during heterogeneous numeric comparison",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 191,
+        "cumulative_percent": 52.6171,
+        "issues": [
+          77808
+        ]
+      },
+      {
+        "rank": 74,
+        "cluster_id": "workflow-0012",
+        "summary": "Oversized timeout overflows absolute-deadline calculation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 192,
+        "cumulative_percent": 52.8926,
+        "issues": [
+          77813
+        ]
+      },
+      {
+        "rank": 75,
+        "cluster_id": "workflow-0015",
+        "summary": "Noncanonical raw bytes reinterpreted as a logical value",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 193,
+        "cumulative_percent": 53.168,
+        "issues": [
+          83870
+        ]
+      },
+      {
+        "rank": 76,
+        "cluster_id": "workflow-0016",
+        "summary": "Unsynchronized identifier collision corrupts thread-state caching",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 194,
+        "cumulative_percent": 53.4435,
+        "issues": [
+          83957
+        ]
+      },
+      {
+        "rank": 77,
+        "cluster_id": "workflow-0017",
+        "summary": "Heterogeneous sequence element misinterpreted as a different record type",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 195,
+        "cumulative_percent": 53.719,
+        "issues": [
+          85863
+        ]
+      },
+      {
+        "rank": 78,
+        "cluster_id": "workflow-0018",
+        "summary": "Unsupported compiler option causes misleading downstream configuration failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 196,
+        "cumulative_percent": 53.9945,
+        "issues": [
+          86434
+        ]
+      },
+      {
+        "rank": 79,
+        "cluster_id": "workflow-0019",
+        "summary": "Repeated ownership-count corruption causes invalid release of shared singleton",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 197,
+        "cumulative_percent": 54.27,
+        "issues": [
+          86863
+        ]
+      },
+      {
+        "rank": 80,
+        "cluster_id": "workflow-0020",
+        "summary": "Post-cleanup access through freed type metadata",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 198,
+        "cumulative_percent": 54.5455,
+        "issues": [
+          88350
+        ]
+      },
+      {
+        "rank": 81,
+        "cluster_id": "workflow-0021",
+        "summary": "Instrumented allocation failure aborts instead of returning a recoverable error",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 199,
+        "cumulative_percent": 54.8209,
+        "issues": [
+          89359
+        ]
+      },
+      {
+        "rank": 82,
+        "cluster_id": "workflow-0022",
+        "summary": "Forked child deadlocks on an inherited runtime mutex during worker creation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 200,
+        "cumulative_percent": 55.0964,
+        "issues": [
+          89363
+        ]
+      },
+      {
+        "rank": 83,
+        "cluster_id": "workflow-0023",
+        "summary": "Native-width parsing overruns narrower fixed-width storage",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 201,
+        "cumulative_percent": 55.3719,
+        "issues": [
+          89391
+        ]
+      },
+      {
+        "rank": 84,
+        "cluster_id": "workflow-0025",
+        "summary": "Cross-module inherited annotations resolved in the wrong namespace",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 202,
+        "cumulative_percent": 55.6474,
+        "issues": [
+          89737
+        ]
+      },
+      {
+        "rank": 85,
+        "cluster_id": "workflow-0026",
+        "summary": "Link-time optimization produces an out-of-range branch",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 203,
+        "cumulative_percent": 55.9229,
+        "issues": [
+          93619
+        ]
+      },
+      {
+        "rank": 86,
+        "cluster_id": "workflow-0027",
+        "summary": "Sanitizer handling of deliberate worker crash breaks failure-recovery testing",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 204,
+        "cumulative_percent": 56.1983,
+        "issues": [
+          93981
+        ]
+      },
+      {
+        "rank": 87,
+        "cluster_id": "workflow-0030",
+        "summary": "Signed bit-packing shift overflows before safe encoding",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 205,
+        "cumulative_percent": 56.4738,
+        "issues": [
+          95635
+        ]
+      },
+      {
+        "rank": 88,
+        "cluster_id": "workflow-0031",
+        "summary": "Null frame-storage pointer used before allocation check",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 206,
+        "cumulative_percent": 56.7493,
+        "issues": [
+          96569
+        ]
+      },
+      {
+        "rank": 89,
+        "cluster_id": "workflow-0032",
+        "summary": "Stale bookkeeping link survives object deallocation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 207,
+        "cumulative_percent": 57.0248,
+        "issues": [
+          96572
+        ]
+      },
+      {
+        "rank": 90,
+        "cluster_id": "workflow-0034",
+        "summary": "Instrumented custom-allocator metadata access aborts initialization",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 208,
+        "cumulative_percent": 57.3003,
+        "issues": [
+          96714
+        ]
+      },
+      {
+        "rank": 91,
+        "cluster_id": "workflow-0035",
+        "summary": "Unverified interpreter selection breaks cross-compilation build generation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 209,
+        "cumulative_percent": 57.5758,
+        "issues": [
+          98249
+        ]
+      },
+      {
+        "rank": 92,
+        "cluster_id": "workflow-0037",
+        "summary": "Extended diagnostic text exceeds fixed display capacity",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 210,
+        "cumulative_percent": 57.8512,
+        "issues": [
+          100086
+        ]
+      },
+      {
+        "rank": 93,
+        "cluster_id": "workflow-0039",
+        "summary": "Failed native lookup leaves ambiguous output for erroneous cleanup",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 211,
+        "cumulative_percent": 58.1267,
+        "issues": [
+          100795
+        ]
+      },
+      {
+        "rank": 94,
+        "cluster_id": "workflow-0041",
+        "summary": "Stale execution metadata exposes a freed value during memory collection",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 212,
+        "cumulative_percent": 58.4022,
+        "issues": [
+          101975
+        ]
+      },
+      {
+        "rank": 95,
+        "cluster_id": "workflow-0043",
+        "summary": "Retained parser-state pointer survives input-buffer replacement",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 213,
+        "cumulative_percent": 58.6777,
+        "issues": [
+          103718
+        ]
+      },
+      {
+        "rank": 96,
+        "cluster_id": "workflow-0045",
+        "summary": "Stale per-code instrumentation metadata triggers a pre-refresh version assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 214,
+        "cumulative_percent": 58.9532,
+        "issues": [
+          106012
+        ]
+      },
+      {
+        "rank": 97,
+        "cluster_id": "workflow-0047",
+        "summary": "Unrestored environment mutation causes test-suite failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 215,
+        "cumulative_percent": 59.2287,
+        "issues": [
+          109128
+        ]
+      },
+      {
+        "rank": 98,
+        "cluster_id": "workflow-0048",
+        "summary": "Inherited profiling state crashes after process duplication under instrumentation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 216,
+        "cumulative_percent": 59.5041,
+        "issues": [
+          109580
+        ]
+      },
+      {
+        "rank": 99,
+        "cluster_id": "workflow-0051",
+        "summary": "Stale static type metadata survives runtime shutdown",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 217,
+        "cumulative_percent": 59.7796,
+        "issues": [
+          111339
+        ]
+      },
+      {
+        "rank": 100,
+        "cluster_id": "workflow-0054",
+        "summary": "Shared retained values survive repeated runtime shutdown",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 218,
+        "cumulative_percent": 60.0551,
+        "issues": [
+          113190
+        ]
+      },
+      {
+        "rank": 101,
+        "cluster_id": "workflow-0055",
+        "summary": "Cross-runtime stale reference causes invalid finalization",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 219,
+        "cumulative_percent": 60.3306,
+        "issues": [
+          113591
+        ]
+      },
+      {
+        "rank": 102,
+        "cluster_id": "workflow-0056",
+        "summary": "Tokenizer pointer-index overflow during continued multiline input",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 220,
+        "cumulative_percent": 60.6061,
+        "issues": [
+          113720
+        ]
+      },
+      {
+        "rank": 103,
+        "cluster_id": "workflow-0059",
+        "summary": "Optimization-pass ordering leaves redundant control-flow edge",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 221,
+        "cumulative_percent": 60.8815,
+        "issues": [
+          114083
+        ]
+      },
+      {
+        "rank": 104,
+        "cluster_id": "workflow-0060",
+        "summary": "Deferred oversized allocation causes operating-system termination",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 222,
+        "cumulative_percent": 61.157,
+        "issues": [
+          114331
+        ]
+      },
+      {
+        "rank": 105,
+        "cluster_id": "workflow-0063",
+        "summary": "Unvalidated thread identifier causes native lookup crash",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 223,
+        "cumulative_percent": 61.4325,
+        "issues": [
+          115378
+        ]
+      },
+      {
+        "rank": 106,
+        "cluster_id": "workflow-0065",
+        "summary": "Partially initialized file metadata is consumed under memory instrumentation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 224,
+        "cumulative_percent": 61.708,
+        "issues": [
+          116886
+        ]
+      },
+      {
+        "rank": 107,
+        "cluster_id": "workflow-0068",
+        "summary": "Worker crash wedges diagnostic failure handling",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 225,
+        "cumulative_percent": 61.9835,
+        "issues": [
+          118729
+        ]
+      },
+      {
+        "rank": 108,
+        "cluster_id": "workflow-0069",
+        "summary": "Configuration-guard mismatch exposes an undefined optional state type",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 226,
+        "cumulative_percent": 62.259,
+        "issues": [
+          119447
+        ]
+      },
+      {
+        "rank": 109,
+        "cluster_id": "workflow-0070",
+        "summary": "Invalid version-marker ordering leaves stale inherited cache entries",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 227,
+        "cumulative_percent": 62.5344,
+        "issues": [
+          119462
+        ]
+      },
+      {
+        "rank": 110,
+        "cluster_id": "workflow-0074",
+        "summary": "Instrumented fatal-error reporting deadlocks and hangs the process",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 228,
+        "cumulative_percent": 62.8099,
+        "issues": [
+          120696
+        ]
+      },
+      {
+        "rank": 111,
+        "cluster_id": "workflow-0075",
+        "summary": "Reentrant asynchronous handler invocation exhausts recursion depth",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 229,
+        "cumulative_percent": 63.0854,
+        "issues": [
+          121065
+        ]
+      },
+      {
+        "rank": 112,
+        "cluster_id": "workflow-0076",
+        "summary": "Unsupported protocol-family result causes server binding failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 230,
+        "cumulative_percent": 63.3609,
+        "issues": [
+          121275
+        ]
+      },
+      {
+        "rank": 113,
+        "cluster_id": "workflow-0077",
+        "summary": "Reversed container cleanup ownership leaks allocated keys",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 231,
+        "cumulative_percent": 63.6364,
+        "issues": [
+          121390
+        ]
+      },
+      {
+        "rank": 114,
+        "cluster_id": "workflow-0078",
+        "summary": "Optimization bypasses validation and triggers compiler assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 232,
+        "cumulative_percent": 63.9118,
+        "issues": [
+          121637
+        ]
+      },
+      {
+        "rank": 115,
+        "cluster_id": "workflow-0080",
+        "summary": "Mismatched nested delimiters underflow parser nesting state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 233,
+        "cumulative_percent": 64.1873,
+        "issues": [
+          122026
+        ]
+      },
+      {
+        "rank": 116,
+        "cluster_id": "workflow-0081",
+        "summary": "Underestimated external capacity defeats a backpressure test expectation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 234,
+        "cumulative_percent": 64.4628,
+        "issues": [
+          122136
+        ]
+      },
+      {
+        "rank": 117,
+        "cluster_id": "workflow-0082",
+        "summary": "Unchecked negative count causes downstream out-of-bounds access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 235,
+        "cumulative_percent": 64.7383,
+        "issues": [
+          122431
+        ]
+      },
+      {
+        "rank": 118,
+        "cluster_id": "workflow-0083",
+        "summary": "Undersized alternate signal stack overruns heap storage",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 236,
+        "cumulative_percent": 65.0138,
+        "issues": [
+          124001
+        ]
+      },
+      {
+        "rank": 119,
+        "cluster_id": "workflow-0084",
+        "summary": "Dependency behavior change invalidates a narrow test expectation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 237,
+        "cumulative_percent": 65.2893,
+        "issues": [
+          124378
+        ]
+      },
+      {
+        "rank": 120,
+        "cluster_id": "workflow-0086",
+        "summary": "Concrete-type assumption causes out-of-bounds field access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 238,
+        "cumulative_percent": 65.5647,
+        "issues": [
+          125318
+        ]
+      },
+      {
+        "rank": 121,
+        "cluster_id": "workflow-0087",
+        "summary": "Reachability-unaware code generation produces compiler diagnostics",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 239,
+        "cumulative_percent": 65.8402,
+        "issues": [
+          125515
+        ]
+      },
+      {
+        "rank": 122,
+        "cluster_id": "workflow-0088",
+        "summary": "Instrumented subprocess failure is surfaced as a test assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 240,
+        "cumulative_percent": 66.1157,
+        "issues": [
+          126445
+        ]
+      },
+      {
+        "rank": 123,
+        "cluster_id": "workflow-0089",
+        "summary": "Zero-length memory transfer uses an invalid derived pointer",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 241,
+        "cumulative_percent": 66.3912,
+        "issues": [
+          127563
+        ]
+      },
+      {
+        "rank": 124,
+        "cluster_id": "workflow-0092",
+        "summary": "Concurrent evaluation loses shared interrupt state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 242,
+        "cumulative_percent": 66.6667,
+        "issues": [
+          128130
+        ]
+      },
+      {
+        "rank": 125,
+        "cluster_id": "workflow-0094",
+        "summary": "Stale system configuration header overrides current build header",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 243,
+        "cumulative_percent": 66.9421,
+        "issues": [
+          129019
+        ]
+      },
+      {
+        "rank": 126,
+        "cluster_id": "workflow-0096",
+        "summary": "Independent feature and version checks redefine one compiler configuration symbol",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 244,
+        "cumulative_percent": 67.2176,
+        "issues": [
+          129838
+        ]
+      },
+      {
+        "rank": 127,
+        "cluster_id": "workflow-0098",
+        "summary": "Concurrent lazy initialization races during shared time-conversion setup",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 245,
+        "cumulative_percent": 67.4931,
+        "issues": [
+          130421
+        ]
+      },
+      {
+        "rank": 128,
+        "cluster_id": "workflow-0099",
+        "summary": "Re-entrant cleanup invalidates embedded container storage during clearing",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 246,
+        "cumulative_percent": 67.7686,
+        "issues": [
+          130555
+        ]
+      },
+      {
+        "rank": 129,
+        "cluster_id": "workflow-0102",
+        "summary": "Reused streaming buffer is concurrently read and overwritten",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 247,
+        "cumulative_percent": 68.0441,
+        "issues": [
+          131325
+        ]
+      },
+      {
+        "rank": 130,
+        "cluster_id": "workflow-0103",
+        "summary": "Concurrent table publication exposes partially initialized record",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 248,
+        "cumulative_percent": 68.3196,
+        "issues": [
+          132869
+        ]
+      },
+      {
+        "rank": 131,
+        "cluster_id": "workflow-0104",
+        "summary": "Removing sanitizer suppression exposes deliberate fault-trigger and mismatched-dispatch undefined behavior",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 249,
+        "cumulative_percent": 68.595,
+        "issues": [
+          133157
+        ]
+      },
+      {
+        "rank": 132,
+        "cluster_id": "workflow-0106",
+        "summary": "Immediate interactive exit leaves startup allocations unreclaimed",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 250,
+        "cumulative_percent": 68.8705,
+        "issues": [
+          135618
+        ]
+      },
+      {
+        "rank": 133,
+        "cluster_id": "workflow-0107",
+        "summary": "Corrupted ownership metadata causes premature release and stale-entry use",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 251,
+        "cumulative_percent": 69.146,
+        "issues": [
+          135636
+        ]
+      },
+      {
+        "rank": 134,
+        "cluster_id": "workflow-0108",
+        "summary": "Corrupted object header causes fatal metadata dereference",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 252,
+        "cumulative_percent": 69.4215,
+        "issues": [
+          135637
+        ]
+      },
+      {
+        "rank": 135,
+        "cluster_id": "workflow-0110",
+        "summary": "Missing instrumentation guard exposes stack overflow in deep-recursion test",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 253,
+        "cumulative_percent": 69.697,
+        "issues": [
+          135830
+        ]
+      },
+      {
+        "rank": 136,
+        "cluster_id": "workflow-0111",
+        "summary": "Default configuration overrides an explicit allocator selection",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 254,
+        "cumulative_percent": 69.9725,
+        "issues": [
+          136872
+        ]
+      },
+      {
+        "rank": 137,
+        "cluster_id": "workflow-0113",
+        "summary": "Borrowed diagnostic data outlives its owning sequence",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 255,
+        "cumulative_percent": 70.2479,
+        "issues": [
+          139210
+        ]
+      },
+      {
+        "rank": 138,
+        "cluster_id": "workflow-0115",
+        "summary": "Derived context outlives released parent state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 256,
+        "cumulative_percent": 70.5234,
+        "issues": [
+          139400
+        ]
+      },
+      {
+        "rank": 139,
+        "cluster_id": "workflow-0117",
+        "summary": "Exceptional argument-conversion path omits release of an owned temporary",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 257,
+        "cumulative_percent": 70.7989,
+        "issues": [
+          139748
+        ]
+      },
+      {
+        "rank": 140,
+        "cluster_id": "workflow-0120",
+        "summary": "Unnecessary tracking of cycle-ineligible immutable containers degrades collection performance",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 258,
+        "cumulative_percent": 71.0744,
+        "issues": [
+          139951
+        ]
+      },
+      {
+        "rank": 141,
+        "cluster_id": "workflow-0121",
+        "summary": "Exceptional construction failure omits cleanup and leaks intermediate state.",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 259,
+        "cumulative_percent": 71.3499,
+        "issues": [
+          139988
+        ]
+      },
+      {
+        "rank": 142,
+        "cluster_id": "workflow-0122",
+        "summary": "Overwritten allocation metadata causes repeated teardown leaks",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 260,
+        "cumulative_percent": 71.6253,
+        "issues": [
+          140067
+        ]
+      },
+      {
+        "rank": 143,
+        "cluster_id": "workflow-0124",
+        "summary": "Premature teardown of shared state leaves running workers with dangling pointers",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 261,
+        "cumulative_percent": 71.9008,
+        "issues": [
+          140138
+        ]
+      },
+      {
+        "rank": 144,
+        "cluster_id": "workflow-0125",
+        "summary": "Feature-guard mismatch exposes unavailable interface member",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 262,
+        "cumulative_percent": 72.1763,
+        "issues": [
+          140159
+        ]
+      },
+      {
+        "rank": 145,
+        "cluster_id": "workflow-0127",
+        "summary": "Shutdown leaves a blocking background worker un-terminated",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 263,
+        "cumulative_percent": 72.4518,
+        "issues": [
+          140267
+        ]
+      },
+      {
+        "rank": 146,
+        "cluster_id": "workflow-0128",
+        "summary": "Incorrect ownership cleanup leaves transfer and diagnostic allocations leaked",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 264,
+        "cumulative_percent": 72.7273,
+        "issues": [
+          140306
+        ]
+      },
+      {
+        "rank": 147,
+        "cluster_id": "workflow-0129",
+        "summary": "Unsupported target accepted until generated-artifact build failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 265,
+        "cumulative_percent": 73.0028,
+        "issues": [
+          140354
+        ]
+      },
+      {
+        "rank": 148,
+        "cluster_id": "workflow-0131",
+        "summary": "Invalid callback result leaks on validation failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 266,
+        "cumulative_percent": 73.2782,
+        "issues": [
+          140406
+        ]
+      },
+      {
+        "rank": 149,
+        "cluster_id": "workflow-0132",
+        "summary": "Null pointer passed to a native routine requiring valid string storage",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 267,
+        "cumulative_percent": 73.5537,
+        "issues": [
+          140408
+        ]
+      },
+      {
+        "rank": 150,
+        "cluster_id": "workflow-0133",
+        "summary": "Unchecked callback indexing causes heap-buffer-overflow",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 268,
+        "cumulative_percent": 73.8292,
+        "issues": [
+          140409
+        ]
+      },
+      {
+        "rank": 151,
+        "cluster_id": "workflow-0134",
+        "summary": "Premature validation rejects an irrelevant character bound",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 269,
+        "cumulative_percent": 74.1047,
+        "issues": [
+          140410
+        ]
+      },
+      {
+        "rank": 152,
+        "cluster_id": "workflow-0135",
+        "summary": "Garbage-collector traversal dereferences partially initialized object state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 270,
+        "cumulative_percent": 74.3802,
+        "issues": [
+          140431
+        ]
+      },
+      {
+        "rank": 153,
+        "cluster_id": "workflow-0136",
+        "summary": "Malformed metadata type confusion causes out-of-bounds text access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 271,
+        "cumulative_percent": 74.6556,
+        "issues": [
+          140471
+        ]
+      },
+      {
+        "rank": 154,
+        "cluster_id": "workflow-0137",
+        "summary": "Successful empty-input conversion omits temporary-buffer cleanup",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 272,
+        "cumulative_percent": 74.9311,
+        "issues": [
+          140474
+        ]
+      },
+      {
+        "rank": 155,
+        "cluster_id": "workflow-0141",
+        "summary": "Pending lexical error is misinterpreted as normal end-of-input",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 273,
+        "cumulative_percent": 75.2066,
+        "issues": [
+          140576
+        ]
+      },
+      {
+        "rank": 156,
+        "cluster_id": "workflow-0142",
+        "summary": "Unchecked state-field type causes later invalid mapping access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 274,
+        "cumulative_percent": 75.4821,
+        "issues": [
+          140590
+        ]
+      },
+      {
+        "rank": 157,
+        "cluster_id": "workflow-0143",
+        "summary": "Zero-length input offset causes boundary-underflow read",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 275,
+        "cumulative_percent": 75.7576,
+        "issues": [
+          140594
+        ]
+      },
+      {
+        "rank": 158,
+        "cluster_id": "workflow-0144",
+        "summary": "Unvalidated returned byte count causes buffer over-read",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 276,
+        "cumulative_percent": 76.0331,
+        "issues": [
+          140607
+        ]
+      },
+      {
+        "rank": 159,
+        "cluster_id": "workflow-0145",
+        "summary": "Concurrent handshake cleanup double-frees shared native state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 277,
+        "cumulative_percent": 76.3085,
+        "issues": [
+          140608
+        ]
+      },
+      {
+        "rank": 160,
+        "cluster_id": "workflow-0146",
+        "summary": "Exception-retained dynamic type graph appears as indirect leaks",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 278,
+        "cumulative_percent": 76.584,
+        "issues": [
+          140631
+        ]
+      },
+      {
+        "rank": 161,
+        "cluster_id": "workflow-0147",
+        "summary": "Borrowed field retained without ownership increment becomes dangling",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 279,
+        "cumulative_percent": 76.8595,
+        "issues": [
+          140634
+        ]
+      },
+      {
+        "rank": 162,
+        "cluster_id": "workflow-0148",
+        "summary": "Borrowed reference incorrectly transferred into compound state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 280,
+        "cumulative_percent": 77.135,
+        "issues": [
+          140651
+        ]
+      },
+      {
+        "rank": 163,
+        "cluster_id": "workflow-0149",
+        "summary": "Unchecked enumeration of retained inactive resource entries",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 281,
+        "cumulative_percent": 77.4105,
+        "issues": [
+          140652
+        ]
+      },
+      {
+        "rank": 164,
+        "cluster_id": "workflow-0150",
+        "summary": "Inconsistent initial nesting level causes formatting-cache out-of-bounds access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 282,
+        "cumulative_percent": 77.686,
+        "issues": [
+          140750
+        ]
+      },
+      {
+        "rank": 165,
+        "cluster_id": "workflow-0151",
+        "summary": "Incompatible module state layout rejected by legacy registration",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 283,
+        "cumulative_percent": 77.9614,
+        "issues": [
+          140751
+        ]
+      },
+      {
+        "rank": 166,
+        "cluster_id": "workflow-0152",
+        "summary": "Invalid shared-memory destination causes fatal initialization write",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 284,
+        "cumulative_percent": 78.2369,
+        "issues": [
+          140777
+        ]
+      },
+      {
+        "rank": 167,
+        "cluster_id": "workflow-0154",
+        "summary": "Accepted boundary execution position causes heap overwrite during state initialization",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 285,
+        "cumulative_percent": 78.5124,
+        "issues": [
+          140802
+        ]
+      },
+      {
+        "rank": 168,
+        "cluster_id": "workflow-0155",
+        "summary": "Concurrent diagnostic traversal dereferences released execution state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 286,
+        "cumulative_percent": 78.7879,
+        "issues": [
+          140815
+        ]
+      },
+      {
+        "rank": 169,
+        "cluster_id": "workflow-0156",
+        "summary": "Teardown ordering preserves callback-retained module allocations",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 287,
+        "cumulative_percent": 79.0634,
+        "issues": [
+          140860
+        ]
+      },
+      {
+        "rank": 170,
+        "cluster_id": "workflow-0158",
+        "summary": "Stale optimized execution during runtime finalization triggers an invalid state assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 288,
+        "cumulative_percent": 79.3388,
+        "issues": [
+          140936
+        ]
+      },
+      {
+        "rank": 171,
+        "cluster_id": "workflow-0159",
+        "summary": "Exceptional allocation failure omits temporary-state cleanup",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 289,
+        "cumulative_percent": 79.6143,
+        "issues": [
+          140939
+        ]
+      },
+      {
+        "rank": 172,
+        "cluster_id": "workflow-0160",
+        "summary": "Worker stack configuration leaves auxiliary execution state unreclaimed",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 290,
+        "cumulative_percent": 79.8898,
+        "issues": [
+          141044
+        ]
+      },
+      {
+        "rank": 173,
+        "cluster_id": "workflow-0161",
+        "summary": "Unchecked failed lookup leaves pending error during fallback",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 291,
+        "cumulative_percent": 80.1653,
+        "issues": [
+          141307
+        ]
+      },
+      {
+        "rank": 174,
+        "cluster_id": "workflow-0162",
+        "summary": "Maximum cursor position mishandled by zero-length read",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 292,
+        "cumulative_percent": 80.4408,
+        "issues": [
+          141311
+        ]
+      },
+      {
+        "rank": 175,
+        "cluster_id": "workflow-0163",
+        "summary": "Unchecked state type reaches integer-only restoration logic",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 293,
+        "cumulative_percent": 80.7163,
+        "issues": [
+          141312
+        ]
+      },
+      {
+        "rank": 176,
+        "cluster_id": "workflow-0164",
+        "summary": "Empty buffered snapshot violates position-calculation boundary assumption",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 294,
+        "cumulative_percent": 80.9917,
+        "issues": [
+          141314
+        ]
+      },
+      {
+        "rank": 177,
+        "cluster_id": "workflow-0165",
+        "summary": "Recovery rewind underestimates decoder output capacity",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 295,
+        "cumulative_percent": 81.2672,
+        "issues": [
+          141336
+        ]
+      },
+      {
+        "rank": 178,
+        "cluster_id": "workflow-0167",
+        "summary": "Substituted global sentinel leaves retained initialization state unreleased",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 296,
+        "cumulative_percent": 81.5427,
+        "issues": [
+          141372
+        ]
+      },
+      {
+        "rank": 179,
+        "cluster_id": "workflow-0169",
+        "summary": "Instrumented lazy code dispatch dereferences an invalid generated-code address",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 297,
+        "cumulative_percent": 81.8182,
+        "issues": [
+          141621
+        ]
+      },
+      {
+        "rank": 180,
+        "cluster_id": "workflow-0170",
+        "summary": "Stale specialized execution survives invalidation and misinterprets changed object layouts",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 298,
+        "cumulative_percent": 82.0937,
+        "issues": [
+          141648
+        ]
+      },
+      {
+        "rank": 181,
+        "cluster_id": "workflow-0171",
+        "summary": "Untracked mutable-attribute promotion leaves stale specialized code",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 299,
+        "cumulative_percent": 82.3691,
+        "issues": [
+          142276
+        ]
+      },
+      {
+        "rank": 182,
+        "cluster_id": "workflow-0172",
+        "summary": "Tracing crosses instrumentation or exception boundaries with stale stack assumptions",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 300,
+        "cumulative_percent": 82.6446,
+        "issues": [
+          142448
+        ]
+      },
+      {
+        "rank": 183,
+        "cluster_id": "workflow-0173",
+        "summary": "Copied object omits required metadata and later lookup aborts",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 301,
+        "cumulative_percent": 82.9201,
+        "issues": [
+          142451
+        ]
+      },
+      {
+        "rank": 184,
+        "cluster_id": "workflow-0174",
+        "summary": "Insufficiently validated structured result causes out-of-bounds read",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 302,
+        "cumulative_percent": 83.1956,
+        "issues": [
+          142554
+        ]
+      },
+      {
+        "rank": 185,
+        "cluster_id": "workflow-0176",
+        "summary": "Mutable buffer mutation invalidates retained formatting pointer",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 303,
+        "cumulative_percent": 83.4711,
+        "issues": [
+          142557
+        ]
+      },
+      {
+        "rank": 186,
+        "cluster_id": "workflow-0177",
+        "summary": "Reentrant shutdown invalidates an underlying resource before continued access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 304,
+        "cumulative_percent": 83.7466,
+        "issues": [
+          142594
+        ]
+      },
+      {
+        "rank": 187,
+        "cluster_id": "workflow-0178",
+        "summary": "Unchecked factory result is reinterpreted as type metadata",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 305,
+        "cumulative_percent": 84.022,
+        "issues": [
+          142595
+        ]
+      },
+      {
+        "rank": 188,
+        "cluster_id": "workflow-0179",
+        "summary": "Transformed instruction index causes diagnostic table over-read",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 306,
+        "cumulative_percent": 84.2975,
+        "issues": [
+          142629
+        ]
+      },
+      {
+        "rank": 189,
+        "cluster_id": "workflow-0180",
+        "summary": "Malformed instruction operand triggers internal assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 307,
+        "cumulative_percent": 84.573,
+        "issues": [
+          142661
+        ]
+      },
+      {
+        "rank": 190,
+        "cluster_id": "workflow-0182",
+        "summary": "Unsynchronized cached stack state during optimized-code side exit",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 308,
+        "cumulative_percent": 84.8485,
+        "issues": [
+          142718
+        ]
+      },
+      {
+        "rank": 191,
+        "cluster_id": "workflow-0183",
+        "summary": "Reentrant callback invalidates an attribute container during access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 309,
+        "cumulative_percent": 85.124,
+        "issues": [
+          142731
+        ]
+      },
+      {
+        "rank": 192,
+        "cluster_id": "workflow-0185",
+        "summary": "Unchecked missing fallback dependency crashes error reporting",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 310,
+        "cumulative_percent": 85.3994,
+        "issues": [
+          142737
+        ]
+      },
+      {
+        "rank": 193,
+        "cluster_id": "workflow-0186",
+        "summary": "Unchecked provider result is reinterpreted as expected object type",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 311,
+        "cumulative_percent": 85.6749,
+        "issues": [
+          142781
+        ]
+      },
+      {
+        "rank": 194,
+        "cluster_id": "workflow-0187",
+        "summary": "Premature release leaves returned cache pointer dangling",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 312,
+        "cumulative_percent": 85.9504,
+        "issues": [
+          142783
+        ]
+      },
+      {
+        "rank": 195,
+        "cluster_id": "workflow-0188",
+        "summary": "Out-of-range empty slice triggers read-position assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 313,
+        "cumulative_percent": 86.2259,
+        "issues": [
+          142787
+        ]
+      },
+      {
+        "rank": 196,
+        "cluster_id": "workflow-0189",
+        "summary": "Re-entrant type mutation leaves stale operation dispatch",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 314,
+        "cumulative_percent": 86.5014,
+        "issues": [
+          142883
+        ]
+      },
+      {
+        "rank": 197,
+        "cluster_id": "workflow-0190",
+        "summary": "Exceptional or worker-exit cleanup omits one owned allocation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 315,
+        "cumulative_percent": 86.7769,
+        "issues": [
+          142917
+        ]
+      },
+      {
+        "rank": 198,
+        "cluster_id": "workflow-0191",
+        "summary": "Misleading zero-size estimate causes append into shared empty storage",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 316,
+        "cumulative_percent": 87.0523,
+        "issues": [
+          143003
+        ]
+      },
+      {
+        "rank": 199,
+        "cluster_id": "workflow-0193",
+        "summary": "Unchecked numeric-operation result reaches integer-only comparison logic",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 317,
+        "cumulative_percent": 87.3278,
+        "issues": [
+          143006
+        ]
+      },
+      {
+        "rank": 200,
+        "cluster_id": "workflow-0197",
+        "summary": "Reentrant callback releases mapping storage during lookup",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 318,
+        "cumulative_percent": 87.6033,
+        "issues": [
+          143236
+        ]
+      },
+      {
+        "rank": 201,
+        "cluster_id": "workflow-0198",
+        "summary": "Unchecked trailing-terminator removal causes boundary heap write",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 319,
+        "cumulative_percent": 87.8788,
+        "issues": [
+          143377
+        ]
+      },
+      {
+        "rank": 202,
+        "cluster_id": "workflow-0200",
+        "summary": "Permitted concurrent release invalidates lock-handoff assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 320,
+        "cumulative_percent": 88.1543,
+        "issues": [
+          143424
+        ]
+      },
+      {
+        "rank": 203,
+        "cluster_id": "workflow-0202",
+        "summary": "Callback replacement during failure recovery causes use-after-free",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 321,
+        "cumulative_percent": 88.4298,
+        "issues": [
+          143547
+        ]
+      },
+      {
+        "rank": 204,
+        "cluster_id": "workflow-0203",
+        "summary": "Unchecked construction result causes incompatible-layout metadata access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 322,
+        "cumulative_percent": 88.7052,
+        "issues": [
+          143636
+        ]
+      },
+      {
+        "rank": 205,
+        "cluster_id": "workflow-0204",
+        "summary": "Reentrant input mutation invalidates a borrowed record during parsing",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 323,
+        "cumulative_percent": 88.9807,
+        "issues": [
+          143637
+        ]
+      },
+      {
+        "rank": 206,
+        "cluster_id": "workflow-0205",
+        "summary": "Uninstrumented dependency causes false-positive race reports",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 324,
+        "cumulative_percent": 89.2562,
+        "issues": [
+          143750
+        ]
+      },
+      {
+        "rank": 207,
+        "cluster_id": "workflow-0206",
+        "summary": "Oversized optimized trace corrupts generated-code metadata during cleanup",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 325,
+        "cumulative_percent": 89.5317,
+        "issues": [
+          143751
+        ]
+      },
+      {
+        "rank": 208,
+        "cluster_id": "workflow-0207",
+        "summary": "Overwritten current-state ownership leaks the previous allocation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 326,
+        "cumulative_percent": 89.8072,
+        "issues": [
+          144067
+        ]
+      },
+      {
+        "rank": 209,
+        "cluster_id": "workflow-0208",
+        "summary": "Failed resource creation leaks unreachable partial allocations",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 327,
+        "cumulative_percent": 90.0826,
+        "issues": [
+          144069
+        ]
+      },
+      {
+        "rank": 210,
+        "cluster_id": "workflow-0209",
+        "summary": "Unresolved pointer metadata triggers fatal assertion during argument conversion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 328,
+        "cumulative_percent": 90.3581,
+        "issues": [
+          144100
+        ]
+      },
+      {
+        "rank": 211,
+        "cluster_id": "workflow-0210",
+        "summary": "Unchecked missing metadata lookup causes assembler crash",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 329,
+        "cumulative_percent": 90.6336,
+        "issues": [
+          144163
+        ]
+      },
+      {
+        "rank": 212,
+        "cluster_id": "workflow-0211",
+        "summary": "Incompatible diagnostic formatting crashes on arbitrary keyword keys",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 330,
+        "cumulative_percent": 90.9091,
+        "issues": [
+          144169
+        ]
+      },
+      {
+        "rank": 213,
+        "cluster_id": "workflow-0212",
+        "summary": "Retained metadata pointers outlive isolated-context teardown",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 331,
+        "cumulative_percent": 91.1846,
+        "issues": [
+          144172
+        ]
+      },
+      {
+        "rank": 214,
+        "cluster_id": "workflow-0213",
+        "summary": "Profiling-instrumented build helper fails on residual exit-time allocations",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 332,
+        "cumulative_percent": 91.4601,
+        "issues": [
+          144199
+        ]
+      },
+      {
+        "rank": 215,
+        "cluster_id": "workflow-0214",
+        "summary": "Missing symbolic-value category causes optimizer crash",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 333,
+        "cumulative_percent": 91.7355,
+        "issues": [
+          144280
+        ]
+      },
+      {
+        "rank": 216,
+        "cluster_id": "workflow-0216",
+        "summary": "Malformed executable stream begins with a non-executable placeholder",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 334,
+        "cumulative_percent": 92.011,
+        "issues": [
+          144282
+        ]
+      },
+      {
+        "rank": 217,
+        "cluster_id": "workflow-0217",
+        "summary": "Concurrent shared locale-state replacement causes use-after-free",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 335,
+        "cumulative_percent": 92.2865,
+        "issues": [
+          144567
+        ]
+      },
+      {
+        "rank": 218,
+        "cluster_id": "workflow-0218",
+        "summary": "Error reporting uses a released and misinterpreted wrapper after resource initialization failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 336,
+        "cumulative_percent": 92.562,
+        "issues": [
+          144833
+        ]
+      },
+      {
+        "rank": 219,
+        "cluster_id": "workflow-0219",
+        "summary": "Partial-object cleanup dereferences missing state and releases parent ownership twice",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 337,
+        "cumulative_percent": 92.8375,
+        "issues": [
+          144984
+        ]
+      },
+      {
+        "rank": 220,
+        "cluster_id": "workflow-0220",
+        "summary": "Concurrent container mutation races with size inspection",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 338,
+        "cumulative_percent": 93.1129,
+        "issues": [
+          145036
+        ]
+      },
+      {
+        "rank": 221,
+        "cluster_id": "workflow-0221",
+        "summary": "Instrumented configuration probe hangs during pre-application runtime initialization",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 339,
+        "cumulative_percent": 93.3884,
+        "issues": [
+          145199
+        ]
+      },
+      {
+        "rank": 222,
+        "cluster_id": "workflow-0222",
+        "summary": "Successful helper return omits cleanup of owned configuration state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 340,
+        "cumulative_percent": 93.6639,
+        "issues": [
+          145204
+        ]
+      },
+      {
+        "rank": 223,
+        "cluster_id": "workflow-0223",
+        "summary": "Failed secondary registration causes double cleanup of an already-owned record",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 341,
+        "cumulative_percent": 93.9394,
+        "issues": [
+          145301
+        ]
+      },
+      {
+        "rank": 224,
+        "cluster_id": "workflow-0224",
+        "summary": "Concurrent deletion races with shared field validation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 342,
+        "cumulative_percent": 94.2149,
+        "issues": [
+          146270
+        ]
+      },
+      {
+        "rank": 225,
+        "cluster_id": "workflow-0225",
+        "summary": "Concurrent mapping mutation invalidates borrowed traversal references",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 343,
+        "cumulative_percent": 94.4904,
+        "issues": [
+          146452
+        ]
+      },
+      {
+        "rank": 226,
+        "cluster_id": "workflow-0226",
+        "summary": "Unchecked boundary state reaches undefined low-level arithmetic or representation access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 344,
+        "cumulative_percent": 94.7658,
+        "issues": [
+          148286
+        ]
+      },
+      {
+        "rank": 227,
+        "cluster_id": "workflow-0227",
+        "summary": "Exceptional validation failure omits cleanup of an intermediate iterator",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 345,
+        "cumulative_percent": 95.0413,
+        "issues": [
+          148484
+        ]
+      },
+      {
+        "rank": 228,
+        "cluster_id": "workflow-0228",
+        "summary": "Polymorphic call optimization assumes a callable target exists",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 346,
+        "cumulative_percent": 95.3168,
+        "issues": [
+          148716
+        ]
+      },
+      {
+        "rank": 229,
+        "cluster_id": "workflow-0229",
+        "summary": "Untracked external write causes false-positive uninitialized read",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 347,
+        "cumulative_percent": 95.5923,
+        "issues": [
+          148850
+        ]
+      },
+      {
+        "rank": 230,
+        "cluster_id": "workflow-0230",
+        "summary": "Concurrent reinitialization invalidates a reader's prior bounds check",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 348,
+        "cumulative_percent": 95.8678,
+        "issues": [
+          149816
+        ]
+      },
+      {
+        "rank": 231,
+        "cluster_id": "workflow-0231",
+        "summary": "Concurrent handshakes race on shared connection state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 349,
+        "cumulative_percent": 96.1433,
+        "issues": [
+          150191
+        ]
+      },
+      {
+        "rank": 232,
+        "cluster_id": "workflow-0232",
+        "summary": "Fixed recursion depth no longer reaches the enforced limit",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 350,
+        "cumulative_percent": 96.4187,
+        "issues": [
+          150195
+        ]
+      },
+      {
+        "rank": 233,
+        "cluster_id": "workflow-0233",
+        "summary": "Concurrent context registration races with diagnostic enumeration",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 351,
+        "cumulative_percent": 96.6942,
+        "issues": [
+          150284
+        ]
+      },
+      {
+        "rank": 234,
+        "cluster_id": "workflow-0234",
+        "summary": "Instrumentation and runtime linkage mismatch causes unresolved-symbol link failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 352,
+        "cumulative_percent": 96.9697,
+        "issues": [
+          150467
+        ]
+      },
+      {
+        "rank": 235,
+        "cluster_id": "workflow-0235",
+        "summary": "Platform-dependent cleanup leaks nested probe allocations",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 353,
+        "cumulative_percent": 97.2452,
+        "issues": [
+          150536
+        ]
+      },
+      {
+        "rank": 236,
+        "cluster_id": "workflow-0236",
+        "summary": "Load-sensitive premature termination loses child diagnostics",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 354,
+        "cumulative_percent": 97.5207,
+        "issues": [
+          150966
+        ]
+      },
+      {
+        "rank": 237,
+        "cluster_id": "workflow-0237",
+        "summary": "Concurrent reads of a partially constructed aggregate race with internal mutation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 355,
+        "cumulative_percent": 97.7961,
+        "issues": [
+          151722
+        ]
+      },
+      {
+        "rank": 238,
+        "cluster_id": "workflow-0238",
+        "summary": "Concurrent lazy-cache publication corrupts reference ownership",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 356,
+        "cumulative_percent": 98.0716,
+        "issues": [
+          153201
+        ]
+      },
+      {
+        "rank": 239,
+        "cluster_id": "workflow-0239",
+        "summary": "Concurrent collection reaches an object during partially completed destruction",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 357,
+        "cumulative_percent": 98.3471,
+        "issues": [
+          153809
+        ]
+      },
+      {
+        "rank": 240,
+        "cluster_id": "workflow-0240",
+        "summary": "Concurrent state replacement invalidates formatting reads",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 358,
+        "cumulative_percent": 98.6226,
+        "issues": [
+          153981
+        ]
+      },
+      {
+        "rank": 241,
+        "cluster_id": "workflow-0241",
+        "summary": "Concurrent one-shot iterator consumption causes duplicate release and use-after-free.",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 359,
+        "cumulative_percent": 98.8981,
+        "issues": [
+          154043
+        ]
+      },
+      {
+        "rank": 242,
+        "cluster_id": "workflow-0242",
+        "summary": "Unsynchronized buffer reallocation invalidates active readers",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 360,
+        "cumulative_percent": 99.1736,
+        "issues": [
+          154524
+        ]
+      },
+      {
+        "rank": 243,
+        "cluster_id": "workflow-0243",
+        "summary": "Concurrent iterator cursor corruption causes invalid traversal dereference",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 361,
+        "cumulative_percent": 99.449,
+        "issues": [
+          154535
+        ]
+      },
+      {
+        "rank": 244,
+        "cluster_id": "workflow-0244",
+        "summary": "Inconsistent boundary validation defers invalid timestamp failure to serialization",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 362,
+        "cumulative_percent": 99.7245,
+        "issues": [
+          154667
+        ]
+      },
+      {
+        "rank": 245,
+        "cluster_id": "workflow-0245",
+        "summary": "Incompatible cleanup callback signature hidden by untyped registration",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 363,
+        "cumulative_percent": 100.0,
+        "issues": [
+          156762
+        ]
+      }
+    ]
+  },
+  "reviewed": {
+    "issues": 363,
+    "clusters": 116,
+    "singletons": 52,
+    "size_distribution": {
+      "1": 52,
+      "2": 21,
+      "3": 14,
+      "4": 13,
+      "5": 2,
+      "6": 4,
+      "7": 1,
+      "8": 3,
+      "9": 1,
+      "10": 1,
+      "11": 1,
+      "20": 1,
+      "22": 1,
+      "38": 1
+    },
+    "clusters_for_80_percent": 54,
+    "cluster_percent_for_80_percent": 46.55172413793103,
+    "top_20_percent_cluster_count": 24,
+    "top_20_percent_issue_coverage": 57.0248,
+    "ranked_clusters": [
+      {
+        "rank": 1,
+        "cluster_id": "workflow-0014",
+        "summary": "Borrowed or derived handles are used after reentrancy, concurrency, mutation, or teardown invalidates their owner or backing storage.",
+        "size": 38,
+        "issue_percent": 10.4683,
+        "cumulative_issues": 38,
+        "cumulative_percent": 10.4683,
+        "issues": [
+          80434,
+          88350,
+          96572,
+          101975,
+          103718,
+          108253,
+          113591,
+          114106,
+          115243,
+          116510,
+          120289,
+          120298,
+          124878,
+          135636,
+          139210,
+          139400,
+          140138,
+          140651,
+          140815,
+          142557,
+          142558,
+          142560,
+          142664,
+          142665,
+          142783,
+          142830,
+          143004,
+          143197,
+          143309,
+          143547,
+          144172,
+          144281,
+          144475,
+          144833,
+          146011,
+          148382,
+          151046,
+          151403
+        ]
+      },
+      {
+        "rank": 2,
+        "cluster_id": "workflow-0080",
+        "summary": "Callback re-entrancy invalidates borrowed state or backing storage during a native operation",
+        "size": 22,
+        "issue_percent": 6.0606,
+        "cumulative_issues": 60,
+        "cumulative_percent": 16.5289,
+        "issues": [
+          130555,
+          140551,
+          142555,
+          142559,
+          142594,
+          142637,
+          142663,
+          142731,
+          142732,
+          142734,
+          142782,
+          142828,
+          142829,
+          142831,
+          142882,
+          142884,
+          143196,
+          143379,
+          143543,
+          143546,
+          143635,
+          143639
+        ]
+      },
+      {
+        "rank": 3,
+        "cluster_id": "workflow-0137",
+        "summary": "Reentrant user-code execution invalidates native state before later use",
+        "size": 20,
+        "issue_percent": 5.5096,
+        "cumulative_issues": 80,
+        "cumulative_percent": 22.0386,
+        "issues": [
+          143007,
+          143008,
+          143195,
+          143198,
+          143200,
+          143236,
+          143308,
+          143310,
+          143375,
+          143378,
+          143380,
+          143544,
+          143545,
+          143637,
+          143638,
+          143662,
+          144128,
+          144922,
+          148625,
+          154189
+        ]
+      },
+      {
+        "rank": 4,
+        "cluster_id": "workflow-0077",
+        "summary": "Concurrent contexts access shared process-wide state without a complete synchronization or publication protocol",
+        "size": 11,
+        "issue_percent": 3.0303,
+        "cumulative_issues": 91,
+        "cumulative_percent": 25.0689,
+        "issues": [
+          129824,
+          130091,
+          130605,
+          133473,
+          140257,
+          140260,
+          150284,
+          152741,
+          153014,
+          153852,
+          154822
+        ]
+      },
+      {
+        "rank": 5,
+        "cluster_id": "workflow-0091",
+        "summary": "Error-path ownership loss in native operations",
+        "size": 10,
+        "issue_percent": 2.7548,
+        "cumulative_issues": 101,
+        "cumulative_percent": 27.8237,
+        "issues": [
+          139751,
+          139988,
+          140398,
+          140406,
+          140530,
+          140593,
+          140939,
+          142917,
+          147998,
+          148484
+        ]
+      },
+      {
+        "rank": 6,
+        "cluster_id": "workflow-0079",
+        "summary": "Incomplete nested configuration cleanup leaks allocated settings",
+        "size": 9,
+        "issue_percent": 2.4793,
+        "cumulative_issues": 110,
+        "cumulative_percent": 30.303,
+        "issues": [
+          121390,
+          121847,
+          138756,
+          140120,
+          140272,
+          140442,
+          140474,
+          145204,
+          150536
+        ]
+      },
+      {
+        "rank": 7,
+        "cluster_id": "workflow-0017",
+        "summary": "Heterogeneous sequence element misinterpreted as a different record type",
+        "size": 8,
+        "issue_percent": 2.2039,
+        "cumulative_issues": 118,
+        "cumulative_percent": 32.5069,
+        "issues": [
+          85863,
+          125318,
+          140471,
+          142595,
+          142781,
+          143005,
+          143376,
+          143636
+        ]
+      },
+      {
+        "rank": 8,
+        "cluster_id": "workflow-0064",
+        "summary": "Cross-context shared state outlives its owner",
+        "size": 8,
+        "issue_percent": 2.2039,
+        "cumulative_issues": 126,
+        "cumulative_percent": 34.7107,
+        "issues": [
+          100773,
+          111339,
+          113055,
+          113190,
+          113576,
+          140301,
+          140404,
+          141372
+        ]
+      },
+      {
+        "rank": 9,
+        "cluster_id": "workflow-0100",
+        "summary": "Concurrent access to mutable shared state without effective synchronization or lifetime protection",
+        "size": 8,
+        "issue_percent": 2.2039,
+        "cumulative_issues": 134,
+        "cumulative_percent": 36.9146,
+        "issues": [
+          116912,
+          128050,
+          128100,
+          128144,
+          132886,
+          143756,
+          144567,
+          154524
+        ]
+      },
+      {
+        "rank": 10,
+        "cluster_id": "workflow-0241",
+        "summary": "Concurrent unsynchronized access to shared mutable storage or state",
+        "size": 7,
+        "issue_percent": 1.9284,
+        "cumulative_issues": 141,
+        "cumulative_percent": 38.843,
+        "issues": [
+          130977,
+          131325,
+          142717,
+          149142,
+          151277,
+          153908,
+          154756
+        ]
+      },
+      {
+        "rank": 11,
+        "cluster_id": "workflow-0036",
+        "summary": "Unchecked truncated metadata decoding leaks adjacent memory",
+        "size": 6,
+        "issue_percent": 1.6529,
+        "cumulative_issues": 147,
+        "cumulative_percent": 40.4959,
+        "issues": [
+          99974,
+          99975,
+          121112,
+          140935,
+          142736,
+          143430
+        ]
+      },
+      {
+        "rank": 12,
+        "cluster_id": "workflow-0090",
+        "summary": "Concurrent lazy-cache initialization races during shared value publication",
+        "size": 6,
+        "issue_percent": 1.6529,
+        "cumulative_issues": 153,
+        "cumulative_percent": 42.1488,
+        "issues": [
+          128013,
+          128133,
+          128212,
+          130421,
+          153201,
+          154044
+        ]
+      },
+      {
+        "rank": 13,
+        "cluster_id": "workflow-0118",
+        "summary": "Optimized execution leaks generated state",
+        "size": 6,
+        "issue_percent": 1.6529,
+        "cumulative_issues": 159,
+        "cumulative_percent": 43.8017,
+        "issues": [
+          139540,
+          139749,
+          139750,
+          139827,
+          142476,
+          142985
+        ]
+      },
+      {
+        "rank": 14,
+        "cluster_id": "workflow-0166",
+        "summary": "Undersized output buffer causes native write overflow",
+        "size": 6,
+        "issue_percent": 1.6529,
+        "cumulative_issues": 165,
+        "cumulative_percent": 45.4545,
+        "issues": [
+          89391,
+          140802,
+          141338,
+          143003,
+          143377,
+          144206
+        ]
+      },
+      {
+        "rank": 15,
+        "cluster_id": "workflow-0138",
+        "summary": "Error path omits cleanup of partially acquired temporary values",
+        "size": 5,
+        "issue_percent": 1.3774,
+        "cumulative_issues": 170,
+        "cumulative_percent": 46.832,
+        "issues": [
+          139748,
+          140306,
+          140517,
+          141044,
+          144069
+        ]
+      },
+      {
+        "rank": 16,
+        "cluster_id": "workflow-0158",
+        "summary": "Stale optimized execution during runtime finalization triggers an invalid state assertion",
+        "size": 5,
+        "issue_percent": 1.3774,
+        "cumulative_issues": 175,
+        "cumulative_percent": 48.2094,
+        "issues": [
+          140936,
+          141648,
+          142276,
+          142883,
+          148716
+        ]
+      },
+      {
+        "rank": 17,
+        "cluster_id": "workflow-0005",
+        "summary": "Zero-length memory transfer with a null pointer",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 179,
+        "cumulative_percent": 49.3113,
+        "issues": [
+          71757,
+          81319,
+          127563,
+          146196
+        ]
+      },
+      {
+        "rank": 18,
+        "cluster_id": "workflow-0008",
+        "summary": "Concurrent iterator exhaustion releases shared sequence during another retrieval",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 183,
+        "cumulative_percent": 50.4132,
+        "issues": [
+          73069,
+          153928,
+          154043,
+          154130
+        ]
+      },
+      {
+        "rank": 19,
+        "cluster_id": "workflow-0024",
+        "summary": "Error recovery dereferences missing diagnostic source data",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 187,
+        "cumulative_percent": 51.5152,
+        "issues": [
+          89571,
+          89657,
+          113602,
+          140576
+        ]
+      },
+      {
+        "rank": 20,
+        "cluster_id": "workflow-0042",
+        "summary": "Uninitialized unused numeric storage is read before neutralizing arithmetic",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 191,
+        "cumulative_percent": 52.6171,
+        "issues": [
+          102509,
+          106914,
+          116550,
+          116886
+        ]
+      },
+      {
+        "rank": 21,
+        "cluster_id": "workflow-0044",
+        "summary": "Expected runtime leak aborts sanitizer-instrumented build validation",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 195,
+        "cumulative_percent": 53.719,
+        "issues": [
+          104472,
+          104791,
+          135618,
+          144199
+        ]
+      },
+      {
+        "rank": 22,
+        "cluster_id": "workflow-0050",
+        "summary": "Incompatible callback signature hidden by function-pointer cast",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 199,
+        "cumulative_percent": 54.8209,
+        "issues": [
+          111178,
+          132097,
+          134457,
+          156762
+        ]
+      },
+      {
+        "rank": 23,
+        "cluster_id": "workflow-0052",
+        "summary": "Unchecked argument-conversion failure causes downstream crash",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 203,
+        "cumulative_percent": 55.9229,
+        "issues": [
+          111942,
+          140650,
+          141307,
+          142737
+        ]
+      },
+      {
+        "rank": 24,
+        "cluster_id": "workflow-0057",
+        "summary": "Concurrent permanent-retention transition races with owner reference counting",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 207,
+        "cumulative_percent": 57.0248,
+        "issues": [
+          113956,
+          128137,
+          129701,
+          130019
+        ]
+      },
+      {
+        "rank": 25,
+        "cluster_id": "workflow-0061",
+        "summary": "Profiling instrumentation breaks configuration probes and causes a misleading incomplete-type build failure",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 211,
+        "cumulative_percent": 58.1267,
+        "issues": [
+          86434,
+          114453,
+          116891,
+          150467
+        ]
+      },
+      {
+        "rank": 26,
+        "cluster_id": "workflow-0073",
+        "summary": "Unchecked oversized geometry causes downstream arithmetic corruption and crash",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 215,
+        "cumulative_percent": 59.2287,
+        "issues": [
+          115378,
+          120378,
+          122431,
+          140462
+        ]
+      },
+      {
+        "rank": 27,
+        "cluster_id": "workflow-0188",
+        "summary": "Out-of-range empty slice triggers read-position assertion",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 219,
+        "cumulative_percent": 60.3306,
+        "issues": [
+          140410,
+          141311,
+          141314,
+          142787
+        ]
+      },
+      {
+        "rank": 28,
+        "cluster_id": "workflow-0210",
+        "summary": "Unchecked missing metadata lookup causes assembler crash",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 223,
+        "cumulative_percent": 61.4325,
+        "issues": [
+          72111,
+          142451,
+          144100,
+          144163
+        ]
+      },
+      {
+        "rank": 29,
+        "cluster_id": "workflow-0242",
+        "summary": "Unsynchronized concurrent access to replaceable, reference-owned object fields",
+        "size": 4,
+        "issue_percent": 1.1019,
+        "cumulative_issues": 227,
+        "cumulative_percent": 62.5344,
+        "issues": [
+          145272,
+          146270,
+          153981,
+          154821
+        ]
+      },
+      {
+        "rank": 30,
+        "cluster_id": "workflow-0001",
+        "summary": "Inherited thread-local state reused after process duplication and identifier collision",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 230,
+        "cumulative_percent": 63.3609,
+        "issues": [
+          54726,
+          83957,
+          109580
+        ]
+      },
+      {
+        "rank": 31,
+        "cluster_id": "workflow-0029",
+        "summary": "Nonportable configuration generation emits an invalid script",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 233,
+        "cumulative_percent": 64.1873,
+        "issues": [
+          94404,
+          98249,
+          116259
+        ]
+      },
+      {
+        "rank": 32,
+        "cluster_id": "workflow-0030",
+        "summary": "Signed bit-packing shift overflows before safe encoding",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 236,
+        "cumulative_percent": 65.0138,
+        "issues": [
+          65128,
+          95635,
+          96735
+        ]
+      },
+      {
+        "rank": 33,
+        "cluster_id": "workflow-0033",
+        "summary": "Null base pointer offset computed before validation",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 239,
+        "cumulative_percent": 65.8402,
+        "issues": [
+          96569,
+          96678,
+          144759
+        ]
+      },
+      {
+        "rank": 34,
+        "cluster_id": "workflow-0049",
+        "summary": "Load-sensitive fixed-timeout readiness failure",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 242,
+        "cumulative_percent": 66.6667,
+        "issues": [
+          110097,
+          143442,
+          150966
+        ]
+      },
+      {
+        "rank": 35,
+        "cluster_id": "workflow-0058",
+        "summary": "Invalid diagnostic argument type causes out-of-bounds formatting read",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 245,
+        "cumulative_percent": 67.4931,
+        "issues": [
+          114050,
+          140492,
+          144169
+        ]
+      },
+      {
+        "rank": 36,
+        "cluster_id": "workflow-0109",
+        "summary": "Partial instrumentation causes a false-positive uninitialized read during startup",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 248,
+        "cumulative_percent": 68.3196,
+        "issues": [
+          135774,
+          140332,
+          148850
+        ]
+      },
+      {
+        "rank": 37,
+        "cluster_id": "workflow-0114",
+        "summary": "Misaligned typed access during raw code-buffer patching",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 251,
+        "cumulative_percent": 69.146,
+        "issues": [
+          72174,
+          139269,
+          139834
+        ]
+      },
+      {
+        "rank": 38,
+        "cluster_id": "workflow-0125",
+        "summary": "Feature-guard mismatch exposes unavailable interface member",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 254,
+        "cumulative_percent": 69.9725,
+        "issues": [
+          119447,
+          140159,
+          143640
+        ]
+      },
+      {
+        "rank": 39,
+        "cluster_id": "workflow-0140",
+        "summary": "Unchecked executable metadata type causes later invalid dereference",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 257,
+        "cumulative_percent": 70.7989,
+        "issues": [
+          140564,
+          140776,
+          141390
+        ]
+      },
+      {
+        "rank": 40,
+        "cluster_id": "workflow-0147",
+        "summary": "Borrowed field retained without ownership increment becomes dangling",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 260,
+        "cumulative_percent": 71.6253,
+        "issues": [
+          86863,
+          135637,
+          140634
+        ]
+      },
+      {
+        "rank": 41,
+        "cluster_id": "workflow-0174",
+        "summary": "Insufficiently validated structured result causes out-of-bounds read",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 263,
+        "cumulative_percent": 72.4518,
+        "issues": [
+          140409,
+          140607,
+          142554
+        ]
+      },
+      {
+        "rank": 42,
+        "cluster_id": "workflow-0223",
+        "summary": "Failed secondary registration causes double cleanup of an already-owned record",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 266,
+        "cumulative_percent": 73.2782,
+        "issues": [
+          100795,
+          144984,
+          145301
+        ]
+      },
+      {
+        "rank": 43,
+        "cluster_id": "workflow-0226",
+        "summary": "Unchecked boundary state reaches undefined low-level arithmetic or representation access",
+        "size": 3,
+        "issue_percent": 0.8264,
+        "cumulative_issues": 269,
+        "cumulative_percent": 74.1047,
+        "issues": [
+          83870,
+          148286,
+          154667
+        ]
+      },
+      {
+        "rank": 44,
+        "cluster_id": "workflow-0009",
+        "summary": "Post-overflow validation of signed output-size arithmetic is defeated by optimization",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 271,
+        "cumulative_percent": 74.6556,
+        "issues": [
+          73331,
+          77813
+        ]
+      },
+      {
+        "rank": 45,
+        "cluster_id": "workflow-0010",
+        "summary": "Out-of-range floating-point narrowing occurs before representability validation",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 273,
+        "cumulative_percent": 75.2066,
+        "issues": [
+          75554,
+          77756
+        ]
+      },
+      {
+        "rank": 46,
+        "cluster_id": "workflow-0013",
+        "summary": "Empty instruction sequence causes boundary-overrun during execution",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 275,
+        "cumulative_percent": 75.7576,
+        "issues": [
+          79374,
+          140497
+        ]
+      },
+      {
+        "rank": 47,
+        "cluster_id": "workflow-0021",
+        "summary": "Instrumented allocation failure aborts instead of returning a recoverable error",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 277,
+        "cumulative_percent": 76.3085,
+        "issues": [
+          89359,
+          114331
+        ]
+      },
+      {
+        "rank": 48,
+        "cluster_id": "workflow-0028",
+        "summary": "Forked child leaks inherited resources from vanished threads",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 279,
+        "cumulative_percent": 76.8595,
+        "issues": [
+          94064,
+          140493
+        ]
+      },
+      {
+        "rank": 49,
+        "cluster_id": "workflow-0040",
+        "summary": "Insufficient lookahead causes out-of-bounds read during character-sequence encoding",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 281,
+        "cumulative_percent": 77.4105,
+        "issues": [
+          101180,
+          127971
+        ]
+      },
+      {
+        "rank": 50,
+        "cluster_id": "workflow-0046",
+        "summary": "Stale lookup cache retains a released replaced value",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 283,
+        "cumulative_percent": 77.9614,
+        "issues": [
+          119462,
+          140496
+        ]
+      },
+      {
+        "rank": 51,
+        "cluster_id": "workflow-0059",
+        "summary": "Optimization-pass ordering leaves redundant control-flow edge",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 285,
+        "cumulative_percent": 78.5124,
+        "issues": [
+          114083,
+          121637
+        ]
+      },
+      {
+        "rank": 52,
+        "cluster_id": "workflow-0067",
+        "summary": "Garbage-collector traversal overruns special static records",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 287,
+        "cumulative_percent": 79.0634,
+        "issues": [
+          118074,
+          118113
+        ]
+      },
+      {
+        "rank": 53,
+        "cluster_id": "workflow-0074",
+        "summary": "Instrumented fatal-error reporting deadlocks and hangs the process",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 289,
+        "cumulative_percent": 79.6143,
+        "issues": [
+          118729,
+          120696
+        ]
+      },
+      {
+        "rank": 54,
+        "cluster_id": "workflow-0104",
+        "summary": "Removing sanitizer suppression exposes deliberate fault-trigger and mismatched-dispatch undefined behavior",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 291,
+        "cumulative_percent": 80.1653,
+        "issues": [
+          93981,
+          133157
+        ]
+      },
+      {
+        "rank": 55,
+        "cluster_id": "workflow-0105",
+        "summary": "Concurrent unsynchronized access to shared collection-accounting state",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 293,
+        "cumulative_percent": 80.7163,
+        "issues": [
+          144356,
+          154535
+        ]
+      },
+      {
+        "rank": 56,
+        "cluster_id": "workflow-0112",
+        "summary": "Lock-held global pause creates circular wait",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 295,
+        "cumulative_percent": 81.2672,
+        "issues": [
+          139116,
+          151593
+        ]
+      },
+      {
+        "rank": 57,
+        "cluster_id": "workflow-0126",
+        "summary": "Concurrent table publication exposes partially initialized record",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 297,
+        "cumulative_percent": 81.8182,
+        "issues": [
+          132869,
+          151722
+        ]
+      },
+      {
+        "rank": 58,
+        "cluster_id": "workflow-0153",
+        "summary": "Reentrant finalization re-registers an object during destruction",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 299,
+        "cumulative_percent": 82.3691,
+        "issues": [
+          140798,
+          142556
+        ]
+      },
+      {
+        "rank": 59,
+        "cluster_id": "workflow-0156",
+        "summary": "Teardown ordering preserves callback-retained module allocations",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 301,
+        "cumulative_percent": 82.9201,
+        "issues": [
+          140631,
+          140860
+        ]
+      },
+      {
+        "rank": 60,
+        "cluster_id": "workflow-0168",
+        "summary": "Worker teardown omits cleanup of private tracing state",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 303,
+        "cumulative_percent": 83.4711,
+        "issues": [
+          141542,
+          144068
+        ]
+      },
+      {
+        "rank": 61,
+        "cluster_id": "workflow-0172",
+        "summary": "Tracing crosses instrumentation or exception boundaries with stale stack assumptions",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 305,
+        "cumulative_percent": 84.022,
+        "issues": [
+          142448,
+          142718
+        ]
+      },
+      {
+        "rank": 62,
+        "cluster_id": "workflow-0193",
+        "summary": "Unchecked numeric-operation result reaches integer-only comparison logic",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 307,
+        "cumulative_percent": 84.573,
+        "issues": [
+          141312,
+          143006
+        ]
+      },
+      {
+        "rank": 63,
+        "cluster_id": "workflow-0207",
+        "summary": "Overwritten current-state ownership leaks the previous allocation",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 309,
+        "cumulative_percent": 85.124,
+        "issues": [
+          140067,
+          144067
+        ]
+      },
+      {
+        "rank": 64,
+        "cluster_id": "workflow-0215",
+        "summary": "Retained view writes through released mapped storage",
+        "size": 2,
+        "issue_percent": 0.551,
+        "cumulative_issues": 311,
+        "cumulative_percent": 85.6749,
+        "issues": [
+          66234,
+          140777
+        ]
+      },
+      {
+        "rank": 65,
+        "cluster_id": "workflow-0002",
+        "summary": "Unescaped substitution marker breaks display rendering",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 312,
+        "cumulative_percent": 85.9504,
+        "issues": [
+          57894
+        ]
+      },
+      {
+        "rank": 66,
+        "cluster_id": "workflow-0011",
+        "summary": "Intermittent invalid memory access during heterogeneous numeric comparison",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 313,
+        "cumulative_percent": 86.2259,
+        "issues": [
+          77808
+        ]
+      },
+      {
+        "rank": 67,
+        "cluster_id": "workflow-0022",
+        "summary": "Forked child deadlocks on an inherited runtime mutex during worker creation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 314,
+        "cumulative_percent": 86.5014,
+        "issues": [
+          89363
+        ]
+      },
+      {
+        "rank": 68,
+        "cluster_id": "workflow-0025",
+        "summary": "Cross-module inherited annotations resolved in the wrong namespace",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 315,
+        "cumulative_percent": 86.7769,
+        "issues": [
+          89737
+        ]
+      },
+      {
+        "rank": 69,
+        "cluster_id": "workflow-0026",
+        "summary": "Link-time optimization produces an out-of-range branch",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 316,
+        "cumulative_percent": 87.0523,
+        "issues": [
+          93619
+        ]
+      },
+      {
+        "rank": 70,
+        "cluster_id": "workflow-0034",
+        "summary": "Instrumented custom-allocator metadata access aborts initialization",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 317,
+        "cumulative_percent": 87.3278,
+        "issues": [
+          96714
+        ]
+      },
+      {
+        "rank": 71,
+        "cluster_id": "workflow-0037",
+        "summary": "Extended diagnostic text exceeds fixed display capacity",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 318,
+        "cumulative_percent": 87.6033,
+        "issues": [
+          100086
+        ]
+      },
+      {
+        "rank": 72,
+        "cluster_id": "workflow-0045",
+        "summary": "Stale per-code instrumentation metadata triggers a pre-refresh version assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 319,
+        "cumulative_percent": 87.8788,
+        "issues": [
+          106012
+        ]
+      },
+      {
+        "rank": 73,
+        "cluster_id": "workflow-0047",
+        "summary": "Unrestored environment mutation causes test-suite failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 320,
+        "cumulative_percent": 88.1543,
+        "issues": [
+          109128
+        ]
+      },
+      {
+        "rank": 74,
+        "cluster_id": "workflow-0056",
+        "summary": "Tokenizer pointer-index overflow during continued multiline input",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 321,
+        "cumulative_percent": 88.4298,
+        "issues": [
+          113720
+        ]
+      },
+      {
+        "rank": 75,
+        "cluster_id": "workflow-0075",
+        "summary": "Reentrant asynchronous handler invocation exhausts recursion depth",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 322,
+        "cumulative_percent": 88.7052,
+        "issues": [
+          121065
+        ]
+      },
+      {
+        "rank": 76,
+        "cluster_id": "workflow-0076",
+        "summary": "Unsupported protocol-family result causes server binding failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 323,
+        "cumulative_percent": 88.9807,
+        "issues": [
+          121275
+        ]
+      },
+      {
+        "rank": 77,
+        "cluster_id": "workflow-0081",
+        "summary": "Underestimated external capacity defeats a backpressure test expectation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 324,
+        "cumulative_percent": 89.2562,
+        "issues": [
+          122136
+        ]
+      },
+      {
+        "rank": 78,
+        "cluster_id": "workflow-0083",
+        "summary": "Undersized alternate signal stack overruns heap storage",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 325,
+        "cumulative_percent": 89.5317,
+        "issues": [
+          124001
+        ]
+      },
+      {
+        "rank": 79,
+        "cluster_id": "workflow-0084",
+        "summary": "Dependency behavior change invalidates a narrow test expectation",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 326,
+        "cumulative_percent": 89.8072,
+        "issues": [
+          124378
+        ]
+      },
+      {
+        "rank": 80,
+        "cluster_id": "workflow-0087",
+        "summary": "Reachability-unaware code generation produces compiler diagnostics",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 327,
+        "cumulative_percent": 90.0826,
+        "issues": [
+          125515
+        ]
+      },
+      {
+        "rank": 81,
+        "cluster_id": "workflow-0088",
+        "summary": "Instrumented subprocess failure is surfaced as a test assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 328,
+        "cumulative_percent": 90.3581,
+        "issues": [
+          126445
+        ]
+      },
+      {
+        "rank": 82,
+        "cluster_id": "workflow-0094",
+        "summary": "Stale system configuration header overrides current build header",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 329,
+        "cumulative_percent": 90.6336,
+        "issues": [
+          129019
+        ]
+      },
+      {
+        "rank": 83,
+        "cluster_id": "workflow-0096",
+        "summary": "Independent feature and version checks redefine one compiler configuration symbol",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 330,
+        "cumulative_percent": 90.9091,
+        "issues": [
+          129838
+        ]
+      },
+      {
+        "rank": 84,
+        "cluster_id": "workflow-0097",
+        "summary": "Concurrent shutdown races with a still-running worker on shared state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 331,
+        "cumulative_percent": 91.1846,
+        "issues": [
+          145933
+        ]
+      },
+      {
+        "rank": 85,
+        "cluster_id": "workflow-0110",
+        "summary": "Missing instrumentation guard exposes stack overflow in deep-recursion test",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 332,
+        "cumulative_percent": 91.4601,
+        "issues": [
+          135830
+        ]
+      },
+      {
+        "rank": 86,
+        "cluster_id": "workflow-0111",
+        "summary": "Default configuration overrides an explicit allocator selection",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 333,
+        "cumulative_percent": 91.7355,
+        "issues": [
+          136872
+        ]
+      },
+      {
+        "rank": 87,
+        "cluster_id": "workflow-0120",
+        "summary": "Unnecessary tracking of cycle-ineligible immutable containers degrades collection performance",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 334,
+        "cumulative_percent": 92.011,
+        "issues": [
+          139951
+        ]
+      },
+      {
+        "rank": 88,
+        "cluster_id": "workflow-0127",
+        "summary": "Shutdown leaves a blocking background worker un-terminated",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 335,
+        "cumulative_percent": 92.2865,
+        "issues": [
+          140267
+        ]
+      },
+      {
+        "rank": 89,
+        "cluster_id": "workflow-0129",
+        "summary": "Unsupported target accepted until generated-artifact build failure",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 336,
+        "cumulative_percent": 92.562,
+        "issues": [
+          140354
+        ]
+      },
+      {
+        "rank": 90,
+        "cluster_id": "workflow-0132",
+        "summary": "Null pointer passed to a native routine requiring valid string storage",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 337,
+        "cumulative_percent": 92.8375,
+        "issues": [
+          140408
+        ]
+      },
+      {
+        "rank": 91,
+        "cluster_id": "workflow-0135",
+        "summary": "Garbage-collector traversal dereferences partially initialized object state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 338,
+        "cumulative_percent": 93.1129,
+        "issues": [
+          140431
+        ]
+      },
+      {
+        "rank": 92,
+        "cluster_id": "workflow-0149",
+        "summary": "Unchecked enumeration of retained inactive resource entries",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 339,
+        "cumulative_percent": 93.3884,
+        "issues": [
+          140652
+        ]
+      },
+      {
+        "rank": 93,
+        "cluster_id": "workflow-0150",
+        "summary": "Inconsistent initial nesting level causes formatting-cache out-of-bounds access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 340,
+        "cumulative_percent": 93.6639,
+        "issues": [
+          140750
+        ]
+      },
+      {
+        "rank": 94,
+        "cluster_id": "workflow-0151",
+        "summary": "Incompatible module state layout rejected by legacy registration",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 341,
+        "cumulative_percent": 93.9394,
+        "issues": [
+          140751
+        ]
+      },
+      {
+        "rank": 95,
+        "cluster_id": "workflow-0162",
+        "summary": "Zero-length input offset causes boundary-underflow read",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 342,
+        "cumulative_percent": 94.2149,
+        "issues": [
+          140594
+        ]
+      },
+      {
+        "rank": 96,
+        "cluster_id": "workflow-0163",
+        "summary": "Unchecked state-field type causes later invalid mapping access",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 343,
+        "cumulative_percent": 94.4904,
+        "issues": [
+          140590
+        ]
+      },
+      {
+        "rank": 97,
+        "cluster_id": "workflow-0165",
+        "summary": "Recovery rewind underestimates decoder output capacity",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 344,
+        "cumulative_percent": 94.7658,
+        "issues": [
+          141336
+        ]
+      },
+      {
+        "rank": 98,
+        "cluster_id": "workflow-0169",
+        "summary": "Instrumented lazy code dispatch dereferences an invalid generated-code address",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 345,
+        "cumulative_percent": 95.0413,
+        "issues": [
+          141621
+        ]
+      },
+      {
+        "rank": 99,
+        "cluster_id": "workflow-0179",
+        "summary": "Transformed instruction index causes diagnostic table over-read",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 346,
+        "cumulative_percent": 95.3168,
+        "issues": [
+          142629
+        ]
+      },
+      {
+        "rank": 100,
+        "cluster_id": "workflow-0180",
+        "summary": "Malformed instruction operand triggers internal assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 347,
+        "cumulative_percent": 95.5923,
+        "issues": [
+          142661
+        ]
+      },
+      {
+        "rank": 101,
+        "cluster_id": "workflow-0200",
+        "summary": "Permitted concurrent release invalidates lock-handoff assertion",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 348,
+        "cumulative_percent": 95.8678,
+        "issues": [
+          143424
+        ]
+      },
+      {
+        "rank": 102,
+        "cluster_id": "workflow-0205",
+        "summary": "Uninstrumented dependency causes false-positive race reports",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 349,
+        "cumulative_percent": 96.1433,
+        "issues": [
+          143750
+        ]
+      },
+      {
+        "rank": 103,
+        "cluster_id": "workflow-0206",
+        "summary": "Oversized optimized trace corrupts generated-code metadata during cleanup",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 350,
+        "cumulative_percent": 96.4187,
+        "issues": [
+          143751
+        ]
+      },
+      {
+        "rank": 104,
+        "cluster_id": "workflow-0214",
+        "summary": "Missing symbolic-value category causes optimizer crash",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 351,
+        "cumulative_percent": 96.6942,
+        "issues": [
+          144280
+        ]
+      },
+      {
+        "rank": 105,
+        "cluster_id": "workflow-0216",
+        "summary": "Malformed executable stream begins with a non-executable placeholder",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 352,
+        "cumulative_percent": 96.9697,
+        "issues": [
+          144282
+        ]
+      },
+      {
+        "rank": 106,
+        "cluster_id": "workflow-0221",
+        "summary": "Instrumented configuration probe hangs during pre-application runtime initialization",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 353,
+        "cumulative_percent": 97.2452,
+        "issues": [
+          145199
+        ]
+      },
+      {
+        "rank": 107,
+        "cluster_id": "workflow-0232",
+        "summary": "Fixed recursion depth no longer reaches the enforced limit",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 354,
+        "cumulative_percent": 97.5207,
+        "issues": [
+          150195
+        ]
+      },
+      {
+        "rank": 108,
+        "cluster_id": "workflow-0233",
+        "summary": "Concurrent diagnostic traversal dereferences released execution state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 355,
+        "cumulative_percent": 97.7961,
+        "issues": [
+          146452
+        ]
+      },
+      {
+        "rank": 109,
+        "cluster_id": "workflow-0239",
+        "summary": "Concurrent collection reaches an object during partially completed destruction",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 356,
+        "cumulative_percent": 98.0716,
+        "issues": [
+          153809
+        ]
+      },
+      {
+        "rank": 110,
+        "cluster_id": "workflow-0240",
+        "summary": "Mismatched nested delimiters underflow parser nesting state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 357,
+        "cumulative_percent": 98.3471,
+        "issues": [
+          122026
+        ]
+      },
+      {
+        "rank": 111,
+        "cluster_id": "workflow-0243",
+        "summary": "Concurrent evaluation loses shared interrupt state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 358,
+        "cumulative_percent": 98.6226,
+        "issues": [
+          128130
+        ]
+      },
+      {
+        "rank": 112,
+        "cluster_id": "workflow-0244",
+        "summary": "Unsynchronized inspection of concurrently updated synchronization state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 359,
+        "cumulative_percent": 98.8981,
+        "issues": [
+          140263
+        ]
+      },
+      {
+        "rank": 113,
+        "cluster_id": "workflow-0245",
+        "summary": "Concurrent handshake cleanup double-frees shared native state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 360,
+        "cumulative_percent": 99.1736,
+        "issues": [
+          140608
+        ]
+      },
+      {
+        "rank": 114,
+        "cluster_id": "workflow-0246",
+        "summary": "Concurrent container mutation races with size inspection",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 361,
+        "cumulative_percent": 99.449,
+        "issues": [
+          145036
+        ]
+      },
+      {
+        "rank": 115,
+        "cluster_id": "workflow-0247",
+        "summary": "Concurrent reinitialization invalidates a reader's prior bounds check",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 362,
+        "cumulative_percent": 99.7245,
+        "issues": [
+          149816
+        ]
+      },
+      {
+        "rank": 116,
+        "cluster_id": "workflow-0248",
+        "summary": "Concurrent handshakes race on shared connection state",
+        "size": 1,
+        "issue_percent": 0.2755,
+        "cumulative_issues": 363,
+        "cumulative_percent": 100.0,
+        "issues": [
+          150191
+        ]
+      }
+    ]
+  },
+  "review_actions": {
+    "keep": 231,
+    "merge": 89,
+    "move": 43
+  }
+}

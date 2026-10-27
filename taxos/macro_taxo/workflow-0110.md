@@ -1,38 +1,44 @@
-# A low-level structured-data encoder accepts an unvalidated initial nesting level that is inconsistent with its formatting-cache contents.
+# A deep-recursion test runs under a memory-safety instrumentation mode that its skip guard does not recognize.
 
-When formatting nested containers, the encoder lazily caches per-depth separator and indentation strings. A caller-supplied starting depth can exceed the cache's initialized depth, exposing a synchronization flaw between logical depth and cache state.
+A compatibility guard for unusually deep recursive workloads omits the active instrumentation category, allowing the workload to execute under instrumentation that cannot tolerate its stack depth.
 
 ## Precondition
 
-An internal or low-level encoding entry point accepts a non-base initial nesting level without ensuring that the formatting cache contains entries through that level.
+A test intentionally performs unusually deep recursion and includes conditional skipping for selected instrumentation modes.
 
 ## Critical operation
 
-Encoding a non-empty nested container increments the logical nesting level and requests the cached separator or indentation string for that new level.
+The test runner executes the recursive workload with memory-safety instrumentation enabled.
 
 ## Interference
 
-The cache-growth path is invoked with a logical level far beyond the cache's actual size, so its index calculations operate on a short cache rather than on entries representing the preceding level.
+Instrumentation increases effective stack consumption or otherwise reduces the usable stack available to the recursive workload.
 
 ## Invalid assumption
 
-The cache-growth helper assumes that entries for the immediately preceding logical level already exist whenever a deeper level is requested.
+The skip guard assumes its existing instrumentation checks cover every mode that makes the deep-recursion test unsafe, but it does not account for the active memory-safety instrumentation category.
 
 ## Failure
 
-The helper either trips its consistency assertion in diagnostic builds or reads beyond the cache allocation in unchecked builds, producing an abort or heap-buffer-overflow instead of a recoverable validation or state error.
+The recursive workload exhausts the instrumented process stack, causing a sanitizer-reported stack-overflow abort and test failure instead of being skipped.
 
 ## Scope
 
-This is a cautiously scoped pattern from a singleton report: it applies to lazily grown depth-indexed formatting caches when an internal entry point permits an inconsistent initial depth; it does not claim that all cache-growth failures have this cause.
+This is a singleton cluster, so the pattern is scoped to deep-recursion tests whose instrumentation-compatibility guards omit a stack-impacting memory-safety mode; it does not establish that all sanitizer failures arise from missing skip conditions.
 
 ## Search strategy
 
-1. Check internal encoder entry points for caller-supplied depth or level parameters that are not normalized to the cache's initialized depth.
-2. Trace every lazy cache-growth index from the requested logical level back to the cache initialization size.
-3. Verify that a cache-growth helper validates the requested level against actual cache length before deriving data from the previous level.
-4. Exercise direct low-level calls with nonzero initial depth and a nested, non-empty container under sanitizers and assertions enabled.
+1. Check deep-recursion or stack-depth tests for skip guards that enumerate instrumentation categories.
+2. Verify that every memory-safety instrumentation mode affecting stack usage is represented in the guard conditions.
+3. Search for recursive workloads that are expected to run only in uninstrumented or selectively instrumented configurations.
+4. Inspect sanitizer-specific test failures for stack-overflow aborts before changing recursion limits or test logic.
 
 ## Evidence
 
-- [#140750](../micro_taxo/gh_140750.md): A direct low-level encoder call supplied an initial depth greater than the one-entry formatting cache; encoding a nested mapping requested a deeper separator, after which the cache-growth helper asserted in a debug build and performed an out-of-bounds read under AddressSanitizer.
+- [#135830](../micro_taxo/gh_135830.md): The report shows a deep recursive test failing with an instrumented stack overflow, while its existing skip guard covers other sanitizer modes but not address instrumentation; the accompanying analysis proposes adding the missing address-mode condition.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0086](../macro_taxo_before_hybrid/workflow-0086.md)

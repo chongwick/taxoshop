@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 126445,
+  "cluster_id": "workflow-0088",
+  "workflow": [
+    "A test suite runs multiple process- and thread-heavy tests in parallel under race-detection instrumentation.",
+    "A subprocess-based import operation executes within that stressed instrumented environment.",
+    "The subprocess exits with a non-success status instead of completing successfully.",
+    "The test harness treats the unexpected exit status as an assertion failure and reports the test failure."
+  ],
+  "summary": "Instrumented subprocess failure is surfaced as a test assertion",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:26:20.116187+00:00"
+}

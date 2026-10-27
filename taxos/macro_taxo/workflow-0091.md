@@ -45,3 +45,9 @@ The shared pattern is an error-path ownership/cleanup defect in resource-managin
 - [#142917](../micro_taxo/gh_142917.md): The report records a sanitizer leak after an exceptional recursion-related test, but provides no confirmed ownership path, fix, or reproducible root cause; it supports only that such reports need separate validation.
 - [#147998](../micro_taxo/gh_147998.md): A resource created in an inner branch is shadowed by a new declaration, so the later error cleanup sees a different binding and cannot release the resource.
 - [#148484](../micro_taxo/gh_148484.md): An iterator is acquired before typecode validation and several later initialization steps; invalid typecode and other failures return without releasing it, and the fix adds cleanup to those exits.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0091](../macro_taxo_before_hybrid/workflow-0091.md)

@@ -1,0 +1,15 @@
+{
+  "published_at": "2026-10-11T00:34:30.304477+00:00",
+  "clusters": 107,
+  "issues": 363,
+  "source_entries": 163,
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "cluster_file_sha256": "fcc964264c354df67babfbf473e1e71766b4f4913e69e80dbc3e63d7802d7800",
+  "adaptation_methods": {
+    "adapted_with_luna": 60,
+    "reused_exact_membership": 46,
+    "reused_exact_membership_title_repaired": 1
+  },
+  "editorially_repaired_entries": 34,
+  "membership_and_evidence_validated": true
+}

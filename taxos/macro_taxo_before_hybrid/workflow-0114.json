@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0114",
+  "issues": [
+    140802
+  ],
+  "workflow_hypothesis": "Accepted boundary execution position causes heap overwrite during state initialization",
+  "pattern": "Externally controlled execution-position updates accept the exact lower boundary of a resumable function, allowing resume-time state initialization to treat a “",
+  "description": "A singleton pattern in which a tracing/debugging control changes a resumable function’s source position to its first source boundary, validation accidentally accepts that boundary, and resumption enters layout-sensitive state initialization.",
+  "precondition": "A tracing, debugging, or equivalent control path can assign a resumable function’s execution position, and the position validator rejects only values strictly before the function’s first source position.",
+  "critical_operation": "The control path sets the execution position to exactly the first source position and then resumes execution, causing the runtime to derive and initialize an execution-record layout from that position.",
+  "interference": "A strict-less-than boundary check admits the exact lower-bound value even though it is not a valid resumable instruction location.",
+  "invalid_assumption": "The resume path assumes every position accepted by validation denotes a normal instruction location whose derived execution state fits the already allocated heap object.",
+  "failure": "State initialization writes beyond the heap object allocated for the smaller layout, producing a heap-buffer-overflow instead of returning a recoverable invalid-position error.",
+  "search_strategy": [
+    "Inspect every externally writable instruction or source-position setter for an explicit equality check at the first valid boundary.",
+    "Compare position-validation predicates with the downstream source-position-to-instruction and execution-layout mappings, looking for strict-versus-inclusive bound mismatches.",
+    "Trace accepted boundary positions through resume and state-initialization paths, and verify that allocation sizes are computed from the same layout metadata used by the writes.",
+    "Add boundary-focused tests that assign positions immediately before, exactly at, and immediately after the first source position, including resumable and suspended executions."
+  ],
+  "evidence": [
+    {
+      "issue": 140802,
+      "supports": "The report shows a tracing callback assigning the first source line, a strict lower-bound check accepting it, resume-time frame initialization using the invalid position, and an AddressSanitizer heap write immediately past a smaller heap allocation."
+    }
+  ],
+  "scope_note": "This cluster contains one report, so the pattern is scoped to runtimes with externally mutable execution positions and resumable execution records; it does not establish that all tracing or debugging position changes have this failure mode.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T19:18:58.643174+00:00"
+}

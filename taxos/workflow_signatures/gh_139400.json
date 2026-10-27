@@ -9,7 +9,6 @@
     "A later operation on the derived context accesses the released parent state, causing a use-after-free and process-terminating memory failure."
   ],
   "summary": "Derived context outlives released parent state",
-  "decision_reason": "This is materially the same retained-reference workflow: a dependent object keeps a pointer into owner-managed storage after the owner releases it, and later use dereferences freed memory.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:37:50.339784+00:00"
 }

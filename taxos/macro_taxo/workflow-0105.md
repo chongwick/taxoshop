@@ -1,38 +1,48 @@
-# An incremental C-string-based reader processes input containing an embedded NUL before its line delimiter. Its length remains zero or shorter than the bytes the
+# Concurrent operations access coupled shared state without synchronizing the complete state transition
 
-A buffered line reader derives its offset from NUL-terminated string length, then indexes the preceding byte without proving the offset is nonzero. Embedded NUL input can hide already-read bytes, leaving the offset unchanged and making the preceding-byte access out of bounds.
+Free-threaded workers concurrently read or update related counters, thresholds, collection metadata, or iterator cursors, but synchronization covers only individual fields or an enclosing object rather than the full logical state transition.
 
 ## Precondition
 
-An incremental reader accepts byte input that may contain an embedded NUL before the expected record or line terminator, while tracking progress with a NUL-terminated-string length.
+The same runtime-owned state is reachable by multiple threads, and its meaning depends on coupled fields, shared collection state, exhaustion/lifecycle state, or pointer-bearing traversal slots.
 
 ## Critical operation
 
-After each read, the reader evaluates the prior buffer element using an expression equivalent to buffer[offset - 1] to decide whether to continue.
+A thread performs a collection-accounting update or decision, advances a stateful iterator, computes iterator metadata, or reads dependent fields using plain or only partially compatible synchronization.
 
 ## Interference
 
-The NUL-terminated length operation stops at the embedded NUL, so the computed length can be zero even though the underlying read placed additional bytes in the buffer; the offset therefore fails to advance.
+Another thread concurrently updates related counters or collection contents, advances or exhausts the same iterator, or interleaves another part of the same multi-field transition, allowing a partially updated combination to be observed.
 
 ## Invalid assumption
 
-The code assumes the computed length is positive whenever the preceding-element check executes, and that a string-derived length represents all bytes obtained by the read.
+Atomic access to one field, locking only the backing collection, immutability of the underlying structure, borrowed-reference reachability, or the former global interpreter lock was assumed to serialize the complete operation and keep dependent fields mutually consistent.
 
 ## Failure
 
-The preceding-element access reads before the valid buffer range, causing undefined behavior and potentially sanitizer-detected failure. If undetected, the unchanged offset can make the next read overwrite earlier input, causing data loss or incorrect record processing.
+Race instrumentation reports conflicting accesses; collection decisions can use inconsistent accounting, iterator results can be skipped, duplicated, or prematurely exhausted, and a desynchronized cursor can cause an invalid null or wild-pointer dereference and crash. The evidence does not require an ownership leak or actual freed storage.
 
 ## Scope
 
-This is a cautiously scoped singleton pattern supported by one report: it applies to incremental byte readers that combine NUL-terminated string-length accounting with delimiter checks and unguarded preceding-element access. It does not establish that all embedded-NUL handling must truncate input; the confirmed defect is the invalid boundary access and its downstream effects.
+Membership was manually restricted to the evidence listed below. This mixed cluster shares incomplete synchronization of coupled concurrent state, but the mechanisms differ: accounting races can yield bad decisions, collection/iterator races can yield inconsistent traversal state, and the multi-field cursor race can crash through a logically stale or null pointer without any concurrent structural mutation. The reports do not establish a general rule about leaked ownership or freed storage.
 
 ## Search strategy
 
-1. Search incremental buffered readers for expressions that index a buffer at length - 1 without an explicit length-positive guard.
-2. Check whether string-length functions are used to measure data from byte reads that may contain embedded NUL characters.
-3. Trace the offset update when the first byte read is NUL and verify that every subsequent read advances the write position before any boundary-relative access.
-4. Add tests with NUL bytes at the beginning and middle of a record followed by additional data and a delimiter, and verify both memory safety and record preservation.
+1. Search for shared counters, thresholds, flags, cursors, indexes, and pointer slots whose meaning depends on other fields; verify that one synchronization protocol covers the complete logical update and read.
+2. Check atomic and non-atomic accesses to the same state, including diagnostic, length, exhaustion, and decision paths, and require compatible ordering or a common lock.
+3. Trace iterator advancement across every descent, ascent, exhaustion, and reference-slot update; ensure another caller cannot observe a partially updated cursor.
+4. Check whether protecting a backing collection leaves iterator-local state, collection metadata, or lifecycle transitions concurrently accessible through aliases.
+5. Stress shared iterators and accounting paths alongside mutation, exhaustion, and concurrent allocation under race and memory-safety instrumentation.
 
 ## Evidence
 
-- [#140594](../micro_taxo/gh_140594.md): The report demonstrates that an embedded NUL causes string-length computation to return zero, that the loop then reads the buffer at offset minus one, and that the resulting undefined behavior can either be detected as an out-of-bounds read or leave the offset unchanged so later input overwrites and replaces earlier bytes.
+- [#144356](../micro_taxo/gh_144356.md): Iterator metadata and advancement raced with concurrent collection mutation, exhaustion, and other calls on the same iterator; synchronizing only part of the state left dependent length, cursor, and exhaustion fields exposed.
+- [#154535](../micro_taxo/gh_154535.md): Concurrent advancement of one iterator interleaved updates to a multi-field traversal cursor containing borrowed node pointers; the underlying structure was immutable, yet cursor desynchronization led to a null or wild-pointer dereference and crash.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0077](../macro_taxo_before_hybrid/workflow-0077.md)
+- [workflow-0081](../macro_taxo_before_hybrid/workflow-0081.md)
+- [workflow-0164](../macro_taxo_before_hybrid/workflow-0164.md)

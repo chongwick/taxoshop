@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 142781,
+  "cluster_id": "workflow-0017",
+  "workflow": [
+    "An object-initialization path retrieves a value from an overridable cache or provider that is expected to contain objects of a specific type.",
+    "A custom implementation returns an unrelated value of an incompatible type.",
+    "The initialization path uses the returned value as the expected object without validating its type.",
+    "Field access through the mistaken interpretation reaches invalid object layout and terminates the process instead of returning a recoverable type error."
+  ],
+  "summary": "Unchecked provider result is reinterpreted as expected object type",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:10:37.689646+00:00"
+}

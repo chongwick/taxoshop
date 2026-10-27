@@ -57,3 +57,9 @@ The shared mechanism is callback-driven re-entrancy, broader than embedded-conta
 - [#143546](../micro_taxo/gh_143546.md): Equality during in-place set intersection could mutate or clear the participating sets while probing and cleanup still used their table state.
 - [#143635](../micro_taxo/gh_143635.md): Attribute lookup during type representation could clear the shared argument list and free the argument object before subsequent representation probes.
 - [#143639](../micro_taxo/gh_143639.md): Key hashing during deserialization could re-enter loading, drain the shared stack, and free pending key, value, or mapping objects still used by the outer insertion.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0080](../macro_taxo_before_hybrid/workflow-0080.md)

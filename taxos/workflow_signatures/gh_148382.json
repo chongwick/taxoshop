@@ -9,7 +9,6 @@
     "A later access follows the dangling reference, causing a use-after-free and possible process termination."
   ],
   "summary": "Callback invalidates borrowed state before later use",
-  "decision_reason": "The underlying failure is materially the same as a retained pointer being dereferenced after its owner releases the backing storage; the callback is the trigger that invalidates the borrowed reference.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:36:31.542275+00:00"
 }

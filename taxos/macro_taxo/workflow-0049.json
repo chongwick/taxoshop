@@ -2,39 +2,46 @@
   "schema_version": 1,
   "cluster_id": "workflow-0049",
   "issues": [
-    113956,
-    128137,
-    129701
+    110097,
+    143442,
+    150966
   ],
-  "workflow_hypothesis": "Concurrent permanent-retention transition races with owner reference counting",
-  "pattern": "Concurrent lifecycle-state promotion of shared deduplicated objects races with ownership and reference-count operations",
-  "description": "A shared pooled object is promoted to a stronger retention or lifecycle state while concurrent threads still access its ownership, reference-count, or state metadata.",
-  "precondition": "Multiple threads can access the same deduplicated object, and its lifecycle metadata is distributed across state, ownership, and reference-count fields that may be updated by different operations.",
-  "critical_operation": "One thread promotes or finalizes the object's lifecycle state and updates its metadata, including retention status and ownership or reference-count representation.",
-  "interference": "Other threads concurrently inspect the lifecycle state or perform reference acquisition, release, or ownership-related operations on that same object, and shared-container publication or lookup may overlap the transition.",
-  "invalid_assumption": "The transition is treated as safe even though its metadata updates and reference-count changes are not covered by one synchronization protocol or made consistently atomic.",
-  "failure": "Threads can observe a mixed or stale lifecycle state, perform incompatible reference-count operations, or return an incompletely transitioned object, leading to corrupted ownership or cleanup state, memory-safety failures, or process termination.",
+  "workflow_hypothesis": "Load-sensitive fixed-timeout readiness failure",
+  "pattern": "Fixed wall-clock test budgets can make asynchronous behavior flaky when scheduling or instrumentation delays progress.",
+  "description": "Fixed wall-clock test budgets can make asynchronous behavior flaky when scheduling or instrumentation delays progress.",
+  "precondition": "A test starts asynchronous work and uses a short fixed timeout or fixed-duration polling window before checking intermediate results or final output.",
+  "critical_operation": "The test waits for early completion, readiness, or observable output, then proceeds to assertions or deliberately triggers termination when that time budget expires.",
+  "interference": "System load, parallel execution, process-launch latency, or runtime instrumentation delays worker startup and progress beyond the test's fixed wall-clock window.",
+  "invalid_assumption": "The expected milestone or output must be observable within that fixed duration regardless of execution environment.",
+  "failure": "The test observes no or only partial results, times out, or terminates the target before its expected output is available, and reports a failure even though the asynchronous operation may still be behaving correctly.",
   "search_strategy": [
-    "Inspect shared-object promotion paths for ordinary multi-field stores concurrent with reference acquisition, release, or ownership changes.",
-    "Check whether lifecycle-state reads and writes use the same lock or atomic access discipline across lookup, publication, and cleanup paths.",
-    "Search for direct reference-count manipulation in concurrent container transitions and verify that it cannot overlap owner-thread reference operations.",
-    "Review deduplication or interning code for a window between inserting an object into the shared pool and completing its retention-state transition."
+    "Inspect tests for hard-coded short timeouts around asynchronous startup, readiness, completion, or result collection.",
+    "Check for fixed sleep durations or bounded polling loops followed by assertions about output, result counts, or process state.",
+    "Look for test cleanup or quit logic that fires after elapsed time rather than after an explicit completion/readiness signal.",
+    "Verify that sanitizer, tracing, parallel, and heavily loaded environments can extend the operation beyond the test's timing assumptions."
   ],
   "evidence": [
     {
-      "issue": 113956,
-      "supports": "Shows that promoting a shared object to permanent retention can race with the owning thread's reference-count operations; the fix avoids promotion when ownership state is unsafe and uses atomic metadata stores."
+      "issue": 110097,
+      "supports": "A concurrent result test expected immediately completable work to produce two results before a fixed deadline, but loaded systems delayed worker launch so the deadline yielded zero or one result."
     },
     {
-      "issue": 128137,
-      "supports": "Shows that a concurrently observed lifecycle-status field itself must use atomic reads and writes when promotion changes the object's retained-state classification."
+      "issue": 143442,
+      "supports": "A readiness wait used a fixed short timeout, and runtime instrumentation plus parallel execution delayed startup enough to cause a readiness timeout."
     },
     {
-      "issue": 129701,
-      "supports": "Shows that insertion, retention-state promotion, and reference-count adjustment require coordinated locking and thread-safe decrement operations to prevent another thread from observing or using the object during a partially completed transition."
+      "issue": 150966,
+      "supports": "A live subprocess test quit after a fixed simulated interval, and sanitizer or loaded execution delayed target completion so expected failure output had not yet been collected."
     }
   ],
-  "scope_note": "The reports are all from one concurrent deduplication/interning subsystem and support a pattern about lifecycle-state transitions of shared objects. They do not establish that every reference-count race has this form, nor that every case requires permanent retention specifically.",
+  "scope_note": "The reports share timing-sensitive asynchronous tests, but the interference affects different milestones: worker startup, readiness signaling, and target completion/output. The pattern does not require an actual timeout exception; premature fixed-time termination is included.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T18:39:21.968552+00:00"
+  "generated_at": "2026-09-10T18:36:07.709003+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0042"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

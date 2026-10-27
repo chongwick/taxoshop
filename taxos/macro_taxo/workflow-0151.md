@@ -1,38 +1,44 @@
-# Instrumented capability probes can hang during platform/runtime startup before application code executes.
+# A legacy global-registration path is invoked for a component created with an incompatible managed state layout.
 
-A build-time probe is synchronously executed with memory-safety instrumentation enabled. On some platform/toolchain/runtime combinations, instrumentation startup conflicts with dynamic-loader or allocator initialization and spins indefinitely before the probe reaches its application logic. The configuration driver therefore waits forever instead of observing a normal probe result.
+Legacy registration rejects components whose state is defined through a structured or slot-based layout.
 
 ## Precondition
 
-The configuration process compiles and runs a generated capability-test executable with memory-safety instrumentation on a platform/toolchain combination whose runtime startup path may be incompatible with system loader or allocator initialization.
+A module-like component is created with managed, slot-based, or otherwise structured state that the legacy registration mechanism does not support.
 
 ## Critical operation
 
-The configuration process synchronously launches the instrumented probe and waits for it to terminate so it can determine the capability result.
+Invoke the legacy global-registration operation on that component.
 
 ## Interference
 
-The instrumentation runtime initializes before the executable's application entry point and enters an incompatible shadow-memory or allocator startup path that does not complete.
+The registration path encounters the component's incompatible state layout and cannot map it into the legacy global-state model.
 
 ## Invalid assumption
 
-The probe will reach its application code and either succeed, fail, or exit promptly, making synchronous execution safe for configuration detection.
+The caller assumes the legacy registration operation accepts every module-like component regardless of its state-layout representation.
 
 ## Failure
 
-The probe consumes CPU or remains stuck during process initialization, causing the configuration step to hang indefinitely rather than report a probe failure or continue.
+Registration is rejected with an internal system-level error instead of completing.
 
 ## Scope
 
-This is a singleton cluster. The evidence establishes the pattern for one sanitizer-enabled configuration probe on one macOS environment; it does not establish that all instrumented probes or platforms exhibit the behavior.
+This is a cautiously scoped singleton pattern: it establishes incompatibility between one legacy registration path and slot-based managed state, but does not show that all legacy operations or all structured state layouts are incompatible.
 
 ## Search strategy
 
-1. Inspect configure-time capability checks for generated executables built with sanitizers or other instrumentation and executed synchronously.
-2. Trace instrumented probe startup before the application entry point, including dynamic-loader, allocator, shadow-memory, and runtime-constructor initialization.
-3. Check whether probe execution has a timeout or an isolated failure path for runtimes that can hang before application code begins.
-4. Review platform- and toolchain-specific instrumentation settings for incompatibilities with system startup or memory-allocation initialization.
+1. Check legacy registration callers for components created with managed or slot-based state layouts.
+2. Trace registration preconditions and verify that structured state layouts are explicitly supported.
+3. Search for internal errors raised when legacy and managed state models are mixed.
+4. Audit callers that ignore or fail to validate compatibility before invoking registration.
 
 ## Evidence
 
-- [#145199](../micro_taxo/gh_145199.md): The report documents a generated configuration probe consuming high CPU and never exiting on a particular platform/toolchain combination, with the observed stack inside memory-safety runtime, allocator, loader, and system initialization before main; this supports the generalized pre-entrypoint hang mechanism and the resulting synchronous- probe-等待s
+- [#140751](../micro_taxo/gh_140751.md): The report demonstrates that invoking a legacy registration operation on a component with slots is rejected with a system-level error, and that this rejection is expected behavior.
+
+## Source taxonomy
+
+Adapted to the hybrid cluster membership from these archived macro entries:
+
+- [workflow-0111](../macro_taxo_before_hybrid/workflow-0111.md)

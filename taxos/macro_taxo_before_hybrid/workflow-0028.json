@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0028",
+  "issues": [
+    94404,
+    116259
+  ],
+  "workflow_hypothesis": "Nonportable build-script commands and incorrect generated compiler flags",
+  "pattern": "A build/configuration generator emits embedded text-processing commands using syntax that is not portable across supported tool dialects.",
+  "description": "Build or configuration generation relies on shell-invoked text-editing commands whose syntax and multiline behavior vary between implementations.",
+  "precondition": "The build system generates scripts or edit commands dynamically and may run with different implementations of the assumed text-processing utility.",
+  "critical_operation": "The generated workflow invokes those commands to construct or modify configuration artifacts and build metadata.",
+  "interference": "The target utility parses multiline edits or edit-script fragments differently from the implementation assumed by the generator.",
+  "invalid_assumption": "The generator assumes that detecting or invoking a nominally compatible utility guarantees identical command syntax and semantics.",
+  "failure": "Configuration aborts when edit instructions are rejected or interpreted as shell commands, leaving generated artifacts invalid and preventing the build from proceeding.",
+  "search_strategy": [
+    "Inspect generated shell scripts for embedded multiline text-processing commands and verify their syntax against every supported utility implementation.",
+    "Check whether generated edit scripts rely on implementation-specific insert, append, or external-file semantics.",
+    "Run configuration generation with alternate utility implementations and inspect failures for edit instructions leaking into shell parsing.",
+    "Verify that generated configuration artifacts are syntactically valid immediately after each text-processing transformation."
+  ],
+  "evidence": [
+    {
+      "issue": 94404,
+      "supports": "Documents a generated configuration edit using multiline insertion syntax that works with one utility dialect but is rejected by another, causing configuration failure."
+    },
+    {
+      "issue": 116259,
+      "supports": "Documents a generated configuration script containing an edit command fragment that the shell attempts to execute, producing a command-not-found and syntax error during configuration."
+    }
+  ],
+  "scope_note": "The shared pattern is nonportable generated text-processing syntax causing configuration-script failure. One report also documents missing and incorrectly ordered compiler flags for shared-library objects, but that separate flag-propagation issue is not supported by the other report and is intentionally excluded.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T17:50:56.324491+00:00"
+}

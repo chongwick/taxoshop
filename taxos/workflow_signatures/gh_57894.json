@@ -8,7 +8,6 @@
     "When the interface renders the display text, it interprets the character as a substitution directive and rejects the invalid directive instead of displaying the text."
   ],
   "summary": "Unescaped substitution marker breaks display rendering",
-  "decision_reason": "The failure workflow is materially identical: a literal reserved control character is interpreted as template syntax during display rendering, causing rejection instead of showing the supplied text.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T14:52:54.629976+00:00"
 }

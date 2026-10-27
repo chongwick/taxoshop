@@ -77,5 +77,11 @@
   ],
   "scope_note": "The reports span subinterpreters, ordinary threads, free-threaded execution, and shutdown; the shared pattern is broader than the supplied isolated-context hypothesis. Some findings are value-benign or debug-only and some produce sanitizer failures without demonstrated user-visible corruption, so resource invalidation and hangs are possible outcomes rather than universal ones.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T18:53:39.892342+00:00"
+  "generated_at": "2026-09-10T18:53:39.892342+00:00",
+  "adaptation_method": "manual_restore_exact_original",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0077"
+  ],
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

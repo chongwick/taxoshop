@@ -9,7 +9,6 @@
     "Repeated rejected operations retain allocations, and leak detection reports memory growth instead of clean recovery."
   ],
   "summary": "Exceptional error path leaks temporary owned state",
-  "decision_reason": "The failure mechanism materially matches an existing cluster: an intermediate allocation is created, a recoverable error occurs, and exceptional cleanup omits releasing that allocation, causing leaks across repeated failures.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T15:44:54.227748+00:00"
 }

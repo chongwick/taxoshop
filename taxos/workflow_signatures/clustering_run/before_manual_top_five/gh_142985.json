@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 142985,
+  "cluster_id": "workflow-0118",
+  "workflow": [
+    "A build-time execution enables optional optimization under memory-leak instrumentation.",
+    "Processing an input reaches the optimizer, which allocates a generated execution object.",
+    "The successful processing path exits without releasing that generated object.",
+    "Leak detection reports the residual allocation as fatal, causing the build step to fail instead of completing."
+  ],
+  "summary": "Optimized execution object leaked during build-time processing",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T16:14:45.347233+00:00"
+}

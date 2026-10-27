@@ -9,7 +9,6 @@
     "A later iteration dereferences the stale pointer, causing a use-after-free and process-terminating memory-safety failure instead of a recoverable mutation error."
   ],
   "summary": "Reentrant mutation invalidates storage during iteration",
-  "decision_reason": "The failure workflow materially matches re-entrant mutation invalidating storage while an outer clearing or processing operation still uses the original address, followed by a use-after-free.",
   "model": "gpt-5.6-luna",
   "generated_at": "2026-09-10T16:20:54.675994+00:00"
 }

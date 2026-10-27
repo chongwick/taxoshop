@@ -212,5 +212,11 @@
   ],
   "scope_note": "The reports share an ownership and lifetime-ordering failure, but the invalidated target is not always a byte buffer and the invalidation may come from reentrancy, concurrency, mutation, refcounting, garbage collection, interpreter shutdown, or external resource teardown. One report manifests as a heap-buffer-overflow rather than a sanitizer-labeled use-after-free; it is included because the same stale borrowed-container-storage mechanism causes the invalid access.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T17:43:11.488044+00:00"
+  "generated_at": "2026-09-10T17:43:11.488044+00:00",
+  "adaptation_method": "manual_restore_exact_original",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0014"
+  ],
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

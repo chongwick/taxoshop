@@ -2,29 +2,61 @@
   "schema_version": 1,
   "cluster_id": "workflow-0138",
   "issues": [
-    143377
+    139748,
+    140306,
+    140517,
+    141044,
+    144069
   ],
-  "workflow_hypothesis": "Unchecked trailing-terminator removal causes boundary heap write",
-  "pattern": "Formatting adapters mutate formatter-produced text by removing a presumed trailing terminator without validating length or suffix.",
-  "description": "A formatter-to-mutable-text adapter performs suffix cleanup on output whose emptiness and terminator presence are not guaranteed.",
-  "precondition": "A formatter supplies text to an adapter that copies it into mutable storage; the formatter may legally or unexpectedly produce empty text or text without the adapter's expected trailing line terminator.",
-  "critical_operation": "The adapter accesses the final storage position and writes a string terminator there to remove the presumed trailing formatter terminator.",
-  "interference": "Formatter output does not satisfy the adapter's assumed nonempty, terminator-suffixed representation.",
-  "invalid_assumption": "Every formatter result is nonempty and ends with the expected terminator, so indexing the final position and replacing it is always within bounds and semantically correct.",
-  "failure": "Empty output can make the final-position index underflow and cause a heap-buffer-overflow before the allocation; nonempty output without the expected suffix can also have its final data byte incorrectly discarded.",
+  "workflow_hypothesis": "Error path omits cleanup of partially acquired temporary values",
+  "pattern": "Error-path cleanup of partially acquired state is incomplete or misdirected",
+  "description": "Native operations acquire temporary references, builder state, auxiliary allocations, or external-resource state before all fallible work completes. Confirmed cases omit cleanup on exceptional exits; related cases misconfigure cleanup controls, lose the resource through variable shadowing, or rely on a failure sentinel that does not describe partial external state.",
+  "precondition": "An operation owns intermediate state before later input validation, iteration, conversion, callback execution, initialization, resource creation, or multi-input consistency checks have finished.",
+  "critical_operation": "The operation continues processing or invokes another fallible stage, then routes failure through an early return, error label, destructor, rollback path, or cleanup helper.",
+  "interference": "The failing path bypasses release, releases only a subset of acquired state, or selects the wrong cleanup behavior through missing initialization, shadowed bindings, inverted conditions, incorrect flag composition, or a callee that may allocate before returning failure.",
+  "invalid_assumption": "The implementation assumes every failure reaches complete cleanup and that a null or failure result, cleanup metadata, control flags, or later ownership handoff accurately represents all state acquired so far.",
+  "failure": "Owned direct or indirect allocations remain live after failure, so repeated failing operations accumulate memory and leak detectors report unreclaimed state. Separately, incorrect cleanup state can leave teardown unable to identify the resource or can create stale/double-release risk; those are distinct from the confirmed ownership leaks.",
   "search_strategy": [
-    "Inspect every formatter-output cleanup path for indexing at length minus one before checking that the length is nonzero.",
-    "Check whether suffix-removal code verifies the actual final byte or code unit before overwriting it.",
-    "Review adapters that convert immutable formatter results into mutable buffers for assumptions about mandatory trailing terminators.",
-    "Trace custom, alternate, or error-path formatters to determine whether they can return empty or unterminated output."
+    "Trace every acquired reference, temporary, builder, auxiliary allocation, and external-resource state through validation, iteration, conversion, callback, initialization, and allocation-failure exits; require release or explicit ownership transfer on each path.",
+    "Inspect multi-input and strict-consistency loops for partially acquired values when exhaustion or another error occurs, and verify that all earlier values are released before returning.",
+    "Audit cleanup predicates, flag combinations, and conditional branches for inverted release decisions or operators that disable required cleanup.",
+    "Verify that cleanup-relevant fields are initialized before fallible creation calls and that shared error cleanup sees the original resource binding rather than a shadowed variable.",
+    "Separate confirmed local ownership leaks from upstream or unconfirmed sanitizer reports, and test repeated failures for retained allocations while checking stale-handle and double-release behavior independently."
   ],
   "evidence": [
     {
-      "issue": 143377,
-      "supports": "A formatting adapter copied formatter output into mutable storage, unconditionally treated the last position as a trailing newline, and wrote a null terminator there; empty output enabled an out-of-bounds heap write, while unterminated output required preserving the final data character."
+      "issue": 139748,
+      "supports": "Generated argument-conversion wrappers acquired owned converted values, then later argument conversion failed before the implementation cleanup ran, leaking the acquired value."
+    },
+    {
+      "issue": 140306,
+      "supports": "Several cleanup-control defects caused leaks: a missing error-path free, inverted release logic, and incorrectly combined cleanup flags. These are control-selection variants of the broader cleanup failure, not stale-state evidence."
+    },
+    {
+      "issue": 140517,
+      "supports": "A multi-item iterator path retained already acquired temporary references when strict validation detected exhaustion or another error before processing completed."
+    },
+    {
+      "issue": 141044,
+      "supports": "The report contains sanitizer-reported direct and indirect leaks after a threading lifecycle sequence, but does not establish the ownership path or a confirmed fix; it is a boundary case rather than proof of the partial-acquisition mechanism."
+    },
+    {
+      "issue": 144069,
+      "supports": "An external resource-opening call was reported to leak internal allocations when creation failed, while discussion noted that the failure returned no usable handle and that the suspected leak may be upstream; it bounds the pattern around partially initialized external state without proving a local ownership defect."
     }
   ],
-  "scope_note": "This is a cautiously scoped singleton pattern based on one report: it generalizes to formatter-output suffix cleanup, but does not establish that all terminator-removal bugs involve line-oriented text or heap storage.",
+  "scope_note": "Membership was manually restricted to the evidence listed below. The confirmed majority establishes an error-path ownership/cleanup pattern, including the workflow-hypothesized partial multi-input acquisition case. The cluster also contains cleanup-control and binding-state variants, which must not be conflated with use of stale or freed state. Reports 139751, 141044, 142917, and 144069 are weaker boundary evidence: they contain sanitizer leak observations without a confirmed local root cause or fix, and 144069 may be an upstream external-library issue.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:30:18.876999+00:00"
+  "generated_at": "2026-10-10T19:25:14.729051+00:00",
+  "adaptation_method": "manual_subset_after_restoration",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0065",
+    "workflow-0089",
+    "workflow-0091",
+    "workflow-0094",
+    "workflow-0144"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

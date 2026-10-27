@@ -2,29 +2,37 @@
   "schema_version": 1,
   "cluster_id": "workflow-0025",
   "issues": [
-    93619
+    89737
   ],
-  "workflow_hypothesis": "Link-time optimization produces an out-of-range branch",
-  "pattern": "Large whole-program link-time optimization on an architecture with limited branch displacement is applied to a sufficiently large codebase.",
-  "description": "Global optimization and code generation create a final layout in which a direct branch target is farther away than the target architecture's instruction encoding permits.",
-  "precondition": "A large build enables link-time or whole-program optimization on a target architecture with range-limited direct branches.",
-  "critical_operation": "The link-time compiler combines, optimizes, and lays out code before emitting machine instructions for an intermediate executable.",
-  "interference": "Global code placement and expansion increase the distance between a branch instruction and its target beyond the encodable displacement.",
-  "invalid_assumption": "The code-generation pipeline assumes each emitted direct branch will remain in range, or that the assembler/linker will automatically provide a long-branch alternative or relaxation.",
-  "failure": "The assembler rejects the generated instruction with an out-of-range branch diagnostic, causing link-time compilation and the build of the intermediate executable to abort; disabling link-time optimization avoids the failure path.",
+  "workflow_hypothesis": "Cross-module inherited annotations resolved in the wrong namespace",
+  "pattern": "Generated derived-class callables resolve inherited deferred annotations in the wrong namespace.",
+  "description": "Cross-module class transformation can detach inherited deferred annotations from their defining namespace, so later resolution of the derived class or generated initializer sees missing or shadowed names.",
+  "precondition": "A base class exposes deferred textual annotations, and a transformation generates or reuses a derived-class initializer across a module boundary.",
+  "critical_operation": "The transformation copies inherited annotation text into generated callable metadata or resolves it using the derived class's module globals instead of preserving the defining context.",
+  "interference": "Later type-hint evaluation lacks imports from the defining module or finds same-named objects in the derived module.",
+  "invalid_assumption": "The namespace used to build the derived class or callable is sufficient to resolve inherited annotation text.",
+  "failure": "Annotation resolution fails or silently reconstructs inherited annotations as incorrect types.",
   "search_strategy": [
-    "Search architecture-specific branch emission and relaxation logic for direct branches that lack a long-range fallback after whole-program layout.",
-    "Check code-generation assumptions that branch targets remain within encoding range after global optimization, partitioning, or section reordering.",
-    "Inspect linker and assembler support for relaxing or rewriting out-of-range branches in link-time-generated code.",
-    "Exercise large link-time-optimized builds on architectures with limited branch reach, comparing the same build with link-time optimization disabled."
+    "Trace transformations that copy deferred annotation strings across class or module boundaries, and verify that definition-time namespace provenance is preserved.",
+    "Inspect generated or reused callable metadata and confirm its resolution namespace comes from the annotation's defining context.",
+    "Search base and derived modules for same-named symbols, then test whether inherited deferred references resolve to the defining symbols.",
+    "Exercise inherited annotations with absent imports, shadowed names, generated initializers, and reused initializers across separate modules.",
+    "Verify annotation resolution for both the transformed class and its initializer."
   ],
   "evidence": [
     {
-      "issue": 93619,
-      "supports": "A large optimized build on a range-limited architecture failed during link-time compilation because the assembler reported an out-of-range branch; the same build succeeded when link-time optimization was removed."
+      "issue": 89737,
+      "supports": "The report shows that transformed derived classes inherited textual annotations from another module, while generated or reused initializers resolved them with unsuitable globals; missing or shadowing names caused failure or incorrect results."
     }
   ],
-  "scope_note": "This is a singleton report, so the pattern is scoped to toolchain failures where whole-program code placement exposes an architecture-specific branch-range limit; it does not establish that all link-time optimization failures or all out-of-range branches have this cause.",
+  "scope_note": "This singleton pattern is scoped to class-generation or transformation workflows that propagate deferred annotations across module boundaries; it does not claim that all annotation-resolution failures have this cause.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T17:49:14.699383+00:00"
+  "generated_at": "2026-10-10T19:52:22.998662+00:00",
+  "adaptation_method": "retained_hybrid_membership",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0024"
+  ],
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
 }

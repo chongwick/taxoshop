@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "issue": 135636,
+  "cluster_id": "workflow-0147",
+  "workflow": [
+    "A live managed object has its ownership metadata overwritten through an unsafe raw-memory write.",
+    "The corrupted object is stored in a longer-lived container while its reference count no longer reflects all retained references.",
+    "Cleanup decrements the corrupted count and releases the object even though the container still holds its address.",
+    "A later container lookup attempts to retain or read the stale entry, accessing freed storage and terminating the process."
+  ],
+  "summary": "Corrupted ownership metadata causes premature release and stale-entry use",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-09-10T15:35:42.662516+00:00"
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "cluster_id": "workflow-0158",
+  "issues": [
+    140936,
+    141648,
+    142276,
+    142883,
+    148716
+  ],
+  "workflow_hypothesis": "Stale optimized execution during runtime finalization triggers an invalid state assertion",
+  "pattern": "Optimized runtime state remains usable after its assumptions require invalidation",
+  "description": "Optimized runtime state outlives or bypasses invalidation, so execution or optimization trusts assumptions invalidated by lifecycle, ownership, mutation, or re-entrant state changes. The members include stale specialized execution after teardown, invalid entries retained by reference cycles, missing invalidation dependencies for promoted values, subject-type mutation during callbacks, and instrumentation-induced optimization of polymorphic calls.",
+  "precondition": "The runtime has specialized executable state, cached values, dispatch metadata, or inferred targets whose validity depends on subsystem state, object shape or type, ownership cleanup, or stable call-site observations.",
+  "critical_operation": "The runtime installs, retains, reuses, or enters the specialized path without ensuring that all relevant invalidation events detach it, or without providing revalidation and a safe generic fallback when specialization is no longer justified.",
+  "interference": "A lifecycle transition disables optimization; cyclic ownership keeps invalid specialized entries reachable; mutable state changes without a dependency watcher; user code mutates an operation subject during conversion; or instrumentation changes specialization state while a polymorphic call site lacks a unique target.",
+  "invalid_assumption": "The specialized representation, cached value, dispatch type, executor metadata, subsystem state, or inferred callable remains valid and present merely because the optimized path was previously selected.",
+  "failure": "An assertion, invalid metadata or field access, segmentation fault, null dereference, or abort occurs instead of invalidating the specialization, deoptimizing, bailing out, reloading state, or reporting a recoverable type error.",
+  "search_strategy": [
+    "Check every specialized or cached runtime entry for complete invalidation when lifecycle state, object shape, mutable attributes, or instrumentation state changes.",
+    "Trace reference-linked specialized entries after invalidation and verify that obsolete entries are detached from executable state without conflating retention with use-after-free.",
+    "Inspect callbacks and conversion hooks between dispatch selection and execution for subject mutation, and require post-callback revalidation before using cached type or layout assumptions.",
+    "Check optimizer paths for polymorphic or ambiguous call sites and require a null, missing-target, or bailout path instead of unconditional assertions or dereferences.",
+    "Verify that subsystem shutdown and re-entry paths either invalidate retained specialized operations or safely skip optimization when the subsystem is disabled."
+  ],
+  "evidence": [
+    {
+      "issue": 140936,
+      "supports": "A suspended computation resumed during finalization and reached a specialized control-flow operation after optimization had been disabled, exposing an unchecked subsystem-state assumption."
+    },
+    {
+      "issue": 141648,
+      "supports": "Invalidation left specialized executable entries reachable because reference cycles prevented cleanup; the report’s mechanism is retention of obsolete state, not evidence that the entries were freed and then used."
+    },
+    {
+      "issue": 142276,
+      "supports": "A mutable attribute had been promoted to a constant without an invalidation dependency, so reassignment left optimized execution relying on an obsolete value and type assumption."
+    },
+    {
+      "issue": 142883,
+      "supports": "User-controlled operand conversion changed the operation subject’s type before the previously selected implementation ran, demonstrating missing revalidation across re-entrant mutation."
+    },
+    {
+      "issue": 148716,
+      "supports": "A tracing-state transition caused optimization of a type-unstable call site where no unique callable existed, and an unchecked missing-target assumption triggered an assertion."
+    }
+  ],
+  "scope_note": "This is a mixed-mechanism umbrella rather than a claim that all reports share one memory-lifetime defect. The common pattern is unchecked reuse of specialized or dispatch state after the condition that justified it has changed. One branch concerns teardown-time stale execution, one concerns ownership cycles retaining invalid entries, one concerns missing dependency tracking, one concerns re-entrant mutation, and one concerns an ambiguous optimizer result after instrumentation state changes.",
+  "model": "gpt-5.6-luna",
+  "generated_at": "2026-10-10T19:27:24.365839+00:00",
+  "adaptation_method": "adapted_with_luna",
+  "source_taxonomy": "macro_taxo_before_hybrid",
+  "source_cluster_ids": [
+    "workflow-0117",
+    "workflow-0124",
+    "workflow-0125",
+    "workflow-0134",
+    "workflow-0156"
+  ],
+  "adaptation_fingerprint": "ef83049a90d8d26e5274821a46dae4c69b8e37f482cf690e2aae1647cac804b0",
+  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
+  "editorial_repairs": [
+    "pattern"
+  ],
+  "editorially_revised_at": "2026-10-11T00:33:57.336419+00:00"
+}
