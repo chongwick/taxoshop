@@ -5,12 +5,12 @@ hunting. It captures the repo layout, the taxonomy data model, the sanitizer bui
 the exact commands used to bring up and confirm findings.
 
 **Mission:** find CPython bugs that match the recurring patterns in `taxos/macro_taxo`,
-confirm each on the ASan/UBSan build, avoid duplicates (upstream *and* prior audits),
+confirm each on the ASan/TSan/UBSan build, avoid duplicates (upstream *and* prior audits),
 and write them up with full sanitizer output.
 
 **Hard constraints:**
 - **Do NOT use `ctypes`** in any reproducer.
-- Only report **new + sanitizer-confirmed** issues. Check open/closed CPython issues first.
+- Only report **new + sanitizer-confirmed** issues.
 - This is a **long-running** audit — keep running notes; don't stop at the first dead end.
 
 ---
@@ -53,16 +53,7 @@ taxoshop/
 ```bash
 cd taxoshop && python3 tally_bugs.py
 ```
-Top families are all reentrancy / use-after-invalidation (counts as of last run):
-- `workflow-0014` (38) — retained pointer dereferences storage after its owner releases it.
-- `workflow-0080` (22) — callback re-entrancy invalidates borrowed state/backing storage.
-- `workflow-0137` (20) — reentrant argument conversion invalidates a backing resource.
-- then `workflow-0077/0091/0081/...` (concurrency, error-path leaks, zero-len memcpy, etc.)
-
-Read at least `workflow-0137.md`, `workflow-0080.md`, `workflow-0014.md` before hunting.
-Other confirmable, less-swept families: `0005` (zero-length memcpy w/ NULL — UBSan),
-`0003` (signed left-shift UB — UBSan), `0007` (misaligned typed access), `0010`
-(float→int OOB before validation).
+Read the top 5 workflows before hunting.
 
 ---
 
@@ -97,12 +88,6 @@ cd /Users/danielchong/Repositories/taxoshop
 docker build --target asan-ubsan -t taxoshop/cpython-asan-ubsan:current . 2>&1 | tee audit<N>/logs/docker-build.log
 ```
 
-### Critical toolchain fact
-ASan instruments heap allocations (PyMem/PyObject → `malloc` because `PYTHONMALLOC=malloc`),
-so **heap UAF/OOB in list/dict/bytes/bytearray/array/unicode/most objects IS caught**.
-ASan does **NOT** poison `mmap()` pages — mmap OOB only crashes if it hits an *unmapped*
-page (SEGV), e.g. after `resize()` shrinks/moves the mapping. Design repros accordingly.
-
 ---
 
 ## 3. Running reproducers
@@ -129,32 +114,7 @@ Save the full block to `audit<N>/logs/<name>.asan.txt`.
 
 ---
 
-## 4. Duplicate checking (required before write-up)
-
-Prior local audits and a large **upstream sweep** already fixed most obvious cases
-(gh-142xxx..154xxx across mmap, array, bytearray, memoryview, json, io, sqlite, struct,
-socket, itertools, elementtree, pickle, ...). Always check both:
-```bash
-# upstream issues (needs gh auth; run from inside the cpython checkout)
-cd cpython
-gh issue list --repo python/cpython --search "<keywords>" --state all --limit 20
-gh search issues --repo python/cpython "<symbol e.g. buffer_access_safe>" --limit 10
-gh issue view <NNN> --repo python/cpython
-
-# is a given fix already in the checkout?
-git log --oneline -5000 --grep "gh-<NNN>"
-git log --oneline -5000 | grep -iE "use-after-free|reentran|mutated during|concurrently mutat"
-```
-Known DUPES already reported upstream (do not re-file): `#157335` (mmap `__setitem__`
-reentrant resize), `#154997` (BufferedIO `self->raw` NULL-deref via own detach),
-`#154523` (free-threading data race on `self->buffer=NULL`).
-
-Note: `cpython/.claude/CLAUDE.md` states CPython's AI-tools policy. We only *audit and
-report* — we do not modify CPython source or open PRs from here.
-
----
-
-## 5. Audit workspace convention
+## 4. Audit workspace convention
 
 Each audit iteration gets its own top-level dir (`audit2`, `audit3`, `audit4`, ...):
 ```
@@ -172,7 +132,7 @@ Persistent cross-session state is also in the auto-memory
 
 ---
 
-## 6. Startup checklist (do these in order)
+## 5. Startup checklist (do these in order)
 
 1. `python3 tally_bugs.py` → note top families.
 2. Read `taxos/macro_taxo/workflow-0137.md`, `-0080.md`, `-0014.md` (+ any family you target).

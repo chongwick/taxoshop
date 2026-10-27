@@ -1,7 +1,0 @@
-./FINDING-009-pdo_sqlite-reentrant-stmt-in-collation-uaf.md:$db->exec("CREATE TABLE t(x TEXT)");
-./FINDING-009-pdo_sqlite-reentrant-stmt-in-collation-uaf.md:$db->exec("INSERT INTO t VALUES ('b'),('a'),('c'),('d'),('e')");
-./FINDING-009-pdo_sqlite-reentrant-stmt-in-collation-uaf.md:$db->createCollation('evil', function ($a, $b) use (&$stmt) {
-./FINDING-009-pdo_sqlite-reentrant-stmt-in-collation-uaf.md:$stmt = $db->prepare("SELECT x FROM t ORDER BY x COLLATE evil");
-./FINDING-004-sqlite3stmt-close-in-callback-uaf.md:$db->createFunction('evil', function () {
-./FINDING-004-sqlite3stmt-close-in-callback-uaf.md:$stmt = $db->prepare("SELECT evil()");
-./FINDING-004-sqlite3stmt-close-in-callback-uaf.md:- `e6_03` — control, callback calls the **database** `$db->close()` → correctly throws
