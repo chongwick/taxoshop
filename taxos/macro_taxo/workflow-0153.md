@@ -38,10 +38,3 @@ This mixed cluster supports a shared reentrant-teardown pattern with two distinc
 
 - [#140798](../micro_taxo/gh_140798.md): The report shows that destroying a stored value can run user finalization which recreates per-thread bookkeeping during teardown; a fixed clearing sequence then misses the recreated state and leaks it.
 - [#142556](../micro_taxo/gh_142556.md): The report shows that finalization can re-register the object being destroyed; teardown then frees its storage while the registry still retains the entry, producing later use-after-free behavior.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0113](../macro_taxo_before_hybrid/workflow-0113.md)
-- [workflow-0128](../macro_taxo_before_hybrid/workflow-0128.md)

@@ -41,16 +41,5 @@
     }
   ],
   "scope_note": "This is a mixed umbrella pattern. The reports share a fatal process-exit leak result masking successful functional work, but the mechanisms differ: lost sanitizer configuration, incomplete runtime teardown or abbreviated exit, and profiling-runtime shutdown bookkeeping. It does not conflate leaked ownership with stale or freed-state use, and it does not establish that every sanitizer leak or every instrumented subprocess has this failure mode.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:14:23.635970+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0034",
-    "workflow-0038",
-    "workflow-0083",
-    "workflow-0146"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

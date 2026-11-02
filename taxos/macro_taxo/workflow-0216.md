@@ -36,9 +36,3 @@ This is a singleton cluster, so the pattern is cautiously scoped to runtimes tha
 ## Evidence
 
 - [#144282](../micro_taxo/gh_144282.md): Manually prefixing an executable stream with a reserved metadata placeholder shifted its instructions and caused dispatch to abort on an internal invariant. The report identifies this as deliberately malformed low-level input outside ordinary supported construction.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0148](../macro_taxo_before_hybrid/workflow-0148.md)

@@ -26,13 +26,5 @@
     }
   ],
   "scope_note": "This is a cautiously scoped singleton pattern supported by one report. It applies to incremental byte readers that combine NUL-terminated length accounting with unguarded preceding-element checks; it does not establish a general policy for truncating or preserving embedded-NUL data, only the boundary-safety requirement and the resulting overwrite risk.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:36:02.746001+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0105"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

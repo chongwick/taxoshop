@@ -38,10 +38,3 @@ Both reports support callback-retention and teardown ordering, but the first inc
 
 - [#140631](../micro_taxo/gh_140631.md): The report shows that a module-created managed type and its descriptors and metadata are reported as indirect leaks when combined with an active audit callback, while each feature alone is reported as clean; its unrelated name-resolution failure is not sufficient evidence for a failure-context mechanism.
 - [#140860](../micro_taxo/gh_140860.md): The report directly attributes the leak to retained audit-hook references reaching a module-created managed type and records that clearing the callback registry before module destruction avoids the cycle, supporting the teardown-ordering mechanism.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0108](../macro_taxo_before_hybrid/workflow-0108.md)
-- [workflow-0115](../macro_taxo_before_hybrid/workflow-0115.md)

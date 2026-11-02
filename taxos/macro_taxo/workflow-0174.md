@@ -39,9 +39,3 @@ This is a mixed-cluster umbrella pattern. One mechanism is an unbounded index th
 - [#140409](../micro_taxo/gh_140409.md): A callback receives pointers into a small live allocation and indexes one pointer far beyond the allocation; downstream element conversion reads outside the heap buffer.
 - [#140607](../micro_taxo/gh_140607.md): An overridable read operation returns a byte count larger than the destination buffer or negative; the caller uses the unchecked count to construct the result, causing an out-of-bounds read.
 - [#142554](../micro_taxo/gh_142554.md): An overridable helper returns a tuple with the expected outer type but only one element; the caller retrieves two fixed positions without checking length, causing an out-of-bounds read and crash.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0099](../macro_taxo_before_hybrid/workflow-0099.md)

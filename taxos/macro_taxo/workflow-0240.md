@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern supported by one report: it applie
 ## Evidence
 
 - [#122026](../micro_taxo/gh_122026.md): The report demonstrates that malformed nested interpolation with mismatched closing delimiters drove a delimiter-depth counter negative and triggered an internal assertion; the fix added an underflow check that returns an unmatched-delimiter syntax error.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0068](../macro_taxo_before_hybrid/workflow-0068.md)

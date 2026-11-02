@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern. It supports oversized trace confi
 ## Evidence
 
 - [#143751](../micro_taxo/gh_143751.md): Raising the trace-length setting substantially caused the actual machine-code optimizer to compile a long trace and later crash during executable detachment when an assertion found that the referenced instruction was not the expected entry instruction; the report’s follow-up identifies a generated-code limit as the cause.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0142](../macro_taxo_before_hybrid/workflow-0142.md)

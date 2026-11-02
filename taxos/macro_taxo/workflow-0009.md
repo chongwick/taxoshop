@@ -38,10 +38,3 @@ This mixed cluster supports a shared pattern of unsafe signed arithmetic in deri
 
 - [#73331](../micro_taxo/gh_73331.md): The report shows signed multiplication and accumulated addition for text-output sizes, with overflow checks performed afterward through division or prior-size comparisons. It documents compiler optimization invalidating those checks when signed wraparound was not guaranteed, allowing bad sizes to reach string or buffer operations and cause crashes.
 - [#77813](../micro_taxo/gh_77813.md): The report shows a maximum-valid nonnegative timeout being added to a nonzero monotonic timestamp in signed arithmetic, producing sanitizer-detected overflow. The remediation uses checked or clamping addition and deadline helpers, confirming that standalone timeout validation did not prove the absolute deadline representable.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0009](../macro_taxo_before_hybrid/workflow-0009.md)
-- [workflow-0012](../macro_taxo_before_hybrid/workflow-0012.md)

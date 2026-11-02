@@ -31,13 +31,5 @@
     }
   ],
   "scope_note": "The reports share the quiescence-versus-lock dependency, but differ in shape: one directly invokes global pause while holding the narrow lock, while the other reaches it through a second lock and a lock-order inversion. The pattern is scoped to systems where lock waits can prevent safe-point participation.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:00:34.698215+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0088"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

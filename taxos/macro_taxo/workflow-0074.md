@@ -38,10 +38,3 @@ This mixed cluster supports a bounded pattern about loss of termination progress
 
 - [#118729](../micro_taxo/gh_118729.md): An instrumented concurrent test suite intermittently hung because a worker subprocess could crash in a free-threaded build; the report attributed the resulting job hang to the crashed worker’s possibly wedged fault-reporting path and temporarily skipped the triggering test.
 - [#120696](../micro_taxo/gh_120696.md): Fatal reporting in an instrumented free-threaded process ran without valid thread state and reached unsafe runtime traversal or non-progressing synchronization. The observed result was a hang or reporter failure instead of reliable termination.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0058](../macro_taxo_before_hybrid/workflow-0058.md)
-- [workflow-0062](../macro_taxo_before_hybrid/workflow-0062.md)

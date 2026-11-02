@@ -31,14 +31,5 @@
     }
   ],
   "scope_note": "Membership was manually restricted to the evidence listed below. The common pattern is stale auxiliary state, not leaked ownership. Issues 96572 and 101975 concern lifetime or traversal bookkeeping exposing released objects; issues 108253, 114106, 119462, and 140496 concern lookup-cache or version-marker invalidation, including direct backing-store mutation and hierarchy-ordering failures. The reports support this boundary for managed runtime metadata and do not establish a rule for every cache or every non-owning reference.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:14:53.339868+00:00",
-  "adaptation_method": "manual_subset_after_restoration",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0014",
-    "workflow-0060"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

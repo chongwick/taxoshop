@@ -37,9 +37,3 @@ Both reports evidence the same incident, so this pattern is limited to traversal
 
 - [#118074](../micro_taxo/gh_118074.md): The fix excludes statically stored special instances from collection because the shared traversal routine otherwise reads beyond their object storage.
 - [#118113](../micro_taxo/gh_118113.md): The sanitizer trace shows cleanup-time traversal reading before a static instance whose storage lacks the metadata expected by ordinary collectible objects; the report was identified as a duplicate.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0057](../macro_taxo_before_hybrid/workflow-0057.md)

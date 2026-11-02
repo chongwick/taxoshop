@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern. The report supports the interacti
 ## Evidence
 
 - [#141621](../micro_taxo/gh_141621.md): Experimental generated code combined with undefined-behavior instrumentation failed during bootstrap on several compiler versions, with an invalid read in a lazy generated-code trampoline. The default compiler configuration succeeded, limiting the evidence to the reported configuration interaction.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0123](../macro_taxo_before_hybrid/workflow-0123.md)

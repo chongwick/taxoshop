@@ -36,9 +36,3 @@ Singleton cluster: this pattern is cautiously scoped to deep-recursion boundary 
 ## Evidence
 
 - [#150195](../micro_taxo/gh_150195.md): The report shows that a fixed deep-recursion depth stopped raising the expected recursion-limit error under a hardened build, and that increasing the tested limit/depth restored the intended condition; it also notes increased resource use for another deep test.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0159](../macro_taxo_before_hybrid/workflow-0159.md)

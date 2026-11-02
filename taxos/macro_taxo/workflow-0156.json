@@ -31,14 +31,5 @@
     }
   ],
   "scope_note": "Both reports support callback-retention and teardown ordering, but the first includes an incidental failing expression and does not independently prove the exact reference path. The pattern is scoped to callback systems whose retained state reaches module-created runtime object graphs during teardown; it does not generalize to every indirect leak, callback registry, or exception-associated leak.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:26:33.792685+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0108",
-    "workflow-0115"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

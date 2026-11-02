@@ -26,16 +26,8 @@
   ],
   "scope_note": "This is a cautiously scoped singleton pattern for lock implementations that permit one worker to release a lock acquired by another, including during handoff completion; it does not apply to protocols that forbid such releases or guarantee stable state through return.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:30:44.015476+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0139"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
   "editorial_repairs": [
     "pattern"
   ],
-  "editorially_revised_at": "2026-10-11T00:33:57.343073+00:00",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "editorially_revised_at": "2026-10-11T00:33:57.343073+00:00"
 }

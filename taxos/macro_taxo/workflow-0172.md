@@ -37,10 +37,3 @@ This mixed cluster supports the shared boundary invariant that optimized executi
 
 - [#142448](../micro_taxo/gh_142448.md): The report supports a tracing-boundary failure: monitoring combined with exceptional execution allowed tracing to continue across instrumented and exception-related operations, and the fix deoptimized before those boundaries to prevent inconsistent residual stack state.
 - [#142718](../micro_taxo/gh_142718.md): The report supports a distinct side-exit synchronization failure: cached top-of-stack registers were not saved to canonical stack storage before fallback control transfer, and the fix flushed the stack at side exits to prevent an invalid read.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0126](../macro_taxo_before_hybrid/workflow-0126.md)
-- [workflow-0132](../macro_taxo_before_hybrid/workflow-0132.md)

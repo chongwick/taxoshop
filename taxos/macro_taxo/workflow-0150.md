@@ -36,9 +36,3 @@ This is a cautiously scoped pattern from a singleton report: it applies to lazil
 ## Evidence
 
 - [#140750](../micro_taxo/gh_140750.md): A direct low-level encoder call supplied an initial depth greater than the one-entry formatting cache; encoding a nested mapping requested a deeper separator, after which the cache-growth helper asserted in a debug build and performed an out-of-bounds read under AddressSanitizer.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0110](../macro_taxo_before_hybrid/workflow-0110.md)

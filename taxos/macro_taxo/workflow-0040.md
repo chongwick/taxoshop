@@ -37,9 +37,3 @@ Both reports establish unchecked one-element lookahead at a text-input boundary,
 
 - [#101180](../micro_taxo/gh_101180.md): A character encoder tested multi-character representations through a helper given only the current character; a boundary case caused a read of the next element, requiring bounded input and conditional population of that element.
 - [#127971](../micro_taxo/gh_127971.md): An optimized text-search path inspected the character after the current position during mismatch and skip handling, including at the last possible position; an explicit boundary guard removed the out-of-bounds read.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0036](../macro_taxo_before_hybrid/workflow-0036.md)

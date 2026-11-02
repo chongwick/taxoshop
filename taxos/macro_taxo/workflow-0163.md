@@ -36,9 +36,3 @@ This is a singleton pattern, so it is cautiously scoped to incomplete validation
 ## Evidence
 
 - [#140590](../micro_taxo/gh_140590.md): A missing validation check for an optional mapping-valued state field allowed tuple and string values to be stored; later dictionary-oriented lookup reached invalid low-level access and produced a segmentation fault instead of a type error.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0104](../macro_taxo_before_hybrid/workflow-0104.md)

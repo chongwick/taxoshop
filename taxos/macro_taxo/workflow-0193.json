@@ -30,13 +30,5 @@
     }
   ],
   "scope_note": "The shared pattern is limited to dynamically extensible or externally supplied values crossing into representation-specific integer fast paths without validation. The reports differ in whether the unexpected value is supplied directly or produced by an overridden operation; this taxonomy does not claim that every type mismatch or every assertion failure has the same cause.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:21:06.157242+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0119"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

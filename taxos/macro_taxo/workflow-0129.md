@@ -36,9 +36,3 @@ This is a singleton cluster, so the pattern is scoped to optional target-specifi
 ## Evidence
 
 - [#140354](../micro_taxo/gh_140354.md): The report shows an optional code-generation feature accepted for an Android target absent from the generator’s known targets; generation rejects the target, the generated header is not produced, and compilation subsequently fails because the header is missing.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0097](../macro_taxo_before_hybrid/workflow-0097.md)

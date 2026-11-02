@@ -38,10 +38,3 @@ This is a mixed-cluster umbrella pattern, not a claim that both reports share on
 
 - [#114083](../micro_taxo/gh_114083.md): The report shows that constant-dependent branch folding and jump threading in the same phase can observe different successor states; the later fold leaves a redundant jump, and the internal no-redundant-jump check fails until folding is separated and cleanup tracks changes.
 - [#121637](../micro_taxo/gh_121637.md): The report shows that optimization can remove invalid asynchronous constructs before deferred context validation, after which later compilation asserts on the presumed-valid scope instead of raising a syntax error; moving validation earlier restores the source-level diagnostic.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0051](../macro_taxo_before_hybrid/workflow-0051.md)
-- [workflow-0066](../macro_taxo_before_hybrid/workflow-0066.md)

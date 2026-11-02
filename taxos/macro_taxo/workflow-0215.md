@@ -39,11 +39,3 @@ Membership was manually restricted to the evidence listed below. This mixed clus
 
 - [#66234](../micro_taxo/gh_66234.md): An open file-backed database continues using mapped contents after the file is externally emptied, and a subsequent update reaches invalid storage and terminates the process rather than returning a normal database error.
 - [#140777](../micro_taxo/gh_140777.md): Shared-memory aggregate initialization reaches a native packing write whose destination is unusable and aborts with a bus fault; the report does not establish how that destination became invalid.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0004](../macro_taxo_before_hybrid/workflow-0004.md)
-- [workflow-0014](../macro_taxo_before_hybrid/workflow-0014.md)
-- [workflow-0112](../macro_taxo_before_hybrid/workflow-0112.md)

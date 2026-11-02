@@ -42,18 +42,8 @@
   ],
   "scope_note": "Initiating mechanisms include external metadata removal, incomplete copying, unresolved descriptors, and inconsistent tables. The common step is consuming absent or inconsistent metadata without validation. This does not establish leaked ownership or stale freed state; outcomes range from recoverable errors to assertions or invalid access.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:38:47.759354+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0006",
-    "workflow-0127",
-    "workflow-0145"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
   "editorial_repairs": [
     "scope_note"
   ],
-  "editorially_revised_at": "2026-10-11T00:33:57.345010+00:00",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "editorially_revised_at": "2026-10-11T00:33:57.345010+00:00"
 }

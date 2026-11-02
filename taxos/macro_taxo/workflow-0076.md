@@ -36,9 +36,3 @@ This is a singleton cluster, so the pattern is scoped to server/listener setup p
 ## Evidence
 
 - [#121275](../micro_taxo/gh_121275.md): A server test setup on a build without IPv6 support used address discovery that still returned an IPv6 result, selected its family for socket creation, and then failed during binding with a bad-family error; the fix constrained discovery to IPv4 when IPv6 was unavailable.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0064](../macro_taxo_before_hybrid/workflow-0064.md)

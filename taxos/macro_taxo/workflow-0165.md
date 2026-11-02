@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern derived from one decoder implement
 ## Evidence
 
 - [#141336](../micro_taxo/gh_141336.md): The report demonstrates that a custom decoder recovery callback returning replacement text and rewinding input leaves the writer one character short because accounting adds only replacement length minus one; it supports the generalized capacity-invariant failure and also records that rewinding can cause non-progressing repeated recovery.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0121](../macro_taxo_before_hybrid/workflow-0121.md)

@@ -30,14 +30,5 @@
     }
   ],
   "scope_note": "Both reports support the same ownership-cleanup omission for private per-thread state during non-normal thread termination. The evidence does not establish that every thread leak involves optimization or tracing, nor that normal thread completion always leaks; the distinguishing boundary is the alternate shutdown or abandonment cleanup path.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:36:55.209053+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0094",
-    "workflow-0143"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

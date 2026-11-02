@@ -38,11 +38,3 @@ Membership was manually restricted to the evidence listed below. This mixed clus
 
 - [#144356](../micro_taxo/gh_144356.md): Iterator metadata and advancement raced with concurrent collection mutation, exhaustion, and other calls on the same iterator; synchronizing only part of the state left dependent length, cursor, and exhaustion fields exposed.
 - [#154535](../micro_taxo/gh_154535.md): Concurrent advancement of one iterator interleaved updates to a multi-field traversal cursor containing borrowed node pointers; the underlying structure was immutable, yet cursor desynchronization led to a null or wild-pointer dereference and crash.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0077](../macro_taxo_before_hybrid/workflow-0077.md)
-- [workflow-0081](../macro_taxo_before_hybrid/workflow-0081.md)
-- [workflow-0164](../macro_taxo_before_hybrid/workflow-0164.md)

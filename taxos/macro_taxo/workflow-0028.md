@@ -37,9 +37,3 @@ This pattern is limited to fork-like address-space duplication in a process with
 
 - [#94064](../micro_taxo/gh_94064.md): The report shows forked child tests failing because leak detection found inherited runtime and thread-related allocations at shutdown; the child exited with status 1 where the parent expected status 0. The same report also contains unrelated shutdown-only and deliberate leaks, so only its forked-child evidence supports this pattern.
 - [#140493](../micro_taxo/gh_140493.md): The report creates a child while multiple threads are active and records leak-detector findings; its accompanying analysis explains that the non-calling threads disappear while their stacks and associated allocations remain in the child, establishing the fork-plus-live-thread mechanism.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0027](../macro_taxo_before_hybrid/workflow-0027.md)

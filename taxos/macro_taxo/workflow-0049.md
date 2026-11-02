@@ -38,9 +38,3 @@ The reports share timing-sensitive asynchronous tests, but the interference affe
 - [#110097](../micro_taxo/gh_110097.md): A concurrent result test expected immediately completable work to produce two results before a fixed deadline, but loaded systems delayed worker launch so the deadline yielded zero or one result.
 - [#143442](../micro_taxo/gh_143442.md): A readiness wait used a fixed short timeout, and runtime instrumentation plus parallel execution delayed startup enough to cause a readiness timeout.
 - [#150966](../micro_taxo/gh_150966.md): A live subprocess test quit after a fixed simulated interval, and sanitizer or loaded execution delayed target completion so expected failure output had not yet been collected.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0042](../macro_taxo_before_hybrid/workflow-0042.md)

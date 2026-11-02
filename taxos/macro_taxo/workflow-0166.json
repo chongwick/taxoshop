@@ -52,20 +52,8 @@
   ],
   "scope_note": "The six reports involve metadata that does not match storage capacity or layout: native-width mismatches, invalid execution positions, undersized output buffers, underestimated producer sizes, and formatter suffix assumptions. They do not establish one buffer API or that every member causes actual memory damage.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:36:42.427616+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0022",
-    "workflow-0114",
-    "workflow-0122",
-    "workflow-0135",
-    "workflow-0138"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
   "editorial_repairs": [
     "scope_note"
   ],
-  "editorially_revised_at": "2026-10-11T00:33:57.338151+00:00",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "editorially_revised_at": "2026-10-11T00:33:57.338151+00:00"
 }

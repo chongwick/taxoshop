@@ -26,13 +26,5 @@
     }
   ],
   "scope_note": "Singleton cluster: the pattern is scoped to fork-like duplication of multithreaded processes followed by child thread creation under address-sanitizer-style runtime instrumentation. It does not establish the same failure for ordinary application locks, non-fork process starts, or uninstrumented builds.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:51:55.019012+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0021"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

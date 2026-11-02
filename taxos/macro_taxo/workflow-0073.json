@@ -42,17 +42,8 @@
   ],
   "scope_note": "This is a hybrid umbrella pattern covering two related but distinct native-boundary failures: invalid identifiers or counts reaching code that assumes semantic validity, and extreme geometry reaching a dependency whose internal representation or arithmetic cannot safely handle it. The reports do not establish one universal downstream fault or that every case can be prevented solely by changing the wrapper; they support checking both interface validation and dependency behavior.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:18:35.468602+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0053",
-    "workflow-0061"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
   "editorial_repairs": [
     "pattern"
   ],
-  "editorially_revised_at": "2026-10-11T00:33:57.315250+00:00",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "editorially_revised_at": "2026-10-11T00:33:57.315250+00:00"
 }

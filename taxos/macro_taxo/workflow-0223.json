@@ -36,15 +36,5 @@
     }
   ],
   "scope_note": "The cluster shares an umbrella pattern of invalid assumptions during partial initialization cleanup, but the mechanisms must remain distinct: issue 100795 concerns an ambiguous failed out-parameter and an invalid release; issue 144984 combines unsafe destruction of partial state with duplicate parent reference release; issue 145301 concerns container-retained ownership after partial multi-key registration. This does not claim that all failed calls, destructors, or insertion paths are unsafe.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:40:05.083942+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0035",
-    "workflow-0149",
-    "workflow-0153"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

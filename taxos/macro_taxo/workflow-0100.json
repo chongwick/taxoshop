@@ -61,12 +61,5 @@
     }
   ],
   "scope_note": "Membership was manually restricted to the evidence listed below. The shared pattern is broader than resource handles: it covers per-object fields, dispatch metadata, borrowed references, exported buffers, process-global state, and external-library state. Some reports are sanitizer-only or behaviorally benign, while others are memory-unsafe; the common defect is missing effective coordination and/or lifetime protection. It does not imply that every concurrent read is unsafe when immutable state, atomic publication, or a complete lifetime protocol is present.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T18:43:16.836891+00:00",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0056"
-  ],
-  "adaptation_method": "manual_split_by_original_family",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

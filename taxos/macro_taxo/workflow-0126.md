@@ -38,11 +38,3 @@ Membership was manually restricted to the evidence listed below. The common patt
 
 - [#132869](../micro_taxo/gh_132869.md): A concurrent lookup could observe a hash-table occupancy index before the associated entry key had been initialized because the marker and entry contents were published without the required ordering, leading to an invalid null entry and crash.
 - [#151722](../micro_taxo/gh_151722.md): A supposedly immutable object could be leaked while still being populated, allowing length, representation, and hash readers to race construction-time counter updates and table insertion or resizing.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0077](../macro_taxo_before_hybrid/workflow-0077.md)
-- [workflow-0081](../macro_taxo_before_hybrid/workflow-0081.md)
-- [workflow-0150](../macro_taxo_before_hybrid/workflow-0150.md)

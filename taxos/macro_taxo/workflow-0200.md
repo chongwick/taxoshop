@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern for lock implementations that perm
 ## Evidence
 
 - [#143424](../micro_taxo/gh_143424.md): The report shows that ownership obtained through handoff can be followed by a permitted concurrent release, leaving the lock state clear while the acquisition routine is completing; the stronger state assertion then aborts the process.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0139](../macro_taxo_before_hybrid/workflow-0139.md)

@@ -37,10 +37,3 @@ Both reports support the same ownership-cleanup omission for private per-thread 
 
 - [#141542](../micro_taxo/gh_141542.md): The report shows optimized thread execution allocating private tracing-related state and ending with a sanitizer-reported direct leak, establishing the missing cleanup symptom on a daemon-thread termination path.
 - [#144068](../micro_taxo/gh_144068.md): The report explicitly connects an abandoned daemon thread with leaked private optimization tracing state during runtime shutdown and documents that adding the subsystem-specific release to thread-state clearing removes the leak.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0094](../macro_taxo_before_hybrid/workflow-0094.md)
-- [workflow-0143](../macro_taxo_before_hybrid/workflow-0143.md)

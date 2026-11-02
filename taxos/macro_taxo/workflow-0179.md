@@ -37,9 +37,3 @@ This is a singleton cluster, so the pattern is scoped to diagnostic metadata loo
 ## Evidence
 
 - [#142629](../micro_taxo/gh_142629.md): The report demonstrates that an optimized instruction carried a transformed opcode representation, while the diagnostic formatter indexed a fixed metadata-flags table with that value; the mismatch produced an instrumented global out-of-bounds read during normal trace printing, and the fix mapped the opcode back to its uncached canonical index.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0130](../macro_taxo_before_hybrid/workflow-0130.md)

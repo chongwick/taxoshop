@@ -36,9 +36,3 @@ This is a singleton cluster, so the pattern is cautiously scoped to collector tr
 ## Evidence
 
 - [#140431](../micro_taxo/gh_140431.md): The report states that newly created managed execution objects were tracked before all traversal-accessed fields were initialized; a later origin or metadata computation could trigger collection, whose traversal read the missing field and crashed.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0101](../macro_taxo_before_hybrid/workflow-0101.md)

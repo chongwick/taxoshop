@@ -42,9 +42,3 @@ The shared pattern is unsynchronized concurrent first-use initialization or publ
 - [#130421](../micro_taxo/gh_130421.md): The report identified lazily initialized shared runtime timebase state as racy and moved its computation into runtime initialization; its broader sanitizer findings include unrelated initialization and object-lifetime races.
 - [#153201](../micro_taxo/gh_153201.md): The associated analysis identified concurrent first fetches into shared digest cache slots; atomic publication alone did not resolve the race-loser ownership bookkeeping, which could leave transient reference imbalances and leaks or over-release hazards.
 - [#154044](../micro_taxo/gh_154044.md): Concurrent first reads of a shared descriptor property both computed and stored equivalent cached values through an unsynchronized check-then-write, leaking the losing result despite value equivalence.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0074](../macro_taxo_before_hybrid/workflow-0074.md)

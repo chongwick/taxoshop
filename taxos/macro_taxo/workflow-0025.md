@@ -37,9 +37,3 @@ This singleton pattern is scoped to class-generation or transformation workflows
 ## Evidence
 
 - [#89737](../micro_taxo/gh_89737.md): The report shows that transformed derived classes inherited textual annotations from another module, while generated or reused initializers resolved them with unsuitable globals; missing or shadowing names caused failure or incorrect results.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0024](../macro_taxo_before_hybrid/workflow-0024.md)

@@ -38,9 +38,3 @@ The shared pattern is guarded NULL-pointer arithmetic in low-level C state-manag
 - [#96569](../micro_taxo/gh_96569.md): A frame-storage base pointer is NULL on first use, yet code adds an offset before checking capacity and attempting to allocate storage; undefined behavior is diagnosed and the process aborts.
 - [#96678](../micro_taxo/gh_96678.md): The sanitizer review identifies a callable path where an optional argument pointer can be NULL and is advanced before being passed onward; the fix removes the NULL arithmetic by tightening the pointer contract and call path.
 - [#144759](../micro_taxo/gh_144759.md): Uninitialized NULL position fields are converted to offsets during buffer relocation and later reconstructed with arithmetic; explicit NULL checks and a sentinel are required to avoid undefined behavior.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0029](../macro_taxo_before_hybrid/workflow-0029.md)

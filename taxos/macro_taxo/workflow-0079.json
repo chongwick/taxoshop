@@ -66,16 +66,5 @@
     }
   ],
   "scope_note": "This mixed cluster supports a higher-level ownership-cleanup pattern with distinct mechanisms: metadata mismatch, incomplete deep destruction, omitted local release or transfer, and backend-specific nonrecursive cleanup. The reports establish leaks and sanitizer-visible retention, not stale-pointer or use-after-free behavior; the older build report also contains allocations not proven to share the configuration-specific cause.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:20:11.249733+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0065",
-    "workflow-0067",
-    "workflow-0094",
-    "workflow-0161"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

@@ -37,11 +37,3 @@ Membership was manually restricted to the evidence listed below. This mixed clus
 ## Evidence
 
 - [#145933](../micro_taxo/gh_145933.md): Process-exit cleanup in an external cryptographic library freed internal state while background workers continued native calls, producing a crash; the report's later analysis identifies exit overlap rather than the initially suspected startup-only race.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0014](../macro_taxo_before_hybrid/workflow-0014.md)
-- [workflow-0056](../macro_taxo_before_hybrid/workflow-0056.md)
-- [workflow-0077](../macro_taxo_before_hybrid/workflow-0077.md)

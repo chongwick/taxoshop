@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern covering configuration precedence 
 ## Evidence
 
 - [#136872](../micro_taxo/gh_136872.md): The report states that enabling address-sanitizer disables an explicitly requested memory allocator, although the combination works when the unconditional disabling assignment is removed; the accompanying comment explicitly says the user option should override the default.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0087](../macro_taxo_before_hybrid/workflow-0087.md)

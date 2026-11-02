@@ -27,16 +27,8 @@
   ],
   "scope_note": "This is a singleton cluster, so the pattern is scoped to diagnostic metadata lookups over transformed instruction representations; it does not establish that all optimizer-induced table over-reads share this exact representation mismatch.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:25:55.517992+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0130"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
   "editorial_repairs": [
     "pattern"
   ],
-  "editorially_revised_at": "2026-10-11T00:33:57.341461+00:00",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "editorially_revised_at": "2026-10-11T00:33:57.341461+00:00"
 }

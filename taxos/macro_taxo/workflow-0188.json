@@ -41,15 +41,5 @@
     }
   ],
   "scope_note": "The common pattern is missing empty-state short-circuiting or sanitization, with two supported mechanisms: irrelevant parameter validation can precede the empty-result decision, while invalid origins or empty buffers can reach lower-level access or optimization code. These mechanisms should be distinguished during review; the reports do not establish that every invalid argument must be ignored for every empty operation, nor do they concern leaked ownership or stale/freed state.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:38:07.855997+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0100",
-    "workflow-0118",
-    "workflow-0120"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

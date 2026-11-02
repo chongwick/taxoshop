@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern: the evidence concerns one sanitiz
 ## Evidence
 
 - [#143750](../micro_taxo/gh_143750.md): The report explicitly proposes rebuilding the cryptographic dependency with thread-sanitizer instrumentation for sanitizer CI to avoid false positives, and its fix adds sanitizer flags to that dependency's build and configures the test target to use the rebuilt copy.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0141](../macro_taxo_before_hybrid/workflow-0141.md)

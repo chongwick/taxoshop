@@ -37,9 +37,3 @@ This is a cautiously scoped singleton pattern supported by one report. It applie
 ## Evidence
 
 - [#140594](../micro_taxo/gh_140594.md): The report shows that embedded NUL input makes string-length accounting return zero, after which the reader accesses the buffer at offset minus one. It also demonstrates that the undefined read can be detected directly or can leave the offset unchanged so a later read overwrites previously read bytes and changes which data is processed.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0105](../macro_taxo_before_hybrid/workflow-0105.md)

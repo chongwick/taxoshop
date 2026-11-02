@@ -36,9 +36,3 @@ This is a singleton cluster. The evidence establishes the pattern for one saniti
 ## Evidence
 
 - [#145199](../micro_taxo/gh_145199.md): A generated configuration probe consumed CPU without reaching its entry point. The stack was in instrumentation, allocator, loader, and system initialization, supporting a platform-dependent startup hang that leaves the synchronous configuration driver waiting.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0151](../macro_taxo_before_hybrid/workflow-0151.md)

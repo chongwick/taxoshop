@@ -36,9 +36,3 @@ This is a singleton cluster, so the pattern is cautiously scoped to compiler-con
 ## Evidence
 
 - [#129838](../micro_taxo/gh_129838.md): The report shows a capability check selecting a modern diagnostic-suppression annotation and an independent compiler-version check selecting a legacy spelling; newer compilers satisfy both, causing a duplicate definition until the fallback is guarded by an undefined-symbol check.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0078](../macro_taxo_before_hybrid/workflow-0078.md)

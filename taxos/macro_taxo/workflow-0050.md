@@ -39,9 +39,3 @@ The umbrella pattern is an incompatible function type at an indirect callback or
 - [#132097](../micro_taxo/gh_132097.md): Shows generated dispatch flags selecting a call convention whose receiver prototype differs from the implementation, so normal generic dispatch passes the receiver under the wrong type; forcing the generated convention to match removes the runtime undefined behavior.
 - [#134457](../micro_taxo/gh_134457.md): Shows that callback argument-width or signedness and calling-convention details must agree with the selected indirect interface; the report distinguishes valid convention-specific signedness from an actual mismatched callback prototype that triggers sanitizer diagnostics.
 - [#156762](../micro_taxo/gh_156762.md): Shows a slot field stored through type-erased storage accepting an implementation with the wrong return type, after which garbage-collection dispatch calls it through the required slot prototype and indirect-call instrumentation detects the mismatch.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0043](../macro_taxo_before_hybrid/workflow-0043.md)

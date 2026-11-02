@@ -31,14 +31,5 @@
     }
   ],
   "scope_note": "This mixed cluster supports a shared pattern of unsafe signed arithmetic in derived safety values, but the reports demonstrate two distinct mechanisms: post-operation checks defeated by undefined-overflow optimization for output sizes, and unchecked construction of an absolute deadline from otherwise valid timeout and clock values. It does not establish that every signed arithmetic check is compiler-vulnerable or that all failures are crashes.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:11:52.766120+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0009",
-    "workflow-0012"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

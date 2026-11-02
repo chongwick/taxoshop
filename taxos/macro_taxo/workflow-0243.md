@@ -37,9 +37,3 @@ Membership was manually restricted to the evidence listed below. This subgroup c
 ## Evidence
 
 - [#128130](../micro_taxo/gh_128130.md): One concurrent evaluation records pending interrupt state while another evaluation resets the same process-wide marker during setup, so unsynchronized reset loses state.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0075](../macro_taxo_before_hybrid/workflow-0075.md)

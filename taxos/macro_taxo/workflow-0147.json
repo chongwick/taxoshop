@@ -37,19 +37,9 @@
   ],
   "scope_note": "Membership was manually restricted to the evidence listed below. This mixed cluster includes ownership-accounting mismatches, premature release, stale freed storage, and deliberately corrupted live-object metadata. The common boundary is an unchecked lifetime or representation contract. Leaked ownership, stale access, and invalid object layout remain distinct mechanisms requiring different checks.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:25:57.758208+00:00",
-  "adaptation_method": "manual_subset_after_restoration",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0014",
-    "workflow-0019",
-    "workflow-0084"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
   "editorial_repairs": [
     "pattern",
     "scope_note"
   ],
-  "editorially_revised_at": "2026-10-11T00:33:57.333852+00:00",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "editorially_revised_at": "2026-10-11T00:33:57.333852+00:00"
 }

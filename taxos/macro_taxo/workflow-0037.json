@@ -25,13 +25,5 @@
     }
   ],
   "scope_note": "This singleton pattern is scoped to one report about expanding a bounded version/build diagnostic. The report supports both direct truncation from shared capacity and the safer boundary of using a separate channel; it does not establish a broader rule about all diagnostic systems.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:57:11.989278+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0033"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

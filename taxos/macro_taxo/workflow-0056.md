@@ -36,9 +36,3 @@ This singleton report supports a lexer/tokenizer buffer-offset pattern. Its repr
 ## Evidence
 
 - [#113720](../micro_taxo/gh_113720.md): The report shows pointer-index overflow during valid continued interactive input and later at lexer-buffer locations during a successful test run; both reproduce diagnostics without an interpreter crash.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0048](../macro_taxo_before_hybrid/workflow-0048.md)

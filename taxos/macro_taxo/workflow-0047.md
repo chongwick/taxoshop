@@ -36,9 +36,3 @@ This is a singleton cluster. The report supports the residual-mutation and detec
 ## Evidence
 
 - [#109128](../micro_taxo/gh_109128.md): The report records a broad test run with one environment change detected and the result classified as an environment-change failure, supporting a residual process-wide environment mutation caught by suite-level integrity checking.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0040](../macro_taxo_before_hybrid/workflow-0040.md)

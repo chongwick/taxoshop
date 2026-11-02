@@ -30,13 +30,5 @@
     }
   ],
   "scope_note": "The two reports share the ordering and representability mechanism across both floating-to-integer and floating-to-narrower-floating conversions. The pattern is limited to destinations whose range does not represent every possible source value; it does not claim that all floating-point conversions are unsafe.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T17:39:38.894572+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0010"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

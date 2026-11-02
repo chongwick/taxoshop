@@ -38,9 +38,3 @@ The shared pattern is signed left-shift undefined behavior in low-level bit cons
 - [#65128](../micro_taxo/gh_65128.md): The report records repeated diagnostics for left-shifting negative values and identifies a fix that converts negative numbers to an unsigned size type before shifting, supporting the signed-operand packing mechanism.
 - [#95635](../micro_taxo/gh_95635.md): The report shows ordinary interpreter execution diagnosing a signed left shift whose positive result cannot be represented in the signed type, supporting that the pattern includes signed overflow, not only negative operands.
 - [#96735](../micro_taxo/gh_96735.md): The report shows byte unpacking accumulating an all-ones value through a signed left shift that cannot be represented, supporting the packed-bit construction case and its dependence on boundary inputs.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0003](../macro_taxo_before_hybrid/workflow-0003.md)

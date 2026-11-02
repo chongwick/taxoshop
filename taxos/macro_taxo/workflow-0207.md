@@ -37,9 +37,3 @@ The shared mechanism is loss of cleanup reachability during reinitialization or 
 
 - [#140067](../micro_taxo/gh_140067.md): An aligned allocation stored its original base address in object metadata, and later object initialization overwrote that field; teardown could no longer recover the base address, so repeated object creation leaked allocations.
 - [#144067](../micro_taxo/gh_144067.md): A first terminal resource was stored in a singleton current-state slot, then later terminal initialization replaced the slot without freeing the previous resource, leaving that allocation unreachable.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0093](../macro_taxo_before_hybrid/workflow-0093.md)

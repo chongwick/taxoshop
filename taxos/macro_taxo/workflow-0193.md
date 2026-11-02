@@ -37,9 +37,3 @@ The shared pattern is limited to dynamically extensible or externally supplied v
 
 - [#141312](../micro_taxo/gh_141312.md): A state-restoration entry point accepted non-integer input and passed it into integer-specific range-state arithmetic, where the unchecked representation assumption caused an assertion failure; adding validation changed the outcome to a type error.
 - [#143006](../micro_taxo/gh_143006.md): A numeric comparison path invoked user-overridable negation on an integer-derived operand, received a non-integer result, and then reached logic assuming an integer result; the fix removed or guarded that assumption to prevent the assertion.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0119](../macro_taxo_before_hybrid/workflow-0119.md)

@@ -30,13 +30,5 @@
     }
   ],
   "scope_note": "This pattern is limited to fork-like address-space duplication in a process with live threaded or process-wide runtime state and fatal child-exit leak checking. The first report also includes independent leaks from ordinary shutdown and deliberate retained allocations, which are outside this pattern.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T17:50:21.064997+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0027"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

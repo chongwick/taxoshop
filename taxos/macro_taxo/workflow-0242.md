@@ -40,9 +40,3 @@ Membership was manually restricted to the evidence listed below. The reports sha
 - [#146270](../micro_taxo/gh_146270.md): Concurrent deletion first checked whether a member reference was absent outside the update's critical section, allowing multiple deletions to appear successful and producing a race report; moving the check into the synchronized update restored one-shot semantics.
 - [#153981](../micro_taxo/gh_153981.md): A representation operation borrowed a replaceable counter object while another operation swapped and released it; the unsynchronized read caused a race and could use a freed object, and the fix took a synchronized strong-reference snapshot.
 - [#154821](../micro_taxo/gh_154821.md): Multiple function-associated reference fields were read, replaced, or mutually cleared concurrently, including fields consumed during invocation; unsynchronized replacement and release caused data races, requiring coordinated synchronization across the related fields.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0152](../macro_taxo_before_hybrid/workflow-0152.md)

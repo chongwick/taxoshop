@@ -44,9 +44,3 @@ Membership was manually restricted to the evidence listed below. The shared patt
 - [#143756](../micro_taxo/gh_143756.md): Concurrent operations access shared external-library and object state; a method-level critical section is ineffective across a released region, so the native operation needs an explicit mutex covering its full critical sequence.
 - [#144567](../micro_taxo/gh_144567.md): Concurrent mutation of process-global locale state frees or replaces storage while another thread decodes the returned pointer, causing heap use-after-free and a crash.
 - [#154524](../micro_taxo/gh_154524.md): A buffer pointer is read while resizing reallocates and frees its backing storage; synchronization alone is insufficient without a lifetime rule for live exports.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0056](../macro_taxo_before_hybrid/workflow-0056.md)

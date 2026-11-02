@@ -38,9 +38,3 @@ The cluster supports a general raw-storage alignment mismatch pattern, not only 
 - [#72174](../micro_taxo/gh_72174.md): A pool allocator supplied weaker alignment than required by a structure containing a stricter-aligned member, producing sanitizer-reported misaligned member access and motivating a stronger allocator alignment.
 - [#139269](../micro_taxo/gh_139269.md): Typed reads and writes through casts targeted byte-oriented locations at unaligned offsets; sanitizers reported misaligned accesses and the fix used alignment-agnostic byte copies.
 - [#139834](../micro_taxo/gh_139834.md): The same class of unaligned typed JIT accesses was observed during ordinary execution, with sanitizer reports preceding a segmentation fault in generated-code execution.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0007](../macro_taxo_before_hybrid/workflow-0007.md)

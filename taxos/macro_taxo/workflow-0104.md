@@ -37,10 +37,3 @@ The reports support one umbrella pattern with two distinct mechanisms: sanitizer
 
 - [#93981](../micro_taxo/gh_93981.md): A supervised worker-recovery test deliberately caused fatal memory faults; AddressSanitizer intercepted the resulting invalid access and aborted the worker with a fatal-signal report, so the test did not observe the ordinary worker-failure behavior.
 - [#133157](../micro_taxo/gh_133157.md): Removing undefined-behavior suppression exposed deliberate null-read and divide-by-zero fault fabrication plus indirect callback calls with incompatible signatures; the changes replaced synthetic faults with explicit signaling, removed an unnecessary null-read path, and introduced signature-aware dispatch handling.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0026](../macro_taxo_before_hybrid/workflow-0026.md)
-- [workflow-0082](../macro_taxo_before_hybrid/workflow-0082.md)

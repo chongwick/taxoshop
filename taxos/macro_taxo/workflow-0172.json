@@ -30,14 +30,5 @@
     }
   ],
   "scope_note": "This mixed cluster supports the shared boundary invariant that optimized execution must synchronize frame and stack state before control leaves its ordinary path. The reports differ in mechanism: one leaks speculative tracing across instrumentation or exception transfer, while the other fails to flush cached stack values on a side exit. They do not establish a broader rule about all callbacks, caching, ownership, or stale/freed memory.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:37:38.266697+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0126",
-    "workflow-0132"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

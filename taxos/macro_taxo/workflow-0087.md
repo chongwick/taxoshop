@@ -36,9 +36,3 @@ This is a cautiously scoped pattern from a singleton report. It covers generator
 ## Evidence
 
 - [#125515](../micro_taxo/gh_125515.md): The report documents unreachable cleanup after generated returns or jumps, loops whose conditions become statically impossible, and configuration-defined false error branches; subsequent fixes remove dead generated paths and teach the generator to mark return-following tokens unreachable.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0072](../macro_taxo_before_hybrid/workflow-0072.md)

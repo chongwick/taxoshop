@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern: the evidence establishes the mech
 ## Evidence
 
 - [#140408](../micro_taxo/gh_140408.md): The report demonstrates that a foreign-function call passes a null string pointer to a native duplication routine, whose length computation dereferences it and terminates the process with a null-address read.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0098](../macro_taxo_before_hybrid/workflow-0098.md)

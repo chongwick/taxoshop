@@ -37,9 +37,3 @@ This is a singleton cluster: the pattern is scoped to registries that retain ina
 ## Evidence
 
 - [#140652](../micro_taxo/gh_140652.md): The report reproduces a crash after resource closure and the fix skips retained entries with null backing resources while counting and emitting only active entries; added coverage also confirms closed and destroyed entries are excluded from enumeration.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0109](../macro_taxo_before_hybrid/workflow-0109.md)

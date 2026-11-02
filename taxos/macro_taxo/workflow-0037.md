@@ -36,9 +36,3 @@ This singleton pattern is scoped to one report about expanding a bounded version
 ## Evidence
 
 - [#100086](../micro_taxo/gh_100086.md): An attempted change appended configuration-dependent build details to a fixed-capacity version/build string, and the reported display truncated the ending of the build description or compiler information. The accepted follow-up emitted the details in a separate test-runner diagnostic instead.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0033](../macro_taxo_before_hybrid/workflow-0033.md)

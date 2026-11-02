@@ -38,9 +38,3 @@ The reports support a pattern about mismatched typed diagnostic-format contracts
 - [#114050](../micro_taxo/gh_114050.md): An excessive-argument error path supplied only a numeric count to a format string containing an unmatched text directive, causing the count to be interpreted as a text pointer and read from an invalid address.
 - [#140492](../micro_taxo/gh_140492.md): A warning path formatted a non-text keyword value with a directive requiring a text-compatible value, causing the formatter to read beyond the value’s valid storage.
 - [#144169](../micro_taxo/gh_144169.md): Non-string keyword keys reached error and warning formatting that assumed text-compatible values; using a representation suitable for arbitrary objects prevented the diagnostic path from crashing.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0050](../macro_taxo_before_hybrid/workflow-0050.md)

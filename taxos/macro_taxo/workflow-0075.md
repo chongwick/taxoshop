@@ -36,9 +36,3 @@ This is a singleton-based pattern. The evidence supports concurrent notification
 ## Evidence
 
 - [#121065](../micro_taxo/gh_121065.md): A stress test that repeatedly changes a process-wide notification handler while another execution context emits notifications sometimes observed the handler recursively reentered hundreds of times, eventually exceeding the runtime recursion limit; the report also characterizes the behavior as flaky and specific to a concurrent/free-threaded mode.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0063](../macro_taxo_before_hybrid/workflow-0063.md)

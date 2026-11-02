@@ -46,17 +46,5 @@
     }
   ],
   "scope_note": "Membership was manually restricted to the evidence listed below. The confirmed majority establishes an error-path ownership/cleanup pattern, including the workflow-hypothesized partial multi-input acquisition case. The cluster also contains cleanup-control and binding-state variants, which must not be conflated with use of stale or freed state. Reports 139751, 141044, 142917, and 144069 are weaker boundary evidence: they contain sanitizer leak observations without a confirmed local root cause or fix, and 144069 may be an upstream external-library issue.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:25:14.729051+00:00",
-  "adaptation_method": "manual_subset_after_restoration",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0065",
-    "workflow-0089",
-    "workflow-0091",
-    "workflow-0094",
-    "workflow-0144"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

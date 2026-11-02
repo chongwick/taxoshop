@@ -61,17 +61,5 @@
     }
   ],
   "scope_note": "Membership was manually restricted to the evidence listed below. This is a mixed cluster. Six reports primarily show omitted cleanup or process-global retention causing leaks; five show stale or prematurely freed state used by another context or runtime. The umbrella is lifecycle ownership mismatch, not a claim that every leak becomes a use-after-free or that all shared state is invalid.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T20:00:00.487509+00:00",
-  "adaptation_method": "manual_subset_after_restoration",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0014",
-    "workflow-0034",
-    "workflow-0045",
-    "workflow-0046",
-    "workflow-0094"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

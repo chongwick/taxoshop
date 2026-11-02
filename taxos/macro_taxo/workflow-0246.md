@@ -37,9 +37,3 @@ Membership was manually restricted to the evidence listed below. This subgroup c
 ## Evidence
 
 - [#145036](../micro_taxo/gh_145036.md): A lock-free inspection reads capacity and representation while concurrent resize or clear changes related metadata and storage, showing that atomic scalar reads do not stabilize the whole representation.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0150](../macro_taxo_before_hybrid/workflow-0150.md)

@@ -36,9 +36,3 @@ This is a singleton cluster, so the pattern is scoped to concurrent collectors w
 ## Evidence
 
 - [#153809](../micro_taxo/gh_153809.md): The report shows that an ownership-zero object remained garbage-collector tracked while destruction called a cross-thread deregistration path that could stop the world; collection on another thread then reached the semi-deallocated object and triggered refcount validation failure, hangs, or segmentation faults.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0162](../macro_taxo_before_hybrid/workflow-0162.md)

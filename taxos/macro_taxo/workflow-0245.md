@@ -37,9 +37,3 @@ Membership was manually restricted to the evidence listed below. This subgroup c
 ## Evidence
 
 - [#140608](../micro_taxo/gh_140608.md): Concurrent native handshake paths can both reach cleanup for the same allocation, supporting a distinct shared-lifetime and cleanup-ownership failure that manifests as double release.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0107](../macro_taxo_before_hybrid/workflow-0107.md)

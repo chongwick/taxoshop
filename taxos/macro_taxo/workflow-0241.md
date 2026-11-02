@@ -43,9 +43,3 @@ Membership was manually restricted to the evidence listed below. The shared mech
 - [#151277](../micro_taxo/gh_151277.md): Concurrent comparison reads mutable external-library string storage while another operation replaces its contents, and the library's internal synchronization does not cover both access paths.
 - [#153908](../micro_taxo/gh_153908.md): A writer uses atomic or critical-section updates while representation code reads the same fast-path scalar or slow-path pointer plainly, causing both a race and, for replaced objects, a possible use-after-free.
 - [#154756](../micro_taxo/gh_154756.md): An in-place ordering algorithm writes sequence slots while other threads iterate the same sequence; plain stores race with readers, motivating synchronization or copy-and-swap isolation.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0081](../macro_taxo_before_hybrid/workflow-0081.md)

@@ -37,9 +37,3 @@ Membership was manually restricted to the evidence listed below. This subgroup c
 ## Evidence
 
 - [#149816](../micro_taxo/gh_149816.md): A reader validates an index, then concurrent reinitialization changes it before dereference, causing out-of-bounds access through check/use invalidation.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0157](../macro_taxo_before_hybrid/workflow-0157.md)

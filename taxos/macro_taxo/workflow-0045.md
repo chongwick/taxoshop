@@ -37,9 +37,3 @@ This is a cautiously scoped singleton pattern. It covers pre-dispatch validation
 ## Evidence
 
 - [#106012](../micro_taxo/gh_106012.md): The report shows monitored execution aborting when an event reached a static code object whose instrumentation version differed from the runtime version; the fix moved validation into tool selection and added runtime fallback when per-code data was absent.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0039](../macro_taxo_before_hybrid/workflow-0039.md)

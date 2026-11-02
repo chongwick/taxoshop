@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern covering operand-contract violatio
 ## Evidence
 
 - [#142661](../micro_taxo/gh_142661.md): The report demonstrates that supplying a nonzero operand to an operation that accepts none reaches low-level validation and triggers an internal assertion, terminating the process instead of raising a recoverable error.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0131](../macro_taxo_before_hybrid/workflow-0131.md)

@@ -36,9 +36,3 @@ This is a singleton cluster. The evidence directly supports immutable tuple-like
 ## Evidence
 
 - [#139951](../micro_taxo/gh_139951.md): The report shows that large numbers of small immutable aggregates containing only non-collectible values were tracked at creation, that collector accounting counted objects that were merely eligible for tracking, and that avoiding such tracking plus counting only actually tracked objects corrected the excessive-collection regression.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0092](../macro_taxo_before_hybrid/workflow-0092.md)

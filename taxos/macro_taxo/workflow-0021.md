@@ -37,9 +37,3 @@ This two-report pattern covers one shared test-design mismatch with two distinct
 
 - [#89359](../micro_taxo/gh_89359.md): The report shows that memory and address instrumentation abort on allocation failure instead of returning a recoverable failure, so extreme-allocation tests must account for fatal diagnostic semantics.
 - [#114331](../micro_taxo/gh_114331.md): The report shows that one allocator accepts an enormous virtual allocation and the process is later killed on use, while another allocator rejects it; the test therefore relied on non-portable allocation timing and semantics.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0020](../macro_taxo_before_hybrid/workflow-0020.md)

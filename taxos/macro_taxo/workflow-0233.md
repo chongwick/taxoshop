@@ -37,10 +37,3 @@ Membership was manually restricted to the evidence listed below. Two mechanisms 
 ## Evidence
 
 - [#146452](../micro_taxo/gh_146452.md): A serializer retrieved borrowed mapping entries and attempted to retain or process them while another thread could remove or replace those entries; enclosing retrieval and retention in a critical section prevents invalidation.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0014](../macro_taxo_before_hybrid/workflow-0014.md)
-- [workflow-0154](../macro_taxo_before_hybrid/workflow-0154.md)

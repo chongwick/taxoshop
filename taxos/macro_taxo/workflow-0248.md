@@ -37,9 +37,3 @@ Membership was manually restricted to the evidence listed below. This subgroup c
 ## Evidence
 
 - [#150191](../micro_taxo/gh_150191.md): Multiple handshakes reuse one mutable native context whose internal state is not safe for overlap, producing an independent library-state race.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0158](../macro_taxo_before_hybrid/workflow-0158.md)

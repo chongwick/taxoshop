@@ -36,9 +36,3 @@ This cluster contains one report, so the pattern is scoped to capacity-driven ba
 ## Evidence
 
 - [#122136](../micro_taxo/gh_122136.md): A test wrote data sized from reported socket-buffer capacities, but a Linux kernel accepted more data than advertised, so the application's write buffer stayed empty and the backpressure assertion failed; the fix looped until pending data was actually observed.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0069](../macro_taxo_before_hybrid/workflow-0069.md)

@@ -37,16 +37,8 @@
   ],
   "scope_note": "This is a mixed-cluster umbrella pattern. One mechanism is an unbounded index through a callback-provided pointer; the other is unchecked semantic metadata or cardinality from an overridable helper. They share failure to validate the extent required by a native consumer, but the reports do not establish a rule about stale or freed state, ownership leaks, or all callback and override interfaces.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:37:53.768114+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0099"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
   "editorial_repairs": [
     "pattern"
   ],
-  "editorially_revised_at": "2026-10-11T00:33:57.340491+00:00",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "editorially_revised_at": "2026-10-11T00:33:57.340491+00:00"
 }

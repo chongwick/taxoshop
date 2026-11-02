@@ -26,16 +26,8 @@
   ],
   "scope_note": "This is a singleton cluster, so the pattern is cautiously scoped to runtimes that expose or tolerate direct mutation/construction of encoded instruction streams containing non-executable reserved entries. It does not establish that well-formed streams or supported transformation APIs are vulnerable.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:34:18.720345+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0148"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
   "editorial_repairs": [
     "evidence"
   ],
-  "editorially_revised_at": "2026-10-11T00:33:57.347128+00:00",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "editorially_revised_at": "2026-10-11T00:33:57.347128+00:00"
 }

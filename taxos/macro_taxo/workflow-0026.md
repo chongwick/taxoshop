@@ -36,9 +36,3 @@ This is a singleton report, so the pattern is scoped to toolchain failures where
 ## Evidence
 
 - [#93619](../micro_taxo/gh_93619.md): A large optimized build on a range-limited architecture failed during link-time compilation because the assembler reported an out-of-range branch; the same build succeeded when link-time optimization was removed.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0025](../macro_taxo_before_hybrid/workflow-0025.md)

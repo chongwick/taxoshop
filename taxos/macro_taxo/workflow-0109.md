@@ -38,9 +38,3 @@ The reports support a pattern specific to shadow-metadata sanitizers such as MSa
 - [#135774](../micro_taxo/gh_135774.md): A valid startup key created through code linked from an unsanitized prebuilt runtime was later hashed by instrumented code, exposing missing shadow metadata as an uninitialized read.
 - [#140332](../micro_taxo/gh_140332.md): A sanitized extension passed data through an unsanitized cryptographic library, whose comparison path triggered an apparent uninitialized read because the external library was not built with matching instrumentation.
 - [#148850](../micro_taxo/gh_148850.md): A system call filled a buffer without sanitizer metadata updates; a later instrumented search treated the valid returned bytes as uninitialized until the buffer was explicitly unpoisoned.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0085](../macro_taxo_before_hybrid/workflow-0085.md)

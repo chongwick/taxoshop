@@ -36,9 +36,3 @@ This is a singleton cluster. The report supports a cautiously scoped pattern inv
 ## Evidence
 
 - [#124001](../micro_taxo/gh_124001.md): An allocation made for an alternate signal stack was later reported out of bounds during teardown. Reproductions across environments and persistence after increasing a fixed size multiplier support checking actual handler stack requirements rather than assuming a fixed heuristic is sufficient.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0070](../macro_taxo_before_hybrid/workflow-0070.md)

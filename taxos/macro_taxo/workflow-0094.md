@@ -36,9 +36,3 @@ This is a singleton cluster, so the pattern is scoped to generated configuration
 ## Evidence
 
 - [#129019](../micro_taxo/gh_129019.md): The report shows a source build selecting an older system-installed configuration header because compiler flags and header placement allowed external lookup to precede the generated file; removing the stale header or placing the generated header in the project include directory resolved the conflicting macros and types.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0076](../macro_taxo_before_hybrid/workflow-0076.md)

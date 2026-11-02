@@ -37,17 +37,8 @@
   ],
   "scope_note": "These reports concern deliberately altered low-level executable representations. Structural inconsistencies reach internal assertions, while incompatible metadata types reach invalid dereferences. This scope does not establish that all malformed executables can be validated or that ordinary construction exposes these failures.",
   "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:25:26.553415+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0102",
-    "workflow-0104"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
   "editorial_repairs": [
     "scope_note"
   ],
-  "editorially_revised_at": "2026-10-11T00:33:57.333121+00:00",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "editorially_revised_at": "2026-10-11T00:33:57.333121+00:00"
 }

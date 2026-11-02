@@ -37,9 +37,3 @@ This is a cautiously scoped singleton pattern. The report supports dependency-dr
 ## Evidence
 
 - [#124378](../micro_taxo/gh_124378.md): A dependency changed size-option conversion from integer-only behavior to screen-distance values. Tests and shared helpers required version-specific updates, supporting a stale dependency-contract expectation rather than an application memory-safety failure.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0071](../macro_taxo_before_hybrid/workflow-0071.md)

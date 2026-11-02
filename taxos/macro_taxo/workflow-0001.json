@@ -35,15 +35,5 @@
     }
   ],
   "scope_note": "This mixed cluster supports an umbrella rule about execution state whose validity is not re-established after concurrency or process-boundary changes. It does not imply one mechanism: the first report concerns inherited stale ownership after fork and identifier reuse, the second concerns concurrent identifier collision and cache aliasing, and the third only establishes a sanitizer-dependent crash in a forked profiling path without identifying the precise invalid state.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:11:00.172025+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0001",
-    "workflow-0016",
-    "workflow-0041"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

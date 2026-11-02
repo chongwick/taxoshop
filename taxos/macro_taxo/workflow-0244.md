@@ -37,9 +37,3 @@ Membership was manually restricted to the evidence listed below. This subgroup c
 ## Evidence
 
 - [#140263](../micro_taxo/gh_140263.md): A worker atomically updates shared lock-state bits while a checker reads them non-atomically after sleep-based polling; timing does not synchronize the inspection.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0095](../macro_taxo_before_hybrid/workflow-0095.md)

@@ -36,9 +36,3 @@ This singleton supports an initialization-time interaction between memory instru
 ## Evidence
 
 - [#96714](../micro_taxo/gh_96714.md): The report shows address instrumentation enabled across the runtime, an initialization-time mapping resize, custom deallocation, an ownership probe reading a wild pointer outside valid heap storage, instrumentation aborting the helper, and the build failing on that command.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0030](../macro_taxo_before_hybrid/workflow-0030.md)

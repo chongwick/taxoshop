@@ -41,12 +41,5 @@
     }
   ],
   "scope_note": "Membership was manually restricted to the evidence listed below. The reports share a concurrent read/update and ownership-linearization failure, but the resulting symptom varies: semantic non-atomicity, race detection, or use-after-free. The pattern applies to replaceable reference-bearing fields and related state transitions, not to every concurrent field access or every pointer race.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-09-10T19:36:30.255596+00:00",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0152"
-  ],
-  "adaptation_method": "manual_split_by_original_family",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

@@ -36,9 +36,3 @@ This is a cautiously scoped pattern from a singleton report: it applies to categ
 ## Evidence
 
 - [#144280](../micro_taxo/gh_144280.md): The report shows a distinct symbolic predicate result reaching truthiness analysis, an omitted dispatch case, and a resulting invalid dereference; the fix adds the missing category handling and tests both unknown and constant predicate truthiness.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0147](../macro_taxo_before_hybrid/workflow-0147.md)

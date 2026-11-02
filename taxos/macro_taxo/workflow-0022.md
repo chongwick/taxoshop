@@ -37,9 +37,3 @@ Singleton cluster: the pattern is scoped to fork-like duplication of multithread
 ## Evidence
 
 - [#89363](../micro_taxo/gh_89363.md): Address-instrumented fork workflows intermittently hang when child-side thread creation waits in the instrumentation interceptor for registration while another path is blocked on an internal allocator mutex, supporting inherited non-fork-safe runtime synchronization as the shared mechanism.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0021](../macro_taxo_before_hybrid/workflow-0021.md)

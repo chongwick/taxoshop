@@ -50,14 +50,5 @@
     }
   ],
   "scope_note": "The cluster is mixed rather than a single failure mechanism: issues 99974, 99975, and 121112 establish unchecked logical-boundary decoding and adjacent-memory or corruption consequences, while issues 140935, 142736, and 143430 establish assertion-only rejection of malformed low-level metadata. The reports support a pattern for compact executable-location metadata readers and diagnostic iterators, not all parsers, and do not justify conflating adjacent-memory reads with stale or freed-state use.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:13:44.082611+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0032",
-    "workflow-0116"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

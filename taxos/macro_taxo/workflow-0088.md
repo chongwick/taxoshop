@@ -36,9 +36,3 @@ This is a singleton report. It supports the interaction between parallel instrum
 ## Evidence
 
 - [#126445](../micro_taxo/gh_126445.md): A Linux test run executed many tests in parallel under a thread-sanitized/free-threading configuration; an import-related test launched a separate interpreter process, which returned exit code 66, and the helper reported that unexpected status as an AssertionError.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0073](../macro_taxo_before_hybrid/workflow-0073.md)

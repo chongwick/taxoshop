@@ -38,9 +38,3 @@ The reports share the quiescence-versus-lock dependency, but differ in shape: on
 
 - [#139116](../micro_taxo/gh_139116.md): One worker held a shared tracing-table lock while invoking a tracer change that requested a global pause; another worker had attached and blocked on that lock without detaching, so the pause waited for a worker that could not progress until the lock was released.
 - [#151593](../micro_taxo/gh_151593.md): One mutator acquired a shared key-structure mutex and then attempted to acquire a type-management lock; another worker held the type-management lock while requesting global quiescence, and other mutators blocked on the shared mutex without reaching safe points, creating the same circular wait.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0088](../macro_taxo_before_hybrid/workflow-0088.md)

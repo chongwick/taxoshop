@@ -38,10 +38,3 @@ Membership was manually restricted to the evidence listed below. The common patt
 
 - [#119462](../micro_taxo/gh_119462.md): Repeated dependent lookups exposed broken versioning invariants: a derived object could retain a seemingly valid marker when prerequisite version assignment failed or occurred in the wrong order, undermining method-cache invalidation and causing corruption or crashes.
 - [#140496](../micro_taxo/gh_140496.md): Direct replacement in a backing mapping released the old member without invalidating the type lookup cache, so a later lookup dereferenced the freed cached value instead of using the replacement.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0014](../macro_taxo_before_hybrid/workflow-0014.md)
-- [workflow-0060](../macro_taxo_before_hybrid/workflow-0060.md)

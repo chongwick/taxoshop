@@ -36,9 +36,3 @@ This is a singleton pattern, scoped to display interfaces that intentionally app
 ## Evidence
 
 - [#57894](../micro_taxo/gh_57894.md): The report shows that a literal percent marker in supplied help text is later processed by percent-style substitution, interpreted as an invalid directive, and rejected; escaping the marker produces the intended literal output.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0002](../macro_taxo_before_hybrid/workflow-0002.md)

@@ -51,15 +51,5 @@
     }
   ],
   "scope_note": "This is a mixed cluster with one umbrella ownership pattern and two distinct failure mechanisms: missing or misplaced release causes leaks, while premature release or invalid tracking assumptions cause stale/freed-state use. The reports support optimized/generated execution state specifically; they do not establish that every generated artifact or every lifecycle handoff has this defect.",
-  "model": "gpt-5.6-luna",
-  "generated_at": "2026-10-10T19:23:42.553862+00:00",
-  "adaptation_method": "retained_hybrid_membership",
-  "source_taxonomy": "macro_taxo_before_hybrid",
-  "source_cluster_ids": [
-    "workflow-0089",
-    "workflow-0090",
-    "workflow-0094"
-  ],
-  "hybrid_input_fingerprint": "b013584439836a59c1628b38a0785fa6a6d6fe7ddfb2ab771ec0de41603c599f",
-  "manually_revised_at": "2026-10-11T18:45:32.124184+00:00"
+  "model": "gpt-5.6-luna"
 }

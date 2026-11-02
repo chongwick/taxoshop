@@ -36,9 +36,3 @@ Singleton cluster. The evidence supports a narrowly scoped pattern for standalon
 ## Evidence
 
 - [#140267](../micro_taxo/gh_140267.md): Daemon server workers remained blocked in accept or request I/O when shutdown validation reported a thread leak. The report explains that a shutdown event does not cancel every blocking operation and that synchronous joining may hang; worker lifetime was intended to end with the process.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0096](../macro_taxo_before_hybrid/workflow-0096.md)

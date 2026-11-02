@@ -36,9 +36,3 @@ This is a cautiously scoped singleton pattern: it establishes incompatibility be
 ## Evidence
 
 - [#140751](../micro_taxo/gh_140751.md): The report demonstrates that invoking a legacy registration operation on a component with slots is rejected with a system-level error, and that this rejection is expected behavior.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0111](../macro_taxo_before_hybrid/workflow-0111.md)

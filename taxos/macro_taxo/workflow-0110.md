@@ -36,9 +36,3 @@ This is a singleton cluster, so the pattern is scoped to deep-recursion tests wh
 ## Evidence
 
 - [#135830](../micro_taxo/gh_135830.md): The report shows a deep recursive test failing with an instrumented stack overflow, while its existing skip guard covers other sanitizer modes but not address instrumentation; the accompanying analysis proposes adding the missing address-mode condition.
-
-## Source taxonomy
-
-Adapted to the hybrid cluster membership from these archived macro entries:
-
-- [workflow-0086](../macro_taxo_before_hybrid/workflow-0086.md)
